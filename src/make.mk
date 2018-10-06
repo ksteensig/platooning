@@ -1,6 +1,3 @@
-# This file contains common Makefile content for all platforms;
-# it is referenced from the individual Makefiles
-
 PREFIX	?= arm-none-eabi
 CC		= $(PREFIX)-gcc
 LD		= $(PREFIX)-gcc
