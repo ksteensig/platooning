@@ -195,7 +195,6 @@ VL53L1_Error VL53L1_RdDWord(VL53L1_DEV Dev, uint16_t index, uint32_t *data) {
   VL53L1_Error Status = VL53L1_ERROR_NONE;
   return Status;
 }
-
 VL53L1_Error VL53L1_GetTickCount(uint32_t *ptick_count_ms) {
   VL53L1_Error status = VL53L1_ERROR_NONE;
   return status;
