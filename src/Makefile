@@ -10,21 +10,22 @@ OBJDUMP	= $(PREFIX)-objdump
 GDB		= $(PREFIX)-gdb
 OPENCM3_DIR = ../libopencm3
 VL53L1_DIR = ../vl53l1
-OBJS	     = usart.o
+FREERTOS_DIR = ../freertos
+OBJS	     = usart.o $(wildcard $(FREERTOS_DIR)/*.o) $(wildcard $(VL53L1_DIR)/*.o)
 
 CFLAGS		+= -O3 \
 		   -Wall -Wextra -Wimplicit-function-declaration \
 		   -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
 		   -Wundef -Wshadow \
-		   -I$(OPENCM3_DIR)/include -I$(VL53L1_DIR) \
+		   -I$(OPENCM3_DIR)/include -I$(FREERTOS_DIR) -I$(VL53L1_DIR) \
 		   -fno-common $(ARCH_FLAGS) -MD $(DEFINES)
 
 LDFLAGS		+= --static -Wl,--start-group -lc -lgcc -lnosys -Wl,--end-group \
 		   -T$(LDSCRIPT) -nostartfiles -Wl,--gc-sections,--print-gc-sections \
 		   $(ARCH_FLAGS) \
-		   -L$(OPENCM3_DIR)/lib -L$(VL53L1_DIR)
+		   -L$(OPENCM3_DIR)/lib -L$(FREERTOS_DIR) -L$(VL53L1_DIR)
 
-all: lib vl53l1 main.elf
+all: lib freertos vl53l1 main.elf
 
 lib:
 	@if [ ! "`ls -A $(OPENCM3_DIR)`" ] ; then \
@@ -39,13 +40,16 @@ lib:
 		fi
 	make -C $(OPENCM3_DIR)
 
+freertos:
+	make -C $(FREERTOS_DIR)
+
 vl53l1:
 	make -C $(VL53L1_DIR)
 
 %.bin: %.elf
 	$(OBJCOPY) -Obinary $(*).elf $(*).bin
 
-%.elf: %.o vl53l1 $(OBJS) $(LDSCRIPT)
+%.elf: %.o freertos vl53l1 $(OBJS) $(LDSCRIPT)
 	$(LD) -o $(*).elf $(*).o $(OBJS) $(LDFLAGS) -l$(LIBNAME)
 
 %.o: %.c

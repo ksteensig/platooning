@@ -1,22 +1,26 @@
-######################################################################
-#  Project Makefile
-######################################################################
+ARCH_FLAGS = -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16
+DEFINES    = -DSTM32F4
+OBJS	      =    heap_4.o list.o opencm3.o port.o queue.o tasks.o
 
-BINARY		= main
-SRCFILES	= main.c rtos/heap_4.c rtos/list.c rtos/port.c rtos/queue.c rtos/tasks.c rtos/opencm3.c
-LDSCRIPT	= stm32f103c8t6.ld
 
-# DEPS		= 	# Any additional dependencies for your build
-# CLOBBER	+= 	# Any additional files to be removed with "make clobber"
+all: $(OBJS)
 
-include ../../Makefile.incl
-include ../Makefile.rtos
+PREFIX	?= arm-none-eabi
+CC		= $(PREFIX)-gcc
+OPENCM3_DIR = ../libopencm3
 
-######################################################################
-#  NOTES:
-#	1. remove any modules you don't need from SRCFILES
-#	2. "make clean" will remove *.o etc., but leaves *.elf, *.bin
-#	3. "make clobber" will "clean" and remove *.elf, *.bin etc.
-#	4. "make flash" will perform:
-#	   st-flash write main.bin 0x8000000
-######################################################################
+CFLAGS		+= -O3 \
+		   -Wall -Wextra -Wimplicit-function-declaration \
+		   -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
+		   -Wundef -Wshadow \
+		   -I$(OPENCM3_DIR)/include \
+		   -fno-common $(ARCH_FLAGS) -MD $(DEFINES)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -o $@ -c $<
+
+clean:
+	find . -name \*.o -type f -exec rm -f {} \;
+	find . -name \*.d -type f -exec rm -f {} \;
+	rm -f *.elf
+	rm -f *.bin
