@@ -14,7 +14,7 @@ FREERTOS_DIR = ../freertos
 OBJS	     = usart.o $(wildcard $(FREERTOS_DIR)/*.o) $(wildcard $(VL53L1_DIR)/*.o)
 
 CFLAGS		+= -O3 \
-		   -Wall -Wextra -Wimplicit-function-declaration \
+		   -std=gnu11 -Wall -Wextra -Wimplicit-function-declaration \
 		   -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
 		   -Wundef -Wshadow \
 		   -I$(OPENCM3_DIR)/include -I$(FREERTOS_DIR) -I$(VL53L1_DIR) \

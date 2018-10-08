@@ -77,6 +77,9 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/usart.h>
 
+#include "FreeRTOS.h"
+#include "task.h"
+
 // #define I2C_TIME_OUT_BASE   10
 // #define I2C_TIME_OUT_BYTE   1
 
@@ -197,6 +200,7 @@ VL53L1_Error VL53L1_RdDWord(VL53L1_DEV Dev, uint16_t index, uint32_t *data) {
 }
 VL53L1_Error VL53L1_GetTickCount(uint32_t *ptick_count_ms) {
   VL53L1_Error status = VL53L1_ERROR_NONE;
+  *ptick_count_ms = xTaskGetTickCount();
   return status;
 }
 
@@ -210,16 +214,19 @@ VL53L1_Error VL53L1_GetTickCount(uint32_t *ptick_count_ms) {
 
 VL53L1_Error VL53L1_GetTimerFrequency(int32_t *ptimer_freq_hz) {
   VL53L1_Error status = VL53L1_ERROR_NONE;
+  *ptimer_freq_hz = configTICK_RATE_HZ;
   return status;
 }
 
 VL53L1_Error VL53L1_WaitMs(VL53L1_Dev_t *pdev, int32_t wait_ms) {
   VL53L1_Error status = VL53L1_ERROR_NONE;
+  vTaskSuspend(wait_ms);
   return status;
 }
 
 VL53L1_Error VL53L1_WaitUs(VL53L1_Dev_t *pdev, int32_t wait_us) {
   VL53L1_Error status = VL53L1_ERROR_NONE;
+  vTaskSuspend(wait_us / 1000.0);
   return status;
 }
 

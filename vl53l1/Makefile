@@ -12,12 +12,13 @@ all: $(OBJS)
 PREFIX	?= arm-none-eabi
 CC		= $(PREFIX)-gcc
 OPENCM3_DIR = ../libopencm3
+FREERTOS_DIR = ../freertos
 
 CFLAGS		+= -O3 \
-		   -Wall -Wextra -Wimplicit-function-declaration \
+		   -std=gnu11  -Wall -Wextra -Wimplicit-function-declaration \
 		   -Wredundant-decls -Wmissing-prototypes -Wstrict-prototypes \
 		   -Wundef -Wshadow \
-		   -I$(OPENCM3_DIR)/include \
+		   -I$(OPENCM3_DIR)/include -I$(FREERTOS_DIR) \
 		   -fno-common $(ARCH_FLAGS) -MD $(DEFINES)
 
 %.o: %.c
