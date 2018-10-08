@@ -1,1 +1,1 @@
-# stm32-libopencm3-platooning
+# platooning
