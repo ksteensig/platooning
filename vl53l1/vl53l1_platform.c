@@ -226,7 +226,7 @@ VL53L1_Error VL53L1_WaitMs(VL53L1_Dev_t *pdev, int32_t wait_ms) {
 
 VL53L1_Error VL53L1_WaitUs(VL53L1_Dev_t *pdev, int32_t wait_us) {
   VL53L1_Error status = VL53L1_ERROR_NONE;
-  vTaskSuspend(wait_us / 1000.0);
+  vTaskSuspend(wait_us / 1000);
   return status;
 }
 
