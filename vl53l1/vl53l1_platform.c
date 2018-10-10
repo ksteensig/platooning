@@ -127,7 +127,8 @@ VL53L1_Error VL53L1_WriteMulti(VL53L1_DEV Dev, uint16_t index, uint8_t *pdata,
   VL53L1_Error Status = VL53L1_ERROR_NONE;
   i2c_send_start(I2C1);
   i2c_send_data(I2C1, Dev->I2cDevAddr);
-  i2c_send_data(I2C1, index);
+  i2c_send_data(I2C1, (index >> 8) & 0xFF);
+  i2c_send_data(I2C1, index & 0xFF);
 
   for (uint32_t i = 0; i < count; i++) {
     i2c_send_data(I2C1, pdata[i]);
@@ -143,7 +144,8 @@ VL53L1_Error VL53L1_ReadMulti(VL53L1_DEV Dev, uint16_t index, uint8_t *pdata,
   VL53L1_Error Status = VL53L1_ERROR_NONE;
   i2c_send_start(I2C1);
   i2c_send_data(I2C1, Dev->I2cDevAddr);
-  i2c_send_data(I2C1, index);
+  i2c_send_data(I2C1, (index >> 8) & 0xFF);
+  i2c_send_data(I2C1, index & 0xFF);
 
   for (uint32_t i = 0; i < count; i++) {
     pdata[i] = i2c_get_data(I2C1);
@@ -157,7 +159,8 @@ VL53L1_Error VL53L1_WrByte(VL53L1_DEV Dev, uint16_t index, uint8_t data) {
   VL53L1_Error Status = VL53L1_ERROR_NONE;
   i2c_send_start(I2C1);
   i2c_send_data(I2C1, Dev->I2cDevAddr);
-  i2c_send_data(I2C1, index);
+  i2c_send_data(I2C1, (index >> 8) & 0xFF);
+  i2c_send_data(I2C1, index & 0xFF);
   i2c_send_data(I2C1, data);
   i2c_send_stop(I2C1);
   return Status;
@@ -165,17 +168,44 @@ VL53L1_Error VL53L1_WrByte(VL53L1_DEV Dev, uint16_t index, uint8_t data) {
 
 VL53L1_Error VL53L1_WrWord(VL53L1_DEV Dev, uint16_t index, uint16_t data) {
   VL53L1_Error Status = VL53L1_ERROR_NONE;
+  i2c_send_start(I2C1);
+  i2c_send_data(I2C1, Dev->I2cDevAddr);
+  i2c_send_data(I2C1, (index >> 8) & 0xFF);
+  i2c_send_data(I2C1, index & 0xFF);
+  i2c_send_data(I2C1, (data >> 8) & 0xFF);
+  i2c_send_data(I2C1, data & 0xFF);
+  i2c_send_stop(I2C1);
   return Status;
 }
 
 VL53L1_Error VL53L1_WrDWord(VL53L1_DEV Dev, uint16_t index, uint32_t data) {
   VL53L1_Error Status = VL53L1_ERROR_NONE;
+  i2c_send_start(I2C1);
+  i2c_send_data(I2C1, Dev->I2cDevAddr);
+  i2c_send_data(I2C1, (index >> 8) & 0xFF);
+  i2c_send_data(I2C1, index & 0xFF);
+  i2c_send_data(I2C1, (data >> 24) & 0xFF);
+  i2c_send_data(I2C1, (data >> 16) & 0xFF);
+  i2c_send_data(I2C1, (data >> 8) & 0xFF);
+  i2c_send_data(I2C1, data & 0xFF);
+  i2c_send_stop(I2C1);
   return Status;
 }
 
 VL53L1_Error VL53L1_UpdateByte(VL53L1_DEV Dev, uint16_t index, uint8_t AndData,
                                uint8_t OrData) {
   VL53L1_Error Status = VL53L1_ERROR_NONE;
+  uint8_t data;
+
+  if (Status = VL53L1VL53L1_RdByte(Dev, index, &data) != VL53L1_ERROR_NONE) {
+    return Status;
+  }
+
+  data &= AndData;
+  data |= OrData;
+
+  Status = VL53L1VL53L1_WrByte(Dev, index, data);
+
   return Status;
 }
 
@@ -183,7 +213,9 @@ VL53L1_Error VL53L1_RdByte(VL53L1_DEV Dev, uint16_t index, uint8_t *data) {
   VL53L1_Error Status = VL53L1_ERROR_NONE;
   i2c_send_start(I2C1);
   i2c_send_data(I2C1, Dev->I2cDevAddr);
-  i2c_send_data(I2C1, index);
+  i2c_send_data(I2C1, Dev->I2cDevAddr);
+  i2c_send_data(I2C1, (index >> 8) & 0xFF);
+  i2c_send_data(I2C1, index & 0xFF);
   *data = i2c_get_data(I2C1);
   i2c_send_stop(I2C1);
   return Status;
@@ -191,11 +223,29 @@ VL53L1_Error VL53L1_RdByte(VL53L1_DEV Dev, uint16_t index, uint8_t *data) {
 
 VL53L1_Error VL53L1_RdWord(VL53L1_DEV Dev, uint16_t index, uint16_t *data) {
   VL53L1_Error Status = VL53L1_ERROR_NONE;
+  i2c_send_start(I2C1);
+  i2c_send_data(I2C1, Dev->I2cDevAddr);
+  i2c_send_data(I2C1, Dev->I2cDevAddr);
+  i2c_send_data(I2C1, (index >> 8) & 0xFF);
+  i2c_send_data(I2C1, index & 0xFF);
+  *data = i2c_get_data(I2C1) << 8;
+  *data |= i2c_get_data(I2C1);
+  i2c_send_stop(I2C1);
   return Status;
 }
 
 VL53L1_Error VL53L1_RdDWord(VL53L1_DEV Dev, uint16_t index, uint32_t *data) {
   VL53L1_Error Status = VL53L1_ERROR_NONE;
+  i2c_send_start(I2C1);
+  i2c_send_data(I2C1, Dev->I2cDevAddr);
+  i2c_send_data(I2C1, Dev->I2cDevAddr);
+  i2c_send_data(I2C1, (index >> 8) & 0xFF);
+  i2c_send_data(I2C1, index & 0xFF);
+  *data = i2c_get_data(I2C1) << 24;
+  *data |= i2c_get_data(I2C1) << 16;
+  *data |= i2c_get_data(I2C1) << 8;
+  *data |= i2c_get_data(I2C1);
+  i2c_send_stop(I2C1);
   return Status;
 }
 VL53L1_Error VL53L1_GetTickCount(uint32_t *ptick_count_ms) {
@@ -220,19 +270,32 @@ VL53L1_Error VL53L1_GetTimerFrequency(int32_t *ptimer_freq_hz) {
 
 VL53L1_Error VL53L1_WaitMs(VL53L1_Dev_t *pdev, int32_t wait_ms) {
   VL53L1_Error status = VL53L1_ERROR_NONE;
-  vTaskSuspend(wait_ms);
+  vTaskDelay(wait_ms);
   return status;
 }
 
 VL53L1_Error VL53L1_WaitUs(VL53L1_Dev_t *pdev, int32_t wait_us) {
   VL53L1_Error status = VL53L1_ERROR_NONE;
-  vTaskSuspend(wait_us / 1000);
+  vTaskDelay(wait_us / 1000);
   return status;
 }
 
 VL53L1_Error VL53L1_WaitValueMaskEx(VL53L1_Dev_t *pdev, uint32_t timeout_ms,
                                     uint16_t index, uint8_t value, uint8_t mask,
                                     uint32_t poll_delay_ms) {
-  VL53L1_Error status = VL53L1_ERROR_NONE;
-  return status;
+  uint8_t data;
+  VL53L1_Error status;
+  while (timeout_ms > 0) {
+    status = VL53L1_RdByte(pdev, index, &data);
+    if (status != VL53L1_ERROR_NONE) {
+      return status;
+    }
+    if ((data & mask) == value) {
+      return VL53L1_ERROR_NONE;
+    }
+    vTaskDelay(poll_delay_ms);
+    timeout_ms -= MIN(poll_delay_ms, timeout_ms);
+  }
+
+  return VL53L1_ERROR_TIME_OUT;
 }
