@@ -125,14 +125,44 @@
 VL53L1_Error VL53L1_WriteMulti(VL53L1_DEV Dev, uint16_t index, uint8_t *pdata,
                                uint32_t count) {
   VL53L1_Error Status = VL53L1_ERROR_NONE;
+  uint32_t reg32 __attribute__((unused));
+
   i2c_send_start(I2C1);
-  i2c_send_data(I2C1, Dev->I2cDevAddr);
+
+  while (!((I2C_SR1(I2C1) & I2C_SR1_SB) &
+           (I2C_SR2(I2C1) & (I2C_SR2_MSL | I2C_SR2_BUSY))))
+    ;
+
+  i2c_send_7bit_address(I2C1, Dev->I2cDevAddr, I2C_WRITE);
+
+  while (!(I2C_SR1(I2C1) & I2C_SR1_ADDR))
+    ;
+
+  reg32 = I2C_SR2(I2C1);
+
   i2c_send_data(I2C1, (index >> 8) & 0xFF);
+
+  while (!(I2C_SR1(I2C1) & I2C_SR1_BTF))
+    ;
+
   i2c_send_data(I2C1, index & 0xFF);
 
-  for (uint32_t i = 0; i < count; i++) {
+  while (!(I2C_SR1(I2C1) & I2C_SR1_BTF))
+    ;
+
+  uint32_t i = 0;
+
+  for (i = 0; i < (count - 1); i++) {
     i2c_send_data(I2C1, pdata[i]);
+
+    while (!(I2C_SR1(I2C1) & I2C_SR1_BTF))
+      ;
   }
+
+  i2c_send_data(I2C1, pdata[i]);
+
+  while (!(I2C_SR1(I2C1) & (I2C_SR1_BTF | I2C_SR1_TxE)))
+    ;
 
   i2c_send_stop(I2C1);
   return Status;
@@ -142,54 +172,89 @@ VL53L1_Error VL53L1_WriteMulti(VL53L1_DEV Dev, uint16_t index, uint8_t *pdata,
 VL53L1_Error VL53L1_ReadMulti(VL53L1_DEV Dev, uint16_t index, uint8_t *pdata,
                               uint32_t count) {
   VL53L1_Error Status = VL53L1_ERROR_NONE;
+  uint32_t reg32 __attribute__((unused));
+
   i2c_send_start(I2C1);
-  i2c_send_data(I2C1, Dev->I2cDevAddr);
+
+  while (!((I2C_SR1(I2C1) & I2C_SR1_SB) &
+           (I2C_SR2(I2C1) & (I2C_SR2_MSL | I2C_SR2_BUSY))))
+    ;
+
+  i2c_send_7bit_address(I2C1, Dev->I2cDevAddr, I2C_WRITE);
+
+  while (!(I2C_SR1(I2C1) & I2C_SR1_ADDR))
+    ;
+
+  reg32 = I2C_SR2(I2C1);
+
   i2c_send_data(I2C1, (index >> 8) & 0xFF);
+  /*
+    while (!(I2C_SR1(I2C1) & I2C_SR1_BTF))
+      ;
+  */
   i2c_send_data(I2C1, index & 0xFF);
+  /*
+    while (!(I2C_SR1(I2C1) & (I2C_SR1_BTF | I2C_SR1_TxE)))
+      ;
+  */
+  i2c_send_start(I2C1);
+  /*
+    while (!((I2C_SR1(I2C1) & I2C_SR1_SB) &
+             (I2C_SR2(I2C1) & (I2C_SR2_MSL | I2C_SR2_BUSY))))
+      ;
+  */
+  i2c_send_7bit_address(I2C1, Dev->I2cDevAddr, I2C_READ);
+
+  // while (!(I2C_SR1(I2C1) & I2C_SR1_ADDR))
+  //  ;
+
+  // I2C_CR1(I2C1) &= ~I2C_CR1_ACK;
+
+  // while (!(I2C_SR1(I2C1) & I2C_SR1_BTF))
+  //  ;
 
   for (uint32_t i = 0; i < count; i++) {
     pdata[i] = i2c_get_data(I2C1);
+    /*
+    while (!(I2C_SR1(I2C1) & I2C_SR1_BTF))
+      ;
+      */
   }
 
+  /*
+
+  I2C_CR1(I2C1) |= I2C_CR1_STOP;
+
+  I2C_CR1(I2C1) &= ~I2C_CR1_POS;
+
+  */
+
   i2c_send_stop(I2C1);
+
   return Status;
 }
 
 VL53L1_Error VL53L1_WrByte(VL53L1_DEV Dev, uint16_t index, uint8_t data) {
-  VL53L1_Error Status = VL53L1_ERROR_NONE;
+  // VL53L1_Error Status = VL53L1_ERROR_NONE;
+  /*
   i2c_send_start(I2C1);
-  i2c_send_data(I2C1, Dev->I2cDevAddr);
+  i2c_send_7bit_address(I2C1, Dev->I2cDevAddr, I2C_WRITE);
   i2c_send_data(I2C1, (index >> 8) & 0xFF);
   i2c_send_data(I2C1, index & 0xFF);
   i2c_send_data(I2C1, data);
   i2c_send_stop(I2C1);
-  return Status;
+  */
+  return VL53L1_WriteMulti(Dev, index, &data, 1);
+
+  // return Status;
 }
 
 VL53L1_Error VL53L1_WrWord(VL53L1_DEV Dev, uint16_t index, uint16_t data) {
-  VL53L1_Error Status = VL53L1_ERROR_NONE;
-  i2c_send_start(I2C1);
-  i2c_send_data(I2C1, Dev->I2cDevAddr);
-  i2c_send_data(I2C1, (index >> 8) & 0xFF);
-  i2c_send_data(I2C1, index & 0xFF);
-  i2c_send_data(I2C1, (data >> 8) & 0xFF);
-  i2c_send_data(I2C1, data & 0xFF);
-  i2c_send_stop(I2C1);
-  return Status;
+  return VL53L1_WriteMulti(Dev, index, (uint8_t *)&data, 2);
 }
 
 VL53L1_Error VL53L1_WrDWord(VL53L1_DEV Dev, uint16_t index, uint32_t data) {
-  VL53L1_Error Status = VL53L1_ERROR_NONE;
-  i2c_send_start(I2C1);
-  i2c_send_data(I2C1, Dev->I2cDevAddr);
-  i2c_send_data(I2C1, (index >> 8) & 0xFF);
-  i2c_send_data(I2C1, index & 0xFF);
-  i2c_send_data(I2C1, (data >> 24) & 0xFF);
-  i2c_send_data(I2C1, (data >> 16) & 0xFF);
-  i2c_send_data(I2C1, (data >> 8) & 0xFF);
-  i2c_send_data(I2C1, data & 0xFF);
-  i2c_send_stop(I2C1);
-  return Status;
+  return VL53L1_WriteMulti(Dev, index, (uint8_t *)&data, 4);
 }
 
 VL53L1_Error VL53L1_UpdateByte(VL53L1_DEV Dev, uint16_t index, uint8_t AndData,
@@ -197,56 +262,28 @@ VL53L1_Error VL53L1_UpdateByte(VL53L1_DEV Dev, uint16_t index, uint8_t AndData,
   VL53L1_Error Status = VL53L1_ERROR_NONE;
   uint8_t data;
 
-  if (Status = VL53L1VL53L1_RdByte(Dev, index, &data) != VL53L1_ERROR_NONE) {
+  Status = VL53L1_RdByte(Dev, index, &data);
+
+  if (Status != VL53L1_ERROR_NONE) {
     return Status;
   }
 
   data &= AndData;
   data |= OrData;
 
-  Status = VL53L1VL53L1_WrByte(Dev, index, data);
-
-  return Status;
+  return VL53L1_WrByte(Dev, index, data);
 }
 
 VL53L1_Error VL53L1_RdByte(VL53L1_DEV Dev, uint16_t index, uint8_t *data) {
-  VL53L1_Error Status = VL53L1_ERROR_NONE;
-  i2c_send_start(I2C1);
-  i2c_send_data(I2C1, Dev->I2cDevAddr);
-  i2c_send_data(I2C1, Dev->I2cDevAddr);
-  i2c_send_data(I2C1, (index >> 8) & 0xFF);
-  i2c_send_data(I2C1, index & 0xFF);
-  *data = i2c_get_data(I2C1);
-  i2c_send_stop(I2C1);
-  return Status;
+  return VL53L1_ReadMulti(Dev, index, data, 1);
 }
 
 VL53L1_Error VL53L1_RdWord(VL53L1_DEV Dev, uint16_t index, uint16_t *data) {
-  VL53L1_Error Status = VL53L1_ERROR_NONE;
-  i2c_send_start(I2C1);
-  i2c_send_data(I2C1, Dev->I2cDevAddr);
-  i2c_send_data(I2C1, Dev->I2cDevAddr);
-  i2c_send_data(I2C1, (index >> 8) & 0xFF);
-  i2c_send_data(I2C1, index & 0xFF);
-  *data = i2c_get_data(I2C1) << 8;
-  *data |= i2c_get_data(I2C1);
-  i2c_send_stop(I2C1);
-  return Status;
+  return VL53L1_ReadMulti(Dev, index, (uint8_t *)&data, 2);
 }
 
 VL53L1_Error VL53L1_RdDWord(VL53L1_DEV Dev, uint16_t index, uint32_t *data) {
-  VL53L1_Error Status = VL53L1_ERROR_NONE;
-  i2c_send_start(I2C1);
-  i2c_send_data(I2C1, Dev->I2cDevAddr);
-  i2c_send_data(I2C1, Dev->I2cDevAddr);
-  i2c_send_data(I2C1, (index >> 8) & 0xFF);
-  i2c_send_data(I2C1, index & 0xFF);
-  *data = i2c_get_data(I2C1) << 24;
-  *data |= i2c_get_data(I2C1) << 16;
-  *data |= i2c_get_data(I2C1) << 8;
-  *data |= i2c_get_data(I2C1);
-  i2c_send_stop(I2C1);
-  return Status;
+  return VL53L1_ReadMulti(Dev, index, (uint8_t *)&data, 4);
 }
 VL53L1_Error VL53L1_GetTickCount(uint32_t *ptick_count_ms) {
   VL53L1_Error status = VL53L1_ERROR_NONE;
@@ -279,6 +316,8 @@ VL53L1_Error VL53L1_WaitUs(VL53L1_Dev_t *pdev, int32_t wait_us) {
   vTaskDelay(wait_us / 1000);
   return status;
 }
+
+#define MIN(x, y) (((x) < (y)) ? (x) : (y))
 
 VL53L1_Error VL53L1_WaitValueMaskEx(VL53L1_Dev_t *pdev, uint32_t timeout_ms,
                                     uint16_t index, uint8_t value, uint8_t mask,
