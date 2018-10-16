@@ -28,55 +28,8 @@ void vApplicationStackOverflowHook(xTaskHandle *pxTask,
     ;
 }
 
-VL53L1_Dev_t dev;
-VL53L1_DEV Dev = &dev;
-int status;
-
-static void task1(void *args) {
-  (void)args;
-
-  uint8_t ready;
-
-  static VL53L1_RangingMeasurementData_t RangingData;
-
-  for (;;) {
-    status = VL53L1_GetMeasurementDataReady(Dev, &ready);
-    usart_send_blocking(USART2, status + 48);
-    usart_send_blocking(USART2, ':');
-    // usart_send_blocking(USART2, ready + 48);
-    usart_send_blocking(USART2, '\n');
-    /*
-    usart_send_blocking(USART2, 'G');
-    usart_send_blocking(USART2, ' ');
-    usart_send_blocking(USART2, ready + 48);
-    usart_send_blocking(USART2, '\n');
-    */
-    if (!status && ready) {
-      status = VL53L1_GetRangingMeasurementData(Dev, &RangingData);
-      usart_send_blocking(USART2, status + 108);
-      usart_send_blocking(USART2, '\n');
-      /*
-      usart_send_blocking(USART2, 'R');
-      usart_send_blocking(USART2, ' ');
-      usart_send_blocking(USART2, status);
-      usart_send_blocking(USART2, '\n');
-      */
-      if (!status) {
-        // usart_send_blocking(USART2, 'D');
-        // usart_send_blocking(USART2, RangingData.RangeMilliMeter & 0xFF);
-        // usart_send_blocking(USART2, RangingData.RangeStatus);
-        // usart_send_blocking(USART2, '\n');
-      }
-      status = VL53L1_ClearInterruptAndStartMeasurement(Dev);
-    }
-
-    // usart_send_blocking(USART2, 'H');
-    // usart_send_blocking(USART2, '\n');
-  }
-}
-
 static void task2(void *args) {
-  (void)args;
+  VL53L1_DEV Dev = args;
   int status;
   int8_t ready;
   static VL53L1_RangingMeasurementData_t RangingData;
@@ -98,6 +51,9 @@ static void task2(void *args) {
 // VL53L1_GetRangeStatusString
 
 int main(void) {
+  VL53L1_Dev_t dev;
+  VL53L1_DEV Dev = &dev;
+
   rcc_clock_setup_hse_3v3(&rcc_hse_8mhz_3v3[RCC_CLOCK_3V3_168MHZ]);
   rcc_periph_clock_enable(RCC_GPIOA);
   rcc_periph_clock_enable(RCC_GPIOD);
@@ -123,10 +79,17 @@ int main(void) {
   i2c_peripheral_disable(I2C1);
   i2c_reset(I2C1);
   // i2c_set_clock_frequency(I2C1, I2C_CR2_FREQ_8MHZ);
-  i2c_set_speed(I2C1, i2c_speed_sm_100k, 8);
+  i2c_set_speed(I2C1, i2c_speed_sm_100k, 42);
   i2c_peripheral_enable(I2C1);
 
   Dev->I2cDevAddr = 0x29;
+  int status;
+
+  // status = VL53L1_WaitDeviceBooted(Dev);
+
+  for (uint64_t i = 0; i < 100000000000; i++)
+    ;
+
   status = VL53L1_DataInit(Dev);
   usart_send_blocking(USART2, status + 48);
   usart_send_blocking(USART2, '\n');
@@ -147,7 +110,7 @@ int main(void) {
   usart_send_blocking(USART2, status + 48);
   usart_send_blocking(USART2, '\n');
 
-  xTaskCreate(task2, "LED", 200, NULL, configMAX_PRIORITIES - 1, NULL);
+  xTaskCreate(task2, "LED", 200, NULL, configMAX_PRIORITIES - 1, (void *)Dev);
   vTaskStartScheduler();
   for (;;)
     ;
