@@ -66,6 +66,8 @@ int main(void) {
   gpio_set_af(GPIOA, GPIO_AF7, GPIO2 | GPIO3);
 
   gpio_mode_setup(GPIOB, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO6 | GPIO7);
+  gpio_set_output_options(GPIOB, GPIO_OTYPE_OD, GPIO_OSPEED_100MHZ,
+                          GPIO6 | GPIO7);
   gpio_set_af(GPIOB, GPIO_AF4, GPIO6 | GPIO7);
 
   usart_set_baudrate(USART2, 115200);
@@ -90,9 +92,23 @@ int main(void) {
   for (uint64_t i = 0; i < 100000000000; i++)
     ;
 
+  while (1) {
+    i2c_send_start(I2C1);
+
+    while (!((I2C_SR1(I2C1) & I2C_SR1_SB) &
+             (I2C_SR2(I2C1) & (I2C_SR2_MSL | I2C_SR2_BUSY))))
+      ;
+
+    i2c_send_7bit_address(I2C1, Dev->I2cDevAddr, I2C_WRITE);
+
+    while (!(I2C_SR1(I2C1) & I2C_SR1_ADDR))
+      ;
+  }
+
   status = VL53L1_DataInit(Dev);
   usart_send_blocking(USART2, status + 48);
   usart_send_blocking(USART2, '\n');
+  /*
   status = VL53L1_StaticInit(Dev);
   usart_send_blocking(USART2, status + 48);
   usart_send_blocking(USART2, '\n');
@@ -109,6 +125,7 @@ int main(void) {
   status = VL53L1_StartMeasurement(Dev);
   usart_send_blocking(USART2, status + 48);
   usart_send_blocking(USART2, '\n');
+  */
 
   xTaskCreate(task2, "LED", 200, NULL, configMAX_PRIORITIES - 1, (void *)Dev);
   vTaskStartScheduler();
