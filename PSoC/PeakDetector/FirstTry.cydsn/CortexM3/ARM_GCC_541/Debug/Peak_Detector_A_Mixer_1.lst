@@ -1,0 +1,1215 @@
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccLvWhM6.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"Peak_Detector_A_Mixer_1.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.Peak_Detector_A_Mixer_1_Enable,"ax",%progbits
+  20              		.align	2
+  21              		.global	Peak_Detector_A_Mixer_1_Enable
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	Peak_Detector_A_Mixer_1_Enable, %function
+  25              	Peak_Detector_A_Mixer_1_Enable:
+  26              	.LFB1:
+  27              		.file 1 "Generated_Source\\PSoC5\\Peak_Detector_A_Mixer_1.c"
+   1:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * File Name: Peak_Detector_A_Mixer_1.c  
+   3:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Version 2.0
+   4:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+   5:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Description:
+   6:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  This file provides the source code to the API for the MIXER Component.
+   7:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+   8:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Note:
+   9:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+  10:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *******************************************************************************
+  11:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  12:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  13:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  14:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * the software package with which this file was provided.
+  15:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *******************************************************************************/
+  16:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+  17:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** #include "Peak_Detector_A_Mixer_1.h"
+  18:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+  19:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** #if (!CY_PSOC5A)
+  20:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     #if (CYDEV_VARIABLE_VDDA == 1u)
+  21:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         #include "CyScBoostClk.h"
+  22:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     #endif /* (CYDEV_VARIABLE_VDDA == 1u) */
+  23:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** #endif /* (!CY_PSOC5A) */
+  24:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+  25:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** #if (Peak_Detector_A_Mixer_1_LO_SOURCE == Peak_Detector_A_Mixer_1_LO_SOURCE_INTERNAL)
+  26:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     #include "Peak_Detector_A_Mixer_1_aclk.h"
+  27:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** #endif /* Peak_Detector_A_Mixer_1_LO_SOURCE */
+  28:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+  29:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** /* Fixed configuration of SC Block only performed once */
+  30:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** uint8 Peak_Detector_A_Mixer_1_initVar = 0u;
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccLvWhM6.s 			page 2
+
+
+  31:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+  32:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** /* Only for PSoC5A */
+  33:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** #if (CY_PSOC5A)
+  34:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     static Peak_Detector_A_Mixer_1_backupStruct Peak_Detector_A_Mixer_1_P5backup;
+  35:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** #endif /* CY_PSOC5A */
+  36:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+  37:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+  38:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** /*******************************************************************************
+  39:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Function Name: Peak_Detector_A_Mixer_1_Init
+  40:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** ********************************************************************************
+  41:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+  42:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Summary:
+  43:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  Initialize component's parameters to the parameters set by user in the 
+  44:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  customizer of the component placed onto schematic. Usually called in 
+  45:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  Peak_Detector_A_Mixer_1_Start().
+  46:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+  47:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Parameters:  
+  48:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  void
+  49:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+  50:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Return: 
+  51:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  void
+  52:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+  53:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *******************************************************************************/
+  54:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** void Peak_Detector_A_Mixer_1_Init(void) 
+  55:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** {
+  56:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     float LOf = Peak_Detector_A_Mixer_1_LO_CLOCK_FREQ;
+  57:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     
+  58:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     /* Configure SC Block based on selected Mixer type */
+  59:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     /* Continuous Time (up) mixer */
+  60:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     #if (Peak_Detector_A_Mixer_1_MIXER_TYPE == Peak_Detector_A_Mixer_1_CTMIXER) 
+  61:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         /* SC Block mode -  - SCxx_CR0[3:1] */
+  62:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         Peak_Detector_A_Mixer_1_CR0_REG = Peak_Detector_A_Mixer_1_MODE_CTMIXER;   
+  63:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+  64:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         /* SC Block CR1 */ 
+  65:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         Peak_Detector_A_Mixer_1_CR1_REG = (Peak_Detector_A_Mixer_1_COMP_4P35PF  |
+  66:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****                                 Peak_Detector_A_Mixer_1_DIV2_DISABLE |
+  67:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****                                 Peak_Detector_A_Mixer_1_GAIN_0DB);                                 
+  68:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+  69:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         /* 
+  70:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             Set SC Block resistor values based on Local Oscillator being above 
+  71:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             or below 100kHz - controled by r20_40 (Rmix) bit for CT mode mixer
+  72:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             and SC Block
+  73:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         */
+  74:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+  75:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         if (LOf < Peak_Detector_A_Mixer_1_LO_CLOCK_FREQ_100_KHz)
+  76:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         {
+  77:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             Peak_Detector_A_Mixer_1_CR2_REG = (Peak_Detector_A_Mixer_1_BIAS_LOW |
+  78:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 										Peak_Detector_A_Mixer_1_REDC_01 |
+  79:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 										Peak_Detector_A_Mixer_1_GNDVREF_DI |
+  80:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 										Peak_Detector_A_Mixer_1_R20_40B_40K);
+  81:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         }
+  82:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         else
+  83:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         {
+  84:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             Peak_Detector_A_Mixer_1_CR2_REG = (Peak_Detector_A_Mixer_1_BIAS_LOW |
+  85:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 										Peak_Detector_A_Mixer_1_REDC_01 |
+  86:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 										Peak_Detector_A_Mixer_1_GNDVREF_DI |
+  87:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 										Peak_Detector_A_Mixer_1_R20_40B_20K);
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccLvWhM6.s 			page 3
+
+
+  88:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         }
+  89:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     #else
+  90:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         /* Discrete Time (down) mixer */
+  91:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         /* SC Block mode -  - SCxx_CR0[3:1] */
+  92:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         Peak_Detector_A_Mixer_1_CR0_REG = Peak_Detector_A_Mixer_1_MODE_DTMIXER;       
+  93:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+  94:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         /* SC Block CR1 */ 
+  95:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         Peak_Detector_A_Mixer_1_CR1_REG = (Peak_Detector_A_Mixer_1_COMP_4P35PF  |
+  96:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****                                 Peak_Detector_A_Mixer_1_DIV2_ENABLE |
+  97:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****                                 Peak_Detector_A_Mixer_1_GAIN_0DB);
+  98:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+  99:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         /* 
+ 100:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             Set SC Block resistor values based on Local Oscillator beign above 
+ 101:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             or below 100kHz - set r20_40 (input resitance) and rval (feedback) 
+ 102:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             resistor values seperately for DT mode and SC Block
+ 103:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         */
+ 104:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         if (LOf < Peak_Detector_A_Mixer_1_LO_CLOCK_FREQ_100_KHz)
+ 105:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         {
+ 106:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             Peak_Detector_A_Mixer_1_CR2_REG = (Peak_Detector_A_Mixer_1_BIAS_LOW |
+ 107:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 										Peak_Detector_A_Mixer_1_GNDVREF_DI |
+ 108:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 										Peak_Detector_A_Mixer_1_R20_40B_40K |
+ 109:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 										Peak_Detector_A_Mixer_1_RVAL_40K); 
+ 110:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         }
+ 111:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         else
+ 112:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         {
+ 113:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             Peak_Detector_A_Mixer_1_CR2_REG = (Peak_Detector_A_Mixer_1_BIAS_LOW |
+ 114:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 										Peak_Detector_A_Mixer_1_GNDVREF_DI |
+ 115:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 										Peak_Detector_A_Mixer_1_R20_40B_20K |
+ 116:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 										Peak_Detector_A_Mixer_1_RVAL_20K);
+ 117:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         }
+ 118:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     #endif /* end if - Mixer Type */
+ 119:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+ 120:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     /* Enable SC Block clocking */
+ 121:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     Peak_Detector_A_Mixer_1_CLK_REG |= Peak_Detector_A_Mixer_1_CLK_EN;
+ 122:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+ 123:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     /* Set default power */
+ 124:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     Peak_Detector_A_Mixer_1_SetPower(Peak_Detector_A_Mixer_1_INIT_POWER);
+ 125:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     
+ 126:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     /* Set 50 % Duty cycle for LO clock if LO source is internal */
+ 127:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     #if(Peak_Detector_A_Mixer_1_LO_SOURCE == Peak_Detector_A_Mixer_1_LO_SOURCE_INTERNAL)
+ 128:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         Peak_Detector_A_Mixer_1_aclk_SetMode(CYCLK_DUTY);
+ 129:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     #endif /* Peak_Detector_A_Mixer_1_LO_SOURCE == Peak_Detector_A_Mixer_1_LO_SOURCE_INTERNAL */
+ 130:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+ 131:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** }
+ 132:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+ 133:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+ 134:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** /*******************************************************************************
+ 135:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Function Name: Peak_Detector_A_Mixer_1_Enable
+ 136:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** ********************************************************************************
+ 137:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  
+ 138:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Summary: 
+ 139:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  Enables the Mixer block operation
+ 140:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+ 141:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Parameters:  
+ 142:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  void
+ 143:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+ 144:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Return: 
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccLvWhM6.s 			page 4
+
+
+ 145:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  void
+ 146:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+ 147:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *******************************************************************************/
+ 148:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** void Peak_Detector_A_Mixer_1_Enable(void) 
+ 149:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** {
+  28              		.loc 1 149 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+ 150:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     /* This is to restore the value of register CR1 and CR2 which is saved 
+ 151:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****       in prior to the modifications in stop() API */
+ 152:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     #if (CY_PSOC5A)
+ 153:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         if(Peak_Detector_A_Mixer_1_P5backup.enableState == 1u)
+ 154:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         {
+ 155:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             Peak_Detector_A_Mixer_1_CR1_REG = Peak_Detector_A_Mixer_1_P5backup.scCR1Reg;
+ 156:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             Peak_Detector_A_Mixer_1_CR2_REG = Peak_Detector_A_Mixer_1_P5backup.scCR2Reg;
+ 157:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             Peak_Detector_A_Mixer_1_P5backup.enableState = 0u;
+ 158:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         }
+ 159:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     #endif /* CY_PSOC5A */
+ 160:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     
+ 161:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     /* Enable power to SC block in active mode */
+ 162:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     Peak_Detector_A_Mixer_1_PM_ACT_CFG_REG |= Peak_Detector_A_Mixer_1_ACT_PWR_EN;
+  33              		.loc 1 162 0
+  34 0000 084A     		ldr	r2, .L2
+  35 0002 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  36 0004 43F00203 		orr	r3, r3, #2
+  37 0008 1370     		strb	r3, [r2]
+ 163:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+ 164:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     /* Enable power to SC block in Alternative active mode */
+ 165:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     Peak_Detector_A_Mixer_1_PM_STBY_CFG_REG |= Peak_Detector_A_Mixer_1_STBY_PWR_EN;
+  38              		.loc 1 165 0
+  39 000a 1032     		adds	r2, r2, #16
+  40 000c 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  41 000e 43F00203 		orr	r3, r3, #2
+  42 0012 1370     		strb	r3, [r2]
+ 166:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     
+ 167:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     /* Enable LO_Internal clock if LO source is choosen as internal */
+ 168:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     #if(Peak_Detector_A_Mixer_1_LO_SOURCE == Peak_Detector_A_Mixer_1_LO_SOURCE_INTERNAL)
+ 169:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         /* Enable power to the LO clock */
+ 170:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         Peak_Detector_A_Mixer_1_PWRMGR_ACLK_REG |= Peak_Detector_A_Mixer_1_ACT_PWR_ACLK_EN;        
+ 171:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         Peak_Detector_A_Mixer_1_STBY_PWRMGR_ACLK_REG |= Peak_Detector_A_Mixer_1_STBY_PWR_ACLK_EN;
+ 172:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         /* Enable the clock */
+ 173:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         Peak_Detector_A_Mixer_1_aclk_Enable();        
+ 174:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     #endif /* Peak_Detector_A_Mixer_1_LO_SOURCE == Peak_Detector_A_Mixer_1_LO_SOURCE_INTERNAL */
+ 175:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+ 176:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     Peak_Detector_A_Mixer_1_PUMP_CR1_REG |= Peak_Detector_A_Mixer_1_PUMP_CR1_SC_CLKSEL;
+  43              		.loc 1 176 0
+  44 0014 02F5A552 		add	r2, r2, #5280
+  45 0018 1E32     		adds	r2, r2, #30
+  46 001a 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  47 001c 43F08003 		orr	r3, r3, #128
+  48 0020 1370     		strb	r3, [r2]
+  49 0022 7047     		bx	lr
+  50              	.L3:
+  51              		.align	2
+  52              	.L2:
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccLvWhM6.s 			page 5
+
+
+  53 0024 A9430040 		.word	1073759145
+  54              		.cfi_endproc
+  55              	.LFE1:
+  56              		.size	Peak_Detector_A_Mixer_1_Enable, .-Peak_Detector_A_Mixer_1_Enable
+  57              		.section	.text.Peak_Detector_A_Mixer_1_Stop,"ax",%progbits
+  58              		.align	2
+  59              		.global	Peak_Detector_A_Mixer_1_Stop
+  60              		.thumb
+  61              		.thumb_func
+  62              		.type	Peak_Detector_A_Mixer_1_Stop, %function
+  63              	Peak_Detector_A_Mixer_1_Stop:
+  64              	.LFB3:
+ 177:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     
+ 178:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     #if (!CY_PSOC5A)
+ 179:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         #if (CYDEV_VARIABLE_VDDA == 1u)
+ 180:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             if(CyScPumpEnabled == 1u)
+ 181:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             {
+ 182:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****                 Peak_Detector_A_Mixer_1_BSTCLK_REG &= (uint8)(~Peak_Detector_A_Mixer_1_BST_CLK_INDE
+ 183:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****                 Peak_Detector_A_Mixer_1_BSTCLK_REG |= Peak_Detector_A_Mixer_1_BST_CLK_EN | CyScBoos
+ 184:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****                 Peak_Detector_A_Mixer_1_SC_MISC_REG |= Peak_Detector_A_Mixer_1_PUMP_FORCE;
+ 185:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****                 CyScBoostClk_Start();
+ 186:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             }
+ 187:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             else
+ 188:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             {
+ 189:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****                 Peak_Detector_A_Mixer_1_BSTCLK_REG &= (uint8)(~Peak_Detector_A_Mixer_1_BST_CLK_EN);
+ 190:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****                 Peak_Detector_A_Mixer_1_SC_MISC_REG &= (uint8)(~Peak_Detector_A_Mixer_1_PUMP_FORCE)
+ 191:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             }
+ 192:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         #endif /* (CYDEV_VARIABLE_VDDA == 1u) */
+ 193:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     #endif /* (!CY_PSOC5A) */
+ 194:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** }
+ 195:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+ 196:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+ 197:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** /*******************************************************************************
+ 198:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Function Name: Peak_Detector_A_Mixer_1_Start
+ 199:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** ********************************************************************************
+ 200:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+ 201:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Summary:
+ 202:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  The start function initializes the SC block control registers based on the
+ 203:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  Mixer type selected and and enables power to the SC block
+ 204:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+ 205:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Parameters:  
+ 206:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  void
+ 207:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+ 208:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Return: 
+ 209:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  void 
+ 210:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+ 211:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Global variables:
+ 212:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  Peak_Detector_A_Mixer_1_initVar:  Used to check the initial configuration,
+ 213:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  modified when this function is called for the first time.
+ 214:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+ 215:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Theory: 
+ 216:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  Full initialization of the SC Block configuration registers is only perfomed 
+ 217:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  the first time the routine executes - global variable 
+ 218:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  Peak_Detector_A_Mixer_1_initVar is used indicate that the static configuration has 
+ 219:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  been completed.
+ 220:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+ 221:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *******************************************************************************/
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccLvWhM6.s 			page 6
+
+
+ 222:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** void Peak_Detector_A_Mixer_1_Start(void) 
+ 223:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** {
+ 224:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     /* If not Initialized then initialize all required hardware and software */
+ 225:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     if(Peak_Detector_A_Mixer_1_initVar == 0u)
+ 226:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     {
+ 227:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         Peak_Detector_A_Mixer_1_Init();
+ 228:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         Peak_Detector_A_Mixer_1_initVar = 1u;
+ 229:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     }
+ 230:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     /* Enable the power to the block */
+ 231:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     Peak_Detector_A_Mixer_1_Enable();
+ 232:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     
+ 233:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** }
+ 234:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+ 235:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+ 236:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** /*******************************************************************************
+ 237:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Function Name: Peak_Detector_A_Mixer_1_Stop
+ 238:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** ********************************************************************************
+ 239:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+ 240:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Summary:
+ 241:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  Disables power to SC block.
+ 242:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+ 243:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Parameters:  
+ 244:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  void 
+ 245:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+ 246:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Return: 
+ 247:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  void 
+ 248:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+ 249:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *******************************************************************************/
+ 250:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** void Peak_Detector_A_Mixer_1_Stop(void) 
+ 251:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** {       
+  65              		.loc 1 251 0
+  66              		.cfi_startproc
+  67              		@ args = 0, pretend = 0, frame = 0
+  68              		@ frame_needed = 0, uses_anonymous_args = 0
+  69              		@ link register save eliminated.
+ 252:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     /* Disble power to the Amp in Active mode template */
+ 253:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     Peak_Detector_A_Mixer_1_PM_ACT_CFG_REG &= (uint8)(~Peak_Detector_A_Mixer_1_ACT_PWR_EN);
+  70              		.loc 1 253 0
+  71 0000 054A     		ldr	r2, .L5
+  72 0002 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  73 0004 03F0FD03 		and	r3, r3, #253
+  74 0008 1370     		strb	r3, [r2]
+ 254:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+ 255:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     /* Disble power to the Amp in Alternative Active mode template */
+ 256:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     Peak_Detector_A_Mixer_1_PM_STBY_CFG_REG &= (uint8)(~Peak_Detector_A_Mixer_1_STBY_PWR_EN);
+  75              		.loc 1 256 0
+  76 000a 1032     		adds	r2, r2, #16
+  77 000c 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  78 000e 03F0FD03 		and	r3, r3, #253
+  79 0012 1370     		strb	r3, [r2]
+  80 0014 7047     		bx	lr
+  81              	.L6:
+  82 0016 00BF     		.align	2
+  83              	.L5:
+  84 0018 A9430040 		.word	1073759145
+  85              		.cfi_endproc
+  86              	.LFE3:
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccLvWhM6.s 			page 7
+
+
+  87              		.size	Peak_Detector_A_Mixer_1_Stop, .-Peak_Detector_A_Mixer_1_Stop
+  88              		.section	.text.Peak_Detector_A_Mixer_1_SetPower,"ax",%progbits
+  89              		.align	2
+  90              		.global	Peak_Detector_A_Mixer_1_SetPower
+  91              		.thumb
+  92              		.thumb_func
+  93              		.type	Peak_Detector_A_Mixer_1_SetPower, %function
+  94              	Peak_Detector_A_Mixer_1_SetPower:
+  95              	.LFB4:
+ 257:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     
+ 258:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     #if (!CY_PSOC5A)
+ 259:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         #if (CYDEV_VARIABLE_VDDA == 1u)
+ 260:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             Peak_Detector_A_Mixer_1_BSTCLK_REG &= (uint8)(~Peak_Detector_A_Mixer_1_BST_CLK_EN);
+ 261:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             /* Disable pumps only if there aren't any SC block in use */
+ 262:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             if ((Peak_Detector_A_Mixer_1_PM_ACT_CFG_REG & Peak_Detector_A_Mixer_1_PM_ACT_CFG_MASK) 
+ 263:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             {
+ 264:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****                 Peak_Detector_A_Mixer_1_SC_MISC_REG &= (uint8)(~Peak_Detector_A_Mixer_1_PUMP_FORCE)
+ 265:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****                 Peak_Detector_A_Mixer_1_PUMP_CR1_REG &= (uint8)(~Peak_Detector_A_Mixer_1_PUMP_CR1_S
+ 266:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****                 CyScBoostClk_Stop();
+ 267:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****             }
+ 268:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         #endif /* CYDEV_VARIABLE_VDDA == 1u */
+ 269:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     #endif /* (CY_PSOC3 || CY_PSOC5LP) */
+ 270:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     
+ 271:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     /* This sets Sample and hold in zero current mode and output routes are valid */
+ 272:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     #if (CY_PSOC5A)
+ 273:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         Peak_Detector_A_Mixer_1_P5backup.scCR1Reg = Peak_Detector_A_Mixer_1_CR1_REG;
+ 274:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         Peak_Detector_A_Mixer_1_P5backup.scCR2Reg = Peak_Detector_A_Mixer_1_CR2_REG;
+ 275:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         Peak_Detector_A_Mixer_1_CR1_REG = 0x00u;
+ 276:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         Peak_Detector_A_Mixer_1_CR2_REG = 0x00u;
+ 277:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         Peak_Detector_A_Mixer_1_P5backup.enableState = 1u;
+ 278:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     #endif /* CY_PSOC5A */  
+ 279:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     
+ 280:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     /* Disable aclk */
+ 281:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     #if(Peak_Detector_A_Mixer_1_LO_SOURCE == Peak_Detector_A_Mixer_1_LO_SOURCE_INTERNAL)
+ 282:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         /* Disable power to clock */
+ 283:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         Peak_Detector_A_Mixer_1_PWRMGR_ACLK_REG &= (uint8)(~Peak_Detector_A_Mixer_1_ACT_PWR_ACLK_EN
+ 284:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         Peak_Detector_A_Mixer_1_STBY_PWRMGR_ACLK_REG &= (uint8)(~Peak_Detector_A_Mixer_1_STBY_PWR_A
+ 285:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         /* Disable the clock */
+ 286:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         Peak_Detector_A_Mixer_1_aclk_Disable();
+ 287:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     #endif /* Peak_Detector_A_Mixer_1_LO_SOURCE == Peak_Detector_A_Mixer_1_LO_SOURCE_INTERNAL */
+ 288:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** }
+ 289:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+ 290:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+ 291:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** /*******************************************************************************
+ 292:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Function Name: Peak_Detector_A_Mixer_1_SetPower
+ 293:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** ********************************************************************************
+ 294:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+ 295:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Summary:
+ 296:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  Set the drive power of the MIXER
+ 297:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+ 298:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Parameters:  
+ 299:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  power:  Sets power level between (0) and (3) high power
+ 300:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+ 301:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** * Return: 
+ 302:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *  void 
+ 303:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *
+ 304:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** *******************************************************************************/
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccLvWhM6.s 			page 8
+
+
+ 305:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** void Peak_Detector_A_Mixer_1_SetPower(uint8 power) 
+ 306:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** {
+  96              		.loc 1 306 0
+  97              		.cfi_startproc
+  98              		@ args = 0, pretend = 0, frame = 0
+  99              		@ frame_needed = 0, uses_anonymous_args = 0
+ 100              		@ link register save eliminated.
+ 101              	.LVL0:
+ 307:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     uint8 tmpCR;
+ 308:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+ 309:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     /* Sets drive bits in SC Block Control Register 1:  SCxx_CR[1:0] */    
+ 310:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     tmpCR = Peak_Detector_A_Mixer_1_CR1_REG & (uint8)(~Peak_Detector_A_Mixer_1_DRIVE_MASK);
+ 102              		.loc 1 310 0
+ 103 0000 044A     		ldr	r2, .L8
+ 104 0002 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 105 0004 03F0FC03 		and	r3, r3, #252
+ 106              	.LVL1:
+ 311:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     tmpCR |= (power & Peak_Detector_A_Mixer_1_DRIVE_MASK);
+ 107              		.loc 1 311 0
+ 108 0008 00F00300 		and	r0, r0, #3
+ 109              	.LVL2:
+ 110 000c 1843     		orrs	r0, r0, r3
+ 111              	.LVL3:
+ 312:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     Peak_Detector_A_Mixer_1_CR1_REG = tmpCR;  
+ 112              		.loc 1 312 0
+ 113 000e 1070     		strb	r0, [r2]
+ 114 0010 7047     		bx	lr
+ 115              	.L9:
+ 116 0012 00BF     		.align	2
+ 117              	.L8:
+ 118 0014 05580040 		.word	1073764357
+ 119              		.cfi_endproc
+ 120              	.LFE4:
+ 121              		.size	Peak_Detector_A_Mixer_1_SetPower, .-Peak_Detector_A_Mixer_1_SetPower
+ 122              		.section	.text.Peak_Detector_A_Mixer_1_Init,"ax",%progbits
+ 123              		.align	2
+ 124              		.global	Peak_Detector_A_Mixer_1_Init
+ 125              		.thumb
+ 126              		.thumb_func
+ 127              		.type	Peak_Detector_A_Mixer_1_Init, %function
+ 128              	Peak_Detector_A_Mixer_1_Init:
+ 129              	.LFB0:
+  55:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     float LOf = Peak_Detector_A_Mixer_1_LO_CLOCK_FREQ;
+ 130              		.loc 1 55 0
+ 131              		.cfi_startproc
+ 132              		@ args = 0, pretend = 0, frame = 0
+ 133              		@ frame_needed = 0, uses_anonymous_args = 0
+ 134 0000 08B5     		push	{r3, lr}
+ 135              		.cfi_def_cfa_offset 8
+ 136              		.cfi_offset 3, -8
+ 137              		.cfi_offset 14, -4
+ 138              	.LVL4:
+  92:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+ 139              		.loc 1 92 0
+ 140 0002 0622     		movs	r2, #6
+ 141 0004 074B     		ldr	r3, .L12
+ 142 0006 1A70     		strb	r2, [r3]
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccLvWhM6.s 			page 9
+
+
+  95:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****                                 Peak_Detector_A_Mixer_1_DIV2_ENABLE |
+ 143              		.loc 1 95 0
+ 144 0008 1822     		movs	r2, #24
+ 145 000a 0133     		adds	r3, r3, #1
+ 146 000c 1A70     		strb	r2, [r3]
+ 113:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 										Peak_Detector_A_Mixer_1_GNDVREF_DI |
+ 147              		.loc 1 113 0
+ 148 000e 0320     		movs	r0, #3
+ 149 0010 0133     		adds	r3, r3, #1
+ 150 0012 1870     		strb	r0, [r3]
+ 121:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c **** 
+ 151              		.loc 1 121 0
+ 152 0014 044A     		ldr	r2, .L12+4
+ 153 0016 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 154 0018 43F00803 		orr	r3, r3, #8
+ 155 001c 1370     		strb	r3, [r2]
+ 124:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     
+ 156              		.loc 1 124 0
+ 157 001e FFF7FEFF 		bl	Peak_Detector_A_Mixer_1_SetPower
+ 158              	.LVL5:
+ 159 0022 08BD     		pop	{r3, pc}
+ 160              	.L13:
+ 161              		.align	2
+ 162              	.L12:
+ 163 0024 04580040 		.word	1073764356
+ 164 0028 1B5A0040 		.word	1073764891
+ 165              		.cfi_endproc
+ 166              	.LFE0:
+ 167              		.size	Peak_Detector_A_Mixer_1_Init, .-Peak_Detector_A_Mixer_1_Init
+ 168              		.section	.text.Peak_Detector_A_Mixer_1_Start,"ax",%progbits
+ 169              		.align	2
+ 170              		.global	Peak_Detector_A_Mixer_1_Start
+ 171              		.thumb
+ 172              		.thumb_func
+ 173              		.type	Peak_Detector_A_Mixer_1_Start, %function
+ 174              	Peak_Detector_A_Mixer_1_Start:
+ 175              	.LFB2:
+ 223:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     /* If not Initialized then initialize all required hardware and software */
+ 176              		.loc 1 223 0
+ 177              		.cfi_startproc
+ 178              		@ args = 0, pretend = 0, frame = 0
+ 179              		@ frame_needed = 0, uses_anonymous_args = 0
+ 180 0000 08B5     		push	{r3, lr}
+ 181              		.cfi_def_cfa_offset 8
+ 182              		.cfi_offset 3, -8
+ 183              		.cfi_offset 14, -4
+ 225:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     {
+ 184              		.loc 1 225 0
+ 185 0002 054B     		ldr	r3, .L17
+ 186 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 187 0006 23B9     		cbnz	r3, .L15
+ 227:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****         Peak_Detector_A_Mixer_1_initVar = 1u;
+ 188              		.loc 1 227 0
+ 189 0008 FFF7FEFF 		bl	Peak_Detector_A_Mixer_1_Init
+ 190              	.LVL6:
+ 228:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     }
+ 191              		.loc 1 228 0
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccLvWhM6.s 			page 10
+
+
+ 192 000c 0122     		movs	r2, #1
+ 193 000e 024B     		ldr	r3, .L17
+ 194 0010 1A70     		strb	r2, [r3]
+ 195              	.L15:
+ 231:Generated_Source\PSoC5/Peak_Detector_A_Mixer_1.c ****     
+ 196              		.loc 1 231 0
+ 197 0012 FFF7FEFF 		bl	Peak_Detector_A_Mixer_1_Enable
+ 198              	.LVL7:
+ 199 0016 08BD     		pop	{r3, pc}
+ 200              	.L18:
+ 201              		.align	2
+ 202              	.L17:
+ 203 0018 00000000 		.word	.LANCHOR0
+ 204              		.cfi_endproc
+ 205              	.LFE2:
+ 206              		.size	Peak_Detector_A_Mixer_1_Start, .-Peak_Detector_A_Mixer_1_Start
+ 207              		.global	Peak_Detector_A_Mixer_1_initVar
+ 208              		.bss
+ 209              		.set	.LANCHOR0,. + 0
+ 210              		.type	Peak_Detector_A_Mixer_1_initVar, %object
+ 211              		.size	Peak_Detector_A_Mixer_1_initVar, 1
+ 212              	Peak_Detector_A_Mixer_1_initVar:
+ 213 0000 00       		.space	1
+ 214              		.text
+ 215              	.Letext0:
+ 216              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 217              		.section	.debug_info,"",%progbits
+ 218              	.Ldebug_info0:
+ 219 0000 6F010000 		.4byte	0x16f
+ 220 0004 0400     		.2byte	0x4
+ 221 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 222 000a 04       		.byte	0x4
+ 223 000b 01       		.uleb128 0x1
+ 224 000c 1B000000 		.4byte	.LASF22
+ 225 0010 0C       		.byte	0xc
+ 226 0011 8E010000 		.4byte	.LASF23
+ 227 0015 C1000000 		.4byte	.LASF24
+ 228 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 229 001d 00000000 		.4byte	0
+ 230 0021 00000000 		.4byte	.Ldebug_line0
+ 231 0025 02       		.uleb128 0x2
+ 232 0026 01       		.byte	0x1
+ 233 0027 06       		.byte	0x6
+ 234 0028 EB010000 		.4byte	.LASF0
+ 235 002c 02       		.uleb128 0x2
+ 236 002d 01       		.byte	0x1
+ 237 002e 08       		.byte	0x8
+ 238 002f 51010000 		.4byte	.LASF1
+ 239 0033 02       		.uleb128 0x2
+ 240 0034 02       		.byte	0x2
+ 241 0035 05       		.byte	0x5
+ 242 0036 3D020000 		.4byte	.LASF2
+ 243 003a 02       		.uleb128 0x2
+ 244 003b 02       		.byte	0x2
+ 245 003c 07       		.byte	0x7
+ 246 003d D8010000 		.4byte	.LASF3
+ 247 0041 02       		.uleb128 0x2
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccLvWhM6.s 			page 11
+
+
+ 248 0042 04       		.byte	0x4
+ 249 0043 05       		.byte	0x5
+ 250 0044 85010000 		.4byte	.LASF4
+ 251 0048 02       		.uleb128 0x2
+ 252 0049 04       		.byte	0x4
+ 253 004a 07       		.byte	0x7
+ 254 004b AF000000 		.4byte	.LASF5
+ 255 004f 02       		.uleb128 0x2
+ 256 0050 08       		.byte	0x8
+ 257 0051 05       		.byte	0x5
+ 258 0052 00000000 		.4byte	.LASF6
+ 259 0056 02       		.uleb128 0x2
+ 260 0057 08       		.byte	0x8
+ 261 0058 07       		.byte	0x7
+ 262 0059 17010000 		.4byte	.LASF7
+ 263 005d 03       		.uleb128 0x3
+ 264 005e 04       		.byte	0x4
+ 265 005f 05       		.byte	0x5
+ 266 0060 696E7400 		.ascii	"int\000"
+ 267 0064 02       		.uleb128 0x2
+ 268 0065 04       		.byte	0x4
+ 269 0066 07       		.byte	0x7
+ 270 0067 0E000000 		.4byte	.LASF8
+ 271 006b 04       		.uleb128 0x4
+ 272 006c A9000000 		.4byte	.LASF12
+ 273 0070 02       		.byte	0x2
+ 274 0071 9201     		.2byte	0x192
+ 275 0073 2C000000 		.4byte	0x2c
+ 276 0077 02       		.uleb128 0x2
+ 277 0078 04       		.byte	0x4
+ 278 0079 04       		.byte	0x4
+ 279 007a 2E010000 		.4byte	.LASF9
+ 280 007e 02       		.uleb128 0x2
+ 281 007f 08       		.byte	0x8
+ 282 0080 04       		.byte	0x4
+ 283 0081 CB010000 		.4byte	.LASF10
+ 284 0085 02       		.uleb128 0x2
+ 285 0086 01       		.byte	0x1
+ 286 0087 08       		.byte	0x8
+ 287 0088 5F010000 		.4byte	.LASF11
+ 288 008c 04       		.uleb128 0x4
+ 289 008d 47020000 		.4byte	.LASF13
+ 290 0091 02       		.byte	0x2
+ 291 0092 3C02     		.2byte	0x23c
+ 292 0094 98000000 		.4byte	0x98
+ 293 0098 05       		.uleb128 0x5
+ 294 0099 6B000000 		.4byte	0x6b
+ 295 009d 02       		.uleb128 0x2
+ 296 009e 08       		.byte	0x8
+ 297 009f 04       		.byte	0x4
+ 298 00a0 BF010000 		.4byte	.LASF14
+ 299 00a4 02       		.uleb128 0x2
+ 300 00a5 04       		.byte	0x4
+ 301 00a6 07       		.byte	0x7
+ 302 00a7 34020000 		.4byte	.LASF15
+ 303 00ab 06       		.uleb128 0x6
+ 304 00ac F7010000 		.4byte	.LASF16
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccLvWhM6.s 			page 12
+
+
+ 305 00b0 01       		.byte	0x1
+ 306 00b1 94       		.byte	0x94
+ 307 00b2 00000000 		.4byte	.LFB1
+ 308 00b6 28000000 		.4byte	.LFE1-.LFB1
+ 309 00ba 01       		.uleb128 0x1
+ 310 00bb 9C       		.byte	0x9c
+ 311 00bc 06       		.uleb128 0x6
+ 312 00bd 34010000 		.4byte	.LASF17
+ 313 00c1 01       		.byte	0x1
+ 314 00c2 FA       		.byte	0xfa
+ 315 00c3 00000000 		.4byte	.LFB3
+ 316 00c7 1C000000 		.4byte	.LFE3-.LFB3
+ 317 00cb 01       		.uleb128 0x1
+ 318 00cc 9C       		.byte	0x9c
+ 319 00cd 07       		.uleb128 0x7
+ 320 00ce 64010000 		.4byte	.LASF18
+ 321 00d2 01       		.byte	0x1
+ 322 00d3 3101     		.2byte	0x131
+ 323 00d5 00000000 		.4byte	.LFB4
+ 324 00d9 18000000 		.4byte	.LFE4-.LFB4
+ 325 00dd 01       		.uleb128 0x1
+ 326 00de 9C       		.byte	0x9c
+ 327 00df 04010000 		.4byte	0x104
+ 328 00e3 08       		.uleb128 0x8
+ 329 00e4 89020000 		.4byte	.LASF25
+ 330 00e8 01       		.byte	0x1
+ 331 00e9 3101     		.2byte	0x131
+ 332 00eb 6B000000 		.4byte	0x6b
+ 333 00ef 00000000 		.4byte	.LLST0
+ 334 00f3 09       		.uleb128 0x9
+ 335 00f4 D2010000 		.4byte	.LASF20
+ 336 00f8 01       		.byte	0x1
+ 337 00f9 3301     		.2byte	0x133
+ 338 00fb 6B000000 		.4byte	0x6b
+ 339 00ff 21000000 		.4byte	.LLST1
+ 340 0103 00       		.byte	0
+ 341 0104 0A       		.uleb128 0xa
+ 342 0105 4C020000 		.4byte	.LASF19
+ 343 0109 01       		.byte	0x1
+ 344 010a 36       		.byte	0x36
+ 345 010b 00000000 		.4byte	.LFB0
+ 346 010f 2C000000 		.4byte	.LFE0-.LFB0
+ 347 0113 01       		.uleb128 0x1
+ 348 0114 9C       		.byte	0x9c
+ 349 0115 39010000 		.4byte	0x139
+ 350 0119 0B       		.uleb128 0xb
+ 351 011a 4C4F6600 		.ascii	"LOf\000"
+ 352 011e 01       		.byte	0x1
+ 353 011f 38       		.byte	0x38
+ 354 0120 77000000 		.4byte	0x77
+ 355 0124 04       		.byte	0x4
+ 356 0125 0000C844 		.4byte	0x44c80000
+ 357 0129 0C       		.uleb128 0xc
+ 358 012a 22000000 		.4byte	.LVL5
+ 359 012e CD000000 		.4byte	0xcd
+ 360 0132 0D       		.uleb128 0xd
+ 361 0133 01       		.uleb128 0x1
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccLvWhM6.s 			page 13
+
+
+ 362 0134 50       		.byte	0x50
+ 363 0135 01       		.uleb128 0x1
+ 364 0136 33       		.byte	0x33
+ 365 0137 00       		.byte	0
+ 366 0138 00       		.byte	0
+ 367 0139 0A       		.uleb128 0xa
+ 368 013a 16020000 		.4byte	.LASF21
+ 369 013e 01       		.byte	0x1
+ 370 013f DE       		.byte	0xde
+ 371 0140 00000000 		.4byte	.LFB2
+ 372 0144 1C000000 		.4byte	.LFE2-.LFB2
+ 373 0148 01       		.uleb128 0x1
+ 374 0149 9C       		.byte	0x9c
+ 375 014a 61010000 		.4byte	0x161
+ 376 014e 0E       		.uleb128 0xe
+ 377 014f 0C000000 		.4byte	.LVL6
+ 378 0153 04010000 		.4byte	0x104
+ 379 0157 0E       		.uleb128 0xe
+ 380 0158 16000000 		.4byte	.LVL7
+ 381 015c AB000000 		.4byte	0xab
+ 382 0160 00       		.byte	0
+ 383 0161 0F       		.uleb128 0xf
+ 384 0162 69020000 		.4byte	.LASF26
+ 385 0166 01       		.byte	0x1
+ 386 0167 1E       		.byte	0x1e
+ 387 0168 6B000000 		.4byte	0x6b
+ 388 016c 05       		.uleb128 0x5
+ 389 016d 03       		.byte	0x3
+ 390 016e 00000000 		.4byte	Peak_Detector_A_Mixer_1_initVar
+ 391 0172 00       		.byte	0
+ 392              		.section	.debug_abbrev,"",%progbits
+ 393              	.Ldebug_abbrev0:
+ 394 0000 01       		.uleb128 0x1
+ 395 0001 11       		.uleb128 0x11
+ 396 0002 01       		.byte	0x1
+ 397 0003 25       		.uleb128 0x25
+ 398 0004 0E       		.uleb128 0xe
+ 399 0005 13       		.uleb128 0x13
+ 400 0006 0B       		.uleb128 0xb
+ 401 0007 03       		.uleb128 0x3
+ 402 0008 0E       		.uleb128 0xe
+ 403 0009 1B       		.uleb128 0x1b
+ 404 000a 0E       		.uleb128 0xe
+ 405 000b 55       		.uleb128 0x55
+ 406 000c 17       		.uleb128 0x17
+ 407 000d 11       		.uleb128 0x11
+ 408 000e 01       		.uleb128 0x1
+ 409 000f 10       		.uleb128 0x10
+ 410 0010 17       		.uleb128 0x17
+ 411 0011 00       		.byte	0
+ 412 0012 00       		.byte	0
+ 413 0013 02       		.uleb128 0x2
+ 414 0014 24       		.uleb128 0x24
+ 415 0015 00       		.byte	0
+ 416 0016 0B       		.uleb128 0xb
+ 417 0017 0B       		.uleb128 0xb
+ 418 0018 3E       		.uleb128 0x3e
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccLvWhM6.s 			page 14
+
+
+ 419 0019 0B       		.uleb128 0xb
+ 420 001a 03       		.uleb128 0x3
+ 421 001b 0E       		.uleb128 0xe
+ 422 001c 00       		.byte	0
+ 423 001d 00       		.byte	0
+ 424 001e 03       		.uleb128 0x3
+ 425 001f 24       		.uleb128 0x24
+ 426 0020 00       		.byte	0
+ 427 0021 0B       		.uleb128 0xb
+ 428 0022 0B       		.uleb128 0xb
+ 429 0023 3E       		.uleb128 0x3e
+ 430 0024 0B       		.uleb128 0xb
+ 431 0025 03       		.uleb128 0x3
+ 432 0026 08       		.uleb128 0x8
+ 433 0027 00       		.byte	0
+ 434 0028 00       		.byte	0
+ 435 0029 04       		.uleb128 0x4
+ 436 002a 16       		.uleb128 0x16
+ 437 002b 00       		.byte	0
+ 438 002c 03       		.uleb128 0x3
+ 439 002d 0E       		.uleb128 0xe
+ 440 002e 3A       		.uleb128 0x3a
+ 441 002f 0B       		.uleb128 0xb
+ 442 0030 3B       		.uleb128 0x3b
+ 443 0031 05       		.uleb128 0x5
+ 444 0032 49       		.uleb128 0x49
+ 445 0033 13       		.uleb128 0x13
+ 446 0034 00       		.byte	0
+ 447 0035 00       		.byte	0
+ 448 0036 05       		.uleb128 0x5
+ 449 0037 35       		.uleb128 0x35
+ 450 0038 00       		.byte	0
+ 451 0039 49       		.uleb128 0x49
+ 452 003a 13       		.uleb128 0x13
+ 453 003b 00       		.byte	0
+ 454 003c 00       		.byte	0
+ 455 003d 06       		.uleb128 0x6
+ 456 003e 2E       		.uleb128 0x2e
+ 457 003f 00       		.byte	0
+ 458 0040 3F       		.uleb128 0x3f
+ 459 0041 19       		.uleb128 0x19
+ 460 0042 03       		.uleb128 0x3
+ 461 0043 0E       		.uleb128 0xe
+ 462 0044 3A       		.uleb128 0x3a
+ 463 0045 0B       		.uleb128 0xb
+ 464 0046 3B       		.uleb128 0x3b
+ 465 0047 0B       		.uleb128 0xb
+ 466 0048 27       		.uleb128 0x27
+ 467 0049 19       		.uleb128 0x19
+ 468 004a 11       		.uleb128 0x11
+ 469 004b 01       		.uleb128 0x1
+ 470 004c 12       		.uleb128 0x12
+ 471 004d 06       		.uleb128 0x6
+ 472 004e 40       		.uleb128 0x40
+ 473 004f 18       		.uleb128 0x18
+ 474 0050 9742     		.uleb128 0x2117
+ 475 0052 19       		.uleb128 0x19
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccLvWhM6.s 			page 15
+
+
+ 476 0053 00       		.byte	0
+ 477 0054 00       		.byte	0
+ 478 0055 07       		.uleb128 0x7
+ 479 0056 2E       		.uleb128 0x2e
+ 480 0057 01       		.byte	0x1
+ 481 0058 3F       		.uleb128 0x3f
+ 482 0059 19       		.uleb128 0x19
+ 483 005a 03       		.uleb128 0x3
+ 484 005b 0E       		.uleb128 0xe
+ 485 005c 3A       		.uleb128 0x3a
+ 486 005d 0B       		.uleb128 0xb
+ 487 005e 3B       		.uleb128 0x3b
+ 488 005f 05       		.uleb128 0x5
+ 489 0060 27       		.uleb128 0x27
+ 490 0061 19       		.uleb128 0x19
+ 491 0062 11       		.uleb128 0x11
+ 492 0063 01       		.uleb128 0x1
+ 493 0064 12       		.uleb128 0x12
+ 494 0065 06       		.uleb128 0x6
+ 495 0066 40       		.uleb128 0x40
+ 496 0067 18       		.uleb128 0x18
+ 497 0068 9742     		.uleb128 0x2117
+ 498 006a 19       		.uleb128 0x19
+ 499 006b 01       		.uleb128 0x1
+ 500 006c 13       		.uleb128 0x13
+ 501 006d 00       		.byte	0
+ 502 006e 00       		.byte	0
+ 503 006f 08       		.uleb128 0x8
+ 504 0070 05       		.uleb128 0x5
+ 505 0071 00       		.byte	0
+ 506 0072 03       		.uleb128 0x3
+ 507 0073 0E       		.uleb128 0xe
+ 508 0074 3A       		.uleb128 0x3a
+ 509 0075 0B       		.uleb128 0xb
+ 510 0076 3B       		.uleb128 0x3b
+ 511 0077 05       		.uleb128 0x5
+ 512 0078 49       		.uleb128 0x49
+ 513 0079 13       		.uleb128 0x13
+ 514 007a 02       		.uleb128 0x2
+ 515 007b 17       		.uleb128 0x17
+ 516 007c 00       		.byte	0
+ 517 007d 00       		.byte	0
+ 518 007e 09       		.uleb128 0x9
+ 519 007f 34       		.uleb128 0x34
+ 520 0080 00       		.byte	0
+ 521 0081 03       		.uleb128 0x3
+ 522 0082 0E       		.uleb128 0xe
+ 523 0083 3A       		.uleb128 0x3a
+ 524 0084 0B       		.uleb128 0xb
+ 525 0085 3B       		.uleb128 0x3b
+ 526 0086 05       		.uleb128 0x5
+ 527 0087 49       		.uleb128 0x49
+ 528 0088 13       		.uleb128 0x13
+ 529 0089 02       		.uleb128 0x2
+ 530 008a 17       		.uleb128 0x17
+ 531 008b 00       		.byte	0
+ 532 008c 00       		.byte	0
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccLvWhM6.s 			page 16
+
+
+ 533 008d 0A       		.uleb128 0xa
+ 534 008e 2E       		.uleb128 0x2e
+ 535 008f 01       		.byte	0x1
+ 536 0090 3F       		.uleb128 0x3f
+ 537 0091 19       		.uleb128 0x19
+ 538 0092 03       		.uleb128 0x3
+ 539 0093 0E       		.uleb128 0xe
+ 540 0094 3A       		.uleb128 0x3a
+ 541 0095 0B       		.uleb128 0xb
+ 542 0096 3B       		.uleb128 0x3b
+ 543 0097 0B       		.uleb128 0xb
+ 544 0098 27       		.uleb128 0x27
+ 545 0099 19       		.uleb128 0x19
+ 546 009a 11       		.uleb128 0x11
+ 547 009b 01       		.uleb128 0x1
+ 548 009c 12       		.uleb128 0x12
+ 549 009d 06       		.uleb128 0x6
+ 550 009e 40       		.uleb128 0x40
+ 551 009f 18       		.uleb128 0x18
+ 552 00a0 9742     		.uleb128 0x2117
+ 553 00a2 19       		.uleb128 0x19
+ 554 00a3 01       		.uleb128 0x1
+ 555 00a4 13       		.uleb128 0x13
+ 556 00a5 00       		.byte	0
+ 557 00a6 00       		.byte	0
+ 558 00a7 0B       		.uleb128 0xb
+ 559 00a8 34       		.uleb128 0x34
+ 560 00a9 00       		.byte	0
+ 561 00aa 03       		.uleb128 0x3
+ 562 00ab 08       		.uleb128 0x8
+ 563 00ac 3A       		.uleb128 0x3a
+ 564 00ad 0B       		.uleb128 0xb
+ 565 00ae 3B       		.uleb128 0x3b
+ 566 00af 0B       		.uleb128 0xb
+ 567 00b0 49       		.uleb128 0x49
+ 568 00b1 13       		.uleb128 0x13
+ 569 00b2 1C       		.uleb128 0x1c
+ 570 00b3 0A       		.uleb128 0xa
+ 571 00b4 00       		.byte	0
+ 572 00b5 00       		.byte	0
+ 573 00b6 0C       		.uleb128 0xc
+ 574 00b7 898201   		.uleb128 0x4109
+ 575 00ba 01       		.byte	0x1
+ 576 00bb 11       		.uleb128 0x11
+ 577 00bc 01       		.uleb128 0x1
+ 578 00bd 31       		.uleb128 0x31
+ 579 00be 13       		.uleb128 0x13
+ 580 00bf 00       		.byte	0
+ 581 00c0 00       		.byte	0
+ 582 00c1 0D       		.uleb128 0xd
+ 583 00c2 8A8201   		.uleb128 0x410a
+ 584 00c5 00       		.byte	0
+ 585 00c6 02       		.uleb128 0x2
+ 586 00c7 18       		.uleb128 0x18
+ 587 00c8 9142     		.uleb128 0x2111
+ 588 00ca 18       		.uleb128 0x18
+ 589 00cb 00       		.byte	0
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccLvWhM6.s 			page 17
+
+
+ 590 00cc 00       		.byte	0
+ 591 00cd 0E       		.uleb128 0xe
+ 592 00ce 898201   		.uleb128 0x4109
+ 593 00d1 00       		.byte	0
+ 594 00d2 11       		.uleb128 0x11
+ 595 00d3 01       		.uleb128 0x1
+ 596 00d4 31       		.uleb128 0x31
+ 597 00d5 13       		.uleb128 0x13
+ 598 00d6 00       		.byte	0
+ 599 00d7 00       		.byte	0
+ 600 00d8 0F       		.uleb128 0xf
+ 601 00d9 34       		.uleb128 0x34
+ 602 00da 00       		.byte	0
+ 603 00db 03       		.uleb128 0x3
+ 604 00dc 0E       		.uleb128 0xe
+ 605 00dd 3A       		.uleb128 0x3a
+ 606 00de 0B       		.uleb128 0xb
+ 607 00df 3B       		.uleb128 0x3b
+ 608 00e0 0B       		.uleb128 0xb
+ 609 00e1 49       		.uleb128 0x49
+ 610 00e2 13       		.uleb128 0x13
+ 611 00e3 3F       		.uleb128 0x3f
+ 612 00e4 19       		.uleb128 0x19
+ 613 00e5 02       		.uleb128 0x2
+ 614 00e6 18       		.uleb128 0x18
+ 615 00e7 00       		.byte	0
+ 616 00e8 00       		.byte	0
+ 617 00e9 00       		.byte	0
+ 618              		.section	.debug_loc,"",%progbits
+ 619              	.Ldebug_loc0:
+ 620              	.LLST0:
+ 621 0000 00000000 		.4byte	.LVL0
+ 622 0004 0C000000 		.4byte	.LVL2
+ 623 0008 0100     		.2byte	0x1
+ 624 000a 50       		.byte	0x50
+ 625 000b 0C000000 		.4byte	.LVL2
+ 626 000f 18000000 		.4byte	.LFE4
+ 627 0013 0400     		.2byte	0x4
+ 628 0015 F3       		.byte	0xf3
+ 629 0016 01       		.uleb128 0x1
+ 630 0017 50       		.byte	0x50
+ 631 0018 9F       		.byte	0x9f
+ 632 0019 00000000 		.4byte	0
+ 633 001d 00000000 		.4byte	0
+ 634              	.LLST1:
+ 635 0021 08000000 		.4byte	.LVL1
+ 636 0025 0E000000 		.4byte	.LVL3
+ 637 0029 0100     		.2byte	0x1
+ 638 002b 53       		.byte	0x53
+ 639 002c 0E000000 		.4byte	.LVL3
+ 640 0030 18000000 		.4byte	.LFE4
+ 641 0034 0100     		.2byte	0x1
+ 642 0036 50       		.byte	0x50
+ 643 0037 00000000 		.4byte	0
+ 644 003b 00000000 		.4byte	0
+ 645              		.section	.debug_aranges,"",%progbits
+ 646 0000 3C000000 		.4byte	0x3c
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccLvWhM6.s 			page 18
+
+
+ 647 0004 0200     		.2byte	0x2
+ 648 0006 00000000 		.4byte	.Ldebug_info0
+ 649 000a 04       		.byte	0x4
+ 650 000b 00       		.byte	0
+ 651 000c 0000     		.2byte	0
+ 652 000e 0000     		.2byte	0
+ 653 0010 00000000 		.4byte	.LFB1
+ 654 0014 28000000 		.4byte	.LFE1-.LFB1
+ 655 0018 00000000 		.4byte	.LFB3
+ 656 001c 1C000000 		.4byte	.LFE3-.LFB3
+ 657 0020 00000000 		.4byte	.LFB4
+ 658 0024 18000000 		.4byte	.LFE4-.LFB4
+ 659 0028 00000000 		.4byte	.LFB0
+ 660 002c 2C000000 		.4byte	.LFE0-.LFB0
+ 661 0030 00000000 		.4byte	.LFB2
+ 662 0034 1C000000 		.4byte	.LFE2-.LFB2
+ 663 0038 00000000 		.4byte	0
+ 664 003c 00000000 		.4byte	0
+ 665              		.section	.debug_ranges,"",%progbits
+ 666              	.Ldebug_ranges0:
+ 667 0000 00000000 		.4byte	.LFB1
+ 668 0004 28000000 		.4byte	.LFE1
+ 669 0008 00000000 		.4byte	.LFB3
+ 670 000c 1C000000 		.4byte	.LFE3
+ 671 0010 00000000 		.4byte	.LFB4
+ 672 0014 18000000 		.4byte	.LFE4
+ 673 0018 00000000 		.4byte	.LFB0
+ 674 001c 2C000000 		.4byte	.LFE0
+ 675 0020 00000000 		.4byte	.LFB2
+ 676 0024 1C000000 		.4byte	.LFE2
+ 677 0028 00000000 		.4byte	0
+ 678 002c 00000000 		.4byte	0
+ 679              		.section	.debug_line,"",%progbits
+ 680              	.Ldebug_line0:
+ 681 0000 C2000000 		.section	.debug_str,"MS",%progbits,1
+ 681      02005400 
+ 681      00000201 
+ 681      FB0E0D00 
+ 681      01010101 
+ 682              	.LASF6:
+ 683 0000 6C6F6E67 		.ascii	"long long int\000"
+ 683      206C6F6E 
+ 683      6720696E 
+ 683      7400
+ 684              	.LASF8:
+ 685 000e 756E7369 		.ascii	"unsigned int\000"
+ 685      676E6564 
+ 685      20696E74 
+ 685      00
+ 686              	.LASF22:
+ 687 001b 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 687      43313120 
+ 687      352E342E 
+ 687      31203230 
+ 687      31363036 
+ 688 004e 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 688      20726576 
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccLvWhM6.s 			page 19
+
+
+ 688      6973696F 
+ 688      6E203233 
+ 688      37373135 
+ 689 0081 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 689      66756E63 
+ 689      74696F6E 
+ 689      2D736563 
+ 689      74696F6E 
+ 690              	.LASF12:
+ 691 00a9 75696E74 		.ascii	"uint8\000"
+ 691      3800
+ 692              	.LASF5:
+ 693 00af 6C6F6E67 		.ascii	"long unsigned int\000"
+ 693      20756E73 
+ 693      69676E65 
+ 693      6420696E 
+ 693      7400
+ 694              	.LASF24:
+ 695 00c1 433A5C55 		.ascii	"C:\\Users\\Krist\\OneDrive\\Dokumenter\\GitHub\\pla"
+ 695      73657273 
+ 695      5C4B7269 
+ 695      73745C4F 
+ 695      6E654472 
+ 696 00ee 746F6F6E 		.ascii	"tooning\\PSoC\\PeakDetector\\FirstTry.cydsn\000"
+ 696      696E675C 
+ 696      50536F43 
+ 696      5C506561 
+ 696      6B446574 
+ 697              	.LASF7:
+ 698 0117 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 698      206C6F6E 
+ 698      6720756E 
+ 698      7369676E 
+ 698      65642069 
+ 699              	.LASF9:
+ 700 012e 666C6F61 		.ascii	"float\000"
+ 700      7400
+ 701              	.LASF17:
+ 702 0134 5065616B 		.ascii	"Peak_Detector_A_Mixer_1_Stop\000"
+ 702      5F446574 
+ 702      6563746F 
+ 702      725F415F 
+ 702      4D697865 
+ 703              	.LASF1:
+ 704 0151 756E7369 		.ascii	"unsigned char\000"
+ 704      676E6564 
+ 704      20636861 
+ 704      7200
+ 705              	.LASF11:
+ 706 015f 63686172 		.ascii	"char\000"
+ 706      00
+ 707              	.LASF18:
+ 708 0164 5065616B 		.ascii	"Peak_Detector_A_Mixer_1_SetPower\000"
+ 708      5F446574 
+ 708      6563746F 
+ 708      725F415F 
+ 708      4D697865 
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccLvWhM6.s 			page 20
+
+
+ 709              	.LASF4:
+ 710 0185 6C6F6E67 		.ascii	"long int\000"
+ 710      20696E74 
+ 710      00
+ 711              	.LASF23:
+ 712 018e 47656E65 		.ascii	"Generated_Source\\PSoC5\\Peak_Detector_A_Mixer_1.c\000"
+ 712      72617465 
+ 712      645F536F 
+ 712      75726365 
+ 712      5C50536F 
+ 713              	.LASF14:
+ 714 01bf 6C6F6E67 		.ascii	"long double\000"
+ 714      20646F75 
+ 714      626C6500 
+ 715              	.LASF10:
+ 716 01cb 646F7562 		.ascii	"double\000"
+ 716      6C6500
+ 717              	.LASF20:
+ 718 01d2 746D7043 		.ascii	"tmpCR\000"
+ 718      5200
+ 719              	.LASF3:
+ 720 01d8 73686F72 		.ascii	"short unsigned int\000"
+ 720      7420756E 
+ 720      7369676E 
+ 720      65642069 
+ 720      6E7400
+ 721              	.LASF0:
+ 722 01eb 7369676E 		.ascii	"signed char\000"
+ 722      65642063 
+ 722      68617200 
+ 723              	.LASF16:
+ 724 01f7 5065616B 		.ascii	"Peak_Detector_A_Mixer_1_Enable\000"
+ 724      5F446574 
+ 724      6563746F 
+ 724      725F415F 
+ 724      4D697865 
+ 725              	.LASF21:
+ 726 0216 5065616B 		.ascii	"Peak_Detector_A_Mixer_1_Start\000"
+ 726      5F446574 
+ 726      6563746F 
+ 726      725F415F 
+ 726      4D697865 
+ 727              	.LASF15:
+ 728 0234 73697A65 		.ascii	"sizetype\000"
+ 728      74797065 
+ 728      00
+ 729              	.LASF2:
+ 730 023d 73686F72 		.ascii	"short int\000"
+ 730      7420696E 
+ 730      7400
+ 731              	.LASF13:
+ 732 0247 72656738 		.ascii	"reg8\000"
+ 732      00
+ 733              	.LASF19:
+ 734 024c 5065616B 		.ascii	"Peak_Detector_A_Mixer_1_Init\000"
+ 734      5F446574 
+ 734      6563746F 
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccLvWhM6.s 			page 21
+
+
+ 734      725F415F 
+ 734      4D697865 
+ 735              	.LASF26:
+ 736 0269 5065616B 		.ascii	"Peak_Detector_A_Mixer_1_initVar\000"
+ 736      5F446574 
+ 736      6563746F 
+ 736      725F415F 
+ 736      4D697865 
+ 737              	.LASF25:
+ 738 0289 706F7765 		.ascii	"power\000"
+ 738      7200
+ 739              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

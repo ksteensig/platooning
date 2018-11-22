@@ -1,0 +1,865 @@
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccRkbMNb.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"ADC_SAR_1_PM.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.ADC_SAR_1_SaveConfig,"ax",%progbits
+  20              		.align	2
+  21              		.global	ADC_SAR_1_SaveConfig
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	ADC_SAR_1_SaveConfig, %function
+  25              	ADC_SAR_1_SaveConfig:
+  26              	.LFB0:
+  27              		.file 1 "Generated_Source\\PSoC5\\ADC_SAR_1_PM.c"
+   1:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * File Name: ADC_SAR_1_PM.c
+   3:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Version 3.0
+   4:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *
+   5:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Description:
+   6:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *  This file provides Sleep/WakeUp APIs functionality.
+   7:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *
+   8:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Note:
+   9:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *
+  10:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** ********************************************************************************
+  11:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
+  12:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * You may use this file only in accordance with the license, terms, conditions,
+  13:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  14:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * the software package with which this file was provided.
+  15:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *******************************************************************************/
+  16:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** 
+  17:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** #include "ADC_SAR_1.h"
+  18:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** 
+  19:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** 
+  20:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** /***************************************
+  21:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Local data allocation
+  22:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** ***************************************/
+  23:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** 
+  24:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** static ADC_SAR_1_BACKUP_STRUCT  ADC_SAR_1_backup =
+  25:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** {
+  26:Generated_Source\PSoC5/ADC_SAR_1_PM.c ****     ADC_SAR_1_DISABLED
+  27:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** };
+  28:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** 
+  29:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** 
+  30:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** /*******************************************************************************
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccRkbMNb.s 			page 2
+
+
+  31:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Function Name: ADC_SAR_1_SaveConfig
+  32:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** ********************************************************************************
+  33:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *
+  34:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Summary:
+  35:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *  Saves the current user configuration.
+  36:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *
+  37:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Parameters:
+  38:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *  None.
+  39:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *
+  40:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Return:
+  41:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *  None.
+  42:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *
+  43:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *******************************************************************************/
+  44:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** void ADC_SAR_1_SaveConfig(void)
+  45:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** {
+  28              		.loc 1 45 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33 0000 7047     		bx	lr
+  34              		.cfi_endproc
+  35              	.LFE0:
+  36              		.size	ADC_SAR_1_SaveConfig, .-ADC_SAR_1_SaveConfig
+  37 0002 00BF     		.section	.text.ADC_SAR_1_RestoreConfig,"ax",%progbits
+  38              		.align	2
+  39              		.global	ADC_SAR_1_RestoreConfig
+  40              		.thumb
+  41              		.thumb_func
+  42              		.type	ADC_SAR_1_RestoreConfig, %function
+  43              	ADC_SAR_1_RestoreConfig:
+  44              	.LFB1:
+  46:Generated_Source\PSoC5/ADC_SAR_1_PM.c ****     /* All configuration registers are marked as [reset_all_retention] */
+  47:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** }
+  48:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** 
+  49:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** 
+  50:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** /*******************************************************************************
+  51:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Function Name: ADC_SAR_1_RestoreConfig
+  52:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** ********************************************************************************
+  53:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *
+  54:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Summary:
+  55:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *  Restores the current user configuration.
+  56:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *
+  57:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Parameters:
+  58:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *  None.
+  59:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *
+  60:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Return:
+  61:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *  None.
+  62:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *
+  63:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *******************************************************************************/
+  64:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** void ADC_SAR_1_RestoreConfig(void)
+  65:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** {
+  45              		.loc 1 65 0
+  46              		.cfi_startproc
+  47              		@ args = 0, pretend = 0, frame = 0
+  48              		@ frame_needed = 0, uses_anonymous_args = 0
+  49              		@ link register save eliminated.
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccRkbMNb.s 			page 3
+
+
+  50 0000 7047     		bx	lr
+  51              		.cfi_endproc
+  52              	.LFE1:
+  53              		.size	ADC_SAR_1_RestoreConfig, .-ADC_SAR_1_RestoreConfig
+  54 0002 00BF     		.section	.text.ADC_SAR_1_Sleep,"ax",%progbits
+  55              		.align	2
+  56              		.global	ADC_SAR_1_Sleep
+  57              		.thumb
+  58              		.thumb_func
+  59              		.type	ADC_SAR_1_Sleep, %function
+  60              	ADC_SAR_1_Sleep:
+  61              	.LFB2:
+  66:Generated_Source\PSoC5/ADC_SAR_1_PM.c ****     /* All congiguration registers are marked as [reset_all_retention] */
+  67:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** }
+  68:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** 
+  69:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** 
+  70:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** /*******************************************************************************
+  71:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Function Name: ADC_SAR_1_Sleep
+  72:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** ********************************************************************************
+  73:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *
+  74:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Summary:
+  75:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *  This is the preferred routine to prepare the component for sleep.
+  76:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *  The ADC_SAR_1_Sleep() routine saves the current component state,
+  77:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *  then it calls the ADC_Stop() function.
+  78:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *
+  79:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Parameters:
+  80:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *  None.
+  81:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *
+  82:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Return:
+  83:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *  None.
+  84:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *
+  85:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Global Variables:
+  86:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *  ADC_SAR_1_backup - The structure field 'enableState' is modified
+  87:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *  depending on the enable state of the block before entering to sleep mode.
+  88:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *
+  89:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *******************************************************************************/
+  90:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** void ADC_SAR_1_Sleep(void)
+  91:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** {
+  62              		.loc 1 91 0
+  63              		.cfi_startproc
+  64              		@ args = 0, pretend = 0, frame = 0
+  65              		@ frame_needed = 0, uses_anonymous_args = 0
+  66              		.loc 1 91 0
+  67 0000 08B5     		push	{r3, lr}
+  68              		.cfi_def_cfa_offset 8
+  69              		.cfi_offset 3, -8
+  70              		.cfi_offset 14, -4
+  92:Generated_Source\PSoC5/ADC_SAR_1_PM.c ****     if((ADC_SAR_1_PWRMGR_SAR_REG  & ADC_SAR_1_ACT_PWR_SAR_EN) != 0u)
+  71              		.loc 1 92 0
+  72 0002 0C4B     		ldr	r3, .L9
+  73 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  74 0006 13F0020F 		tst	r3, #2
+  75 000a 0ED0     		beq	.L4
+  93:Generated_Source\PSoC5/ADC_SAR_1_PM.c ****     {
+  94:Generated_Source\PSoC5/ADC_SAR_1_PM.c ****         if((ADC_SAR_1_SAR_CSR0_REG & ADC_SAR_1_SAR_SOF_START_CONV) != 0u)
+  76              		.loc 1 94 0
+  77 000c 0A4B     		ldr	r3, .L9+4
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccRkbMNb.s 			page 4
+
+
+  78 000e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  79 0010 13F0010F 		tst	r3, #1
+  80 0014 03D0     		beq	.L5
+  95:Generated_Source\PSoC5/ADC_SAR_1_PM.c ****         {
+  96:Generated_Source\PSoC5/ADC_SAR_1_PM.c ****             ADC_SAR_1_backup.enableState = ADC_SAR_1_ENABLED | ADC_SAR_1_STARTED;
+  81              		.loc 1 96 0
+  82 0016 0322     		movs	r2, #3
+  83 0018 084B     		ldr	r3, .L9+8
+  84 001a 1A70     		strb	r2, [r3]
+  85 001c 02E0     		b	.L6
+  86              	.L5:
+  97:Generated_Source\PSoC5/ADC_SAR_1_PM.c ****         }
+  98:Generated_Source\PSoC5/ADC_SAR_1_PM.c ****         else
+  99:Generated_Source\PSoC5/ADC_SAR_1_PM.c ****         {
+ 100:Generated_Source\PSoC5/ADC_SAR_1_PM.c ****             ADC_SAR_1_backup.enableState = ADC_SAR_1_ENABLED;
+  87              		.loc 1 100 0
+  88 001e 0122     		movs	r2, #1
+  89 0020 064B     		ldr	r3, .L9+8
+  90 0022 1A70     		strb	r2, [r3]
+  91              	.L6:
+ 101:Generated_Source\PSoC5/ADC_SAR_1_PM.c ****         }
+ 102:Generated_Source\PSoC5/ADC_SAR_1_PM.c ****         ADC_SAR_1_Stop();
+  92              		.loc 1 102 0
+  93 0024 FFF7FEFF 		bl	ADC_SAR_1_Stop
+  94              	.LVL0:
+  95 0028 08BD     		pop	{r3, pc}
+  96              	.L4:
+ 103:Generated_Source\PSoC5/ADC_SAR_1_PM.c ****     }
+ 104:Generated_Source\PSoC5/ADC_SAR_1_PM.c ****     else
+ 105:Generated_Source\PSoC5/ADC_SAR_1_PM.c ****     {
+ 106:Generated_Source\PSoC5/ADC_SAR_1_PM.c ****         ADC_SAR_1_backup.enableState = ADC_SAR_1_DISABLED;
+  97              		.loc 1 106 0
+  98 002a 0022     		movs	r2, #0
+  99 002c 034B     		ldr	r3, .L9+8
+ 100 002e 1A70     		strb	r2, [r3]
+ 101 0030 08BD     		pop	{r3, pc}
+ 102              	.L10:
+ 103 0032 00BF     		.align	2
+ 104              	.L9:
+ 105 0034 AB430040 		.word	1073759147
+ 106 0038 08590040 		.word	1073764616
+ 107 003c 00000000 		.word	.LANCHOR0
+ 108              		.cfi_endproc
+ 109              	.LFE2:
+ 110              		.size	ADC_SAR_1_Sleep, .-ADC_SAR_1_Sleep
+ 111              		.section	.text.ADC_SAR_1_Wakeup,"ax",%progbits
+ 112              		.align	2
+ 113              		.global	ADC_SAR_1_Wakeup
+ 114              		.thumb
+ 115              		.thumb_func
+ 116              		.type	ADC_SAR_1_Wakeup, %function
+ 117              	ADC_SAR_1_Wakeup:
+ 118              	.LFB3:
+ 107:Generated_Source\PSoC5/ADC_SAR_1_PM.c ****     }
+ 108:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** }
+ 109:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** 
+ 110:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** 
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccRkbMNb.s 			page 5
+
+
+ 111:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** /*******************************************************************************
+ 112:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Function Name: ADC_SAR_1_Wakeup
+ 113:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** ********************************************************************************
+ 114:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *
+ 115:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Summary:
+ 116:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *  This is the preferred routine to restore the component to the state when
+ 117:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *  ADC_SAR_1_Sleep() was called. If the component was enabled before the
+ 118:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *  ADC_SAR_1_Sleep() function was called, the
+ 119:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *  ADC_SAR_1_Wakeup() function also re-enables the component.
+ 120:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *
+ 121:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Parameters:
+ 122:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *  None.
+ 123:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *
+ 124:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Return:
+ 125:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *  None.
+ 126:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *
+ 127:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** * Global Variables:
+ 128:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *  ADC_SAR_1_backup - The structure field 'enableState' is used to
+ 129:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *  restore the enable state of block after wakeup from sleep mode.
+ 130:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *
+ 131:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** *******************************************************************************/
+ 132:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** void ADC_SAR_1_Wakeup(void)
+ 133:Generated_Source\PSoC5/ADC_SAR_1_PM.c **** {
+ 119              		.loc 1 133 0
+ 120              		.cfi_startproc
+ 121              		@ args = 0, pretend = 0, frame = 0
+ 122              		@ frame_needed = 0, uses_anonymous_args = 0
+ 123 0000 08B5     		push	{r3, lr}
+ 124              		.cfi_def_cfa_offset 8
+ 125              		.cfi_offset 3, -8
+ 126              		.cfi_offset 14, -4
+ 134:Generated_Source\PSoC5/ADC_SAR_1_PM.c ****     if(ADC_SAR_1_backup.enableState != ADC_SAR_1_DISABLED)
+ 127              		.loc 1 134 0
+ 128 0002 034B     		ldr	r3, .L14
+ 129 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 130 0006 0BB1     		cbz	r3, .L11
+ 135:Generated_Source\PSoC5/ADC_SAR_1_PM.c ****     {
+ 136:Generated_Source\PSoC5/ADC_SAR_1_PM.c ****         ADC_SAR_1_Enable();
+ 131              		.loc 1 136 0
+ 132 0008 FFF7FEFF 		bl	ADC_SAR_1_Enable
+ 133              	.LVL1:
+ 134              	.L11:
+ 135 000c 08BD     		pop	{r3, pc}
+ 136              	.L15:
+ 137 000e 00BF     		.align	2
+ 138              	.L14:
+ 139 0010 00000000 		.word	.LANCHOR0
+ 140              		.cfi_endproc
+ 141              	.LFE3:
+ 142              		.size	ADC_SAR_1_Wakeup, .-ADC_SAR_1_Wakeup
+ 143              		.bss
+ 144              		.align	2
+ 145              		.set	.LANCHOR0,. + 0
+ 146              		.type	ADC_SAR_1_backup, %object
+ 147              		.size	ADC_SAR_1_backup, 1
+ 148              	ADC_SAR_1_backup:
+ 149 0000 00       		.space	1
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccRkbMNb.s 			page 6
+
+
+ 150              		.text
+ 151              	.Letext0:
+ 152              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 153              		.file 3 "Generated_Source\\PSoC5\\ADC_SAR_1.h"
+ 154              		.section	.debug_info,"",%progbits
+ 155              	.Ldebug_info0:
+ 156 0000 41010000 		.4byte	0x141
+ 157 0004 0400     		.2byte	0x4
+ 158 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 159 000a 04       		.byte	0x4
+ 160 000b 01       		.uleb128 0x1
+ 161 000c B9000000 		.4byte	.LASF21
+ 162 0010 0C       		.byte	0xc
+ 163 0011 00000000 		.4byte	.LASF22
+ 164 0015 3E000000 		.4byte	.LASF23
+ 165 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 166 001d 00000000 		.4byte	0
+ 167 0021 00000000 		.4byte	.Ldebug_line0
+ 168 0025 02       		.uleb128 0x2
+ 169 0026 01       		.byte	0x1
+ 170 0027 06       		.byte	0x6
+ 171 0028 42020000 		.4byte	.LASF0
+ 172 002c 02       		.uleb128 0x2
+ 173 002d 01       		.byte	0x1
+ 174 002e 08       		.byte	0x8
+ 175 002f AB000000 		.4byte	.LASF1
+ 176 0033 02       		.uleb128 0x2
+ 177 0034 02       		.byte	0x2
+ 178 0035 05       		.byte	0x5
+ 179 0036 1D020000 		.4byte	.LASF2
+ 180 003a 02       		.uleb128 0x2
+ 181 003b 02       		.byte	0x2
+ 182 003c 07       		.byte	0x7
+ 183 003d 5E010000 		.4byte	.LASF3
+ 184 0041 02       		.uleb128 0x2
+ 185 0042 04       		.byte	0x4
+ 186 0043 05       		.byte	0x5
+ 187 0044 2D020000 		.4byte	.LASF4
+ 188 0048 02       		.uleb128 0x2
+ 189 0049 04       		.byte	0x4
+ 190 004a 07       		.byte	0x7
+ 191 004b 4C010000 		.4byte	.LASF5
+ 192 004f 02       		.uleb128 0x2
+ 193 0050 08       		.byte	0x8
+ 194 0051 05       		.byte	0x5
+ 195 0052 E6010000 		.4byte	.LASF6
+ 196 0056 02       		.uleb128 0x2
+ 197 0057 08       		.byte	0x8
+ 198 0058 07       		.byte	0x7
+ 199 0059 BF010000 		.4byte	.LASF7
+ 200 005d 03       		.uleb128 0x3
+ 201 005e 04       		.byte	0x4
+ 202 005f 05       		.byte	0x5
+ 203 0060 696E7400 		.ascii	"int\000"
+ 204 0064 02       		.uleb128 0x2
+ 205 0065 04       		.byte	0x4
+ 206 0066 07       		.byte	0x7
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccRkbMNb.s 			page 7
+
+
+ 207 0067 9A010000 		.4byte	.LASF8
+ 208 006b 04       		.uleb128 0x4
+ 209 006c 27020000 		.4byte	.LASF12
+ 210 0070 02       		.byte	0x2
+ 211 0071 9201     		.2byte	0x192
+ 212 0073 2C000000 		.4byte	0x2c
+ 213 0077 02       		.uleb128 0x2
+ 214 0078 04       		.byte	0x4
+ 215 0079 04       		.byte	0x4
+ 216 007a A5000000 		.4byte	.LASF9
+ 217 007e 02       		.uleb128 0x2
+ 218 007f 08       		.byte	0x8
+ 219 0080 04       		.byte	0x4
+ 220 0081 82010000 		.4byte	.LASF10
+ 221 0085 02       		.uleb128 0x2
+ 222 0086 01       		.byte	0x1
+ 223 0087 08       		.byte	0x8
+ 224 0088 F4010000 		.4byte	.LASF11
+ 225 008c 04       		.uleb128 0x4
+ 226 008d 47010000 		.4byte	.LASF13
+ 227 0091 02       		.byte	0x2
+ 228 0092 3C02     		.2byte	0x23c
+ 229 0094 98000000 		.4byte	0x98
+ 230 0098 05       		.uleb128 0x5
+ 231 0099 6B000000 		.4byte	0x6b
+ 232 009d 06       		.uleb128 0x6
+ 233 009e 01       		.byte	0x1
+ 234 009f 03       		.byte	0x3
+ 235 00a0 2A       		.byte	0x2a
+ 236 00a1 B2000000 		.4byte	0xb2
+ 237 00a5 07       		.uleb128 0x7
+ 238 00a6 36020000 		.4byte	.LASF24
+ 239 00aa 03       		.byte	0x3
+ 240 00ab 2C       		.byte	0x2c
+ 241 00ac 6B000000 		.4byte	0x6b
+ 242 00b0 00       		.byte	0
+ 243 00b1 00       		.byte	0
+ 244 00b2 08       		.uleb128 0x8
+ 245 00b3 26000000 		.4byte	.LASF14
+ 246 00b7 03       		.byte	0x3
+ 247 00b8 2D       		.byte	0x2d
+ 248 00b9 9D000000 		.4byte	0x9d
+ 249 00bd 09       		.uleb128 0x9
+ 250 00be 08020000 		.4byte	.LASF15
+ 251 00c2 01       		.byte	0x1
+ 252 00c3 2C       		.byte	0x2c
+ 253 00c4 00000000 		.4byte	.LFB0
+ 254 00c8 02000000 		.4byte	.LFE0-.LFB0
+ 255 00cc 01       		.uleb128 0x1
+ 256 00cd 9C       		.byte	0x9c
+ 257 00ce 09       		.uleb128 0x9
+ 258 00cf A7010000 		.4byte	.LASF16
+ 259 00d3 01       		.byte	0x1
+ 260 00d4 40       		.byte	0x40
+ 261 00d5 00000000 		.4byte	.LFB1
+ 262 00d9 02000000 		.4byte	.LFE1-.LFB1
+ 263 00dd 01       		.uleb128 0x1
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccRkbMNb.s 			page 8
+
+
+ 264 00de 9C       		.byte	0x9c
+ 265 00df 0A       		.uleb128 0xa
+ 266 00e0 D6010000 		.4byte	.LASF17
+ 267 00e4 01       		.byte	0x1
+ 268 00e5 5A       		.byte	0x5a
+ 269 00e6 00000000 		.4byte	.LFB2
+ 270 00ea 40000000 		.4byte	.LFE2-.LFB2
+ 271 00ee 01       		.uleb128 0x1
+ 272 00ef 9C       		.byte	0x9c
+ 273 00f0 FE000000 		.4byte	0xfe
+ 274 00f4 0B       		.uleb128 0xb
+ 275 00f5 28000000 		.4byte	.LVL0
+ 276 00f9 2E010000 		.4byte	0x12e
+ 277 00fd 00       		.byte	0
+ 278 00fe 0A       		.uleb128 0xa
+ 279 00ff 94000000 		.4byte	.LASF18
+ 280 0103 01       		.byte	0x1
+ 281 0104 84       		.byte	0x84
+ 282 0105 00000000 		.4byte	.LFB3
+ 283 0109 14000000 		.4byte	.LFE3-.LFB3
+ 284 010d 01       		.uleb128 0x1
+ 285 010e 9C       		.byte	0x9c
+ 286 010f 1D010000 		.4byte	0x11d
+ 287 0113 0B       		.uleb128 0xb
+ 288 0114 0C000000 		.4byte	.LVL1
+ 289 0118 39010000 		.4byte	0x139
+ 290 011c 00       		.byte	0
+ 291 011d 0C       		.uleb128 0xc
+ 292 011e 89010000 		.4byte	.LASF25
+ 293 0122 01       		.byte	0x1
+ 294 0123 18       		.byte	0x18
+ 295 0124 B2000000 		.4byte	0xb2
+ 296 0128 05       		.uleb128 0x5
+ 297 0129 03       		.byte	0x3
+ 298 012a 00000000 		.4byte	ADC_SAR_1_backup
+ 299 012e 0D       		.uleb128 0xd
+ 300 012f F9010000 		.4byte	.LASF19
+ 301 0133 F9010000 		.4byte	.LASF19
+ 302 0137 03       		.byte	0x3
+ 303 0138 35       		.byte	0x35
+ 304 0139 0D       		.uleb128 0xd
+ 305 013a 71010000 		.4byte	.LASF20
+ 306 013e 71010000 		.4byte	.LASF20
+ 307 0142 03       		.byte	0x3
+ 308 0143 44       		.byte	0x44
+ 309 0144 00       		.byte	0
+ 310              		.section	.debug_abbrev,"",%progbits
+ 311              	.Ldebug_abbrev0:
+ 312 0000 01       		.uleb128 0x1
+ 313 0001 11       		.uleb128 0x11
+ 314 0002 01       		.byte	0x1
+ 315 0003 25       		.uleb128 0x25
+ 316 0004 0E       		.uleb128 0xe
+ 317 0005 13       		.uleb128 0x13
+ 318 0006 0B       		.uleb128 0xb
+ 319 0007 03       		.uleb128 0x3
+ 320 0008 0E       		.uleb128 0xe
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccRkbMNb.s 			page 9
+
+
+ 321 0009 1B       		.uleb128 0x1b
+ 322 000a 0E       		.uleb128 0xe
+ 323 000b 55       		.uleb128 0x55
+ 324 000c 17       		.uleb128 0x17
+ 325 000d 11       		.uleb128 0x11
+ 326 000e 01       		.uleb128 0x1
+ 327 000f 10       		.uleb128 0x10
+ 328 0010 17       		.uleb128 0x17
+ 329 0011 00       		.byte	0
+ 330 0012 00       		.byte	0
+ 331 0013 02       		.uleb128 0x2
+ 332 0014 24       		.uleb128 0x24
+ 333 0015 00       		.byte	0
+ 334 0016 0B       		.uleb128 0xb
+ 335 0017 0B       		.uleb128 0xb
+ 336 0018 3E       		.uleb128 0x3e
+ 337 0019 0B       		.uleb128 0xb
+ 338 001a 03       		.uleb128 0x3
+ 339 001b 0E       		.uleb128 0xe
+ 340 001c 00       		.byte	0
+ 341 001d 00       		.byte	0
+ 342 001e 03       		.uleb128 0x3
+ 343 001f 24       		.uleb128 0x24
+ 344 0020 00       		.byte	0
+ 345 0021 0B       		.uleb128 0xb
+ 346 0022 0B       		.uleb128 0xb
+ 347 0023 3E       		.uleb128 0x3e
+ 348 0024 0B       		.uleb128 0xb
+ 349 0025 03       		.uleb128 0x3
+ 350 0026 08       		.uleb128 0x8
+ 351 0027 00       		.byte	0
+ 352 0028 00       		.byte	0
+ 353 0029 04       		.uleb128 0x4
+ 354 002a 16       		.uleb128 0x16
+ 355 002b 00       		.byte	0
+ 356 002c 03       		.uleb128 0x3
+ 357 002d 0E       		.uleb128 0xe
+ 358 002e 3A       		.uleb128 0x3a
+ 359 002f 0B       		.uleb128 0xb
+ 360 0030 3B       		.uleb128 0x3b
+ 361 0031 05       		.uleb128 0x5
+ 362 0032 49       		.uleb128 0x49
+ 363 0033 13       		.uleb128 0x13
+ 364 0034 00       		.byte	0
+ 365 0035 00       		.byte	0
+ 366 0036 05       		.uleb128 0x5
+ 367 0037 35       		.uleb128 0x35
+ 368 0038 00       		.byte	0
+ 369 0039 49       		.uleb128 0x49
+ 370 003a 13       		.uleb128 0x13
+ 371 003b 00       		.byte	0
+ 372 003c 00       		.byte	0
+ 373 003d 06       		.uleb128 0x6
+ 374 003e 13       		.uleb128 0x13
+ 375 003f 01       		.byte	0x1
+ 376 0040 0B       		.uleb128 0xb
+ 377 0041 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccRkbMNb.s 			page 10
+
+
+ 378 0042 3A       		.uleb128 0x3a
+ 379 0043 0B       		.uleb128 0xb
+ 380 0044 3B       		.uleb128 0x3b
+ 381 0045 0B       		.uleb128 0xb
+ 382 0046 01       		.uleb128 0x1
+ 383 0047 13       		.uleb128 0x13
+ 384 0048 00       		.byte	0
+ 385 0049 00       		.byte	0
+ 386 004a 07       		.uleb128 0x7
+ 387 004b 0D       		.uleb128 0xd
+ 388 004c 00       		.byte	0
+ 389 004d 03       		.uleb128 0x3
+ 390 004e 0E       		.uleb128 0xe
+ 391 004f 3A       		.uleb128 0x3a
+ 392 0050 0B       		.uleb128 0xb
+ 393 0051 3B       		.uleb128 0x3b
+ 394 0052 0B       		.uleb128 0xb
+ 395 0053 49       		.uleb128 0x49
+ 396 0054 13       		.uleb128 0x13
+ 397 0055 38       		.uleb128 0x38
+ 398 0056 0B       		.uleb128 0xb
+ 399 0057 00       		.byte	0
+ 400 0058 00       		.byte	0
+ 401 0059 08       		.uleb128 0x8
+ 402 005a 16       		.uleb128 0x16
+ 403 005b 00       		.byte	0
+ 404 005c 03       		.uleb128 0x3
+ 405 005d 0E       		.uleb128 0xe
+ 406 005e 3A       		.uleb128 0x3a
+ 407 005f 0B       		.uleb128 0xb
+ 408 0060 3B       		.uleb128 0x3b
+ 409 0061 0B       		.uleb128 0xb
+ 410 0062 49       		.uleb128 0x49
+ 411 0063 13       		.uleb128 0x13
+ 412 0064 00       		.byte	0
+ 413 0065 00       		.byte	0
+ 414 0066 09       		.uleb128 0x9
+ 415 0067 2E       		.uleb128 0x2e
+ 416 0068 00       		.byte	0
+ 417 0069 3F       		.uleb128 0x3f
+ 418 006a 19       		.uleb128 0x19
+ 419 006b 03       		.uleb128 0x3
+ 420 006c 0E       		.uleb128 0xe
+ 421 006d 3A       		.uleb128 0x3a
+ 422 006e 0B       		.uleb128 0xb
+ 423 006f 3B       		.uleb128 0x3b
+ 424 0070 0B       		.uleb128 0xb
+ 425 0071 27       		.uleb128 0x27
+ 426 0072 19       		.uleb128 0x19
+ 427 0073 11       		.uleb128 0x11
+ 428 0074 01       		.uleb128 0x1
+ 429 0075 12       		.uleb128 0x12
+ 430 0076 06       		.uleb128 0x6
+ 431 0077 40       		.uleb128 0x40
+ 432 0078 18       		.uleb128 0x18
+ 433 0079 9742     		.uleb128 0x2117
+ 434 007b 19       		.uleb128 0x19
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccRkbMNb.s 			page 11
+
+
+ 435 007c 00       		.byte	0
+ 436 007d 00       		.byte	0
+ 437 007e 0A       		.uleb128 0xa
+ 438 007f 2E       		.uleb128 0x2e
+ 439 0080 01       		.byte	0x1
+ 440 0081 3F       		.uleb128 0x3f
+ 441 0082 19       		.uleb128 0x19
+ 442 0083 03       		.uleb128 0x3
+ 443 0084 0E       		.uleb128 0xe
+ 444 0085 3A       		.uleb128 0x3a
+ 445 0086 0B       		.uleb128 0xb
+ 446 0087 3B       		.uleb128 0x3b
+ 447 0088 0B       		.uleb128 0xb
+ 448 0089 27       		.uleb128 0x27
+ 449 008a 19       		.uleb128 0x19
+ 450 008b 11       		.uleb128 0x11
+ 451 008c 01       		.uleb128 0x1
+ 452 008d 12       		.uleb128 0x12
+ 453 008e 06       		.uleb128 0x6
+ 454 008f 40       		.uleb128 0x40
+ 455 0090 18       		.uleb128 0x18
+ 456 0091 9742     		.uleb128 0x2117
+ 457 0093 19       		.uleb128 0x19
+ 458 0094 01       		.uleb128 0x1
+ 459 0095 13       		.uleb128 0x13
+ 460 0096 00       		.byte	0
+ 461 0097 00       		.byte	0
+ 462 0098 0B       		.uleb128 0xb
+ 463 0099 898201   		.uleb128 0x4109
+ 464 009c 00       		.byte	0
+ 465 009d 11       		.uleb128 0x11
+ 466 009e 01       		.uleb128 0x1
+ 467 009f 31       		.uleb128 0x31
+ 468 00a0 13       		.uleb128 0x13
+ 469 00a1 00       		.byte	0
+ 470 00a2 00       		.byte	0
+ 471 00a3 0C       		.uleb128 0xc
+ 472 00a4 34       		.uleb128 0x34
+ 473 00a5 00       		.byte	0
+ 474 00a6 03       		.uleb128 0x3
+ 475 00a7 0E       		.uleb128 0xe
+ 476 00a8 3A       		.uleb128 0x3a
+ 477 00a9 0B       		.uleb128 0xb
+ 478 00aa 3B       		.uleb128 0x3b
+ 479 00ab 0B       		.uleb128 0xb
+ 480 00ac 49       		.uleb128 0x49
+ 481 00ad 13       		.uleb128 0x13
+ 482 00ae 02       		.uleb128 0x2
+ 483 00af 18       		.uleb128 0x18
+ 484 00b0 00       		.byte	0
+ 485 00b1 00       		.byte	0
+ 486 00b2 0D       		.uleb128 0xd
+ 487 00b3 2E       		.uleb128 0x2e
+ 488 00b4 00       		.byte	0
+ 489 00b5 3F       		.uleb128 0x3f
+ 490 00b6 19       		.uleb128 0x19
+ 491 00b7 3C       		.uleb128 0x3c
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccRkbMNb.s 			page 12
+
+
+ 492 00b8 19       		.uleb128 0x19
+ 493 00b9 6E       		.uleb128 0x6e
+ 494 00ba 0E       		.uleb128 0xe
+ 495 00bb 03       		.uleb128 0x3
+ 496 00bc 0E       		.uleb128 0xe
+ 497 00bd 3A       		.uleb128 0x3a
+ 498 00be 0B       		.uleb128 0xb
+ 499 00bf 3B       		.uleb128 0x3b
+ 500 00c0 0B       		.uleb128 0xb
+ 501 00c1 00       		.byte	0
+ 502 00c2 00       		.byte	0
+ 503 00c3 00       		.byte	0
+ 504              		.section	.debug_aranges,"",%progbits
+ 505 0000 34000000 		.4byte	0x34
+ 506 0004 0200     		.2byte	0x2
+ 507 0006 00000000 		.4byte	.Ldebug_info0
+ 508 000a 04       		.byte	0x4
+ 509 000b 00       		.byte	0
+ 510 000c 0000     		.2byte	0
+ 511 000e 0000     		.2byte	0
+ 512 0010 00000000 		.4byte	.LFB0
+ 513 0014 02000000 		.4byte	.LFE0-.LFB0
+ 514 0018 00000000 		.4byte	.LFB1
+ 515 001c 02000000 		.4byte	.LFE1-.LFB1
+ 516 0020 00000000 		.4byte	.LFB2
+ 517 0024 40000000 		.4byte	.LFE2-.LFB2
+ 518 0028 00000000 		.4byte	.LFB3
+ 519 002c 14000000 		.4byte	.LFE3-.LFB3
+ 520 0030 00000000 		.4byte	0
+ 521 0034 00000000 		.4byte	0
+ 522              		.section	.debug_ranges,"",%progbits
+ 523              	.Ldebug_ranges0:
+ 524 0000 00000000 		.4byte	.LFB0
+ 525 0004 02000000 		.4byte	.LFE0
+ 526 0008 00000000 		.4byte	.LFB1
+ 527 000c 02000000 		.4byte	.LFE1
+ 528 0010 00000000 		.4byte	.LFB2
+ 529 0014 40000000 		.4byte	.LFE2
+ 530 0018 00000000 		.4byte	.LFB3
+ 531 001c 14000000 		.4byte	.LFE3
+ 532 0020 00000000 		.4byte	0
+ 533 0024 00000000 		.4byte	0
+ 534              		.section	.debug_line,"",%progbits
+ 535              	.Ldebug_line0:
+ 536 0000 A6000000 		.section	.debug_str,"MS",%progbits,1
+ 536      02005800 
+ 536      00000201 
+ 536      FB0E0D00 
+ 536      01010101 
+ 537              	.LASF22:
+ 538 0000 47656E65 		.ascii	"Generated_Source\\PSoC5\\ADC_SAR_1_PM.c\000"
+ 538      72617465 
+ 538      645F536F 
+ 538      75726365 
+ 538      5C50536F 
+ 539              	.LASF14:
+ 540 0026 4144435F 		.ascii	"ADC_SAR_1_BACKUP_STRUCT\000"
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccRkbMNb.s 			page 13
+
+
+ 540      5341525F 
+ 540      315F4241 
+ 540      434B5550 
+ 540      5F535452 
+ 541              	.LASF23:
+ 542 003e 433A5C55 		.ascii	"C:\\Users\\Krist\\OneDrive\\Dokumenter\\GitHub\\pla"
+ 542      73657273 
+ 542      5C4B7269 
+ 542      73745C4F 
+ 542      6E654472 
+ 543 006b 746F6F6E 		.ascii	"tooning\\PSoC\\PeakDetector\\FirstTry.cydsn\000"
+ 543      696E675C 
+ 543      50536F43 
+ 543      5C506561 
+ 543      6B446574 
+ 544              	.LASF18:
+ 545 0094 4144435F 		.ascii	"ADC_SAR_1_Wakeup\000"
+ 545      5341525F 
+ 545      315F5761 
+ 545      6B657570 
+ 545      00
+ 546              	.LASF9:
+ 547 00a5 666C6F61 		.ascii	"float\000"
+ 547      7400
+ 548              	.LASF1:
+ 549 00ab 756E7369 		.ascii	"unsigned char\000"
+ 549      676E6564 
+ 549      20636861 
+ 549      7200
+ 550              	.LASF21:
+ 551 00b9 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 551      43313120 
+ 551      352E342E 
+ 551      31203230 
+ 551      31363036 
+ 552 00ec 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 552      20726576 
+ 552      6973696F 
+ 552      6E203233 
+ 552      37373135 
+ 553 011f 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 553      66756E63 
+ 553      74696F6E 
+ 553      2D736563 
+ 553      74696F6E 
+ 554              	.LASF13:
+ 555 0147 72656738 		.ascii	"reg8\000"
+ 555      00
+ 556              	.LASF5:
+ 557 014c 6C6F6E67 		.ascii	"long unsigned int\000"
+ 557      20756E73 
+ 557      69676E65 
+ 557      6420696E 
+ 557      7400
+ 558              	.LASF3:
+ 559 015e 73686F72 		.ascii	"short unsigned int\000"
+ 559      7420756E 
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccRkbMNb.s 			page 14
+
+
+ 559      7369676E 
+ 559      65642069 
+ 559      6E7400
+ 560              	.LASF20:
+ 561 0171 4144435F 		.ascii	"ADC_SAR_1_Enable\000"
+ 561      5341525F 
+ 561      315F456E 
+ 561      61626C65 
+ 561      00
+ 562              	.LASF10:
+ 563 0182 646F7562 		.ascii	"double\000"
+ 563      6C6500
+ 564              	.LASF25:
+ 565 0189 4144435F 		.ascii	"ADC_SAR_1_backup\000"
+ 565      5341525F 
+ 565      315F6261 
+ 565      636B7570 
+ 565      00
+ 566              	.LASF8:
+ 567 019a 756E7369 		.ascii	"unsigned int\000"
+ 567      676E6564 
+ 567      20696E74 
+ 567      00
+ 568              	.LASF16:
+ 569 01a7 4144435F 		.ascii	"ADC_SAR_1_RestoreConfig\000"
+ 569      5341525F 
+ 569      315F5265 
+ 569      73746F72 
+ 569      65436F6E 
+ 570              	.LASF7:
+ 571 01bf 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 571      206C6F6E 
+ 571      6720756E 
+ 571      7369676E 
+ 571      65642069 
+ 572              	.LASF17:
+ 573 01d6 4144435F 		.ascii	"ADC_SAR_1_Sleep\000"
+ 573      5341525F 
+ 573      315F536C 
+ 573      65657000 
+ 574              	.LASF6:
+ 575 01e6 6C6F6E67 		.ascii	"long long int\000"
+ 575      206C6F6E 
+ 575      6720696E 
+ 575      7400
+ 576              	.LASF11:
+ 577 01f4 63686172 		.ascii	"char\000"
+ 577      00
+ 578              	.LASF19:
+ 579 01f9 4144435F 		.ascii	"ADC_SAR_1_Stop\000"
+ 579      5341525F 
+ 579      315F5374 
+ 579      6F7000
+ 580              	.LASF15:
+ 581 0208 4144435F 		.ascii	"ADC_SAR_1_SaveConfig\000"
+ 581      5341525F 
+ 581      315F5361 
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccRkbMNb.s 			page 15
+
+
+ 581      7665436F 
+ 581      6E666967 
+ 582              	.LASF2:
+ 583 021d 73686F72 		.ascii	"short int\000"
+ 583      7420696E 
+ 583      7400
+ 584              	.LASF12:
+ 585 0227 75696E74 		.ascii	"uint8\000"
+ 585      3800
+ 586              	.LASF4:
+ 587 022d 6C6F6E67 		.ascii	"long int\000"
+ 587      20696E74 
+ 587      00
+ 588              	.LASF24:
+ 589 0236 656E6162 		.ascii	"enableState\000"
+ 589      6C655374 
+ 589      61746500 
+ 590              	.LASF0:
+ 591 0242 7369676E 		.ascii	"signed char\000"
+ 591      65642063 
+ 591      68617200 
+ 592              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
