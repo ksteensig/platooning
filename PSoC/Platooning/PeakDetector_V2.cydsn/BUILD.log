@@ -1,0 +1,29 @@
+--------------- Build Started: 11/23/2018 22:54:33 Project: PeakDetector_V2, Configuration: ARM GCC 5.4-2016-q2-update Debug ---------------
+The code generation step is up to date.
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\CortexM3\ARM_GCC_541\Debug/main.lst -g -D DEBUG -D CY_CORE_ID=0 -Wall -ffunction-sections -ffat-lto-objects -Og -c main.c -o .\CortexM3\ARM_GCC_541\Debug\main.o
+main.c: In function 'main':
+main.c:97:27: warning: passing argument 1 of 'UART_PutArray' from incompatible pointer type [-Wincompatible-pointer-types]
+             UART_PutArray(DataB, 400);
+                           ^
+In file included from Generated_Source\PSoC5/project.h:22:0,
+                 from main.c:1:
+Generated_Source\PSoC5/UART.h:140:10: note: expected 'const uint8 * {aka const unsigned char *}' but argument is of type 'uint16_t * {aka short unsigned int *}'
+     void UART_PutArray(const uint8 string[], uint8 byteCount)
+          ^
+main.c:97:34: warning: large integer implicitly truncated to unsigned type [-Woverflow]
+             UART_PutArray(DataB, 400);
+                                  ^
+main.c:83:10: warning: unused variable 'output' [-Wunused-variable]
+     char output[100];
+          ^
+arm-none-eabi-ar.exe -rs .\CortexM3\ARM_GCC_541\Debug\PeakDetector_V2.a .\CortexM3\ARM_GCC_541\Debug\CyDmac.o .\CortexM3\ARM_GCC_541\Debug\CyFlash.o .\CortexM3\ARM_GCC_541\Debug\CyLib.o .\CortexM3\ARM_GCC_541\Debug\cyPm.o .\CortexM3\ARM_GCC_541\Debug\CySpc.o .\CortexM3\ARM_GCC_541\Debug\cyutils.o .\CortexM3\ARM_GCC_541\Debug\cy_em_eeprom.o .\CortexM3\ARM_GCC_541\Debug\UART.o .\CortexM3\ARM_GCC_541\Debug\UART_PM.o .\CortexM3\ARM_GCC_541\Debug\UART_INT.o .\CortexM3\ARM_GCC_541\Debug\UART_BOOT.o .\CortexM3\ARM_GCC_541\Debug\UART_IntClock.o .\CortexM3\ARM_GCC_541\Debug\DMA_A_dma.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_B.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_B_INT.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_B_PM.o .\CortexM3\ARM_GCC_541\Debug\ISR_A.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_A.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_A_INT.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_A_PM.o .\CortexM3\ARM_GCC_541\Debug\DMA_B_dma.o .\CortexM3\ARM_GCC_541\Debug\Sample_Hold_B.o .\CortexM3\ARM_GCC_541\Debug\Sample_Hold_B_PM.o .\CortexM3\ARM_GCC_541\Debug\Sample_Hold_A.o .\CortexM3\ARM_GCC_541\Debug\Sample_Hold_A_PM.o .\CortexM3\ARM_GCC_541\Debug\Control_Reg.o .\CortexM3\ARM_GCC_541\Debug\Control_Reg_PM.o .\CortexM3\ARM_GCC_541\Debug\ISR_B.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_B_IRQ.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_B_theACLK.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_B_Bypass.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_A_IRQ.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_A_theACLK.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_A_Bypass.o .\CortexM3\ARM_GCC_541\Debug\Comp_A.o .\CortexM3\ARM_GCC_541\Debug\Comp_A_PM.o .\CortexM3\ARM_GCC_541\Debug\Comp_B.o .\CortexM3\ARM_GCC_541\Debug\Comp_B_PM.o .\CortexM3\ARM_GCC_541\Debug\ISR_START.o .\CortexM3\ARM_GCC_541\Debug\Clock_In.o .\CortexM3\ARM_GCC_541\Debug\Status_Reg.o .\CortexM3\ARM_GCC_541\Debug\Clock_1.o .\CortexM3\ARM_GCC_541\Debug\CyBootAsmGnu.o
+arm-none-eabi-ar.exe: creating .\CortexM3\ARM_GCC_541\Debug\PeakDetector_V2.a
+arm-none-eabi-gcc.exe -Wl,--start-group -o "C:\Users\rens_\Documents\PSoC Creator\Workspace01\PeakDetector_V2.cydsn\CortexM3\ARM_GCC_541\Debug\PeakDetector_V2.elf" .\CortexM3\ARM_GCC_541\Debug\main.o .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o .\CortexM3\ARM_GCC_541\Debug\cymetadata.o .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o .\CortexM3\ARM_GCC_541\Debug\PeakDetector_V2.a "C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CortexM3\ARM_GCC_541\Debug\CyComponentLibrary.a" -mcpu=cortex-m3 -mthumb -L Generated_Source\PSoC5 -Wl,-Map,.\CortexM3\ARM_GCC_541\Debug/PeakDetector_V2.map -T Generated_Source\PSoC5\cm3gcc.ld -specs=nano.specs -Wl,--gc-sections -g -ffunction-sections -Og -ffat-lto-objects -Wl,--end-group
+cyelftool.exe -C "C:\Users\rens_\Documents\PSoC Creator\Workspace01\PeakDetector_V2.cydsn\CortexM3\ARM_GCC_541\Debug\PeakDetector_V2.elf" --flash_row_size 256 --flash_size 262144 --flash_offset 0x00000000
+No ELF section .cychecksum found, creating one
+Application checksum calculated and stored in ELF section .cychecksum
+Checksum calculated and stored in ELF section .cymeta
+cyelftool.exe -S "C:\Users\rens_\Documents\PSoC Creator\Workspace01\PeakDetector_V2.cydsn\CortexM3\ARM_GCC_541\Debug\PeakDetector_V2.elf"
+Flash used: 4862 of 262144 bytes (1,9 %).
+SRAM used: 3377 of 65536 bytes (5,2 %). Stack: 2048 bytes. Heap: 128 bytes.
+--------------- Build Succeeded: 11/23/2018 22:54:35 ---------------

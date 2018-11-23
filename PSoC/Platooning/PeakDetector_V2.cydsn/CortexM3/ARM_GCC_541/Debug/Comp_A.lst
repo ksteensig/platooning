@@ -1,0 +1,2354 @@
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"Comp_A.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.Comp_A_trimAdjust,"ax",%progbits
+  20              		.align	2
+  21              		.thumb
+  22              		.thumb_func
+  23              		.type	Comp_A_trimAdjust, %function
+  24              	Comp_A_trimAdjust:
+  25              	.LFB6:
+  26              		.file 1 "Generated_Source\\PSoC5\\Comp_A.c"
+   1:Generated_Source\PSoC5/Comp_A.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/Comp_A.c **** * File Name: Comp_A.c
+   3:Generated_Source\PSoC5/Comp_A.c **** * Version 2.0
+   4:Generated_Source\PSoC5/Comp_A.c **** *
+   5:Generated_Source\PSoC5/Comp_A.c **** * Description:
+   6:Generated_Source\PSoC5/Comp_A.c **** *  This file provides the source code to the API for the Comparator component
+   7:Generated_Source\PSoC5/Comp_A.c **** *
+   8:Generated_Source\PSoC5/Comp_A.c **** * Note:
+   9:Generated_Source\PSoC5/Comp_A.c **** *  None
+  10:Generated_Source\PSoC5/Comp_A.c **** *
+  11:Generated_Source\PSoC5/Comp_A.c **** ********************************************************************************
+  12:Generated_Source\PSoC5/Comp_A.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13:Generated_Source\PSoC5/Comp_A.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  14:Generated_Source\PSoC5/Comp_A.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  15:Generated_Source\PSoC5/Comp_A.c **** * the software package with which this file was provided.
+  16:Generated_Source\PSoC5/Comp_A.c **** *******************************************************************************/
+  17:Generated_Source\PSoC5/Comp_A.c **** 
+  18:Generated_Source\PSoC5/Comp_A.c **** #include "Comp_A.h"
+  19:Generated_Source\PSoC5/Comp_A.c **** 
+  20:Generated_Source\PSoC5/Comp_A.c **** uint8 Comp_A_initVar = 0u;
+  21:Generated_Source\PSoC5/Comp_A.c **** 
+  22:Generated_Source\PSoC5/Comp_A.c **** /* Internal functions definitoin */
+  23:Generated_Source\PSoC5/Comp_A.c **** static void Comp_A_trimAdjust(uint8 nibble) ;
+  24:Generated_Source\PSoC5/Comp_A.c **** 
+  25:Generated_Source\PSoC5/Comp_A.c **** /* static Comp_A_backupStruct  Comp_A_backup; */
+  26:Generated_Source\PSoC5/Comp_A.c **** #if (CY_PSOC5A)
+  27:Generated_Source\PSoC5/Comp_A.c ****     static Comp_A_LOWPOWER_BACKUP_STRUCT  Comp_A_lowPowerBackup;
+  28:Generated_Source\PSoC5/Comp_A.c **** #endif /* CY_PSOC5A */
+  29:Generated_Source\PSoC5/Comp_A.c **** 
+  30:Generated_Source\PSoC5/Comp_A.c **** /* variable to decide whether or not to restore the control register in 
+  31:Generated_Source\PSoC5/Comp_A.c ****    Enable() API for PSoC5A only */
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 2
+
+
+  32:Generated_Source\PSoC5/Comp_A.c **** #if (CY_PSOC5A)
+  33:Generated_Source\PSoC5/Comp_A.c ****     static uint8 Comp_A_restoreReg = 0u;
+  34:Generated_Source\PSoC5/Comp_A.c **** #endif /* CY_PSOC5A */
+  35:Generated_Source\PSoC5/Comp_A.c **** 
+  36:Generated_Source\PSoC5/Comp_A.c **** 
+  37:Generated_Source\PSoC5/Comp_A.c **** /*******************************************************************************
+  38:Generated_Source\PSoC5/Comp_A.c **** * Function Name: Comp_A_Init
+  39:Generated_Source\PSoC5/Comp_A.c **** ********************************************************************************
+  40:Generated_Source\PSoC5/Comp_A.c **** *
+  41:Generated_Source\PSoC5/Comp_A.c **** * Summary:
+  42:Generated_Source\PSoC5/Comp_A.c **** *  Initialize to the schematic state
+  43:Generated_Source\PSoC5/Comp_A.c **** * 
+  44:Generated_Source\PSoC5/Comp_A.c **** * Parameters:
+  45:Generated_Source\PSoC5/Comp_A.c **** *  void
+  46:Generated_Source\PSoC5/Comp_A.c **** *
+  47:Generated_Source\PSoC5/Comp_A.c **** * Return:
+  48:Generated_Source\PSoC5/Comp_A.c **** *  void
+  49:Generated_Source\PSoC5/Comp_A.c **** *
+  50:Generated_Source\PSoC5/Comp_A.c **** *******************************************************************************/
+  51:Generated_Source\PSoC5/Comp_A.c **** void Comp_A_Init(void) 
+  52:Generated_Source\PSoC5/Comp_A.c **** {
+  53:Generated_Source\PSoC5/Comp_A.c ****     /* Set default speed/power */
+  54:Generated_Source\PSoC5/Comp_A.c ****     Comp_A_SetSpeed(Comp_A_DEFAULT_SPEED);
+  55:Generated_Source\PSoC5/Comp_A.c **** 
+  56:Generated_Source\PSoC5/Comp_A.c ****     /* Set default Hysteresis */
+  57:Generated_Source\PSoC5/Comp_A.c ****     #if ( Comp_A_DEFAULT_HYSTERESIS == 0u )
+  58:Generated_Source\PSoC5/Comp_A.c ****         Comp_A_CR |= Comp_A_HYST_OFF;
+  59:Generated_Source\PSoC5/Comp_A.c ****     #else
+  60:Generated_Source\PSoC5/Comp_A.c ****         Comp_A_CR &= (uint8)(~Comp_A_HYST_OFF);
+  61:Generated_Source\PSoC5/Comp_A.c ****     #endif /* Comp_A_DEFAULT_HYSTERESIS == 0u */
+  62:Generated_Source\PSoC5/Comp_A.c ****     /* Power down override feature is not supported for PSoC5A. */
+  63:Generated_Source\PSoC5/Comp_A.c ****     #if (CY_PSOC3 || CY_PSOC5LP)
+  64:Generated_Source\PSoC5/Comp_A.c ****         /* Set default Power Down Override */
+  65:Generated_Source\PSoC5/Comp_A.c ****         #if ( Comp_A_DEFAULT_PWRDWN_OVRD == 0u )
+  66:Generated_Source\PSoC5/Comp_A.c ****             Comp_A_CR &= (uint8)(~Comp_A_PWRDWN_OVRD);
+  67:Generated_Source\PSoC5/Comp_A.c ****         #else 
+  68:Generated_Source\PSoC5/Comp_A.c ****             Comp_A_CR |= Comp_A_PWRDWN_OVRD;
+  69:Generated_Source\PSoC5/Comp_A.c ****         #endif /* Comp_A_DEFAULT_PWRDWN_OVRD == 0u */
+  70:Generated_Source\PSoC5/Comp_A.c ****     #endif /* CY_PSOC3 || CY_PSOC5LP */
+  71:Generated_Source\PSoC5/Comp_A.c ****     
+  72:Generated_Source\PSoC5/Comp_A.c ****     /* Set mux always on logic */
+  73:Generated_Source\PSoC5/Comp_A.c ****     Comp_A_CR |= Comp_A_MX_AO;
+  74:Generated_Source\PSoC5/Comp_A.c **** 
+  75:Generated_Source\PSoC5/Comp_A.c ****     /* Set default sync */
+  76:Generated_Source\PSoC5/Comp_A.c ****     Comp_A_CLK &= (uint8)(~Comp_A_SYNCCLK_MASK);
+  77:Generated_Source\PSoC5/Comp_A.c ****     #if ( Comp_A_DEFAULT_BYPASS_SYNC == 0u )
+  78:Generated_Source\PSoC5/Comp_A.c ****         Comp_A_CLK |= Comp_A_SYNC_CLK_EN;
+  79:Generated_Source\PSoC5/Comp_A.c ****     #else
+  80:Generated_Source\PSoC5/Comp_A.c ****         Comp_A_CLK |= Comp_A_BYPASS_SYNC;
+  81:Generated_Source\PSoC5/Comp_A.c ****     #endif /* Comp_A_DEFAULT_BYPASS_SYNC == 0u */
+  82:Generated_Source\PSoC5/Comp_A.c **** }
+  83:Generated_Source\PSoC5/Comp_A.c **** 
+  84:Generated_Source\PSoC5/Comp_A.c **** 
+  85:Generated_Source\PSoC5/Comp_A.c **** /*******************************************************************************
+  86:Generated_Source\PSoC5/Comp_A.c **** * Function Name: Comp_A_Enable
+  87:Generated_Source\PSoC5/Comp_A.c **** ********************************************************************************
+  88:Generated_Source\PSoC5/Comp_A.c **** *
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 3
+
+
+  89:Generated_Source\PSoC5/Comp_A.c **** * Summary:
+  90:Generated_Source\PSoC5/Comp_A.c **** *  Enable the Comparator
+  91:Generated_Source\PSoC5/Comp_A.c **** * 
+  92:Generated_Source\PSoC5/Comp_A.c **** * Parameters:
+  93:Generated_Source\PSoC5/Comp_A.c **** *  void
+  94:Generated_Source\PSoC5/Comp_A.c **** *
+  95:Generated_Source\PSoC5/Comp_A.c **** * Return:
+  96:Generated_Source\PSoC5/Comp_A.c **** *  void
+  97:Generated_Source\PSoC5/Comp_A.c **** *
+  98:Generated_Source\PSoC5/Comp_A.c **** *******************************************************************************/
+  99:Generated_Source\PSoC5/Comp_A.c **** void Comp_A_Enable(void) 
+ 100:Generated_Source\PSoC5/Comp_A.c **** {
+ 101:Generated_Source\PSoC5/Comp_A.c ****     Comp_A_PWRMGR |= Comp_A_ACT_PWR_EN;
+ 102:Generated_Source\PSoC5/Comp_A.c ****     Comp_A_STBY_PWRMGR |= Comp_A_STBY_PWR_EN;
+ 103:Generated_Source\PSoC5/Comp_A.c ****      
+ 104:Generated_Source\PSoC5/Comp_A.c ****      /* This is to restore the value of register CR which is saved 
+ 105:Generated_Source\PSoC5/Comp_A.c ****     in prior to the modification in stop() API */
+ 106:Generated_Source\PSoC5/Comp_A.c ****     #if (CY_PSOC5A)
+ 107:Generated_Source\PSoC5/Comp_A.c ****         if(Comp_A_restoreReg == 1u)
+ 108:Generated_Source\PSoC5/Comp_A.c ****         {
+ 109:Generated_Source\PSoC5/Comp_A.c ****             Comp_A_CR = Comp_A_lowPowerBackup.compCRReg;
+ 110:Generated_Source\PSoC5/Comp_A.c **** 
+ 111:Generated_Source\PSoC5/Comp_A.c ****             /* Clear the flag */
+ 112:Generated_Source\PSoC5/Comp_A.c ****             Comp_A_restoreReg = 0u;
+ 113:Generated_Source\PSoC5/Comp_A.c ****         }
+ 114:Generated_Source\PSoC5/Comp_A.c ****     #endif /* CY_PSOC5A */
+ 115:Generated_Source\PSoC5/Comp_A.c **** }
+ 116:Generated_Source\PSoC5/Comp_A.c **** 
+ 117:Generated_Source\PSoC5/Comp_A.c **** 
+ 118:Generated_Source\PSoC5/Comp_A.c **** /*******************************************************************************
+ 119:Generated_Source\PSoC5/Comp_A.c **** * Function Name: Comp_A_Start
+ 120:Generated_Source\PSoC5/Comp_A.c **** ********************************************************************************
+ 121:Generated_Source\PSoC5/Comp_A.c **** *
+ 122:Generated_Source\PSoC5/Comp_A.c **** * Summary:
+ 123:Generated_Source\PSoC5/Comp_A.c **** *  The start function initializes the Analog Comparator with the default values.
+ 124:Generated_Source\PSoC5/Comp_A.c **** *
+ 125:Generated_Source\PSoC5/Comp_A.c **** * Parameters:
+ 126:Generated_Source\PSoC5/Comp_A.c **** *  void
+ 127:Generated_Source\PSoC5/Comp_A.c **** *
+ 128:Generated_Source\PSoC5/Comp_A.c **** * Return:
+ 129:Generated_Source\PSoC5/Comp_A.c **** *  void 
+ 130:Generated_Source\PSoC5/Comp_A.c **** *
+ 131:Generated_Source\PSoC5/Comp_A.c **** * Global variables:
+ 132:Generated_Source\PSoC5/Comp_A.c **** *  Comp_A_initVar: Is modified when this function is called for the 
+ 133:Generated_Source\PSoC5/Comp_A.c **** *   first time. Is used to ensure that initialization happens only once.
+ 134:Generated_Source\PSoC5/Comp_A.c **** *  
+ 135:Generated_Source\PSoC5/Comp_A.c **** *******************************************************************************/
+ 136:Generated_Source\PSoC5/Comp_A.c **** void Comp_A_Start(void) 
+ 137:Generated_Source\PSoC5/Comp_A.c **** {
+ 138:Generated_Source\PSoC5/Comp_A.c **** 
+ 139:Generated_Source\PSoC5/Comp_A.c ****     if ( Comp_A_initVar == 0u )
+ 140:Generated_Source\PSoC5/Comp_A.c ****     {
+ 141:Generated_Source\PSoC5/Comp_A.c ****         Comp_A_Init();
+ 142:Generated_Source\PSoC5/Comp_A.c ****         
+ 143:Generated_Source\PSoC5/Comp_A.c ****         Comp_A_initVar = 1u;
+ 144:Generated_Source\PSoC5/Comp_A.c ****     }   
+ 145:Generated_Source\PSoC5/Comp_A.c **** 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 4
+
+
+ 146:Generated_Source\PSoC5/Comp_A.c ****     /* Enable power to comparator */
+ 147:Generated_Source\PSoC5/Comp_A.c ****     Comp_A_Enable();    
+ 148:Generated_Source\PSoC5/Comp_A.c **** }
+ 149:Generated_Source\PSoC5/Comp_A.c **** 
+ 150:Generated_Source\PSoC5/Comp_A.c **** 
+ 151:Generated_Source\PSoC5/Comp_A.c **** /*******************************************************************************
+ 152:Generated_Source\PSoC5/Comp_A.c **** * Function Name: Comp_A_Stop
+ 153:Generated_Source\PSoC5/Comp_A.c **** ********************************************************************************
+ 154:Generated_Source\PSoC5/Comp_A.c **** *
+ 155:Generated_Source\PSoC5/Comp_A.c **** * Summary:
+ 156:Generated_Source\PSoC5/Comp_A.c **** *  Powers down amplifier to lowest power state.
+ 157:Generated_Source\PSoC5/Comp_A.c **** *
+ 158:Generated_Source\PSoC5/Comp_A.c **** * Parameters:
+ 159:Generated_Source\PSoC5/Comp_A.c **** *  void
+ 160:Generated_Source\PSoC5/Comp_A.c **** *
+ 161:Generated_Source\PSoC5/Comp_A.c **** * Return:
+ 162:Generated_Source\PSoC5/Comp_A.c **** *  void
+ 163:Generated_Source\PSoC5/Comp_A.c **** *
+ 164:Generated_Source\PSoC5/Comp_A.c **** *******************************************************************************/
+ 165:Generated_Source\PSoC5/Comp_A.c **** void Comp_A_Stop(void) 
+ 166:Generated_Source\PSoC5/Comp_A.c **** {
+ 167:Generated_Source\PSoC5/Comp_A.c ****     /* Disable power to comparator */
+ 168:Generated_Source\PSoC5/Comp_A.c ****     Comp_A_PWRMGR &= (uint8)(~Comp_A_ACT_PWR_EN);
+ 169:Generated_Source\PSoC5/Comp_A.c ****     Comp_A_STBY_PWRMGR &= (uint8)(~Comp_A_STBY_PWR_EN);
+ 170:Generated_Source\PSoC5/Comp_A.c ****     
+ 171:Generated_Source\PSoC5/Comp_A.c ****     #if (CY_PSOC5A)
+ 172:Generated_Source\PSoC5/Comp_A.c ****         /* Enable the variable */
+ 173:Generated_Source\PSoC5/Comp_A.c ****         Comp_A_restoreReg = 1u;
+ 174:Generated_Source\PSoC5/Comp_A.c **** 
+ 175:Generated_Source\PSoC5/Comp_A.c ****         /* Save the control register before clearing it */
+ 176:Generated_Source\PSoC5/Comp_A.c ****         Comp_A_lowPowerBackup.compCRReg = Comp_A_CR;
+ 177:Generated_Source\PSoC5/Comp_A.c ****         Comp_A_CR = Comp_A_COMP_REG_CLR;
+ 178:Generated_Source\PSoC5/Comp_A.c ****     #endif /* CY_PSOC5A */
+ 179:Generated_Source\PSoC5/Comp_A.c **** }
+ 180:Generated_Source\PSoC5/Comp_A.c **** 
+ 181:Generated_Source\PSoC5/Comp_A.c **** 
+ 182:Generated_Source\PSoC5/Comp_A.c **** /*******************************************************************************
+ 183:Generated_Source\PSoC5/Comp_A.c **** * Function Name: Comp_A_SetSpeed
+ 184:Generated_Source\PSoC5/Comp_A.c **** ********************************************************************************
+ 185:Generated_Source\PSoC5/Comp_A.c **** *
+ 186:Generated_Source\PSoC5/Comp_A.c **** * Summary:
+ 187:Generated_Source\PSoC5/Comp_A.c **** *  This function sets the speed of the Analog Comparator. The faster the speed
+ 188:Generated_Source\PSoC5/Comp_A.c **** *  the more power that is used.
+ 189:Generated_Source\PSoC5/Comp_A.c **** *
+ 190:Generated_Source\PSoC5/Comp_A.c **** * Parameters:
+ 191:Generated_Source\PSoC5/Comp_A.c **** *  speed: (uint8) Sets operation mode of Comparator
+ 192:Generated_Source\PSoC5/Comp_A.c **** *
+ 193:Generated_Source\PSoC5/Comp_A.c **** * Return:
+ 194:Generated_Source\PSoC5/Comp_A.c **** *  void
+ 195:Generated_Source\PSoC5/Comp_A.c **** *
+ 196:Generated_Source\PSoC5/Comp_A.c **** *******************************************************************************/
+ 197:Generated_Source\PSoC5/Comp_A.c **** void Comp_A_SetSpeed(uint8 speed) 
+ 198:Generated_Source\PSoC5/Comp_A.c **** {
+ 199:Generated_Source\PSoC5/Comp_A.c ****     /* Clear and Set power level */    
+ 200:Generated_Source\PSoC5/Comp_A.c ****     Comp_A_CR = (Comp_A_CR & (uint8)(~Comp_A_PWR_MODE_MASK)) |
+ 201:Generated_Source\PSoC5/Comp_A.c ****                            (speed & Comp_A_PWR_MODE_MASK);
+ 202:Generated_Source\PSoC5/Comp_A.c **** 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 5
+
+
+ 203:Generated_Source\PSoC5/Comp_A.c ****     /* Set trim value for high speed comparator */
+ 204:Generated_Source\PSoC5/Comp_A.c ****     if(speed == Comp_A_HIGHSPEED)
+ 205:Generated_Source\PSoC5/Comp_A.c ****     {
+ 206:Generated_Source\PSoC5/Comp_A.c ****         /* PSoC5A */
+ 207:Generated_Source\PSoC5/Comp_A.c ****         #if (CY_PSOC5A)
+ 208:Generated_Source\PSoC5/Comp_A.c ****             Comp_A_TR = Comp_A_HS_TRIM_TR0;
+ 209:Generated_Source\PSoC5/Comp_A.c ****         #endif /* CY_PSOC5A */
+ 210:Generated_Source\PSoC5/Comp_A.c ****         
+ 211:Generated_Source\PSoC5/Comp_A.c ****         /* PSoC3, PSoC5LP or later */
+ 212:Generated_Source\PSoC5/Comp_A.c ****         #if (CY_PSOC3 || CY_PSOC5LP) 
+ 213:Generated_Source\PSoC5/Comp_A.c ****             Comp_A_TR0 = Comp_A_HS_TRIM_TR0;
+ 214:Generated_Source\PSoC5/Comp_A.c ****             Comp_A_TR1 = Comp_A_HS_TRIM_TR1;
+ 215:Generated_Source\PSoC5/Comp_A.c ****         #endif /* CY_PSOC3 || CY_PSOC5LP */
+ 216:Generated_Source\PSoC5/Comp_A.c ****     }
+ 217:Generated_Source\PSoC5/Comp_A.c ****     else
+ 218:Generated_Source\PSoC5/Comp_A.c ****     {
+ 219:Generated_Source\PSoC5/Comp_A.c ****     /* PSoC5A */
+ 220:Generated_Source\PSoC5/Comp_A.c ****         #if (CY_PSOC5A)
+ 221:Generated_Source\PSoC5/Comp_A.c ****             Comp_A_TR = Comp_A_LS_TRIM_TR0;
+ 222:Generated_Source\PSoC5/Comp_A.c ****         #endif /* CY_PSOC5A */
+ 223:Generated_Source\PSoC5/Comp_A.c ****         
+ 224:Generated_Source\PSoC5/Comp_A.c ****         /* PSoC3, PSoC5LP or later */
+ 225:Generated_Source\PSoC5/Comp_A.c ****         #if (CY_PSOC3 || CY_PSOC5LP) 
+ 226:Generated_Source\PSoC5/Comp_A.c ****             Comp_A_TR0 = Comp_A_LS_TRIM_TR0;
+ 227:Generated_Source\PSoC5/Comp_A.c ****             Comp_A_TR1 = Comp_A_LS_TRIM_TR1;
+ 228:Generated_Source\PSoC5/Comp_A.c ****         #endif /* CY_PSOC3 || CY_PSOC5LP */
+ 229:Generated_Source\PSoC5/Comp_A.c ****     }
+ 230:Generated_Source\PSoC5/Comp_A.c **** 
+ 231:Generated_Source\PSoC5/Comp_A.c **** }
+ 232:Generated_Source\PSoC5/Comp_A.c **** 
+ 233:Generated_Source\PSoC5/Comp_A.c **** 
+ 234:Generated_Source\PSoC5/Comp_A.c **** /*******************************************************************************
+ 235:Generated_Source\PSoC5/Comp_A.c **** * Function Name: Comp_A_GetCompare
+ 236:Generated_Source\PSoC5/Comp_A.c **** ********************************************************************************
+ 237:Generated_Source\PSoC5/Comp_A.c **** *
+ 238:Generated_Source\PSoC5/Comp_A.c **** * Summary:
+ 239:Generated_Source\PSoC5/Comp_A.c **** *  This function returns the comparator output value.
+ 240:Generated_Source\PSoC5/Comp_A.c **** *  This value is not affected by the Polarity parameter.
+ 241:Generated_Source\PSoC5/Comp_A.c **** *  This valuea lways reflects a noninverted state.
+ 242:Generated_Source\PSoC5/Comp_A.c **** *
+ 243:Generated_Source\PSoC5/Comp_A.c **** * Parameters:
+ 244:Generated_Source\PSoC5/Comp_A.c **** *   None
+ 245:Generated_Source\PSoC5/Comp_A.c **** *
+ 246:Generated_Source\PSoC5/Comp_A.c **** * Return:
+ 247:Generated_Source\PSoC5/Comp_A.c **** *  (uint8)  0     - if Pos_Input less than Neg_input
+ 248:Generated_Source\PSoC5/Comp_A.c **** *           non 0 - if Pos_Input greater than Neg_input.
+ 249:Generated_Source\PSoC5/Comp_A.c **** *
+ 250:Generated_Source\PSoC5/Comp_A.c **** *******************************************************************************/
+ 251:Generated_Source\PSoC5/Comp_A.c **** uint8 Comp_A_GetCompare(void) 
+ 252:Generated_Source\PSoC5/Comp_A.c **** {
+ 253:Generated_Source\PSoC5/Comp_A.c ****     return( Comp_A_WRK & Comp_A_CMP_OUT_MASK);
+ 254:Generated_Source\PSoC5/Comp_A.c **** }
+ 255:Generated_Source\PSoC5/Comp_A.c **** 
+ 256:Generated_Source\PSoC5/Comp_A.c **** 
+ 257:Generated_Source\PSoC5/Comp_A.c **** /*******************************************************************************
+ 258:Generated_Source\PSoC5/Comp_A.c **** * Function Name: Comp_A_trimAdjust
+ 259:Generated_Source\PSoC5/Comp_A.c **** ********************************************************************************
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 6
+
+
+ 260:Generated_Source\PSoC5/Comp_A.c **** *
+ 261:Generated_Source\PSoC5/Comp_A.c **** * Summary:
+ 262:Generated_Source\PSoC5/Comp_A.c **** *  This function adjusts the value in the low nibble/high nibble of the Analog 
+ 263:Generated_Source\PSoC5/Comp_A.c **** *  Comparator trim register
+ 264:Generated_Source\PSoC5/Comp_A.c **** *
+ 265:Generated_Source\PSoC5/Comp_A.c **** * Parameters:  
+ 266:Generated_Source\PSoC5/Comp_A.c **** *  nibble:
+ 267:Generated_Source\PSoC5/Comp_A.c **** *      0 -- adjusts the value in the low nibble
+ 268:Generated_Source\PSoC5/Comp_A.c **** *      1 -- adjusts the value in the high nibble
+ 269:Generated_Source\PSoC5/Comp_A.c **** *
+ 270:Generated_Source\PSoC5/Comp_A.c **** * Return:
+ 271:Generated_Source\PSoC5/Comp_A.c **** *  None
+ 272:Generated_Source\PSoC5/Comp_A.c **** *
+ 273:Generated_Source\PSoC5/Comp_A.c **** * Theory: 
+ 274:Generated_Source\PSoC5/Comp_A.c **** *  Function assumes comparator block is setup for trim adjust.
+ 275:Generated_Source\PSoC5/Comp_A.c **** *  Intended to be called from Comp_ZeroCal()
+ 276:Generated_Source\PSoC5/Comp_A.c **** * 
+ 277:Generated_Source\PSoC5/Comp_A.c **** * Side Effects:
+ 278:Generated_Source\PSoC5/Comp_A.c **** *  Routine uses a course 1ms delay following each trim adjustment to allow 
+ 279:Generated_Source\PSoC5/Comp_A.c **** *  the comparator output to respond.
+ 280:Generated_Source\PSoC5/Comp_A.c **** *
+ 281:Generated_Source\PSoC5/Comp_A.c **** *******************************************************************************/
+ 282:Generated_Source\PSoC5/Comp_A.c **** static void Comp_A_trimAdjust(uint8 nibble) 
+ 283:Generated_Source\PSoC5/Comp_A.c **** {
+  27              		.loc 1 283 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              	.LVL0:
+  32 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+  33              		.cfi_def_cfa_offset 24
+  34              		.cfi_offset 3, -24
+  35              		.cfi_offset 4, -20
+  36              		.cfi_offset 5, -16
+  37              		.cfi_offset 6, -12
+  38              		.cfi_offset 7, -8
+  39              		.cfi_offset 14, -4
+ 284:Generated_Source\PSoC5/Comp_A.c ****     uint8 trimCnt, trimCntMax;
+ 285:Generated_Source\PSoC5/Comp_A.c ****     uint8 cmpState;   
+ 286:Generated_Source\PSoC5/Comp_A.c **** 
+ 287:Generated_Source\PSoC5/Comp_A.c ****     /* get current state of comparator output */
+ 288:Generated_Source\PSoC5/Comp_A.c ****     cmpState = Comp_A_WRK & Comp_A_CMP_OUT_MASK;
+  40              		.loc 1 288 0
+  41 0002 194B     		ldr	r3, .L12
+  42 0004 1D78     		ldrb	r5, [r3]	@ zero_extendqisi2
+  43 0006 05F00105 		and	r5, r5, #1
+  44              	.LVL1:
+ 289:Generated_Source\PSoC5/Comp_A.c ****     
+ 290:Generated_Source\PSoC5/Comp_A.c ****     if (nibble == 0u)
+  45              		.loc 1 290 0
+  46 000a 0646     		mov	r6, r0
+  47 000c 30B9     		cbnz	r0, .L2
+ 291:Generated_Source\PSoC5/Comp_A.c ****     {    
+ 292:Generated_Source\PSoC5/Comp_A.c ****         /* if comparator output is high, negative offset adjust is required */
+ 293:Generated_Source\PSoC5/Comp_A.c ****         if ( cmpState != 0u )
+  48              		.loc 1 293 0
+  49 000e 5DB1     		cbz	r5, .L3
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 7
+
+
+ 294:Generated_Source\PSoC5/Comp_A.c ****         {
+ 295:Generated_Source\PSoC5/Comp_A.c ****             /* PSoC5A */
+ 296:Generated_Source\PSoC5/Comp_A.c ****             #if (CY_PSOC5A)
+ 297:Generated_Source\PSoC5/Comp_A.c ****                 Comp_A_TR |= Comp_A_CMP_TRIM1_DIR;
+ 298:Generated_Source\PSoC5/Comp_A.c ****             #endif /* CY_PSOC5A */
+ 299:Generated_Source\PSoC5/Comp_A.c ****             
+ 300:Generated_Source\PSoC5/Comp_A.c ****             /* PSoC3, PSoC5LP or later */
+ 301:Generated_Source\PSoC5/Comp_A.c ****             #if (CY_PSOC3 || CY_PSOC5LP)
+ 302:Generated_Source\PSoC5/Comp_A.c ****                 Comp_A_TR0 |= Comp_A_CMP_TR0_DIR;
+  50              		.loc 1 302 0
+  51 0010 164A     		ldr	r2, .L12+4
+  52 0012 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  53 0014 43F01003 		orr	r3, r3, #16
+  54 0018 1370     		strb	r3, [r2]
+  55 001a 05E0     		b	.L3
+  56              	.L2:
+ 303:Generated_Source\PSoC5/Comp_A.c ****             #endif /* CY_PSOC3 || CY_PSOC5LP */
+ 304:Generated_Source\PSoC5/Comp_A.c ****         }
+ 305:Generated_Source\PSoC5/Comp_A.c ****     }
+ 306:Generated_Source\PSoC5/Comp_A.c ****     else
+ 307:Generated_Source\PSoC5/Comp_A.c ****     {
+ 308:Generated_Source\PSoC5/Comp_A.c ****         /* if comparator output is low, positive offset adjust is required */
+ 309:Generated_Source\PSoC5/Comp_A.c ****         if ( cmpState == 0u )
+  57              		.loc 1 309 0
+  58 001c 25B9     		cbnz	r5, .L3
+ 310:Generated_Source\PSoC5/Comp_A.c ****         {
+ 311:Generated_Source\PSoC5/Comp_A.c ****             /* PSoC5A */
+ 312:Generated_Source\PSoC5/Comp_A.c ****             #if (CY_PSOC5A)
+ 313:Generated_Source\PSoC5/Comp_A.c ****                 Comp_A_TR |= Comp_A_CMP_TRIM2_DIR; 
+ 314:Generated_Source\PSoC5/Comp_A.c ****             #endif /* CY_PSOC5A */
+ 315:Generated_Source\PSoC5/Comp_A.c ****             
+ 316:Generated_Source\PSoC5/Comp_A.c ****             /* PSoC3, PSoC5LP or later */
+ 317:Generated_Source\PSoC5/Comp_A.c ****             #if (CY_PSOC3 || CY_PSOC5LP)
+ 318:Generated_Source\PSoC5/Comp_A.c ****                 Comp_A_TR1 |= Comp_A_CMP_TR1_DIR;
+  59              		.loc 1 318 0
+  60 001e 144A     		ldr	r2, .L12+8
+  61 0020 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  62 0022 43F01003 		orr	r3, r3, #16
+  63 0026 1370     		strb	r3, [r2]
+  64              	.L3:
+ 319:Generated_Source\PSoC5/Comp_A.c ****             #endif /* CY_PSOC3 || CY_PSOC5LP */
+ 320:Generated_Source\PSoC5/Comp_A.c ****         }
+ 321:Generated_Source\PSoC5/Comp_A.c ****     }
+ 322:Generated_Source\PSoC5/Comp_A.c **** 
+ 323:Generated_Source\PSoC5/Comp_A.c ****     /* Increment trim value until compare output changes state */
+ 324:Generated_Source\PSoC5/Comp_A.c **** 	
+ 325:Generated_Source\PSoC5/Comp_A.c ****     /* PSoC5A */
+ 326:Generated_Source\PSoC5/Comp_A.c **** 	#if (CY_PSOC5A)
+ 327:Generated_Source\PSoC5/Comp_A.c **** 	    trimCntMax = 7u;
+ 328:Generated_Source\PSoC5/Comp_A.c ****     #endif
+ 329:Generated_Source\PSoC5/Comp_A.c **** 	
+ 330:Generated_Source\PSoC5/Comp_A.c **** 	/* PSoC3, PSoC5LP or later */
+ 331:Generated_Source\PSoC5/Comp_A.c **** 	#if (CY_PSOC3 || CY_PSOC5LP)
+ 332:Generated_Source\PSoC5/Comp_A.c ****     	if(nibble == 0u)
+  65              		.loc 1 332 0
+  66 0028 0EB9     		cbnz	r6, .L10
+ 333:Generated_Source\PSoC5/Comp_A.c ****     	{
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 8
+
+
+ 334:Generated_Source\PSoC5/Comp_A.c ****     		trimCntMax = 15u;
+  67              		.loc 1 334 0
+  68 002a 0F27     		movs	r7, #15
+  69 002c 00E0     		b	.L4
+  70              	.L10:
+ 335:Generated_Source\PSoC5/Comp_A.c ****     	}
+ 336:Generated_Source\PSoC5/Comp_A.c ****     	else
+ 337:Generated_Source\PSoC5/Comp_A.c ****     	{
+ 338:Generated_Source\PSoC5/Comp_A.c ****     		trimCntMax = 7u;
+  71              		.loc 1 338 0
+  72 002e 0727     		movs	r7, #7
+  73              	.L4:
+  74              	.LVL2:
+ 339:Generated_Source\PSoC5/Comp_A.c ****     	}
+ 340:Generated_Source\PSoC5/Comp_A.c **** 	#endif
+ 341:Generated_Source\PSoC5/Comp_A.c **** 	
+ 342:Generated_Source\PSoC5/Comp_A.c ****     for ( trimCnt = 0u; trimCnt < trimCntMax; trimCnt++ )
+  75              		.loc 1 342 0
+  76 0030 0024     		movs	r4, #0
+  77 0032 16E0     		b	.L5
+  78              	.LVL3:
+  79              	.L9:
+ 343:Generated_Source\PSoC5/Comp_A.c **** 	{
+ 344:Generated_Source\PSoC5/Comp_A.c ****         if (nibble == 0u)
+  80              		.loc 1 344 0
+  81 0034 2EB9     		cbnz	r6, .L6
+ 345:Generated_Source\PSoC5/Comp_A.c ****         {
+ 346:Generated_Source\PSoC5/Comp_A.c ****             /* PSoC5A */
+ 347:Generated_Source\PSoC5/Comp_A.c ****             #if (CY_PSOC5A)
+ 348:Generated_Source\PSoC5/Comp_A.c ****                 Comp_A_TR += 1u;
+ 349:Generated_Source\PSoC5/Comp_A.c ****             #endif /* CY_PSOC5A */
+ 350:Generated_Source\PSoC5/Comp_A.c ****             
+ 351:Generated_Source\PSoC5/Comp_A.c ****             /* PSoC3, PSoC5LP or later */
+ 352:Generated_Source\PSoC5/Comp_A.c ****             #if (CY_PSOC3 || CY_PSOC5LP)
+ 353:Generated_Source\PSoC5/Comp_A.c ****                 Comp_A_TR0 += 1u;
+  82              		.loc 1 353 0
+  83 0036 0D4A     		ldr	r2, .L12+4
+  84 0038 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  85 003a 0133     		adds	r3, r3, #1
+  86 003c DBB2     		uxtb	r3, r3
+  87 003e 1370     		strb	r3, [r2]
+  88 0040 04E0     		b	.L7
+  89              	.L6:
+ 354:Generated_Source\PSoC5/Comp_A.c ****             #endif /* CY_PSOC3 || CY_PSOC5LP */
+ 355:Generated_Source\PSoC5/Comp_A.c ****         }
+ 356:Generated_Source\PSoC5/Comp_A.c ****         else
+ 357:Generated_Source\PSoC5/Comp_A.c ****         {
+ 358:Generated_Source\PSoC5/Comp_A.c ****             /* PSoC5A */
+ 359:Generated_Source\PSoC5/Comp_A.c ****             #if (CY_PSOC5A)
+ 360:Generated_Source\PSoC5/Comp_A.c ****                 Comp_A_TR += 0x10u;
+ 361:Generated_Source\PSoC5/Comp_A.c ****             #endif /* CY_PSOC5A */
+ 362:Generated_Source\PSoC5/Comp_A.c ****             
+ 363:Generated_Source\PSoC5/Comp_A.c ****             /* PSoC3, PSoC5LP or later */
+ 364:Generated_Source\PSoC5/Comp_A.c ****             #if (CY_PSOC3 || CY_PSOC5LP)
+ 365:Generated_Source\PSoC5/Comp_A.c ****                 Comp_A_TR1 += 1u;
+  90              		.loc 1 365 0
+  91 0042 0B4A     		ldr	r2, .L12+8
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 9
+
+
+  92 0044 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  93 0046 0133     		adds	r3, r3, #1
+  94 0048 DBB2     		uxtb	r3, r3
+  95 004a 1370     		strb	r3, [r2]
+  96              	.L7:
+ 366:Generated_Source\PSoC5/Comp_A.c ****             #endif /* CY_PSOC3 || CY_PSOC5LP */
+ 367:Generated_Source\PSoC5/Comp_A.c ****         }
+ 368:Generated_Source\PSoC5/Comp_A.c ****         
+ 369:Generated_Source\PSoC5/Comp_A.c ****         CyDelayUs(10u);
+  97              		.loc 1 369 0
+  98 004c 0A20     		movs	r0, #10
+  99 004e FFF7FEFF 		bl	CyDelayUs
+ 100              	.LVL4:
+ 370:Generated_Source\PSoC5/Comp_A.c ****         
+ 371:Generated_Source\PSoC5/Comp_A.c ****         /* Check for change in comparator output */
+ 372:Generated_Source\PSoC5/Comp_A.c ****         if ((Comp_A_WRK & Comp_A_CMP_OUT_MASK) != cmpState)
+ 101              		.loc 1 372 0
+ 102 0052 054B     		ldr	r3, .L12
+ 103 0054 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 104 0056 03F00103 		and	r3, r3, #1
+ 105 005a AB42     		cmp	r3, r5
+ 106 005c 03D1     		bne	.L1
+ 342:Generated_Source\PSoC5/Comp_A.c **** 	{
+ 107              		.loc 1 342 0 discriminator 2
+ 108 005e 0134     		adds	r4, r4, #1
+ 109              	.LVL5:
+ 110 0060 E4B2     		uxtb	r4, r4
+ 111              	.LVL6:
+ 112              	.L5:
+ 342:Generated_Source\PSoC5/Comp_A.c **** 	{
+ 113              		.loc 1 342 0 is_stmt 0 discriminator 1
+ 114 0062 BC42     		cmp	r4, r7
+ 115 0064 E6D3     		bcc	.L9
+ 116              	.L1:
+ 117 0066 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 118              	.LVL7:
+ 119              	.L13:
+ 120              		.align	2
+ 121              	.L12:
+ 122 0068 965B0040 		.word	1073765270
+ 123 006c 30460040 		.word	1073759792
+ 124 0070 31460040 		.word	1073759793
+ 125              		.cfi_endproc
+ 126              	.LFE6:
+ 127              		.size	Comp_A_trimAdjust, .-Comp_A_trimAdjust
+ 128              		.section	.text.Comp_A_Enable,"ax",%progbits
+ 129              		.align	2
+ 130              		.global	Comp_A_Enable
+ 131              		.thumb
+ 132              		.thumb_func
+ 133              		.type	Comp_A_Enable, %function
+ 134              	Comp_A_Enable:
+ 135              	.LFB1:
+ 100:Generated_Source\PSoC5/Comp_A.c ****     Comp_A_PWRMGR |= Comp_A_ACT_PWR_EN;
+ 136              		.loc 1 100 0 is_stmt 1
+ 137              		.cfi_startproc
+ 138              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 10
+
+
+ 139              		@ frame_needed = 0, uses_anonymous_args = 0
+ 140              		@ link register save eliminated.
+ 101:Generated_Source\PSoC5/Comp_A.c ****     Comp_A_STBY_PWRMGR |= Comp_A_STBY_PWR_EN;
+ 141              		.loc 1 101 0
+ 142 0000 054A     		ldr	r2, .L15
+ 143 0002 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 144 0004 43F00103 		orr	r3, r3, #1
+ 145 0008 1370     		strb	r3, [r2]
+ 102:Generated_Source\PSoC5/Comp_A.c ****      
+ 146              		.loc 1 102 0
+ 147 000a 1032     		adds	r2, r2, #16
+ 148 000c 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 149 000e 43F00103 		orr	r3, r3, #1
+ 150 0012 1370     		strb	r3, [r2]
+ 151 0014 7047     		bx	lr
+ 152              	.L16:
+ 153 0016 00BF     		.align	2
+ 154              	.L15:
+ 155 0018 A7430040 		.word	1073759143
+ 156              		.cfi_endproc
+ 157              	.LFE1:
+ 158              		.size	Comp_A_Enable, .-Comp_A_Enable
+ 159              		.section	.text.Comp_A_Stop,"ax",%progbits
+ 160              		.align	2
+ 161              		.global	Comp_A_Stop
+ 162              		.thumb
+ 163              		.thumb_func
+ 164              		.type	Comp_A_Stop, %function
+ 165              	Comp_A_Stop:
+ 166              	.LFB3:
+ 166:Generated_Source\PSoC5/Comp_A.c ****     /* Disable power to comparator */
+ 167              		.loc 1 166 0
+ 168              		.cfi_startproc
+ 169              		@ args = 0, pretend = 0, frame = 0
+ 170              		@ frame_needed = 0, uses_anonymous_args = 0
+ 171              		@ link register save eliminated.
+ 168:Generated_Source\PSoC5/Comp_A.c ****     Comp_A_STBY_PWRMGR &= (uint8)(~Comp_A_STBY_PWR_EN);
+ 172              		.loc 1 168 0
+ 173 0000 054A     		ldr	r2, .L18
+ 174 0002 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 175 0004 03F0FE03 		and	r3, r3, #254
+ 176 0008 1370     		strb	r3, [r2]
+ 169:Generated_Source\PSoC5/Comp_A.c ****     
+ 177              		.loc 1 169 0
+ 178 000a 1032     		adds	r2, r2, #16
+ 179 000c 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 180 000e 03F0FE03 		and	r3, r3, #254
+ 181 0012 1370     		strb	r3, [r2]
+ 182 0014 7047     		bx	lr
+ 183              	.L19:
+ 184 0016 00BF     		.align	2
+ 185              	.L18:
+ 186 0018 A7430040 		.word	1073759143
+ 187              		.cfi_endproc
+ 188              	.LFE3:
+ 189              		.size	Comp_A_Stop, .-Comp_A_Stop
+ 190              		.section	.text.Comp_A_SetSpeed,"ax",%progbits
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 11
+
+
+ 191              		.align	2
+ 192              		.global	Comp_A_SetSpeed
+ 193              		.thumb
+ 194              		.thumb_func
+ 195              		.type	Comp_A_SetSpeed, %function
+ 196              	Comp_A_SetSpeed:
+ 197              	.LFB4:
+ 198:Generated_Source\PSoC5/Comp_A.c ****     /* Clear and Set power level */    
+ 198              		.loc 1 198 0
+ 199              		.cfi_startproc
+ 200              		@ args = 0, pretend = 0, frame = 0
+ 201              		@ frame_needed = 0, uses_anonymous_args = 0
+ 202              		@ link register save eliminated.
+ 203              	.LVL8:
+ 200:Generated_Source\PSoC5/Comp_A.c ****                            (speed & Comp_A_PWR_MODE_MASK);
+ 204              		.loc 1 200 0
+ 205 0000 0F49     		ldr	r1, .L23
+ 206 0002 0B78     		ldrb	r3, [r1]	@ zero_extendqisi2
+ 207 0004 03F0FC02 		and	r2, r3, #252
+ 208 0008 00F00303 		and	r3, r0, #3
+ 209 000c 1343     		orrs	r3, r3, r2
+ 210 000e 0B70     		strb	r3, [r1]
+ 204:Generated_Source\PSoC5/Comp_A.c ****     {
+ 211              		.loc 1 204 0
+ 212 0010 0128     		cmp	r0, #1
+ 213 0012 0AD1     		bne	.L21
+ 213:Generated_Source\PSoC5/Comp_A.c ****             Comp_A_TR1 = Comp_A_HS_TRIM_TR1;
+ 214              		.loc 1 213 0
+ 215 0014 0B4B     		ldr	r3, .L23+4
+ 216 0016 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 217 0018 DBB2     		uxtb	r3, r3
+ 218 001a 0B4A     		ldr	r2, .L23+8
+ 219 001c 1370     		strb	r3, [r2]
+ 214:Generated_Source\PSoC5/Comp_A.c ****         #endif /* CY_PSOC3 || CY_PSOC5LP */
+ 220              		.loc 1 214 0
+ 221 001e 0B4B     		ldr	r3, .L23+12
+ 222 0020 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 223 0022 DBB2     		uxtb	r3, r3
+ 224 0024 0132     		adds	r2, r2, #1
+ 225 0026 1370     		strb	r3, [r2]
+ 226 0028 7047     		bx	lr
+ 227              	.L21:
+ 226:Generated_Source\PSoC5/Comp_A.c ****             Comp_A_TR1 = Comp_A_LS_TRIM_TR1;
+ 228              		.loc 1 226 0
+ 229 002a 094B     		ldr	r3, .L23+16
+ 230 002c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 231 002e DBB2     		uxtb	r3, r3
+ 232 0030 054A     		ldr	r2, .L23+8
+ 233 0032 1370     		strb	r3, [r2]
+ 227:Generated_Source\PSoC5/Comp_A.c ****         #endif /* CY_PSOC3 || CY_PSOC5LP */
+ 234              		.loc 1 227 0
+ 235 0034 074B     		ldr	r3, .L23+20
+ 236 0036 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 237 0038 DBB2     		uxtb	r3, r3
+ 238 003a 0132     		adds	r2, r2, #1
+ 239 003c 1370     		strb	r3, [r2]
+ 240 003e 7047     		bx	lr
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 12
+
+
+ 241              	.L24:
+ 242              		.align	2
+ 243              	.L23:
+ 244 0040 40580040 		.word	1073764416
+ 245 0044 10010049 		.word	1224737040
+ 246 0048 30460040 		.word	1073759792
+ 247 004c 14010049 		.word	1224737044
+ 248 0050 AD010049 		.word	1224737197
+ 249 0054 B5010049 		.word	1224737205
+ 250              		.cfi_endproc
+ 251              	.LFE4:
+ 252              		.size	Comp_A_SetSpeed, .-Comp_A_SetSpeed
+ 253              		.section	.text.Comp_A_Init,"ax",%progbits
+ 254              		.align	2
+ 255              		.global	Comp_A_Init
+ 256              		.thumb
+ 257              		.thumb_func
+ 258              		.type	Comp_A_Init, %function
+ 259              	Comp_A_Init:
+ 260              	.LFB0:
+  52:Generated_Source\PSoC5/Comp_A.c ****     /* Set default speed/power */
+ 261              		.loc 1 52 0
+ 262              		.cfi_startproc
+ 263              		@ args = 0, pretend = 0, frame = 0
+ 264              		@ frame_needed = 0, uses_anonymous_args = 0
+ 265 0000 08B5     		push	{r3, lr}
+ 266              		.cfi_def_cfa_offset 8
+ 267              		.cfi_offset 3, -8
+ 268              		.cfi_offset 14, -4
+  54:Generated_Source\PSoC5/Comp_A.c **** 
+ 269              		.loc 1 54 0
+ 270 0002 0120     		movs	r0, #1
+ 271 0004 FFF7FEFF 		bl	Comp_A_SetSpeed
+ 272              	.LVL9:
+  60:Generated_Source\PSoC5/Comp_A.c ****     #endif /* Comp_A_DEFAULT_HYSTERESIS == 0u */
+ 273              		.loc 1 60 0
+ 274 0008 0B4B     		ldr	r3, .L27
+ 275 000a 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 276 000c 02F0DF02 		and	r2, r2, #223
+ 277 0010 1A70     		strb	r2, [r3]
+  66:Generated_Source\PSoC5/Comp_A.c ****         #else 
+ 278              		.loc 1 66 0
+ 279 0012 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 280 0014 02F0FB02 		and	r2, r2, #251
+ 281 0018 1A70     		strb	r2, [r3]
+  73:Generated_Source\PSoC5/Comp_A.c **** 
+ 282              		.loc 1 73 0
+ 283 001a 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 284 001c 42F00802 		orr	r2, r2, #8
+ 285 0020 1A70     		strb	r2, [r3]
+  76:Generated_Source\PSoC5/Comp_A.c ****     #if ( Comp_A_DEFAULT_BYPASS_SYNC == 0u )
+ 286              		.loc 1 76 0
+ 287 0022 03F28723 		addw	r3, r3, #647
+ 288 0026 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 289 0028 02F0E702 		and	r2, r2, #231
+ 290 002c 1A70     		strb	r2, [r3]
+  78:Generated_Source\PSoC5/Comp_A.c ****     #else
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 13
+
+
+ 291              		.loc 1 78 0
+ 292 002e 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 293 0030 42F00802 		orr	r2, r2, #8
+ 294 0034 1A70     		strb	r2, [r3]
+ 295 0036 08BD     		pop	{r3, pc}
+ 296              	.L28:
+ 297              		.align	2
+ 298              	.L27:
+ 299 0038 40580040 		.word	1073764416
+ 300              		.cfi_endproc
+ 301              	.LFE0:
+ 302              		.size	Comp_A_Init, .-Comp_A_Init
+ 303              		.section	.text.Comp_A_Start,"ax",%progbits
+ 304              		.align	2
+ 305              		.global	Comp_A_Start
+ 306              		.thumb
+ 307              		.thumb_func
+ 308              		.type	Comp_A_Start, %function
+ 309              	Comp_A_Start:
+ 310              	.LFB2:
+ 137:Generated_Source\PSoC5/Comp_A.c **** 
+ 311              		.loc 1 137 0
+ 312              		.cfi_startproc
+ 313              		@ args = 0, pretend = 0, frame = 0
+ 314              		@ frame_needed = 0, uses_anonymous_args = 0
+ 315 0000 08B5     		push	{r3, lr}
+ 316              		.cfi_def_cfa_offset 8
+ 317              		.cfi_offset 3, -8
+ 318              		.cfi_offset 14, -4
+ 139:Generated_Source\PSoC5/Comp_A.c ****     {
+ 319              		.loc 1 139 0
+ 320 0002 054B     		ldr	r3, .L32
+ 321 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 322 0006 23B9     		cbnz	r3, .L30
+ 141:Generated_Source\PSoC5/Comp_A.c ****         
+ 323              		.loc 1 141 0
+ 324 0008 FFF7FEFF 		bl	Comp_A_Init
+ 325              	.LVL10:
+ 143:Generated_Source\PSoC5/Comp_A.c ****     }   
+ 326              		.loc 1 143 0
+ 327 000c 0122     		movs	r2, #1
+ 328 000e 024B     		ldr	r3, .L32
+ 329 0010 1A70     		strb	r2, [r3]
+ 330              	.L30:
+ 147:Generated_Source\PSoC5/Comp_A.c **** }
+ 331              		.loc 1 147 0
+ 332 0012 FFF7FEFF 		bl	Comp_A_Enable
+ 333              	.LVL11:
+ 334 0016 08BD     		pop	{r3, pc}
+ 335              	.L33:
+ 336              		.align	2
+ 337              	.L32:
+ 338 0018 00000000 		.word	.LANCHOR0
+ 339              		.cfi_endproc
+ 340              	.LFE2:
+ 341              		.size	Comp_A_Start, .-Comp_A_Start
+ 342              		.section	.text.Comp_A_GetCompare,"ax",%progbits
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 14
+
+
+ 343              		.align	2
+ 344              		.global	Comp_A_GetCompare
+ 345              		.thumb
+ 346              		.thumb_func
+ 347              		.type	Comp_A_GetCompare, %function
+ 348              	Comp_A_GetCompare:
+ 349              	.LFB5:
+ 252:Generated_Source\PSoC5/Comp_A.c ****     return( Comp_A_WRK & Comp_A_CMP_OUT_MASK);
+ 350              		.loc 1 252 0
+ 351              		.cfi_startproc
+ 352              		@ args = 0, pretend = 0, frame = 0
+ 353              		@ frame_needed = 0, uses_anonymous_args = 0
+ 354              		@ link register save eliminated.
+ 253:Generated_Source\PSoC5/Comp_A.c **** }
+ 355              		.loc 1 253 0
+ 356 0000 024B     		ldr	r3, .L35
+ 357 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 254:Generated_Source\PSoC5/Comp_A.c **** 
+ 358              		.loc 1 254 0
+ 359 0004 00F00100 		and	r0, r0, #1
+ 360 0008 7047     		bx	lr
+ 361              	.L36:
+ 362 000a 00BF     		.align	2
+ 363              	.L35:
+ 364 000c 965B0040 		.word	1073765270
+ 365              		.cfi_endproc
+ 366              	.LFE5:
+ 367              		.size	Comp_A_GetCompare, .-Comp_A_GetCompare
+ 368              		.section	.text.Comp_A_ZeroCal,"ax",%progbits
+ 369              		.align	2
+ 370              		.global	Comp_A_ZeroCal
+ 371              		.thumb
+ 372              		.thumb_func
+ 373              		.type	Comp_A_ZeroCal, %function
+ 374              	Comp_A_ZeroCal:
+ 375              	.LFB7:
+ 373:Generated_Source\PSoC5/Comp_A.c ****         {
+ 374:Generated_Source\PSoC5/Comp_A.c ****             break;      /* output changed state, trim phase is complete */
+ 375:Generated_Source\PSoC5/Comp_A.c ****         }        
+ 376:Generated_Source\PSoC5/Comp_A.c ****     }    
+ 377:Generated_Source\PSoC5/Comp_A.c **** }
+ 378:Generated_Source\PSoC5/Comp_A.c **** 
+ 379:Generated_Source\PSoC5/Comp_A.c **** 
+ 380:Generated_Source\PSoC5/Comp_A.c **** /*******************************************************************************
+ 381:Generated_Source\PSoC5/Comp_A.c **** * Function Name: Comp_A_ZeroCal
+ 382:Generated_Source\PSoC5/Comp_A.c **** ********************************************************************************
+ 383:Generated_Source\PSoC5/Comp_A.c **** *
+ 384:Generated_Source\PSoC5/Comp_A.c **** * Summary:
+ 385:Generated_Source\PSoC5/Comp_A.c **** *  This function calibrates the offset of the Analog Comparator.
+ 386:Generated_Source\PSoC5/Comp_A.c **** *
+ 387:Generated_Source\PSoC5/Comp_A.c **** * Parameters:
+ 388:Generated_Source\PSoC5/Comp_A.c **** *  None
+ 389:Generated_Source\PSoC5/Comp_A.c **** *
+ 390:Generated_Source\PSoC5/Comp_A.c **** * Return:
+ 391:Generated_Source\PSoC5/Comp_A.c **** *  (uint16)  value written in trim register when calibration complete.
+ 392:Generated_Source\PSoC5/Comp_A.c **** *
+ 393:Generated_Source\PSoC5/Comp_A.c **** * Theory: 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 15
+
+
+ 394:Generated_Source\PSoC5/Comp_A.c **** *  This function is used to optimize the calibration for user specific voltage
+ 395:Generated_Source\PSoC5/Comp_A.c **** *  range.  The comparator trim is adjusted to counter transistor offsets
+ 396:Generated_Source\PSoC5/Comp_A.c **** *   - offset is defined as positive if the output transitions to high before inP
+ 397:Generated_Source\PSoC5/Comp_A.c **** *     is greater than inN
+ 398:Generated_Source\PSoC5/Comp_A.c **** *   - offset is defined as negative if the output transitions to high after inP
+ 399:Generated_Source\PSoC5/Comp_A.c **** *     is greater than inP
+ 400:Generated_Source\PSoC5/Comp_A.c **** *
+ 401:Generated_Source\PSoC5/Comp_A.c **** *  PSoC5A
+ 402:Generated_Source\PSoC5/Comp_A.c **** *  The Analog Comparator provides 1 byte for offset trim.  The byte contains two
+ 403:Generated_Source\PSoC5/Comp_A.c **** *  4 bit trim fields - one is a course trim and the other allows smaller
+ 404:Generated_Source\PSoC5/Comp_A.c **** *  offset adjustments only for slow modes.
+ 405:Generated_Source\PSoC5/Comp_A.c **** *  - low nibble - fine trim
+ 406:Generated_Source\PSoC5/Comp_A.c **** *  - high nibble - course trim
+ 407:Generated_Source\PSoC5/Comp_A.c **** *  PSoC3, PSoC5LP or later
+ 408:Generated_Source\PSoC5/Comp_A.c **** *  The Analog Comparator provides 2 bytes for offset trim.  The bytes contain two
+ 409:Generated_Source\PSoC5/Comp_A.c **** *  5 bit trim fields - one is a course trim and the other allows smaller
+ 410:Generated_Source\PSoC5/Comp_A.c **** *  offset adjustments only for slow modes.
+ 411:Generated_Source\PSoC5/Comp_A.c **** *  - TR0 - fine trim
+ 412:Generated_Source\PSoC5/Comp_A.c **** *  - TR1 - course trim
+ 413:Generated_Source\PSoC5/Comp_A.c **** *
+ 414:Generated_Source\PSoC5/Comp_A.c **** *  Trim algorithm is a two phase process
+ 415:Generated_Source\PSoC5/Comp_A.c **** *  The first phase performs course offset adjustment
+ 416:Generated_Source\PSoC5/Comp_A.c **** *  The second phase serves one of two purposes depending on the outcome of the
+ 417:Generated_Source\PSoC5/Comp_A.c **** *  first phase
+ 418:Generated_Source\PSoC5/Comp_A.c **** *  - if the first trim value was maxed out without a comparator output 
+ 419:Generated_Source\PSoC5/Comp_A.c **** *    transition, more offset will be added by adjusting the second trim value.
+ 420:Generated_Source\PSoC5/Comp_A.c **** *  - if the first trim phase resulted in a comparator output transition, the
+ 421:Generated_Source\PSoC5/Comp_A.c **** *    second trim value will serve as fine trim (in the opposite direction)to
+ 422:Generated_Source\PSoC5/Comp_A.c **** *    ensure the offset is < 1 mV.
+ 423:Generated_Source\PSoC5/Comp_A.c **** *
+ 424:Generated_Source\PSoC5/Comp_A.c **** * Trim Process:   
+ 425:Generated_Source\PSoC5/Comp_A.c **** *  1) User applies a voltage to the negative input.  Voltage should be in the
+ 426:Generated_Source\PSoC5/Comp_A.c **** *     comparator operating range or an average of the operating voltage range.
+ 427:Generated_Source\PSoC5/Comp_A.c **** *  2) Clear registers associated with analog routing to the positive input.
+ 428:Generated_Source\PSoC5/Comp_A.c **** *  3) Disable Hysteresis
+ 429:Generated_Source\PSoC5/Comp_A.c **** *  4) Set the calibration bit to short the negative and positive inputs to
+ 430:Generated_Source\PSoC5/Comp_A.c **** *     the users calibration voltage.
+ 431:Generated_Source\PSoC5/Comp_A.c **** *  5) Clear the TR register  ( TR = 0x00 )
+ 432:Generated_Source\PSoC5/Comp_A.c **** *  ** LOW MODES
+ 433:Generated_Source\PSoC5/Comp_A.c **** *  6) Check if compare output is high, if so, set the MSb of course trim field 
+ 434:Generated_Source\PSoC5/Comp_A.c **** *     to a 1.
+ 435:Generated_Source\PSoC5/Comp_A.c **** *  7) Increment the course trim field until the compare output changes
+ 436:Generated_Source\PSoC5/Comp_A.c **** *  8) Check if compare output is low, if so, set the MSb of fine trim field
+ 437:Generated_Source\PSoC5/Comp_A.c **** *     to a 1.
+ 438:Generated_Source\PSoC5/Comp_A.c **** *  9) Increment the fine trim field until the compare output changes
+ 439:Generated_Source\PSoC5/Comp_A.c **** *  ** FAST MODE - skip the steps 8,9
+ 440:Generated_Source\PSoC5/Comp_A.c **** *
+ 441:Generated_Source\PSoC5/Comp_A.c **** * Side Effects:
+ 442:Generated_Source\PSoC5/Comp_A.c **** *  Routine clears analog routing associated with the comparator positive input.  
+ 443:Generated_Source\PSoC5/Comp_A.c **** *  This may affect routing of signals from other components that are connected
+ 444:Generated_Source\PSoC5/Comp_A.c **** *  to the positive input of the comparator.
+ 445:Generated_Source\PSoC5/Comp_A.c **** *
+ 446:Generated_Source\PSoC5/Comp_A.c **** *******************************************************************************/
+ 447:Generated_Source\PSoC5/Comp_A.c **** uint16 Comp_A_ZeroCal(void) 
+ 448:Generated_Source\PSoC5/Comp_A.c **** {
+ 376              		.loc 1 448 0
+ 377              		.cfi_startproc
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 16
+
+
+ 378              		@ args = 0, pretend = 0, frame = 0
+ 379              		@ frame_needed = 0, uses_anonymous_args = 0
+ 380 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 381              		.cfi_def_cfa_offset 24
+ 382              		.cfi_offset 3, -24
+ 383              		.cfi_offset 4, -20
+ 384              		.cfi_offset 5, -16
+ 385              		.cfi_offset 6, -12
+ 386              		.cfi_offset 7, -8
+ 387              		.cfi_offset 14, -4
+ 449:Generated_Source\PSoC5/Comp_A.c ****     uint8 tmpSW0;
+ 450:Generated_Source\PSoC5/Comp_A.c ****     uint8 tmpSW2;
+ 451:Generated_Source\PSoC5/Comp_A.c ****     uint8 tmpSW3;
+ 452:Generated_Source\PSoC5/Comp_A.c ****     uint8 tmpCR;
+ 453:Generated_Source\PSoC5/Comp_A.c **** 
+ 454:Generated_Source\PSoC5/Comp_A.c ****     /* Save a copy of routing registers associated with inP */
+ 455:Generated_Source\PSoC5/Comp_A.c ****     tmpSW0 = Comp_A_SW0;
+ 388              		.loc 1 455 0
+ 389 0002 1E48     		ldr	r0, .L41
+ 390 0004 0678     		ldrb	r6, [r0]	@ zero_extendqisi2
+ 391 0006 F6B2     		uxtb	r6, r6
+ 392              	.LVL12:
+ 456:Generated_Source\PSoC5/Comp_A.c ****     tmpSW2 = Comp_A_SW2;
+ 393              		.loc 1 456 0
+ 394 0008 1D49     		ldr	r1, .L41+4
+ 395 000a 0D78     		ldrb	r5, [r1]	@ zero_extendqisi2
+ 396 000c EDB2     		uxtb	r5, r5
+ 397              	.LVL13:
+ 457:Generated_Source\PSoC5/Comp_A.c ****     tmpSW3 = Comp_A_SW3;
+ 398              		.loc 1 457 0
+ 399 000e 1D4B     		ldr	r3, .L41+8
+ 400 0010 1C78     		ldrb	r4, [r3]	@ zero_extendqisi2
+ 401 0012 E4B2     		uxtb	r4, r4
+ 402              	.LVL14:
+ 458:Generated_Source\PSoC5/Comp_A.c **** 
+ 459:Generated_Source\PSoC5/Comp_A.c ****      /* Clear routing for inP, retain routing for inN */
+ 460:Generated_Source\PSoC5/Comp_A.c ****     Comp_A_SW0 = 0x00u;
+ 403              		.loc 1 460 0
+ 404 0014 0022     		movs	r2, #0
+ 405 0016 0270     		strb	r2, [r0]
+ 461:Generated_Source\PSoC5/Comp_A.c ****     Comp_A_SW2 = 0x00u;
+ 406              		.loc 1 461 0
+ 407 0018 0A70     		strb	r2, [r1]
+ 462:Generated_Source\PSoC5/Comp_A.c ****     Comp_A_SW3 = tmpSW3 & (uint8)(~Comp_A_CMP_SW3_INPCTL_MASK);
+ 408              		.loc 1 462 0
+ 409 001a 04F0F601 		and	r1, r4, #246
+ 410 001e 1970     		strb	r1, [r3]
+ 463:Generated_Source\PSoC5/Comp_A.c **** 
+ 464:Generated_Source\PSoC5/Comp_A.c ****     /* Preserve original configuration
+ 465:Generated_Source\PSoC5/Comp_A.c ****      * - turn off Hysteresis
+ 466:Generated_Source\PSoC5/Comp_A.c ****      * - set calibration bit - shorts inN to inP
+ 467:Generated_Source\PSoC5/Comp_A.c ****     */
+ 468:Generated_Source\PSoC5/Comp_A.c ****     tmpCR = Comp_A_CR;
+ 411              		.loc 1 468 0
+ 412 0020 A3F28323 		subw	r3, r3, #643
+ 413 0024 1F78     		ldrb	r7, [r3]	@ zero_extendqisi2
+ 414 0026 FFB2     		uxtb	r7, r7
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 17
+
+
+ 415              	.LVL15:
+ 469:Generated_Source\PSoC5/Comp_A.c ****     Comp_A_CR |= (Comp_A_CAL_ON | Comp_A_HYST_OFF);
+ 416              		.loc 1 469 0
+ 417 0028 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
+ 418 002a 41F03001 		orr	r1, r1, #48
+ 419 002e 1970     		strb	r1, [r3]
+ 470:Generated_Source\PSoC5/Comp_A.c ****     
+ 471:Generated_Source\PSoC5/Comp_A.c ****     /* Write default low values to trim register - no offset adjust */
+ 472:Generated_Source\PSoC5/Comp_A.c ****     /* PSoC5A */
+ 473:Generated_Source\PSoC5/Comp_A.c ****     #if (CY_PSOC5A)
+ 474:Generated_Source\PSoC5/Comp_A.c ****         Comp_A_TR = Comp_A_DEFAULT_CMP_TRIM;
+ 475:Generated_Source\PSoC5/Comp_A.c ****     #endif /* CY_PSOC5A */
+ 476:Generated_Source\PSoC5/Comp_A.c ****     
+ 477:Generated_Source\PSoC5/Comp_A.c ****     /* PSoC3, PSoC5LP or later */
+ 478:Generated_Source\PSoC5/Comp_A.c ****     #if (CY_PSOC3 || CY_PSOC5LP)
+ 479:Generated_Source\PSoC5/Comp_A.c ****         Comp_A_TR0 = Comp_A_DEFAULT_CMP_TRIM;
+ 420              		.loc 1 479 0
+ 421 0030 1549     		ldr	r1, .L41+12
+ 422 0032 0A70     		strb	r2, [r1]
+ 480:Generated_Source\PSoC5/Comp_A.c ****         Comp_A_TR1 = Comp_A_DEFAULT_CMP_TRIM;
+ 423              		.loc 1 480 0
+ 424 0034 0131     		adds	r1, r1, #1
+ 425 0036 0A70     		strb	r2, [r1]
+ 481:Generated_Source\PSoC5/Comp_A.c ****     #endif /* CY_PSOC3 || CY_PSOC5LP */
+ 482:Generated_Source\PSoC5/Comp_A.c **** 	
+ 483:Generated_Source\PSoC5/Comp_A.c **** 	/* Two phase trim - slow modes, one phase trim - for fast */ 
+ 484:Generated_Source\PSoC5/Comp_A.c ****     if ( (Comp_A_CR & Comp_A_PWR_MODE_MASK) == Comp_A_PWR_MODE_FAST)
+ 426              		.loc 1 484 0
+ 427 0038 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 428 003a 03F00303 		and	r3, r3, #3
+ 429 003e 012B     		cmp	r3, #1
+ 430 0040 03D1     		bne	.L38
+ 485:Generated_Source\PSoC5/Comp_A.c ****     {
+ 486:Generated_Source\PSoC5/Comp_A.c ****         Comp_A_trimAdjust(0u);
+ 431              		.loc 1 486 0
+ 432 0042 1046     		mov	r0, r2
+ 433 0044 FFF7FEFF 		bl	Comp_A_trimAdjust
+ 434              	.LVL16:
+ 435 0048 05E0     		b	.L39
+ 436              	.L38:
+ 487:Generated_Source\PSoC5/Comp_A.c ****     }
+ 488:Generated_Source\PSoC5/Comp_A.c ****     else /* default to trim for fast modes */
+ 489:Generated_Source\PSoC5/Comp_A.c ****     {
+ 490:Generated_Source\PSoC5/Comp_A.c ****         Comp_A_trimAdjust(1u);
+ 437              		.loc 1 490 0
+ 438 004a 0120     		movs	r0, #1
+ 439 004c FFF7FEFF 		bl	Comp_A_trimAdjust
+ 440              	.LVL17:
+ 491:Generated_Source\PSoC5/Comp_A.c **** 		Comp_A_trimAdjust(0u);
+ 441              		.loc 1 491 0
+ 442 0050 0020     		movs	r0, #0
+ 443 0052 FFF7FEFF 		bl	Comp_A_trimAdjust
+ 444              	.LVL18:
+ 445              	.L39:
+ 492:Generated_Source\PSoC5/Comp_A.c ****     }
+ 493:Generated_Source\PSoC5/Comp_A.c ****    
+ 494:Generated_Source\PSoC5/Comp_A.c ****     /* Restore Config Register */
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 18
+
+
+ 495:Generated_Source\PSoC5/Comp_A.c ****     Comp_A_CR = tmpCR;
+ 446              		.loc 1 495 0
+ 447 0056 0D4B     		ldr	r3, .L41+16
+ 448 0058 1F70     		strb	r7, [r3]
+ 496:Generated_Source\PSoC5/Comp_A.c ****     
+ 497:Generated_Source\PSoC5/Comp_A.c ****     /* Restore routing registers for inP */
+ 498:Generated_Source\PSoC5/Comp_A.c ****     Comp_A_SW0 = tmpSW0;
+ 449              		.loc 1 498 0
+ 450 005a 03F52073 		add	r3, r3, #640
+ 451 005e 1E70     		strb	r6, [r3]
+ 499:Generated_Source\PSoC5/Comp_A.c ****     Comp_A_SW2 = tmpSW2;
+ 452              		.loc 1 499 0
+ 453 0060 0233     		adds	r3, r3, #2
+ 454 0062 1D70     		strb	r5, [r3]
+ 500:Generated_Source\PSoC5/Comp_A.c ****     Comp_A_SW3 = tmpSW3;
+ 455              		.loc 1 500 0
+ 456 0064 0133     		adds	r3, r3, #1
+ 457 0066 1C70     		strb	r4, [r3]
+ 501:Generated_Source\PSoC5/Comp_A.c ****     
+ 502:Generated_Source\PSoC5/Comp_A.c ****     /* PSoC5A */
+ 503:Generated_Source\PSoC5/Comp_A.c ****     #if (CY_PSOC5A)
+ 504:Generated_Source\PSoC5/Comp_A.c ****         return (uint16) Comp_A_TR;
+ 505:Generated_Source\PSoC5/Comp_A.c ****     #endif /* CY_PSOC5A */
+ 506:Generated_Source\PSoC5/Comp_A.c ****     
+ 507:Generated_Source\PSoC5/Comp_A.c ****     /* PSoC3, PSoC5LP or later */
+ 508:Generated_Source\PSoC5/Comp_A.c ****     #if (CY_PSOC3 || CY_PSOC5LP)
+ 509:Generated_Source\PSoC5/Comp_A.c ****         return ((uint16)((uint16)Comp_A_TR1 << 8u) | (Comp_A_TR0));        
+ 458              		.loc 1 509 0
+ 459 0068 A3F5A453 		sub	r3, r3, #5248
+ 460 006c 123B     		subs	r3, r3, #18
+ 461 006e 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 462 0070 013B     		subs	r3, r3, #1
+ 463 0072 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 510:Generated_Source\PSoC5/Comp_A.c ****     #endif /* CY_PSOC3 || CY_PSOC5LP */
+ 511:Generated_Source\PSoC5/Comp_A.c **** }
+ 464              		.loc 1 511 0
+ 465 0074 43EA0020 		orr	r0, r3, r0, lsl #8
+ 466 0078 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 467              	.LVL19:
+ 468              	.L42:
+ 469 007a 00BF     		.align	2
+ 470              	.L41:
+ 471 007c C05A0040 		.word	1073765056
+ 472 0080 C25A0040 		.word	1073765058
+ 473 0084 C35A0040 		.word	1073765059
+ 474 0088 30460040 		.word	1073759792
+ 475 008c 40580040 		.word	1073764416
+ 476              		.cfi_endproc
+ 477              	.LFE7:
+ 478              		.size	Comp_A_ZeroCal, .-Comp_A_ZeroCal
+ 479              		.section	.text.Comp_A_LoadTrim,"ax",%progbits
+ 480              		.align	2
+ 481              		.global	Comp_A_LoadTrim
+ 482              		.thumb
+ 483              		.thumb_func
+ 484              		.type	Comp_A_LoadTrim, %function
+ 485              	Comp_A_LoadTrim:
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 19
+
+
+ 486              	.LFB8:
+ 512:Generated_Source\PSoC5/Comp_A.c **** 
+ 513:Generated_Source\PSoC5/Comp_A.c **** 
+ 514:Generated_Source\PSoC5/Comp_A.c **** /*******************************************************************************
+ 515:Generated_Source\PSoC5/Comp_A.c **** * Function Name: Comp_A_LoadTrim
+ 516:Generated_Source\PSoC5/Comp_A.c **** ********************************************************************************
+ 517:Generated_Source\PSoC5/Comp_A.c **** *
+ 518:Generated_Source\PSoC5/Comp_A.c **** * Summary:
+ 519:Generated_Source\PSoC5/Comp_A.c **** *  This function stores a value in the Analog Comparator trim register.
+ 520:Generated_Source\PSoC5/Comp_A.c **** *
+ 521:Generated_Source\PSoC5/Comp_A.c **** * Parameters:  
+ 522:Generated_Source\PSoC5/Comp_A.c **** *  uint8 trimVal - trim value.  This value is the same format as the value 
+ 523:Generated_Source\PSoC5/Comp_A.c **** *  returned by the _ZeroCal routine.
+ 524:Generated_Source\PSoC5/Comp_A.c **** *
+ 525:Generated_Source\PSoC5/Comp_A.c **** * Return:
+ 526:Generated_Source\PSoC5/Comp_A.c **** *  None
+ 527:Generated_Source\PSoC5/Comp_A.c **** *
+ 528:Generated_Source\PSoC5/Comp_A.c **** *******************************************************************************/
+ 529:Generated_Source\PSoC5/Comp_A.c **** void Comp_A_LoadTrim(uint16 trimVal) 
+ 530:Generated_Source\PSoC5/Comp_A.c **** {
+ 487              		.loc 1 530 0
+ 488              		.cfi_startproc
+ 489              		@ args = 0, pretend = 0, frame = 0
+ 490              		@ frame_needed = 0, uses_anonymous_args = 0
+ 491              		@ link register save eliminated.
+ 492              	.LVL20:
+ 531:Generated_Source\PSoC5/Comp_A.c ****     /* Stores value in the Analog Comparator trim register */
+ 532:Generated_Source\PSoC5/Comp_A.c ****     /* PSoC5A */
+ 533:Generated_Source\PSoC5/Comp_A.c ****     #if (CY_PSOC5A)
+ 534:Generated_Source\PSoC5/Comp_A.c ****         Comp_A_TR = (uint8) trimVal;
+ 535:Generated_Source\PSoC5/Comp_A.c ****     #endif /* CY_PSOC5A */
+ 536:Generated_Source\PSoC5/Comp_A.c ****     
+ 537:Generated_Source\PSoC5/Comp_A.c ****     /* PSoC3, PSoC5LP or later */
+ 538:Generated_Source\PSoC5/Comp_A.c ****     #if (CY_PSOC3 || CY_PSOC5LP)
+ 539:Generated_Source\PSoC5/Comp_A.c ****         /* Stores value in the Analog Comparator trim register for P-type load */
+ 540:Generated_Source\PSoC5/Comp_A.c ****         Comp_A_TR0 = (uint8) trimVal;
+ 493              		.loc 1 540 0
+ 494 0000 C2B2     		uxtb	r2, r0
+ 495 0002 034B     		ldr	r3, .L44
+ 496 0004 1A70     		strb	r2, [r3]
+ 541:Generated_Source\PSoC5/Comp_A.c ****         
+ 542:Generated_Source\PSoC5/Comp_A.c ****         /* Stores value in the Analog Comparator trim register for N-type load */
+ 543:Generated_Source\PSoC5/Comp_A.c ****         Comp_A_TR1 = (uint8) (trimVal >> 8); 
+ 497              		.loc 1 543 0
+ 498 0006 000A     		lsrs	r0, r0, #8
+ 499              	.LVL21:
+ 500 0008 0133     		adds	r3, r3, #1
+ 501 000a 1870     		strb	r0, [r3]
+ 502 000c 7047     		bx	lr
+ 503              	.L45:
+ 504 000e 00BF     		.align	2
+ 505              	.L44:
+ 506 0010 30460040 		.word	1073759792
+ 507              		.cfi_endproc
+ 508              	.LFE8:
+ 509              		.size	Comp_A_LoadTrim, .-Comp_A_LoadTrim
+ 510              		.section	.text.Comp_A_PwrDwnOverrideEnable,"ax",%progbits
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 20
+
+
+ 511              		.align	2
+ 512              		.global	Comp_A_PwrDwnOverrideEnable
+ 513              		.thumb
+ 514              		.thumb_func
+ 515              		.type	Comp_A_PwrDwnOverrideEnable, %function
+ 516              	Comp_A_PwrDwnOverrideEnable:
+ 517              	.LFB9:
+ 544:Generated_Source\PSoC5/Comp_A.c ****     #endif /* CY_PSOC3 || CY_PSOC5LP */
+ 545:Generated_Source\PSoC5/Comp_A.c **** }
+ 546:Generated_Source\PSoC5/Comp_A.c **** 
+ 547:Generated_Source\PSoC5/Comp_A.c **** 
+ 548:Generated_Source\PSoC5/Comp_A.c **** #if (CY_PSOC3 || CY_PSOC5LP)
+ 549:Generated_Source\PSoC5/Comp_A.c **** 
+ 550:Generated_Source\PSoC5/Comp_A.c ****     /*******************************************************************************
+ 551:Generated_Source\PSoC5/Comp_A.c ****     * Function Name: Comp_A_PwrDwnOverrideEnable
+ 552:Generated_Source\PSoC5/Comp_A.c ****     ********************************************************************************
+ 553:Generated_Source\PSoC5/Comp_A.c ****     *
+ 554:Generated_Source\PSoC5/Comp_A.c ****     * Summary:
+ 555:Generated_Source\PSoC5/Comp_A.c ****     *  This is the power down over-ride feature. This function ignores sleep 
+ 556:Generated_Source\PSoC5/Comp_A.c ****     *  parameter and allows the component to stay active during sleep mode.
+ 557:Generated_Source\PSoC5/Comp_A.c ****     *
+ 558:Generated_Source\PSoC5/Comp_A.c ****     * Parameters:
+ 559:Generated_Source\PSoC5/Comp_A.c ****     *  None
+ 560:Generated_Source\PSoC5/Comp_A.c ****     *
+ 561:Generated_Source\PSoC5/Comp_A.c ****     * Return:
+ 562:Generated_Source\PSoC5/Comp_A.c ****     *  None
+ 563:Generated_Source\PSoC5/Comp_A.c ****     *
+ 564:Generated_Source\PSoC5/Comp_A.c ****     *******************************************************************************/
+ 565:Generated_Source\PSoC5/Comp_A.c ****     void Comp_A_PwrDwnOverrideEnable(void) 
+ 566:Generated_Source\PSoC5/Comp_A.c ****     {
+ 518              		.loc 1 566 0
+ 519              		.cfi_startproc
+ 520              		@ args = 0, pretend = 0, frame = 0
+ 521              		@ frame_needed = 0, uses_anonymous_args = 0
+ 522              		@ link register save eliminated.
+ 567:Generated_Source\PSoC5/Comp_A.c ****         /* Set the pd_override bit in CMP_CR register */
+ 568:Generated_Source\PSoC5/Comp_A.c ****         Comp_A_CR |= Comp_A_PWRDWN_OVRD;
+ 523              		.loc 1 568 0
+ 524 0000 024A     		ldr	r2, .L47
+ 525 0002 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 526 0004 43F00403 		orr	r3, r3, #4
+ 527 0008 1370     		strb	r3, [r2]
+ 528 000a 7047     		bx	lr
+ 529              	.L48:
+ 530              		.align	2
+ 531              	.L47:
+ 532 000c 40580040 		.word	1073764416
+ 533              		.cfi_endproc
+ 534              	.LFE9:
+ 535              		.size	Comp_A_PwrDwnOverrideEnable, .-Comp_A_PwrDwnOverrideEnable
+ 536              		.section	.text.Comp_A_PwrDwnOverrideDisable,"ax",%progbits
+ 537              		.align	2
+ 538              		.global	Comp_A_PwrDwnOverrideDisable
+ 539              		.thumb
+ 540              		.thumb_func
+ 541              		.type	Comp_A_PwrDwnOverrideDisable, %function
+ 542              	Comp_A_PwrDwnOverrideDisable:
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 21
+
+
+ 543              	.LFB10:
+ 569:Generated_Source\PSoC5/Comp_A.c ****     }
+ 570:Generated_Source\PSoC5/Comp_A.c **** 
+ 571:Generated_Source\PSoC5/Comp_A.c **** 
+ 572:Generated_Source\PSoC5/Comp_A.c ****     /*******************************************************************************
+ 573:Generated_Source\PSoC5/Comp_A.c ****     * Function Name: Comp_A_PwrDwnOverrideDisable
+ 574:Generated_Source\PSoC5/Comp_A.c ****     ********************************************************************************
+ 575:Generated_Source\PSoC5/Comp_A.c ****     *
+ 576:Generated_Source\PSoC5/Comp_A.c ****     * Summary:
+ 577:Generated_Source\PSoC5/Comp_A.c ****     *  This is the power down over-ride feature. This allows the component to stay
+ 578:Generated_Source\PSoC5/Comp_A.c ****     *  inactive during sleep.
+ 579:Generated_Source\PSoC5/Comp_A.c ****     *
+ 580:Generated_Source\PSoC5/Comp_A.c ****     * Parameters:
+ 581:Generated_Source\PSoC5/Comp_A.c ****     *  None
+ 582:Generated_Source\PSoC5/Comp_A.c ****     *
+ 583:Generated_Source\PSoC5/Comp_A.c ****     * Return:
+ 584:Generated_Source\PSoC5/Comp_A.c ****     *  None
+ 585:Generated_Source\PSoC5/Comp_A.c ****     *
+ 586:Generated_Source\PSoC5/Comp_A.c ****     *******************************************************************************/
+ 587:Generated_Source\PSoC5/Comp_A.c ****     void Comp_A_PwrDwnOverrideDisable(void) 
+ 588:Generated_Source\PSoC5/Comp_A.c ****     {
+ 544              		.loc 1 588 0
+ 545              		.cfi_startproc
+ 546              		@ args = 0, pretend = 0, frame = 0
+ 547              		@ frame_needed = 0, uses_anonymous_args = 0
+ 548              		@ link register save eliminated.
+ 589:Generated_Source\PSoC5/Comp_A.c ****         /* Reset the pd_override bit in CMP_CR register */
+ 590:Generated_Source\PSoC5/Comp_A.c ****         Comp_A_CR &= (uint8)(~Comp_A_PWRDWN_OVRD);
+ 549              		.loc 1 590 0
+ 550 0000 024A     		ldr	r2, .L50
+ 551 0002 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 552 0004 03F0FB03 		and	r3, r3, #251
+ 553 0008 1370     		strb	r3, [r2]
+ 554 000a 7047     		bx	lr
+ 555              	.L51:
+ 556              		.align	2
+ 557              	.L50:
+ 558 000c 40580040 		.word	1073764416
+ 559              		.cfi_endproc
+ 560              	.LFE10:
+ 561              		.size	Comp_A_PwrDwnOverrideDisable, .-Comp_A_PwrDwnOverrideDisable
+ 562              		.global	Comp_A_initVar
+ 563              		.bss
+ 564              		.set	.LANCHOR0,. + 0
+ 565              		.type	Comp_A_initVar, %object
+ 566              		.size	Comp_A_initVar, 1
+ 567              	Comp_A_initVar:
+ 568 0000 00       		.space	1
+ 569              		.text
+ 570              	.Letext0:
+ 571              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 572              		.file 3 "Generated_Source\\PSoC5\\CyLib.h"
+ 573              		.section	.debug_info,"",%progbits
+ 574              	.Ldebug_info0:
+ 575 0000 C4020000 		.4byte	0x2c4
+ 576 0004 0400     		.2byte	0x4
+ 577 0006 00000000 		.4byte	.Ldebug_abbrev0
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 22
+
+
+ 578 000a 04       		.byte	0x4
+ 579 000b 01       		.uleb128 0x1
+ 580 000c A3000000 		.4byte	.LASF36
+ 581 0010 0C       		.byte	0xc
+ 582 0011 6F020000 		.4byte	.LASF37
+ 583 0015 5B000000 		.4byte	.LASF38
+ 584 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 585 001d 00000000 		.4byte	0
+ 586 0021 00000000 		.4byte	.Ldebug_line0
+ 587 0025 02       		.uleb128 0x2
+ 588 0026 01       		.byte	0x1
+ 589 0027 06       		.byte	0x6
+ 590 0028 B2020000 		.4byte	.LASF0
+ 591 002c 02       		.uleb128 0x2
+ 592 002d 01       		.byte	0x1
+ 593 002e 08       		.byte	0x8
+ 594 002f A7010000 		.4byte	.LASF1
+ 595 0033 02       		.uleb128 0x2
+ 596 0034 02       		.byte	0x2
+ 597 0035 05       		.byte	0x5
+ 598 0036 BC010000 		.4byte	.LASF2
+ 599 003a 02       		.uleb128 0x2
+ 600 003b 02       		.byte	0x2
+ 601 003c 07       		.byte	0x7
+ 602 003d 24000000 		.4byte	.LASF3
+ 603 0041 02       		.uleb128 0x2
+ 604 0042 04       		.byte	0x4
+ 605 0043 05       		.byte	0x5
+ 606 0044 9D020000 		.4byte	.LASF4
+ 607 0048 02       		.uleb128 0x2
+ 608 0049 04       		.byte	0x4
+ 609 004a 07       		.byte	0x7
+ 610 004b 50010000 		.4byte	.LASF5
+ 611 004f 02       		.uleb128 0x2
+ 612 0050 08       		.byte	0x8
+ 613 0051 05       		.byte	0x5
+ 614 0052 52020000 		.4byte	.LASF6
+ 615 0056 02       		.uleb128 0x2
+ 616 0057 08       		.byte	0x8
+ 617 0058 07       		.byte	0x7
+ 618 0059 15020000 		.4byte	.LASF7
+ 619 005d 03       		.uleb128 0x3
+ 620 005e 04       		.byte	0x4
+ 621 005f 05       		.byte	0x5
+ 622 0060 696E7400 		.ascii	"int\000"
+ 623 0064 02       		.uleb128 0x2
+ 624 0065 04       		.byte	0x4
+ 625 0066 07       		.byte	0x7
+ 626 0067 FF010000 		.4byte	.LASF8
+ 627 006b 04       		.uleb128 0x4
+ 628 006c 62010000 		.4byte	.LASF9
+ 629 0070 02       		.byte	0x2
+ 630 0071 E401     		.2byte	0x1e4
+ 631 0073 2C000000 		.4byte	0x2c
+ 632 0077 04       		.uleb128 0x4
+ 633 0078 F1010000 		.4byte	.LASF10
+ 634 007c 02       		.byte	0x2
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 23
+
+
+ 635 007d E501     		.2byte	0x1e5
+ 636 007f 3A000000 		.4byte	0x3a
+ 637 0083 04       		.uleb128 0x4
+ 638 0084 F8010000 		.4byte	.LASF11
+ 639 0088 02       		.byte	0x2
+ 640 0089 E601     		.2byte	0x1e6
+ 641 008b 48000000 		.4byte	0x48
+ 642 008f 02       		.uleb128 0x2
+ 643 0090 04       		.byte	0x4
+ 644 0091 04       		.byte	0x4
+ 645 0092 3E000000 		.4byte	.LASF12
+ 646 0096 02       		.uleb128 0x2
+ 647 0097 08       		.byte	0x8
+ 648 0098 04       		.byte	0x4
+ 649 0099 B5010000 		.4byte	.LASF13
+ 650 009d 02       		.uleb128 0x2
+ 651 009e 01       		.byte	0x1
+ 652 009f 08       		.byte	0x8
+ 653 00a0 6A020000 		.4byte	.LASF14
+ 654 00a4 04       		.uleb128 0x4
+ 655 00a5 43010000 		.4byte	.LASF15
+ 656 00a9 02       		.byte	0x2
+ 657 00aa 8E02     		.2byte	0x28e
+ 658 00ac B0000000 		.4byte	0xb0
+ 659 00b0 05       		.uleb128 0x5
+ 660 00b1 6B000000 		.4byte	0x6b
+ 661 00b5 02       		.uleb128 0x2
+ 662 00b6 08       		.byte	0x8
+ 663 00b7 04       		.byte	0x4
+ 664 00b8 A6020000 		.4byte	.LASF16
+ 665 00bc 02       		.uleb128 0x2
+ 666 00bd 04       		.byte	0x4
+ 667 00be 07       		.byte	0x7
+ 668 00bf 3E020000 		.4byte	.LASF17
+ 669 00c3 06       		.uleb128 0x6
+ 670 00c4 95010000 		.4byte	.LASF39
+ 671 00c8 01       		.byte	0x1
+ 672 00c9 1A01     		.2byte	0x11a
+ 673 00cb 00000000 		.4byte	.LFB6
+ 674 00cf 74000000 		.4byte	.LFE6-.LFB6
+ 675 00d3 01       		.uleb128 0x1
+ 676 00d4 9C       		.byte	0x9c
+ 677 00d5 29010000 		.4byte	0x129
+ 678 00d9 07       		.uleb128 0x7
+ 679 00da D7020000 		.4byte	.LASF23
+ 680 00de 01       		.byte	0x1
+ 681 00df 1A01     		.2byte	0x11a
+ 682 00e1 6B000000 		.4byte	0x6b
+ 683 00e5 00000000 		.4byte	.LLST0
+ 684 00e9 08       		.uleb128 0x8
+ 685 00ea 48010000 		.4byte	.LASF18
+ 686 00ee 01       		.byte	0x1
+ 687 00ef 1C01     		.2byte	0x11c
+ 688 00f1 6B000000 		.4byte	0x6b
+ 689 00f5 21000000 		.4byte	.LLST1
+ 690 00f9 08       		.uleb128 0x8
+ 691 00fa 47020000 		.4byte	.LASF19
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 24
+
+
+ 692 00fe 01       		.byte	0x1
+ 693 00ff 1C01     		.2byte	0x11c
+ 694 0101 6B000000 		.4byte	0x6b
+ 695 0105 4B000000 		.4byte	.LLST2
+ 696 0109 08       		.uleb128 0x8
+ 697 010a 0C020000 		.4byte	.LASF20
+ 698 010e 01       		.byte	0x1
+ 699 010f 1D01     		.2byte	0x11d
+ 700 0111 6B000000 		.4byte	0x6b
+ 701 0115 5E000000 		.4byte	.LLST3
+ 702 0119 09       		.uleb128 0x9
+ 703 011a 52000000 		.4byte	.LVL4
+ 704 011e BC020000 		.4byte	0x2bc
+ 705 0122 0A       		.uleb128 0xa
+ 706 0123 01       		.uleb128 0x1
+ 707 0124 50       		.byte	0x50
+ 708 0125 01       		.uleb128 0x1
+ 709 0126 3A       		.byte	0x3a
+ 710 0127 00       		.byte	0
+ 711 0128 00       		.byte	0
+ 712 0129 0B       		.uleb128 0xb
+ 713 012a 8F020000 		.4byte	.LASF21
+ 714 012e 01       		.byte	0x1
+ 715 012f 63       		.byte	0x63
+ 716 0130 00000000 		.4byte	.LFB1
+ 717 0134 1C000000 		.4byte	.LFE1-.LFB1
+ 718 0138 01       		.uleb128 0x1
+ 719 0139 9C       		.byte	0x9c
+ 720 013a 0B       		.uleb128 0xb
+ 721 013b 2C020000 		.4byte	.LASF22
+ 722 013f 01       		.byte	0x1
+ 723 0140 A5       		.byte	0xa5
+ 724 0141 00000000 		.4byte	.LFB3
+ 725 0145 1C000000 		.4byte	.LFE3-.LFB3
+ 726 0149 01       		.uleb128 0x1
+ 727 014a 9C       		.byte	0x9c
+ 728 014b 0C       		.uleb128 0xc
+ 729 014c 4B000000 		.4byte	.LASF25
+ 730 0150 01       		.byte	0x1
+ 731 0151 C5       		.byte	0xc5
+ 732 0152 00000000 		.4byte	.LFB4
+ 733 0156 58000000 		.4byte	.LFE4-.LFB4
+ 734 015a 01       		.uleb128 0x1
+ 735 015b 9C       		.byte	0x9c
+ 736 015c 6E010000 		.4byte	0x16e
+ 737 0160 0D       		.uleb128 0xd
+ 738 0161 38020000 		.4byte	.LASF24
+ 739 0165 01       		.byte	0x1
+ 740 0166 C5       		.byte	0xc5
+ 741 0167 6B000000 		.4byte	0x6b
+ 742 016b 01       		.uleb128 0x1
+ 743 016c 50       		.byte	0x50
+ 744 016d 00       		.byte	0
+ 745 016e 0C       		.uleb128 0xc
+ 746 016f BE020000 		.4byte	.LASF26
+ 747 0173 01       		.byte	0x1
+ 748 0174 33       		.byte	0x33
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 25
+
+
+ 749 0175 00000000 		.4byte	.LFB0
+ 750 0179 3C000000 		.4byte	.LFE0-.LFB0
+ 751 017d 01       		.uleb128 0x1
+ 752 017e 9C       		.byte	0x9c
+ 753 017f 93010000 		.4byte	0x193
+ 754 0183 09       		.uleb128 0x9
+ 755 0184 08000000 		.4byte	.LVL9
+ 756 0188 4B010000 		.4byte	0x14b
+ 757 018c 0A       		.uleb128 0xa
+ 758 018d 01       		.uleb128 0x1
+ 759 018e 50       		.byte	0x50
+ 760 018f 01       		.uleb128 0x1
+ 761 0190 31       		.byte	0x31
+ 762 0191 00       		.byte	0
+ 763 0192 00       		.byte	0
+ 764 0193 0C       		.uleb128 0xc
+ 765 0194 CA020000 		.4byte	.LASF27
+ 766 0198 01       		.byte	0x1
+ 767 0199 88       		.byte	0x88
+ 768 019a 00000000 		.4byte	.LFB2
+ 769 019e 1C000000 		.4byte	.LFE2-.LFB2
+ 770 01a2 01       		.uleb128 0x1
+ 771 01a3 9C       		.byte	0x9c
+ 772 01a4 BB010000 		.4byte	0x1bb
+ 773 01a8 0E       		.uleb128 0xe
+ 774 01a9 0C000000 		.4byte	.LVL10
+ 775 01ad 6E010000 		.4byte	0x16e
+ 776 01b1 0E       		.uleb128 0xe
+ 777 01b2 16000000 		.4byte	.LVL11
+ 778 01b6 29010000 		.4byte	0x129
+ 779 01ba 00       		.byte	0
+ 780 01bb 0F       		.uleb128 0xf
+ 781 01bc 31010000 		.4byte	.LASF40
+ 782 01c0 01       		.byte	0x1
+ 783 01c1 FB       		.byte	0xfb
+ 784 01c2 6B000000 		.4byte	0x6b
+ 785 01c6 00000000 		.4byte	.LFB5
+ 786 01ca 10000000 		.4byte	.LFE5-.LFB5
+ 787 01ce 01       		.uleb128 0x1
+ 788 01cf 9C       		.byte	0x9c
+ 789 01d0 10       		.uleb128 0x10
+ 790 01d1 C6010000 		.4byte	.LASF41
+ 791 01d5 01       		.byte	0x1
+ 792 01d6 BF01     		.2byte	0x1bf
+ 793 01d8 77000000 		.4byte	0x77
+ 794 01dc 00000000 		.4byte	.LFB7
+ 795 01e0 90000000 		.4byte	.LFE7-.LFB7
+ 796 01e4 01       		.uleb128 0x1
+ 797 01e5 9C       		.byte	0x9c
+ 798 01e6 60020000 		.4byte	0x260
+ 799 01ea 08       		.uleb128 0x8
+ 800 01eb 37000000 		.4byte	.LASF28
+ 801 01ef 01       		.byte	0x1
+ 802 01f0 C101     		.2byte	0x1c1
+ 803 01f2 6B000000 		.4byte	0x6b
+ 804 01f6 71000000 		.4byte	.LLST4
+ 805 01fa 08       		.uleb128 0x8
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 26
+
+
+ 806 01fb 0E000000 		.4byte	.LASF29
+ 807 01ff 01       		.byte	0x1
+ 808 0200 C201     		.2byte	0x1c2
+ 809 0202 6B000000 		.4byte	0x6b
+ 810 0206 84000000 		.4byte	.LLST5
+ 811 020a 08       		.uleb128 0x8
+ 812 020b 44000000 		.4byte	.LASF30
+ 813 020f 01       		.byte	0x1
+ 814 0210 C301     		.2byte	0x1c3
+ 815 0212 6B000000 		.4byte	0x6b
+ 816 0216 97000000 		.4byte	.LLST6
+ 817 021a 08       		.uleb128 0x8
+ 818 021b 08000000 		.4byte	.LASF31
+ 819 021f 01       		.byte	0x1
+ 820 0220 C401     		.2byte	0x1c4
+ 821 0222 6B000000 		.4byte	0x6b
+ 822 0226 B9000000 		.4byte	.LLST7
+ 823 022a 11       		.uleb128 0x11
+ 824 022b 48000000 		.4byte	.LVL16
+ 825 022f C3000000 		.4byte	0xc3
+ 826 0233 3D020000 		.4byte	0x23d
+ 827 0237 0A       		.uleb128 0xa
+ 828 0238 01       		.uleb128 0x1
+ 829 0239 50       		.byte	0x50
+ 830 023a 01       		.uleb128 0x1
+ 831 023b 30       		.byte	0x30
+ 832 023c 00       		.byte	0
+ 833 023d 11       		.uleb128 0x11
+ 834 023e 50000000 		.4byte	.LVL17
+ 835 0242 C3000000 		.4byte	0xc3
+ 836 0246 50020000 		.4byte	0x250
+ 837 024a 0A       		.uleb128 0xa
+ 838 024b 01       		.uleb128 0x1
+ 839 024c 50       		.byte	0x50
+ 840 024d 01       		.uleb128 0x1
+ 841 024e 31       		.byte	0x31
+ 842 024f 00       		.byte	0
+ 843 0250 09       		.uleb128 0x9
+ 844 0251 56000000 		.4byte	.LVL18
+ 845 0255 C3000000 		.4byte	0xc3
+ 846 0259 0A       		.uleb128 0xa
+ 847 025a 01       		.uleb128 0x1
+ 848 025b 50       		.byte	0x50
+ 849 025c 01       		.uleb128 0x1
+ 850 025d 30       		.byte	0x30
+ 851 025e 00       		.byte	0
+ 852 025f 00       		.byte	0
+ 853 0260 12       		.uleb128 0x12
+ 854 0261 68010000 		.4byte	.LASF32
+ 855 0265 01       		.byte	0x1
+ 856 0266 1102     		.2byte	0x211
+ 857 0268 00000000 		.4byte	.LFB8
+ 858 026c 14000000 		.4byte	.LFE8-.LFB8
+ 859 0270 01       		.uleb128 0x1
+ 860 0271 9C       		.byte	0x9c
+ 861 0272 87020000 		.4byte	0x287
+ 862 0276 07       		.uleb128 0x7
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 27
+
+
+ 863 0277 00000000 		.4byte	.LASF33
+ 864 027b 01       		.byte	0x1
+ 865 027c 1102     		.2byte	0x211
+ 866 027e 77000000 		.4byte	0x77
+ 867 0282 CC000000 		.4byte	.LLST8
+ 868 0286 00       		.byte	0
+ 869 0287 13       		.uleb128 0x13
+ 870 0288 D5010000 		.4byte	.LASF34
+ 871 028c 01       		.byte	0x1
+ 872 028d 3502     		.2byte	0x235
+ 873 028f 00000000 		.4byte	.LFB9
+ 874 0293 10000000 		.4byte	.LFE9-.LFB9
+ 875 0297 01       		.uleb128 0x1
+ 876 0298 9C       		.byte	0x9c
+ 877 0299 13       		.uleb128 0x13
+ 878 029a 78010000 		.4byte	.LASF35
+ 879 029e 01       		.byte	0x1
+ 880 029f 4B02     		.2byte	0x24b
+ 881 02a1 00000000 		.4byte	.LFB10
+ 882 02a5 10000000 		.4byte	.LFE10-.LFB10
+ 883 02a9 01       		.uleb128 0x1
+ 884 02aa 9C       		.byte	0x9c
+ 885 02ab 14       		.uleb128 0x14
+ 886 02ac 15000000 		.4byte	.LASF42
+ 887 02b0 01       		.byte	0x1
+ 888 02b1 14       		.byte	0x14
+ 889 02b2 6B000000 		.4byte	0x6b
+ 890 02b6 05       		.uleb128 0x5
+ 891 02b7 03       		.byte	0x3
+ 892 02b8 00000000 		.4byte	Comp_A_initVar
+ 893 02bc 15       		.uleb128 0x15
+ 894 02bd 60020000 		.4byte	.LASF43
+ 895 02c1 60020000 		.4byte	.LASF43
+ 896 02c5 03       		.byte	0x3
+ 897 02c6 77       		.byte	0x77
+ 898 02c7 00       		.byte	0
+ 899              		.section	.debug_abbrev,"",%progbits
+ 900              	.Ldebug_abbrev0:
+ 901 0000 01       		.uleb128 0x1
+ 902 0001 11       		.uleb128 0x11
+ 903 0002 01       		.byte	0x1
+ 904 0003 25       		.uleb128 0x25
+ 905 0004 0E       		.uleb128 0xe
+ 906 0005 13       		.uleb128 0x13
+ 907 0006 0B       		.uleb128 0xb
+ 908 0007 03       		.uleb128 0x3
+ 909 0008 0E       		.uleb128 0xe
+ 910 0009 1B       		.uleb128 0x1b
+ 911 000a 0E       		.uleb128 0xe
+ 912 000b 55       		.uleb128 0x55
+ 913 000c 17       		.uleb128 0x17
+ 914 000d 11       		.uleb128 0x11
+ 915 000e 01       		.uleb128 0x1
+ 916 000f 10       		.uleb128 0x10
+ 917 0010 17       		.uleb128 0x17
+ 918 0011 00       		.byte	0
+ 919 0012 00       		.byte	0
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 28
+
+
+ 920 0013 02       		.uleb128 0x2
+ 921 0014 24       		.uleb128 0x24
+ 922 0015 00       		.byte	0
+ 923 0016 0B       		.uleb128 0xb
+ 924 0017 0B       		.uleb128 0xb
+ 925 0018 3E       		.uleb128 0x3e
+ 926 0019 0B       		.uleb128 0xb
+ 927 001a 03       		.uleb128 0x3
+ 928 001b 0E       		.uleb128 0xe
+ 929 001c 00       		.byte	0
+ 930 001d 00       		.byte	0
+ 931 001e 03       		.uleb128 0x3
+ 932 001f 24       		.uleb128 0x24
+ 933 0020 00       		.byte	0
+ 934 0021 0B       		.uleb128 0xb
+ 935 0022 0B       		.uleb128 0xb
+ 936 0023 3E       		.uleb128 0x3e
+ 937 0024 0B       		.uleb128 0xb
+ 938 0025 03       		.uleb128 0x3
+ 939 0026 08       		.uleb128 0x8
+ 940 0027 00       		.byte	0
+ 941 0028 00       		.byte	0
+ 942 0029 04       		.uleb128 0x4
+ 943 002a 16       		.uleb128 0x16
+ 944 002b 00       		.byte	0
+ 945 002c 03       		.uleb128 0x3
+ 946 002d 0E       		.uleb128 0xe
+ 947 002e 3A       		.uleb128 0x3a
+ 948 002f 0B       		.uleb128 0xb
+ 949 0030 3B       		.uleb128 0x3b
+ 950 0031 05       		.uleb128 0x5
+ 951 0032 49       		.uleb128 0x49
+ 952 0033 13       		.uleb128 0x13
+ 953 0034 00       		.byte	0
+ 954 0035 00       		.byte	0
+ 955 0036 05       		.uleb128 0x5
+ 956 0037 35       		.uleb128 0x35
+ 957 0038 00       		.byte	0
+ 958 0039 49       		.uleb128 0x49
+ 959 003a 13       		.uleb128 0x13
+ 960 003b 00       		.byte	0
+ 961 003c 00       		.byte	0
+ 962 003d 06       		.uleb128 0x6
+ 963 003e 2E       		.uleb128 0x2e
+ 964 003f 01       		.byte	0x1
+ 965 0040 03       		.uleb128 0x3
+ 966 0041 0E       		.uleb128 0xe
+ 967 0042 3A       		.uleb128 0x3a
+ 968 0043 0B       		.uleb128 0xb
+ 969 0044 3B       		.uleb128 0x3b
+ 970 0045 05       		.uleb128 0x5
+ 971 0046 27       		.uleb128 0x27
+ 972 0047 19       		.uleb128 0x19
+ 973 0048 11       		.uleb128 0x11
+ 974 0049 01       		.uleb128 0x1
+ 975 004a 12       		.uleb128 0x12
+ 976 004b 06       		.uleb128 0x6
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 29
+
+
+ 977 004c 40       		.uleb128 0x40
+ 978 004d 18       		.uleb128 0x18
+ 979 004e 9742     		.uleb128 0x2117
+ 980 0050 19       		.uleb128 0x19
+ 981 0051 01       		.uleb128 0x1
+ 982 0052 13       		.uleb128 0x13
+ 983 0053 00       		.byte	0
+ 984 0054 00       		.byte	0
+ 985 0055 07       		.uleb128 0x7
+ 986 0056 05       		.uleb128 0x5
+ 987 0057 00       		.byte	0
+ 988 0058 03       		.uleb128 0x3
+ 989 0059 0E       		.uleb128 0xe
+ 990 005a 3A       		.uleb128 0x3a
+ 991 005b 0B       		.uleb128 0xb
+ 992 005c 3B       		.uleb128 0x3b
+ 993 005d 05       		.uleb128 0x5
+ 994 005e 49       		.uleb128 0x49
+ 995 005f 13       		.uleb128 0x13
+ 996 0060 02       		.uleb128 0x2
+ 997 0061 17       		.uleb128 0x17
+ 998 0062 00       		.byte	0
+ 999 0063 00       		.byte	0
+ 1000 0064 08       		.uleb128 0x8
+ 1001 0065 34       		.uleb128 0x34
+ 1002 0066 00       		.byte	0
+ 1003 0067 03       		.uleb128 0x3
+ 1004 0068 0E       		.uleb128 0xe
+ 1005 0069 3A       		.uleb128 0x3a
+ 1006 006a 0B       		.uleb128 0xb
+ 1007 006b 3B       		.uleb128 0x3b
+ 1008 006c 05       		.uleb128 0x5
+ 1009 006d 49       		.uleb128 0x49
+ 1010 006e 13       		.uleb128 0x13
+ 1011 006f 02       		.uleb128 0x2
+ 1012 0070 17       		.uleb128 0x17
+ 1013 0071 00       		.byte	0
+ 1014 0072 00       		.byte	0
+ 1015 0073 09       		.uleb128 0x9
+ 1016 0074 898201   		.uleb128 0x4109
+ 1017 0077 01       		.byte	0x1
+ 1018 0078 11       		.uleb128 0x11
+ 1019 0079 01       		.uleb128 0x1
+ 1020 007a 31       		.uleb128 0x31
+ 1021 007b 13       		.uleb128 0x13
+ 1022 007c 00       		.byte	0
+ 1023 007d 00       		.byte	0
+ 1024 007e 0A       		.uleb128 0xa
+ 1025 007f 8A8201   		.uleb128 0x410a
+ 1026 0082 00       		.byte	0
+ 1027 0083 02       		.uleb128 0x2
+ 1028 0084 18       		.uleb128 0x18
+ 1029 0085 9142     		.uleb128 0x2111
+ 1030 0087 18       		.uleb128 0x18
+ 1031 0088 00       		.byte	0
+ 1032 0089 00       		.byte	0
+ 1033 008a 0B       		.uleb128 0xb
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 30
+
+
+ 1034 008b 2E       		.uleb128 0x2e
+ 1035 008c 00       		.byte	0
+ 1036 008d 3F       		.uleb128 0x3f
+ 1037 008e 19       		.uleb128 0x19
+ 1038 008f 03       		.uleb128 0x3
+ 1039 0090 0E       		.uleb128 0xe
+ 1040 0091 3A       		.uleb128 0x3a
+ 1041 0092 0B       		.uleb128 0xb
+ 1042 0093 3B       		.uleb128 0x3b
+ 1043 0094 0B       		.uleb128 0xb
+ 1044 0095 27       		.uleb128 0x27
+ 1045 0096 19       		.uleb128 0x19
+ 1046 0097 11       		.uleb128 0x11
+ 1047 0098 01       		.uleb128 0x1
+ 1048 0099 12       		.uleb128 0x12
+ 1049 009a 06       		.uleb128 0x6
+ 1050 009b 40       		.uleb128 0x40
+ 1051 009c 18       		.uleb128 0x18
+ 1052 009d 9742     		.uleb128 0x2117
+ 1053 009f 19       		.uleb128 0x19
+ 1054 00a0 00       		.byte	0
+ 1055 00a1 00       		.byte	0
+ 1056 00a2 0C       		.uleb128 0xc
+ 1057 00a3 2E       		.uleb128 0x2e
+ 1058 00a4 01       		.byte	0x1
+ 1059 00a5 3F       		.uleb128 0x3f
+ 1060 00a6 19       		.uleb128 0x19
+ 1061 00a7 03       		.uleb128 0x3
+ 1062 00a8 0E       		.uleb128 0xe
+ 1063 00a9 3A       		.uleb128 0x3a
+ 1064 00aa 0B       		.uleb128 0xb
+ 1065 00ab 3B       		.uleb128 0x3b
+ 1066 00ac 0B       		.uleb128 0xb
+ 1067 00ad 27       		.uleb128 0x27
+ 1068 00ae 19       		.uleb128 0x19
+ 1069 00af 11       		.uleb128 0x11
+ 1070 00b0 01       		.uleb128 0x1
+ 1071 00b1 12       		.uleb128 0x12
+ 1072 00b2 06       		.uleb128 0x6
+ 1073 00b3 40       		.uleb128 0x40
+ 1074 00b4 18       		.uleb128 0x18
+ 1075 00b5 9742     		.uleb128 0x2117
+ 1076 00b7 19       		.uleb128 0x19
+ 1077 00b8 01       		.uleb128 0x1
+ 1078 00b9 13       		.uleb128 0x13
+ 1079 00ba 00       		.byte	0
+ 1080 00bb 00       		.byte	0
+ 1081 00bc 0D       		.uleb128 0xd
+ 1082 00bd 05       		.uleb128 0x5
+ 1083 00be 00       		.byte	0
+ 1084 00bf 03       		.uleb128 0x3
+ 1085 00c0 0E       		.uleb128 0xe
+ 1086 00c1 3A       		.uleb128 0x3a
+ 1087 00c2 0B       		.uleb128 0xb
+ 1088 00c3 3B       		.uleb128 0x3b
+ 1089 00c4 0B       		.uleb128 0xb
+ 1090 00c5 49       		.uleb128 0x49
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 31
+
+
+ 1091 00c6 13       		.uleb128 0x13
+ 1092 00c7 02       		.uleb128 0x2
+ 1093 00c8 18       		.uleb128 0x18
+ 1094 00c9 00       		.byte	0
+ 1095 00ca 00       		.byte	0
+ 1096 00cb 0E       		.uleb128 0xe
+ 1097 00cc 898201   		.uleb128 0x4109
+ 1098 00cf 00       		.byte	0
+ 1099 00d0 11       		.uleb128 0x11
+ 1100 00d1 01       		.uleb128 0x1
+ 1101 00d2 31       		.uleb128 0x31
+ 1102 00d3 13       		.uleb128 0x13
+ 1103 00d4 00       		.byte	0
+ 1104 00d5 00       		.byte	0
+ 1105 00d6 0F       		.uleb128 0xf
+ 1106 00d7 2E       		.uleb128 0x2e
+ 1107 00d8 00       		.byte	0
+ 1108 00d9 3F       		.uleb128 0x3f
+ 1109 00da 19       		.uleb128 0x19
+ 1110 00db 03       		.uleb128 0x3
+ 1111 00dc 0E       		.uleb128 0xe
+ 1112 00dd 3A       		.uleb128 0x3a
+ 1113 00de 0B       		.uleb128 0xb
+ 1114 00df 3B       		.uleb128 0x3b
+ 1115 00e0 0B       		.uleb128 0xb
+ 1116 00e1 27       		.uleb128 0x27
+ 1117 00e2 19       		.uleb128 0x19
+ 1118 00e3 49       		.uleb128 0x49
+ 1119 00e4 13       		.uleb128 0x13
+ 1120 00e5 11       		.uleb128 0x11
+ 1121 00e6 01       		.uleb128 0x1
+ 1122 00e7 12       		.uleb128 0x12
+ 1123 00e8 06       		.uleb128 0x6
+ 1124 00e9 40       		.uleb128 0x40
+ 1125 00ea 18       		.uleb128 0x18
+ 1126 00eb 9742     		.uleb128 0x2117
+ 1127 00ed 19       		.uleb128 0x19
+ 1128 00ee 00       		.byte	0
+ 1129 00ef 00       		.byte	0
+ 1130 00f0 10       		.uleb128 0x10
+ 1131 00f1 2E       		.uleb128 0x2e
+ 1132 00f2 01       		.byte	0x1
+ 1133 00f3 3F       		.uleb128 0x3f
+ 1134 00f4 19       		.uleb128 0x19
+ 1135 00f5 03       		.uleb128 0x3
+ 1136 00f6 0E       		.uleb128 0xe
+ 1137 00f7 3A       		.uleb128 0x3a
+ 1138 00f8 0B       		.uleb128 0xb
+ 1139 00f9 3B       		.uleb128 0x3b
+ 1140 00fa 05       		.uleb128 0x5
+ 1141 00fb 27       		.uleb128 0x27
+ 1142 00fc 19       		.uleb128 0x19
+ 1143 00fd 49       		.uleb128 0x49
+ 1144 00fe 13       		.uleb128 0x13
+ 1145 00ff 11       		.uleb128 0x11
+ 1146 0100 01       		.uleb128 0x1
+ 1147 0101 12       		.uleb128 0x12
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 32
+
+
+ 1148 0102 06       		.uleb128 0x6
+ 1149 0103 40       		.uleb128 0x40
+ 1150 0104 18       		.uleb128 0x18
+ 1151 0105 9742     		.uleb128 0x2117
+ 1152 0107 19       		.uleb128 0x19
+ 1153 0108 01       		.uleb128 0x1
+ 1154 0109 13       		.uleb128 0x13
+ 1155 010a 00       		.byte	0
+ 1156 010b 00       		.byte	0
+ 1157 010c 11       		.uleb128 0x11
+ 1158 010d 898201   		.uleb128 0x4109
+ 1159 0110 01       		.byte	0x1
+ 1160 0111 11       		.uleb128 0x11
+ 1161 0112 01       		.uleb128 0x1
+ 1162 0113 31       		.uleb128 0x31
+ 1163 0114 13       		.uleb128 0x13
+ 1164 0115 01       		.uleb128 0x1
+ 1165 0116 13       		.uleb128 0x13
+ 1166 0117 00       		.byte	0
+ 1167 0118 00       		.byte	0
+ 1168 0119 12       		.uleb128 0x12
+ 1169 011a 2E       		.uleb128 0x2e
+ 1170 011b 01       		.byte	0x1
+ 1171 011c 3F       		.uleb128 0x3f
+ 1172 011d 19       		.uleb128 0x19
+ 1173 011e 03       		.uleb128 0x3
+ 1174 011f 0E       		.uleb128 0xe
+ 1175 0120 3A       		.uleb128 0x3a
+ 1176 0121 0B       		.uleb128 0xb
+ 1177 0122 3B       		.uleb128 0x3b
+ 1178 0123 05       		.uleb128 0x5
+ 1179 0124 27       		.uleb128 0x27
+ 1180 0125 19       		.uleb128 0x19
+ 1181 0126 11       		.uleb128 0x11
+ 1182 0127 01       		.uleb128 0x1
+ 1183 0128 12       		.uleb128 0x12
+ 1184 0129 06       		.uleb128 0x6
+ 1185 012a 40       		.uleb128 0x40
+ 1186 012b 18       		.uleb128 0x18
+ 1187 012c 9742     		.uleb128 0x2117
+ 1188 012e 19       		.uleb128 0x19
+ 1189 012f 01       		.uleb128 0x1
+ 1190 0130 13       		.uleb128 0x13
+ 1191 0131 00       		.byte	0
+ 1192 0132 00       		.byte	0
+ 1193 0133 13       		.uleb128 0x13
+ 1194 0134 2E       		.uleb128 0x2e
+ 1195 0135 00       		.byte	0
+ 1196 0136 3F       		.uleb128 0x3f
+ 1197 0137 19       		.uleb128 0x19
+ 1198 0138 03       		.uleb128 0x3
+ 1199 0139 0E       		.uleb128 0xe
+ 1200 013a 3A       		.uleb128 0x3a
+ 1201 013b 0B       		.uleb128 0xb
+ 1202 013c 3B       		.uleb128 0x3b
+ 1203 013d 05       		.uleb128 0x5
+ 1204 013e 27       		.uleb128 0x27
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 33
+
+
+ 1205 013f 19       		.uleb128 0x19
+ 1206 0140 11       		.uleb128 0x11
+ 1207 0141 01       		.uleb128 0x1
+ 1208 0142 12       		.uleb128 0x12
+ 1209 0143 06       		.uleb128 0x6
+ 1210 0144 40       		.uleb128 0x40
+ 1211 0145 18       		.uleb128 0x18
+ 1212 0146 9742     		.uleb128 0x2117
+ 1213 0148 19       		.uleb128 0x19
+ 1214 0149 00       		.byte	0
+ 1215 014a 00       		.byte	0
+ 1216 014b 14       		.uleb128 0x14
+ 1217 014c 34       		.uleb128 0x34
+ 1218 014d 00       		.byte	0
+ 1219 014e 03       		.uleb128 0x3
+ 1220 014f 0E       		.uleb128 0xe
+ 1221 0150 3A       		.uleb128 0x3a
+ 1222 0151 0B       		.uleb128 0xb
+ 1223 0152 3B       		.uleb128 0x3b
+ 1224 0153 0B       		.uleb128 0xb
+ 1225 0154 49       		.uleb128 0x49
+ 1226 0155 13       		.uleb128 0x13
+ 1227 0156 3F       		.uleb128 0x3f
+ 1228 0157 19       		.uleb128 0x19
+ 1229 0158 02       		.uleb128 0x2
+ 1230 0159 18       		.uleb128 0x18
+ 1231 015a 00       		.byte	0
+ 1232 015b 00       		.byte	0
+ 1233 015c 15       		.uleb128 0x15
+ 1234 015d 2E       		.uleb128 0x2e
+ 1235 015e 00       		.byte	0
+ 1236 015f 3F       		.uleb128 0x3f
+ 1237 0160 19       		.uleb128 0x19
+ 1238 0161 3C       		.uleb128 0x3c
+ 1239 0162 19       		.uleb128 0x19
+ 1240 0163 6E       		.uleb128 0x6e
+ 1241 0164 0E       		.uleb128 0xe
+ 1242 0165 03       		.uleb128 0x3
+ 1243 0166 0E       		.uleb128 0xe
+ 1244 0167 3A       		.uleb128 0x3a
+ 1245 0168 0B       		.uleb128 0xb
+ 1246 0169 3B       		.uleb128 0x3b
+ 1247 016a 0B       		.uleb128 0xb
+ 1248 016b 00       		.byte	0
+ 1249 016c 00       		.byte	0
+ 1250 016d 00       		.byte	0
+ 1251              		.section	.debug_loc,"",%progbits
+ 1252              	.Ldebug_loc0:
+ 1253              	.LLST0:
+ 1254 0000 00000000 		.4byte	.LVL0
+ 1255 0004 34000000 		.4byte	.LVL3
+ 1256 0008 0100     		.2byte	0x1
+ 1257 000a 50       		.byte	0x50
+ 1258 000b 34000000 		.4byte	.LVL3
+ 1259 000f 74000000 		.4byte	.LFE6
+ 1260 0013 0400     		.2byte	0x4
+ 1261 0015 F3       		.byte	0xf3
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 34
+
+
+ 1262 0016 01       		.uleb128 0x1
+ 1263 0017 50       		.byte	0x50
+ 1264 0018 9F       		.byte	0x9f
+ 1265 0019 00000000 		.4byte	0
+ 1266 001d 00000000 		.4byte	0
+ 1267              	.LLST1:
+ 1268 0021 30000000 		.4byte	.LVL2
+ 1269 0025 34000000 		.4byte	.LVL3
+ 1270 0029 0200     		.2byte	0x2
+ 1271 002b 30       		.byte	0x30
+ 1272 002c 9F       		.byte	0x9f
+ 1273 002d 34000000 		.4byte	.LVL3
+ 1274 0031 60000000 		.4byte	.LVL5
+ 1275 0035 0100     		.2byte	0x1
+ 1276 0037 54       		.byte	0x54
+ 1277 0038 62000000 		.4byte	.LVL6
+ 1278 003c 68000000 		.4byte	.LVL7
+ 1279 0040 0100     		.2byte	0x1
+ 1280 0042 54       		.byte	0x54
+ 1281 0043 00000000 		.4byte	0
+ 1282 0047 00000000 		.4byte	0
+ 1283              	.LLST2:
+ 1284 004b 30000000 		.4byte	.LVL2
+ 1285 004f 68000000 		.4byte	.LVL7
+ 1286 0053 0100     		.2byte	0x1
+ 1287 0055 57       		.byte	0x57
+ 1288 0056 00000000 		.4byte	0
+ 1289 005a 00000000 		.4byte	0
+ 1290              	.LLST3:
+ 1291 005e 0A000000 		.4byte	.LVL1
+ 1292 0062 68000000 		.4byte	.LVL7
+ 1293 0066 0100     		.2byte	0x1
+ 1294 0068 55       		.byte	0x55
+ 1295 0069 00000000 		.4byte	0
+ 1296 006d 00000000 		.4byte	0
+ 1297              	.LLST4:
+ 1298 0071 08000000 		.4byte	.LVL12
+ 1299 0075 7A000000 		.4byte	.LVL19
+ 1300 0079 0100     		.2byte	0x1
+ 1301 007b 56       		.byte	0x56
+ 1302 007c 00000000 		.4byte	0
+ 1303 0080 00000000 		.4byte	0
+ 1304              	.LLST5:
+ 1305 0084 0E000000 		.4byte	.LVL13
+ 1306 0088 7A000000 		.4byte	.LVL19
+ 1307 008c 0100     		.2byte	0x1
+ 1308 008e 55       		.byte	0x55
+ 1309 008f 00000000 		.4byte	0
+ 1310 0093 00000000 		.4byte	0
+ 1311              	.LLST6:
+ 1312 0097 14000000 		.4byte	.LVL14
+ 1313 009b 7A000000 		.4byte	.LVL19
+ 1314 009f 0100     		.2byte	0x1
+ 1315 00a1 54       		.byte	0x54
+ 1316 00a2 7A000000 		.4byte	.LVL19
+ 1317 00a6 90000000 		.4byte	.LFE7
+ 1318 00aa 0500     		.2byte	0x5
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 35
+
+
+ 1319 00ac 0C       		.byte	0xc
+ 1320 00ad C35A0040 		.4byte	0x40005ac3
+ 1321 00b1 00000000 		.4byte	0
+ 1322 00b5 00000000 		.4byte	0
+ 1323              	.LLST7:
+ 1324 00b9 28000000 		.4byte	.LVL15
+ 1325 00bd 7A000000 		.4byte	.LVL19
+ 1326 00c1 0100     		.2byte	0x1
+ 1327 00c3 57       		.byte	0x57
+ 1328 00c4 00000000 		.4byte	0
+ 1329 00c8 00000000 		.4byte	0
+ 1330              	.LLST8:
+ 1331 00cc 00000000 		.4byte	.LVL20
+ 1332 00d0 08000000 		.4byte	.LVL21
+ 1333 00d4 0100     		.2byte	0x1
+ 1334 00d6 50       		.byte	0x50
+ 1335 00d7 08000000 		.4byte	.LVL21
+ 1336 00db 14000000 		.4byte	.LFE8
+ 1337 00df 0400     		.2byte	0x4
+ 1338 00e1 F3       		.byte	0xf3
+ 1339 00e2 01       		.uleb128 0x1
+ 1340 00e3 50       		.byte	0x50
+ 1341 00e4 9F       		.byte	0x9f
+ 1342 00e5 00000000 		.4byte	0
+ 1343 00e9 00000000 		.4byte	0
+ 1344              		.section	.debug_aranges,"",%progbits
+ 1345 0000 6C000000 		.4byte	0x6c
+ 1346 0004 0200     		.2byte	0x2
+ 1347 0006 00000000 		.4byte	.Ldebug_info0
+ 1348 000a 04       		.byte	0x4
+ 1349 000b 00       		.byte	0
+ 1350 000c 0000     		.2byte	0
+ 1351 000e 0000     		.2byte	0
+ 1352 0010 00000000 		.4byte	.LFB6
+ 1353 0014 74000000 		.4byte	.LFE6-.LFB6
+ 1354 0018 00000000 		.4byte	.LFB1
+ 1355 001c 1C000000 		.4byte	.LFE1-.LFB1
+ 1356 0020 00000000 		.4byte	.LFB3
+ 1357 0024 1C000000 		.4byte	.LFE3-.LFB3
+ 1358 0028 00000000 		.4byte	.LFB4
+ 1359 002c 58000000 		.4byte	.LFE4-.LFB4
+ 1360 0030 00000000 		.4byte	.LFB0
+ 1361 0034 3C000000 		.4byte	.LFE0-.LFB0
+ 1362 0038 00000000 		.4byte	.LFB2
+ 1363 003c 1C000000 		.4byte	.LFE2-.LFB2
+ 1364 0040 00000000 		.4byte	.LFB5
+ 1365 0044 10000000 		.4byte	.LFE5-.LFB5
+ 1366 0048 00000000 		.4byte	.LFB7
+ 1367 004c 90000000 		.4byte	.LFE7-.LFB7
+ 1368 0050 00000000 		.4byte	.LFB8
+ 1369 0054 14000000 		.4byte	.LFE8-.LFB8
+ 1370 0058 00000000 		.4byte	.LFB9
+ 1371 005c 10000000 		.4byte	.LFE9-.LFB9
+ 1372 0060 00000000 		.4byte	.LFB10
+ 1373 0064 10000000 		.4byte	.LFE10-.LFB10
+ 1374 0068 00000000 		.4byte	0
+ 1375 006c 00000000 		.4byte	0
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 36
+
+
+ 1376              		.section	.debug_ranges,"",%progbits
+ 1377              	.Ldebug_ranges0:
+ 1378 0000 00000000 		.4byte	.LFB6
+ 1379 0004 74000000 		.4byte	.LFE6
+ 1380 0008 00000000 		.4byte	.LFB1
+ 1381 000c 1C000000 		.4byte	.LFE1
+ 1382 0010 00000000 		.4byte	.LFB3
+ 1383 0014 1C000000 		.4byte	.LFE3
+ 1384 0018 00000000 		.4byte	.LFB4
+ 1385 001c 58000000 		.4byte	.LFE4
+ 1386 0020 00000000 		.4byte	.LFB0
+ 1387 0024 3C000000 		.4byte	.LFE0
+ 1388 0028 00000000 		.4byte	.LFB2
+ 1389 002c 1C000000 		.4byte	.LFE2
+ 1390 0030 00000000 		.4byte	.LFB5
+ 1391 0034 10000000 		.4byte	.LFE5
+ 1392 0038 00000000 		.4byte	.LFB7
+ 1393 003c 90000000 		.4byte	.LFE7
+ 1394 0040 00000000 		.4byte	.LFB8
+ 1395 0044 14000000 		.4byte	.LFE8
+ 1396 0048 00000000 		.4byte	.LFB9
+ 1397 004c 10000000 		.4byte	.LFE9
+ 1398 0050 00000000 		.4byte	.LFB10
+ 1399 0054 10000000 		.4byte	.LFE10
+ 1400 0058 00000000 		.4byte	0
+ 1401 005c 00000000 		.4byte	0
+ 1402              		.section	.debug_line,"",%progbits
+ 1403              	.Ldebug_line0:
+ 1404 0000 61010000 		.section	.debug_str,"MS",%progbits,1
+ 1404      02004E00 
+ 1404      00000201 
+ 1404      FB0E0D00 
+ 1404      01010101 
+ 1405              	.LASF33:
+ 1406 0000 7472696D 		.ascii	"trimVal\000"
+ 1406      56616C00 
+ 1407              	.LASF31:
+ 1408 0008 746D7043 		.ascii	"tmpCR\000"
+ 1408      5200
+ 1409              	.LASF29:
+ 1410 000e 746D7053 		.ascii	"tmpSW2\000"
+ 1410      573200
+ 1411              	.LASF42:
+ 1412 0015 436F6D70 		.ascii	"Comp_A_initVar\000"
+ 1412      5F415F69 
+ 1412      6E697456 
+ 1412      617200
+ 1413              	.LASF3:
+ 1414 0024 73686F72 		.ascii	"short unsigned int\000"
+ 1414      7420756E 
+ 1414      7369676E 
+ 1414      65642069 
+ 1414      6E7400
+ 1415              	.LASF28:
+ 1416 0037 746D7053 		.ascii	"tmpSW0\000"
+ 1416      573000
+ 1417              	.LASF12:
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 37
+
+
+ 1418 003e 666C6F61 		.ascii	"float\000"
+ 1418      7400
+ 1419              	.LASF30:
+ 1420 0044 746D7053 		.ascii	"tmpSW3\000"
+ 1420      573300
+ 1421              	.LASF25:
+ 1422 004b 436F6D70 		.ascii	"Comp_A_SetSpeed\000"
+ 1422      5F415F53 
+ 1422      65745370 
+ 1422      65656400 
+ 1423              	.LASF38:
+ 1424 005b 433A5C55 		.ascii	"C:\\Users\\rens_\\Documents\\PSoC Creator\\Workspac"
+ 1424      73657273 
+ 1424      5C72656E 
+ 1424      735F5C44 
+ 1424      6F63756D 
+ 1425 0089 6530315C 		.ascii	"e01\\PeakDetector_V2.cydsn\000"
+ 1425      5065616B 
+ 1425      44657465 
+ 1425      63746F72 
+ 1425      5F56322E 
+ 1426              	.LASF36:
+ 1427 00a3 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1427      43313120 
+ 1427      352E342E 
+ 1427      31203230 
+ 1427      31363036 
+ 1428 00d6 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1428      20726576 
+ 1428      6973696F 
+ 1428      6E203233 
+ 1428      37373135 
+ 1429 0109 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1429      66756E63 
+ 1429      74696F6E 
+ 1429      2D736563 
+ 1429      74696F6E 
+ 1430              	.LASF40:
+ 1431 0131 436F6D70 		.ascii	"Comp_A_GetCompare\000"
+ 1431      5F415F47 
+ 1431      6574436F 
+ 1431      6D706172 
+ 1431      6500
+ 1432              	.LASF15:
+ 1433 0143 72656738 		.ascii	"reg8\000"
+ 1433      00
+ 1434              	.LASF18:
+ 1435 0148 7472696D 		.ascii	"trimCnt\000"
+ 1435      436E7400 
+ 1436              	.LASF5:
+ 1437 0150 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1437      20756E73 
+ 1437      69676E65 
+ 1437      6420696E 
+ 1437      7400
+ 1438              	.LASF9:
+ 1439 0162 75696E74 		.ascii	"uint8\000"
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 38
+
+
+ 1439      3800
+ 1440              	.LASF32:
+ 1441 0168 436F6D70 		.ascii	"Comp_A_LoadTrim\000"
+ 1441      5F415F4C 
+ 1441      6F616454 
+ 1441      72696D00 
+ 1442              	.LASF35:
+ 1443 0178 436F6D70 		.ascii	"Comp_A_PwrDwnOverrideDisable\000"
+ 1443      5F415F50 
+ 1443      77724477 
+ 1443      6E4F7665 
+ 1443      72726964 
+ 1444              	.LASF39:
+ 1445 0195 436F6D70 		.ascii	"Comp_A_trimAdjust\000"
+ 1445      5F415F74 
+ 1445      72696D41 
+ 1445      646A7573 
+ 1445      7400
+ 1446              	.LASF1:
+ 1447 01a7 756E7369 		.ascii	"unsigned char\000"
+ 1447      676E6564 
+ 1447      20636861 
+ 1447      7200
+ 1448              	.LASF13:
+ 1449 01b5 646F7562 		.ascii	"double\000"
+ 1449      6C6500
+ 1450              	.LASF2:
+ 1451 01bc 73686F72 		.ascii	"short int\000"
+ 1451      7420696E 
+ 1451      7400
+ 1452              	.LASF41:
+ 1453 01c6 436F6D70 		.ascii	"Comp_A_ZeroCal\000"
+ 1453      5F415F5A 
+ 1453      65726F43 
+ 1453      616C00
+ 1454              	.LASF34:
+ 1455 01d5 436F6D70 		.ascii	"Comp_A_PwrDwnOverrideEnable\000"
+ 1455      5F415F50 
+ 1455      77724477 
+ 1455      6E4F7665 
+ 1455      72726964 
+ 1456              	.LASF10:
+ 1457 01f1 75696E74 		.ascii	"uint16\000"
+ 1457      313600
+ 1458              	.LASF11:
+ 1459 01f8 75696E74 		.ascii	"uint32\000"
+ 1459      333200
+ 1460              	.LASF8:
+ 1461 01ff 756E7369 		.ascii	"unsigned int\000"
+ 1461      676E6564 
+ 1461      20696E74 
+ 1461      00
+ 1462              	.LASF20:
+ 1463 020c 636D7053 		.ascii	"cmpState\000"
+ 1463      74617465 
+ 1463      00
+ 1464              	.LASF7:
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 39
+
+
+ 1465 0215 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1465      206C6F6E 
+ 1465      6720756E 
+ 1465      7369676E 
+ 1465      65642069 
+ 1466              	.LASF22:
+ 1467 022c 436F6D70 		.ascii	"Comp_A_Stop\000"
+ 1467      5F415F53 
+ 1467      746F7000 
+ 1468              	.LASF24:
+ 1469 0238 73706565 		.ascii	"speed\000"
+ 1469      6400
+ 1470              	.LASF17:
+ 1471 023e 73697A65 		.ascii	"sizetype\000"
+ 1471      74797065 
+ 1471      00
+ 1472              	.LASF19:
+ 1473 0247 7472696D 		.ascii	"trimCntMax\000"
+ 1473      436E744D 
+ 1473      617800
+ 1474              	.LASF6:
+ 1475 0252 6C6F6E67 		.ascii	"long long int\000"
+ 1475      206C6F6E 
+ 1475      6720696E 
+ 1475      7400
+ 1476              	.LASF43:
+ 1477 0260 43794465 		.ascii	"CyDelayUs\000"
+ 1477      6C617955 
+ 1477      7300
+ 1478              	.LASF14:
+ 1479 026a 63686172 		.ascii	"char\000"
+ 1479      00
+ 1480              	.LASF37:
+ 1481 026f 47656E65 		.ascii	"Generated_Source\\PSoC5\\Comp_A.c\000"
+ 1481      72617465 
+ 1481      645F536F 
+ 1481      75726365 
+ 1481      5C50536F 
+ 1482              	.LASF21:
+ 1483 028f 436F6D70 		.ascii	"Comp_A_Enable\000"
+ 1483      5F415F45 
+ 1483      6E61626C 
+ 1483      6500
+ 1484              	.LASF4:
+ 1485 029d 6C6F6E67 		.ascii	"long int\000"
+ 1485      20696E74 
+ 1485      00
+ 1486              	.LASF16:
+ 1487 02a6 6C6F6E67 		.ascii	"long double\000"
+ 1487      20646F75 
+ 1487      626C6500 
+ 1488              	.LASF0:
+ 1489 02b2 7369676E 		.ascii	"signed char\000"
+ 1489      65642063 
+ 1489      68617200 
+ 1490              	.LASF26:
+ 1491 02be 436F6D70 		.ascii	"Comp_A_Init\000"
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cchuWBii.s 			page 40
+
+
+ 1491      5F415F49 
+ 1491      6E697400 
+ 1492              	.LASF27:
+ 1493 02ca 436F6D70 		.ascii	"Comp_A_Start\000"
+ 1493      5F415F53 
+ 1493      74617274 
+ 1493      00
+ 1494              	.LASF23:
+ 1495 02d7 6E696262 		.ascii	"nibble\000"
+ 1495      6C6500
+ 1496              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

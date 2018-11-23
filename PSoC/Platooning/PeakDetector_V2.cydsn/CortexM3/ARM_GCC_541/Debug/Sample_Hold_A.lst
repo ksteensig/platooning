@@ -1,0 +1,1105 @@
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccpd1D68.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"Sample_Hold_A.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.Sample_Hold_A_Enable,"ax",%progbits
+  20              		.align	2
+  21              		.global	Sample_Hold_A_Enable
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	Sample_Hold_A_Enable, %function
+  25              	Sample_Hold_A_Enable:
+  26              	.LFB1:
+  27              		.file 1 "Generated_Source\\PSoC5\\Sample_Hold_A.c"
+   1:Generated_Source\PSoC5/Sample_Hold_A.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/Sample_Hold_A.c **** * File Name: Sample_Hold_A.c
+   3:Generated_Source\PSoC5/Sample_Hold_A.c **** * Version 1.40
+   4:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+   5:Generated_Source\PSoC5/Sample_Hold_A.c **** * Description:
+   6:Generated_Source\PSoC5/Sample_Hold_A.c **** *  This file provides the source code to the API for the SAMPLE/TRACK AND HOLD 
+   7:Generated_Source\PSoC5/Sample_Hold_A.c **** *  component.
+   8:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+   9:Generated_Source\PSoC5/Sample_Hold_A.c **** * Note:
+  10:Generated_Source\PSoC5/Sample_Hold_A.c **** *  None
+  11:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+  12:Generated_Source\PSoC5/Sample_Hold_A.c **** ********************************************************************************
+  13:Generated_Source\PSoC5/Sample_Hold_A.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  14:Generated_Source\PSoC5/Sample_Hold_A.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  15:Generated_Source\PSoC5/Sample_Hold_A.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  16:Generated_Source\PSoC5/Sample_Hold_A.c **** * the software package with which this file was provided.
+  17:Generated_Source\PSoC5/Sample_Hold_A.c **** *******************************************************************************/
+  18:Generated_Source\PSoC5/Sample_Hold_A.c **** 
+  19:Generated_Source\PSoC5/Sample_Hold_A.c **** #include "Sample_Hold_A.h"
+  20:Generated_Source\PSoC5/Sample_Hold_A.c **** 
+  21:Generated_Source\PSoC5/Sample_Hold_A.c **** #if (!CY_PSOC5A)
+  22:Generated_Source\PSoC5/Sample_Hold_A.c ****     #if (CYDEV_VARIABLE_VDDA == 1u)
+  23:Generated_Source\PSoC5/Sample_Hold_A.c ****         #include "CyScBoostClk.h"
+  24:Generated_Source\PSoC5/Sample_Hold_A.c ****     #endif /* (CYDEV_VARIABLE_VDDA == 1u) */
+  25:Generated_Source\PSoC5/Sample_Hold_A.c **** #endif /* (!CY_PSOC5A) */
+  26:Generated_Source\PSoC5/Sample_Hold_A.c **** 
+  27:Generated_Source\PSoC5/Sample_Hold_A.c **** uint8 Sample_Hold_A_initVar = 0u;
+  28:Generated_Source\PSoC5/Sample_Hold_A.c **** 
+  29:Generated_Source\PSoC5/Sample_Hold_A.c **** /* static Sample_Hold_A_backupStruct  Sample_Hold_A_backup; */
+  30:Generated_Source\PSoC5/Sample_Hold_A.c **** #if (CY_PSOC5A)
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccpd1D68.s 			page 2
+
+
+  31:Generated_Source\PSoC5/Sample_Hold_A.c ****     static Sample_Hold_A_backupStruct  Sample_Hold_A_P5backup;
+  32:Generated_Source\PSoC5/Sample_Hold_A.c **** #endif /* CY_PSOC5A */
+  33:Generated_Source\PSoC5/Sample_Hold_A.c **** 
+  34:Generated_Source\PSoC5/Sample_Hold_A.c **** 
+  35:Generated_Source\PSoC5/Sample_Hold_A.c **** 
+  36:Generated_Source\PSoC5/Sample_Hold_A.c **** /*******************************************************************************   
+  37:Generated_Source\PSoC5/Sample_Hold_A.c **** * Function Name: Sample_Hold_A_Init
+  38:Generated_Source\PSoC5/Sample_Hold_A.c **** ********************************************************************************
+  39:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+  40:Generated_Source\PSoC5/Sample_Hold_A.c **** * Summary:
+  41:Generated_Source\PSoC5/Sample_Hold_A.c **** *  Initialize component's parameters to the parameters set by user in the 
+  42:Generated_Source\PSoC5/Sample_Hold_A.c **** *  customizer of the component placed onto schematic. Usually called in 
+  43:Generated_Source\PSoC5/Sample_Hold_A.c **** *  Sample_Hold_A_Start().
+  44:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+  45:Generated_Source\PSoC5/Sample_Hold_A.c **** * Parameters:
+  46:Generated_Source\PSoC5/Sample_Hold_A.c **** *  void
+  47:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+  48:Generated_Source\PSoC5/Sample_Hold_A.c **** * Return:
+  49:Generated_Source\PSoC5/Sample_Hold_A.c **** *  void
+  50:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+  51:Generated_Source\PSoC5/Sample_Hold_A.c **** *******************************************************************************/
+  52:Generated_Source\PSoC5/Sample_Hold_A.c **** void Sample_Hold_A_Init(void) 
+  53:Generated_Source\PSoC5/Sample_Hold_A.c **** {   
+  54:Generated_Source\PSoC5/Sample_Hold_A.c ****     /* Configure SC Block based on selected Sample/Track type */
+  55:Generated_Source\PSoC5/Sample_Hold_A.c ****     #if (Sample_Hold_A_SAMPLE_TRACK_MODE == Sample_Hold_A_SAMPLEANDHOLD) /* Sample and hold mode */
+  56:Generated_Source\PSoC5/Sample_Hold_A.c ****         /* SC Block mode -  - SCxx_CR0[3:1] */
+  57:Generated_Source\PSoC5/Sample_Hold_A.c ****         Sample_Hold_A_CR0_REG = Sample_Hold_A_MODE_SAMPLEANDHOLD;
+  58:Generated_Source\PSoC5/Sample_Hold_A.c ****         
+  59:Generated_Source\PSoC5/Sample_Hold_A.c ****         /* SC Block CR1 */ 
+  60:Generated_Source\PSoC5/Sample_Hold_A.c ****         Sample_Hold_A_CR1_REG = (Sample_Hold_A_COMP_4P35PF  |
+  61:Generated_Source\PSoC5/Sample_Hold_A.c ****                                 Sample_Hold_A_GAIN_0DB);
+  62:Generated_Source\PSoC5/Sample_Hold_A.c ****         #if(Sample_Hold_A_SAMPLE_CLOCK_EDGE == Sample_Hold_A_EDGE_POSITIVENEGATIVE)
+  63:Generated_Source\PSoC5/Sample_Hold_A.c ****             Sample_Hold_A_CR1_REG =  Sample_Hold_A_CR1_REG  | Sample_Hold_A_DIV2_DISABLE ;
+  64:Generated_Source\PSoC5/Sample_Hold_A.c ****         #else
+  65:Generated_Source\PSoC5/Sample_Hold_A.c ****             Sample_Hold_A_CR1_REG =  Sample_Hold_A_CR1_REG  | Sample_Hold_A_DIV2_ENABLE ;
+  66:Generated_Source\PSoC5/Sample_Hold_A.c ****         #endif
+  67:Generated_Source\PSoC5/Sample_Hold_A.c ****          
+  68:Generated_Source\PSoC5/Sample_Hold_A.c ****         #if(Sample_Hold_A_VREF_TYPE == Sample_Hold_A_EXTERNAL)
+  69:Generated_Source\PSoC5/Sample_Hold_A.c ****             Sample_Hold_A_CR2_REG = Sample_Hold_A_BIAS_LOW |
+  70:Generated_Source\PSoC5/Sample_Hold_A.c ****                                        Sample_Hold_A_REDC_00 | 
+  71:Generated_Source\PSoC5/Sample_Hold_A.c ****                                        Sample_Hold_A_GNDVREF_DI;
+  72:Generated_Source\PSoC5/Sample_Hold_A.c ****         #else
+  73:Generated_Source\PSoC5/Sample_Hold_A.c ****             Sample_Hold_A_CR2_REG = Sample_Hold_A_BIAS_LOW |
+  74:Generated_Source\PSoC5/Sample_Hold_A.c ****                                        Sample_Hold_A_REDC_00 | 
+  75:Generated_Source\PSoC5/Sample_Hold_A.c ****                                        Sample_Hold_A_GNDVREF_E;
+  76:Generated_Source\PSoC5/Sample_Hold_A.c ****         #endif
+  77:Generated_Source\PSoC5/Sample_Hold_A.c ****     #else
+  78:Generated_Source\PSoC5/Sample_Hold_A.c ****         /* Track and Hold Mode */
+  79:Generated_Source\PSoC5/Sample_Hold_A.c ****         /* SC Block mode -  - SCxx_CR0[3:1] */
+  80:Generated_Source\PSoC5/Sample_Hold_A.c ****         Sample_Hold_A_CR0_REG = Sample_Hold_A_MODE_TRACKANDHOLD; 
+  81:Generated_Source\PSoC5/Sample_Hold_A.c ****         
+  82:Generated_Source\PSoC5/Sample_Hold_A.c ****         /* SC Block CR1 */ 
+  83:Generated_Source\PSoC5/Sample_Hold_A.c ****         Sample_Hold_A_CR1_REG = Sample_Hold_A_COMP_4P35PF  |
+  84:Generated_Source\PSoC5/Sample_Hold_A.c ****                                    Sample_Hold_A_DIV2_ENABLE |
+  85:Generated_Source\PSoC5/Sample_Hold_A.c ****                                    Sample_Hold_A_GAIN_0DB;
+  86:Generated_Source\PSoC5/Sample_Hold_A.c ****                                 
+  87:Generated_Source\PSoC5/Sample_Hold_A.c ****         /* SC Block CR2 */
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccpd1D68.s 			page 3
+
+
+  88:Generated_Source\PSoC5/Sample_Hold_A.c ****         Sample_Hold_A_CR2_REG = Sample_Hold_A_BIAS_LOW |
+  89:Generated_Source\PSoC5/Sample_Hold_A.c ****                                    Sample_Hold_A_REDC_00 |
+  90:Generated_Source\PSoC5/Sample_Hold_A.c ****                                    Sample_Hold_A_GNDVREF_E;
+  91:Generated_Source\PSoC5/Sample_Hold_A.c ****     #endif /* end if - Sample/Track Type */
+  92:Generated_Source\PSoC5/Sample_Hold_A.c ****     
+  93:Generated_Source\PSoC5/Sample_Hold_A.c ****     /* Enable SC Block clocking */
+  94:Generated_Source\PSoC5/Sample_Hold_A.c ****     Sample_Hold_A_CLK_REG |= Sample_Hold_A_CLK_EN;
+  95:Generated_Source\PSoC5/Sample_Hold_A.c ****     
+  96:Generated_Source\PSoC5/Sample_Hold_A.c ****     /* Set default power */
+  97:Generated_Source\PSoC5/Sample_Hold_A.c ****     Sample_Hold_A_SetPower(Sample_Hold_A_INIT_POWER);
+  98:Generated_Source\PSoC5/Sample_Hold_A.c **** }
+  99:Generated_Source\PSoC5/Sample_Hold_A.c **** 
+ 100:Generated_Source\PSoC5/Sample_Hold_A.c **** 
+ 101:Generated_Source\PSoC5/Sample_Hold_A.c **** /*******************************************************************************   
+ 102:Generated_Source\PSoC5/Sample_Hold_A.c **** * Function Name: Sample_Hold_A_Enable
+ 103:Generated_Source\PSoC5/Sample_Hold_A.c **** ********************************************************************************
+ 104:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+ 105:Generated_Source\PSoC5/Sample_Hold_A.c **** * Summary:
+ 106:Generated_Source\PSoC5/Sample_Hold_A.c **** *  Enables the Sample/Track and Hold block operation
+ 107:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+ 108:Generated_Source\PSoC5/Sample_Hold_A.c **** * Parameters:
+ 109:Generated_Source\PSoC5/Sample_Hold_A.c **** *  void
+ 110:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+ 111:Generated_Source\PSoC5/Sample_Hold_A.c **** * Return:
+ 112:Generated_Source\PSoC5/Sample_Hold_A.c **** *  void
+ 113:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+ 114:Generated_Source\PSoC5/Sample_Hold_A.c **** *******************************************************************************/
+ 115:Generated_Source\PSoC5/Sample_Hold_A.c **** void Sample_Hold_A_Enable(void) 
+ 116:Generated_Source\PSoC5/Sample_Hold_A.c **** {
+  28              		.loc 1 116 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+ 117:Generated_Source\PSoC5/Sample_Hold_A.c ****     /* This is to restore the value of register CR1 and CR2 which is saved 
+ 118:Generated_Source\PSoC5/Sample_Hold_A.c ****       in prior to the modifications in stop() API */
+ 119:Generated_Source\PSoC5/Sample_Hold_A.c ****     #if (CY_PSOC5A)
+ 120:Generated_Source\PSoC5/Sample_Hold_A.c ****         if(Sample_Hold_A_P5backup.enableState == 1u)
+ 121:Generated_Source\PSoC5/Sample_Hold_A.c ****         {
+ 122:Generated_Source\PSoC5/Sample_Hold_A.c ****             Sample_Hold_A_CR1_REG = Sample_Hold_A_P5backup.scCR1Reg;
+ 123:Generated_Source\PSoC5/Sample_Hold_A.c ****             Sample_Hold_A_CR2_REG = Sample_Hold_A_P5backup.scCR2Reg;
+ 124:Generated_Source\PSoC5/Sample_Hold_A.c ****             Sample_Hold_A_P5backup.enableState = 0u;
+ 125:Generated_Source\PSoC5/Sample_Hold_A.c ****         }
+ 126:Generated_Source\PSoC5/Sample_Hold_A.c ****     #endif /* CY_PSOC5A */
+ 127:Generated_Source\PSoC5/Sample_Hold_A.c ****     
+ 128:Generated_Source\PSoC5/Sample_Hold_A.c ****     /* Enable power to SC block in active mode */
+ 129:Generated_Source\PSoC5/Sample_Hold_A.c ****     Sample_Hold_A_PM_ACT_CFG_REG |= Sample_Hold_A_ACT_PWR_EN;
+  33              		.loc 1 129 0
+  34 0000 084A     		ldr	r2, .L2
+  35 0002 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  36 0004 43F00403 		orr	r3, r3, #4
+  37 0008 1370     		strb	r3, [r2]
+ 130:Generated_Source\PSoC5/Sample_Hold_A.c ****     
+ 131:Generated_Source\PSoC5/Sample_Hold_A.c ****     /* Enable power to SC block in Alternative active mode */
+ 132:Generated_Source\PSoC5/Sample_Hold_A.c ****     Sample_Hold_A_PM_STBY_CFG_REG |= Sample_Hold_A_STBY_PWR_EN;
+  38              		.loc 1 132 0
+  39 000a 1032     		adds	r2, r2, #16
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccpd1D68.s 			page 4
+
+
+  40 000c 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  41 000e 43F00403 		orr	r3, r3, #4
+  42 0012 1370     		strb	r3, [r2]
+ 133:Generated_Source\PSoC5/Sample_Hold_A.c **** 
+ 134:Generated_Source\PSoC5/Sample_Hold_A.c ****     Sample_Hold_A_PUMP_CR1_REG |= Sample_Hold_A_PUMP_CR1_SC_CLKSEL;
+  43              		.loc 1 134 0
+  44 0014 02F5A552 		add	r2, r2, #5280
+  45 0018 1E32     		adds	r2, r2, #30
+  46 001a 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  47 001c 43F08003 		orr	r3, r3, #128
+  48 0020 1370     		strb	r3, [r2]
+  49 0022 7047     		bx	lr
+  50              	.L3:
+  51              		.align	2
+  52              	.L2:
+  53 0024 A9430040 		.word	1073759145
+  54              		.cfi_endproc
+  55              	.LFE1:
+  56              		.size	Sample_Hold_A_Enable, .-Sample_Hold_A_Enable
+  57              		.section	.text.Sample_Hold_A_Stop,"ax",%progbits
+  58              		.align	2
+  59              		.global	Sample_Hold_A_Stop
+  60              		.thumb
+  61              		.thumb_func
+  62              		.type	Sample_Hold_A_Stop, %function
+  63              	Sample_Hold_A_Stop:
+  64              	.LFB3:
+ 135:Generated_Source\PSoC5/Sample_Hold_A.c ****     
+ 136:Generated_Source\PSoC5/Sample_Hold_A.c ****     #if (!CY_PSOC5A)
+ 137:Generated_Source\PSoC5/Sample_Hold_A.c ****         #if (CYDEV_VARIABLE_VDDA == 1u)
+ 138:Generated_Source\PSoC5/Sample_Hold_A.c ****             if(CyScPumpEnabled == 1u)
+ 139:Generated_Source\PSoC5/Sample_Hold_A.c ****             {
+ 140:Generated_Source\PSoC5/Sample_Hold_A.c ****                 Sample_Hold_A_BSTCLK_REG &= (uint8)(~Sample_Hold_A_BST_CLK_INDEX_MASK);
+ 141:Generated_Source\PSoC5/Sample_Hold_A.c ****                 Sample_Hold_A_BSTCLK_REG |= Sample_Hold_A_BST_CLK_EN | CyScBoostClk__INDEX;
+ 142:Generated_Source\PSoC5/Sample_Hold_A.c ****                 Sample_Hold_A_SC_MISC_REG |= Sample_Hold_A_PUMP_FORCE;
+ 143:Generated_Source\PSoC5/Sample_Hold_A.c ****                 CyScBoostClk_Start();
+ 144:Generated_Source\PSoC5/Sample_Hold_A.c ****             }
+ 145:Generated_Source\PSoC5/Sample_Hold_A.c ****             else
+ 146:Generated_Source\PSoC5/Sample_Hold_A.c ****             {
+ 147:Generated_Source\PSoC5/Sample_Hold_A.c ****                 Sample_Hold_A_BSTCLK_REG &= (uint8)(~Sample_Hold_A_BST_CLK_EN);
+ 148:Generated_Source\PSoC5/Sample_Hold_A.c ****                 Sample_Hold_A_SC_MISC_REG &= (uint8)(~Sample_Hold_A_PUMP_FORCE);
+ 149:Generated_Source\PSoC5/Sample_Hold_A.c ****             }
+ 150:Generated_Source\PSoC5/Sample_Hold_A.c ****         #endif /* (CYDEV_VARIABLE_VDDA == 1u) */
+ 151:Generated_Source\PSoC5/Sample_Hold_A.c ****     #endif /* (!CY_PSOC5A) */
+ 152:Generated_Source\PSoC5/Sample_Hold_A.c **** }
+ 153:Generated_Source\PSoC5/Sample_Hold_A.c **** 
+ 154:Generated_Source\PSoC5/Sample_Hold_A.c **** 
+ 155:Generated_Source\PSoC5/Sample_Hold_A.c **** /*******************************************************************************
+ 156:Generated_Source\PSoC5/Sample_Hold_A.c **** * Function Name: Sample_Hold_A_Start
+ 157:Generated_Source\PSoC5/Sample_Hold_A.c **** ********************************************************************************
+ 158:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+ 159:Generated_Source\PSoC5/Sample_Hold_A.c **** * Summary:
+ 160:Generated_Source\PSoC5/Sample_Hold_A.c **** *  The start function initializes the Sample and Hold with the default values, 
+ 161:Generated_Source\PSoC5/Sample_Hold_A.c **** *  and sets the power to the given level.  A power level of 0, is the same as 
+ 162:Generated_Source\PSoC5/Sample_Hold_A.c **** *  executing the stop function.
+ 163:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+ 164:Generated_Source\PSoC5/Sample_Hold_A.c **** * Parameters:
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccpd1D68.s 			page 5
+
+
+ 165:Generated_Source\PSoC5/Sample_Hold_A.c **** *  void
+ 166:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+ 167:Generated_Source\PSoC5/Sample_Hold_A.c **** * Return:
+ 168:Generated_Source\PSoC5/Sample_Hold_A.c **** *  void
+ 169:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+ 170:Generated_Source\PSoC5/Sample_Hold_A.c **** *******************************************************************************/
+ 171:Generated_Source\PSoC5/Sample_Hold_A.c **** void Sample_Hold_A_Start(void) 
+ 172:Generated_Source\PSoC5/Sample_Hold_A.c **** {
+ 173:Generated_Source\PSoC5/Sample_Hold_A.c ****     /* If not Initialized then initialize all required hardware and software */
+ 174:Generated_Source\PSoC5/Sample_Hold_A.c ****     if(Sample_Hold_A_initVar == 0u)
+ 175:Generated_Source\PSoC5/Sample_Hold_A.c ****     {
+ 176:Generated_Source\PSoC5/Sample_Hold_A.c ****         Sample_Hold_A_Init();
+ 177:Generated_Source\PSoC5/Sample_Hold_A.c ****         Sample_Hold_A_initVar = 1u;
+ 178:Generated_Source\PSoC5/Sample_Hold_A.c ****     }
+ 179:Generated_Source\PSoC5/Sample_Hold_A.c ****     Sample_Hold_A_Enable();
+ 180:Generated_Source\PSoC5/Sample_Hold_A.c **** }
+ 181:Generated_Source\PSoC5/Sample_Hold_A.c **** 
+ 182:Generated_Source\PSoC5/Sample_Hold_A.c **** 
+ 183:Generated_Source\PSoC5/Sample_Hold_A.c **** /*******************************************************************************
+ 184:Generated_Source\PSoC5/Sample_Hold_A.c **** * Function Name: Sample_Hold_A_Stop
+ 185:Generated_Source\PSoC5/Sample_Hold_A.c **** ********************************************************************************
+ 186:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+ 187:Generated_Source\PSoC5/Sample_Hold_A.c **** * Summary:
+ 188:Generated_Source\PSoC5/Sample_Hold_A.c **** *  Powers down amplifier to lowest power state.
+ 189:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+ 190:Generated_Source\PSoC5/Sample_Hold_A.c **** * Parameters:
+ 191:Generated_Source\PSoC5/Sample_Hold_A.c **** *  void
+ 192:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+ 193:Generated_Source\PSoC5/Sample_Hold_A.c **** * Return:
+ 194:Generated_Source\PSoC5/Sample_Hold_A.c **** *  void
+ 195:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+ 196:Generated_Source\PSoC5/Sample_Hold_A.c **** *******************************************************************************/
+ 197:Generated_Source\PSoC5/Sample_Hold_A.c **** void Sample_Hold_A_Stop(void) 
+ 198:Generated_Source\PSoC5/Sample_Hold_A.c **** {   
+  65              		.loc 1 198 0
+  66              		.cfi_startproc
+  67              		@ args = 0, pretend = 0, frame = 0
+  68              		@ frame_needed = 0, uses_anonymous_args = 0
+  69              		@ link register save eliminated.
+ 199:Generated_Source\PSoC5/Sample_Hold_A.c ****     /* Disble power to the Amp in Active mode template */
+ 200:Generated_Source\PSoC5/Sample_Hold_A.c ****     Sample_Hold_A_PM_ACT_CFG_REG &= (uint8)(~Sample_Hold_A_ACT_PWR_EN);
+  70              		.loc 1 200 0
+  71 0000 054A     		ldr	r2, .L5
+  72 0002 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  73 0004 03F0FB03 		and	r3, r3, #251
+  74 0008 1370     		strb	r3, [r2]
+ 201:Generated_Source\PSoC5/Sample_Hold_A.c **** 
+ 202:Generated_Source\PSoC5/Sample_Hold_A.c ****     /* Disble power to the Amp in Alternative Active mode template */
+ 203:Generated_Source\PSoC5/Sample_Hold_A.c ****     Sample_Hold_A_PM_STBY_CFG_REG &= (uint8)(~Sample_Hold_A_STBY_PWR_EN);
+  75              		.loc 1 203 0
+  76 000a 1032     		adds	r2, r2, #16
+  77 000c 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  78 000e 03F0FB03 		and	r3, r3, #251
+  79 0012 1370     		strb	r3, [r2]
+  80 0014 7047     		bx	lr
+  81              	.L6:
+  82 0016 00BF     		.align	2
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccpd1D68.s 			page 6
+
+
+  83              	.L5:
+  84 0018 A9430040 		.word	1073759145
+  85              		.cfi_endproc
+  86              	.LFE3:
+  87              		.size	Sample_Hold_A_Stop, .-Sample_Hold_A_Stop
+  88              		.section	.text.Sample_Hold_A_SetPower,"ax",%progbits
+  89              		.align	2
+  90              		.global	Sample_Hold_A_SetPower
+  91              		.thumb
+  92              		.thumb_func
+  93              		.type	Sample_Hold_A_SetPower, %function
+  94              	Sample_Hold_A_SetPower:
+  95              	.LFB4:
+ 204:Generated_Source\PSoC5/Sample_Hold_A.c ****     
+ 205:Generated_Source\PSoC5/Sample_Hold_A.c ****     #if (!CY_PSOC5A)
+ 206:Generated_Source\PSoC5/Sample_Hold_A.c ****         #if (CYDEV_VARIABLE_VDDA == 1u)
+ 207:Generated_Source\PSoC5/Sample_Hold_A.c ****             Sample_Hold_A_BSTCLK_REG &= (uint8)(~Sample_Hold_A_BST_CLK_EN);
+ 208:Generated_Source\PSoC5/Sample_Hold_A.c ****             /* Disable pumps only if there aren't any SC block in use */
+ 209:Generated_Source\PSoC5/Sample_Hold_A.c ****             if ((Sample_Hold_A_PM_ACT_CFG_REG & Sample_Hold_A_PM_ACT_CFG_MASK) == 0u)
+ 210:Generated_Source\PSoC5/Sample_Hold_A.c ****             {
+ 211:Generated_Source\PSoC5/Sample_Hold_A.c ****                 Sample_Hold_A_SC_MISC_REG &= (uint8)(~Sample_Hold_A_PUMP_FORCE);
+ 212:Generated_Source\PSoC5/Sample_Hold_A.c ****                 Sample_Hold_A_PUMP_CR1_REG &= (uint8)(~Sample_Hold_A_PUMP_CR1_SC_CLKSEL);
+ 213:Generated_Source\PSoC5/Sample_Hold_A.c ****                 CyScBoostClk_Stop();
+ 214:Generated_Source\PSoC5/Sample_Hold_A.c ****             }
+ 215:Generated_Source\PSoC5/Sample_Hold_A.c ****         #endif /* CYDEV_VARIABLE_VDDA == 1u */
+ 216:Generated_Source\PSoC5/Sample_Hold_A.c ****     #endif /* (CY_PSOC3 || CY_PSOC5LP) */
+ 217:Generated_Source\PSoC5/Sample_Hold_A.c ****  
+ 218:Generated_Source\PSoC5/Sample_Hold_A.c ****     /* This sets Sample and hold in zero current mode and output routes are valid */
+ 219:Generated_Source\PSoC5/Sample_Hold_A.c ****     #if (CY_PSOC5A)
+ 220:Generated_Source\PSoC5/Sample_Hold_A.c ****         Sample_Hold_A_P5backup.scCR1Reg = Sample_Hold_A_CR1_REG;
+ 221:Generated_Source\PSoC5/Sample_Hold_A.c ****         Sample_Hold_A_P5backup.scCR2Reg = Sample_Hold_A_CR2_REG;
+ 222:Generated_Source\PSoC5/Sample_Hold_A.c ****         Sample_Hold_A_CR1_REG = 0x00u;
+ 223:Generated_Source\PSoC5/Sample_Hold_A.c ****         Sample_Hold_A_CR2_REG = 0x00u;
+ 224:Generated_Source\PSoC5/Sample_Hold_A.c ****         Sample_Hold_A_P5backup.enableState = 1u;
+ 225:Generated_Source\PSoC5/Sample_Hold_A.c ****     #endif /* CY_PSOC5A */
+ 226:Generated_Source\PSoC5/Sample_Hold_A.c **** }
+ 227:Generated_Source\PSoC5/Sample_Hold_A.c **** 
+ 228:Generated_Source\PSoC5/Sample_Hold_A.c **** 
+ 229:Generated_Source\PSoC5/Sample_Hold_A.c **** /*******************************************************************************
+ 230:Generated_Source\PSoC5/Sample_Hold_A.c **** * Function Name: Sample_Hold_A_SetPower
+ 231:Generated_Source\PSoC5/Sample_Hold_A.c **** ********************************************************************************
+ 232:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+ 233:Generated_Source\PSoC5/Sample_Hold_A.c **** * Summary:
+ 234:Generated_Source\PSoC5/Sample_Hold_A.c **** *  Set the power of the Sample/Track and Hold.
+ 235:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+ 236:Generated_Source\PSoC5/Sample_Hold_A.c **** * Parameters:
+ 237:Generated_Source\PSoC5/Sample_Hold_A.c **** *  power: Sets power level between (0) and (3) high power
+ 238:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+ 239:Generated_Source\PSoC5/Sample_Hold_A.c **** * Return:
+ 240:Generated_Source\PSoC5/Sample_Hold_A.c **** *  void
+ 241:Generated_Source\PSoC5/Sample_Hold_A.c **** *
+ 242:Generated_Source\PSoC5/Sample_Hold_A.c **** *******************************************************************************/
+ 243:Generated_Source\PSoC5/Sample_Hold_A.c **** void Sample_Hold_A_SetPower(uint8 power) 
+ 244:Generated_Source\PSoC5/Sample_Hold_A.c **** {
+  96              		.loc 1 244 0
+  97              		.cfi_startproc
+  98              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccpd1D68.s 			page 7
+
+
+  99              		@ frame_needed = 0, uses_anonymous_args = 0
+ 100              		@ link register save eliminated.
+ 101              	.LVL0:
+ 245:Generated_Source\PSoC5/Sample_Hold_A.c ****     uint8 tmpCR;
+ 246:Generated_Source\PSoC5/Sample_Hold_A.c **** 
+ 247:Generated_Source\PSoC5/Sample_Hold_A.c ****     /* Sets drive bits in SC Block Control Register 1:  SCxx_CR[1:0] */
+ 248:Generated_Source\PSoC5/Sample_Hold_A.c ****     tmpCR = Sample_Hold_A_CR1_REG & (uint8)(~Sample_Hold_A_DRIVE_MASK);
+ 102              		.loc 1 248 0
+ 103 0000 044A     		ldr	r2, .L8
+ 104 0002 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 105 0004 03F0FC03 		and	r3, r3, #252
+ 106              	.LVL1:
+ 249:Generated_Source\PSoC5/Sample_Hold_A.c ****     tmpCR |= (power & Sample_Hold_A_DRIVE_MASK);
+ 107              		.loc 1 249 0
+ 108 0008 00F00300 		and	r0, r0, #3
+ 109              	.LVL2:
+ 110 000c 1843     		orrs	r0, r0, r3
+ 111              	.LVL3:
+ 250:Generated_Source\PSoC5/Sample_Hold_A.c ****     Sample_Hold_A_CR1_REG = tmpCR;
+ 112              		.loc 1 250 0
+ 113 000e 1070     		strb	r0, [r2]
+ 114 0010 7047     		bx	lr
+ 115              	.L9:
+ 116 0012 00BF     		.align	2
+ 117              	.L8:
+ 118 0014 09580040 		.word	1073764361
+ 119              		.cfi_endproc
+ 120              	.LFE4:
+ 121              		.size	Sample_Hold_A_SetPower, .-Sample_Hold_A_SetPower
+ 122              		.section	.text.Sample_Hold_A_Init,"ax",%progbits
+ 123              		.align	2
+ 124              		.global	Sample_Hold_A_Init
+ 125              		.thumb
+ 126              		.thumb_func
+ 127              		.type	Sample_Hold_A_Init, %function
+ 128              	Sample_Hold_A_Init:
+ 129              	.LFB0:
+  53:Generated_Source\PSoC5/Sample_Hold_A.c ****     /* Configure SC Block based on selected Sample/Track type */
+ 130              		.loc 1 53 0
+ 131              		.cfi_startproc
+ 132              		@ args = 0, pretend = 0, frame = 0
+ 133              		@ frame_needed = 0, uses_anonymous_args = 0
+ 134 0000 08B5     		push	{r3, lr}
+ 135              		.cfi_def_cfa_offset 8
+ 136              		.cfi_offset 3, -8
+ 137              		.cfi_offset 14, -4
+  57:Generated_Source\PSoC5/Sample_Hold_A.c ****         
+ 138              		.loc 1 57 0
+ 139 0002 0622     		movs	r2, #6
+ 140 0004 0A4B     		ldr	r3, .L12
+ 141 0006 1A70     		strb	r2, [r3]
+  60:Generated_Source\PSoC5/Sample_Hold_A.c ****                                 Sample_Hold_A_GAIN_0DB);
+ 142              		.loc 1 60 0
+ 143 0008 0133     		adds	r3, r3, #1
+ 144 000a 0822     		movs	r2, #8
+ 145 000c 1A70     		strb	r2, [r3]
+  65:Generated_Source\PSoC5/Sample_Hold_A.c ****         #endif
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccpd1D68.s 			page 8
+
+
+ 146              		.loc 1 65 0
+ 147 000e 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 148 0010 42F01002 		orr	r2, r2, #16
+ 149 0014 1A70     		strb	r2, [r3]
+  69:Generated_Source\PSoC5/Sample_Hold_A.c ****                                        Sample_Hold_A_REDC_00 | 
+ 150              		.loc 1 69 0
+ 151 0016 0122     		movs	r2, #1
+ 152 0018 0133     		adds	r3, r3, #1
+ 153 001a 1A70     		strb	r2, [r3]
+  94:Generated_Source\PSoC5/Sample_Hold_A.c ****     
+ 154              		.loc 1 94 0
+ 155 001c 054A     		ldr	r2, .L12+4
+ 156 001e 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 157 0020 43F00803 		orr	r3, r3, #8
+ 158 0024 1370     		strb	r3, [r2]
+  97:Generated_Source\PSoC5/Sample_Hold_A.c **** }
+ 159              		.loc 1 97 0
+ 160 0026 0320     		movs	r0, #3
+ 161 0028 FFF7FEFF 		bl	Sample_Hold_A_SetPower
+ 162              	.LVL4:
+ 163 002c 08BD     		pop	{r3, pc}
+ 164              	.L13:
+ 165 002e 00BF     		.align	2
+ 166              	.L12:
+ 167 0030 08580040 		.word	1073764360
+ 168 0034 2B5A0040 		.word	1073764907
+ 169              		.cfi_endproc
+ 170              	.LFE0:
+ 171              		.size	Sample_Hold_A_Init, .-Sample_Hold_A_Init
+ 172              		.section	.text.Sample_Hold_A_Start,"ax",%progbits
+ 173              		.align	2
+ 174              		.global	Sample_Hold_A_Start
+ 175              		.thumb
+ 176              		.thumb_func
+ 177              		.type	Sample_Hold_A_Start, %function
+ 178              	Sample_Hold_A_Start:
+ 179              	.LFB2:
+ 172:Generated_Source\PSoC5/Sample_Hold_A.c ****     /* If not Initialized then initialize all required hardware and software */
+ 180              		.loc 1 172 0
+ 181              		.cfi_startproc
+ 182              		@ args = 0, pretend = 0, frame = 0
+ 183              		@ frame_needed = 0, uses_anonymous_args = 0
+ 184 0000 08B5     		push	{r3, lr}
+ 185              		.cfi_def_cfa_offset 8
+ 186              		.cfi_offset 3, -8
+ 187              		.cfi_offset 14, -4
+ 174:Generated_Source\PSoC5/Sample_Hold_A.c ****     {
+ 188              		.loc 1 174 0
+ 189 0002 054B     		ldr	r3, .L17
+ 190 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 191 0006 23B9     		cbnz	r3, .L15
+ 176:Generated_Source\PSoC5/Sample_Hold_A.c ****         Sample_Hold_A_initVar = 1u;
+ 192              		.loc 1 176 0
+ 193 0008 FFF7FEFF 		bl	Sample_Hold_A_Init
+ 194              	.LVL5:
+ 177:Generated_Source\PSoC5/Sample_Hold_A.c ****     }
+ 195              		.loc 1 177 0
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccpd1D68.s 			page 9
+
+
+ 196 000c 0122     		movs	r2, #1
+ 197 000e 024B     		ldr	r3, .L17
+ 198 0010 1A70     		strb	r2, [r3]
+ 199              	.L15:
+ 179:Generated_Source\PSoC5/Sample_Hold_A.c **** }
+ 200              		.loc 1 179 0
+ 201 0012 FFF7FEFF 		bl	Sample_Hold_A_Enable
+ 202              	.LVL6:
+ 203 0016 08BD     		pop	{r3, pc}
+ 204              	.L18:
+ 205              		.align	2
+ 206              	.L17:
+ 207 0018 00000000 		.word	.LANCHOR0
+ 208              		.cfi_endproc
+ 209              	.LFE2:
+ 210              		.size	Sample_Hold_A_Start, .-Sample_Hold_A_Start
+ 211              		.global	Sample_Hold_A_initVar
+ 212              		.bss
+ 213              		.set	.LANCHOR0,. + 0
+ 214              		.type	Sample_Hold_A_initVar, %object
+ 215              		.size	Sample_Hold_A_initVar, 1
+ 216              	Sample_Hold_A_initVar:
+ 217 0000 00       		.space	1
+ 218              		.text
+ 219              	.Letext0:
+ 220              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 221              		.section	.debug_info,"",%progbits
+ 222              	.Ldebug_info0:
+ 223 0000 5C010000 		.4byte	0x15c
+ 224 0004 0400     		.2byte	0x4
+ 225 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 226 000a 04       		.byte	0x4
+ 227 000b 01       		.uleb128 0x1
+ 228 000c 43000000 		.4byte	.LASF21
+ 229 0010 0C       		.byte	0xc
+ 230 0011 E3010000 		.4byte	.LASF22
+ 231 0015 D1000000 		.4byte	.LASF23
+ 232 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 233 001d 00000000 		.4byte	0
+ 234 0021 00000000 		.4byte	.Ldebug_line0
+ 235 0025 02       		.uleb128 0x2
+ 236 0026 01       		.byte	0x1
+ 237 0027 06       		.byte	0x6
+ 238 0028 C2010000 		.4byte	.LASF0
+ 239 002c 02       		.uleb128 0x2
+ 240 002d 01       		.byte	0x1
+ 241 002e 08       		.byte	0x8
+ 242 002f 86010000 		.4byte	.LASF1
+ 243 0033 02       		.uleb128 0x2
+ 244 0034 02       		.byte	0x2
+ 245 0035 05       		.byte	0x5
+ 246 0036 0A020000 		.4byte	.LASF2
+ 247 003a 02       		.uleb128 0x2
+ 248 003b 02       		.byte	0x2
+ 249 003c 07       		.byte	0x7
+ 250 003d 42010000 		.4byte	.LASF3
+ 251 0041 02       		.uleb128 0x2
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccpd1D68.s 			page 10
+
+
+ 252 0042 04       		.byte	0x4
+ 253 0043 05       		.byte	0x5
+ 254 0044 99010000 		.4byte	.LASF4
+ 255 0048 02       		.uleb128 0x2
+ 256 0049 04       		.byte	0x4
+ 257 004a 07       		.byte	0x7
+ 258 004b 19010000 		.4byte	.LASF5
+ 259 004f 02       		.uleb128 0x2
+ 260 0050 08       		.byte	0x8
+ 261 0051 05       		.byte	0x5
+ 262 0052 00000000 		.4byte	.LASF6
+ 263 0056 02       		.uleb128 0x2
+ 264 0057 08       		.byte	0x8
+ 265 0058 07       		.byte	0x7
+ 266 0059 2B010000 		.4byte	.LASF7
+ 267 005d 03       		.uleb128 0x3
+ 268 005e 04       		.byte	0x4
+ 269 005f 05       		.byte	0x5
+ 270 0060 696E7400 		.ascii	"int\000"
+ 271 0064 02       		.uleb128 0x2
+ 272 0065 04       		.byte	0x4
+ 273 0066 07       		.byte	0x7
+ 274 0067 23000000 		.4byte	.LASF8
+ 275 006b 04       		.uleb128 0x4
+ 276 006c BC010000 		.4byte	.LASF12
+ 277 0070 02       		.byte	0x2
+ 278 0071 E401     		.2byte	0x1e4
+ 279 0073 2C000000 		.4byte	0x2c
+ 280 0077 02       		.uleb128 0x2
+ 281 0078 04       		.byte	0x4
+ 282 0079 04       		.byte	0x4
+ 283 007a 55010000 		.4byte	.LASF9
+ 284 007e 02       		.uleb128 0x2
+ 285 007f 08       		.byte	0x8
+ 286 0080 04       		.byte	0x4
+ 287 0081 B5010000 		.4byte	.LASF10
+ 288 0085 02       		.uleb128 0x2
+ 289 0086 01       		.byte	0x1
+ 290 0087 08       		.byte	0x8
+ 291 0088 94010000 		.4byte	.LASF11
+ 292 008c 04       		.uleb128 0x4
+ 293 008d 14020000 		.4byte	.LASF13
+ 294 0091 02       		.byte	0x2
+ 295 0092 8E02     		.2byte	0x28e
+ 296 0094 98000000 		.4byte	0x98
+ 297 0098 05       		.uleb128 0x5
+ 298 0099 6B000000 		.4byte	0x6b
+ 299 009d 02       		.uleb128 0x2
+ 300 009e 08       		.byte	0x8
+ 301 009f 04       		.byte	0x4
+ 302 00a0 CE010000 		.4byte	.LASF14
+ 303 00a4 02       		.uleb128 0x2
+ 304 00a5 04       		.byte	0x4
+ 305 00a6 07       		.byte	0x7
+ 306 00a7 DA010000 		.4byte	.LASF15
+ 307 00ab 06       		.uleb128 0x6
+ 308 00ac 0E000000 		.4byte	.LASF16
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccpd1D68.s 			page 11
+
+
+ 309 00b0 01       		.byte	0x1
+ 310 00b1 73       		.byte	0x73
+ 311 00b2 00000000 		.4byte	.LFB1
+ 312 00b6 28000000 		.4byte	.LFE1-.LFB1
+ 313 00ba 01       		.uleb128 0x1
+ 314 00bb 9C       		.byte	0x9c
+ 315 00bc 06       		.uleb128 0x6
+ 316 00bd 30000000 		.4byte	.LASF17
+ 317 00c1 01       		.byte	0x1
+ 318 00c2 C5       		.byte	0xc5
+ 319 00c3 00000000 		.4byte	.LFB3
+ 320 00c7 1C000000 		.4byte	.LFE3-.LFB3
+ 321 00cb 01       		.uleb128 0x1
+ 322 00cc 9C       		.byte	0x9c
+ 323 00cd 07       		.uleb128 0x7
+ 324 00ce 5B010000 		.4byte	.LASF18
+ 325 00d2 01       		.byte	0x1
+ 326 00d3 F3       		.byte	0xf3
+ 327 00d4 00000000 		.4byte	.LFB4
+ 328 00d8 18000000 		.4byte	.LFE4-.LFB4
+ 329 00dc 01       		.uleb128 0x1
+ 330 00dd 9C       		.byte	0x9c
+ 331 00de 01010000 		.4byte	0x101
+ 332 00e2 08       		.uleb128 0x8
+ 333 00e3 35020000 		.4byte	.LASF24
+ 334 00e7 01       		.byte	0x1
+ 335 00e8 F3       		.byte	0xf3
+ 336 00e9 6B000000 		.4byte	0x6b
+ 337 00ed 00000000 		.4byte	.LLST0
+ 338 00f1 09       		.uleb128 0x9
+ 339 00f2 2F020000 		.4byte	.LASF25
+ 340 00f6 01       		.byte	0x1
+ 341 00f7 F5       		.byte	0xf5
+ 342 00f8 6B000000 		.4byte	0x6b
+ 343 00fc 21000000 		.4byte	.LLST1
+ 344 0100 00       		.byte	0
+ 345 0101 07       		.uleb128 0x7
+ 346 0102 A2010000 		.4byte	.LASF19
+ 347 0106 01       		.byte	0x1
+ 348 0107 34       		.byte	0x34
+ 349 0108 00000000 		.4byte	.LFB0
+ 350 010c 38000000 		.4byte	.LFE0-.LFB0
+ 351 0110 01       		.uleb128 0x1
+ 352 0111 9C       		.byte	0x9c
+ 353 0112 26010000 		.4byte	0x126
+ 354 0116 0A       		.uleb128 0xa
+ 355 0117 2C000000 		.4byte	.LVL4
+ 356 011b CD000000 		.4byte	0xcd
+ 357 011f 0B       		.uleb128 0xb
+ 358 0120 01       		.uleb128 0x1
+ 359 0121 50       		.byte	0x50
+ 360 0122 01       		.uleb128 0x1
+ 361 0123 33       		.byte	0x33
+ 362 0124 00       		.byte	0
+ 363 0125 00       		.byte	0
+ 364 0126 07       		.uleb128 0x7
+ 365 0127 72010000 		.4byte	.LASF20
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccpd1D68.s 			page 12
+
+
+ 366 012b 01       		.byte	0x1
+ 367 012c AB       		.byte	0xab
+ 368 012d 00000000 		.4byte	.LFB2
+ 369 0131 1C000000 		.4byte	.LFE2-.LFB2
+ 370 0135 01       		.uleb128 0x1
+ 371 0136 9C       		.byte	0x9c
+ 372 0137 4E010000 		.4byte	0x14e
+ 373 013b 0C       		.uleb128 0xc
+ 374 013c 0C000000 		.4byte	.LVL5
+ 375 0140 01010000 		.4byte	0x101
+ 376 0144 0C       		.uleb128 0xc
+ 377 0145 16000000 		.4byte	.LVL6
+ 378 0149 AB000000 		.4byte	0xab
+ 379 014d 00       		.byte	0
+ 380 014e 0D       		.uleb128 0xd
+ 381 014f 19020000 		.4byte	.LASF26
+ 382 0153 01       		.byte	0x1
+ 383 0154 1B       		.byte	0x1b
+ 384 0155 6B000000 		.4byte	0x6b
+ 385 0159 05       		.uleb128 0x5
+ 386 015a 03       		.byte	0x3
+ 387 015b 00000000 		.4byte	Sample_Hold_A_initVar
+ 388 015f 00       		.byte	0
+ 389              		.section	.debug_abbrev,"",%progbits
+ 390              	.Ldebug_abbrev0:
+ 391 0000 01       		.uleb128 0x1
+ 392 0001 11       		.uleb128 0x11
+ 393 0002 01       		.byte	0x1
+ 394 0003 25       		.uleb128 0x25
+ 395 0004 0E       		.uleb128 0xe
+ 396 0005 13       		.uleb128 0x13
+ 397 0006 0B       		.uleb128 0xb
+ 398 0007 03       		.uleb128 0x3
+ 399 0008 0E       		.uleb128 0xe
+ 400 0009 1B       		.uleb128 0x1b
+ 401 000a 0E       		.uleb128 0xe
+ 402 000b 55       		.uleb128 0x55
+ 403 000c 17       		.uleb128 0x17
+ 404 000d 11       		.uleb128 0x11
+ 405 000e 01       		.uleb128 0x1
+ 406 000f 10       		.uleb128 0x10
+ 407 0010 17       		.uleb128 0x17
+ 408 0011 00       		.byte	0
+ 409 0012 00       		.byte	0
+ 410 0013 02       		.uleb128 0x2
+ 411 0014 24       		.uleb128 0x24
+ 412 0015 00       		.byte	0
+ 413 0016 0B       		.uleb128 0xb
+ 414 0017 0B       		.uleb128 0xb
+ 415 0018 3E       		.uleb128 0x3e
+ 416 0019 0B       		.uleb128 0xb
+ 417 001a 03       		.uleb128 0x3
+ 418 001b 0E       		.uleb128 0xe
+ 419 001c 00       		.byte	0
+ 420 001d 00       		.byte	0
+ 421 001e 03       		.uleb128 0x3
+ 422 001f 24       		.uleb128 0x24
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccpd1D68.s 			page 13
+
+
+ 423 0020 00       		.byte	0
+ 424 0021 0B       		.uleb128 0xb
+ 425 0022 0B       		.uleb128 0xb
+ 426 0023 3E       		.uleb128 0x3e
+ 427 0024 0B       		.uleb128 0xb
+ 428 0025 03       		.uleb128 0x3
+ 429 0026 08       		.uleb128 0x8
+ 430 0027 00       		.byte	0
+ 431 0028 00       		.byte	0
+ 432 0029 04       		.uleb128 0x4
+ 433 002a 16       		.uleb128 0x16
+ 434 002b 00       		.byte	0
+ 435 002c 03       		.uleb128 0x3
+ 436 002d 0E       		.uleb128 0xe
+ 437 002e 3A       		.uleb128 0x3a
+ 438 002f 0B       		.uleb128 0xb
+ 439 0030 3B       		.uleb128 0x3b
+ 440 0031 05       		.uleb128 0x5
+ 441 0032 49       		.uleb128 0x49
+ 442 0033 13       		.uleb128 0x13
+ 443 0034 00       		.byte	0
+ 444 0035 00       		.byte	0
+ 445 0036 05       		.uleb128 0x5
+ 446 0037 35       		.uleb128 0x35
+ 447 0038 00       		.byte	0
+ 448 0039 49       		.uleb128 0x49
+ 449 003a 13       		.uleb128 0x13
+ 450 003b 00       		.byte	0
+ 451 003c 00       		.byte	0
+ 452 003d 06       		.uleb128 0x6
+ 453 003e 2E       		.uleb128 0x2e
+ 454 003f 00       		.byte	0
+ 455 0040 3F       		.uleb128 0x3f
+ 456 0041 19       		.uleb128 0x19
+ 457 0042 03       		.uleb128 0x3
+ 458 0043 0E       		.uleb128 0xe
+ 459 0044 3A       		.uleb128 0x3a
+ 460 0045 0B       		.uleb128 0xb
+ 461 0046 3B       		.uleb128 0x3b
+ 462 0047 0B       		.uleb128 0xb
+ 463 0048 27       		.uleb128 0x27
+ 464 0049 19       		.uleb128 0x19
+ 465 004a 11       		.uleb128 0x11
+ 466 004b 01       		.uleb128 0x1
+ 467 004c 12       		.uleb128 0x12
+ 468 004d 06       		.uleb128 0x6
+ 469 004e 40       		.uleb128 0x40
+ 470 004f 18       		.uleb128 0x18
+ 471 0050 9742     		.uleb128 0x2117
+ 472 0052 19       		.uleb128 0x19
+ 473 0053 00       		.byte	0
+ 474 0054 00       		.byte	0
+ 475 0055 07       		.uleb128 0x7
+ 476 0056 2E       		.uleb128 0x2e
+ 477 0057 01       		.byte	0x1
+ 478 0058 3F       		.uleb128 0x3f
+ 479 0059 19       		.uleb128 0x19
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccpd1D68.s 			page 14
+
+
+ 480 005a 03       		.uleb128 0x3
+ 481 005b 0E       		.uleb128 0xe
+ 482 005c 3A       		.uleb128 0x3a
+ 483 005d 0B       		.uleb128 0xb
+ 484 005e 3B       		.uleb128 0x3b
+ 485 005f 0B       		.uleb128 0xb
+ 486 0060 27       		.uleb128 0x27
+ 487 0061 19       		.uleb128 0x19
+ 488 0062 11       		.uleb128 0x11
+ 489 0063 01       		.uleb128 0x1
+ 490 0064 12       		.uleb128 0x12
+ 491 0065 06       		.uleb128 0x6
+ 492 0066 40       		.uleb128 0x40
+ 493 0067 18       		.uleb128 0x18
+ 494 0068 9742     		.uleb128 0x2117
+ 495 006a 19       		.uleb128 0x19
+ 496 006b 01       		.uleb128 0x1
+ 497 006c 13       		.uleb128 0x13
+ 498 006d 00       		.byte	0
+ 499 006e 00       		.byte	0
+ 500 006f 08       		.uleb128 0x8
+ 501 0070 05       		.uleb128 0x5
+ 502 0071 00       		.byte	0
+ 503 0072 03       		.uleb128 0x3
+ 504 0073 0E       		.uleb128 0xe
+ 505 0074 3A       		.uleb128 0x3a
+ 506 0075 0B       		.uleb128 0xb
+ 507 0076 3B       		.uleb128 0x3b
+ 508 0077 0B       		.uleb128 0xb
+ 509 0078 49       		.uleb128 0x49
+ 510 0079 13       		.uleb128 0x13
+ 511 007a 02       		.uleb128 0x2
+ 512 007b 17       		.uleb128 0x17
+ 513 007c 00       		.byte	0
+ 514 007d 00       		.byte	0
+ 515 007e 09       		.uleb128 0x9
+ 516 007f 34       		.uleb128 0x34
+ 517 0080 00       		.byte	0
+ 518 0081 03       		.uleb128 0x3
+ 519 0082 0E       		.uleb128 0xe
+ 520 0083 3A       		.uleb128 0x3a
+ 521 0084 0B       		.uleb128 0xb
+ 522 0085 3B       		.uleb128 0x3b
+ 523 0086 0B       		.uleb128 0xb
+ 524 0087 49       		.uleb128 0x49
+ 525 0088 13       		.uleb128 0x13
+ 526 0089 02       		.uleb128 0x2
+ 527 008a 17       		.uleb128 0x17
+ 528 008b 00       		.byte	0
+ 529 008c 00       		.byte	0
+ 530 008d 0A       		.uleb128 0xa
+ 531 008e 898201   		.uleb128 0x4109
+ 532 0091 01       		.byte	0x1
+ 533 0092 11       		.uleb128 0x11
+ 534 0093 01       		.uleb128 0x1
+ 535 0094 31       		.uleb128 0x31
+ 536 0095 13       		.uleb128 0x13
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccpd1D68.s 			page 15
+
+
+ 537 0096 00       		.byte	0
+ 538 0097 00       		.byte	0
+ 539 0098 0B       		.uleb128 0xb
+ 540 0099 8A8201   		.uleb128 0x410a
+ 541 009c 00       		.byte	0
+ 542 009d 02       		.uleb128 0x2
+ 543 009e 18       		.uleb128 0x18
+ 544 009f 9142     		.uleb128 0x2111
+ 545 00a1 18       		.uleb128 0x18
+ 546 00a2 00       		.byte	0
+ 547 00a3 00       		.byte	0
+ 548 00a4 0C       		.uleb128 0xc
+ 549 00a5 898201   		.uleb128 0x4109
+ 550 00a8 00       		.byte	0
+ 551 00a9 11       		.uleb128 0x11
+ 552 00aa 01       		.uleb128 0x1
+ 553 00ab 31       		.uleb128 0x31
+ 554 00ac 13       		.uleb128 0x13
+ 555 00ad 00       		.byte	0
+ 556 00ae 00       		.byte	0
+ 557 00af 0D       		.uleb128 0xd
+ 558 00b0 34       		.uleb128 0x34
+ 559 00b1 00       		.byte	0
+ 560 00b2 03       		.uleb128 0x3
+ 561 00b3 0E       		.uleb128 0xe
+ 562 00b4 3A       		.uleb128 0x3a
+ 563 00b5 0B       		.uleb128 0xb
+ 564 00b6 3B       		.uleb128 0x3b
+ 565 00b7 0B       		.uleb128 0xb
+ 566 00b8 49       		.uleb128 0x49
+ 567 00b9 13       		.uleb128 0x13
+ 568 00ba 3F       		.uleb128 0x3f
+ 569 00bb 19       		.uleb128 0x19
+ 570 00bc 02       		.uleb128 0x2
+ 571 00bd 18       		.uleb128 0x18
+ 572 00be 00       		.byte	0
+ 573 00bf 00       		.byte	0
+ 574 00c0 00       		.byte	0
+ 575              		.section	.debug_loc,"",%progbits
+ 576              	.Ldebug_loc0:
+ 577              	.LLST0:
+ 578 0000 00000000 		.4byte	.LVL0
+ 579 0004 0C000000 		.4byte	.LVL2
+ 580 0008 0100     		.2byte	0x1
+ 581 000a 50       		.byte	0x50
+ 582 000b 0C000000 		.4byte	.LVL2
+ 583 000f 18000000 		.4byte	.LFE4
+ 584 0013 0400     		.2byte	0x4
+ 585 0015 F3       		.byte	0xf3
+ 586 0016 01       		.uleb128 0x1
+ 587 0017 50       		.byte	0x50
+ 588 0018 9F       		.byte	0x9f
+ 589 0019 00000000 		.4byte	0
+ 590 001d 00000000 		.4byte	0
+ 591              	.LLST1:
+ 592 0021 08000000 		.4byte	.LVL1
+ 593 0025 0E000000 		.4byte	.LVL3
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccpd1D68.s 			page 16
+
+
+ 594 0029 0100     		.2byte	0x1
+ 595 002b 53       		.byte	0x53
+ 596 002c 0E000000 		.4byte	.LVL3
+ 597 0030 18000000 		.4byte	.LFE4
+ 598 0034 0100     		.2byte	0x1
+ 599 0036 50       		.byte	0x50
+ 600 0037 00000000 		.4byte	0
+ 601 003b 00000000 		.4byte	0
+ 602              		.section	.debug_aranges,"",%progbits
+ 603 0000 3C000000 		.4byte	0x3c
+ 604 0004 0200     		.2byte	0x2
+ 605 0006 00000000 		.4byte	.Ldebug_info0
+ 606 000a 04       		.byte	0x4
+ 607 000b 00       		.byte	0
+ 608 000c 0000     		.2byte	0
+ 609 000e 0000     		.2byte	0
+ 610 0010 00000000 		.4byte	.LFB1
+ 611 0014 28000000 		.4byte	.LFE1-.LFB1
+ 612 0018 00000000 		.4byte	.LFB3
+ 613 001c 1C000000 		.4byte	.LFE3-.LFB3
+ 614 0020 00000000 		.4byte	.LFB4
+ 615 0024 18000000 		.4byte	.LFE4-.LFB4
+ 616 0028 00000000 		.4byte	.LFB0
+ 617 002c 38000000 		.4byte	.LFE0-.LFB0
+ 618 0030 00000000 		.4byte	.LFB2
+ 619 0034 1C000000 		.4byte	.LFE2-.LFB2
+ 620 0038 00000000 		.4byte	0
+ 621 003c 00000000 		.4byte	0
+ 622              		.section	.debug_ranges,"",%progbits
+ 623              	.Ldebug_ranges0:
+ 624 0000 00000000 		.4byte	.LFB1
+ 625 0004 28000000 		.4byte	.LFE1
+ 626 0008 00000000 		.4byte	.LFB3
+ 627 000c 1C000000 		.4byte	.LFE3
+ 628 0010 00000000 		.4byte	.LFB4
+ 629 0014 18000000 		.4byte	.LFE4
+ 630 0018 00000000 		.4byte	.LFB0
+ 631 001c 38000000 		.4byte	.LFE0
+ 632 0020 00000000 		.4byte	.LFB2
+ 633 0024 1C000000 		.4byte	.LFE2
+ 634 0028 00000000 		.4byte	0
+ 635 002c 00000000 		.4byte	0
+ 636              		.section	.debug_line,"",%progbits
+ 637              	.Ldebug_line0:
+ 638 0000 B5000000 		.section	.debug_str,"MS",%progbits,1
+ 638      02004A00 
+ 638      00000201 
+ 638      FB0E0D00 
+ 638      01010101 
+ 639              	.LASF6:
+ 640 0000 6C6F6E67 		.ascii	"long long int\000"
+ 640      206C6F6E 
+ 640      6720696E 
+ 640      7400
+ 641              	.LASF16:
+ 642 000e 53616D70 		.ascii	"Sample_Hold_A_Enable\000"
+ 642      6C655F48 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccpd1D68.s 			page 17
+
+
+ 642      6F6C645F 
+ 642      415F456E 
+ 642      61626C65 
+ 643              	.LASF8:
+ 644 0023 756E7369 		.ascii	"unsigned int\000"
+ 644      676E6564 
+ 644      20696E74 
+ 644      00
+ 645              	.LASF17:
+ 646 0030 53616D70 		.ascii	"Sample_Hold_A_Stop\000"
+ 646      6C655F48 
+ 646      6F6C645F 
+ 646      415F5374 
+ 646      6F7000
+ 647              	.LASF21:
+ 648 0043 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 648      43313120 
+ 648      352E342E 
+ 648      31203230 
+ 648      31363036 
+ 649 0076 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 649      20726576 
+ 649      6973696F 
+ 649      6E203233 
+ 649      37373135 
+ 650 00a9 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 650      66756E63 
+ 650      74696F6E 
+ 650      2D736563 
+ 650      74696F6E 
+ 651              	.LASF23:
+ 652 00d1 433A5C55 		.ascii	"C:\\Users\\rens_\\Documents\\PSoC Creator\\Workspac"
+ 652      73657273 
+ 652      5C72656E 
+ 652      735F5C44 
+ 652      6F63756D 
+ 653 00ff 6530315C 		.ascii	"e01\\PeakDetector_V2.cydsn\000"
+ 653      5065616B 
+ 653      44657465 
+ 653      63746F72 
+ 653      5F56322E 
+ 654              	.LASF5:
+ 655 0119 6C6F6E67 		.ascii	"long unsigned int\000"
+ 655      20756E73 
+ 655      69676E65 
+ 655      6420696E 
+ 655      7400
+ 656              	.LASF7:
+ 657 012b 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 657      206C6F6E 
+ 657      6720756E 
+ 657      7369676E 
+ 657      65642069 
+ 658              	.LASF3:
+ 659 0142 73686F72 		.ascii	"short unsigned int\000"
+ 659      7420756E 
+ 659      7369676E 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccpd1D68.s 			page 18
+
+
+ 659      65642069 
+ 659      6E7400
+ 660              	.LASF9:
+ 661 0155 666C6F61 		.ascii	"float\000"
+ 661      7400
+ 662              	.LASF18:
+ 663 015b 53616D70 		.ascii	"Sample_Hold_A_SetPower\000"
+ 663      6C655F48 
+ 663      6F6C645F 
+ 663      415F5365 
+ 663      74506F77 
+ 664              	.LASF20:
+ 665 0172 53616D70 		.ascii	"Sample_Hold_A_Start\000"
+ 665      6C655F48 
+ 665      6F6C645F 
+ 665      415F5374 
+ 665      61727400 
+ 666              	.LASF1:
+ 667 0186 756E7369 		.ascii	"unsigned char\000"
+ 667      676E6564 
+ 667      20636861 
+ 667      7200
+ 668              	.LASF11:
+ 669 0194 63686172 		.ascii	"char\000"
+ 669      00
+ 670              	.LASF4:
+ 671 0199 6C6F6E67 		.ascii	"long int\000"
+ 671      20696E74 
+ 671      00
+ 672              	.LASF19:
+ 673 01a2 53616D70 		.ascii	"Sample_Hold_A_Init\000"
+ 673      6C655F48 
+ 673      6F6C645F 
+ 673      415F496E 
+ 673      697400
+ 674              	.LASF10:
+ 675 01b5 646F7562 		.ascii	"double\000"
+ 675      6C6500
+ 676              	.LASF12:
+ 677 01bc 75696E74 		.ascii	"uint8\000"
+ 677      3800
+ 678              	.LASF0:
+ 679 01c2 7369676E 		.ascii	"signed char\000"
+ 679      65642063 
+ 679      68617200 
+ 680              	.LASF14:
+ 681 01ce 6C6F6E67 		.ascii	"long double\000"
+ 681      20646F75 
+ 681      626C6500 
+ 682              	.LASF15:
+ 683 01da 73697A65 		.ascii	"sizetype\000"
+ 683      74797065 
+ 683      00
+ 684              	.LASF22:
+ 685 01e3 47656E65 		.ascii	"Generated_Source\\PSoC5\\Sample_Hold_A.c\000"
+ 685      72617465 
+ 685      645F536F 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccpd1D68.s 			page 19
+
+
+ 685      75726365 
+ 685      5C50536F 
+ 686              	.LASF2:
+ 687 020a 73686F72 		.ascii	"short int\000"
+ 687      7420696E 
+ 687      7400
+ 688              	.LASF13:
+ 689 0214 72656738 		.ascii	"reg8\000"
+ 689      00
+ 690              	.LASF26:
+ 691 0219 53616D70 		.ascii	"Sample_Hold_A_initVar\000"
+ 691      6C655F48 
+ 691      6F6C645F 
+ 691      415F696E 
+ 691      69745661 
+ 692              	.LASF25:
+ 693 022f 746D7043 		.ascii	"tmpCR\000"
+ 693      5200
+ 694              	.LASF24:
+ 695 0235 706F7765 		.ascii	"power\000"
+ 695      7200
+ 696              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
