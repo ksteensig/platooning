@@ -1,6 +1,15 @@
 #include "project.h"
 
 #include <stdio.h>
+#include <stdbool.h>
+
+volatile bool irq_flag = false;
+
+// here we will store the received data
+unsigned char data;
+
+// Executed when the IRQ pin triggers an interrupt
+CY_ISR_PROTO(IRQ_Handler);
 
 #define DATA_SIZE 200
 
@@ -49,6 +58,12 @@ CY_ISR(ISR_OUT_B_Handler)
     ISR_B_done = 1;
 }
 
+CY_ISR(IRQ_Handler)
+{
+    irq_flag = true;
+    IRQ_ClearInterrupt();
+}
+
 int16_t calculate_angle(int16_t time_delta, float angle_conversion_factor)
 {
     return time_delta * angle_conversion_factor;
@@ -93,7 +108,37 @@ int main(void)
     CyDmaChEnable(DMA_B_Chan, 1);
     
     CyGlobalIntEnable;
-       
+    const uint8_t RX_ADDR[5]= {0xBA, 0xAD, 0xC0, 0xFF, 0xEE};
+    
+    // Set the Handler for the IRQ interrupt
+    isr_IRQ_StartEx(IRQ_Handler);
+    
+    nRF24_start();
+    nRF24_set_rx_pipe_address(NRF_ADDR_PIPE0, RX_ADDR, 5);
+    nRF24_start_listening();
+    
+    while (1) {
+        
+        //UART_PutString("\n");
+        
+        while(false == irq_flag);
+            
+        // Get and clear the flag that caused the IRQ interrupt,
+        nrf_irq flag = nRF24_get_irq_flag();
+        nRF24_clear_irq_flag(flag);
+            
+        LED_Write(~LED_Read());
+            
+        // get the data from the transmitter
+        nRF24_get_rx_payload(&data, 1);
+            
+        // send data via UART
+     //   UART_PutString("R: ");
+        UART_PutChar(data);
+        UART_PutCRLF(0);
+            
+        irq_flag = false;
+    }
     char output[200];
     
 

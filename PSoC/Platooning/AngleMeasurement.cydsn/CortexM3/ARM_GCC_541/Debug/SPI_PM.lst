@@ -1,0 +1,855 @@
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc96ERPg.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"SPI_PM.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.data
+  20              		.align	2
+  21              		.type	SPI_backup, %object
+  22              		.size	SPI_backup, 2
+  23              	SPI_backup:
+  24 0000 00       		.byte	0
+  25 0001 0F       		.byte	15
+  26              		.section	.text.SPI_SaveConfig,"ax",%progbits
+  27              		.align	2
+  28              		.global	SPI_SaveConfig
+  29              		.thumb
+  30              		.thumb_func
+  31              		.type	SPI_SaveConfig, %function
+  32              	SPI_SaveConfig:
+  33              	.LFB0:
+  34              		.file 1 "Generated_Source\\PSoC5\\SPI_PM.c"
+   1:Generated_Source\PSoC5/SPI_PM.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/SPI_PM.c **** * File Name: SPI_PM.c
+   3:Generated_Source\PSoC5/SPI_PM.c **** * Version 2.50
+   4:Generated_Source\PSoC5/SPI_PM.c **** *
+   5:Generated_Source\PSoC5/SPI_PM.c **** * Description:
+   6:Generated_Source\PSoC5/SPI_PM.c **** *  This file contains the setup, control and status commands to support
+   7:Generated_Source\PSoC5/SPI_PM.c **** *  component operations in low power mode.
+   8:Generated_Source\PSoC5/SPI_PM.c **** *
+   9:Generated_Source\PSoC5/SPI_PM.c **** * Note:
+  10:Generated_Source\PSoC5/SPI_PM.c **** *
+  11:Generated_Source\PSoC5/SPI_PM.c **** ********************************************************************************
+  12:Generated_Source\PSoC5/SPI_PM.c **** * Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
+  13:Generated_Source\PSoC5/SPI_PM.c **** * You may use this file only in accordance with the license, terms, conditions,
+  14:Generated_Source\PSoC5/SPI_PM.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  15:Generated_Source\PSoC5/SPI_PM.c **** * the software package with which this file was provided.
+  16:Generated_Source\PSoC5/SPI_PM.c **** *******************************************************************************/
+  17:Generated_Source\PSoC5/SPI_PM.c **** 
+  18:Generated_Source\PSoC5/SPI_PM.c **** #include "SPI_PVT.h"
+  19:Generated_Source\PSoC5/SPI_PM.c **** 
+  20:Generated_Source\PSoC5/SPI_PM.c **** static SPI_BACKUP_STRUCT SPI_backup =
+  21:Generated_Source\PSoC5/SPI_PM.c **** {
+  22:Generated_Source\PSoC5/SPI_PM.c ****     SPI_DISABLED,
+  23:Generated_Source\PSoC5/SPI_PM.c ****     SPI_BITCTR_INIT,
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc96ERPg.s 			page 2
+
+
+  24:Generated_Source\PSoC5/SPI_PM.c **** };
+  25:Generated_Source\PSoC5/SPI_PM.c **** 
+  26:Generated_Source\PSoC5/SPI_PM.c **** 
+  27:Generated_Source\PSoC5/SPI_PM.c **** /*******************************************************************************
+  28:Generated_Source\PSoC5/SPI_PM.c **** * Function Name: SPI_SaveConfig
+  29:Generated_Source\PSoC5/SPI_PM.c **** ********************************************************************************
+  30:Generated_Source\PSoC5/SPI_PM.c **** *
+  31:Generated_Source\PSoC5/SPI_PM.c **** * Summary:
+  32:Generated_Source\PSoC5/SPI_PM.c **** *  Empty function. Included for consistency with other components.
+  33:Generated_Source\PSoC5/SPI_PM.c **** *
+  34:Generated_Source\PSoC5/SPI_PM.c **** * Parameters:
+  35:Generated_Source\PSoC5/SPI_PM.c **** *  None.
+  36:Generated_Source\PSoC5/SPI_PM.c **** *
+  37:Generated_Source\PSoC5/SPI_PM.c **** * Return:
+  38:Generated_Source\PSoC5/SPI_PM.c **** *  None.
+  39:Generated_Source\PSoC5/SPI_PM.c **** *
+  40:Generated_Source\PSoC5/SPI_PM.c **** *******************************************************************************/
+  41:Generated_Source\PSoC5/SPI_PM.c **** void SPI_SaveConfig(void) 
+  42:Generated_Source\PSoC5/SPI_PM.c **** {
+  35              		.loc 1 42 0
+  36              		.cfi_startproc
+  37              		@ args = 0, pretend = 0, frame = 0
+  38              		@ frame_needed = 1, uses_anonymous_args = 0
+  39              		@ link register save eliminated.
+  40 0000 80B4     		push	{r7}
+  41              		.cfi_def_cfa_offset 4
+  42              		.cfi_offset 7, -4
+  43 0002 00AF     		add	r7, sp, #0
+  44              		.cfi_def_cfa_register 7
+  43:Generated_Source\PSoC5/SPI_PM.c **** 
+  44:Generated_Source\PSoC5/SPI_PM.c **** }
+  45              		.loc 1 44 0
+  46 0004 00BF     		nop
+  47 0006 BD46     		mov	sp, r7
+  48              		.cfi_def_cfa_register 13
+  49              		@ sp needed
+  50 0008 80BC     		pop	{r7}
+  51              		.cfi_restore 7
+  52              		.cfi_def_cfa_offset 0
+  53 000a 7047     		bx	lr
+  54              		.cfi_endproc
+  55              	.LFE0:
+  56              		.size	SPI_SaveConfig, .-SPI_SaveConfig
+  57              		.section	.text.SPI_RestoreConfig,"ax",%progbits
+  58              		.align	2
+  59              		.global	SPI_RestoreConfig
+  60              		.thumb
+  61              		.thumb_func
+  62              		.type	SPI_RestoreConfig, %function
+  63              	SPI_RestoreConfig:
+  64              	.LFB1:
+  45:Generated_Source\PSoC5/SPI_PM.c **** 
+  46:Generated_Source\PSoC5/SPI_PM.c **** 
+  47:Generated_Source\PSoC5/SPI_PM.c **** /*******************************************************************************
+  48:Generated_Source\PSoC5/SPI_PM.c **** * Function Name: SPI_RestoreConfig
+  49:Generated_Source\PSoC5/SPI_PM.c **** ********************************************************************************
+  50:Generated_Source\PSoC5/SPI_PM.c **** *
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc96ERPg.s 			page 3
+
+
+  51:Generated_Source\PSoC5/SPI_PM.c **** * Summary:
+  52:Generated_Source\PSoC5/SPI_PM.c **** *  Empty function. Included for consistency with other components.
+  53:Generated_Source\PSoC5/SPI_PM.c **** *
+  54:Generated_Source\PSoC5/SPI_PM.c **** * Parameters:
+  55:Generated_Source\PSoC5/SPI_PM.c **** *  None.
+  56:Generated_Source\PSoC5/SPI_PM.c **** *
+  57:Generated_Source\PSoC5/SPI_PM.c **** * Return:
+  58:Generated_Source\PSoC5/SPI_PM.c **** *  None.
+  59:Generated_Source\PSoC5/SPI_PM.c **** *
+  60:Generated_Source\PSoC5/SPI_PM.c **** *******************************************************************************/
+  61:Generated_Source\PSoC5/SPI_PM.c **** void SPI_RestoreConfig(void) 
+  62:Generated_Source\PSoC5/SPI_PM.c **** {
+  65              		.loc 1 62 0
+  66              		.cfi_startproc
+  67              		@ args = 0, pretend = 0, frame = 0
+  68              		@ frame_needed = 1, uses_anonymous_args = 0
+  69              		@ link register save eliminated.
+  70 0000 80B4     		push	{r7}
+  71              		.cfi_def_cfa_offset 4
+  72              		.cfi_offset 7, -4
+  73 0002 00AF     		add	r7, sp, #0
+  74              		.cfi_def_cfa_register 7
+  63:Generated_Source\PSoC5/SPI_PM.c **** 
+  64:Generated_Source\PSoC5/SPI_PM.c **** }
+  75              		.loc 1 64 0
+  76 0004 00BF     		nop
+  77 0006 BD46     		mov	sp, r7
+  78              		.cfi_def_cfa_register 13
+  79              		@ sp needed
+  80 0008 80BC     		pop	{r7}
+  81              		.cfi_restore 7
+  82              		.cfi_def_cfa_offset 0
+  83 000a 7047     		bx	lr
+  84              		.cfi_endproc
+  85              	.LFE1:
+  86              		.size	SPI_RestoreConfig, .-SPI_RestoreConfig
+  87              		.section	.text.SPI_Sleep,"ax",%progbits
+  88              		.align	2
+  89              		.global	SPI_Sleep
+  90              		.thumb
+  91              		.thumb_func
+  92              		.type	SPI_Sleep, %function
+  93              	SPI_Sleep:
+  94              	.LFB2:
+  65:Generated_Source\PSoC5/SPI_PM.c **** 
+  66:Generated_Source\PSoC5/SPI_PM.c **** 
+  67:Generated_Source\PSoC5/SPI_PM.c **** /*******************************************************************************
+  68:Generated_Source\PSoC5/SPI_PM.c **** * Function Name: SPI_Sleep
+  69:Generated_Source\PSoC5/SPI_PM.c **** ********************************************************************************
+  70:Generated_Source\PSoC5/SPI_PM.c **** *
+  71:Generated_Source\PSoC5/SPI_PM.c **** * Summary:
+  72:Generated_Source\PSoC5/SPI_PM.c **** *  Prepare SPIM Component goes to sleep.
+  73:Generated_Source\PSoC5/SPI_PM.c **** *
+  74:Generated_Source\PSoC5/SPI_PM.c **** * Parameters:
+  75:Generated_Source\PSoC5/SPI_PM.c **** *  None.
+  76:Generated_Source\PSoC5/SPI_PM.c **** *
+  77:Generated_Source\PSoC5/SPI_PM.c **** * Return:
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc96ERPg.s 			page 4
+
+
+  78:Generated_Source\PSoC5/SPI_PM.c **** *  None.
+  79:Generated_Source\PSoC5/SPI_PM.c **** *
+  80:Generated_Source\PSoC5/SPI_PM.c **** * Global Variables:
+  81:Generated_Source\PSoC5/SPI_PM.c **** *  SPI_backup - modified when non-retention registers are saved.
+  82:Generated_Source\PSoC5/SPI_PM.c **** *
+  83:Generated_Source\PSoC5/SPI_PM.c **** * Reentrant:
+  84:Generated_Source\PSoC5/SPI_PM.c **** *  No.
+  85:Generated_Source\PSoC5/SPI_PM.c **** *
+  86:Generated_Source\PSoC5/SPI_PM.c **** *******************************************************************************/
+  87:Generated_Source\PSoC5/SPI_PM.c **** void SPI_Sleep(void) 
+  88:Generated_Source\PSoC5/SPI_PM.c **** {
+  95              		.loc 1 88 0
+  96              		.cfi_startproc
+  97              		@ args = 0, pretend = 0, frame = 0
+  98              		@ frame_needed = 1, uses_anonymous_args = 0
+  99 0000 80B5     		push	{r7, lr}
+ 100              		.cfi_def_cfa_offset 8
+ 101              		.cfi_offset 7, -8
+ 102              		.cfi_offset 14, -4
+ 103 0002 00AF     		add	r7, sp, #0
+ 104              		.cfi_def_cfa_register 7
+  89:Generated_Source\PSoC5/SPI_PM.c ****     /* Save components enable state */
+  90:Generated_Source\PSoC5/SPI_PM.c ****     SPI_backup.enableState = ((uint8) SPI_IS_ENABLED);
+ 105              		.loc 1 90 0
+ 106 0004 084B     		ldr	r3, .L4
+ 107 0006 1B78     		ldrb	r3, [r3]
+ 108 0008 DBB2     		uxtb	r3, r3
+ 109 000a 03F01003 		and	r3, r3, #16
+ 110 000e 002B     		cmp	r3, #0
+ 111 0010 14BF     		ite	ne
+ 112 0012 0123     		movne	r3, #1
+ 113 0014 0023     		moveq	r3, #0
+ 114 0016 DBB2     		uxtb	r3, r3
+ 115 0018 1A46     		mov	r2, r3
+ 116 001a 044B     		ldr	r3, .L4+4
+ 117 001c 1A70     		strb	r2, [r3]
+  91:Generated_Source\PSoC5/SPI_PM.c **** 
+  92:Generated_Source\PSoC5/SPI_PM.c ****     SPI_Stop();
+ 118              		.loc 1 92 0
+ 119 001e FFF7FEFF 		bl	SPI_Stop
+  93:Generated_Source\PSoC5/SPI_PM.c **** }
+ 120              		.loc 1 93 0
+ 121 0022 00BF     		nop
+ 122 0024 80BD     		pop	{r7, pc}
+ 123              	.L5:
+ 124 0026 00BF     		.align	2
+ 125              	.L4:
+ 126 0028 98650040 		.word	1073767832
+ 127 002c 00000000 		.word	SPI_backup
+ 128              		.cfi_endproc
+ 129              	.LFE2:
+ 130              		.size	SPI_Sleep, .-SPI_Sleep
+ 131              		.section	.text.SPI_Wakeup,"ax",%progbits
+ 132              		.align	2
+ 133              		.global	SPI_Wakeup
+ 134              		.thumb
+ 135              		.thumb_func
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc96ERPg.s 			page 5
+
+
+ 136              		.type	SPI_Wakeup, %function
+ 137              	SPI_Wakeup:
+ 138              	.LFB3:
+  94:Generated_Source\PSoC5/SPI_PM.c **** 
+  95:Generated_Source\PSoC5/SPI_PM.c **** 
+  96:Generated_Source\PSoC5/SPI_PM.c **** /*******************************************************************************
+  97:Generated_Source\PSoC5/SPI_PM.c **** * Function Name: SPI_Wakeup
+  98:Generated_Source\PSoC5/SPI_PM.c **** ********************************************************************************
+  99:Generated_Source\PSoC5/SPI_PM.c **** *
+ 100:Generated_Source\PSoC5/SPI_PM.c **** * Summary:
+ 101:Generated_Source\PSoC5/SPI_PM.c **** *  Prepare SPIM Component to wake up.
+ 102:Generated_Source\PSoC5/SPI_PM.c **** *
+ 103:Generated_Source\PSoC5/SPI_PM.c **** * Parameters:
+ 104:Generated_Source\PSoC5/SPI_PM.c **** *  None.
+ 105:Generated_Source\PSoC5/SPI_PM.c **** *
+ 106:Generated_Source\PSoC5/SPI_PM.c **** * Return:
+ 107:Generated_Source\PSoC5/SPI_PM.c **** *  None.
+ 108:Generated_Source\PSoC5/SPI_PM.c **** *
+ 109:Generated_Source\PSoC5/SPI_PM.c **** * Global Variables:
+ 110:Generated_Source\PSoC5/SPI_PM.c **** *  SPI_backup - used when non-retention registers are restored.
+ 111:Generated_Source\PSoC5/SPI_PM.c **** *  SPI_txBufferWrite - modified every function call - resets to
+ 112:Generated_Source\PSoC5/SPI_PM.c **** *  zero.
+ 113:Generated_Source\PSoC5/SPI_PM.c **** *  SPI_txBufferRead - modified every function call - resets to
+ 114:Generated_Source\PSoC5/SPI_PM.c **** *  zero.
+ 115:Generated_Source\PSoC5/SPI_PM.c **** *  SPI_rxBufferWrite - modified every function call - resets to
+ 116:Generated_Source\PSoC5/SPI_PM.c **** *  zero.
+ 117:Generated_Source\PSoC5/SPI_PM.c **** *  SPI_rxBufferRead - modified every function call - resets to
+ 118:Generated_Source\PSoC5/SPI_PM.c **** *  zero.
+ 119:Generated_Source\PSoC5/SPI_PM.c **** *
+ 120:Generated_Source\PSoC5/SPI_PM.c **** * Reentrant:
+ 121:Generated_Source\PSoC5/SPI_PM.c **** *  No.
+ 122:Generated_Source\PSoC5/SPI_PM.c **** *
+ 123:Generated_Source\PSoC5/SPI_PM.c **** *******************************************************************************/
+ 124:Generated_Source\PSoC5/SPI_PM.c **** void SPI_Wakeup(void) 
+ 125:Generated_Source\PSoC5/SPI_PM.c **** {
+ 139              		.loc 1 125 0
+ 140              		.cfi_startproc
+ 141              		@ args = 0, pretend = 0, frame = 0
+ 142              		@ frame_needed = 1, uses_anonymous_args = 0
+ 143 0000 80B5     		push	{r7, lr}
+ 144              		.cfi_def_cfa_offset 8
+ 145              		.cfi_offset 7, -8
+ 146              		.cfi_offset 14, -4
+ 147 0002 00AF     		add	r7, sp, #0
+ 148              		.cfi_def_cfa_register 7
+ 126:Generated_Source\PSoC5/SPI_PM.c ****     #if(SPI_RX_SOFTWARE_BUF_ENABLED)
+ 127:Generated_Source\PSoC5/SPI_PM.c ****         SPI_rxBufferFull  = 0u;
+ 128:Generated_Source\PSoC5/SPI_PM.c ****         SPI_rxBufferRead  = 0u;
+ 129:Generated_Source\PSoC5/SPI_PM.c ****         SPI_rxBufferWrite = 0u;
+ 130:Generated_Source\PSoC5/SPI_PM.c ****     #endif /* (SPI_RX_SOFTWARE_BUF_ENABLED) */
+ 131:Generated_Source\PSoC5/SPI_PM.c **** 
+ 132:Generated_Source\PSoC5/SPI_PM.c ****     #if(SPI_TX_SOFTWARE_BUF_ENABLED)
+ 133:Generated_Source\PSoC5/SPI_PM.c ****         SPI_txBufferFull  = 0u;
+ 134:Generated_Source\PSoC5/SPI_PM.c ****         SPI_txBufferRead  = 0u;
+ 135:Generated_Source\PSoC5/SPI_PM.c ****         SPI_txBufferWrite = 0u;
+ 136:Generated_Source\PSoC5/SPI_PM.c ****     #endif /* (SPI_TX_SOFTWARE_BUF_ENABLED) */
+ 137:Generated_Source\PSoC5/SPI_PM.c **** 
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc96ERPg.s 			page 6
+
+
+ 138:Generated_Source\PSoC5/SPI_PM.c ****     /* Clear any data from the RX and TX FIFO */
+ 139:Generated_Source\PSoC5/SPI_PM.c ****     SPI_ClearFIFO();
+ 149              		.loc 1 139 0
+ 150 0004 FFF7FEFF 		bl	SPI_ClearFIFO
+ 140:Generated_Source\PSoC5/SPI_PM.c **** 
+ 141:Generated_Source\PSoC5/SPI_PM.c ****     /* Restore components block enable state */
+ 142:Generated_Source\PSoC5/SPI_PM.c ****     if(0u != SPI_backup.enableState)
+ 151              		.loc 1 142 0
+ 152 0008 034B     		ldr	r3, .L9
+ 153 000a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 154 000c 002B     		cmp	r3, #0
+ 155 000e 01D0     		beq	.L8
+ 143:Generated_Source\PSoC5/SPI_PM.c ****     {
+ 144:Generated_Source\PSoC5/SPI_PM.c ****         SPI_Enable();
+ 156              		.loc 1 144 0
+ 157 0010 FFF7FEFF 		bl	SPI_Enable
+ 158              	.L8:
+ 145:Generated_Source\PSoC5/SPI_PM.c ****     }
+ 146:Generated_Source\PSoC5/SPI_PM.c **** }
+ 159              		.loc 1 146 0
+ 160 0014 00BF     		nop
+ 161 0016 80BD     		pop	{r7, pc}
+ 162              	.L10:
+ 163              		.align	2
+ 164              	.L9:
+ 165 0018 00000000 		.word	SPI_backup
+ 166              		.cfi_endproc
+ 167              	.LFE3:
+ 168              		.size	SPI_Wakeup, .-SPI_Wakeup
+ 169              		.text
+ 170              	.Letext0:
+ 171              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 172              		.file 3 "Generated_Source\\PSoC5\\SPI.h"
+ 173              		.section	.debug_info,"",%progbits
+ 174              	.Ldebug_info0:
+ 175 0000 28010000 		.4byte	0x128
+ 176 0004 0400     		.2byte	0x4
+ 177 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 178 000a 04       		.byte	0x4
+ 179 000b 01       		.uleb128 0x1
+ 180 000c 92000000 		.4byte	.LASF23
+ 181 0010 0C       		.byte	0xc
+ 182 0011 D3010000 		.4byte	.LASF24
+ 183 0015 47010000 		.4byte	.LASF25
+ 184 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 185 001d 00000000 		.4byte	0
+ 186 0021 00000000 		.4byte	.Ldebug_line0
+ 187 0025 02       		.uleb128 0x2
+ 188 0026 01       		.byte	0x1
+ 189 0027 06       		.byte	0x6
+ 190 0028 C7010000 		.4byte	.LASF0
+ 191 002c 02       		.uleb128 0x2
+ 192 002d 01       		.byte	0x1
+ 193 002e 08       		.byte	0x8
+ 194 002f 2B010000 		.4byte	.LASF1
+ 195 0033 02       		.uleb128 0x2
+ 196 0034 02       		.byte	0x2
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc96ERPg.s 			page 7
+
+
+ 197 0035 05       		.byte	0x5
+ 198 0036 FF010000 		.4byte	.LASF2
+ 199 003a 02       		.uleb128 0x2
+ 200 003b 02       		.byte	0x2
+ 201 003c 07       		.byte	0x7
+ 202 003d B4010000 		.4byte	.LASF3
+ 203 0041 02       		.uleb128 0x2
+ 204 0042 04       		.byte	0x4
+ 205 0043 05       		.byte	0x5
+ 206 0044 3E010000 		.4byte	.LASF4
+ 207 0048 02       		.uleb128 0x2
+ 208 0049 04       		.byte	0x4
+ 209 004a 07       		.byte	0x7
+ 210 004b 51000000 		.4byte	.LASF5
+ 211 004f 02       		.uleb128 0x2
+ 212 0050 08       		.byte	0x8
+ 213 0051 05       		.byte	0x5
+ 214 0052 00000000 		.4byte	.LASF6
+ 215 0056 02       		.uleb128 0x2
+ 216 0057 08       		.byte	0x8
+ 217 0058 07       		.byte	0x7
+ 218 0059 63000000 		.4byte	.LASF7
+ 219 005d 03       		.uleb128 0x3
+ 220 005e 04       		.byte	0x4
+ 221 005f 05       		.byte	0x5
+ 222 0060 696E7400 		.ascii	"int\000"
+ 223 0064 02       		.uleb128 0x2
+ 224 0065 04       		.byte	0x4
+ 225 0066 07       		.byte	0x7
+ 226 0067 29000000 		.4byte	.LASF8
+ 227 006b 04       		.uleb128 0x4
+ 228 006c 4B000000 		.4byte	.LASF12
+ 229 0070 02       		.byte	0x2
+ 230 0071 A1       		.byte	0xa1
+ 231 0072 2C000000 		.4byte	0x2c
+ 232 0076 02       		.uleb128 0x2
+ 233 0077 04       		.byte	0x4
+ 234 0078 04       		.byte	0x4
+ 235 0079 7A000000 		.4byte	.LASF9
+ 236 007d 02       		.uleb128 0x2
+ 237 007e 08       		.byte	0x8
+ 238 007f 04       		.byte	0x4
+ 239 0080 A2010000 		.4byte	.LASF10
+ 240 0084 02       		.uleb128 0x2
+ 241 0085 01       		.byte	0x1
+ 242 0086 08       		.byte	0x8
+ 243 0087 39010000 		.4byte	.LASF11
+ 244 008b 05       		.uleb128 0x5
+ 245 008c 09020000 		.4byte	.LASF13
+ 246 0090 02       		.byte	0x2
+ 247 0091 4B01     		.2byte	0x14b
+ 248 0093 97000000 		.4byte	0x97
+ 249 0097 06       		.uleb128 0x6
+ 250 0098 6B000000 		.4byte	0x6b
+ 251 009c 02       		.uleb128 0x2
+ 252 009d 08       		.byte	0x8
+ 253 009e 04       		.byte	0x4
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc96ERPg.s 			page 8
+
+
+ 254 009f F3010000 		.4byte	.LASF14
+ 255 00a3 02       		.uleb128 0x2
+ 256 00a4 04       		.byte	0x4
+ 257 00a5 07       		.byte	0x7
+ 258 00a6 20020000 		.4byte	.LASF15
+ 259 00aa 07       		.uleb128 0x7
+ 260 00ab 02       		.byte	0x2
+ 261 00ac 03       		.byte	0x3
+ 262 00ad 40       		.byte	0x40
+ 263 00ae CB000000 		.4byte	0xcb
+ 264 00b2 08       		.uleb128 0x8
+ 265 00b3 1D000000 		.4byte	.LASF16
+ 266 00b7 03       		.byte	0x3
+ 267 00b8 42       		.byte	0x42
+ 268 00b9 6B000000 		.4byte	0x6b
+ 269 00bd 00       		.byte	0
+ 270 00be 08       		.uleb128 0x8
+ 271 00bf A9010000 		.4byte	.LASF17
+ 272 00c3 03       		.byte	0x3
+ 273 00c4 43       		.byte	0x43
+ 274 00c5 6B000000 		.4byte	0x6b
+ 275 00c9 01       		.byte	0x1
+ 276 00ca 00       		.byte	0
+ 277 00cb 04       		.uleb128 0x4
+ 278 00cc 0E020000 		.4byte	.LASF18
+ 279 00d0 03       		.byte	0x3
+ 280 00d1 44       		.byte	0x44
+ 281 00d2 AA000000 		.4byte	0xaa
+ 282 00d6 09       		.uleb128 0x9
+ 283 00d7 0E000000 		.4byte	.LASF19
+ 284 00db 01       		.byte	0x1
+ 285 00dc 29       		.byte	0x29
+ 286 00dd 00000000 		.4byte	.LFB0
+ 287 00e1 0C000000 		.4byte	.LFE0-.LFB0
+ 288 00e5 01       		.uleb128 0x1
+ 289 00e6 9C       		.byte	0x9c
+ 290 00e7 09       		.uleb128 0x9
+ 291 00e8 80000000 		.4byte	.LASF20
+ 292 00ec 01       		.byte	0x1
+ 293 00ed 3D       		.byte	0x3d
+ 294 00ee 00000000 		.4byte	.LFB1
+ 295 00f2 0C000000 		.4byte	.LFE1-.LFB1
+ 296 00f6 01       		.uleb128 0x1
+ 297 00f7 9C       		.byte	0x9c
+ 298 00f8 0A       		.uleb128 0xa
+ 299 00f9 41000000 		.4byte	.LASF21
+ 300 00fd 01       		.byte	0x1
+ 301 00fe 57       		.byte	0x57
+ 302 00ff 00000000 		.4byte	.LFB2
+ 303 0103 30000000 		.4byte	.LFE2-.LFB2
+ 304 0107 01       		.uleb128 0x1
+ 305 0108 9C       		.byte	0x9c
+ 306 0109 0A       		.uleb128 0xa
+ 307 010a 20010000 		.4byte	.LASF22
+ 308 010e 01       		.byte	0x1
+ 309 010f 7C       		.byte	0x7c
+ 310 0110 00000000 		.4byte	.LFB3
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc96ERPg.s 			page 9
+
+
+ 311 0114 1C000000 		.4byte	.LFE3-.LFB3
+ 312 0118 01       		.uleb128 0x1
+ 313 0119 9C       		.byte	0x9c
+ 314 011a 0B       		.uleb128 0xb
+ 315 011b 36000000 		.4byte	.LASF26
+ 316 011f 01       		.byte	0x1
+ 317 0120 14       		.byte	0x14
+ 318 0121 CB000000 		.4byte	0xcb
+ 319 0125 05       		.uleb128 0x5
+ 320 0126 03       		.byte	0x3
+ 321 0127 00000000 		.4byte	SPI_backup
+ 322 012b 00       		.byte	0
+ 323              		.section	.debug_abbrev,"",%progbits
+ 324              	.Ldebug_abbrev0:
+ 325 0000 01       		.uleb128 0x1
+ 326 0001 11       		.uleb128 0x11
+ 327 0002 01       		.byte	0x1
+ 328 0003 25       		.uleb128 0x25
+ 329 0004 0E       		.uleb128 0xe
+ 330 0005 13       		.uleb128 0x13
+ 331 0006 0B       		.uleb128 0xb
+ 332 0007 03       		.uleb128 0x3
+ 333 0008 0E       		.uleb128 0xe
+ 334 0009 1B       		.uleb128 0x1b
+ 335 000a 0E       		.uleb128 0xe
+ 336 000b 55       		.uleb128 0x55
+ 337 000c 17       		.uleb128 0x17
+ 338 000d 11       		.uleb128 0x11
+ 339 000e 01       		.uleb128 0x1
+ 340 000f 10       		.uleb128 0x10
+ 341 0010 17       		.uleb128 0x17
+ 342 0011 00       		.byte	0
+ 343 0012 00       		.byte	0
+ 344 0013 02       		.uleb128 0x2
+ 345 0014 24       		.uleb128 0x24
+ 346 0015 00       		.byte	0
+ 347 0016 0B       		.uleb128 0xb
+ 348 0017 0B       		.uleb128 0xb
+ 349 0018 3E       		.uleb128 0x3e
+ 350 0019 0B       		.uleb128 0xb
+ 351 001a 03       		.uleb128 0x3
+ 352 001b 0E       		.uleb128 0xe
+ 353 001c 00       		.byte	0
+ 354 001d 00       		.byte	0
+ 355 001e 03       		.uleb128 0x3
+ 356 001f 24       		.uleb128 0x24
+ 357 0020 00       		.byte	0
+ 358 0021 0B       		.uleb128 0xb
+ 359 0022 0B       		.uleb128 0xb
+ 360 0023 3E       		.uleb128 0x3e
+ 361 0024 0B       		.uleb128 0xb
+ 362 0025 03       		.uleb128 0x3
+ 363 0026 08       		.uleb128 0x8
+ 364 0027 00       		.byte	0
+ 365 0028 00       		.byte	0
+ 366 0029 04       		.uleb128 0x4
+ 367 002a 16       		.uleb128 0x16
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc96ERPg.s 			page 10
+
+
+ 368 002b 00       		.byte	0
+ 369 002c 03       		.uleb128 0x3
+ 370 002d 0E       		.uleb128 0xe
+ 371 002e 3A       		.uleb128 0x3a
+ 372 002f 0B       		.uleb128 0xb
+ 373 0030 3B       		.uleb128 0x3b
+ 374 0031 0B       		.uleb128 0xb
+ 375 0032 49       		.uleb128 0x49
+ 376 0033 13       		.uleb128 0x13
+ 377 0034 00       		.byte	0
+ 378 0035 00       		.byte	0
+ 379 0036 05       		.uleb128 0x5
+ 380 0037 16       		.uleb128 0x16
+ 381 0038 00       		.byte	0
+ 382 0039 03       		.uleb128 0x3
+ 383 003a 0E       		.uleb128 0xe
+ 384 003b 3A       		.uleb128 0x3a
+ 385 003c 0B       		.uleb128 0xb
+ 386 003d 3B       		.uleb128 0x3b
+ 387 003e 05       		.uleb128 0x5
+ 388 003f 49       		.uleb128 0x49
+ 389 0040 13       		.uleb128 0x13
+ 390 0041 00       		.byte	0
+ 391 0042 00       		.byte	0
+ 392 0043 06       		.uleb128 0x6
+ 393 0044 35       		.uleb128 0x35
+ 394 0045 00       		.byte	0
+ 395 0046 49       		.uleb128 0x49
+ 396 0047 13       		.uleb128 0x13
+ 397 0048 00       		.byte	0
+ 398 0049 00       		.byte	0
+ 399 004a 07       		.uleb128 0x7
+ 400 004b 13       		.uleb128 0x13
+ 401 004c 01       		.byte	0x1
+ 402 004d 0B       		.uleb128 0xb
+ 403 004e 0B       		.uleb128 0xb
+ 404 004f 3A       		.uleb128 0x3a
+ 405 0050 0B       		.uleb128 0xb
+ 406 0051 3B       		.uleb128 0x3b
+ 407 0052 0B       		.uleb128 0xb
+ 408 0053 01       		.uleb128 0x1
+ 409 0054 13       		.uleb128 0x13
+ 410 0055 00       		.byte	0
+ 411 0056 00       		.byte	0
+ 412 0057 08       		.uleb128 0x8
+ 413 0058 0D       		.uleb128 0xd
+ 414 0059 00       		.byte	0
+ 415 005a 03       		.uleb128 0x3
+ 416 005b 0E       		.uleb128 0xe
+ 417 005c 3A       		.uleb128 0x3a
+ 418 005d 0B       		.uleb128 0xb
+ 419 005e 3B       		.uleb128 0x3b
+ 420 005f 0B       		.uleb128 0xb
+ 421 0060 49       		.uleb128 0x49
+ 422 0061 13       		.uleb128 0x13
+ 423 0062 38       		.uleb128 0x38
+ 424 0063 0B       		.uleb128 0xb
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc96ERPg.s 			page 11
+
+
+ 425 0064 00       		.byte	0
+ 426 0065 00       		.byte	0
+ 427 0066 09       		.uleb128 0x9
+ 428 0067 2E       		.uleb128 0x2e
+ 429 0068 00       		.byte	0
+ 430 0069 3F       		.uleb128 0x3f
+ 431 006a 19       		.uleb128 0x19
+ 432 006b 03       		.uleb128 0x3
+ 433 006c 0E       		.uleb128 0xe
+ 434 006d 3A       		.uleb128 0x3a
+ 435 006e 0B       		.uleb128 0xb
+ 436 006f 3B       		.uleb128 0x3b
+ 437 0070 0B       		.uleb128 0xb
+ 438 0071 27       		.uleb128 0x27
+ 439 0072 19       		.uleb128 0x19
+ 440 0073 11       		.uleb128 0x11
+ 441 0074 01       		.uleb128 0x1
+ 442 0075 12       		.uleb128 0x12
+ 443 0076 06       		.uleb128 0x6
+ 444 0077 40       		.uleb128 0x40
+ 445 0078 18       		.uleb128 0x18
+ 446 0079 9742     		.uleb128 0x2117
+ 447 007b 19       		.uleb128 0x19
+ 448 007c 00       		.byte	0
+ 449 007d 00       		.byte	0
+ 450 007e 0A       		.uleb128 0xa
+ 451 007f 2E       		.uleb128 0x2e
+ 452 0080 00       		.byte	0
+ 453 0081 3F       		.uleb128 0x3f
+ 454 0082 19       		.uleb128 0x19
+ 455 0083 03       		.uleb128 0x3
+ 456 0084 0E       		.uleb128 0xe
+ 457 0085 3A       		.uleb128 0x3a
+ 458 0086 0B       		.uleb128 0xb
+ 459 0087 3B       		.uleb128 0x3b
+ 460 0088 0B       		.uleb128 0xb
+ 461 0089 27       		.uleb128 0x27
+ 462 008a 19       		.uleb128 0x19
+ 463 008b 11       		.uleb128 0x11
+ 464 008c 01       		.uleb128 0x1
+ 465 008d 12       		.uleb128 0x12
+ 466 008e 06       		.uleb128 0x6
+ 467 008f 40       		.uleb128 0x40
+ 468 0090 18       		.uleb128 0x18
+ 469 0091 9642     		.uleb128 0x2116
+ 470 0093 19       		.uleb128 0x19
+ 471 0094 00       		.byte	0
+ 472 0095 00       		.byte	0
+ 473 0096 0B       		.uleb128 0xb
+ 474 0097 34       		.uleb128 0x34
+ 475 0098 00       		.byte	0
+ 476 0099 03       		.uleb128 0x3
+ 477 009a 0E       		.uleb128 0xe
+ 478 009b 3A       		.uleb128 0x3a
+ 479 009c 0B       		.uleb128 0xb
+ 480 009d 3B       		.uleb128 0x3b
+ 481 009e 0B       		.uleb128 0xb
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc96ERPg.s 			page 12
+
+
+ 482 009f 49       		.uleb128 0x49
+ 483 00a0 13       		.uleb128 0x13
+ 484 00a1 02       		.uleb128 0x2
+ 485 00a2 18       		.uleb128 0x18
+ 486 00a3 00       		.byte	0
+ 487 00a4 00       		.byte	0
+ 488 00a5 00       		.byte	0
+ 489              		.section	.debug_aranges,"",%progbits
+ 490 0000 34000000 		.4byte	0x34
+ 491 0004 0200     		.2byte	0x2
+ 492 0006 00000000 		.4byte	.Ldebug_info0
+ 493 000a 04       		.byte	0x4
+ 494 000b 00       		.byte	0
+ 495 000c 0000     		.2byte	0
+ 496 000e 0000     		.2byte	0
+ 497 0010 00000000 		.4byte	.LFB0
+ 498 0014 0C000000 		.4byte	.LFE0-.LFB0
+ 499 0018 00000000 		.4byte	.LFB1
+ 500 001c 0C000000 		.4byte	.LFE1-.LFB1
+ 501 0020 00000000 		.4byte	.LFB2
+ 502 0024 30000000 		.4byte	.LFE2-.LFB2
+ 503 0028 00000000 		.4byte	.LFB3
+ 504 002c 1C000000 		.4byte	.LFE3-.LFB3
+ 505 0030 00000000 		.4byte	0
+ 506 0034 00000000 		.4byte	0
+ 507              		.section	.debug_ranges,"",%progbits
+ 508              	.Ldebug_ranges0:
+ 509 0000 00000000 		.4byte	.LFB0
+ 510 0004 0C000000 		.4byte	.LFE0
+ 511 0008 00000000 		.4byte	.LFB1
+ 512 000c 0C000000 		.4byte	.LFE1
+ 513 0010 00000000 		.4byte	.LFB2
+ 514 0014 30000000 		.4byte	.LFE2
+ 515 0018 00000000 		.4byte	.LFB3
+ 516 001c 1C000000 		.4byte	.LFE3
+ 517 0020 00000000 		.4byte	0
+ 518 0024 00000000 		.4byte	0
+ 519              		.section	.debug_line,"",%progbits
+ 520              	.Ldebug_line0:
+ 521 0000 9B000000 		.section	.debug_str,"MS",%progbits,1
+ 521      02004C00 
+ 521      00000201 
+ 521      FB0E0D00 
+ 521      01010101 
+ 522              	.LASF6:
+ 523 0000 6C6F6E67 		.ascii	"long long int\000"
+ 523      206C6F6E 
+ 523      6720696E 
+ 523      7400
+ 524              	.LASF19:
+ 525 000e 5350495F 		.ascii	"SPI_SaveConfig\000"
+ 525      53617665 
+ 525      436F6E66 
+ 525      696700
+ 526              	.LASF16:
+ 527 001d 656E6162 		.ascii	"enableState\000"
+ 527      6C655374 
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc96ERPg.s 			page 13
+
+
+ 527      61746500 
+ 528              	.LASF8:
+ 529 0029 756E7369 		.ascii	"unsigned int\000"
+ 529      676E6564 
+ 529      20696E74 
+ 529      00
+ 530              	.LASF26:
+ 531 0036 5350495F 		.ascii	"SPI_backup\000"
+ 531      6261636B 
+ 531      757000
+ 532              	.LASF21:
+ 533 0041 5350495F 		.ascii	"SPI_Sleep\000"
+ 533      536C6565 
+ 533      7000
+ 534              	.LASF12:
+ 535 004b 75696E74 		.ascii	"uint8\000"
+ 535      3800
+ 536              	.LASF5:
+ 537 0051 6C6F6E67 		.ascii	"long unsigned int\000"
+ 537      20756E73 
+ 537      69676E65 
+ 537      6420696E 
+ 537      7400
+ 538              	.LASF7:
+ 539 0063 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 539      206C6F6E 
+ 539      6720756E 
+ 539      7369676E 
+ 539      65642069 
+ 540              	.LASF9:
+ 541 007a 666C6F61 		.ascii	"float\000"
+ 541      7400
+ 542              	.LASF20:
+ 543 0080 5350495F 		.ascii	"SPI_RestoreConfig\000"
+ 543      52657374 
+ 543      6F726543 
+ 543      6F6E6669 
+ 543      6700
+ 544              	.LASF23:
+ 545 0092 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 545      43313120 
+ 545      352E342E 
+ 545      31203230 
+ 545      31363036 
+ 546 00c5 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 546      20726576 
+ 546      6973696F 
+ 546      6E203233 
+ 546      37373135 
+ 547 00f8 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 547      66756E63 
+ 547      74696F6E 
+ 547      2D736563 
+ 547      74696F6E 
+ 548              	.LASF22:
+ 549 0120 5350495F 		.ascii	"SPI_Wakeup\000"
+ 549      57616B65 
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc96ERPg.s 			page 14
+
+
+ 549      757000
+ 550              	.LASF1:
+ 551 012b 756E7369 		.ascii	"unsigned char\000"
+ 551      676E6564 
+ 551      20636861 
+ 551      7200
+ 552              	.LASF11:
+ 553 0139 63686172 		.ascii	"char\000"
+ 553      00
+ 554              	.LASF4:
+ 555 013e 6C6F6E67 		.ascii	"long int\000"
+ 555      20696E74 
+ 555      00
+ 556              	.LASF25:
+ 557 0147 433A5C55 		.ascii	"C:\\Users\\mikke\\OneDrive\\Documents\\GitHub\\plat"
+ 557      73657273 
+ 557      5C6D696B 
+ 557      6B655C4F 
+ 557      6E654472 
+ 558 0174 6F6F6E69 		.ascii	"ooning\\PSoC\\Platooning\\AngleMeasurement.cydsn\000"
+ 558      6E675C50 
+ 558      536F435C 
+ 558      506C6174 
+ 558      6F6F6E69 
+ 559              	.LASF10:
+ 560 01a2 646F7562 		.ascii	"double\000"
+ 560      6C6500
+ 561              	.LASF17:
+ 562 01a9 636E7472 		.ascii	"cntrPeriod\000"
+ 562      50657269 
+ 562      6F6400
+ 563              	.LASF3:
+ 564 01b4 73686F72 		.ascii	"short unsigned int\000"
+ 564      7420756E 
+ 564      7369676E 
+ 564      65642069 
+ 564      6E7400
+ 565              	.LASF0:
+ 566 01c7 7369676E 		.ascii	"signed char\000"
+ 566      65642063 
+ 566      68617200 
+ 567              	.LASF24:
+ 568 01d3 47656E65 		.ascii	"Generated_Source\\PSoC5\\SPI_PM.c\000"
+ 568      72617465 
+ 568      645F536F 
+ 568      75726365 
+ 568      5C50536F 
+ 569              	.LASF14:
+ 570 01f3 6C6F6E67 		.ascii	"long double\000"
+ 570      20646F75 
+ 570      626C6500 
+ 571              	.LASF2:
+ 572 01ff 73686F72 		.ascii	"short int\000"
+ 572      7420696E 
+ 572      7400
+ 573              	.LASF13:
+ 574 0209 72656738 		.ascii	"reg8\000"
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc96ERPg.s 			page 15
+
+
+ 574      00
+ 575              	.LASF18:
+ 576 020e 5350495F 		.ascii	"SPI_BACKUP_STRUCT\000"
+ 576      4241434B 
+ 576      55505F53 
+ 576      54525543 
+ 576      5400
+ 577              	.LASF15:
+ 578 0220 73697A65 		.ascii	"sizetype\000"
+ 578      74797065 
+ 578      00
+ 579              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

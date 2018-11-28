@@ -1,0 +1,2839 @@
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"nRF24_HAL.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.nRF24_ss_write,"ax",%progbits
+  20              		.align	2
+  21              		.global	nRF24_ss_write
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	nRF24_ss_write, %function
+  25              	nRF24_ss_write:
+  26              	.LFB0:
+  27              		.file 1 "Generated_Source\\PSoC5\\nRF24_HAL.c"
+   1:Generated_Source\PSoC5/nRF24_HAL.c **** /****************************************************************************
+   2:Generated_Source\PSoC5/nRF24_HAL.c **** * This file is part of the nRF24 Custom Component for PSoC Devices.
+   3:Generated_Source\PSoC5/nRF24_HAL.c **** *
+   4:Generated_Source\PSoC5/nRF24_HAL.c **** * Copyright (C) 2017 Carlos Diaz <carlos.santiago.diaz@gmail.com>
+   5:Generated_Source\PSoC5/nRF24_HAL.c **** *
+   6:Generated_Source\PSoC5/nRF24_HAL.c **** * Permission to use, copy, modify, and/or distribute this software for any
+   7:Generated_Source\PSoC5/nRF24_HAL.c **** * purpose with or without fee is hereby granted, provided that the above
+   8:Generated_Source\PSoC5/nRF24_HAL.c **** * copyright notice and this permission notice appear in all copies.
+   9:Generated_Source\PSoC5/nRF24_HAL.c **** *
+  10:Generated_Source\PSoC5/nRF24_HAL.c **** * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+  11:Generated_Source\PSoC5/nRF24_HAL.c **** * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+  12:Generated_Source\PSoC5/nRF24_HAL.c **** * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+  13:Generated_Source\PSoC5/nRF24_HAL.c **** * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+  14:Generated_Source\PSoC5/nRF24_HAL.c **** * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+  15:Generated_Source\PSoC5/nRF24_HAL.c **** * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+  16:Generated_Source\PSoC5/nRF24_HAL.c **** * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  17:Generated_Source\PSoC5/nRF24_HAL.c **** ****************************************************************************/
+  18:Generated_Source\PSoC5/nRF24_HAL.c **** 
+  19:Generated_Source\PSoC5/nRF24_HAL.c **** /**
+  20:Generated_Source\PSoC5/nRF24_HAL.c **** * @file nRF24_HAL.c
+  21:Generated_Source\PSoC5/nRF24_HAL.c **** *
+  22:Generated_Source\PSoC5/nRF24_HAL.c **** * @brief The nRF24 radio is controlled via SPI, this file have all the SPI
+  23:Generated_Source\PSoC5/nRF24_HAL.c **** * communication between the PSoC and the nRF24 radio.
+  24:Generated_Source\PSoC5/nRF24_HAL.c **** */
+  25:Generated_Source\PSoC5/nRF24_HAL.c **** 
+  26:Generated_Source\PSoC5/nRF24_HAL.c **** #include <stdint.h>
+  27:Generated_Source\PSoC5/nRF24_HAL.c **** #include <string.h>
+  28:Generated_Source\PSoC5/nRF24_HAL.c **** 
+  29:Generated_Source\PSoC5/nRF24_HAL.c **** #include "nRF24_CONFIG.h"
+  30:Generated_Source\PSoC5/nRF24_HAL.c **** #include "nRF24_HAL.h"
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 2
+
+
+  31:Generated_Source\PSoC5/nRF24_HAL.c **** 
+  32:Generated_Source\PSoC5/nRF24_HAL.c **** #if defined (_PSOC6)
+  33:Generated_Source\PSoC5/nRF24_HAL.c **** # include "gpio/cy_gpio.h"
+  34:Generated_Source\PSoC5/nRF24_HAL.c **** #else // (_PSOC_UDB) || (_PSOC4)
+  35:Generated_Source\PSoC5/nRF24_HAL.c **** # if defined (_PSOC4_SCB)
+  36:Generated_Source\PSoC5/nRF24_HAL.c **** #  include "SPI_SPI_UART.h" // may be no longer necessary
+  37:Generated_Source\PSoC5/nRF24_HAL.c **** # endif
+  38:Generated_Source\PSoC5/nRF24_HAL.c **** # include "CE.h"
+  39:Generated_Source\PSoC5/nRF24_HAL.c **** # include "SS.h"
+  40:Generated_Source\PSoC5/nRF24_HAL.c **** #endif
+  41:Generated_Source\PSoC5/nRF24_HAL.c **** 
+  42:Generated_Source\PSoC5/nRF24_HAL.c **** /* GPIO Control */
+  43:Generated_Source\PSoC5/nRF24_HAL.c **** 
+  44:Generated_Source\PSoC5/nRF24_HAL.c **** /**
+  45:Generated_Source\PSoC5/nRF24_HAL.c ****  * GPIO control in PSoC6 and PSoC4/PSoC5LP is a little bit different,
+  46:Generated_Source\PSoC5/nRF24_HAL.c ****  * so here we try to unify them.
+  47:Generated_Source\PSoC5/nRF24_HAL.c ****  *
+  48:Generated_Source\PSoC5/nRF24_HAL.c ****  * @param[in] nrf_gpio state 
+  49:Generated_Source\PSoC5/nRF24_HAL.c ****  */
+  50:Generated_Source\PSoC5/nRF24_HAL.c **** void nRF24_ss_write(nrf_gpio state)
+  51:Generated_Source\PSoC5/nRF24_HAL.c **** {
+  28              		.loc 1 51 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 8
+  31              		@ frame_needed = 1, uses_anonymous_args = 0
+  32 0000 80B5     		push	{r7, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 7, -8
+  35              		.cfi_offset 14, -4
+  36 0002 82B0     		sub	sp, sp, #8
+  37              		.cfi_def_cfa_offset 16
+  38 0004 00AF     		add	r7, sp, #0
+  39              		.cfi_def_cfa_register 7
+  40 0006 0346     		mov	r3, r0
+  41 0008 FB71     		strb	r3, [r7, #7]
+  52:Generated_Source\PSoC5/nRF24_HAL.c ****     if (GPIO_CLEAR == state) {
+  42              		.loc 1 52 0
+  43 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  44 000c 002B     		cmp	r3, #0
+  45 000e 03D1     		bne	.L2
+  53:Generated_Source\PSoC5/nRF24_HAL.c **** #if defined (_PSOC6)
+  54:Generated_Source\PSoC5/nRF24_HAL.c ****     Cy_GPIO_Clr(SS_PORT, SS_NUM);
+  55:Generated_Source\PSoC5/nRF24_HAL.c **** #else // _PSoC4_SCB | _PSOC_UDB
+  56:Generated_Source\PSoC5/nRF24_HAL.c ****     SS_Write(0);
+  46              		.loc 1 56 0
+  47 0010 0020     		movs	r0, #0
+  48 0012 FFF7FEFF 		bl	SS_Write
+  57:Generated_Source\PSoC5/nRF24_HAL.c **** #endif
+  58:Generated_Source\PSoC5/nRF24_HAL.c ****     } else { // GPIO_SET
+  59:Generated_Source\PSoC5/nRF24_HAL.c **** #if defined (_PSOC6)
+  60:Generated_Source\PSoC5/nRF24_HAL.c ****     Cy_GPIO_Set(SS_PORT, SS_NUM);
+  61:Generated_Source\PSoC5/nRF24_HAL.c **** #else // _PSoC4_SCB | _PSOC_UDB
+  62:Generated_Source\PSoC5/nRF24_HAL.c ****     SS_Write(1);
+  63:Generated_Source\PSoC5/nRF24_HAL.c **** #endif
+  64:Generated_Source\PSoC5/nRF24_HAL.c ****     }
+  65:Generated_Source\PSoC5/nRF24_HAL.c **** }
+  49              		.loc 1 65 0
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 3
+
+
+  50 0016 02E0     		b	.L4
+  51              	.L2:
+  62:Generated_Source\PSoC5/nRF24_HAL.c **** #endif
+  52              		.loc 1 62 0
+  53 0018 0120     		movs	r0, #1
+  54 001a FFF7FEFF 		bl	SS_Write
+  55              	.L4:
+  56              		.loc 1 65 0
+  57 001e 00BF     		nop
+  58 0020 0837     		adds	r7, r7, #8
+  59              		.cfi_def_cfa_offset 8
+  60 0022 BD46     		mov	sp, r7
+  61              		.cfi_def_cfa_register 13
+  62              		@ sp needed
+  63 0024 80BD     		pop	{r7, pc}
+  64              		.cfi_endproc
+  65              	.LFE0:
+  66              		.size	nRF24_ss_write, .-nRF24_ss_write
+  67 0026 00BF     		.section	.text.nRF24_ce_write,"ax",%progbits
+  68              		.align	2
+  69              		.global	nRF24_ce_write
+  70              		.thumb
+  71              		.thumb_func
+  72              		.type	nRF24_ce_write, %function
+  73              	nRF24_ce_write:
+  74              	.LFB1:
+  66:Generated_Source\PSoC5/nRF24_HAL.c **** 
+  67:Generated_Source\PSoC5/nRF24_HAL.c **** void nRF24_ce_write(nrf_gpio state)
+  68:Generated_Source\PSoC5/nRF24_HAL.c **** {
+  75              		.loc 1 68 0
+  76              		.cfi_startproc
+  77              		@ args = 0, pretend = 0, frame = 8
+  78              		@ frame_needed = 1, uses_anonymous_args = 0
+  79 0000 80B5     		push	{r7, lr}
+  80              		.cfi_def_cfa_offset 8
+  81              		.cfi_offset 7, -8
+  82              		.cfi_offset 14, -4
+  83 0002 82B0     		sub	sp, sp, #8
+  84              		.cfi_def_cfa_offset 16
+  85 0004 00AF     		add	r7, sp, #0
+  86              		.cfi_def_cfa_register 7
+  87 0006 0346     		mov	r3, r0
+  88 0008 FB71     		strb	r3, [r7, #7]
+  69:Generated_Source\PSoC5/nRF24_HAL.c ****     if (GPIO_CLEAR == state) {
+  89              		.loc 1 69 0
+  90 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  91 000c 002B     		cmp	r3, #0
+  92 000e 03D1     		bne	.L6
+  70:Generated_Source\PSoC5/nRF24_HAL.c **** #if defined (_PSOC6)
+  71:Generated_Source\PSoC5/nRF24_HAL.c ****     Cy_GPIO_Clr(CE_PORT, CE_NUM);
+  72:Generated_Source\PSoC5/nRF24_HAL.c **** #else // _PSoC4_SCB | _PSOC_UDB
+  73:Generated_Source\PSoC5/nRF24_HAL.c ****     CE_Write(0);
+  93              		.loc 1 73 0
+  94 0010 0020     		movs	r0, #0
+  95 0012 FFF7FEFF 		bl	CE_Write
+  74:Generated_Source\PSoC5/nRF24_HAL.c **** #endif
+  75:Generated_Source\PSoC5/nRF24_HAL.c ****     } else { // GPIO_SET
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 4
+
+
+  76:Generated_Source\PSoC5/nRF24_HAL.c **** #if defined (_PSOC6)
+  77:Generated_Source\PSoC5/nRF24_HAL.c ****     Cy_GPIO_Set(CE_PORT, CE_NUM);
+  78:Generated_Source\PSoC5/nRF24_HAL.c **** #else // _PSoC4_SCB | _PSOC_UDB
+  79:Generated_Source\PSoC5/nRF24_HAL.c ****     CE_Write(1);
+  80:Generated_Source\PSoC5/nRF24_HAL.c **** #endif
+  81:Generated_Source\PSoC5/nRF24_HAL.c ****     }
+  82:Generated_Source\PSoC5/nRF24_HAL.c **** }
+  96              		.loc 1 82 0
+  97 0016 02E0     		b	.L8
+  98              	.L6:
+  79:Generated_Source\PSoC5/nRF24_HAL.c **** #endif
+  99              		.loc 1 79 0
+ 100 0018 0120     		movs	r0, #1
+ 101 001a FFF7FEFF 		bl	CE_Write
+ 102              	.L8:
+ 103              		.loc 1 82 0
+ 104 001e 00BF     		nop
+ 105 0020 0837     		adds	r7, r7, #8
+ 106              		.cfi_def_cfa_offset 8
+ 107 0022 BD46     		mov	sp, r7
+ 108              		.cfi_def_cfa_register 13
+ 109              		@ sp needed
+ 110 0024 80BD     		pop	{r7, pc}
+ 111              		.cfi_endproc
+ 112              	.LFE1:
+ 113              		.size	nRF24_ce_write, .-nRF24_ce_write
+ 114 0026 00BF     		.section	.text.nRF24_spi_xfer,"ax",%progbits
+ 115              		.align	2
+ 116              		.global	nRF24_spi_xfer
+ 117              		.thumb
+ 118              		.thumb_func
+ 119              		.type	nRF24_spi_xfer, %function
+ 120              	nRF24_spi_xfer:
+ 121              	.LFB2:
+  83:Generated_Source\PSoC5/nRF24_HAL.c **** 
+  84:Generated_Source\PSoC5/nRF24_HAL.c **** // xfer xfer_size bytes to the nrf24 radio and get back xfer_size bytes back
+  85:Generated_Source\PSoC5/nRF24_HAL.c **** // from it.
+  86:Generated_Source\PSoC5/nRF24_HAL.c **** // in[0] is always the NRF_COMMAND
+  87:Generated_Source\PSoC5/nRF24_HAL.c **** // out[0] is always the STATUS_REGISTER
+  88:Generated_Source\PSoC5/nRF24_HAL.c **** //
+  89:Generated_Source\PSoC5/nRF24_HAL.c **** // Example of use:
+  90:Generated_Source\PSoC5/nRF24_HAL.c **** // - To read the radio status register and save it in status_reg variable:
+  91:Generated_Source\PSoC5/nRF24_HAL.c **** //
+  92:Generated_Source\PSoC5/nRF24_HAL.c **** // uint8_t NRF_DUMMY = 0xFF;
+  93:Generated_Source\PSoC5/nRF24_HAL.c **** // uint8_t status_reg = 0;
+  94:Generated_Source\PSoC5/nRF24_HAL.c **** // nrf24_spi_xfer(&NRF_DUMMY, &status_reg, 1);
+  95:Generated_Source\PSoC5/nRF24_HAL.c **** //
+  96:Generated_Source\PSoC5/nRF24_HAL.c **** // TODO:
+  97:Generated_Source\PSoC5/nRF24_HAL.c **** // This function will be the only way to transfer/get data from the radio,
+  98:Generated_Source\PSoC5/nRF24_HAL.c **** // that way we can eliminate duplicated code on the NRF_HAL and NRF_COMMANDS
+  99:Generated_Source\PSoC5/nRF24_HAL.c **** // files. Also that way we can ease the implementation of the custom spi_xfer
+ 100:Generated_Source\PSoC5/nRF24_HAL.c **** // function.
+ 101:Generated_Source\PSoC5/nRF24_HAL.c **** void nRF24_spi_xfer(const uint8_t *in, uint8_t *out, const size_t xfer_size)
+ 102:Generated_Source\PSoC5/nRF24_HAL.c **** {
+ 122              		.loc 1 102 0
+ 123              		.cfi_startproc
+ 124              		@ args = 0, pretend = 0, frame = 24
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 5
+
+
+ 125              		@ frame_needed = 1, uses_anonymous_args = 0
+ 126 0000 90B5     		push	{r4, r7, lr}
+ 127              		.cfi_def_cfa_offset 12
+ 128              		.cfi_offset 4, -12
+ 129              		.cfi_offset 7, -8
+ 130              		.cfi_offset 14, -4
+ 131 0002 87B0     		sub	sp, sp, #28
+ 132              		.cfi_def_cfa_offset 40
+ 133 0004 00AF     		add	r7, sp, #0
+ 134              		.cfi_def_cfa_register 7
+ 135 0006 F860     		str	r0, [r7, #12]
+ 136 0008 B960     		str	r1, [r7, #8]
+ 137 000a 7A60     		str	r2, [r7, #4]
+ 103:Generated_Source\PSoC5/nRF24_HAL.c ****     nRF24_spi_clear_fifo();
+ 138              		.loc 1 103 0
+ 139 000c FFF7FEFF 		bl	nRF24_spi_clear_fifo
+ 104:Generated_Source\PSoC5/nRF24_HAL.c **** 
+ 105:Generated_Source\PSoC5/nRF24_HAL.c ****     nRF24_ss_write(GPIO_CLEAR);
+ 140              		.loc 1 105 0
+ 141 0010 0020     		movs	r0, #0
+ 142 0012 FFF7FEFF 		bl	nRF24_ss_write
+ 143              	.LBB2:
+ 106:Generated_Source\PSoC5/nRF24_HAL.c **** 
+ 107:Generated_Source\PSoC5/nRF24_HAL.c **** #if defined (_PSOC6)
+ 108:Generated_Source\PSoC5/nRF24_HAL.c ****     for(size_t i = 0; i < xfer_size; i++){
+ 109:Generated_Source\PSoC5/nRF24_HAL.c ****         while(Cy_SCB_Write(SPI_HW, in[i]) == 0);
+ 110:Generated_Source\PSoC5/nRF24_HAL.c ****         while (Cy_SCB_GetNumInRxFifo(SPI_HW) == 0) {}
+ 111:Generated_Source\PSoC5/nRF24_HAL.c ****         out[i] = Cy_SCB_ReadRxFifo(SPI_HW);
+ 112:Generated_Source\PSoC5/nRF24_HAL.c ****     }
+ 113:Generated_Source\PSoC5/nRF24_HAL.c **** #elif defined (_PSOC4_SCB)
+ 114:Generated_Source\PSoC5/nRF24_HAL.c ****     for (size_t i = 0; i < xfer_size; i++) {
+ 115:Generated_Source\PSoC5/nRF24_HAL.c ****         SPI_SpiUartWriteTxData(in[i]);
+ 116:Generated_Source\PSoC5/nRF24_HAL.c ****         while (SPI_SpiUartGetRxBufferSize() == 0){}
+ 117:Generated_Source\PSoC5/nRF24_HAL.c ****         out[i] = SPI_SpiUartReadRxData();
+ 118:Generated_Source\PSoC5/nRF24_HAL.c ****     }
+ 119:Generated_Source\PSoC5/nRF24_HAL.c **** #elif defined (_PSOC_UDB)
+ 120:Generated_Source\PSoC5/nRF24_HAL.c ****     for (size_t i = 0; i < xfer_size; i++) {
+ 144              		.loc 1 120 0
+ 145 0016 0023     		movs	r3, #0
+ 146 0018 7B61     		str	r3, [r7, #20]
+ 147 001a 18E0     		b	.L10
+ 148              	.L12:
+ 121:Generated_Source\PSoC5/nRF24_HAL.c ****         SPI_WriteTxData(in[i]);
+ 149              		.loc 1 121 0
+ 150 001c FA68     		ldr	r2, [r7, #12]
+ 151 001e 7B69     		ldr	r3, [r7, #20]
+ 152 0020 1344     		add	r3, r3, r2
+ 153 0022 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 154 0024 1846     		mov	r0, r3
+ 155 0026 FFF7FEFF 		bl	SPI_WriteTxData
+ 122:Generated_Source\PSoC5/nRF24_HAL.c ****         while (!(SPI_ReadTxStatus() & SPI_STS_BYTE_COMPLETE)) {
+ 156              		.loc 1 122 0
+ 157 002a 00BF     		nop
+ 158              	.L11:
+ 159              		.loc 1 122 0 is_stmt 0 discriminator 1
+ 160 002c FFF7FEFF 		bl	SPI_ReadTxStatus
+ 161 0030 0346     		mov	r3, r0
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 6
+
+
+ 162 0032 03F00803 		and	r3, r3, #8
+ 163 0036 002B     		cmp	r3, #0
+ 164 0038 F8D0     		beq	.L11
+ 123:Generated_Source\PSoC5/nRF24_HAL.c ****         }
+ 124:Generated_Source\PSoC5/nRF24_HAL.c ****         out[i] = SPI_ReadRxData();
+ 165              		.loc 1 124 0 is_stmt 1 discriminator 2
+ 166 003a BA68     		ldr	r2, [r7, #8]
+ 167 003c 7B69     		ldr	r3, [r7, #20]
+ 168 003e D418     		adds	r4, r2, r3
+ 169 0040 FFF7FEFF 		bl	SPI_ReadRxData
+ 170 0044 0346     		mov	r3, r0
+ 171 0046 2370     		strb	r3, [r4]
+ 120:Generated_Source\PSoC5/nRF24_HAL.c ****         SPI_WriteTxData(in[i]);
+ 172              		.loc 1 120 0 discriminator 2
+ 173 0048 7B69     		ldr	r3, [r7, #20]
+ 174 004a 0133     		adds	r3, r3, #1
+ 175 004c 7B61     		str	r3, [r7, #20]
+ 176              	.L10:
+ 120:Generated_Source\PSoC5/nRF24_HAL.c ****         SPI_WriteTxData(in[i]);
+ 177              		.loc 1 120 0 is_stmt 0 discriminator 1
+ 178 004e 7A69     		ldr	r2, [r7, #20]
+ 179 0050 7B68     		ldr	r3, [r7, #4]
+ 180 0052 9A42     		cmp	r2, r3
+ 181 0054 E2D3     		bcc	.L12
+ 182              	.LBE2:
+ 125:Generated_Source\PSoC5/nRF24_HAL.c ****     }
+ 126:Generated_Source\PSoC5/nRF24_HAL.c **** #else
+ 127:Generated_Source\PSoC5/nRF24_HAL.c ****     #error "Non valid PSoC device identified."
+ 128:Generated_Source\PSoC5/nRF24_HAL.c **** #endif
+ 129:Generated_Source\PSoC5/nRF24_HAL.c **** 
+ 130:Generated_Source\PSoC5/nRF24_HAL.c ****     nRF24_ss_write(GPIO_SET);
+ 183              		.loc 1 130 0 is_stmt 1
+ 184 0056 0120     		movs	r0, #1
+ 185 0058 FFF7FEFF 		bl	nRF24_ss_write
+ 131:Generated_Source\PSoC5/nRF24_HAL.c **** }
+ 186              		.loc 1 131 0
+ 187 005c 00BF     		nop
+ 188 005e 1C37     		adds	r7, r7, #28
+ 189              		.cfi_def_cfa_offset 12
+ 190 0060 BD46     		mov	sp, r7
+ 191              		.cfi_def_cfa_register 13
+ 192              		@ sp needed
+ 193 0062 90BD     		pop	{r4, r7, pc}
+ 194              		.cfi_endproc
+ 195              	.LFE2:
+ 196              		.size	nRF24_spi_xfer, .-nRF24_spi_xfer
+ 197              		.section	.text.nRF24_spi_clear_fifo,"ax",%progbits
+ 198              		.align	2
+ 199              		.global	nRF24_spi_clear_fifo
+ 200              		.thumb
+ 201              		.thumb_func
+ 202              		.type	nRF24_spi_clear_fifo, %function
+ 203              	nRF24_spi_clear_fifo:
+ 204              	.LFB3:
+ 132:Generated_Source\PSoC5/nRF24_HAL.c **** 
+ 133:Generated_Source\PSoC5/nRF24_HAL.c **** void nRF24_spi_clear_fifo(void)
+ 134:Generated_Source\PSoC5/nRF24_HAL.c **** {
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 7
+
+
+ 205              		.loc 1 134 0
+ 206              		.cfi_startproc
+ 207              		@ args = 0, pretend = 0, frame = 0
+ 208              		@ frame_needed = 1, uses_anonymous_args = 0
+ 209 0000 80B5     		push	{r7, lr}
+ 210              		.cfi_def_cfa_offset 8
+ 211              		.cfi_offset 7, -8
+ 212              		.cfi_offset 14, -4
+ 213 0002 00AF     		add	r7, sp, #0
+ 214              		.cfi_def_cfa_register 7
+ 135:Generated_Source\PSoC5/nRF24_HAL.c **** #if defined (_PSOC6)
+ 136:Generated_Source\PSoC5/nRF24_HAL.c ****     Cy_SCB_ClearRxFifo(SPI_HW);
+ 137:Generated_Source\PSoC5/nRF24_HAL.c ****     Cy_SCB_ClearTxFifo(SPI_HW);
+ 138:Generated_Source\PSoC5/nRF24_HAL.c **** #elif defined (_PSOC4_SCB)
+ 139:Generated_Source\PSoC5/nRF24_HAL.c ****     SPI_SpiUartClearRxBuffer();
+ 140:Generated_Source\PSoC5/nRF24_HAL.c ****     SPI_SpiUartClearTxBuffer();
+ 141:Generated_Source\PSoC5/nRF24_HAL.c **** #elif defined (_PSOC_UDB)
+ 142:Generated_Source\PSoC5/nRF24_HAL.c ****     SPI_ClearFIFO();
+ 215              		.loc 1 142 0
+ 216 0004 FFF7FEFF 		bl	SPI_ClearFIFO
+ 143:Generated_Source\PSoC5/nRF24_HAL.c **** #else
+ 144:Generated_Source\PSoC5/nRF24_HAL.c ****     #error "Non valid PSoC device identified."
+ 145:Generated_Source\PSoC5/nRF24_HAL.c **** #endif
+ 146:Generated_Source\PSoC5/nRF24_HAL.c **** }
+ 217              		.loc 1 146 0
+ 218 0008 00BF     		nop
+ 219 000a 80BD     		pop	{r7, pc}
+ 220              		.cfi_endproc
+ 221              	.LFE3:
+ 222              		.size	nRF24_spi_clear_fifo, .-nRF24_spi_clear_fifo
+ 223              		.section	.text.nRF24_read_register,"ax",%progbits
+ 224              		.align	2
+ 225              		.global	nRF24_read_register
+ 226              		.thumb
+ 227              		.thumb_func
+ 228              		.type	nRF24_read_register, %function
+ 229              	nRF24_read_register:
+ 230              	.LFB4:
+ 147:Generated_Source\PSoC5/nRF24_HAL.c **** 
+ 148:Generated_Source\PSoC5/nRF24_HAL.c **** /**
+ 149:Generated_Source\PSoC5/nRF24_HAL.c ****  * Read the specified nRF24 register (1byte).
+ 150:Generated_Source\PSoC5/nRF24_HAL.c ****  * 
+ 151:Generated_Source\PSoC5/nRF24_HAL.c ****  * TODO: So here the microcontroller just need to write 2 uint8_t's
+ 152:Generated_Source\PSoC5/nRF24_HAL.c ****  * to the nrf24 radio and read the last stored uint8_t.
+ 153:Generated_Source\PSoC5/nRF24_HAL.c ****  *
+ 154:Generated_Source\PSoC5/nRF24_HAL.c ****  * @param const nrf_register reg: Register to be read.
+ 155:Generated_Source\PSoC5/nRF24_HAL.c ****  *
+ 156:Generated_Source\PSoC5/nRF24_HAL.c ****  * @return uint8_t: Content of the specified register.
+ 157:Generated_Source\PSoC5/nRF24_HAL.c ****  */
+ 158:Generated_Source\PSoC5/nRF24_HAL.c **** uint8_t nRF24_read_register(const nrf_register reg)
+ 159:Generated_Source\PSoC5/nRF24_HAL.c **** {
+ 231              		.loc 1 159 0
+ 232              		.cfi_startproc
+ 233              		@ args = 0, pretend = 0, frame = 16
+ 234              		@ frame_needed = 1, uses_anonymous_args = 0
+ 235 0000 80B5     		push	{r7, lr}
+ 236              		.cfi_def_cfa_offset 8
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 8
+
+
+ 237              		.cfi_offset 7, -8
+ 238              		.cfi_offset 14, -4
+ 239 0002 84B0     		sub	sp, sp, #16
+ 240              		.cfi_def_cfa_offset 24
+ 241 0004 00AF     		add	r7, sp, #0
+ 242              		.cfi_def_cfa_register 7
+ 243 0006 0346     		mov	r3, r0
+ 244 0008 FB71     		strb	r3, [r7, #7]
+ 160:Generated_Source\PSoC5/nRF24_HAL.c ****     const uint8_t _nrf_cmd[] = {
+ 245              		.loc 1 160 0
+ 246 000a FB79     		ldrb	r3, [r7, #7]
+ 247 000c 3B73     		strb	r3, [r7, #12]
+ 248 000e FF23     		movs	r3, #255
+ 249 0010 7B73     		strb	r3, [r7, #13]
+ 161:Generated_Source\PSoC5/nRF24_HAL.c ****         NRF_CMD_R_REGISTER | reg, NRF_CMD_NOP
+ 162:Generated_Source\PSoC5/nRF24_HAL.c ****     };
+ 163:Generated_Source\PSoC5/nRF24_HAL.c ****     uint8_t _nrf_data[2] = {0};
+ 250              		.loc 1 163 0
+ 251 0012 0023     		movs	r3, #0
+ 252 0014 3B81     		strh	r3, [r7, #8]	@ movhi
+ 164:Generated_Source\PSoC5/nRF24_HAL.c ****     
+ 165:Generated_Source\PSoC5/nRF24_HAL.c ****     nRF24_spi_xfer(_nrf_cmd, _nrf_data, sizeof(_nrf_cmd) / sizeof(_nrf_cmd[0]));
+ 253              		.loc 1 165 0
+ 254 0016 07F10801 		add	r1, r7, #8
+ 255 001a 07F10C03 		add	r3, r7, #12
+ 256 001e 0222     		movs	r2, #2
+ 257 0020 1846     		mov	r0, r3
+ 258 0022 FFF7FEFF 		bl	nRF24_spi_xfer
+ 166:Generated_Source\PSoC5/nRF24_HAL.c **** 
+ 167:Generated_Source\PSoC5/nRF24_HAL.c ****     return _nrf_data[1];
+ 259              		.loc 1 167 0
+ 260 0026 7B7A     		ldrb	r3, [r7, #9]	@ zero_extendqisi2
+ 168:Generated_Source\PSoC5/nRF24_HAL.c **** }
+ 261              		.loc 1 168 0
+ 262 0028 1846     		mov	r0, r3
+ 263 002a 1037     		adds	r7, r7, #16
+ 264              		.cfi_def_cfa_offset 8
+ 265 002c BD46     		mov	sp, r7
+ 266              		.cfi_def_cfa_register 13
+ 267              		@ sp needed
+ 268 002e 80BD     		pop	{r7, pc}
+ 269              		.cfi_endproc
+ 270              	.LFE4:
+ 271              		.size	nRF24_read_register, .-nRF24_read_register
+ 272              		.section	.text.nRF24_read_long_register,"ax",%progbits
+ 273              		.align	2
+ 274              		.global	nRF24_read_long_register
+ 275              		.thumb
+ 276              		.thumb_func
+ 277              		.type	nRF24_read_long_register, %function
+ 278              	nRF24_read_long_register:
+ 279              	.LFB5:
+ 169:Generated_Source\PSoC5/nRF24_HAL.c **** 
+ 170:Generated_Source\PSoC5/nRF24_HAL.c **** /**
+ 171:Generated_Source\PSoC5/nRF24_HAL.c ****  * Read the specified nRF24 register (bigger than 1 byte).
+ 172:Generated_Source\PSoC5/nRF24_HAL.c ****  *
+ 173:Generated_Source\PSoC5/nRF24_HAL.c ****  * @param const nrf_register reg: Register to be read.
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 9
+
+
+ 174:Generated_Source\PSoC5/nRF24_HAL.c ****  * @param uint8_t* data: Pointer to where the content of the register
+ 175:Generated_Source\PSoC5/nRF24_HAL.c ****  * will be stored.
+ 176:Generated_Source\PSoC5/nRF24_HAL.c ****  * @param size_t size: Size of the register and data.
+ 177:Generated_Source\PSoC5/nRF24_HAL.c ****  */
+ 178:Generated_Source\PSoC5/nRF24_HAL.c **** void nRF24_read_long_register(const nrf_register reg,
+ 179:Generated_Source\PSoC5/nRF24_HAL.c ****                                            uint8_t* data, const size_t size)
+ 180:Generated_Source\PSoC5/nRF24_HAL.c **** {
+ 280              		.loc 1 180 0
+ 281              		.cfi_startproc
+ 282              		@ args = 0, pretend = 0, frame = 24
+ 283              		@ frame_needed = 1, uses_anonymous_args = 0
+ 284 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 285              		.cfi_def_cfa_offset 36
+ 286              		.cfi_offset 4, -36
+ 287              		.cfi_offset 5, -32
+ 288              		.cfi_offset 6, -28
+ 289              		.cfi_offset 7, -24
+ 290              		.cfi_offset 8, -20
+ 291              		.cfi_offset 9, -16
+ 292              		.cfi_offset 10, -12
+ 293              		.cfi_offset 11, -8
+ 294              		.cfi_offset 14, -4
+ 295 0004 87B0     		sub	sp, sp, #28
+ 296              		.cfi_def_cfa_offset 64
+ 297 0006 00AF     		add	r7, sp, #0
+ 298              		.cfi_def_cfa_register 7
+ 299 0008 B960     		str	r1, [r7, #8]
+ 300 000a 7A60     		str	r2, [r7, #4]
+ 301 000c 0246     		mov	r2, r0
+ 302 000e FA73     		strb	r2, [r7, #15]
+ 303              		.loc 1 180 0
+ 304 0010 6A46     		mov	r2, sp
+ 305 0012 3A60     		str	r2, [r7]
+ 181:Generated_Source\PSoC5/nRF24_HAL.c ****     uint8_t nrf_data[size + 1];
+ 306              		.loc 1 181 0
+ 307 0014 7A68     		ldr	r2, [r7, #4]
+ 308 0016 0132     		adds	r2, r2, #1
+ 309 0018 1146     		mov	r1, r2
+ 310 001a 4FF00002 		mov	r2, #0
+ 311 001e 4FEAC20B 		lsl	fp, r2, #3
+ 312 0022 4BEA517B 		orr	fp, fp, r1, lsr #29
+ 313 0026 4FEAC10A 		lsl	r10, r1, #3
+ 314 002a 7A68     		ldr	r2, [r7, #4]
+ 315 002c 0132     		adds	r2, r2, #1
+ 316 002e 1146     		mov	r1, r2
+ 317 0030 4FF00002 		mov	r2, #0
+ 318 0034 4FEAC209 		lsl	r9, r2, #3
+ 319 0038 49EA5179 		orr	r9, r9, r1, lsr #29
+ 320 003c 4FEAC108 		lsl	r8, r1, #3
+ 321 0040 7A68     		ldr	r2, [r7, #4]
+ 322 0042 0132     		adds	r2, r2, #1
+ 323 0044 0732     		adds	r2, r2, #7
+ 324 0046 D208     		lsrs	r2, r2, #3
+ 325 0048 D200     		lsls	r2, r2, #3
+ 326 004a ADEB020D 		sub	sp, sp, r2
+ 327 004e 6A46     		mov	r2, sp
+ 328 0050 0032     		adds	r2, r2, #0
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 10
+
+
+ 329 0052 7A61     		str	r2, [r7, #20]
+ 182:Generated_Source\PSoC5/nRF24_HAL.c ****     uint8_t dummy[size + 1];
+ 330              		.loc 1 182 0
+ 331 0054 7A68     		ldr	r2, [r7, #4]
+ 332 0056 0132     		adds	r2, r2, #1
+ 333 0058 1146     		mov	r1, r2
+ 334 005a 4FF00002 		mov	r2, #0
+ 335 005e D600     		lsls	r6, r2, #3
+ 336 0060 46EA5176 		orr	r6, r6, r1, lsr #29
+ 337 0064 CD00     		lsls	r5, r1, #3
+ 338 0066 7A68     		ldr	r2, [r7, #4]
+ 339 0068 0132     		adds	r2, r2, #1
+ 340 006a 1146     		mov	r1, r2
+ 341 006c 4FF00002 		mov	r2, #0
+ 342 0070 D400     		lsls	r4, r2, #3
+ 343 0072 44EA5174 		orr	r4, r4, r1, lsr #29
+ 344 0076 CB00     		lsls	r3, r1, #3
+ 345 0078 7B68     		ldr	r3, [r7, #4]
+ 346 007a 0133     		adds	r3, r3, #1
+ 347 007c 0733     		adds	r3, r3, #7
+ 348 007e DB08     		lsrs	r3, r3, #3
+ 349 0080 DB00     		lsls	r3, r3, #3
+ 350 0082 ADEB030D 		sub	sp, sp, r3
+ 351 0086 6B46     		mov	r3, sp
+ 352 0088 0033     		adds	r3, r3, #0
+ 353 008a 3B61     		str	r3, [r7, #16]
+ 183:Generated_Source\PSoC5/nRF24_HAL.c ****     
+ 184:Generated_Source\PSoC5/nRF24_HAL.c ****     dummy[0] = NRF_CMD_R_REGISTER | reg;
+ 354              		.loc 1 184 0
+ 355 008c 3B69     		ldr	r3, [r7, #16]
+ 356 008e FA7B     		ldrb	r2, [r7, #15]
+ 357 0090 1A70     		strb	r2, [r3]
+ 185:Generated_Source\PSoC5/nRF24_HAL.c **** 
+ 186:Generated_Source\PSoC5/nRF24_HAL.c ****     // Send the command and get the status
+ 187:Generated_Source\PSoC5/nRF24_HAL.c ****     nRF24_spi_xfer(dummy, nrf_data, sizeof(dummy));
+ 358              		.loc 1 187 0
+ 359 0092 3869     		ldr	r0, [r7, #16]
+ 360 0094 7969     		ldr	r1, [r7, #20]
+ 361 0096 7B68     		ldr	r3, [r7, #4]
+ 362 0098 0133     		adds	r3, r3, #1
+ 363 009a 1A46     		mov	r2, r3
+ 364 009c FFF7FEFF 		bl	nRF24_spi_xfer
+ 188:Generated_Source\PSoC5/nRF24_HAL.c **** 
+ 189:Generated_Source\PSoC5/nRF24_HAL.c ****     // Copy data without the status register to the user pointer
+ 190:Generated_Source\PSoC5/nRF24_HAL.c ****     memcpy(data, &nrf_data[1], size);
+ 365              		.loc 1 190 0
+ 366 00a0 7B69     		ldr	r3, [r7, #20]
+ 367 00a2 0133     		adds	r3, r3, #1
+ 368 00a4 7A68     		ldr	r2, [r7, #4]
+ 369 00a6 1946     		mov	r1, r3
+ 370 00a8 B868     		ldr	r0, [r7, #8]
+ 371 00aa FFF7FEFF 		bl	memcpy
+ 372 00ae D7F800D0 		ldr	sp, [r7]
+ 191:Generated_Source\PSoC5/nRF24_HAL.c **** }
+ 373              		.loc 1 191 0
+ 374 00b2 00BF     		nop
+ 375 00b4 1C37     		adds	r7, r7, #28
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 11
+
+
+ 376              		.cfi_def_cfa_offset 36
+ 377 00b6 BD46     		mov	sp, r7
+ 378              		.cfi_def_cfa_register 13
+ 379              		@ sp needed
+ 380 00b8 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 381              		.cfi_endproc
+ 382              	.LFE5:
+ 383              		.size	nRF24_read_long_register, .-nRF24_read_long_register
+ 384              		.section	.text.nRF24_write_register,"ax",%progbits
+ 385              		.align	2
+ 386              		.global	nRF24_write_register
+ 387              		.thumb
+ 388              		.thumb_func
+ 389              		.type	nRF24_write_register, %function
+ 390              	nRF24_write_register:
+ 391              	.LFB6:
+ 192:Generated_Source\PSoC5/nRF24_HAL.c **** 
+ 193:Generated_Source\PSoC5/nRF24_HAL.c **** /**
+ 194:Generated_Source\PSoC5/nRF24_HAL.c ****  * Write to the specified nRF24 Register (1byte).
+ 195:Generated_Source\PSoC5/nRF24_HAL.c ****  *
+ 196:Generated_Source\PSoC5/nRF24_HAL.c ****  * @param const nrf_register reg: Register to be written.
+ 197:Generated_Source\PSoC5/nRF24_HAL.c ****  * @param const uint8_t data: Data to be written into the specified register.
+ 198:Generated_Source\PSoC5/nRF24_HAL.c ****  */
+ 199:Generated_Source\PSoC5/nRF24_HAL.c **** void nRF24_write_register(const nrf_register reg, const uint8_t data)
+ 200:Generated_Source\PSoC5/nRF24_HAL.c **** {
+ 392              		.loc 1 200 0
+ 393              		.cfi_startproc
+ 394              		@ args = 0, pretend = 0, frame = 16
+ 395              		@ frame_needed = 1, uses_anonymous_args = 0
+ 396 0000 80B5     		push	{r7, lr}
+ 397              		.cfi_def_cfa_offset 8
+ 398              		.cfi_offset 7, -8
+ 399              		.cfi_offset 14, -4
+ 400 0002 84B0     		sub	sp, sp, #16
+ 401              		.cfi_def_cfa_offset 24
+ 402 0004 00AF     		add	r7, sp, #0
+ 403              		.cfi_def_cfa_register 7
+ 404 0006 0346     		mov	r3, r0
+ 405 0008 0A46     		mov	r2, r1
+ 406 000a FB71     		strb	r3, [r7, #7]
+ 407 000c 1346     		mov	r3, r2
+ 408 000e BB71     		strb	r3, [r7, #6]
+ 201:Generated_Source\PSoC5/nRF24_HAL.c ****     const uint8_t data_to_write[] = {NRF_CMD_W_REGISTER | reg, data};
+ 409              		.loc 1 201 0
+ 410 0010 FB79     		ldrb	r3, [r7, #7]
+ 411 0012 43F02003 		orr	r3, r3, #32
+ 412 0016 DBB2     		uxtb	r3, r3
+ 413 0018 3B73     		strb	r3, [r7, #12]
+ 414 001a BB79     		ldrb	r3, [r7, #6]
+ 415 001c 7B73     		strb	r3, [r7, #13]
+ 202:Generated_Source\PSoC5/nRF24_HAL.c ****     uint8_t nrf_data[2] = {0};
+ 416              		.loc 1 202 0
+ 417 001e 0023     		movs	r3, #0
+ 418 0020 3B81     		strh	r3, [r7, #8]	@ movhi
+ 203:Generated_Source\PSoC5/nRF24_HAL.c ****     
+ 204:Generated_Source\PSoC5/nRF24_HAL.c ****     nRF24_spi_xfer(data_to_write, nrf_data, sizeof(data_to_write));
+ 419              		.loc 1 204 0
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 12
+
+
+ 420 0022 07F10801 		add	r1, r7, #8
+ 421 0026 07F10C03 		add	r3, r7, #12
+ 422 002a 0222     		movs	r2, #2
+ 423 002c 1846     		mov	r0, r3
+ 424 002e FFF7FEFF 		bl	nRF24_spi_xfer
+ 205:Generated_Source\PSoC5/nRF24_HAL.c **** }
+ 425              		.loc 1 205 0
+ 426 0032 00BF     		nop
+ 427 0034 1037     		adds	r7, r7, #16
+ 428              		.cfi_def_cfa_offset 8
+ 429 0036 BD46     		mov	sp, r7
+ 430              		.cfi_def_cfa_register 13
+ 431              		@ sp needed
+ 432 0038 80BD     		pop	{r7, pc}
+ 433              		.cfi_endproc
+ 434              	.LFE6:
+ 435              		.size	nRF24_write_register, .-nRF24_write_register
+ 436 003a 00BF     		.section	.text.nRF24_write_long_register,"ax",%progbits
+ 437              		.align	2
+ 438              		.global	nRF24_write_long_register
+ 439              		.thumb
+ 440              		.thumb_func
+ 441              		.type	nRF24_write_long_register, %function
+ 442              	nRF24_write_long_register:
+ 443              	.LFB7:
+ 206:Generated_Source\PSoC5/nRF24_HAL.c **** 
+ 207:Generated_Source\PSoC5/nRF24_HAL.c **** /**
+ 208:Generated_Source\PSoC5/nRF24_HAL.c ****  * Write one or more bytes to the specified nRF24 Register.
+ 209:Generated_Source\PSoC5/nRF24_HAL.c ****  *
+ 210:Generated_Source\PSoC5/nRF24_HAL.c ****  * @param const nrf_register reg: Register to be written.
+ 211:Generated_Source\PSoC5/nRF24_HAL.c ****  * @param const uint8_t* data: Data to writen into the register.
+ 212:Generated_Source\PSoC5/nRF24_HAL.c ****  * @param size_t size: Bytes of the data to be written in the specified register.
+ 213:Generated_Source\PSoC5/nRF24_HAL.c ****  */
+ 214:Generated_Source\PSoC5/nRF24_HAL.c **** void nRF24_write_long_register(const nrf_register reg,
+ 215:Generated_Source\PSoC5/nRF24_HAL.c ****                                             const uint8_t* data, const size_t size)
+ 216:Generated_Source\PSoC5/nRF24_HAL.c **** {
+ 444              		.loc 1 216 0
+ 445              		.cfi_startproc
+ 446              		@ args = 0, pretend = 0, frame = 24
+ 447              		@ frame_needed = 1, uses_anonymous_args = 0
+ 448 0000 2DE9F04F 		push	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 449              		.cfi_def_cfa_offset 36
+ 450              		.cfi_offset 4, -36
+ 451              		.cfi_offset 5, -32
+ 452              		.cfi_offset 6, -28
+ 453              		.cfi_offset 7, -24
+ 454              		.cfi_offset 8, -20
+ 455              		.cfi_offset 9, -16
+ 456              		.cfi_offset 10, -12
+ 457              		.cfi_offset 11, -8
+ 458              		.cfi_offset 14, -4
+ 459 0004 87B0     		sub	sp, sp, #28
+ 460              		.cfi_def_cfa_offset 64
+ 461 0006 00AF     		add	r7, sp, #0
+ 462              		.cfi_def_cfa_register 7
+ 463 0008 B960     		str	r1, [r7, #8]
+ 464 000a 7A60     		str	r2, [r7, #4]
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 13
+
+
+ 465 000c 0246     		mov	r2, r0
+ 466 000e FA73     		strb	r2, [r7, #15]
+ 467              		.loc 1 216 0
+ 468 0010 6A46     		mov	r2, sp
+ 469 0012 3A60     		str	r2, [r7]
+ 217:Generated_Source\PSoC5/nRF24_HAL.c ****     uint8_t data_to_nrf[size + 1];
+ 470              		.loc 1 217 0
+ 471 0014 7A68     		ldr	r2, [r7, #4]
+ 472 0016 0132     		adds	r2, r2, #1
+ 473 0018 1146     		mov	r1, r2
+ 474 001a 4FF00002 		mov	r2, #0
+ 475 001e 4FEAC20B 		lsl	fp, r2, #3
+ 476 0022 4BEA517B 		orr	fp, fp, r1, lsr #29
+ 477 0026 4FEAC10A 		lsl	r10, r1, #3
+ 478 002a 7A68     		ldr	r2, [r7, #4]
+ 479 002c 0132     		adds	r2, r2, #1
+ 480 002e 1146     		mov	r1, r2
+ 481 0030 4FF00002 		mov	r2, #0
+ 482 0034 4FEAC209 		lsl	r9, r2, #3
+ 483 0038 49EA5179 		orr	r9, r9, r1, lsr #29
+ 484 003c 4FEAC108 		lsl	r8, r1, #3
+ 485 0040 7A68     		ldr	r2, [r7, #4]
+ 486 0042 0132     		adds	r2, r2, #1
+ 487 0044 0732     		adds	r2, r2, #7
+ 488 0046 D208     		lsrs	r2, r2, #3
+ 489 0048 D200     		lsls	r2, r2, #3
+ 490 004a ADEB020D 		sub	sp, sp, r2
+ 491 004e 6A46     		mov	r2, sp
+ 492 0050 0032     		adds	r2, r2, #0
+ 493 0052 7A61     		str	r2, [r7, #20]
+ 218:Generated_Source\PSoC5/nRF24_HAL.c ****     uint8_t data_from_nrf[size + 1];
+ 494              		.loc 1 218 0
+ 495 0054 7A68     		ldr	r2, [r7, #4]
+ 496 0056 0132     		adds	r2, r2, #1
+ 497 0058 1146     		mov	r1, r2
+ 498 005a 4FF00002 		mov	r2, #0
+ 499 005e D600     		lsls	r6, r2, #3
+ 500 0060 46EA5176 		orr	r6, r6, r1, lsr #29
+ 501 0064 CD00     		lsls	r5, r1, #3
+ 502 0066 7A68     		ldr	r2, [r7, #4]
+ 503 0068 0132     		adds	r2, r2, #1
+ 504 006a 1146     		mov	r1, r2
+ 505 006c 4FF00002 		mov	r2, #0
+ 506 0070 D400     		lsls	r4, r2, #3
+ 507 0072 44EA5174 		orr	r4, r4, r1, lsr #29
+ 508 0076 CB00     		lsls	r3, r1, #3
+ 509 0078 7B68     		ldr	r3, [r7, #4]
+ 510 007a 0133     		adds	r3, r3, #1
+ 511 007c 0733     		adds	r3, r3, #7
+ 512 007e DB08     		lsrs	r3, r3, #3
+ 513 0080 DB00     		lsls	r3, r3, #3
+ 514 0082 ADEB030D 		sub	sp, sp, r3
+ 515 0086 6B46     		mov	r3, sp
+ 516 0088 0033     		adds	r3, r3, #0
+ 517 008a 3B61     		str	r3, [r7, #16]
+ 219:Generated_Source\PSoC5/nRF24_HAL.c ****     
+ 220:Generated_Source\PSoC5/nRF24_HAL.c ****     // Set the write command and the register to write to
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 14
+
+
+ 221:Generated_Source\PSoC5/nRF24_HAL.c ****     data_to_nrf[0] = NRF_CMD_W_REGISTER | reg;
+ 518              		.loc 1 221 0
+ 519 008c FB7B     		ldrb	r3, [r7, #15]
+ 520 008e 43F02003 		orr	r3, r3, #32
+ 521 0092 DAB2     		uxtb	r2, r3
+ 522 0094 7B69     		ldr	r3, [r7, #20]
+ 523 0096 1A70     		strb	r2, [r3]
+ 222:Generated_Source\PSoC5/nRF24_HAL.c ****     // add the data given by the user
+ 223:Generated_Source\PSoC5/nRF24_HAL.c ****     memcpy(&data_to_nrf[1], data, size);
+ 524              		.loc 1 223 0
+ 525 0098 7B69     		ldr	r3, [r7, #20]
+ 526 009a 0133     		adds	r3, r3, #1
+ 527 009c 7A68     		ldr	r2, [r7, #4]
+ 528 009e B968     		ldr	r1, [r7, #8]
+ 529 00a0 1846     		mov	r0, r3
+ 530 00a2 FFF7FEFF 		bl	memcpy
+ 224:Generated_Source\PSoC5/nRF24_HAL.c **** 
+ 225:Generated_Source\PSoC5/nRF24_HAL.c ****     nRF24_spi_xfer(data_to_nrf, data_from_nrf, sizeof(data_to_nrf));
+ 531              		.loc 1 225 0
+ 532 00a6 7869     		ldr	r0, [r7, #20]
+ 533 00a8 3969     		ldr	r1, [r7, #16]
+ 534 00aa 7B68     		ldr	r3, [r7, #4]
+ 535 00ac 0133     		adds	r3, r3, #1
+ 536 00ae 1A46     		mov	r2, r3
+ 537 00b0 FFF7FEFF 		bl	nRF24_spi_xfer
+ 538 00b4 D7F800D0 		ldr	sp, [r7]
+ 226:Generated_Source\PSoC5/nRF24_HAL.c **** }
+ 539              		.loc 1 226 0
+ 540 00b8 00BF     		nop
+ 541 00ba 1C37     		adds	r7, r7, #28
+ 542              		.cfi_def_cfa_offset 36
+ 543 00bc BD46     		mov	sp, r7
+ 544              		.cfi_def_cfa_register 13
+ 545              		@ sp needed
+ 546 00be BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 547              		.cfi_endproc
+ 548              	.LFE7:
+ 549              		.size	nRF24_write_long_register, .-nRF24_write_long_register
+ 550 00c2 00BF     		.section	.text.nRF24_read_bit,"ax",%progbits
+ 551              		.align	2
+ 552              		.global	nRF24_read_bit
+ 553              		.thumb
+ 554              		.thumb_func
+ 555              		.type	nRF24_read_bit, %function
+ 556              	nRF24_read_bit:
+ 557              	.LFB8:
+ 227:Generated_Source\PSoC5/nRF24_HAL.c **** 
+ 228:Generated_Source\PSoC5/nRF24_HAL.c **** /**
+ 229:Generated_Source\PSoC5/nRF24_HAL.c ****  * Read the content of the specified bit of the specified nrf_register.
+ 230:Generated_Source\PSoC5/nRF24_HAL.c ****  *
+ 231:Generated_Source\PSoC5/nRF24_HAL.c ****  * @param const nrf_register reg: Register to be read.
+ 232:Generated_Source\PSoC5/nRF24_HAL.c ****  * @param uint8_t bit: Bit to be read.
+ 233:Generated_Source\PSoC5/nRF24_HAL.c ****  *
+ 234:Generated_Source\PSoC5/nRF24_HAL.c ****  * @return bool: Return the content of the bit.
+ 235:Generated_Source\PSoC5/nRF24_HAL.c ****  */
+ 236:Generated_Source\PSoC5/nRF24_HAL.c **** bool nRF24_read_bit(const nrf_register reg, const uint8_t bit)
+ 237:Generated_Source\PSoC5/nRF24_HAL.c **** {
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 15
+
+
+ 558              		.loc 1 237 0
+ 559              		.cfi_startproc
+ 560              		@ args = 0, pretend = 0, frame = 8
+ 561              		@ frame_needed = 1, uses_anonymous_args = 0
+ 562 0000 80B5     		push	{r7, lr}
+ 563              		.cfi_def_cfa_offset 8
+ 564              		.cfi_offset 7, -8
+ 565              		.cfi_offset 14, -4
+ 566 0002 82B0     		sub	sp, sp, #8
+ 567              		.cfi_def_cfa_offset 16
+ 568 0004 00AF     		add	r7, sp, #0
+ 569              		.cfi_def_cfa_register 7
+ 570 0006 0346     		mov	r3, r0
+ 571 0008 0A46     		mov	r2, r1
+ 572 000a FB71     		strb	r3, [r7, #7]
+ 573 000c 1346     		mov	r3, r2
+ 574 000e BB71     		strb	r3, [r7, #6]
+ 238:Generated_Source\PSoC5/nRF24_HAL.c ****     return (nRF24_read_register(reg) & (1 << bit)) != 0;
+ 575              		.loc 1 238 0
+ 576 0010 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 577 0012 1846     		mov	r0, r3
+ 578 0014 FFF7FEFF 		bl	nRF24_read_register
+ 579 0018 0346     		mov	r3, r0
+ 580 001a 1A46     		mov	r2, r3
+ 581 001c BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 582 001e 42FA03F3 		asr	r3, r2, r3
+ 583 0022 03F00103 		and	r3, r3, #1
+ 584 0026 002B     		cmp	r3, #0
+ 585 0028 14BF     		ite	ne
+ 586 002a 0123     		movne	r3, #1
+ 587 002c 0023     		moveq	r3, #0
+ 588 002e DBB2     		uxtb	r3, r3
+ 239:Generated_Source\PSoC5/nRF24_HAL.c **** }
+ 589              		.loc 1 239 0
+ 590 0030 1846     		mov	r0, r3
+ 591 0032 0837     		adds	r7, r7, #8
+ 592              		.cfi_def_cfa_offset 8
+ 593 0034 BD46     		mov	sp, r7
+ 594              		.cfi_def_cfa_register 13
+ 595              		@ sp needed
+ 596 0036 80BD     		pop	{r7, pc}
+ 597              		.cfi_endproc
+ 598              	.LFE8:
+ 599              		.size	nRF24_read_bit, .-nRF24_read_bit
+ 600              		.section	.text.nRF24_write_bit,"ax",%progbits
+ 601              		.align	2
+ 602              		.thumb
+ 603              		.thumb_func
+ 604              		.type	nRF24_write_bit, %function
+ 605              	nRF24_write_bit:
+ 606              	.LFB9:
+ 240:Generated_Source\PSoC5/nRF24_HAL.c **** 
+ 241:Generated_Source\PSoC5/nRF24_HAL.c **** /**
+ 242:Generated_Source\PSoC5/nRF24_HAL.c ****  * Set (1) or clear (0) the specified bit of the specified nRF24 register.
+ 243:Generated_Source\PSoC5/nRF24_HAL.c ****  *
+ 244:Generated_Source\PSoC5/nRF24_HAL.c ****  * First we read the specified register and check the content of the specified
+ 245:Generated_Source\PSoC5/nRF24_HAL.c ****  * bit, exit early if the bit already is the value we wanted, otherwise we set
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 16
+
+
+ 246:Generated_Source\PSoC5/nRF24_HAL.c ****  * the bit to the specified value.
+ 247:Generated_Source\PSoC5/nRF24_HAL.c ****  *
+ 248:Generated_Source\PSoC5/nRF24_HAL.c ****  * @param const nrf_register reg: Register to be written.
+ 249:Generated_Source\PSoC5/nRF24_HAL.c ****  * @param const uint8_t bit: Position of the bit to be written.
+ 250:Generated_Source\PSoC5/nRF24_HAL.c ****  * @param const bool value: Value (1 or 0) to write into the bit.
+ 251:Generated_Source\PSoC5/nRF24_HAL.c ****  */
+ 252:Generated_Source\PSoC5/nRF24_HAL.c **** static void nRF24_write_bit(const nrf_register reg,
+ 253:Generated_Source\PSoC5/nRF24_HAL.c ****                                   const uint8_t bit, const bool value)
+ 254:Generated_Source\PSoC5/nRF24_HAL.c **** {
+ 607              		.loc 1 254 0
+ 608              		.cfi_startproc
+ 609              		@ args = 0, pretend = 0, frame = 16
+ 610              		@ frame_needed = 1, uses_anonymous_args = 0
+ 611 0000 80B5     		push	{r7, lr}
+ 612              		.cfi_def_cfa_offset 8
+ 613              		.cfi_offset 7, -8
+ 614              		.cfi_offset 14, -4
+ 615 0002 84B0     		sub	sp, sp, #16
+ 616              		.cfi_def_cfa_offset 24
+ 617 0004 00AF     		add	r7, sp, #0
+ 618              		.cfi_def_cfa_register 7
+ 619 0006 0346     		mov	r3, r0
+ 620 0008 FB71     		strb	r3, [r7, #7]
+ 621 000a 0B46     		mov	r3, r1
+ 622 000c BB71     		strb	r3, [r7, #6]
+ 623 000e 1346     		mov	r3, r2
+ 624 0010 7B71     		strb	r3, [r7, #5]
+ 255:Generated_Source\PSoC5/nRF24_HAL.c ****     uint8_t temp = nRF24_read_register(reg);
+ 625              		.loc 1 255 0
+ 626 0012 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 627 0014 1846     		mov	r0, r3
+ 628 0016 FFF7FEFF 		bl	nRF24_read_register
+ 629 001a 0346     		mov	r3, r0
+ 630 001c FB73     		strb	r3, [r7, #15]
+ 256:Generated_Source\PSoC5/nRF24_HAL.c **** 
+ 257:Generated_Source\PSoC5/nRF24_HAL.c ****     // Read the bit value before writing to it.
+ 258:Generated_Source\PSoC5/nRF24_HAL.c ****     // Check if the bit is 1
+ 259:Generated_Source\PSoC5/nRF24_HAL.c ****     if ((temp & (1 << bit)) != 0) {
+ 631              		.loc 1 259 0
+ 632 001e FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 633 0020 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 634 0022 42FA03F3 		asr	r3, r2, r3
+ 635 0026 03F00103 		and	r3, r3, #1
+ 636 002a 002B     		cmp	r3, #0
+ 637 002c 03D0     		beq	.L22
+ 260:Generated_Source\PSoC5/nRF24_HAL.c ****         // it is 1, return if we wanted to set it to 1
+ 261:Generated_Source\PSoC5/nRF24_HAL.c ****         if (value) {
+ 638              		.loc 1 261 0
+ 639 002e 7B79     		ldrb	r3, [r7, #5]	@ zero_extendqisi2
+ 640 0030 002B     		cmp	r3, #0
+ 641 0032 06D0     		beq	.L23
+ 262:Generated_Source\PSoC5/nRF24_HAL.c ****             return;
+ 642              		.loc 1 262 0
+ 643 0034 28E0     		b	.L21
+ 644              	.L22:
+ 263:Generated_Source\PSoC5/nRF24_HAL.c ****         }
+ 264:Generated_Source\PSoC5/nRF24_HAL.c ****     } else { // the bit is 0
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 17
+
+
+ 265:Generated_Source\PSoC5/nRF24_HAL.c ****         // it is 0, return if we wanted to set it to 0
+ 266:Generated_Source\PSoC5/nRF24_HAL.c ****         if (!value) {
+ 645              		.loc 1 266 0
+ 646 0036 7B79     		ldrb	r3, [r7, #5]
+ 647 0038 83F00103 		eor	r3, r3, #1
+ 648 003c DBB2     		uxtb	r3, r3
+ 649 003e 002B     		cmp	r3, #0
+ 650 0040 21D1     		bne	.L27
+ 651              	.L23:
+ 267:Generated_Source\PSoC5/nRF24_HAL.c ****             return;
+ 268:Generated_Source\PSoC5/nRF24_HAL.c ****         }
+ 269:Generated_Source\PSoC5/nRF24_HAL.c ****     }
+ 270:Generated_Source\PSoC5/nRF24_HAL.c **** 
+ 271:Generated_Source\PSoC5/nRF24_HAL.c ****     // Calculate the new value to be written into the register
+ 272:Generated_Source\PSoC5/nRF24_HAL.c ****     temp = value ? temp | (1 << bit) : temp & ~(1 << bit);
+ 652              		.loc 1 272 0
+ 653 0042 7B79     		ldrb	r3, [r7, #5]	@ zero_extendqisi2
+ 654 0044 002B     		cmp	r3, #0
+ 655 0046 0AD0     		beq	.L25
+ 656              		.loc 1 272 0 is_stmt 0 discriminator 1
+ 657 0048 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 658 004a 0122     		movs	r2, #1
+ 659 004c 02FA03F3 		lsl	r3, r2, r3
+ 660 0050 5AB2     		sxtb	r2, r3
+ 661 0052 97F90F30 		ldrsb	r3, [r7, #15]
+ 662 0056 1343     		orrs	r3, r3, r2
+ 663 0058 5BB2     		sxtb	r3, r3
+ 664 005a DBB2     		uxtb	r3, r3
+ 665 005c 0BE0     		b	.L26
+ 666              	.L25:
+ 667              		.loc 1 272 0 discriminator 2
+ 668 005e BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 669 0060 0122     		movs	r2, #1
+ 670 0062 02FA03F3 		lsl	r3, r2, r3
+ 671 0066 5BB2     		sxtb	r3, r3
+ 672 0068 DB43     		mvns	r3, r3
+ 673 006a 5AB2     		sxtb	r2, r3
+ 674 006c 97F90F30 		ldrsb	r3, [r7, #15]
+ 675 0070 1340     		ands	r3, r3, r2
+ 676 0072 5BB2     		sxtb	r3, r3
+ 677 0074 DBB2     		uxtb	r3, r3
+ 678              	.L26:
+ 679              		.loc 1 272 0 discriminator 4
+ 680 0076 FB73     		strb	r3, [r7, #15]
+ 273:Generated_Source\PSoC5/nRF24_HAL.c **** 
+ 274:Generated_Source\PSoC5/nRF24_HAL.c ****     nRF24_write_register(reg, temp);
+ 681              		.loc 1 274 0 is_stmt 1 discriminator 4
+ 682 0078 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 683 007a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 684 007c 1146     		mov	r1, r2
+ 685 007e 1846     		mov	r0, r3
+ 686 0080 FFF7FEFF 		bl	nRF24_write_register
+ 687 0084 00E0     		b	.L21
+ 688              	.L27:
+ 267:Generated_Source\PSoC5/nRF24_HAL.c ****             return;
+ 689              		.loc 1 267 0
+ 690 0086 00BF     		nop
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 18
+
+
+ 691              	.L21:
+ 275:Generated_Source\PSoC5/nRF24_HAL.c **** }
+ 692              		.loc 1 275 0
+ 693 0088 1037     		adds	r7, r7, #16
+ 694              		.cfi_def_cfa_offset 8
+ 695 008a BD46     		mov	sp, r7
+ 696              		.cfi_def_cfa_register 13
+ 697              		@ sp needed
+ 698 008c 80BD     		pop	{r7, pc}
+ 699              		.cfi_endproc
+ 700              	.LFE9:
+ 701              		.size	nRF24_write_bit, .-nRF24_write_bit
+ 702 008e 00BF     		.section	.text.nRF24_clear_bit,"ax",%progbits
+ 703              		.align	2
+ 704              		.global	nRF24_clear_bit
+ 705              		.thumb
+ 706              		.thumb_func
+ 707              		.type	nRF24_clear_bit, %function
+ 708              	nRF24_clear_bit:
+ 709              	.LFB10:
+ 276:Generated_Source\PSoC5/nRF24_HAL.c **** 
+ 277:Generated_Source\PSoC5/nRF24_HAL.c **** /**
+ 278:Generated_Source\PSoC5/nRF24_HAL.c ****  * Set to 0 the specified bit of the specified nRF24 register.
+ 279:Generated_Source\PSoC5/nRF24_HAL.c ****  *
+ 280:Generated_Source\PSoC5/nRF24_HAL.c ****  * @param const nrf_register reg: Register to be written.
+ 281:Generated_Source\PSoC5/nRF24_HAL.c ****  * @param const uint8_t bit: Bit to be written.
+ 282:Generated_Source\PSoC5/nRF24_HAL.c ****  */
+ 283:Generated_Source\PSoC5/nRF24_HAL.c **** void nRF24_clear_bit(const nrf_register reg, const uint8_t bit)
+ 284:Generated_Source\PSoC5/nRF24_HAL.c **** {
+ 710              		.loc 1 284 0
+ 711              		.cfi_startproc
+ 712              		@ args = 0, pretend = 0, frame = 8
+ 713              		@ frame_needed = 1, uses_anonymous_args = 0
+ 714 0000 80B5     		push	{r7, lr}
+ 715              		.cfi_def_cfa_offset 8
+ 716              		.cfi_offset 7, -8
+ 717              		.cfi_offset 14, -4
+ 718 0002 82B0     		sub	sp, sp, #8
+ 719              		.cfi_def_cfa_offset 16
+ 720 0004 00AF     		add	r7, sp, #0
+ 721              		.cfi_def_cfa_register 7
+ 722 0006 0346     		mov	r3, r0
+ 723 0008 0A46     		mov	r2, r1
+ 724 000a FB71     		strb	r3, [r7, #7]
+ 725 000c 1346     		mov	r3, r2
+ 726 000e BB71     		strb	r3, [r7, #6]
+ 285:Generated_Source\PSoC5/nRF24_HAL.c ****     if (8 < bit) {
+ 727              		.loc 1 285 0
+ 728 0010 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 729 0012 082B     		cmp	r3, #8
+ 730 0014 06D8     		bhi	.L31
+ 286:Generated_Source\PSoC5/nRF24_HAL.c ****         return;
+ 287:Generated_Source\PSoC5/nRF24_HAL.c ****     }
+ 288:Generated_Source\PSoC5/nRF24_HAL.c **** 
+ 289:Generated_Source\PSoC5/nRF24_HAL.c ****     nRF24_write_bit(reg, bit, 0);
+ 731              		.loc 1 289 0
+ 732 0016 B979     		ldrb	r1, [r7, #6]	@ zero_extendqisi2
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 19
+
+
+ 733 0018 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 734 001a 0022     		movs	r2, #0
+ 735 001c 1846     		mov	r0, r3
+ 736 001e FFF7FEFF 		bl	nRF24_write_bit
+ 737 0022 00E0     		b	.L28
+ 738              	.L31:
+ 286:Generated_Source\PSoC5/nRF24_HAL.c ****         return;
+ 739              		.loc 1 286 0
+ 740 0024 00BF     		nop
+ 741              	.L28:
+ 290:Generated_Source\PSoC5/nRF24_HAL.c **** }
+ 742              		.loc 1 290 0
+ 743 0026 0837     		adds	r7, r7, #8
+ 744              		.cfi_def_cfa_offset 8
+ 745 0028 BD46     		mov	sp, r7
+ 746              		.cfi_def_cfa_register 13
+ 747              		@ sp needed
+ 748 002a 80BD     		pop	{r7, pc}
+ 749              		.cfi_endproc
+ 750              	.LFE10:
+ 751              		.size	nRF24_clear_bit, .-nRF24_clear_bit
+ 752              		.section	.text.nRF24_set_bit,"ax",%progbits
+ 753              		.align	2
+ 754              		.global	nRF24_set_bit
+ 755              		.thumb
+ 756              		.thumb_func
+ 757              		.type	nRF24_set_bit, %function
+ 758              	nRF24_set_bit:
+ 759              	.LFB11:
+ 291:Generated_Source\PSoC5/nRF24_HAL.c **** 
+ 292:Generated_Source\PSoC5/nRF24_HAL.c **** /**
+ 293:Generated_Source\PSoC5/nRF24_HAL.c ****  * Set to 1 the specified bit of the specified nRF24 register.
+ 294:Generated_Source\PSoC5/nRF24_HAL.c ****  *
+ 295:Generated_Source\PSoC5/nRF24_HAL.c ****  * @param const nrf_register reg: Register to be written.
+ 296:Generated_Source\PSoC5/nRF24_HAL.c ****  * @param const uint8_t bit: Bit to be written.
+ 297:Generated_Source\PSoC5/nRF24_HAL.c ****  */
+ 298:Generated_Source\PSoC5/nRF24_HAL.c **** void nRF24_set_bit(const nrf_register reg, const uint8_t bit)
+ 299:Generated_Source\PSoC5/nRF24_HAL.c **** {
+ 760              		.loc 1 299 0
+ 761              		.cfi_startproc
+ 762              		@ args = 0, pretend = 0, frame = 8
+ 763              		@ frame_needed = 1, uses_anonymous_args = 0
+ 764 0000 80B5     		push	{r7, lr}
+ 765              		.cfi_def_cfa_offset 8
+ 766              		.cfi_offset 7, -8
+ 767              		.cfi_offset 14, -4
+ 768 0002 82B0     		sub	sp, sp, #8
+ 769              		.cfi_def_cfa_offset 16
+ 770 0004 00AF     		add	r7, sp, #0
+ 771              		.cfi_def_cfa_register 7
+ 772 0006 0346     		mov	r3, r0
+ 773 0008 0A46     		mov	r2, r1
+ 774 000a FB71     		strb	r3, [r7, #7]
+ 775 000c 1346     		mov	r3, r2
+ 776 000e BB71     		strb	r3, [r7, #6]
+ 300:Generated_Source\PSoC5/nRF24_HAL.c ****     if (8 < bit) {
+ 777              		.loc 1 300 0
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 20
+
+
+ 778 0010 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 779 0012 082B     		cmp	r3, #8
+ 780 0014 06D8     		bhi	.L35
+ 301:Generated_Source\PSoC5/nRF24_HAL.c ****         return;
+ 302:Generated_Source\PSoC5/nRF24_HAL.c ****     }
+ 303:Generated_Source\PSoC5/nRF24_HAL.c **** 
+ 304:Generated_Source\PSoC5/nRF24_HAL.c ****     nRF24_write_bit(reg, bit, 1);
+ 781              		.loc 1 304 0
+ 782 0016 B979     		ldrb	r1, [r7, #6]	@ zero_extendqisi2
+ 783 0018 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 784 001a 0122     		movs	r2, #1
+ 785 001c 1846     		mov	r0, r3
+ 786 001e FFF7FEFF 		bl	nRF24_write_bit
+ 787 0022 00E0     		b	.L32
+ 788              	.L35:
+ 301:Generated_Source\PSoC5/nRF24_HAL.c ****         return;
+ 789              		.loc 1 301 0
+ 790 0024 00BF     		nop
+ 791              	.L32:
+ 305:Generated_Source\PSoC5/nRF24_HAL.c **** }
+ 792              		.loc 1 305 0
+ 793 0026 0837     		adds	r7, r7, #8
+ 794              		.cfi_def_cfa_offset 8
+ 795 0028 BD46     		mov	sp, r7
+ 796              		.cfi_def_cfa_register 13
+ 797              		@ sp needed
+ 798 002a 80BD     		pop	{r7, pc}
+ 799              		.cfi_endproc
+ 800              	.LFE11:
+ 801              		.size	nRF24_set_bit, .-nRF24_set_bit
+ 802              		.text
+ 803              	.Letext0:
+ 804              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 805              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 806              		.file 4 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 807              		.file 5 "Generated_Source\\PSoC5\\cytypes.h"
+ 808              		.file 6 "Generated_Source\\PSoC5\\nRF24_DEFS.h"
+ 809              		.file 7 "Generated_Source\\PSoC5\\nRF24_HAL.h"
+ 810              		.section	.debug_info,"",%progbits
+ 811              	.Ldebug_info0:
+ 812 0000 61050000 		.4byte	0x561
+ 813 0004 0400     		.2byte	0x4
+ 814 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 815 000a 04       		.byte	0x4
+ 816 000b 01       		.uleb128 0x1
+ 817 000c CD000000 		.4byte	.LASF82
+ 818 0010 0C       		.byte	0xc
+ 819 0011 96020000 		.4byte	.LASF83
+ 820 0015 72000000 		.4byte	.LASF84
+ 821 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 822 001d 00000000 		.4byte	0
+ 823 0021 00000000 		.4byte	.Ldebug_line0
+ 824 0025 02       		.uleb128 0x2
+ 825 0026 01       		.byte	0x1
+ 826 0027 06       		.byte	0x6
+ 827 0028 03040000 		.4byte	.LASF0
+ 828 002c 03       		.uleb128 0x3
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 21
+
+
+ 829 002d F0020000 		.4byte	.LASF9
+ 830 0031 02       		.byte	0x2
+ 831 0032 1D       		.byte	0x1d
+ 832 0033 37000000 		.4byte	0x37
+ 833 0037 02       		.uleb128 0x2
+ 834 0038 01       		.byte	0x1
+ 835 0039 08       		.byte	0x8
+ 836 003a 2D030000 		.4byte	.LASF1
+ 837 003e 02       		.uleb128 0x2
+ 838 003f 02       		.byte	0x2
+ 839 0040 05       		.byte	0x5
+ 840 0041 A3010000 		.4byte	.LASF2
+ 841 0045 02       		.uleb128 0x2
+ 842 0046 02       		.byte	0x2
+ 843 0047 07       		.byte	0x7
+ 844 0048 94040000 		.4byte	.LASF3
+ 845 004c 02       		.uleb128 0x2
+ 846 004d 04       		.byte	0x4
+ 847 004e 05       		.byte	0x5
+ 848 004f B9020000 		.4byte	.LASF4
+ 849 0053 02       		.uleb128 0x2
+ 850 0054 04       		.byte	0x4
+ 851 0055 07       		.byte	0x7
+ 852 0056 E4040000 		.4byte	.LASF5
+ 853 005a 02       		.uleb128 0x2
+ 854 005b 08       		.byte	0x8
+ 855 005c 05       		.byte	0x5
+ 856 005d 7E020000 		.4byte	.LASF6
+ 857 0061 02       		.uleb128 0x2
+ 858 0062 08       		.byte	0x8
+ 859 0063 07       		.byte	0x7
+ 860 0064 0F040000 		.4byte	.LASF7
+ 861 0068 04       		.uleb128 0x4
+ 862 0069 04       		.byte	0x4
+ 863 006a 05       		.byte	0x5
+ 864 006b 696E7400 		.ascii	"int\000"
+ 865 006f 02       		.uleb128 0x2
+ 866 0070 04       		.byte	0x4
+ 867 0071 07       		.byte	0x7
+ 868 0072 3B040000 		.4byte	.LASF8
+ 869 0076 03       		.uleb128 0x3
+ 870 0077 E3010000 		.4byte	.LASF10
+ 871 007b 03       		.byte	0x3
+ 872 007c 18       		.byte	0x18
+ 873 007d 2C000000 		.4byte	0x2c
+ 874 0081 03       		.uleb128 0x3
+ 875 0082 62000000 		.4byte	.LASF11
+ 876 0086 04       		.byte	0x4
+ 877 0087 D8       		.byte	0xd8
+ 878 0088 6F000000 		.4byte	0x6f
+ 879 008c 02       		.uleb128 0x2
+ 880 008d 08       		.byte	0x8
+ 881 008e 04       		.byte	0x4
+ 882 008f 4A030000 		.4byte	.LASF12
+ 883 0093 02       		.uleb128 0x2
+ 884 0094 04       		.byte	0x4
+ 885 0095 07       		.byte	0x7
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 22
+
+
+ 886 0096 69000000 		.4byte	.LASF13
+ 887 009a 02       		.uleb128 0x2
+ 888 009b 01       		.byte	0x1
+ 889 009c 08       		.byte	0x8
+ 890 009d 8F040000 		.4byte	.LASF14
+ 891 00a1 03       		.uleb128 0x3
+ 892 00a2 08020000 		.4byte	.LASF15
+ 893 00a6 05       		.byte	0x5
+ 894 00a7 A1       		.byte	0xa1
+ 895 00a8 37000000 		.4byte	0x37
+ 896 00ac 02       		.uleb128 0x2
+ 897 00ad 04       		.byte	0x4
+ 898 00ae 04       		.byte	0x4
+ 899 00af 64020000 		.4byte	.LASF16
+ 900 00b3 02       		.uleb128 0x2
+ 901 00b4 08       		.byte	0x8
+ 902 00b5 04       		.byte	0x4
+ 903 00b6 F6040000 		.4byte	.LASF17
+ 904 00ba 05       		.uleb128 0x5
+ 905 00bb 01       		.byte	0x1
+ 906 00bc 37000000 		.4byte	0x37
+ 907 00c0 06       		.byte	0x6
+ 908 00c1 1E       		.byte	0x1e
+ 909 00c2 63010000 		.4byte	0x163
+ 910 00c6 06       		.uleb128 0x6
+ 911 00c7 1A050000 		.4byte	.LASF18
+ 912 00cb 00       		.byte	0
+ 913 00cc 06       		.uleb128 0x6
+ 914 00cd D5010000 		.4byte	.LASF19
+ 915 00d1 01       		.byte	0x1
+ 916 00d2 06       		.uleb128 0x6
+ 917 00d3 38000000 		.4byte	.LASF20
+ 918 00d7 02       		.byte	0x2
+ 919 00d8 06       		.uleb128 0x6
+ 920 00d9 52050000 		.4byte	.LASF21
+ 921 00dd 03       		.byte	0x3
+ 922 00de 06       		.uleb128 0x6
+ 923 00df 29050000 		.4byte	.LASF22
+ 924 00e3 04       		.byte	0x4
+ 925 00e4 06       		.uleb128 0x6
+ 926 00e5 0E020000 		.4byte	.LASF23
+ 927 00e9 05       		.byte	0x5
+ 928 00ea 06       		.uleb128 0x6
+ 929 00eb 11000000 		.4byte	.LASF24
+ 930 00ef 06       		.byte	0x6
+ 931 00f0 06       		.uleb128 0x6
+ 932 00f1 F9010000 		.4byte	.LASF25
+ 933 00f5 07       		.byte	0x7
+ 934 00f6 06       		.uleb128 0x6
+ 935 00f7 4F000000 		.4byte	.LASF26
+ 936 00fb 08       		.byte	0x8
+ 937 00fc 06       		.uleb128 0x6
+ 938 00fd C2020000 		.4byte	.LASF27
+ 939 0101 09       		.byte	0x9
+ 940 0102 06       		.uleb128 0x6
+ 941 0103 56030000 		.4byte	.LASF28
+ 942 0107 0A       		.byte	0xa
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 23
+
+
+ 943 0108 06       		.uleb128 0x6
+ 944 0109 69030000 		.4byte	.LASF29
+ 945 010d 0B       		.byte	0xb
+ 946 010e 06       		.uleb128 0x6
+ 947 010f 7C030000 		.4byte	.LASF30
+ 948 0113 0C       		.byte	0xc
+ 949 0114 06       		.uleb128 0x6
+ 950 0115 8F030000 		.4byte	.LASF31
+ 951 0119 0D       		.byte	0xd
+ 952 011a 06       		.uleb128 0x6
+ 953 011b A2030000 		.4byte	.LASF32
+ 954 011f 0E       		.byte	0xe
+ 955 0120 06       		.uleb128 0x6
+ 956 0121 B5030000 		.4byte	.LASF33
+ 957 0125 0F       		.byte	0xf
+ 958 0126 06       		.uleb128 0x6
+ 959 0127 E0020000 		.4byte	.LASF34
+ 960 012b 10       		.byte	0x10
+ 961 012c 06       		.uleb128 0x6
+ 962 012d 97050000 		.4byte	.LASF35
+ 963 0131 11       		.byte	0x11
+ 964 0132 06       		.uleb128 0x6
+ 965 0133 81010000 		.4byte	.LASF36
+ 966 0137 12       		.byte	0x12
+ 967 0138 06       		.uleb128 0x6
+ 968 0139 92010000 		.4byte	.LASF37
+ 969 013d 13       		.byte	0x13
+ 970 013e 06       		.uleb128 0x6
+ 971 013f B1050000 		.4byte	.LASF38
+ 972 0143 14       		.byte	0x14
+ 973 0144 06       		.uleb128 0x6
+ 974 0145 AD010000 		.4byte	.LASF39
+ 975 0149 15       		.byte	0x15
+ 976 014a 06       		.uleb128 0x6
+ 977 014b BE010000 		.4byte	.LASF40
+ 978 014f 16       		.byte	0x16
+ 979 0150 06       		.uleb128 0x6
+ 980 0151 6D010000 		.4byte	.LASF41
+ 981 0155 17       		.byte	0x17
+ 982 0156 06       		.uleb128 0x6
+ 983 0157 AD040000 		.4byte	.LASF42
+ 984 015b 1C       		.byte	0x1c
+ 985 015c 06       		.uleb128 0x6
+ 986 015d 22000000 		.4byte	.LASF43
+ 987 0161 1D       		.byte	0x1d
+ 988 0162 00       		.byte	0
+ 989 0163 03       		.uleb128 0x3
+ 990 0164 48040000 		.4byte	.LASF44
+ 991 0168 06       		.byte	0x6
+ 992 0169 39       		.byte	0x39
+ 993 016a BA000000 		.4byte	0xba
+ 994 016e 05       		.uleb128 0x5
+ 995 016f 01       		.byte	0x1
+ 996 0170 37000000 		.4byte	0x37
+ 997 0174 06       		.byte	0x6
+ 998 0175 3C       		.byte	0x3c
+ 999 0176 BD010000 		.4byte	0x1bd
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 24
+
+
+ 1000 017a 06       		.uleb128 0x6
+ 1001 017b 64040000 		.4byte	.LASF45
+ 1002 017f 00       		.byte	0
+ 1003 0180 06       		.uleb128 0x6
+ 1004 0181 77040000 		.4byte	.LASF46
+ 1005 0185 20       		.byte	0x20
+ 1006 0186 06       		.uleb128 0x6
+ 1007 0187 EE030000 		.4byte	.LASF47
+ 1008 018b 61       		.byte	0x61
+ 1009 018c 06       		.uleb128 0x6
+ 1010 018d 1C020000 		.4byte	.LASF48
+ 1011 0191 A0       		.byte	0xa0
+ 1012 0192 06       		.uleb128 0x6
+ 1013 0193 00000000 		.4byte	.LASF49
+ 1014 0197 E1       		.byte	0xe1
+ 1015 0198 06       		.uleb128 0x6
+ 1016 0199 C8030000 		.4byte	.LASF50
+ 1017 019d E2       		.byte	0xe2
+ 1018 019e 06       		.uleb128 0x6
+ 1019 019f 06050000 		.4byte	.LASF51
+ 1020 01a3 E3       		.byte	0xe3
+ 1021 01a4 06       		.uleb128 0x6
+ 1022 01a5 C0040000 		.4byte	.LASF52
+ 1023 01a9 60       		.byte	0x60
+ 1024 01aa 06       		.uleb128 0x6
+ 1025 01ab 3C050000 		.4byte	.LASF53
+ 1026 01af A8       		.byte	0xa8
+ 1027 01b0 06       		.uleb128 0x6
+ 1028 01b1 63050000 		.4byte	.LASF54
+ 1029 01b5 B0       		.byte	0xb0
+ 1030 01b6 06       		.uleb128 0x6
+ 1031 01b7 CE020000 		.4byte	.LASF55
+ 1032 01bb FF       		.byte	0xff
+ 1033 01bc 00       		.byte	0
+ 1034 01bd 05       		.uleb128 0x5
+ 1035 01be 01       		.byte	0x1
+ 1036 01bf 37000000 		.4byte	0x37
+ 1037 01c3 07       		.byte	0x7
+ 1038 01c4 2A       		.byte	0x2a
+ 1039 01c5 D6010000 		.4byte	0x1d6
+ 1040 01c9 06       		.uleb128 0x6
+ 1041 01ca 59020000 		.4byte	.LASF56
+ 1042 01ce 00       		.byte	0
+ 1043 01cf 06       		.uleb128 0x6
+ 1044 01d0 A8050000 		.4byte	.LASF57
+ 1045 01d4 01       		.byte	0x1
+ 1046 01d5 00       		.byte	0
+ 1047 01d6 03       		.uleb128 0x3
+ 1048 01d7 64010000 		.4byte	.LASF58
+ 1049 01db 07       		.byte	0x7
+ 1050 01dc 2D       		.byte	0x2d
+ 1051 01dd BD010000 		.4byte	0x1bd
+ 1052 01e1 07       		.uleb128 0x7
+ 1053 01e2 55040000 		.4byte	.LASF59
+ 1054 01e6 01       		.byte	0x1
+ 1055 01e7 32       		.byte	0x32
+ 1056 01e8 00000000 		.4byte	.LFB0
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 25
+
+
+ 1057 01ec 26000000 		.4byte	.LFE0-.LFB0
+ 1058 01f0 01       		.uleb128 0x1
+ 1059 01f1 9C       		.byte	0x9c
+ 1060 01f2 05020000 		.4byte	0x205
+ 1061 01f6 08       		.uleb128 0x8
+ 1062 01f7 32000000 		.4byte	.LASF61
+ 1063 01fb 01       		.byte	0x1
+ 1064 01fc 32       		.byte	0x32
+ 1065 01fd D6010000 		.4byte	0x1d6
+ 1066 0201 02       		.uleb128 0x2
+ 1067 0202 91       		.byte	0x91
+ 1068 0203 77       		.sleb128 -9
+ 1069 0204 00       		.byte	0
+ 1070 0205 07       		.uleb128 0x7
+ 1071 0206 C2050000 		.4byte	.LASF60
+ 1072 020a 01       		.byte	0x1
+ 1073 020b 43       		.byte	0x43
+ 1074 020c 00000000 		.4byte	.LFB1
+ 1075 0210 26000000 		.4byte	.LFE1-.LFB1
+ 1076 0214 01       		.uleb128 0x1
+ 1077 0215 9C       		.byte	0x9c
+ 1078 0216 29020000 		.4byte	0x229
+ 1079 021a 08       		.uleb128 0x8
+ 1080 021b 32000000 		.4byte	.LASF61
+ 1081 021f 01       		.byte	0x1
+ 1082 0220 43       		.byte	0x43
+ 1083 0221 D6010000 		.4byte	0x1d6
+ 1084 0225 02       		.uleb128 0x2
+ 1085 0226 91       		.byte	0x91
+ 1086 0227 77       		.sleb128 -9
+ 1087 0228 00       		.byte	0
+ 1088 0229 07       		.uleb128 0x7
+ 1089 022a 7E050000 		.4byte	.LASF62
+ 1090 022e 01       		.byte	0x1
+ 1091 022f 65       		.byte	0x65
+ 1092 0230 00000000 		.4byte	.LFB2
+ 1093 0234 64000000 		.4byte	.LFE2-.LFB2
+ 1094 0238 01       		.uleb128 0x1
+ 1095 0239 9C       		.byte	0x9c
+ 1096 023a 7E020000 		.4byte	0x27e
+ 1097 023e 09       		.uleb128 0x9
+ 1098 023f 696E00   		.ascii	"in\000"
+ 1099 0242 01       		.byte	0x1
+ 1100 0243 65       		.byte	0x65
+ 1101 0244 7E020000 		.4byte	0x27e
+ 1102 0248 02       		.uleb128 0x2
+ 1103 0249 91       		.byte	0x91
+ 1104 024a 64       		.sleb128 -28
+ 1105 024b 09       		.uleb128 0x9
+ 1106 024c 6F757400 		.ascii	"out\000"
+ 1107 0250 01       		.byte	0x1
+ 1108 0251 65       		.byte	0x65
+ 1109 0252 89020000 		.4byte	0x289
+ 1110 0256 02       		.uleb128 0x2
+ 1111 0257 91       		.byte	0x91
+ 1112 0258 60       		.sleb128 -32
+ 1113 0259 08       		.uleb128 0x8
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 26
+
+
+ 1114 025a 8D050000 		.4byte	.LASF63
+ 1115 025e 01       		.byte	0x1
+ 1116 025f 65       		.byte	0x65
+ 1117 0260 8F020000 		.4byte	0x28f
+ 1118 0264 02       		.uleb128 0x2
+ 1119 0265 91       		.byte	0x91
+ 1120 0266 5C       		.sleb128 -36
+ 1121 0267 0A       		.uleb128 0xa
+ 1122 0268 16000000 		.4byte	.LBB2
+ 1123 026c 40000000 		.4byte	.LBE2-.LBB2
+ 1124 0270 0B       		.uleb128 0xb
+ 1125 0271 6900     		.ascii	"i\000"
+ 1126 0273 01       		.byte	0x1
+ 1127 0274 78       		.byte	0x78
+ 1128 0275 81000000 		.4byte	0x81
+ 1129 0279 02       		.uleb128 0x2
+ 1130 027a 91       		.byte	0x91
+ 1131 027b 6C       		.sleb128 -20
+ 1132 027c 00       		.byte	0
+ 1133 027d 00       		.byte	0
+ 1134 027e 0C       		.uleb128 0xc
+ 1135 027f 04       		.byte	0x4
+ 1136 0280 84020000 		.4byte	0x284
+ 1137 0284 0D       		.uleb128 0xd
+ 1138 0285 76000000 		.4byte	0x76
+ 1139 0289 0C       		.uleb128 0xc
+ 1140 028a 04       		.byte	0x4
+ 1141 028b 76000000 		.4byte	0x76
+ 1142 028f 0D       		.uleb128 0xd
+ 1143 0290 81000000 		.4byte	0x81
+ 1144 0294 0E       		.uleb128 0xe
+ 1145 0295 D9030000 		.4byte	.LASF85
+ 1146 0299 01       		.byte	0x1
+ 1147 029a 85       		.byte	0x85
+ 1148 029b 00000000 		.4byte	.LFB3
+ 1149 029f 0C000000 		.4byte	.LFE3-.LFB3
+ 1150 02a3 01       		.uleb128 0x1
+ 1151 02a4 9C       		.byte	0x9c
+ 1152 02a5 0F       		.uleb128 0xf
+ 1153 02a6 6A020000 		.4byte	.LASF76
+ 1154 02aa 01       		.byte	0x1
+ 1155 02ab 9E       		.byte	0x9e
+ 1156 02ac 76000000 		.4byte	0x76
+ 1157 02b0 00000000 		.4byte	.LFB4
+ 1158 02b4 30000000 		.4byte	.LFE4-.LFB4
+ 1159 02b8 01       		.uleb128 0x1
+ 1160 02b9 9C       		.byte	0x9c
+ 1161 02ba E9020000 		.4byte	0x2e9
+ 1162 02be 09       		.uleb128 0x9
+ 1163 02bf 72656700 		.ascii	"reg\000"
+ 1164 02c3 01       		.byte	0x1
+ 1165 02c4 9E       		.byte	0x9e
+ 1166 02c5 E9020000 		.4byte	0x2e9
+ 1167 02c9 02       		.uleb128 0x2
+ 1168 02ca 91       		.byte	0x91
+ 1169 02cb 6F       		.sleb128 -17
+ 1170 02cc 10       		.uleb128 0x10
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 27
+
+
+ 1171 02cd 5B010000 		.4byte	.LASF64
+ 1172 02d1 01       		.byte	0x1
+ 1173 02d2 A0       		.byte	0xa0
+ 1174 02d3 FE020000 		.4byte	0x2fe
+ 1175 02d7 02       		.uleb128 0x2
+ 1176 02d8 91       		.byte	0x91
+ 1177 02d9 74       		.sleb128 -12
+ 1178 02da 10       		.uleb128 0x10
+ 1179 02db 8C020000 		.4byte	.LASF65
+ 1180 02df 01       		.byte	0x1
+ 1181 02e0 A3       		.byte	0xa3
+ 1182 02e1 03030000 		.4byte	0x303
+ 1183 02e5 02       		.uleb128 0x2
+ 1184 02e6 91       		.byte	0x91
+ 1185 02e7 70       		.sleb128 -16
+ 1186 02e8 00       		.byte	0
+ 1187 02e9 0D       		.uleb128 0xd
+ 1188 02ea 63010000 		.4byte	0x163
+ 1189 02ee 11       		.uleb128 0x11
+ 1190 02ef 84020000 		.4byte	0x284
+ 1191 02f3 FE020000 		.4byte	0x2fe
+ 1192 02f7 12       		.uleb128 0x12
+ 1193 02f8 93000000 		.4byte	0x93
+ 1194 02fc 01       		.byte	0x1
+ 1195 02fd 00       		.byte	0
+ 1196 02fe 0D       		.uleb128 0xd
+ 1197 02ff EE020000 		.4byte	0x2ee
+ 1198 0303 11       		.uleb128 0x11
+ 1199 0304 76000000 		.4byte	0x76
+ 1200 0308 13030000 		.4byte	0x313
+ 1201 030c 12       		.uleb128 0x12
+ 1202 030d 93000000 		.4byte	0x93
+ 1203 0311 01       		.byte	0x1
+ 1204 0312 00       		.byte	0
+ 1205 0313 07       		.uleb128 0x7
+ 1206 0314 14030000 		.4byte	.LASF66
+ 1207 0318 01       		.byte	0x1
+ 1208 0319 B2       		.byte	0xb2
+ 1209 031a 00000000 		.4byte	.LFB5
+ 1210 031e BC000000 		.4byte	.LFE5-.LFB5
+ 1211 0322 01       		.uleb128 0x1
+ 1212 0323 9C       		.byte	0x9c
+ 1213 0324 71030000 		.4byte	0x371
+ 1214 0328 09       		.uleb128 0x9
+ 1215 0329 72656700 		.ascii	"reg\000"
+ 1216 032d 01       		.byte	0x1
+ 1217 032e B2       		.byte	0xb2
+ 1218 032f E9020000 		.4byte	0x2e9
+ 1219 0333 02       		.uleb128 0x2
+ 1220 0334 91       		.byte	0x91
+ 1221 0335 4F       		.sleb128 -49
+ 1222 0336 08       		.uleb128 0x8
+ 1223 0337 BB040000 		.4byte	.LASF67
+ 1224 033b 01       		.byte	0x1
+ 1225 033c B3       		.byte	0xb3
+ 1226 033d 89020000 		.4byte	0x289
+ 1227 0341 02       		.uleb128 0x2
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 28
+
+
+ 1228 0342 91       		.byte	0x91
+ 1229 0343 48       		.sleb128 -56
+ 1230 0344 08       		.uleb128 0x8
+ 1231 0345 8A040000 		.4byte	.LASF68
+ 1232 0349 01       		.byte	0x1
+ 1233 034a B3       		.byte	0xb3
+ 1234 034b 8F020000 		.4byte	0x28f
+ 1235 034f 02       		.uleb128 0x2
+ 1236 0350 91       		.byte	0x91
+ 1237 0351 44       		.sleb128 -60
+ 1238 0352 10       		.uleb128 0x10
+ 1239 0353 FD040000 		.4byte	.LASF69
+ 1240 0357 01       		.byte	0x1
+ 1241 0358 B5       		.byte	0xb5
+ 1242 0359 71030000 		.4byte	0x371
+ 1243 035d 03       		.uleb128 0x3
+ 1244 035e 91       		.byte	0x91
+ 1245 035f 54       		.sleb128 -44
+ 1246 0360 06       		.byte	0x6
+ 1247 0361 10       		.uleb128 0x10
+ 1248 0362 DA020000 		.4byte	.LASF70
+ 1249 0366 01       		.byte	0x1
+ 1250 0367 B6       		.byte	0xb6
+ 1251 0368 84030000 		.4byte	0x384
+ 1252 036c 03       		.uleb128 0x3
+ 1253 036d 91       		.byte	0x91
+ 1254 036e 50       		.sleb128 -48
+ 1255 036f 06       		.byte	0x6
+ 1256 0370 00       		.byte	0
+ 1257 0371 11       		.uleb128 0x11
+ 1258 0372 76000000 		.4byte	0x76
+ 1259 0376 84030000 		.4byte	0x384
+ 1260 037a 13       		.uleb128 0x13
+ 1261 037b 93000000 		.4byte	0x93
+ 1262 037f 44030000 		.4byte	0x344
+ 1263 0383 00       		.byte	0
+ 1264 0384 11       		.uleb128 0x11
+ 1265 0385 76000000 		.4byte	0x76
+ 1266 0389 97030000 		.4byte	0x397
+ 1267 038d 13       		.uleb128 0x13
+ 1268 038e 93000000 		.4byte	0x93
+ 1269 0392 44030000 		.4byte	0x344
+ 1270 0396 00       		.byte	0
+ 1271 0397 07       		.uleb128 0x7
+ 1272 0398 26040000 		.4byte	.LASF71
+ 1273 039c 01       		.byte	0x1
+ 1274 039d C7       		.byte	0xc7
+ 1275 039e 00000000 		.4byte	.LFB6
+ 1276 03a2 3A000000 		.4byte	.LFE6-.LFB6
+ 1277 03a6 01       		.uleb128 0x1
+ 1278 03a7 9C       		.byte	0x9c
+ 1279 03a8 E5030000 		.4byte	0x3e5
+ 1280 03ac 09       		.uleb128 0x9
+ 1281 03ad 72656700 		.ascii	"reg\000"
+ 1282 03b1 01       		.byte	0x1
+ 1283 03b2 C7       		.byte	0xc7
+ 1284 03b3 E9020000 		.4byte	0x2e9
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 29
+
+
+ 1285 03b7 02       		.uleb128 0x2
+ 1286 03b8 91       		.byte	0x91
+ 1287 03b9 6F       		.sleb128 -17
+ 1288 03ba 08       		.uleb128 0x8
+ 1289 03bb BB040000 		.4byte	.LASF67
+ 1290 03bf 01       		.byte	0x1
+ 1291 03c0 C7       		.byte	0xc7
+ 1292 03c1 84020000 		.4byte	0x284
+ 1293 03c5 02       		.uleb128 0x2
+ 1294 03c6 91       		.byte	0x91
+ 1295 03c7 6E       		.sleb128 -18
+ 1296 03c8 10       		.uleb128 0x10
+ 1297 03c9 EB010000 		.4byte	.LASF72
+ 1298 03cd 01       		.byte	0x1
+ 1299 03ce C9       		.byte	0xc9
+ 1300 03cf E5030000 		.4byte	0x3e5
+ 1301 03d3 02       		.uleb128 0x2
+ 1302 03d4 91       		.byte	0x91
+ 1303 03d5 74       		.sleb128 -12
+ 1304 03d6 10       		.uleb128 0x10
+ 1305 03d7 FD040000 		.4byte	.LASF69
+ 1306 03db 01       		.byte	0x1
+ 1307 03dc CA       		.byte	0xca
+ 1308 03dd 03030000 		.4byte	0x303
+ 1309 03e1 02       		.uleb128 0x2
+ 1310 03e2 91       		.byte	0x91
+ 1311 03e3 70       		.sleb128 -16
+ 1312 03e4 00       		.byte	0
+ 1313 03e5 0D       		.uleb128 0xd
+ 1314 03e6 EE020000 		.4byte	0x2ee
+ 1315 03ea 07       		.uleb128 0x7
+ 1316 03eb 3F020000 		.4byte	.LASF73
+ 1317 03ef 01       		.byte	0x1
+ 1318 03f0 D6       		.byte	0xd6
+ 1319 03f1 00000000 		.4byte	.LFB7
+ 1320 03f5 C2000000 		.4byte	.LFE7-.LFB7
+ 1321 03f9 01       		.uleb128 0x1
+ 1322 03fa 9C       		.byte	0x9c
+ 1323 03fb 48040000 		.4byte	0x448
+ 1324 03ff 09       		.uleb128 0x9
+ 1325 0400 72656700 		.ascii	"reg\000"
+ 1326 0404 01       		.byte	0x1
+ 1327 0405 D6       		.byte	0xd6
+ 1328 0406 E9020000 		.4byte	0x2e9
+ 1329 040a 02       		.uleb128 0x2
+ 1330 040b 91       		.byte	0x91
+ 1331 040c 4F       		.sleb128 -49
+ 1332 040d 08       		.uleb128 0x8
+ 1333 040e BB040000 		.4byte	.LASF67
+ 1334 0412 01       		.byte	0x1
+ 1335 0413 D7       		.byte	0xd7
+ 1336 0414 7E020000 		.4byte	0x27e
+ 1337 0418 02       		.uleb128 0x2
+ 1338 0419 91       		.byte	0x91
+ 1339 041a 48       		.sleb128 -56
+ 1340 041b 08       		.uleb128 0x8
+ 1341 041c 8A040000 		.4byte	.LASF68
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 30
+
+
+ 1342 0420 01       		.byte	0x1
+ 1343 0421 D7       		.byte	0xd7
+ 1344 0422 8F020000 		.4byte	0x28f
+ 1345 0426 02       		.uleb128 0x2
+ 1346 0427 91       		.byte	0x91
+ 1347 0428 44       		.sleb128 -60
+ 1348 0429 10       		.uleb128 0x10
+ 1349 042a 08030000 		.4byte	.LASF74
+ 1350 042e 01       		.byte	0x1
+ 1351 042f D9       		.byte	0xd9
+ 1352 0430 48040000 		.4byte	0x448
+ 1353 0434 03       		.uleb128 0x3
+ 1354 0435 91       		.byte	0x91
+ 1355 0436 54       		.sleb128 -44
+ 1356 0437 06       		.byte	0x6
+ 1357 0438 10       		.uleb128 0x10
+ 1358 0439 FA020000 		.4byte	.LASF75
+ 1359 043d 01       		.byte	0x1
+ 1360 043e DA       		.byte	0xda
+ 1361 043f 5B040000 		.4byte	0x45b
+ 1362 0443 03       		.uleb128 0x3
+ 1363 0444 91       		.byte	0x91
+ 1364 0445 50       		.sleb128 -48
+ 1365 0446 06       		.byte	0x6
+ 1366 0447 00       		.byte	0
+ 1367 0448 11       		.uleb128 0x11
+ 1368 0449 76000000 		.4byte	0x76
+ 1369 044d 5B040000 		.4byte	0x45b
+ 1370 0451 13       		.uleb128 0x13
+ 1371 0452 93000000 		.4byte	0x93
+ 1372 0456 1B040000 		.4byte	0x41b
+ 1373 045a 00       		.byte	0
+ 1374 045b 11       		.uleb128 0x11
+ 1375 045c 76000000 		.4byte	0x76
+ 1376 0460 6E040000 		.4byte	0x46e
+ 1377 0464 13       		.uleb128 0x13
+ 1378 0465 93000000 		.4byte	0x93
+ 1379 0469 1B040000 		.4byte	0x41b
+ 1380 046d 00       		.byte	0
+ 1381 046e 0F       		.uleb128 0xf
+ 1382 046f 3B030000 		.4byte	.LASF77
+ 1383 0473 01       		.byte	0x1
+ 1384 0474 EC       		.byte	0xec
+ 1385 0475 A4040000 		.4byte	0x4a4
+ 1386 0479 00000000 		.4byte	.LFB8
+ 1387 047d 38000000 		.4byte	.LFE8-.LFB8
+ 1388 0481 01       		.uleb128 0x1
+ 1389 0482 9C       		.byte	0x9c
+ 1390 0483 A4040000 		.4byte	0x4a4
+ 1391 0487 09       		.uleb128 0x9
+ 1392 0488 72656700 		.ascii	"reg\000"
+ 1393 048c 01       		.byte	0x1
+ 1394 048d EC       		.byte	0xec
+ 1395 048e E9020000 		.4byte	0x2e9
+ 1396 0492 02       		.uleb128 0x2
+ 1397 0493 91       		.byte	0x91
+ 1398 0494 77       		.sleb128 -9
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 31
+
+
+ 1399 0495 09       		.uleb128 0x9
+ 1400 0496 62697400 		.ascii	"bit\000"
+ 1401 049a 01       		.byte	0x1
+ 1402 049b EC       		.byte	0xec
+ 1403 049c 84020000 		.4byte	0x284
+ 1404 04a0 02       		.uleb128 0x2
+ 1405 04a1 91       		.byte	0x91
+ 1406 04a2 76       		.sleb128 -10
+ 1407 04a3 00       		.byte	0
+ 1408 04a4 02       		.uleb128 0x2
+ 1409 04a5 01       		.byte	0x1
+ 1410 04a6 02       		.byte	0x2
+ 1411 04a7 A7040000 		.4byte	.LASF78
+ 1412 04ab 14       		.uleb128 0x14
+ 1413 04ac D4040000 		.4byte	.LASF86
+ 1414 04b0 01       		.byte	0x1
+ 1415 04b1 FC       		.byte	0xfc
+ 1416 04b2 00000000 		.4byte	.LFB9
+ 1417 04b6 8E000000 		.4byte	.LFE9-.LFB9
+ 1418 04ba 01       		.uleb128 0x1
+ 1419 04bb 9C       		.byte	0x9c
+ 1420 04bc F9040000 		.4byte	0x4f9
+ 1421 04c0 09       		.uleb128 0x9
+ 1422 04c1 72656700 		.ascii	"reg\000"
+ 1423 04c5 01       		.byte	0x1
+ 1424 04c6 FC       		.byte	0xfc
+ 1425 04c7 E9020000 		.4byte	0x2e9
+ 1426 04cb 02       		.uleb128 0x2
+ 1427 04cc 91       		.byte	0x91
+ 1428 04cd 6F       		.sleb128 -17
+ 1429 04ce 09       		.uleb128 0x9
+ 1430 04cf 62697400 		.ascii	"bit\000"
+ 1431 04d3 01       		.byte	0x1
+ 1432 04d4 FD       		.byte	0xfd
+ 1433 04d5 84020000 		.4byte	0x284
+ 1434 04d9 02       		.uleb128 0x2
+ 1435 04da 91       		.byte	0x91
+ 1436 04db 6E       		.sleb128 -18
+ 1437 04dc 08       		.uleb128 0x8
+ 1438 04dd CF010000 		.4byte	.LASF79
+ 1439 04e1 01       		.byte	0x1
+ 1440 04e2 FD       		.byte	0xfd
+ 1441 04e3 F9040000 		.4byte	0x4f9
+ 1442 04e7 02       		.uleb128 0x2
+ 1443 04e8 91       		.byte	0x91
+ 1444 04e9 6D       		.sleb128 -19
+ 1445 04ea 10       		.uleb128 0x10
+ 1446 04eb 4A000000 		.4byte	.LASF80
+ 1447 04ef 01       		.byte	0x1
+ 1448 04f0 FF       		.byte	0xff
+ 1449 04f1 76000000 		.4byte	0x76
+ 1450 04f5 02       		.uleb128 0x2
+ 1451 04f6 91       		.byte	0x91
+ 1452 04f7 77       		.sleb128 -9
+ 1453 04f8 00       		.byte	0
+ 1454 04f9 0D       		.uleb128 0xd
+ 1455 04fa A4040000 		.4byte	0x4a4
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 32
+
+
+ 1456 04fe 15       		.uleb128 0x15
+ 1457 04ff D1050000 		.4byte	.LASF81
+ 1458 0503 01       		.byte	0x1
+ 1459 0504 1B01     		.2byte	0x11b
+ 1460 0506 00000000 		.4byte	.LFB10
+ 1461 050a 2C000000 		.4byte	.LFE10-.LFB10
+ 1462 050e 01       		.uleb128 0x1
+ 1463 050f 9C       		.byte	0x9c
+ 1464 0510 33050000 		.4byte	0x533
+ 1465 0514 16       		.uleb128 0x16
+ 1466 0515 72656700 		.ascii	"reg\000"
+ 1467 0519 01       		.byte	0x1
+ 1468 051a 1B01     		.2byte	0x11b
+ 1469 051c E9020000 		.4byte	0x2e9
+ 1470 0520 02       		.uleb128 0x2
+ 1471 0521 91       		.byte	0x91
+ 1472 0522 77       		.sleb128 -9
+ 1473 0523 16       		.uleb128 0x16
+ 1474 0524 62697400 		.ascii	"bit\000"
+ 1475 0528 01       		.byte	0x1
+ 1476 0529 1B01     		.2byte	0x11b
+ 1477 052b 84020000 		.4byte	0x284
+ 1478 052f 02       		.uleb128 0x2
+ 1479 0530 91       		.byte	0x91
+ 1480 0531 76       		.sleb128 -10
+ 1481 0532 00       		.byte	0
+ 1482 0533 17       		.uleb128 0x17
+ 1483 0534 31020000 		.4byte	.LASF87
+ 1484 0538 01       		.byte	0x1
+ 1485 0539 2A01     		.2byte	0x12a
+ 1486 053b 00000000 		.4byte	.LFB11
+ 1487 053f 2C000000 		.4byte	.LFE11-.LFB11
+ 1488 0543 01       		.uleb128 0x1
+ 1489 0544 9C       		.byte	0x9c
+ 1490 0545 16       		.uleb128 0x16
+ 1491 0546 72656700 		.ascii	"reg\000"
+ 1492 054a 01       		.byte	0x1
+ 1493 054b 2A01     		.2byte	0x12a
+ 1494 054d E9020000 		.4byte	0x2e9
+ 1495 0551 02       		.uleb128 0x2
+ 1496 0552 91       		.byte	0x91
+ 1497 0553 77       		.sleb128 -9
+ 1498 0554 16       		.uleb128 0x16
+ 1499 0555 62697400 		.ascii	"bit\000"
+ 1500 0559 01       		.byte	0x1
+ 1501 055a 2A01     		.2byte	0x12a
+ 1502 055c 84020000 		.4byte	0x284
+ 1503 0560 02       		.uleb128 0x2
+ 1504 0561 91       		.byte	0x91
+ 1505 0562 76       		.sleb128 -10
+ 1506 0563 00       		.byte	0
+ 1507 0564 00       		.byte	0
+ 1508              		.section	.debug_abbrev,"",%progbits
+ 1509              	.Ldebug_abbrev0:
+ 1510 0000 01       		.uleb128 0x1
+ 1511 0001 11       		.uleb128 0x11
+ 1512 0002 01       		.byte	0x1
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 33
+
+
+ 1513 0003 25       		.uleb128 0x25
+ 1514 0004 0E       		.uleb128 0xe
+ 1515 0005 13       		.uleb128 0x13
+ 1516 0006 0B       		.uleb128 0xb
+ 1517 0007 03       		.uleb128 0x3
+ 1518 0008 0E       		.uleb128 0xe
+ 1519 0009 1B       		.uleb128 0x1b
+ 1520 000a 0E       		.uleb128 0xe
+ 1521 000b 55       		.uleb128 0x55
+ 1522 000c 17       		.uleb128 0x17
+ 1523 000d 11       		.uleb128 0x11
+ 1524 000e 01       		.uleb128 0x1
+ 1525 000f 10       		.uleb128 0x10
+ 1526 0010 17       		.uleb128 0x17
+ 1527 0011 00       		.byte	0
+ 1528 0012 00       		.byte	0
+ 1529 0013 02       		.uleb128 0x2
+ 1530 0014 24       		.uleb128 0x24
+ 1531 0015 00       		.byte	0
+ 1532 0016 0B       		.uleb128 0xb
+ 1533 0017 0B       		.uleb128 0xb
+ 1534 0018 3E       		.uleb128 0x3e
+ 1535 0019 0B       		.uleb128 0xb
+ 1536 001a 03       		.uleb128 0x3
+ 1537 001b 0E       		.uleb128 0xe
+ 1538 001c 00       		.byte	0
+ 1539 001d 00       		.byte	0
+ 1540 001e 03       		.uleb128 0x3
+ 1541 001f 16       		.uleb128 0x16
+ 1542 0020 00       		.byte	0
+ 1543 0021 03       		.uleb128 0x3
+ 1544 0022 0E       		.uleb128 0xe
+ 1545 0023 3A       		.uleb128 0x3a
+ 1546 0024 0B       		.uleb128 0xb
+ 1547 0025 3B       		.uleb128 0x3b
+ 1548 0026 0B       		.uleb128 0xb
+ 1549 0027 49       		.uleb128 0x49
+ 1550 0028 13       		.uleb128 0x13
+ 1551 0029 00       		.byte	0
+ 1552 002a 00       		.byte	0
+ 1553 002b 04       		.uleb128 0x4
+ 1554 002c 24       		.uleb128 0x24
+ 1555 002d 00       		.byte	0
+ 1556 002e 0B       		.uleb128 0xb
+ 1557 002f 0B       		.uleb128 0xb
+ 1558 0030 3E       		.uleb128 0x3e
+ 1559 0031 0B       		.uleb128 0xb
+ 1560 0032 03       		.uleb128 0x3
+ 1561 0033 08       		.uleb128 0x8
+ 1562 0034 00       		.byte	0
+ 1563 0035 00       		.byte	0
+ 1564 0036 05       		.uleb128 0x5
+ 1565 0037 04       		.uleb128 0x4
+ 1566 0038 01       		.byte	0x1
+ 1567 0039 0B       		.uleb128 0xb
+ 1568 003a 0B       		.uleb128 0xb
+ 1569 003b 49       		.uleb128 0x49
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 34
+
+
+ 1570 003c 13       		.uleb128 0x13
+ 1571 003d 3A       		.uleb128 0x3a
+ 1572 003e 0B       		.uleb128 0xb
+ 1573 003f 3B       		.uleb128 0x3b
+ 1574 0040 0B       		.uleb128 0xb
+ 1575 0041 01       		.uleb128 0x1
+ 1576 0042 13       		.uleb128 0x13
+ 1577 0043 00       		.byte	0
+ 1578 0044 00       		.byte	0
+ 1579 0045 06       		.uleb128 0x6
+ 1580 0046 28       		.uleb128 0x28
+ 1581 0047 00       		.byte	0
+ 1582 0048 03       		.uleb128 0x3
+ 1583 0049 0E       		.uleb128 0xe
+ 1584 004a 1C       		.uleb128 0x1c
+ 1585 004b 0B       		.uleb128 0xb
+ 1586 004c 00       		.byte	0
+ 1587 004d 00       		.byte	0
+ 1588 004e 07       		.uleb128 0x7
+ 1589 004f 2E       		.uleb128 0x2e
+ 1590 0050 01       		.byte	0x1
+ 1591 0051 3F       		.uleb128 0x3f
+ 1592 0052 19       		.uleb128 0x19
+ 1593 0053 03       		.uleb128 0x3
+ 1594 0054 0E       		.uleb128 0xe
+ 1595 0055 3A       		.uleb128 0x3a
+ 1596 0056 0B       		.uleb128 0xb
+ 1597 0057 3B       		.uleb128 0x3b
+ 1598 0058 0B       		.uleb128 0xb
+ 1599 0059 27       		.uleb128 0x27
+ 1600 005a 19       		.uleb128 0x19
+ 1601 005b 11       		.uleb128 0x11
+ 1602 005c 01       		.uleb128 0x1
+ 1603 005d 12       		.uleb128 0x12
+ 1604 005e 06       		.uleb128 0x6
+ 1605 005f 40       		.uleb128 0x40
+ 1606 0060 18       		.uleb128 0x18
+ 1607 0061 9642     		.uleb128 0x2116
+ 1608 0063 19       		.uleb128 0x19
+ 1609 0064 01       		.uleb128 0x1
+ 1610 0065 13       		.uleb128 0x13
+ 1611 0066 00       		.byte	0
+ 1612 0067 00       		.byte	0
+ 1613 0068 08       		.uleb128 0x8
+ 1614 0069 05       		.uleb128 0x5
+ 1615 006a 00       		.byte	0
+ 1616 006b 03       		.uleb128 0x3
+ 1617 006c 0E       		.uleb128 0xe
+ 1618 006d 3A       		.uleb128 0x3a
+ 1619 006e 0B       		.uleb128 0xb
+ 1620 006f 3B       		.uleb128 0x3b
+ 1621 0070 0B       		.uleb128 0xb
+ 1622 0071 49       		.uleb128 0x49
+ 1623 0072 13       		.uleb128 0x13
+ 1624 0073 02       		.uleb128 0x2
+ 1625 0074 18       		.uleb128 0x18
+ 1626 0075 00       		.byte	0
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 35
+
+
+ 1627 0076 00       		.byte	0
+ 1628 0077 09       		.uleb128 0x9
+ 1629 0078 05       		.uleb128 0x5
+ 1630 0079 00       		.byte	0
+ 1631 007a 03       		.uleb128 0x3
+ 1632 007b 08       		.uleb128 0x8
+ 1633 007c 3A       		.uleb128 0x3a
+ 1634 007d 0B       		.uleb128 0xb
+ 1635 007e 3B       		.uleb128 0x3b
+ 1636 007f 0B       		.uleb128 0xb
+ 1637 0080 49       		.uleb128 0x49
+ 1638 0081 13       		.uleb128 0x13
+ 1639 0082 02       		.uleb128 0x2
+ 1640 0083 18       		.uleb128 0x18
+ 1641 0084 00       		.byte	0
+ 1642 0085 00       		.byte	0
+ 1643 0086 0A       		.uleb128 0xa
+ 1644 0087 0B       		.uleb128 0xb
+ 1645 0088 01       		.byte	0x1
+ 1646 0089 11       		.uleb128 0x11
+ 1647 008a 01       		.uleb128 0x1
+ 1648 008b 12       		.uleb128 0x12
+ 1649 008c 06       		.uleb128 0x6
+ 1650 008d 00       		.byte	0
+ 1651 008e 00       		.byte	0
+ 1652 008f 0B       		.uleb128 0xb
+ 1653 0090 34       		.uleb128 0x34
+ 1654 0091 00       		.byte	0
+ 1655 0092 03       		.uleb128 0x3
+ 1656 0093 08       		.uleb128 0x8
+ 1657 0094 3A       		.uleb128 0x3a
+ 1658 0095 0B       		.uleb128 0xb
+ 1659 0096 3B       		.uleb128 0x3b
+ 1660 0097 0B       		.uleb128 0xb
+ 1661 0098 49       		.uleb128 0x49
+ 1662 0099 13       		.uleb128 0x13
+ 1663 009a 02       		.uleb128 0x2
+ 1664 009b 18       		.uleb128 0x18
+ 1665 009c 00       		.byte	0
+ 1666 009d 00       		.byte	0
+ 1667 009e 0C       		.uleb128 0xc
+ 1668 009f 0F       		.uleb128 0xf
+ 1669 00a0 00       		.byte	0
+ 1670 00a1 0B       		.uleb128 0xb
+ 1671 00a2 0B       		.uleb128 0xb
+ 1672 00a3 49       		.uleb128 0x49
+ 1673 00a4 13       		.uleb128 0x13
+ 1674 00a5 00       		.byte	0
+ 1675 00a6 00       		.byte	0
+ 1676 00a7 0D       		.uleb128 0xd
+ 1677 00a8 26       		.uleb128 0x26
+ 1678 00a9 00       		.byte	0
+ 1679 00aa 49       		.uleb128 0x49
+ 1680 00ab 13       		.uleb128 0x13
+ 1681 00ac 00       		.byte	0
+ 1682 00ad 00       		.byte	0
+ 1683 00ae 0E       		.uleb128 0xe
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 36
+
+
+ 1684 00af 2E       		.uleb128 0x2e
+ 1685 00b0 00       		.byte	0
+ 1686 00b1 3F       		.uleb128 0x3f
+ 1687 00b2 19       		.uleb128 0x19
+ 1688 00b3 03       		.uleb128 0x3
+ 1689 00b4 0E       		.uleb128 0xe
+ 1690 00b5 3A       		.uleb128 0x3a
+ 1691 00b6 0B       		.uleb128 0xb
+ 1692 00b7 3B       		.uleb128 0x3b
+ 1693 00b8 0B       		.uleb128 0xb
+ 1694 00b9 27       		.uleb128 0x27
+ 1695 00ba 19       		.uleb128 0x19
+ 1696 00bb 11       		.uleb128 0x11
+ 1697 00bc 01       		.uleb128 0x1
+ 1698 00bd 12       		.uleb128 0x12
+ 1699 00be 06       		.uleb128 0x6
+ 1700 00bf 40       		.uleb128 0x40
+ 1701 00c0 18       		.uleb128 0x18
+ 1702 00c1 9642     		.uleb128 0x2116
+ 1703 00c3 19       		.uleb128 0x19
+ 1704 00c4 00       		.byte	0
+ 1705 00c5 00       		.byte	0
+ 1706 00c6 0F       		.uleb128 0xf
+ 1707 00c7 2E       		.uleb128 0x2e
+ 1708 00c8 01       		.byte	0x1
+ 1709 00c9 3F       		.uleb128 0x3f
+ 1710 00ca 19       		.uleb128 0x19
+ 1711 00cb 03       		.uleb128 0x3
+ 1712 00cc 0E       		.uleb128 0xe
+ 1713 00cd 3A       		.uleb128 0x3a
+ 1714 00ce 0B       		.uleb128 0xb
+ 1715 00cf 3B       		.uleb128 0x3b
+ 1716 00d0 0B       		.uleb128 0xb
+ 1717 00d1 27       		.uleb128 0x27
+ 1718 00d2 19       		.uleb128 0x19
+ 1719 00d3 49       		.uleb128 0x49
+ 1720 00d4 13       		.uleb128 0x13
+ 1721 00d5 11       		.uleb128 0x11
+ 1722 00d6 01       		.uleb128 0x1
+ 1723 00d7 12       		.uleb128 0x12
+ 1724 00d8 06       		.uleb128 0x6
+ 1725 00d9 40       		.uleb128 0x40
+ 1726 00da 18       		.uleb128 0x18
+ 1727 00db 9642     		.uleb128 0x2116
+ 1728 00dd 19       		.uleb128 0x19
+ 1729 00de 01       		.uleb128 0x1
+ 1730 00df 13       		.uleb128 0x13
+ 1731 00e0 00       		.byte	0
+ 1732 00e1 00       		.byte	0
+ 1733 00e2 10       		.uleb128 0x10
+ 1734 00e3 34       		.uleb128 0x34
+ 1735 00e4 00       		.byte	0
+ 1736 00e5 03       		.uleb128 0x3
+ 1737 00e6 0E       		.uleb128 0xe
+ 1738 00e7 3A       		.uleb128 0x3a
+ 1739 00e8 0B       		.uleb128 0xb
+ 1740 00e9 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 37
+
+
+ 1741 00ea 0B       		.uleb128 0xb
+ 1742 00eb 49       		.uleb128 0x49
+ 1743 00ec 13       		.uleb128 0x13
+ 1744 00ed 02       		.uleb128 0x2
+ 1745 00ee 18       		.uleb128 0x18
+ 1746 00ef 00       		.byte	0
+ 1747 00f0 00       		.byte	0
+ 1748 00f1 11       		.uleb128 0x11
+ 1749 00f2 01       		.uleb128 0x1
+ 1750 00f3 01       		.byte	0x1
+ 1751 00f4 49       		.uleb128 0x49
+ 1752 00f5 13       		.uleb128 0x13
+ 1753 00f6 01       		.uleb128 0x1
+ 1754 00f7 13       		.uleb128 0x13
+ 1755 00f8 00       		.byte	0
+ 1756 00f9 00       		.byte	0
+ 1757 00fa 12       		.uleb128 0x12
+ 1758 00fb 21       		.uleb128 0x21
+ 1759 00fc 00       		.byte	0
+ 1760 00fd 49       		.uleb128 0x49
+ 1761 00fe 13       		.uleb128 0x13
+ 1762 00ff 2F       		.uleb128 0x2f
+ 1763 0100 0B       		.uleb128 0xb
+ 1764 0101 00       		.byte	0
+ 1765 0102 00       		.byte	0
+ 1766 0103 13       		.uleb128 0x13
+ 1767 0104 21       		.uleb128 0x21
+ 1768 0105 00       		.byte	0
+ 1769 0106 49       		.uleb128 0x49
+ 1770 0107 13       		.uleb128 0x13
+ 1771 0108 2F       		.uleb128 0x2f
+ 1772 0109 13       		.uleb128 0x13
+ 1773 010a 00       		.byte	0
+ 1774 010b 00       		.byte	0
+ 1775 010c 14       		.uleb128 0x14
+ 1776 010d 2E       		.uleb128 0x2e
+ 1777 010e 01       		.byte	0x1
+ 1778 010f 03       		.uleb128 0x3
+ 1779 0110 0E       		.uleb128 0xe
+ 1780 0111 3A       		.uleb128 0x3a
+ 1781 0112 0B       		.uleb128 0xb
+ 1782 0113 3B       		.uleb128 0x3b
+ 1783 0114 0B       		.uleb128 0xb
+ 1784 0115 27       		.uleb128 0x27
+ 1785 0116 19       		.uleb128 0x19
+ 1786 0117 11       		.uleb128 0x11
+ 1787 0118 01       		.uleb128 0x1
+ 1788 0119 12       		.uleb128 0x12
+ 1789 011a 06       		.uleb128 0x6
+ 1790 011b 40       		.uleb128 0x40
+ 1791 011c 18       		.uleb128 0x18
+ 1792 011d 9642     		.uleb128 0x2116
+ 1793 011f 19       		.uleb128 0x19
+ 1794 0120 01       		.uleb128 0x1
+ 1795 0121 13       		.uleb128 0x13
+ 1796 0122 00       		.byte	0
+ 1797 0123 00       		.byte	0
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 38
+
+
+ 1798 0124 15       		.uleb128 0x15
+ 1799 0125 2E       		.uleb128 0x2e
+ 1800 0126 01       		.byte	0x1
+ 1801 0127 3F       		.uleb128 0x3f
+ 1802 0128 19       		.uleb128 0x19
+ 1803 0129 03       		.uleb128 0x3
+ 1804 012a 0E       		.uleb128 0xe
+ 1805 012b 3A       		.uleb128 0x3a
+ 1806 012c 0B       		.uleb128 0xb
+ 1807 012d 3B       		.uleb128 0x3b
+ 1808 012e 05       		.uleb128 0x5
+ 1809 012f 27       		.uleb128 0x27
+ 1810 0130 19       		.uleb128 0x19
+ 1811 0131 11       		.uleb128 0x11
+ 1812 0132 01       		.uleb128 0x1
+ 1813 0133 12       		.uleb128 0x12
+ 1814 0134 06       		.uleb128 0x6
+ 1815 0135 40       		.uleb128 0x40
+ 1816 0136 18       		.uleb128 0x18
+ 1817 0137 9642     		.uleb128 0x2116
+ 1818 0139 19       		.uleb128 0x19
+ 1819 013a 01       		.uleb128 0x1
+ 1820 013b 13       		.uleb128 0x13
+ 1821 013c 00       		.byte	0
+ 1822 013d 00       		.byte	0
+ 1823 013e 16       		.uleb128 0x16
+ 1824 013f 05       		.uleb128 0x5
+ 1825 0140 00       		.byte	0
+ 1826 0141 03       		.uleb128 0x3
+ 1827 0142 08       		.uleb128 0x8
+ 1828 0143 3A       		.uleb128 0x3a
+ 1829 0144 0B       		.uleb128 0xb
+ 1830 0145 3B       		.uleb128 0x3b
+ 1831 0146 05       		.uleb128 0x5
+ 1832 0147 49       		.uleb128 0x49
+ 1833 0148 13       		.uleb128 0x13
+ 1834 0149 02       		.uleb128 0x2
+ 1835 014a 18       		.uleb128 0x18
+ 1836 014b 00       		.byte	0
+ 1837 014c 00       		.byte	0
+ 1838 014d 17       		.uleb128 0x17
+ 1839 014e 2E       		.uleb128 0x2e
+ 1840 014f 01       		.byte	0x1
+ 1841 0150 3F       		.uleb128 0x3f
+ 1842 0151 19       		.uleb128 0x19
+ 1843 0152 03       		.uleb128 0x3
+ 1844 0153 0E       		.uleb128 0xe
+ 1845 0154 3A       		.uleb128 0x3a
+ 1846 0155 0B       		.uleb128 0xb
+ 1847 0156 3B       		.uleb128 0x3b
+ 1848 0157 05       		.uleb128 0x5
+ 1849 0158 27       		.uleb128 0x27
+ 1850 0159 19       		.uleb128 0x19
+ 1851 015a 11       		.uleb128 0x11
+ 1852 015b 01       		.uleb128 0x1
+ 1853 015c 12       		.uleb128 0x12
+ 1854 015d 06       		.uleb128 0x6
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 39
+
+
+ 1855 015e 40       		.uleb128 0x40
+ 1856 015f 18       		.uleb128 0x18
+ 1857 0160 9642     		.uleb128 0x2116
+ 1858 0162 19       		.uleb128 0x19
+ 1859 0163 00       		.byte	0
+ 1860 0164 00       		.byte	0
+ 1861 0165 00       		.byte	0
+ 1862              		.section	.debug_aranges,"",%progbits
+ 1863 0000 74000000 		.4byte	0x74
+ 1864 0004 0200     		.2byte	0x2
+ 1865 0006 00000000 		.4byte	.Ldebug_info0
+ 1866 000a 04       		.byte	0x4
+ 1867 000b 00       		.byte	0
+ 1868 000c 0000     		.2byte	0
+ 1869 000e 0000     		.2byte	0
+ 1870 0010 00000000 		.4byte	.LFB0
+ 1871 0014 26000000 		.4byte	.LFE0-.LFB0
+ 1872 0018 00000000 		.4byte	.LFB1
+ 1873 001c 26000000 		.4byte	.LFE1-.LFB1
+ 1874 0020 00000000 		.4byte	.LFB2
+ 1875 0024 64000000 		.4byte	.LFE2-.LFB2
+ 1876 0028 00000000 		.4byte	.LFB3
+ 1877 002c 0C000000 		.4byte	.LFE3-.LFB3
+ 1878 0030 00000000 		.4byte	.LFB4
+ 1879 0034 30000000 		.4byte	.LFE4-.LFB4
+ 1880 0038 00000000 		.4byte	.LFB5
+ 1881 003c BC000000 		.4byte	.LFE5-.LFB5
+ 1882 0040 00000000 		.4byte	.LFB6
+ 1883 0044 3A000000 		.4byte	.LFE6-.LFB6
+ 1884 0048 00000000 		.4byte	.LFB7
+ 1885 004c C2000000 		.4byte	.LFE7-.LFB7
+ 1886 0050 00000000 		.4byte	.LFB8
+ 1887 0054 38000000 		.4byte	.LFE8-.LFB8
+ 1888 0058 00000000 		.4byte	.LFB9
+ 1889 005c 8E000000 		.4byte	.LFE9-.LFB9
+ 1890 0060 00000000 		.4byte	.LFB10
+ 1891 0064 2C000000 		.4byte	.LFE10-.LFB10
+ 1892 0068 00000000 		.4byte	.LFB11
+ 1893 006c 2C000000 		.4byte	.LFE11-.LFB11
+ 1894 0070 00000000 		.4byte	0
+ 1895 0074 00000000 		.4byte	0
+ 1896              		.section	.debug_ranges,"",%progbits
+ 1897              	.Ldebug_ranges0:
+ 1898 0000 00000000 		.4byte	.LFB0
+ 1899 0004 26000000 		.4byte	.LFE0
+ 1900 0008 00000000 		.4byte	.LFB1
+ 1901 000c 26000000 		.4byte	.LFE1
+ 1902 0010 00000000 		.4byte	.LFB2
+ 1903 0014 64000000 		.4byte	.LFE2
+ 1904 0018 00000000 		.4byte	.LFB3
+ 1905 001c 0C000000 		.4byte	.LFE3
+ 1906 0020 00000000 		.4byte	.LFB4
+ 1907 0024 30000000 		.4byte	.LFE4
+ 1908 0028 00000000 		.4byte	.LFB5
+ 1909 002c BC000000 		.4byte	.LFE5
+ 1910 0030 00000000 		.4byte	.LFB6
+ 1911 0034 3A000000 		.4byte	.LFE6
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 40
+
+
+ 1912 0038 00000000 		.4byte	.LFB7
+ 1913 003c C2000000 		.4byte	.LFE7
+ 1914 0040 00000000 		.4byte	.LFB8
+ 1915 0044 38000000 		.4byte	.LFE8
+ 1916 0048 00000000 		.4byte	.LFB9
+ 1917 004c 8E000000 		.4byte	.LFE9
+ 1918 0050 00000000 		.4byte	.LFB10
+ 1919 0054 2C000000 		.4byte	.LFE10
+ 1920 0058 00000000 		.4byte	.LFB11
+ 1921 005c 2C000000 		.4byte	.LFE11
+ 1922 0060 00000000 		.4byte	0
+ 1923 0064 00000000 		.4byte	0
+ 1924              		.section	.debug_line,"",%progbits
+ 1925              	.Ldebug_line0:
+ 1926 0000 21030000 		.section	.debug_str,"MS",%progbits,1
+ 1926      0200E401 
+ 1926      00000201 
+ 1926      FB0E0D00 
+ 1926      01010101 
+ 1927              	.LASF49:
+ 1928 0000 4E52465F 		.ascii	"NRF_CMD_FLUSH_TX\000"
+ 1928      434D445F 
+ 1928      464C5553 
+ 1928      485F5458 
+ 1928      00
+ 1929              	.LASF24:
+ 1930 0011 4E52465F 		.ascii	"NRF_REG_RF_SETUP\000"
+ 1930      5245475F 
+ 1930      52465F53 
+ 1930      45545550 
+ 1930      00
+ 1931              	.LASF43:
+ 1932 0022 4E52465F 		.ascii	"NRF_REG_FEATURE\000"
+ 1932      5245475F 
+ 1932      46454154 
+ 1932      55524500 
+ 1933              	.LASF61:
+ 1934 0032 73746174 		.ascii	"state\000"
+ 1934      6500
+ 1935              	.LASF20:
+ 1936 0038 4E52465F 		.ascii	"NRF_REG_EN_RXADDR\000"
+ 1936      5245475F 
+ 1936      454E5F52 
+ 1936      58414444 
+ 1936      5200
+ 1937              	.LASF80:
+ 1938 004a 74656D70 		.ascii	"temp\000"
+ 1938      00
+ 1939              	.LASF26:
+ 1940 004f 4E52465F 		.ascii	"NRF_REG_OBSERVE_TX\000"
+ 1940      5245475F 
+ 1940      4F425345 
+ 1940      5256455F 
+ 1940      545800
+ 1941              	.LASF11:
+ 1942 0062 73697A65 		.ascii	"size_t\000"
+ 1942      5F7400
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 41
+
+
+ 1943              	.LASF13:
+ 1944 0069 73697A65 		.ascii	"sizetype\000"
+ 1944      74797065 
+ 1944      00
+ 1945              	.LASF84:
+ 1946 0072 433A5C55 		.ascii	"C:\\Users\\mikke\\OneDrive\\Documents\\GitHub\\plat"
+ 1946      73657273 
+ 1946      5C6D696B 
+ 1946      6B655C4F 
+ 1946      6E654472 
+ 1947 009f 6F6F6E69 		.ascii	"ooning\\PSoC\\Platooning\\AngleMeasurement.cydsn\000"
+ 1947      6E675C50 
+ 1947      536F435C 
+ 1947      506C6174 
+ 1947      6F6F6E69 
+ 1948              	.LASF82:
+ 1949 00cd 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1949      43313120 
+ 1949      352E342E 
+ 1949      31203230 
+ 1949      31363036 
+ 1950 0100 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1950      20726576 
+ 1950      6973696F 
+ 1950      6E203233 
+ 1950      37373135 
+ 1951 0133 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 1951      66756E63 
+ 1951      74696F6E 
+ 1951      2D736563 
+ 1951      74696F6E 
+ 1952              	.LASF64:
+ 1953 015b 5F6E7266 		.ascii	"_nrf_cmd\000"
+ 1953      5F636D64 
+ 1953      00
+ 1954              	.LASF58:
+ 1955 0164 6E72665F 		.ascii	"nrf_gpio\000"
+ 1955      6770696F 
+ 1955      00
+ 1956              	.LASF41:
+ 1957 016d 4E52465F 		.ascii	"NRF_REG_FIFO_STATUS\000"
+ 1957      5245475F 
+ 1957      4649464F 
+ 1957      5F535441 
+ 1957      54555300 
+ 1958              	.LASF36:
+ 1959 0181 4E52465F 		.ascii	"NRF_REG_RX_PW_P1\000"
+ 1959      5245475F 
+ 1959      52585F50 
+ 1959      575F5031 
+ 1959      00
+ 1960              	.LASF37:
+ 1961 0192 4E52465F 		.ascii	"NRF_REG_RX_PW_P2\000"
+ 1961      5245475F 
+ 1961      52585F50 
+ 1961      575F5032 
+ 1961      00
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 42
+
+
+ 1962              	.LASF2:
+ 1963 01a3 73686F72 		.ascii	"short int\000"
+ 1963      7420696E 
+ 1963      7400
+ 1964              	.LASF39:
+ 1965 01ad 4E52465F 		.ascii	"NRF_REG_RX_PW_P4\000"
+ 1965      5245475F 
+ 1965      52585F50 
+ 1965      575F5034 
+ 1965      00
+ 1966              	.LASF40:
+ 1967 01be 4E52465F 		.ascii	"NRF_REG_RX_PW_P5\000"
+ 1967      5245475F 
+ 1967      52585F50 
+ 1967      575F5035 
+ 1967      00
+ 1968              	.LASF79:
+ 1969 01cf 76616C75 		.ascii	"value\000"
+ 1969      6500
+ 1970              	.LASF19:
+ 1971 01d5 4E52465F 		.ascii	"NRF_REG_EN_AA\000"
+ 1971      5245475F 
+ 1971      454E5F41 
+ 1971      4100
+ 1972              	.LASF10:
+ 1973 01e3 75696E74 		.ascii	"uint8_t\000"
+ 1973      385F7400 
+ 1974              	.LASF72:
+ 1975 01eb 64617461 		.ascii	"data_to_write\000"
+ 1975      5F746F5F 
+ 1975      77726974 
+ 1975      6500
+ 1976              	.LASF25:
+ 1977 01f9 4E52465F 		.ascii	"NRF_REG_STATUS\000"
+ 1977      5245475F 
+ 1977      53544154 
+ 1977      555300
+ 1978              	.LASF15:
+ 1979 0208 75696E74 		.ascii	"uint8\000"
+ 1979      3800
+ 1980              	.LASF23:
+ 1981 020e 4E52465F 		.ascii	"NRF_REG_RF_CH\000"
+ 1981      5245475F 
+ 1981      52465F43 
+ 1981      4800
+ 1982              	.LASF48:
+ 1983 021c 4E52465F 		.ascii	"NRF_CMD_W_TX_PAYLOAD\000"
+ 1983      434D445F 
+ 1983      575F5458 
+ 1983      5F504159 
+ 1983      4C4F4144 
+ 1984              	.LASF87:
+ 1985 0231 6E524632 		.ascii	"nRF24_set_bit\000"
+ 1985      345F7365 
+ 1985      745F6269 
+ 1985      7400
+ 1986              	.LASF73:
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 43
+
+
+ 1987 023f 6E524632 		.ascii	"nRF24_write_long_register\000"
+ 1987      345F7772 
+ 1987      6974655F 
+ 1987      6C6F6E67 
+ 1987      5F726567 
+ 1988              	.LASF56:
+ 1989 0259 4750494F 		.ascii	"GPIO_CLEAR\000"
+ 1989      5F434C45 
+ 1989      415200
+ 1990              	.LASF16:
+ 1991 0264 666C6F61 		.ascii	"float\000"
+ 1991      7400
+ 1992              	.LASF76:
+ 1993 026a 6E524632 		.ascii	"nRF24_read_register\000"
+ 1993      345F7265 
+ 1993      61645F72 
+ 1993      65676973 
+ 1993      74657200 
+ 1994              	.LASF6:
+ 1995 027e 6C6F6E67 		.ascii	"long long int\000"
+ 1995      206C6F6E 
+ 1995      6720696E 
+ 1995      7400
+ 1996              	.LASF65:
+ 1997 028c 5F6E7266 		.ascii	"_nrf_data\000"
+ 1997      5F646174 
+ 1997      6100
+ 1998              	.LASF83:
+ 1999 0296 47656E65 		.ascii	"Generated_Source\\PSoC5\\nRF24_HAL.c\000"
+ 1999      72617465 
+ 1999      645F536F 
+ 1999      75726365 
+ 1999      5C50536F 
+ 2000              	.LASF4:
+ 2001 02b9 6C6F6E67 		.ascii	"long int\000"
+ 2001      20696E74 
+ 2001      00
+ 2002              	.LASF27:
+ 2003 02c2 4E52465F 		.ascii	"NRF_REG_RPD\000"
+ 2003      5245475F 
+ 2003      52504400 
+ 2004              	.LASF55:
+ 2005 02ce 4E52465F 		.ascii	"NRF_CMD_NOP\000"
+ 2005      434D445F 
+ 2005      4E4F5000 
+ 2006              	.LASF70:
+ 2007 02da 64756D6D 		.ascii	"dummy\000"
+ 2007      7900
+ 2008              	.LASF34:
+ 2009 02e0 4E52465F 		.ascii	"NRF_REG_TX_ADDR\000"
+ 2009      5245475F 
+ 2009      54585F41 
+ 2009      44445200 
+ 2010              	.LASF9:
+ 2011 02f0 5F5F7569 		.ascii	"__uint8_t\000"
+ 2011      6E74385F 
+ 2011      7400
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 44
+
+
+ 2012              	.LASF75:
+ 2013 02fa 64617461 		.ascii	"data_from_nrf\000"
+ 2013      5F66726F 
+ 2013      6D5F6E72 
+ 2013      6600
+ 2014              	.LASF74:
+ 2015 0308 64617461 		.ascii	"data_to_nrf\000"
+ 2015      5F746F5F 
+ 2015      6E726600 
+ 2016              	.LASF66:
+ 2017 0314 6E524632 		.ascii	"nRF24_read_long_register\000"
+ 2017      345F7265 
+ 2017      61645F6C 
+ 2017      6F6E675F 
+ 2017      72656769 
+ 2018              	.LASF1:
+ 2019 032d 756E7369 		.ascii	"unsigned char\000"
+ 2019      676E6564 
+ 2019      20636861 
+ 2019      7200
+ 2020              	.LASF77:
+ 2021 033b 6E524632 		.ascii	"nRF24_read_bit\000"
+ 2021      345F7265 
+ 2021      61645F62 
+ 2021      697400
+ 2022              	.LASF12:
+ 2023 034a 6C6F6E67 		.ascii	"long double\000"
+ 2023      20646F75 
+ 2023      626C6500 
+ 2024              	.LASF28:
+ 2025 0356 4E52465F 		.ascii	"NRF_REG_RX_ADDR_P0\000"
+ 2025      5245475F 
+ 2025      52585F41 
+ 2025      4444525F 
+ 2025      503000
+ 2026              	.LASF29:
+ 2027 0369 4E52465F 		.ascii	"NRF_REG_RX_ADDR_P1\000"
+ 2027      5245475F 
+ 2027      52585F41 
+ 2027      4444525F 
+ 2027      503100
+ 2028              	.LASF30:
+ 2029 037c 4E52465F 		.ascii	"NRF_REG_RX_ADDR_P2\000"
+ 2029      5245475F 
+ 2029      52585F41 
+ 2029      4444525F 
+ 2029      503200
+ 2030              	.LASF31:
+ 2031 038f 4E52465F 		.ascii	"NRF_REG_RX_ADDR_P3\000"
+ 2031      5245475F 
+ 2031      52585F41 
+ 2031      4444525F 
+ 2031      503300
+ 2032              	.LASF32:
+ 2033 03a2 4E52465F 		.ascii	"NRF_REG_RX_ADDR_P4\000"
+ 2033      5245475F 
+ 2033      52585F41 
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 45
+
+
+ 2033      4444525F 
+ 2033      503400
+ 2034              	.LASF33:
+ 2035 03b5 4E52465F 		.ascii	"NRF_REG_RX_ADDR_P5\000"
+ 2035      5245475F 
+ 2035      52585F41 
+ 2035      4444525F 
+ 2035      503500
+ 2036              	.LASF50:
+ 2037 03c8 4E52465F 		.ascii	"NRF_CMD_FLUSH_RX\000"
+ 2037      434D445F 
+ 2037      464C5553 
+ 2037      485F5258 
+ 2037      00
+ 2038              	.LASF85:
+ 2039 03d9 6E524632 		.ascii	"nRF24_spi_clear_fifo\000"
+ 2039      345F7370 
+ 2039      695F636C 
+ 2039      6561725F 
+ 2039      6669666F 
+ 2040              	.LASF47:
+ 2041 03ee 4E52465F 		.ascii	"NRF_CMD_R_RX_PAYLOAD\000"
+ 2041      434D445F 
+ 2041      525F5258 
+ 2041      5F504159 
+ 2041      4C4F4144 
+ 2042              	.LASF0:
+ 2043 0403 7369676E 		.ascii	"signed char\000"
+ 2043      65642063 
+ 2043      68617200 
+ 2044              	.LASF7:
+ 2045 040f 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2045      206C6F6E 
+ 2045      6720756E 
+ 2045      7369676E 
+ 2045      65642069 
+ 2046              	.LASF71:
+ 2047 0426 6E524632 		.ascii	"nRF24_write_register\000"
+ 2047      345F7772 
+ 2047      6974655F 
+ 2047      72656769 
+ 2047      73746572 
+ 2048              	.LASF8:
+ 2049 043b 756E7369 		.ascii	"unsigned int\000"
+ 2049      676E6564 
+ 2049      20696E74 
+ 2049      00
+ 2050              	.LASF44:
+ 2051 0448 6E72665F 		.ascii	"nrf_register\000"
+ 2051      72656769 
+ 2051      73746572 
+ 2051      00
+ 2052              	.LASF59:
+ 2053 0455 6E524632 		.ascii	"nRF24_ss_write\000"
+ 2053      345F7373 
+ 2053      5F777269 
+ 2053      746500
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 46
+
+
+ 2054              	.LASF45:
+ 2055 0464 4E52465F 		.ascii	"NRF_CMD_R_REGISTER\000"
+ 2055      434D445F 
+ 2055      525F5245 
+ 2055      47495354 
+ 2055      455200
+ 2056              	.LASF46:
+ 2057 0477 4E52465F 		.ascii	"NRF_CMD_W_REGISTER\000"
+ 2057      434D445F 
+ 2057      575F5245 
+ 2057      47495354 
+ 2057      455200
+ 2058              	.LASF68:
+ 2059 048a 73697A65 		.ascii	"size\000"
+ 2059      00
+ 2060              	.LASF14:
+ 2061 048f 63686172 		.ascii	"char\000"
+ 2061      00
+ 2062              	.LASF3:
+ 2063 0494 73686F72 		.ascii	"short unsigned int\000"
+ 2063      7420756E 
+ 2063      7369676E 
+ 2063      65642069 
+ 2063      6E7400
+ 2064              	.LASF78:
+ 2065 04a7 5F426F6F 		.ascii	"_Bool\000"
+ 2065      6C00
+ 2066              	.LASF42:
+ 2067 04ad 4E52465F 		.ascii	"NRF_REG_DYNPD\000"
+ 2067      5245475F 
+ 2067      44594E50 
+ 2067      4400
+ 2068              	.LASF67:
+ 2069 04bb 64617461 		.ascii	"data\000"
+ 2069      00
+ 2070              	.LASF52:
+ 2071 04c0 4E52465F 		.ascii	"NRF_CMD_R_RX_PL_WID\000"
+ 2071      434D445F 
+ 2071      525F5258 
+ 2071      5F504C5F 
+ 2071      57494400 
+ 2072              	.LASF86:
+ 2073 04d4 6E524632 		.ascii	"nRF24_write_bit\000"
+ 2073      345F7772 
+ 2073      6974655F 
+ 2073      62697400 
+ 2074              	.LASF5:
+ 2075 04e4 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2075      20756E73 
+ 2075      69676E65 
+ 2075      6420696E 
+ 2075      7400
+ 2076              	.LASF17:
+ 2077 04f6 646F7562 		.ascii	"double\000"
+ 2077      6C6500
+ 2078              	.LASF69:
+ 2079 04fd 6E72665F 		.ascii	"nrf_data\000"
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 47
+
+
+ 2079      64617461 
+ 2079      00
+ 2080              	.LASF51:
+ 2081 0506 4E52465F 		.ascii	"NRF_CMD_REUSE_TX_PL\000"
+ 2081      434D445F 
+ 2081      52455553 
+ 2081      455F5458 
+ 2081      5F504C00 
+ 2082              	.LASF18:
+ 2083 051a 4E52465F 		.ascii	"NRF_REG_CONFIG\000"
+ 2083      5245475F 
+ 2083      434F4E46 
+ 2083      494700
+ 2084              	.LASF22:
+ 2085 0529 4E52465F 		.ascii	"NRF_REG_SETUP_RETR\000"
+ 2085      5245475F 
+ 2085      53455455 
+ 2085      505F5245 
+ 2085      545200
+ 2086              	.LASF53:
+ 2087 053c 4E52465F 		.ascii	"NRF_CMD_W_ACK_PAYLOAD\000"
+ 2087      434D445F 
+ 2087      575F4143 
+ 2087      4B5F5041 
+ 2087      594C4F41 
+ 2088              	.LASF21:
+ 2089 0552 4E52465F 		.ascii	"NRF_REG_SETUP_AW\000"
+ 2089      5245475F 
+ 2089      53455455 
+ 2089      505F4157 
+ 2089      00
+ 2090              	.LASF54:
+ 2091 0563 4E52465F 		.ascii	"NRF_CMD_W_TX_PAYLOAD_NOACK\000"
+ 2091      434D445F 
+ 2091      575F5458 
+ 2091      5F504159 
+ 2091      4C4F4144 
+ 2092              	.LASF62:
+ 2093 057e 6E524632 		.ascii	"nRF24_spi_xfer\000"
+ 2093      345F7370 
+ 2093      695F7866 
+ 2093      657200
+ 2094              	.LASF63:
+ 2095 058d 78666572 		.ascii	"xfer_size\000"
+ 2095      5F73697A 
+ 2095      6500
+ 2096              	.LASF35:
+ 2097 0597 4E52465F 		.ascii	"NRF_REG_RX_PW_P0\000"
+ 2097      5245475F 
+ 2097      52585F50 
+ 2097      575F5030 
+ 2097      00
+ 2098              	.LASF57:
+ 2099 05a8 4750494F 		.ascii	"GPIO_SET\000"
+ 2099      5F534554 
+ 2099      00
+ 2100              	.LASF38:
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\ccEtZuPk.s 			page 48
+
+
+ 2101 05b1 4E52465F 		.ascii	"NRF_REG_RX_PW_P3\000"
+ 2101      5245475F 
+ 2101      52585F50 
+ 2101      575F5033 
+ 2101      00
+ 2102              	.LASF60:
+ 2103 05c2 6E524632 		.ascii	"nRF24_ce_write\000"
+ 2103      345F6365 
+ 2103      5F777269 
+ 2103      746500
+ 2104              	.LASF81:
+ 2105 05d1 6E524632 		.ascii	"nRF24_clear_bit\000"
+ 2105      345F636C 
+ 2105      6561725F 
+ 2105      62697400 
+ 2106              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
