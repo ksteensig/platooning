@@ -1,0 +1,1613 @@
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.comm	DataA,400,4
+  20              		.comm	DataB,400,4
+  21              		.comm	DMA_A_Chan,1,1
+  22              		.comm	DMA_A_TD,1,4
+  23              		.comm	DMA_B_Chan,1,1
+  24              		.comm	DMA_B_TD,1,4
+  25              		.global	ISR_A_done
+  26              		.bss
+  27              		.type	ISR_A_done, %object
+  28              		.size	ISR_A_done, 1
+  29              	ISR_A_done:
+  30 0000 00       		.space	1
+  31              		.global	ISR_B_done
+  32              		.type	ISR_B_done, %object
+  33              		.size	ISR_B_done, 1
+  34              	ISR_B_done:
+  35 0001 00       		.space	1
+  36              		.comm	d_t1,2,2
+  37              		.comm	d_t2,2,2
+  38              		.section	.text.ISR_START_Handler,"ax",%progbits
+  39              		.align	2
+  40              		.global	ISR_START_Handler
+  41              		.thumb
+  42              		.thumb_func
+  43              		.type	ISR_START_Handler, %function
+  44              	ISR_START_Handler:
+  45              	.LFB57:
+  46              		.file 1 "main.c"
+   1:main.c        **** #include "project.h"
+   2:main.c        **** 
+   3:main.c        **** #include <stdio.h>
+   4:main.c        **** 
+   5:main.c        **** #define DATA_SIZE 200
+   6:main.c        **** 
+   7:main.c        **** uint16_t DataA[DATA_SIZE];
+   8:main.c        **** uint16_t DataB[DATA_SIZE];
+   9:main.c        **** 
+  10:main.c        **** #define DMA_A_BYTES_PER_BURST 2
+  11:main.c        **** #define DMA_A_REQUEST_PER_BURST 0
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 2
+
+
+  12:main.c        **** #define DMA_A_SRC_BASE (CYDEV_PERIPH_BASE)
+  13:main.c        **** #define DMA_A_DST_BASE (CYDEV_SRAM_BASE)
+  14:main.c        **** 
+  15:main.c        **** #define DMA_B_BYTES_PER_BURST 2
+  16:main.c        **** #define DMA_B_REQUEST_PER_BURST 0
+  17:main.c        **** #define DMA_B_SRC_BASE (CYDEV_PERIPH_BASE)
+  18:main.c        **** #define DMA_B_DST_BASE (CYDEV_SRAM_BASE)
+  19:main.c        **** 
+  20:main.c        **** uint8 DMA_A_Chan;
+  21:main.c        **** uint8 DMA_A_TD[1];
+  22:main.c        **** 
+  23:main.c        **** uint8 DMA_B_Chan;
+  24:main.c        **** uint8 DMA_B_TD[1];
+  25:main.c        **** 
+  26:main.c        **** uint8_t ISR_A_done = 0;
+  27:main.c        **** uint8_t ISR_B_done = 0;
+  28:main.c        **** 
+  29:main.c        **** uint16_t d_t1;
+  30:main.c        **** uint16_t d_t2;
+  31:main.c        **** 
+  32:main.c        **** CY_ISR(ISR_START_Handler)
+  33:main.c        **** {
+  47              		.loc 1 33 0
+  48              		.cfi_startproc
+  49              		@ args = 0, pretend = 0, frame = 0
+  50              		@ frame_needed = 1, uses_anonymous_args = 0
+  51 0000 80B5     		push	{r7, lr}
+  52              		.cfi_def_cfa_offset 8
+  53              		.cfi_offset 7, -8
+  54              		.cfi_offset 14, -4
+  55 0002 00AF     		add	r7, sp, #0
+  56              		.cfi_def_cfa_register 7
+  34:main.c        ****     d_t2 = Counter_ReadCounter();
+  57              		.loc 1 34 0
+  58 0004 FFF7FEFF 		bl	Counter_ReadCounter
+  59 0008 0346     		mov	r3, r0
+  60 000a 1A46     		mov	r2, r3
+  61 000c 054B     		ldr	r3, .L2
+  62 000e 1A80     		strh	r2, [r3]	@ movhi
+  35:main.c        ****     Control_Reg_Write(0x00);
+  63              		.loc 1 35 0
+  64 0010 0020     		movs	r0, #0
+  65 0012 FFF7FEFF 		bl	Control_Reg_Write
+  36:main.c        ****     ADC_SAR_A_StartConvert();
+  66              		.loc 1 36 0
+  67 0016 FFF7FEFF 		bl	ADC_SAR_A_StartConvert
+  37:main.c        ****     ADC_SAR_B_StartConvert();
+  68              		.loc 1 37 0
+  69 001a FFF7FEFF 		bl	ADC_SAR_B_StartConvert
+  38:main.c        **** }
+  70              		.loc 1 38 0
+  71 001e 00BF     		nop
+  72 0020 80BD     		pop	{r7, pc}
+  73              	.L3:
+  74 0022 00BF     		.align	2
+  75              	.L2:
+  76 0024 00000000 		.word	d_t2
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 3
+
+
+  77              		.cfi_endproc
+  78              	.LFE57:
+  79              		.size	ISR_START_Handler, .-ISR_START_Handler
+  80              		.section	.text.ISR_OUT_A_Handler,"ax",%progbits
+  81              		.align	2
+  82              		.global	ISR_OUT_A_Handler
+  83              		.thumb
+  84              		.thumb_func
+  85              		.type	ISR_OUT_A_Handler, %function
+  86              	ISR_OUT_A_Handler:
+  87              	.LFB58:
+  39:main.c        **** 
+  40:main.c        **** CY_ISR(ISR_OUT_A_Handler)
+  41:main.c        **** {
+  88              		.loc 1 41 0
+  89              		.cfi_startproc
+  90              		@ args = 0, pretend = 0, frame = 0
+  91              		@ frame_needed = 1, uses_anonymous_args = 0
+  92 0000 80B5     		push	{r7, lr}
+  93              		.cfi_def_cfa_offset 8
+  94              		.cfi_offset 7, -8
+  95              		.cfi_offset 14, -4
+  96 0002 00AF     		add	r7, sp, #0
+  97              		.cfi_def_cfa_register 7
+  42:main.c        ****     ADC_SAR_A_StopConvert();
+  98              		.loc 1 42 0
+  99 0004 FFF7FEFF 		bl	ADC_SAR_A_StopConvert
+  43:main.c        ****     ISR_A_done = 1;
+ 100              		.loc 1 43 0
+ 101 0008 024B     		ldr	r3, .L5
+ 102 000a 0122     		movs	r2, #1
+ 103 000c 1A70     		strb	r2, [r3]
+  44:main.c        **** }
+ 104              		.loc 1 44 0
+ 105 000e 00BF     		nop
+ 106 0010 80BD     		pop	{r7, pc}
+ 107              	.L6:
+ 108 0012 00BF     		.align	2
+ 109              	.L5:
+ 110 0014 00000000 		.word	ISR_A_done
+ 111              		.cfi_endproc
+ 112              	.LFE58:
+ 113              		.size	ISR_OUT_A_Handler, .-ISR_OUT_A_Handler
+ 114              		.section	.text.ISR_OUT_B_Handler,"ax",%progbits
+ 115              		.align	2
+ 116              		.global	ISR_OUT_B_Handler
+ 117              		.thumb
+ 118              		.thumb_func
+ 119              		.type	ISR_OUT_B_Handler, %function
+ 120              	ISR_OUT_B_Handler:
+ 121              	.LFB59:
+  45:main.c        **** 
+  46:main.c        **** CY_ISR(ISR_OUT_B_Handler)
+  47:main.c        **** {
+ 122              		.loc 1 47 0
+ 123              		.cfi_startproc
+ 124              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 4
+
+
+ 125              		@ frame_needed = 1, uses_anonymous_args = 0
+ 126 0000 80B5     		push	{r7, lr}
+ 127              		.cfi_def_cfa_offset 8
+ 128              		.cfi_offset 7, -8
+ 129              		.cfi_offset 14, -4
+ 130 0002 00AF     		add	r7, sp, #0
+ 131              		.cfi_def_cfa_register 7
+  48:main.c        ****     ADC_SAR_B_StopConvert();
+ 132              		.loc 1 48 0
+ 133 0004 FFF7FEFF 		bl	ADC_SAR_B_StopConvert
+  49:main.c        ****     ISR_B_done = 1;
+ 134              		.loc 1 49 0
+ 135 0008 024B     		ldr	r3, .L8
+ 136 000a 0122     		movs	r2, #1
+ 137 000c 1A70     		strb	r2, [r3]
+  50:main.c        **** }
+ 138              		.loc 1 50 0
+ 139 000e 00BF     		nop
+ 140 0010 80BD     		pop	{r7, pc}
+ 141              	.L9:
+ 142 0012 00BF     		.align	2
+ 143              	.L8:
+ 144 0014 00000000 		.word	ISR_B_done
+ 145              		.cfi_endproc
+ 146              	.LFE59:
+ 147              		.size	ISR_OUT_B_Handler, .-ISR_OUT_B_Handler
+ 148              		.global	__aeabi_i2f
+ 149              		.global	__aeabi_fmul
+ 150              		.global	__aeabi_f2iz
+ 151              		.section	.text.calculate_angle,"ax",%progbits
+ 152              		.align	2
+ 153              		.global	calculate_angle
+ 154              		.thumb
+ 155              		.thumb_func
+ 156              		.type	calculate_angle, %function
+ 157              	calculate_angle:
+ 158              	.LFB60:
+  51:main.c        **** 
+  52:main.c        **** int16_t calculate_angle(int16_t time_delta, float angle_conversion_factor)
+  53:main.c        **** {
+ 159              		.loc 1 53 0
+ 160              		.cfi_startproc
+ 161              		@ args = 0, pretend = 0, frame = 8
+ 162              		@ frame_needed = 1, uses_anonymous_args = 0
+ 163 0000 80B5     		push	{r7, lr}
+ 164              		.cfi_def_cfa_offset 8
+ 165              		.cfi_offset 7, -8
+ 166              		.cfi_offset 14, -4
+ 167 0002 82B0     		sub	sp, sp, #8
+ 168              		.cfi_def_cfa_offset 16
+ 169 0004 00AF     		add	r7, sp, #0
+ 170              		.cfi_def_cfa_register 7
+ 171 0006 0346     		mov	r3, r0
+ 172 0008 3960     		str	r1, [r7]	@ float
+ 173 000a FB80     		strh	r3, [r7, #6]	@ movhi
+  54:main.c        ****     return time_delta * angle_conversion_factor;
+ 174              		.loc 1 54 0
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 5
+
+
+ 175 000c B7F90630 		ldrsh	r3, [r7, #6]
+ 176 0010 1846     		mov	r0, r3
+ 177 0012 FFF7FEFF 		bl	__aeabi_i2f
+ 178 0016 0346     		mov	r3, r0
+ 179 0018 3968     		ldr	r1, [r7]	@ float
+ 180 001a 1846     		mov	r0, r3
+ 181 001c FFF7FEFF 		bl	__aeabi_fmul
+ 182 0020 0346     		mov	r3, r0
+ 183 0022 1846     		mov	r0, r3
+ 184 0024 FFF7FEFF 		bl	__aeabi_f2iz
+ 185 0028 0346     		mov	r3, r0
+ 186 002a 1BB2     		sxth	r3, r3
+  55:main.c        **** }
+ 187              		.loc 1 55 0
+ 188 002c 1846     		mov	r0, r3
+ 189 002e 0837     		adds	r7, r7, #8
+ 190              		.cfi_def_cfa_offset 8
+ 191 0030 BD46     		mov	sp, r7
+ 192              		.cfi_def_cfa_register 13
+ 193              		@ sp needed
+ 194 0032 80BD     		pop	{r7, pc}
+ 195              		.cfi_endproc
+ 196              	.LFE60:
+ 197              		.size	calculate_angle, .-calculate_angle
+ 198              		.section	.text.main,"ax",%progbits
+ 199              		.align	2
+ 200              		.global	main
+ 201              		.thumb
+ 202              		.thumb_func
+ 203              		.type	main, %function
+ 204              	main:
+ 205              	.LFB61:
+  56:main.c        **** 
+  57:main.c        **** int main(void)
+  58:main.c        **** {
+ 206              		.loc 1 58 0
+ 207              		.cfi_startproc
+ 208              		@ args = 0, pretend = 0, frame = 216
+ 209              		@ frame_needed = 1, uses_anonymous_args = 0
+ 210 0000 90B5     		push	{r4, r7, lr}
+ 211              		.cfi_def_cfa_offset 12
+ 212              		.cfi_offset 4, -12
+ 213              		.cfi_offset 7, -8
+ 214              		.cfi_offset 14, -4
+ 215 0002 B7B0     		sub	sp, sp, #220
+ 216              		.cfi_def_cfa_offset 232
+ 217 0004 00AF     		add	r7, sp, #0
+ 218              		.cfi_def_cfa_register 7
+  59:main.c        ****     const angle_conversion_factor = 0;
+ 219              		.loc 1 59 0
+ 220 0006 0023     		movs	r3, #0
+ 221 0008 C7F8CC30 		str	r3, [r7, #204]
+  60:main.c        ****     
+  61:main.c        ****     UART_Start();
+ 222              		.loc 1 61 0
+ 223 000c FFF7FEFF 		bl	UART_Start
+  62:main.c        ****     Clock_In_Start();
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 6
+
+
+ 224              		.loc 1 62 0
+ 225 0010 FFF7FEFF 		bl	Clock_In_Start
+  63:main.c        ****     Counter_Clock_Start();
+ 226              		.loc 1 63 0
+ 227 0014 FFF7FEFF 		bl	Counter_Clock_Start
+  64:main.c        ****     ADC_SAR_A_Start();
+ 228              		.loc 1 64 0
+ 229 0018 FFF7FEFF 		bl	ADC_SAR_A_Start
+  65:main.c        ****     ADC_SAR_B_Start();
+ 230              		.loc 1 65 0
+ 231 001c FFF7FEFF 		bl	ADC_SAR_B_Start
+  66:main.c        ****     Maximum_Peak_Detector_A_Start();
+ 232              		.loc 1 66 0
+ 233 0020 FFF7FEFF 		bl	Maximum_Peak_Detector_A_Start
+  67:main.c        ****     Maximum_Peak_Detector_B_Start();
+ 234              		.loc 1 67 0
+ 235 0024 FFF7FEFF 		bl	Maximum_Peak_Detector_B_Start
+  68:main.c        ****     ADC_SAR_A_IRQ_Enable();
+ 236              		.loc 1 68 0
+ 237 0028 FFF7FEFF 		bl	ADC_SAR_A_IRQ_Enable
+  69:main.c        ****     ADC_SAR_B_IRQ_Enable();
+ 238              		.loc 1 69 0
+ 239 002c FFF7FEFF 		bl	ADC_SAR_B_IRQ_Enable
+  70:main.c        ****     Comp_A_Start();
+ 240              		.loc 1 70 0
+ 241 0030 FFF7FEFF 		bl	Comp_A_Start
+  71:main.c        ****     Comp_B_Start();
+ 242              		.loc 1 71 0
+ 243 0034 FFF7FEFF 		bl	Comp_B_Start
+  72:main.c        ****     Control_Reg_Write(0x01);
+ 244              		.loc 1 72 0
+ 245 0038 0120     		movs	r0, #1
+ 246 003a FFF7FEFF 		bl	Control_Reg_Write
+  73:main.c        ****     ISR_START_StartEx(ISR_START_Handler);
+ 247              		.loc 1 73 0
+ 248 003e 7548     		ldr	r0, .L19
+ 249 0040 FFF7FEFF 		bl	ISR_START_StartEx
+  74:main.c        ****     ISR_A_StartEx(ISR_OUT_A_Handler);
+ 250              		.loc 1 74 0
+ 251 0044 7448     		ldr	r0, .L19+4
+ 252 0046 FFF7FEFF 		bl	ISR_A_StartEx
+  75:main.c        ****     ISR_B_StartEx(ISR_OUT_B_Handler);
+ 253              		.loc 1 75 0
+ 254 004a 7448     		ldr	r0, .L19+8
+ 255 004c FFF7FEFF 		bl	ISR_B_StartEx
+  76:main.c        ****     
+  77:main.c        ****     DMA_A_Chan = DMA_A_DmaInitialize(DMA_A_BYTES_PER_BURST, DMA_A_REQUEST_PER_BURST, 
+ 256              		.loc 1 77 0
+ 257 0050 41F6FF73 		movw	r3, #8191
+ 258 0054 4FF48042 		mov	r2, #16384
+ 259 0058 0021     		movs	r1, #0
+ 260 005a 0220     		movs	r0, #2
+ 261 005c FFF7FEFF 		bl	DMA_A_DmaInitialize
+ 262 0060 0346     		mov	r3, r0
+ 263 0062 1A46     		mov	r2, r3
+ 264 0064 6E4B     		ldr	r3, .L19+12
+ 265 0066 1A70     		strb	r2, [r3]
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 7
+
+
+  78:main.c        ****         HI16(DMA_A_SRC_BASE), HI16(DMA_A_DST_BASE));
+  79:main.c        ****     DMA_A_TD[0] = CyDmaTdAllocate();
+ 266              		.loc 1 79 0
+ 267 0068 FFF7FEFF 		bl	CyDmaTdAllocate
+ 268 006c 0346     		mov	r3, r0
+ 269 006e 1A46     		mov	r2, r3
+ 270 0070 6C4B     		ldr	r3, .L19+16
+ 271 0072 1A70     		strb	r2, [r3]
+  80:main.c        ****     CyDmaTdSetConfiguration(DMA_A_TD[0], DATA_SIZE * 2, DMA_A_TD[0], DMA_A__TD_TERMOUT_EN | CY_DMA_
+ 272              		.loc 1 80 0
+ 273 0074 6B4B     		ldr	r3, .L19+16
+ 274 0076 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 275 0078 6A4B     		ldr	r3, .L19+16
+ 276 007a 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 277 007c 0623     		movs	r3, #6
+ 278 007e 4FF4C871 		mov	r1, #400
+ 279 0082 FFF7FEFF 		bl	CyDmaTdSetConfiguration
+  81:main.c        ****     CyDmaTdSetAddress(DMA_A_TD[0], LO16((uint32)ADC_SAR_A_SAR_WRK0_PTR), LO16((uint32)DataA));
+ 280              		.loc 1 81 0
+ 281 0086 674B     		ldr	r3, .L19+16
+ 282 0088 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 283 008a 674A     		ldr	r2, .L19+20
+ 284 008c 92B2     		uxth	r2, r2
+ 285 008e 45F6A231 		movw	r1, #23458
+ 286 0092 1846     		mov	r0, r3
+ 287 0094 FFF7FEFF 		bl	CyDmaTdSetAddress
+  82:main.c        ****     CyDmaChSetInitialTd(DMA_A_Chan, DMA_A_TD[0]);
+ 288              		.loc 1 82 0
+ 289 0098 614B     		ldr	r3, .L19+12
+ 290 009a 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 291 009c 614B     		ldr	r3, .L19+16
+ 292 009e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 293 00a0 1946     		mov	r1, r3
+ 294 00a2 1046     		mov	r0, r2
+ 295 00a4 FFF7FEFF 		bl	CyDmaChSetInitialTd
+  83:main.c        ****     
+  84:main.c        ****     DMA_B_Chan = DMA_B_DmaInitialize(DMA_B_BYTES_PER_BURST, DMA_B_REQUEST_PER_BURST, 
+ 296              		.loc 1 84 0
+ 297 00a8 41F6FF73 		movw	r3, #8191
+ 298 00ac 4FF48042 		mov	r2, #16384
+ 299 00b0 0021     		movs	r1, #0
+ 300 00b2 0220     		movs	r0, #2
+ 301 00b4 FFF7FEFF 		bl	DMA_B_DmaInitialize
+ 302 00b8 0346     		mov	r3, r0
+ 303 00ba 1A46     		mov	r2, r3
+ 304 00bc 5B4B     		ldr	r3, .L19+24
+ 305 00be 1A70     		strb	r2, [r3]
+  85:main.c        ****         HI16(DMA_B_SRC_BASE), HI16(DMA_B_DST_BASE));
+  86:main.c        ****     DMA_B_TD[0] = CyDmaTdAllocate();
+ 306              		.loc 1 86 0
+ 307 00c0 FFF7FEFF 		bl	CyDmaTdAllocate
+ 308 00c4 0346     		mov	r3, r0
+ 309 00c6 1A46     		mov	r2, r3
+ 310 00c8 594B     		ldr	r3, .L19+28
+ 311 00ca 1A70     		strb	r2, [r3]
+  87:main.c        ****     CyDmaTdSetConfiguration(DMA_B_TD[0], DATA_SIZE * 2, DMA_B_TD[0], DMA_B__TD_TERMOUT_EN | CY_DMA_
+ 312              		.loc 1 87 0
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 8
+
+
+ 313 00cc 584B     		ldr	r3, .L19+28
+ 314 00ce 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 315 00d0 574B     		ldr	r3, .L19+28
+ 316 00d2 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 317 00d4 0623     		movs	r3, #6
+ 318 00d6 4FF4C871 		mov	r1, #400
+ 319 00da FFF7FEFF 		bl	CyDmaTdSetConfiguration
+  88:main.c        ****     CyDmaTdSetAddress(DMA_B_TD[0], LO16((uint32)ADC_SAR_B_SAR_WRK0_PTR), LO16((uint32)DataB));
+ 320              		.loc 1 88 0
+ 321 00de 544B     		ldr	r3, .L19+28
+ 322 00e0 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 323 00e2 544A     		ldr	r2, .L19+32
+ 324 00e4 92B2     		uxth	r2, r2
+ 325 00e6 45F6A031 		movw	r1, #23456
+ 326 00ea 1846     		mov	r0, r3
+ 327 00ec FFF7FEFF 		bl	CyDmaTdSetAddress
+  89:main.c        ****     CyDmaChSetInitialTd(DMA_B_Chan, DMA_B_TD[0]);
+ 328              		.loc 1 89 0
+ 329 00f0 4E4B     		ldr	r3, .L19+24
+ 330 00f2 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 331 00f4 4E4B     		ldr	r3, .L19+28
+ 332 00f6 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 333 00f8 1946     		mov	r1, r3
+ 334 00fa 1046     		mov	r0, r2
+ 335 00fc FFF7FEFF 		bl	CyDmaChSetInitialTd
+  90:main.c        ****     
+  91:main.c        ****     
+  92:main.c        ****     CyDmaChEnable(DMA_A_Chan, 1);
+ 336              		.loc 1 92 0
+ 337 0100 474B     		ldr	r3, .L19+12
+ 338 0102 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 339 0104 0121     		movs	r1, #1
+ 340 0106 1846     		mov	r0, r3
+ 341 0108 FFF7FEFF 		bl	CyDmaChEnable
+  93:main.c        ****     CyDmaChEnable(DMA_B_Chan, 1);
+ 342              		.loc 1 93 0
+ 343 010c 474B     		ldr	r3, .L19+24
+ 344 010e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 345 0110 0121     		movs	r1, #1
+ 346 0112 1846     		mov	r0, r3
+ 347 0114 FFF7FEFF 		bl	CyDmaChEnable
+  94:main.c        ****     
+  95:main.c        ****     CyGlobalIntEnable;
+ 348              		.loc 1 95 0
+ 349              		.syntax unified
+ 350              	@ 95 "main.c" 1
+ 351 0118 62B6     		CPSIE   i
+ 352              	@ 0 "" 2
+ 353              		.thumb
+ 354              		.syntax unified
+ 355              	.L18:
+  96:main.c        ****        
+  97:main.c        ****     char output[200];
+  98:main.c        ****     
+  99:main.c        **** 
+ 100:main.c        ****     for(;;)
+ 101:main.c        ****     {
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 9
+
+
+ 102:main.c        ****         if (ISR_A_done && ISR_B_done) {
+ 356              		.loc 1 102 0
+ 357 011a 474B     		ldr	r3, .L19+36
+ 358 011c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 359 011e 002B     		cmp	r3, #0
+ 360 0120 FBD0     		beq	.L18
+ 361              		.loc 1 102 0 is_stmt 0 discriminator 1
+ 362 0122 464B     		ldr	r3, .L19+40
+ 363 0124 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 364 0126 002B     		cmp	r3, #0
+ 365 0128 F7D0     		beq	.L18
+ 366              	.LBB2:
+ 103:main.c        ****             CyGlobalIntDisable;
+ 367              		.loc 1 103 0 is_stmt 1
+ 368              		.syntax unified
+ 369              	@ 103 "main.c" 1
+ 370 012a 72B6     		CPSID   i
+ 371              	@ 0 "" 2
+ 104:main.c        ****             uint16_t a = 0, b = 0;
+ 372              		.loc 1 104 0
+ 373              		.thumb
+ 374              		.syntax unified
+ 375 012c 0023     		movs	r3, #0
+ 376 012e A7F8D630 		strh	r3, [r7, #214]	@ movhi
+ 377 0132 0023     		movs	r3, #0
+ 378 0134 A7F8D430 		strh	r3, [r7, #212]	@ movhi
+ 105:main.c        ****             uint8_t ai = 0, bi = 0;
+ 379              		.loc 1 105 0
+ 380 0138 0023     		movs	r3, #0
+ 381 013a 87F8D330 		strb	r3, [r7, #211]
+ 382 013e 0023     		movs	r3, #0
+ 383 0140 87F8D230 		strb	r3, [r7, #210]
+ 384              	.LBB3:
+ 106:main.c        ****             
+ 107:main.c        ****             for (uint8_t i = 0; i < DATA_SIZE; i++) {
+ 385              		.loc 1 107 0
+ 386 0144 0023     		movs	r3, #0
+ 387 0146 87F8D130 		strb	r3, [r7, #209]
+ 388 014a 2CE0     		b	.L14
+ 389              	.L17:
+ 108:main.c        ****                 if (DataA[i] > a) {
+ 390              		.loc 1 108 0
+ 391 014c 97F8D130 		ldrb	r3, [r7, #209]	@ zero_extendqisi2
+ 392 0150 354A     		ldr	r2, .L19+20
+ 393 0152 32F81330 		ldrh	r3, [r2, r3, lsl #1]
+ 394 0156 B7F8D620 		ldrh	r2, [r7, #214]
+ 395 015a 9A42     		cmp	r2, r3
+ 396 015c 0AD2     		bcs	.L15
+ 109:main.c        ****                     a = DataA[i];
+ 397              		.loc 1 109 0
+ 398 015e 97F8D130 		ldrb	r3, [r7, #209]	@ zero_extendqisi2
+ 399 0162 314A     		ldr	r2, .L19+20
+ 400 0164 32F81330 		ldrh	r3, [r2, r3, lsl #1]	@ movhi
+ 401 0168 A7F8D630 		strh	r3, [r7, #214]	@ movhi
+ 110:main.c        ****                     ai = i;
+ 402              		.loc 1 110 0
+ 403 016c 97F8D130 		ldrb	r3, [r7, #209]
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 10
+
+
+ 404 0170 87F8D330 		strb	r3, [r7, #211]
+ 405              	.L15:
+ 111:main.c        ****                 }
+ 112:main.c        ****                 
+ 113:main.c        ****                 if (DataB[i] > b) {
+ 406              		.loc 1 113 0
+ 407 0174 97F8D130 		ldrb	r3, [r7, #209]	@ zero_extendqisi2
+ 408 0178 2E4A     		ldr	r2, .L19+32
+ 409 017a 32F81330 		ldrh	r3, [r2, r3, lsl #1]
+ 410 017e B7F8D420 		ldrh	r2, [r7, #212]
+ 411 0182 9A42     		cmp	r2, r3
+ 412 0184 0AD2     		bcs	.L16
+ 114:main.c        ****                     b = DataB[i];
+ 413              		.loc 1 114 0
+ 414 0186 97F8D130 		ldrb	r3, [r7, #209]	@ zero_extendqisi2
+ 415 018a 2A4A     		ldr	r2, .L19+32
+ 416 018c 32F81330 		ldrh	r3, [r2, r3, lsl #1]	@ movhi
+ 417 0190 A7F8D430 		strh	r3, [r7, #212]	@ movhi
+ 115:main.c        ****                     bi = i;
+ 418              		.loc 1 115 0
+ 419 0194 97F8D130 		ldrb	r3, [r7, #209]
+ 420 0198 87F8D230 		strb	r3, [r7, #210]
+ 421              	.L16:
+ 107:main.c        ****                 if (DataA[i] > a) {
+ 422              		.loc 1 107 0 discriminator 2
+ 423 019c 97F8D130 		ldrb	r3, [r7, #209]	@ zero_extendqisi2
+ 424 01a0 0133     		adds	r3, r3, #1
+ 425 01a2 87F8D130 		strb	r3, [r7, #209]
+ 426              	.L14:
+ 107:main.c        ****                 if (DataA[i] > a) {
+ 427              		.loc 1 107 0 is_stmt 0 discriminator 1
+ 428 01a6 97F8D130 		ldrb	r3, [r7, #209]	@ zero_extendqisi2
+ 429 01aa C72B     		cmp	r3, #199
+ 430 01ac CED9     		bls	.L17
+ 431              	.LBE3:
+ 116:main.c        ****                 }
+ 117:main.c        ****             }
+ 118:main.c        ****             
+ 119:main.c        ****             int16_t angle = calculate_angle(ai - bi, angle_conversion_factor);
+ 432              		.loc 1 119 0 is_stmt 1
+ 433 01ae 97F8D330 		ldrb	r3, [r7, #211]	@ zero_extendqisi2
+ 434 01b2 9AB2     		uxth	r2, r3
+ 435 01b4 97F8D230 		ldrb	r3, [r7, #210]	@ zero_extendqisi2
+ 436 01b8 9BB2     		uxth	r3, r3
+ 437 01ba D31A     		subs	r3, r2, r3
+ 438 01bc 9BB2     		uxth	r3, r3
+ 439 01be 1CB2     		sxth	r4, r3
+ 440 01c0 D7F8CC00 		ldr	r0, [r7, #204]
+ 441 01c4 FFF7FEFF 		bl	__aeabi_i2f
+ 442 01c8 0346     		mov	r3, r0
+ 443 01ca 1946     		mov	r1, r3
+ 444 01cc 2046     		mov	r0, r4
+ 445 01ce FFF7FEFF 		bl	calculate_angle
+ 446 01d2 0346     		mov	r3, r0
+ 447 01d4 A7F8CA30 		strh	r3, [r7, #202]	@ movhi
+ 120:main.c        ****             uint16_t distance = (d_t2 - d_t1) * 343;
+ 448              		.loc 1 120 0
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 11
+
+
+ 449 01d8 194B     		ldr	r3, .L19+44
+ 450 01da 1A88     		ldrh	r2, [r3]
+ 451 01dc 194B     		ldr	r3, .L19+48
+ 452 01de 1B88     		ldrh	r3, [r3]
+ 453 01e0 D31A     		subs	r3, r2, r3
+ 454 01e2 9BB2     		uxth	r3, r3
+ 455 01e4 1A46     		mov	r2, r3	@ movhi
+ 456 01e6 D200     		lsls	r2, r2, #3
+ 457 01e8 D31A     		subs	r3, r2, r3
+ 458 01ea 1A46     		mov	r2, r3	@ movhi
+ 459 01ec D200     		lsls	r2, r2, #3
+ 460 01ee D31A     		subs	r3, r2, r3
+ 461 01f0 1A46     		mov	r2, r3	@ movhi
+ 462 01f2 D200     		lsls	r2, r2, #3
+ 463 01f4 D31A     		subs	r3, r2, r3
+ 464 01f6 A7F8C830 		strh	r3, [r7, #200]	@ movhi
+ 121:main.c        ****             
+ 122:main.c        ****             ISR_A_done = ISR_B_done = 0;
+ 465              		.loc 1 122 0
+ 466 01fa 104B     		ldr	r3, .L19+40
+ 467 01fc 0022     		movs	r2, #0
+ 468 01fe 1A70     		strb	r2, [r3]
+ 469 0200 0E4B     		ldr	r3, .L19+40
+ 470 0202 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 471 0204 0C4B     		ldr	r3, .L19+36
+ 472 0206 1A70     		strb	r2, [r3]
+ 123:main.c        ****             Control_Reg_Write(0x01);
+ 473              		.loc 1 123 0
+ 474 0208 0120     		movs	r0, #1
+ 475 020a FFF7FEFF 		bl	Control_Reg_Write
+ 124:main.c        ****             
+ 125:main.c        ****             CyGlobalIntEnable;
+ 476              		.loc 1 125 0
+ 477              		.syntax unified
+ 478              	@ 125 "main.c" 1
+ 479 020e 62B6     		CPSIE   i
+ 480              	@ 0 "" 2
+ 481              		.thumb
+ 482              		.syntax unified
+ 483              	.LBE2:
+ 126:main.c        ****         }
+ 127:main.c        ****     }
+ 484              		.loc 1 127 0
+ 485 0210 83E7     		b	.L18
+ 486              	.L20:
+ 487 0212 00BF     		.align	2
+ 488              	.L19:
+ 489 0214 00000000 		.word	ISR_START_Handler
+ 490 0218 00000000 		.word	ISR_OUT_A_Handler
+ 491 021c 00000000 		.word	ISR_OUT_B_Handler
+ 492 0220 00000000 		.word	DMA_A_Chan
+ 493 0224 00000000 		.word	DMA_A_TD
+ 494 0228 00000000 		.word	DataA
+ 495 022c 00000000 		.word	DMA_B_Chan
+ 496 0230 00000000 		.word	DMA_B_TD
+ 497 0234 00000000 		.word	DataB
+ 498 0238 00000000 		.word	ISR_A_done
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 12
+
+
+ 499 023c 00000000 		.word	ISR_B_done
+ 500 0240 00000000 		.word	d_t2
+ 501 0244 00000000 		.word	d_t1
+ 502              		.cfi_endproc
+ 503              	.LFE61:
+ 504              		.size	main, .-main
+ 505              		.text
+ 506              	.Letext0:
+ 507              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 508              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 509              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 510              		.file 5 "Generated_Source\\PSoC5/core_cm3.h"
+ 511              		.section	.debug_info,"",%progbits
+ 512              	.Ldebug_info0:
+ 513 0000 13030000 		.4byte	0x313
+ 514 0004 0400     		.2byte	0x4
+ 515 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 516 000a 04       		.byte	0x4
+ 517 000b 01       		.uleb128 0x1
+ 518 000c 15000000 		.4byte	.LASF47
+ 519 0010 0C       		.byte	0xc
+ 520 0011 66020000 		.4byte	.LASF48
+ 521 0015 B8000000 		.4byte	.LASF49
+ 522 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 523 001d 00000000 		.4byte	0
+ 524 0021 00000000 		.4byte	.Ldebug_line0
+ 525 0025 02       		.uleb128 0x2
+ 526 0026 01       		.byte	0x1
+ 527 0027 06       		.byte	0x6
+ 528 0028 D4020000 		.4byte	.LASF0
+ 529 002c 03       		.uleb128 0x3
+ 530 002d 00000000 		.4byte	.LASF2
+ 531 0031 02       		.byte	0x2
+ 532 0032 1D       		.byte	0x1d
+ 533 0033 37000000 		.4byte	0x37
+ 534 0037 02       		.uleb128 0x2
+ 535 0038 01       		.byte	0x1
+ 536 0039 08       		.byte	0x8
+ 537 003a C0010000 		.4byte	.LASF1
+ 538 003e 03       		.uleb128 0x3
+ 539 003f A3000000 		.4byte	.LASF3
+ 540 0043 02       		.byte	0x2
+ 541 0044 29       		.byte	0x29
+ 542 0045 49000000 		.4byte	0x49
+ 543 0049 02       		.uleb128 0x2
+ 544 004a 02       		.byte	0x2
+ 545 004b 05       		.byte	0x5
+ 546 004c 93020000 		.4byte	.LASF4
+ 547 0050 03       		.uleb128 0x3
+ 548 0051 CE010000 		.4byte	.LASF5
+ 549 0055 02       		.byte	0x2
+ 550 0056 2B       		.byte	0x2b
+ 551 0057 5B000000 		.4byte	0x5b
+ 552 005b 02       		.uleb128 0x2
+ 553 005c 02       		.byte	0x2
+ 554 005d 07       		.byte	0x7
+ 555 005e 9A010000 		.4byte	.LASF6
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 13
+
+
+ 556 0062 03       		.uleb128 0x3
+ 557 0063 1C010000 		.4byte	.LASF7
+ 558 0067 02       		.byte	0x2
+ 559 0068 3F       		.byte	0x3f
+ 560 0069 6D000000 		.4byte	0x6d
+ 561 006d 02       		.uleb128 0x2
+ 562 006e 04       		.byte	0x4
+ 563 006f 05       		.byte	0x5
+ 564 0070 BF020000 		.4byte	.LASF8
+ 565 0074 02       		.uleb128 0x2
+ 566 0075 04       		.byte	0x4
+ 567 0076 07       		.byte	0x7
+ 568 0077 88010000 		.4byte	.LASF9
+ 569 007b 02       		.uleb128 0x2
+ 570 007c 08       		.byte	0x8
+ 571 007d 05       		.byte	0x5
+ 572 007e 58020000 		.4byte	.LASF10
+ 573 0082 02       		.uleb128 0x2
+ 574 0083 08       		.byte	0x8
+ 575 0084 07       		.byte	0x7
+ 576 0085 00020000 		.4byte	.LASF11
+ 577 0089 04       		.uleb128 0x4
+ 578 008a 04       		.byte	0x4
+ 579 008b 05       		.byte	0x5
+ 580 008c 696E7400 		.ascii	"int\000"
+ 581 0090 02       		.uleb128 0x2
+ 582 0091 04       		.byte	0x4
+ 583 0092 07       		.byte	0x7
+ 584 0093 F3010000 		.4byte	.LASF12
+ 585 0097 03       		.uleb128 0x3
+ 586 0098 17020000 		.4byte	.LASF13
+ 587 009c 03       		.byte	0x3
+ 588 009d 18       		.byte	0x18
+ 589 009e 2C000000 		.4byte	0x2c
+ 590 00a2 03       		.uleb128 0x3
+ 591 00a3 1F020000 		.4byte	.LASF14
+ 592 00a7 03       		.byte	0x3
+ 593 00a8 20       		.byte	0x20
+ 594 00a9 3E000000 		.4byte	0x3e
+ 595 00ad 03       		.uleb128 0x3
+ 596 00ae A4020000 		.4byte	.LASF15
+ 597 00b2 03       		.byte	0x3
+ 598 00b3 24       		.byte	0x24
+ 599 00b4 50000000 		.4byte	0x50
+ 600 00b8 03       		.uleb128 0x3
+ 601 00b9 3F010000 		.4byte	.LASF16
+ 602 00bd 03       		.byte	0x3
+ 603 00be 2C       		.byte	0x2c
+ 604 00bf 62000000 		.4byte	0x62
+ 605 00c3 03       		.uleb128 0x3
+ 606 00c4 2F010000 		.4byte	.LASF17
+ 607 00c8 04       		.byte	0x4
+ 608 00c9 A1       		.byte	0xa1
+ 609 00ca 37000000 		.4byte	0x37
+ 610 00ce 03       		.uleb128 0x3
+ 611 00cf E5010000 		.4byte	.LASF18
+ 612 00d3 04       		.byte	0x4
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 14
+
+
+ 613 00d4 A2       		.byte	0xa2
+ 614 00d5 5B000000 		.4byte	0x5b
+ 615 00d9 03       		.uleb128 0x3
+ 616 00da EC010000 		.4byte	.LASF19
+ 617 00de 04       		.byte	0x4
+ 618 00df A3       		.byte	0xa3
+ 619 00e0 74000000 		.4byte	0x74
+ 620 00e4 02       		.uleb128 0x2
+ 621 00e5 04       		.byte	0x4
+ 622 00e6 04       		.byte	0x4
+ 623 00e7 50010000 		.4byte	.LASF20
+ 624 00eb 02       		.uleb128 0x2
+ 625 00ec 08       		.byte	0x8
+ 626 00ed 04       		.byte	0x4
+ 627 00ee D9010000 		.4byte	.LASF21
+ 628 00f2 02       		.uleb128 0x2
+ 629 00f3 01       		.byte	0x1
+ 630 00f4 08       		.byte	0x8
+ 631 00f5 6D020000 		.4byte	.LASF22
+ 632 00f9 05       		.uleb128 0x5
+ 633 00fa 71010000 		.4byte	.LASF23
+ 634 00fe 04       		.byte	0x4
+ 635 00ff 4B01     		.2byte	0x14b
+ 636 0101 05010000 		.4byte	0x105
+ 637 0105 06       		.uleb128 0x6
+ 638 0106 C3000000 		.4byte	0xc3
+ 639 010a 02       		.uleb128 0x2
+ 640 010b 08       		.byte	0x8
+ 641 010c 04       		.byte	0x4
+ 642 010d C8020000 		.4byte	.LASF24
+ 643 0111 02       		.uleb128 0x2
+ 644 0112 04       		.byte	0x4
+ 645 0113 07       		.byte	0x7
+ 646 0114 4F020000 		.4byte	.LASF25
+ 647 0118 07       		.uleb128 0x7
+ 648 0119 32020000 		.4byte	.LASF26
+ 649 011d 01       		.byte	0x1
+ 650 011e 20       		.byte	0x20
+ 651 011f 00000000 		.4byte	.LFB57
+ 652 0123 28000000 		.4byte	.LFE57-.LFB57
+ 653 0127 01       		.uleb128 0x1
+ 654 0128 9C       		.byte	0x9c
+ 655 0129 07       		.uleb128 0x7
+ 656 012a 76010000 		.4byte	.LASF27
+ 657 012e 01       		.byte	0x1
+ 658 012f 28       		.byte	0x28
+ 659 0130 00000000 		.4byte	.LFB58
+ 660 0134 18000000 		.4byte	.LFE58-.LFB58
+ 661 0138 01       		.uleb128 0x1
+ 662 0139 9C       		.byte	0x9c
+ 663 013a 07       		.uleb128 0x7
+ 664 013b AD020000 		.4byte	.LASF28
+ 665 013f 01       		.byte	0x1
+ 666 0140 2E       		.byte	0x2e
+ 667 0141 00000000 		.4byte	.LFB59
+ 668 0145 18000000 		.4byte	.LFE59-.LFB59
+ 669 0149 01       		.uleb128 0x1
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 15
+
+
+ 670 014a 9C       		.byte	0x9c
+ 671 014b 08       		.uleb128 0x8
+ 672 014c 56010000 		.4byte	.LASF31
+ 673 0150 01       		.byte	0x1
+ 674 0151 34       		.byte	0x34
+ 675 0152 A2000000 		.4byte	0xa2
+ 676 0156 00000000 		.4byte	.LFB60
+ 677 015a 34000000 		.4byte	.LFE60-.LFB60
+ 678 015e 01       		.uleb128 0x1
+ 679 015f 9C       		.byte	0x9c
+ 680 0160 81010000 		.4byte	0x181
+ 681 0164 09       		.uleb128 0x9
+ 682 0165 27020000 		.4byte	.LASF29
+ 683 0169 01       		.byte	0x1
+ 684 016a 34       		.byte	0x34
+ 685 016b A2000000 		.4byte	0xa2
+ 686 016f 02       		.uleb128 0x2
+ 687 0170 91       		.byte	0x91
+ 688 0171 76       		.sleb128 -10
+ 689 0172 09       		.uleb128 0x9
+ 690 0173 72020000 		.4byte	.LASF30
+ 691 0177 01       		.byte	0x1
+ 692 0178 34       		.byte	0x34
+ 693 0179 E4000000 		.4byte	0xe4
+ 694 017d 02       		.uleb128 0x2
+ 695 017e 91       		.byte	0x91
+ 696 017f 70       		.sleb128 -16
+ 697 0180 00       		.byte	0
+ 698 0181 08       		.uleb128 0x8
+ 699 0182 E0010000 		.4byte	.LASF32
+ 700 0186 01       		.byte	0x1
+ 701 0187 39       		.byte	0x39
+ 702 0188 89000000 		.4byte	0x89
+ 703 018c 00000000 		.4byte	.LFB61
+ 704 0190 48020000 		.4byte	.LFE61-.LFB61
+ 705 0194 01       		.uleb128 0x1
+ 706 0195 9C       		.byte	0x9c
+ 707 0196 26020000 		.4byte	0x226
+ 708 019a 0A       		.uleb128 0xa
+ 709 019b 72020000 		.4byte	.LASF30
+ 710 019f 01       		.byte	0x1
+ 711 01a0 3B       		.byte	0x3b
+ 712 01a1 26020000 		.4byte	0x226
+ 713 01a5 02       		.uleb128 0x2
+ 714 01a6 91       		.byte	0x91
+ 715 01a7 64       		.sleb128 -28
+ 716 01a8 0A       		.uleb128 0xa
+ 717 01a9 9D020000 		.4byte	.LASF33
+ 718 01ad 01       		.byte	0x1
+ 719 01ae 61       		.byte	0x61
+ 720 01af 2B020000 		.4byte	0x22b
+ 721 01b3 03       		.uleb128 0x3
+ 722 01b4 91       		.byte	0x91
+ 723 01b5 987E     		.sleb128 -232
+ 724 01b7 0B       		.uleb128 0xb
+ 725 01b8 2A010000 		.4byte	.LBB2
+ 726 01bc E6000000 		.4byte	.LBE2-.LBB2
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 16
+
+
+ 727 01c0 0C       		.uleb128 0xc
+ 728 01c1 6100     		.ascii	"a\000"
+ 729 01c3 01       		.byte	0x1
+ 730 01c4 68       		.byte	0x68
+ 731 01c5 AD000000 		.4byte	0xad
+ 732 01c9 02       		.uleb128 0x2
+ 733 01ca 91       		.byte	0x91
+ 734 01cb 6E       		.sleb128 -18
+ 735 01cc 0C       		.uleb128 0xc
+ 736 01cd 6200     		.ascii	"b\000"
+ 737 01cf 01       		.byte	0x1
+ 738 01d0 68       		.byte	0x68
+ 739 01d1 AD000000 		.4byte	0xad
+ 740 01d5 02       		.uleb128 0x2
+ 741 01d6 91       		.byte	0x91
+ 742 01d7 6C       		.sleb128 -20
+ 743 01d8 0C       		.uleb128 0xc
+ 744 01d9 616900   		.ascii	"ai\000"
+ 745 01dc 01       		.byte	0x1
+ 746 01dd 69       		.byte	0x69
+ 747 01de 97000000 		.4byte	0x97
+ 748 01e2 02       		.uleb128 0x2
+ 749 01e3 91       		.byte	0x91
+ 750 01e4 6B       		.sleb128 -21
+ 751 01e5 0C       		.uleb128 0xc
+ 752 01e6 626900   		.ascii	"bi\000"
+ 753 01e9 01       		.byte	0x1
+ 754 01ea 69       		.byte	0x69
+ 755 01eb 97000000 		.4byte	0x97
+ 756 01ef 02       		.uleb128 0x2
+ 757 01f0 91       		.byte	0x91
+ 758 01f1 6A       		.sleb128 -22
+ 759 01f2 0A       		.uleb128 0xa
+ 760 01f3 AD010000 		.4byte	.LASF34
+ 761 01f7 01       		.byte	0x1
+ 762 01f8 77       		.byte	0x77
+ 763 01f9 A2000000 		.4byte	0xa2
+ 764 01fd 02       		.uleb128 0x2
+ 765 01fe 91       		.byte	0x91
+ 766 01ff 62       		.sleb128 -30
+ 767 0200 0A       		.uleb128 0xa
+ 768 0201 47010000 		.4byte	.LASF35
+ 769 0205 01       		.byte	0x1
+ 770 0206 78       		.byte	0x78
+ 771 0207 AD000000 		.4byte	0xad
+ 772 020b 02       		.uleb128 0x2
+ 773 020c 91       		.byte	0x91
+ 774 020d 60       		.sleb128 -32
+ 775 020e 0B       		.uleb128 0xb
+ 776 020f 44010000 		.4byte	.LBB3
+ 777 0213 6A000000 		.4byte	.LBE3-.LBB3
+ 778 0217 0C       		.uleb128 0xc
+ 779 0218 6900     		.ascii	"i\000"
+ 780 021a 01       		.byte	0x1
+ 781 021b 6B       		.byte	0x6b
+ 782 021c 97000000 		.4byte	0x97
+ 783 0220 02       		.uleb128 0x2
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 17
+
+
+ 784 0221 91       		.byte	0x91
+ 785 0222 69       		.sleb128 -23
+ 786 0223 00       		.byte	0
+ 787 0224 00       		.byte	0
+ 788 0225 00       		.byte	0
+ 789 0226 0D       		.uleb128 0xd
+ 790 0227 89000000 		.4byte	0x89
+ 791 022b 0E       		.uleb128 0xe
+ 792 022c F2000000 		.4byte	0xf2
+ 793 0230 3B020000 		.4byte	0x23b
+ 794 0234 0F       		.uleb128 0xf
+ 795 0235 11010000 		.4byte	0x111
+ 796 0239 C7       		.byte	0xc7
+ 797 023a 00       		.byte	0
+ 798 023b 10       		.uleb128 0x10
+ 799 023c B3010000 		.4byte	.LASF36
+ 800 0240 05       		.byte	0x5
+ 801 0241 1606     		.2byte	0x616
+ 802 0243 47020000 		.4byte	0x247
+ 803 0247 06       		.uleb128 0x6
+ 804 0248 B8000000 		.4byte	0xb8
+ 805 024c 0E       		.uleb128 0xe
+ 806 024d AD000000 		.4byte	0xad
+ 807 0251 5C020000 		.4byte	0x25c
+ 808 0255 0F       		.uleb128 0xf
+ 809 0256 11010000 		.4byte	0x111
+ 810 025a C7       		.byte	0xc7
+ 811 025b 00       		.byte	0
+ 812 025c 11       		.uleb128 0x11
+ 813 025d E0020000 		.4byte	.LASF37
+ 814 0261 01       		.byte	0x1
+ 815 0262 07       		.byte	0x7
+ 816 0263 4C020000 		.4byte	0x24c
+ 817 0267 05       		.uleb128 0x5
+ 818 0268 03       		.byte	0x3
+ 819 0269 00000000 		.4byte	DataA
+ 820 026d 11       		.uleb128 0x11
+ 821 026e E6020000 		.4byte	.LASF38
+ 822 0272 01       		.byte	0x1
+ 823 0273 08       		.byte	0x8
+ 824 0274 4C020000 		.4byte	0x24c
+ 825 0278 05       		.uleb128 0x5
+ 826 0279 03       		.byte	0x3
+ 827 027a 00000000 		.4byte	DataB
+ 828 027e 11       		.uleb128 0x11
+ 829 027f AD000000 		.4byte	.LASF39
+ 830 0283 01       		.byte	0x1
+ 831 0284 14       		.byte	0x14
+ 832 0285 C3000000 		.4byte	0xc3
+ 833 0289 05       		.uleb128 0x5
+ 834 028a 03       		.byte	0x3
+ 835 028b 00000000 		.4byte	DMA_A_Chan
+ 836 028f 0E       		.uleb128 0xe
+ 837 0290 C3000000 		.4byte	0xc3
+ 838 0294 9F020000 		.4byte	0x29f
+ 839 0298 0F       		.uleb128 0xf
+ 840 0299 11010000 		.4byte	0x111
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 18
+
+
+ 841 029d 00       		.byte	0
+ 842 029e 00       		.byte	0
+ 843 029f 11       		.uleb128 0x11
+ 844 02a0 8A020000 		.4byte	.LASF40
+ 845 02a4 01       		.byte	0x1
+ 846 02a5 15       		.byte	0x15
+ 847 02a6 8F020000 		.4byte	0x28f
+ 848 02aa 05       		.uleb128 0x5
+ 849 02ab 03       		.byte	0x3
+ 850 02ac 00000000 		.4byte	DMA_A_TD
+ 851 02b0 11       		.uleb128 0x11
+ 852 02b1 66010000 		.4byte	.LASF41
+ 853 02b5 01       		.byte	0x1
+ 854 02b6 17       		.byte	0x17
+ 855 02b7 C3000000 		.4byte	0xc3
+ 856 02bb 05       		.uleb128 0x5
+ 857 02bc 03       		.byte	0x3
+ 858 02bd 00000000 		.4byte	DMA_B_Chan
+ 859 02c1 11       		.uleb128 0x11
+ 860 02c2 26010000 		.4byte	.LASF42
+ 861 02c6 01       		.byte	0x1
+ 862 02c7 18       		.byte	0x18
+ 863 02c8 8F020000 		.4byte	0x28f
+ 864 02cc 05       		.uleb128 0x5
+ 865 02cd 03       		.byte	0x3
+ 866 02ce 00000000 		.4byte	DMA_B_TD
+ 867 02d2 11       		.uleb128 0x11
+ 868 02d3 44020000 		.4byte	.LASF43
+ 869 02d7 01       		.byte	0x1
+ 870 02d8 1A       		.byte	0x1a
+ 871 02d9 97000000 		.4byte	0x97
+ 872 02dd 05       		.uleb128 0x5
+ 873 02de 03       		.byte	0x3
+ 874 02df 00000000 		.4byte	ISR_A_done
+ 875 02e3 11       		.uleb128 0x11
+ 876 02e4 0A000000 		.4byte	.LASF44
+ 877 02e8 01       		.byte	0x1
+ 878 02e9 1B       		.byte	0x1b
+ 879 02ea 97000000 		.4byte	0x97
+ 880 02ee 05       		.uleb128 0x5
+ 881 02ef 03       		.byte	0x3
+ 882 02f0 00000000 		.4byte	ISR_B_done
+ 883 02f4 11       		.uleb128 0x11
+ 884 02f5 35010000 		.4byte	.LASF45
+ 885 02f9 01       		.byte	0x1
+ 886 02fa 1D       		.byte	0x1d
+ 887 02fb AD000000 		.4byte	0xad
+ 888 02ff 05       		.uleb128 0x5
+ 889 0300 03       		.byte	0x3
+ 890 0301 00000000 		.4byte	d_t1
+ 891 0305 11       		.uleb128 0x11
+ 892 0306 3A010000 		.4byte	.LASF46
+ 893 030a 01       		.byte	0x1
+ 894 030b 1E       		.byte	0x1e
+ 895 030c AD000000 		.4byte	0xad
+ 896 0310 05       		.uleb128 0x5
+ 897 0311 03       		.byte	0x3
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 19
+
+
+ 898 0312 00000000 		.4byte	d_t2
+ 899 0316 00       		.byte	0
+ 900              		.section	.debug_abbrev,"",%progbits
+ 901              	.Ldebug_abbrev0:
+ 902 0000 01       		.uleb128 0x1
+ 903 0001 11       		.uleb128 0x11
+ 904 0002 01       		.byte	0x1
+ 905 0003 25       		.uleb128 0x25
+ 906 0004 0E       		.uleb128 0xe
+ 907 0005 13       		.uleb128 0x13
+ 908 0006 0B       		.uleb128 0xb
+ 909 0007 03       		.uleb128 0x3
+ 910 0008 0E       		.uleb128 0xe
+ 911 0009 1B       		.uleb128 0x1b
+ 912 000a 0E       		.uleb128 0xe
+ 913 000b 55       		.uleb128 0x55
+ 914 000c 17       		.uleb128 0x17
+ 915 000d 11       		.uleb128 0x11
+ 916 000e 01       		.uleb128 0x1
+ 917 000f 10       		.uleb128 0x10
+ 918 0010 17       		.uleb128 0x17
+ 919 0011 00       		.byte	0
+ 920 0012 00       		.byte	0
+ 921 0013 02       		.uleb128 0x2
+ 922 0014 24       		.uleb128 0x24
+ 923 0015 00       		.byte	0
+ 924 0016 0B       		.uleb128 0xb
+ 925 0017 0B       		.uleb128 0xb
+ 926 0018 3E       		.uleb128 0x3e
+ 927 0019 0B       		.uleb128 0xb
+ 928 001a 03       		.uleb128 0x3
+ 929 001b 0E       		.uleb128 0xe
+ 930 001c 00       		.byte	0
+ 931 001d 00       		.byte	0
+ 932 001e 03       		.uleb128 0x3
+ 933 001f 16       		.uleb128 0x16
+ 934 0020 00       		.byte	0
+ 935 0021 03       		.uleb128 0x3
+ 936 0022 0E       		.uleb128 0xe
+ 937 0023 3A       		.uleb128 0x3a
+ 938 0024 0B       		.uleb128 0xb
+ 939 0025 3B       		.uleb128 0x3b
+ 940 0026 0B       		.uleb128 0xb
+ 941 0027 49       		.uleb128 0x49
+ 942 0028 13       		.uleb128 0x13
+ 943 0029 00       		.byte	0
+ 944 002a 00       		.byte	0
+ 945 002b 04       		.uleb128 0x4
+ 946 002c 24       		.uleb128 0x24
+ 947 002d 00       		.byte	0
+ 948 002e 0B       		.uleb128 0xb
+ 949 002f 0B       		.uleb128 0xb
+ 950 0030 3E       		.uleb128 0x3e
+ 951 0031 0B       		.uleb128 0xb
+ 952 0032 03       		.uleb128 0x3
+ 953 0033 08       		.uleb128 0x8
+ 954 0034 00       		.byte	0
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 20
+
+
+ 955 0035 00       		.byte	0
+ 956 0036 05       		.uleb128 0x5
+ 957 0037 16       		.uleb128 0x16
+ 958 0038 00       		.byte	0
+ 959 0039 03       		.uleb128 0x3
+ 960 003a 0E       		.uleb128 0xe
+ 961 003b 3A       		.uleb128 0x3a
+ 962 003c 0B       		.uleb128 0xb
+ 963 003d 3B       		.uleb128 0x3b
+ 964 003e 05       		.uleb128 0x5
+ 965 003f 49       		.uleb128 0x49
+ 966 0040 13       		.uleb128 0x13
+ 967 0041 00       		.byte	0
+ 968 0042 00       		.byte	0
+ 969 0043 06       		.uleb128 0x6
+ 970 0044 35       		.uleb128 0x35
+ 971 0045 00       		.byte	0
+ 972 0046 49       		.uleb128 0x49
+ 973 0047 13       		.uleb128 0x13
+ 974 0048 00       		.byte	0
+ 975 0049 00       		.byte	0
+ 976 004a 07       		.uleb128 0x7
+ 977 004b 2E       		.uleb128 0x2e
+ 978 004c 00       		.byte	0
+ 979 004d 3F       		.uleb128 0x3f
+ 980 004e 19       		.uleb128 0x19
+ 981 004f 03       		.uleb128 0x3
+ 982 0050 0E       		.uleb128 0xe
+ 983 0051 3A       		.uleb128 0x3a
+ 984 0052 0B       		.uleb128 0xb
+ 985 0053 3B       		.uleb128 0x3b
+ 986 0054 0B       		.uleb128 0xb
+ 987 0055 27       		.uleb128 0x27
+ 988 0056 19       		.uleb128 0x19
+ 989 0057 11       		.uleb128 0x11
+ 990 0058 01       		.uleb128 0x1
+ 991 0059 12       		.uleb128 0x12
+ 992 005a 06       		.uleb128 0x6
+ 993 005b 40       		.uleb128 0x40
+ 994 005c 18       		.uleb128 0x18
+ 995 005d 9642     		.uleb128 0x2116
+ 996 005f 19       		.uleb128 0x19
+ 997 0060 00       		.byte	0
+ 998 0061 00       		.byte	0
+ 999 0062 08       		.uleb128 0x8
+ 1000 0063 2E       		.uleb128 0x2e
+ 1001 0064 01       		.byte	0x1
+ 1002 0065 3F       		.uleb128 0x3f
+ 1003 0066 19       		.uleb128 0x19
+ 1004 0067 03       		.uleb128 0x3
+ 1005 0068 0E       		.uleb128 0xe
+ 1006 0069 3A       		.uleb128 0x3a
+ 1007 006a 0B       		.uleb128 0xb
+ 1008 006b 3B       		.uleb128 0x3b
+ 1009 006c 0B       		.uleb128 0xb
+ 1010 006d 27       		.uleb128 0x27
+ 1011 006e 19       		.uleb128 0x19
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 21
+
+
+ 1012 006f 49       		.uleb128 0x49
+ 1013 0070 13       		.uleb128 0x13
+ 1014 0071 11       		.uleb128 0x11
+ 1015 0072 01       		.uleb128 0x1
+ 1016 0073 12       		.uleb128 0x12
+ 1017 0074 06       		.uleb128 0x6
+ 1018 0075 40       		.uleb128 0x40
+ 1019 0076 18       		.uleb128 0x18
+ 1020 0077 9642     		.uleb128 0x2116
+ 1021 0079 19       		.uleb128 0x19
+ 1022 007a 01       		.uleb128 0x1
+ 1023 007b 13       		.uleb128 0x13
+ 1024 007c 00       		.byte	0
+ 1025 007d 00       		.byte	0
+ 1026 007e 09       		.uleb128 0x9
+ 1027 007f 05       		.uleb128 0x5
+ 1028 0080 00       		.byte	0
+ 1029 0081 03       		.uleb128 0x3
+ 1030 0082 0E       		.uleb128 0xe
+ 1031 0083 3A       		.uleb128 0x3a
+ 1032 0084 0B       		.uleb128 0xb
+ 1033 0085 3B       		.uleb128 0x3b
+ 1034 0086 0B       		.uleb128 0xb
+ 1035 0087 49       		.uleb128 0x49
+ 1036 0088 13       		.uleb128 0x13
+ 1037 0089 02       		.uleb128 0x2
+ 1038 008a 18       		.uleb128 0x18
+ 1039 008b 00       		.byte	0
+ 1040 008c 00       		.byte	0
+ 1041 008d 0A       		.uleb128 0xa
+ 1042 008e 34       		.uleb128 0x34
+ 1043 008f 00       		.byte	0
+ 1044 0090 03       		.uleb128 0x3
+ 1045 0091 0E       		.uleb128 0xe
+ 1046 0092 3A       		.uleb128 0x3a
+ 1047 0093 0B       		.uleb128 0xb
+ 1048 0094 3B       		.uleb128 0x3b
+ 1049 0095 0B       		.uleb128 0xb
+ 1050 0096 49       		.uleb128 0x49
+ 1051 0097 13       		.uleb128 0x13
+ 1052 0098 02       		.uleb128 0x2
+ 1053 0099 18       		.uleb128 0x18
+ 1054 009a 00       		.byte	0
+ 1055 009b 00       		.byte	0
+ 1056 009c 0B       		.uleb128 0xb
+ 1057 009d 0B       		.uleb128 0xb
+ 1058 009e 01       		.byte	0x1
+ 1059 009f 11       		.uleb128 0x11
+ 1060 00a0 01       		.uleb128 0x1
+ 1061 00a1 12       		.uleb128 0x12
+ 1062 00a2 06       		.uleb128 0x6
+ 1063 00a3 00       		.byte	0
+ 1064 00a4 00       		.byte	0
+ 1065 00a5 0C       		.uleb128 0xc
+ 1066 00a6 34       		.uleb128 0x34
+ 1067 00a7 00       		.byte	0
+ 1068 00a8 03       		.uleb128 0x3
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 22
+
+
+ 1069 00a9 08       		.uleb128 0x8
+ 1070 00aa 3A       		.uleb128 0x3a
+ 1071 00ab 0B       		.uleb128 0xb
+ 1072 00ac 3B       		.uleb128 0x3b
+ 1073 00ad 0B       		.uleb128 0xb
+ 1074 00ae 49       		.uleb128 0x49
+ 1075 00af 13       		.uleb128 0x13
+ 1076 00b0 02       		.uleb128 0x2
+ 1077 00b1 18       		.uleb128 0x18
+ 1078 00b2 00       		.byte	0
+ 1079 00b3 00       		.byte	0
+ 1080 00b4 0D       		.uleb128 0xd
+ 1081 00b5 26       		.uleb128 0x26
+ 1082 00b6 00       		.byte	0
+ 1083 00b7 49       		.uleb128 0x49
+ 1084 00b8 13       		.uleb128 0x13
+ 1085 00b9 00       		.byte	0
+ 1086 00ba 00       		.byte	0
+ 1087 00bb 0E       		.uleb128 0xe
+ 1088 00bc 01       		.uleb128 0x1
+ 1089 00bd 01       		.byte	0x1
+ 1090 00be 49       		.uleb128 0x49
+ 1091 00bf 13       		.uleb128 0x13
+ 1092 00c0 01       		.uleb128 0x1
+ 1093 00c1 13       		.uleb128 0x13
+ 1094 00c2 00       		.byte	0
+ 1095 00c3 00       		.byte	0
+ 1096 00c4 0F       		.uleb128 0xf
+ 1097 00c5 21       		.uleb128 0x21
+ 1098 00c6 00       		.byte	0
+ 1099 00c7 49       		.uleb128 0x49
+ 1100 00c8 13       		.uleb128 0x13
+ 1101 00c9 2F       		.uleb128 0x2f
+ 1102 00ca 0B       		.uleb128 0xb
+ 1103 00cb 00       		.byte	0
+ 1104 00cc 00       		.byte	0
+ 1105 00cd 10       		.uleb128 0x10
+ 1106 00ce 34       		.uleb128 0x34
+ 1107 00cf 00       		.byte	0
+ 1108 00d0 03       		.uleb128 0x3
+ 1109 00d1 0E       		.uleb128 0xe
+ 1110 00d2 3A       		.uleb128 0x3a
+ 1111 00d3 0B       		.uleb128 0xb
+ 1112 00d4 3B       		.uleb128 0x3b
+ 1113 00d5 05       		.uleb128 0x5
+ 1114 00d6 49       		.uleb128 0x49
+ 1115 00d7 13       		.uleb128 0x13
+ 1116 00d8 3F       		.uleb128 0x3f
+ 1117 00d9 19       		.uleb128 0x19
+ 1118 00da 3C       		.uleb128 0x3c
+ 1119 00db 19       		.uleb128 0x19
+ 1120 00dc 00       		.byte	0
+ 1121 00dd 00       		.byte	0
+ 1122 00de 11       		.uleb128 0x11
+ 1123 00df 34       		.uleb128 0x34
+ 1124 00e0 00       		.byte	0
+ 1125 00e1 03       		.uleb128 0x3
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 23
+
+
+ 1126 00e2 0E       		.uleb128 0xe
+ 1127 00e3 3A       		.uleb128 0x3a
+ 1128 00e4 0B       		.uleb128 0xb
+ 1129 00e5 3B       		.uleb128 0x3b
+ 1130 00e6 0B       		.uleb128 0xb
+ 1131 00e7 49       		.uleb128 0x49
+ 1132 00e8 13       		.uleb128 0x13
+ 1133 00e9 3F       		.uleb128 0x3f
+ 1134 00ea 19       		.uleb128 0x19
+ 1135 00eb 02       		.uleb128 0x2
+ 1136 00ec 18       		.uleb128 0x18
+ 1137 00ed 00       		.byte	0
+ 1138 00ee 00       		.byte	0
+ 1139 00ef 00       		.byte	0
+ 1140              		.section	.debug_aranges,"",%progbits
+ 1141 0000 3C000000 		.4byte	0x3c
+ 1142 0004 0200     		.2byte	0x2
+ 1143 0006 00000000 		.4byte	.Ldebug_info0
+ 1144 000a 04       		.byte	0x4
+ 1145 000b 00       		.byte	0
+ 1146 000c 0000     		.2byte	0
+ 1147 000e 0000     		.2byte	0
+ 1148 0010 00000000 		.4byte	.LFB57
+ 1149 0014 28000000 		.4byte	.LFE57-.LFB57
+ 1150 0018 00000000 		.4byte	.LFB58
+ 1151 001c 18000000 		.4byte	.LFE58-.LFB58
+ 1152 0020 00000000 		.4byte	.LFB59
+ 1153 0024 18000000 		.4byte	.LFE59-.LFB59
+ 1154 0028 00000000 		.4byte	.LFB60
+ 1155 002c 34000000 		.4byte	.LFE60-.LFB60
+ 1156 0030 00000000 		.4byte	.LFB61
+ 1157 0034 48020000 		.4byte	.LFE61-.LFB61
+ 1158 0038 00000000 		.4byte	0
+ 1159 003c 00000000 		.4byte	0
+ 1160              		.section	.debug_ranges,"",%progbits
+ 1161              	.Ldebug_ranges0:
+ 1162 0000 00000000 		.4byte	.LFB57
+ 1163 0004 28000000 		.4byte	.LFE57
+ 1164 0008 00000000 		.4byte	.LFB58
+ 1165 000c 18000000 		.4byte	.LFE58
+ 1166 0010 00000000 		.4byte	.LFB59
+ 1167 0014 18000000 		.4byte	.LFE59
+ 1168 0018 00000000 		.4byte	.LFB60
+ 1169 001c 34000000 		.4byte	.LFE60
+ 1170 0020 00000000 		.4byte	.LFB61
+ 1171 0024 48020000 		.4byte	.LFE61
+ 1172 0028 00000000 		.4byte	0
+ 1173 002c 00000000 		.4byte	0
+ 1174              		.section	.debug_line,"",%progbits
+ 1175              	.Ldebug_line0:
+ 1176 0000 F1010000 		.section	.debug_str,"MS",%progbits,1
+ 1176      02004C01 
+ 1176      00000201 
+ 1176      FB0E0D00 
+ 1176      01010101 
+ 1177              	.LASF2:
+ 1178 0000 5F5F7569 		.ascii	"__uint8_t\000"
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 24
+
+
+ 1178      6E74385F 
+ 1178      7400
+ 1179              	.LASF44:
+ 1180 000a 4953525F 		.ascii	"ISR_B_done\000"
+ 1180      425F646F 
+ 1180      6E6500
+ 1181              	.LASF47:
+ 1182 0015 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1182      43313120 
+ 1182      352E342E 
+ 1182      31203230 
+ 1182      31363036 
+ 1183 0048 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1183      20726576 
+ 1183      6973696F 
+ 1183      6E203233 
+ 1183      37373135 
+ 1184 007b 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 1184      66756E63 
+ 1184      74696F6E 
+ 1184      2D736563 
+ 1184      74696F6E 
+ 1185              	.LASF3:
+ 1186 00a3 5F5F696E 		.ascii	"__int16_t\000"
+ 1186      7431365F 
+ 1186      7400
+ 1187              	.LASF39:
+ 1188 00ad 444D415F 		.ascii	"DMA_A_Chan\000"
+ 1188      415F4368 
+ 1188      616E00
+ 1189              	.LASF49:
+ 1190 00b8 433A5C55 		.ascii	"C:\\Users\\rens_\\Downloads\\platooning-master\\pla"
+ 1190      73657273 
+ 1190      5C72656E 
+ 1190      735F5C44 
+ 1190      6F776E6C 
+ 1191 00e6 746F6F6E 		.ascii	"tooning-master\\PSoC\\Platooning\\AngleMeasurement."
+ 1191      696E672D 
+ 1191      6D617374 
+ 1191      65725C50 
+ 1191      536F435C 
+ 1192 0116 63796473 		.ascii	"cydsn\000"
+ 1192      6E00
+ 1193              	.LASF7:
+ 1194 011c 5F5F696E 		.ascii	"__int32_t\000"
+ 1194      7433325F 
+ 1194      7400
+ 1195              	.LASF42:
+ 1196 0126 444D415F 		.ascii	"DMA_B_TD\000"
+ 1196      425F5444 
+ 1196      00
+ 1197              	.LASF17:
+ 1198 012f 75696E74 		.ascii	"uint8\000"
+ 1198      3800
+ 1199              	.LASF45:
+ 1200 0135 645F7431 		.ascii	"d_t1\000"
+ 1200      00
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 25
+
+
+ 1201              	.LASF46:
+ 1202 013a 645F7432 		.ascii	"d_t2\000"
+ 1202      00
+ 1203              	.LASF16:
+ 1204 013f 696E7433 		.ascii	"int32_t\000"
+ 1204      325F7400 
+ 1205              	.LASF35:
+ 1206 0147 64697374 		.ascii	"distance\000"
+ 1206      616E6365 
+ 1206      00
+ 1207              	.LASF20:
+ 1208 0150 666C6F61 		.ascii	"float\000"
+ 1208      7400
+ 1209              	.LASF31:
+ 1210 0156 63616C63 		.ascii	"calculate_angle\000"
+ 1210      756C6174 
+ 1210      655F616E 
+ 1210      676C6500 
+ 1211              	.LASF41:
+ 1212 0166 444D415F 		.ascii	"DMA_B_Chan\000"
+ 1212      425F4368 
+ 1212      616E00
+ 1213              	.LASF23:
+ 1214 0171 72656738 		.ascii	"reg8\000"
+ 1214      00
+ 1215              	.LASF27:
+ 1216 0176 4953525F 		.ascii	"ISR_OUT_A_Handler\000"
+ 1216      4F55545F 
+ 1216      415F4861 
+ 1216      6E646C65 
+ 1216      7200
+ 1217              	.LASF9:
+ 1218 0188 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1218      20756E73 
+ 1218      69676E65 
+ 1218      6420696E 
+ 1218      7400
+ 1219              	.LASF6:
+ 1220 019a 73686F72 		.ascii	"short unsigned int\000"
+ 1220      7420756E 
+ 1220      7369676E 
+ 1220      65642069 
+ 1220      6E7400
+ 1221              	.LASF34:
+ 1222 01ad 616E676C 		.ascii	"angle\000"
+ 1222      6500
+ 1223              	.LASF36:
+ 1224 01b3 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1224      52784275 
+ 1224      66666572 
+ 1224      00
+ 1225              	.LASF1:
+ 1226 01c0 756E7369 		.ascii	"unsigned char\000"
+ 1226      676E6564 
+ 1226      20636861 
+ 1226      7200
+ 1227              	.LASF5:
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 26
+
+
+ 1228 01ce 5F5F7569 		.ascii	"__uint16_t\000"
+ 1228      6E743136 
+ 1228      5F7400
+ 1229              	.LASF21:
+ 1230 01d9 646F7562 		.ascii	"double\000"
+ 1230      6C6500
+ 1231              	.LASF32:
+ 1232 01e0 6D61696E 		.ascii	"main\000"
+ 1232      00
+ 1233              	.LASF18:
+ 1234 01e5 75696E74 		.ascii	"uint16\000"
+ 1234      313600
+ 1235              	.LASF19:
+ 1236 01ec 75696E74 		.ascii	"uint32\000"
+ 1236      333200
+ 1237              	.LASF12:
+ 1238 01f3 756E7369 		.ascii	"unsigned int\000"
+ 1238      676E6564 
+ 1238      20696E74 
+ 1238      00
+ 1239              	.LASF11:
+ 1240 0200 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1240      206C6F6E 
+ 1240      6720756E 
+ 1240      7369676E 
+ 1240      65642069 
+ 1241              	.LASF13:
+ 1242 0217 75696E74 		.ascii	"uint8_t\000"
+ 1242      385F7400 
+ 1243              	.LASF14:
+ 1244 021f 696E7431 		.ascii	"int16_t\000"
+ 1244      365F7400 
+ 1245              	.LASF29:
+ 1246 0227 74696D65 		.ascii	"time_delta\000"
+ 1246      5F64656C 
+ 1246      746100
+ 1247              	.LASF26:
+ 1248 0232 4953525F 		.ascii	"ISR_START_Handler\000"
+ 1248      53544152 
+ 1248      545F4861 
+ 1248      6E646C65 
+ 1248      7200
+ 1249              	.LASF43:
+ 1250 0244 4953525F 		.ascii	"ISR_A_done\000"
+ 1250      415F646F 
+ 1250      6E6500
+ 1251              	.LASF25:
+ 1252 024f 73697A65 		.ascii	"sizetype\000"
+ 1252      74797065 
+ 1252      00
+ 1253              	.LASF10:
+ 1254 0258 6C6F6E67 		.ascii	"long long int\000"
+ 1254      206C6F6E 
+ 1254      6720696E 
+ 1254      7400
+ 1255              	.LASF48:
+ 1256 0266 6D61696E 		.ascii	"main.c\000"
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccOHdGKA.s 			page 27
+
+
+ 1256      2E6300
+ 1257              	.LASF22:
+ 1258 026d 63686172 		.ascii	"char\000"
+ 1258      00
+ 1259              	.LASF30:
+ 1260 0272 616E676C 		.ascii	"angle_conversion_factor\000"
+ 1260      655F636F 
+ 1260      6E766572 
+ 1260      73696F6E 
+ 1260      5F666163 
+ 1261              	.LASF40:
+ 1262 028a 444D415F 		.ascii	"DMA_A_TD\000"
+ 1262      415F5444 
+ 1262      00
+ 1263              	.LASF4:
+ 1264 0293 73686F72 		.ascii	"short int\000"
+ 1264      7420696E 
+ 1264      7400
+ 1265              	.LASF33:
+ 1266 029d 6F757470 		.ascii	"output\000"
+ 1266      757400
+ 1267              	.LASF15:
+ 1268 02a4 75696E74 		.ascii	"uint16_t\000"
+ 1268      31365F74 
+ 1268      00
+ 1269              	.LASF28:
+ 1270 02ad 4953525F 		.ascii	"ISR_OUT_B_Handler\000"
+ 1270      4F55545F 
+ 1270      425F4861 
+ 1270      6E646C65 
+ 1270      7200
+ 1271              	.LASF8:
+ 1272 02bf 6C6F6E67 		.ascii	"long int\000"
+ 1272      20696E74 
+ 1272      00
+ 1273              	.LASF24:
+ 1274 02c8 6C6F6E67 		.ascii	"long double\000"
+ 1274      20646F75 
+ 1274      626C6500 
+ 1275              	.LASF0:
+ 1276 02d4 7369676E 		.ascii	"signed char\000"
+ 1276      65642063 
+ 1276      68617200 
+ 1277              	.LASF37:
+ 1278 02e0 44617461 		.ascii	"DataA\000"
+ 1278      4100
+ 1279              	.LASF38:
+ 1280 02e6 44617461 		.ascii	"DataB\000"
+ 1280      4200
+ 1281              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

@@ -1,0 +1,878 @@
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccMKIeUq.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"Maximum_Peak_Detector_A_Sample_Hold_PM.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.bss
+  20              		.align	2
+  21              	Maximum_Peak_Detector_A_Sample_Hold_backup:
+  22 0000 00000000 		.space	4
+  23              		.section	.text.Maximum_Peak_Detector_A_Sample_Hold_SaveConfig,"ax",%progbits
+  24              		.align	2
+  25              		.global	Maximum_Peak_Detector_A_Sample_Hold_SaveConfig
+  26              		.thumb
+  27              		.thumb_func
+  28              		.type	Maximum_Peak_Detector_A_Sample_Hold_SaveConfig, %function
+  29              	Maximum_Peak_Detector_A_Sample_Hold_SaveConfig:
+  30              	.LFB0:
+  31              		.file 1 "Generated_Source\\PSoC5\\Maximum_Peak_Detector_A_Sample_Hold_PM.c"
+   1:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * File Name: Maximum_Peak_Detector_A_Sample_Hold_PM.c  
+   3:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * Version 2.0
+   4:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *
+   5:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * Description:
+   6:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  This file provides the power manager source code to the API for 
+   7:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  the MIXER component.
+   8:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *
+   9:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * Note:
+  10:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *
+  11:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *******************************************************************************
+  12:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  14:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  15:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * the software package with which this file was provided.
+  16:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *******************************************************************************/
+  17:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** 
+  18:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** #include "Maximum_Peak_Detector_A_Sample_Hold.h"
+  19:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** 
+  20:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** static Maximum_Peak_Detector_A_Sample_Hold_backupStruct  Maximum_Peak_Detector_A_Sample_Hold_backup
+  21:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** 
+  22:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** 
+  23:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** /*******************************************************************************
+  24:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * Function Name: Maximum_Peak_Detector_A_Sample_Hold_SaveConfig
+  25:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** ********************************************************************************
+  26:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccMKIeUq.s 			page 2
+
+
+  27:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * Summary:
+  28:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  Saves the current user configuration.
+  29:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  
+  30:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * Parameters:  
+  31:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  void.
+  32:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *
+  33:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * Return: 
+  34:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  void.
+  35:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *
+  36:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *******************************************************************************/
+  37:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** void Maximum_Peak_Detector_A_Sample_Hold_SaveConfig(void) 
+  38:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** {
+  32              		.loc 1 38 0
+  33              		.cfi_startproc
+  34              		@ args = 0, pretend = 0, frame = 0
+  35              		@ frame_needed = 1, uses_anonymous_args = 0
+  36              		@ link register save eliminated.
+  37 0000 80B4     		push	{r7}
+  38              		.cfi_def_cfa_offset 4
+  39              		.cfi_offset 7, -4
+  40 0002 00AF     		add	r7, sp, #0
+  41              		.cfi_def_cfa_register 7
+  39:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****     /* Nothing to save before entering into sleep mode as all the registers used 
+  40:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****        here are retension registers. */
+  41:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** }
+  42              		.loc 1 41 0
+  43 0004 00BF     		nop
+  44 0006 BD46     		mov	sp, r7
+  45              		.cfi_def_cfa_register 13
+  46              		@ sp needed
+  47 0008 80BC     		pop	{r7}
+  48              		.cfi_restore 7
+  49              		.cfi_def_cfa_offset 0
+  50 000a 7047     		bx	lr
+  51              		.cfi_endproc
+  52              	.LFE0:
+  53              		.size	Maximum_Peak_Detector_A_Sample_Hold_SaveConfig, .-Maximum_Peak_Detector_A_Sample_Hold_SaveCo
+  54              		.section	.text.Maximum_Peak_Detector_A_Sample_Hold_RestoreConfig,"ax",%progbits
+  55              		.align	2
+  56              		.global	Maximum_Peak_Detector_A_Sample_Hold_RestoreConfig
+  57              		.thumb
+  58              		.thumb_func
+  59              		.type	Maximum_Peak_Detector_A_Sample_Hold_RestoreConfig, %function
+  60              	Maximum_Peak_Detector_A_Sample_Hold_RestoreConfig:
+  61              	.LFB1:
+  42:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** 
+  43:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** 
+  44:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** /*******************************************************************************
+  45:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * Function Name: Maximum_Peak_Detector_A_Sample_Hold_RestoreConfig
+  46:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** ********************************************************************************
+  47:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *
+  48:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * Summary:
+  49:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  Restores the current user configuration.
+  50:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *
+  51:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * Parameters:  
+  52:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  void.
+  53:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccMKIeUq.s 			page 3
+
+
+  54:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * Return: 
+  55:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  void
+  56:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *
+  57:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *******************************************************************************/
+  58:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** void Maximum_Peak_Detector_A_Sample_Hold_RestoreConfig(void) 
+  59:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** {
+  62              		.loc 1 59 0
+  63              		.cfi_startproc
+  64              		@ args = 0, pretend = 0, frame = 0
+  65              		@ frame_needed = 1, uses_anonymous_args = 0
+  66              		@ link register save eliminated.
+  67 0000 80B4     		push	{r7}
+  68              		.cfi_def_cfa_offset 4
+  69              		.cfi_offset 7, -4
+  70 0002 00AF     		add	r7, sp, #0
+  71              		.cfi_def_cfa_register 7
+  60:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****     /* Nothing to restore */
+  61:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** }
+  72              		.loc 1 61 0
+  73 0004 00BF     		nop
+  74 0006 BD46     		mov	sp, r7
+  75              		.cfi_def_cfa_register 13
+  76              		@ sp needed
+  77 0008 80BC     		pop	{r7}
+  78              		.cfi_restore 7
+  79              		.cfi_def_cfa_offset 0
+  80 000a 7047     		bx	lr
+  81              		.cfi_endproc
+  82              	.LFE1:
+  83              		.size	Maximum_Peak_Detector_A_Sample_Hold_RestoreConfig, .-Maximum_Peak_Detector_A_Sample_Hold_Res
+  84              		.section	.text.Maximum_Peak_Detector_A_Sample_Hold_Sleep,"ax",%progbits
+  85              		.align	2
+  86              		.global	Maximum_Peak_Detector_A_Sample_Hold_Sleep
+  87              		.thumb
+  88              		.thumb_func
+  89              		.type	Maximum_Peak_Detector_A_Sample_Hold_Sleep, %function
+  90              	Maximum_Peak_Detector_A_Sample_Hold_Sleep:
+  91              	.LFB2:
+  62:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** 
+  63:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** 
+  64:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** /*******************************************************************************
+  65:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * Function Name: Maximum_Peak_Detector_A_Sample_Hold_Sleep
+  66:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** ********************************************************************************
+  67:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *
+  68:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * Summary:
+  69:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  Disables block's operation and saves its configuration. Should be called 
+  70:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  just prior to entering sleep.
+  71:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  
+  72:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * Parameters:  
+  73:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  None
+  74:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *
+  75:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * Return: 
+  76:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  None
+  77:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *
+  78:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * Global variables:
+  79:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  Maximum_Peak_Detector_A_Sample_Hold_backup:  The structure field 'enableState' is modified 
+  80:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  depending on the enable state of the block before entering to sleep mode.
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccMKIeUq.s 			page 4
+
+
+  81:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *
+  82:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *******************************************************************************/
+  83:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** void Maximum_Peak_Detector_A_Sample_Hold_Sleep(void) 
+  84:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** {
+  92              		.loc 1 84 0
+  93              		.cfi_startproc
+  94              		@ args = 0, pretend = 0, frame = 0
+  95              		@ frame_needed = 1, uses_anonymous_args = 0
+  96 0000 80B5     		push	{r7, lr}
+  97              		.cfi_def_cfa_offset 8
+  98              		.cfi_offset 7, -8
+  99              		.cfi_offset 14, -4
+ 100 0002 00AF     		add	r7, sp, #0
+ 101              		.cfi_def_cfa_register 7
+  85:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****     /* Save Mixer enable state */
+  86:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****     if((Maximum_Peak_Detector_A_Sample_Hold_PM_ACT_CFG_REG & Maximum_Peak_Detector_A_Sample_Hold_AC
+ 102              		.loc 1 86 0
+ 103 0004 094B     		ldr	r3, .L6
+ 104 0006 1B78     		ldrb	r3, [r3]
+ 105 0008 DBB2     		uxtb	r3, r3
+ 106 000a 03F00403 		and	r3, r3, #4
+ 107 000e 002B     		cmp	r3, #0
+ 108 0010 05D0     		beq	.L4
+  87:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****     {
+  88:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****         /* Component is enabled */
+  89:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****         Maximum_Peak_Detector_A_Sample_Hold_backup.enableState = 1u;
+ 109              		.loc 1 89 0
+ 110 0012 074B     		ldr	r3, .L6+4
+ 111 0014 0122     		movs	r2, #1
+ 112 0016 1A70     		strb	r2, [r3]
+  90:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****         /* Stop the configuration */
+  91:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****         Maximum_Peak_Detector_A_Sample_Hold_Stop();
+ 113              		.loc 1 91 0
+ 114 0018 FFF7FEFF 		bl	Maximum_Peak_Detector_A_Sample_Hold_Stop
+ 115 001c 02E0     		b	.L5
+ 116              	.L4:
+  92:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****     }
+  93:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****     else
+  94:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****     {
+  95:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****         /* Component is disabled */
+  96:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****         Maximum_Peak_Detector_A_Sample_Hold_backup.enableState = 0u;
+ 117              		.loc 1 96 0
+ 118 001e 044B     		ldr	r3, .L6+4
+ 119 0020 0022     		movs	r2, #0
+ 120 0022 1A70     		strb	r2, [r3]
+ 121              	.L5:
+  97:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****     }
+  98:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****     /* Saves the user configuration */
+  99:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****     Maximum_Peak_Detector_A_Sample_Hold_SaveConfig();
+ 122              		.loc 1 99 0
+ 123 0024 FFF7FEFF 		bl	Maximum_Peak_Detector_A_Sample_Hold_SaveConfig
+ 100:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** }
+ 124              		.loc 1 100 0
+ 125 0028 00BF     		nop
+ 126 002a 80BD     		pop	{r7, pc}
+ 127              	.L7:
+ 128              		.align	2
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccMKIeUq.s 			page 5
+
+
+ 129              	.L6:
+ 130 002c A9430040 		.word	1073759145
+ 131 0030 00000000 		.word	Maximum_Peak_Detector_A_Sample_Hold_backup
+ 132              		.cfi_endproc
+ 133              	.LFE2:
+ 134              		.size	Maximum_Peak_Detector_A_Sample_Hold_Sleep, .-Maximum_Peak_Detector_A_Sample_Hold_Sleep
+ 135              		.section	.text.Maximum_Peak_Detector_A_Sample_Hold_Wakeup,"ax",%progbits
+ 136              		.align	2
+ 137              		.global	Maximum_Peak_Detector_A_Sample_Hold_Wakeup
+ 138              		.thumb
+ 139              		.thumb_func
+ 140              		.type	Maximum_Peak_Detector_A_Sample_Hold_Wakeup, %function
+ 141              	Maximum_Peak_Detector_A_Sample_Hold_Wakeup:
+ 142              	.LFB3:
+ 101:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** 
+ 102:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** 
+ 103:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** /*******************************************************************************
+ 104:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * Function Name: Maximum_Peak_Detector_A_Sample_Hold_Wakeup
+ 105:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** ********************************************************************************
+ 106:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *
+ 107:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * Summary:
+ 108:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  Enables block's operation and restores its configuration. Should be called
+ 109:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  just after awaking from sleep.
+ 110:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  
+ 111:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * Parameters:  
+ 112:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  None
+ 113:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *
+ 114:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * Return: 
+ 115:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  void
+ 116:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *
+ 117:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** * Global variables:
+ 118:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  Maximum_Peak_Detector_A_Sample_Hold_backup:  The structure field 'enableState' is used to 
+ 119:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *  restore the enable state of block after wakeup from sleep mode.
+ 120:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *
+ 121:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** *******************************************************************************/
+ 122:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** void Maximum_Peak_Detector_A_Sample_Hold_Wakeup(void) 
+ 123:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** {
+ 143              		.loc 1 123 0
+ 144              		.cfi_startproc
+ 145              		@ args = 0, pretend = 0, frame = 0
+ 146              		@ frame_needed = 1, uses_anonymous_args = 0
+ 147 0000 80B5     		push	{r7, lr}
+ 148              		.cfi_def_cfa_offset 8
+ 149              		.cfi_offset 7, -8
+ 150              		.cfi_offset 14, -4
+ 151 0002 00AF     		add	r7, sp, #0
+ 152              		.cfi_def_cfa_register 7
+ 124:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****     /* Restore the user configuration */
+ 125:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****     Maximum_Peak_Detector_A_Sample_Hold_RestoreConfig();
+ 153              		.loc 1 125 0
+ 154 0004 FFF7FEFF 		bl	Maximum_Peak_Detector_A_Sample_Hold_RestoreConfig
+ 126:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****     
+ 127:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****     /* Enable's the component operation */
+ 128:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****     if(Maximum_Peak_Detector_A_Sample_Hold_backup.enableState == 1u)
+ 155              		.loc 1 128 0
+ 156 0008 034B     		ldr	r3, .L11
+ 157 000a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccMKIeUq.s 			page 6
+
+
+ 158 000c 012B     		cmp	r3, #1
+ 159 000e 01D1     		bne	.L10
+ 129:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****     {
+ 130:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****         Maximum_Peak_Detector_A_Sample_Hold_Enable();
+ 160              		.loc 1 130 0
+ 161 0010 FFF7FEFF 		bl	Maximum_Peak_Detector_A_Sample_Hold_Enable
+ 162              	.L10:
+ 131:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c ****     } /* Do nothing if component was disable before */
+ 132:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Sample_Hold_PM.c **** }
+ 163              		.loc 1 132 0
+ 164 0014 00BF     		nop
+ 165 0016 80BD     		pop	{r7, pc}
+ 166              	.L12:
+ 167              		.align	2
+ 168              	.L11:
+ 169 0018 00000000 		.word	Maximum_Peak_Detector_A_Sample_Hold_backup
+ 170              		.cfi_endproc
+ 171              	.LFE3:
+ 172              		.size	Maximum_Peak_Detector_A_Sample_Hold_Wakeup, .-Maximum_Peak_Detector_A_Sample_Hold_Wakeup
+ 173              		.text
+ 174              	.Letext0:
+ 175              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 176              		.file 3 "Generated_Source\\PSoC5\\Maximum_Peak_Detector_A_Sample_Hold.h"
+ 177              		.section	.debug_info,"",%progbits
+ 178              	.Ldebug_info0:
+ 179 0000 40010000 		.4byte	0x140
+ 180 0004 0400     		.2byte	0x4
+ 181 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 182 000a 04       		.byte	0x4
+ 183 000b 01       		.uleb128 0x1
+ 184 000c 28010000 		.4byte	.LASF25
+ 185 0010 0C       		.byte	0xc
+ 186 0011 90000000 		.4byte	.LASF26
+ 187 0015 15020000 		.4byte	.LASF27
+ 188 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 189 001d 00000000 		.4byte	0
+ 190 0021 00000000 		.4byte	.Ldebug_line0
+ 191 0025 02       		.uleb128 0x2
+ 192 0026 01       		.byte	0x1
+ 193 0027 06       		.byte	0x6
+ 194 0028 8C020000 		.4byte	.LASF0
+ 195 002c 02       		.uleb128 0x2
+ 196 002d 01       		.byte	0x1
+ 197 002e 08       		.byte	0x8
+ 198 002f B6010000 		.4byte	.LASF1
+ 199 0033 02       		.uleb128 0x2
+ 200 0034 02       		.byte	0x2
+ 201 0035 05       		.byte	0x5
+ 202 0036 09030000 		.4byte	.LASF2
+ 203 003a 02       		.uleb128 0x2
+ 204 003b 02       		.byte	0x2
+ 205 003c 07       		.byte	0x7
+ 206 003d 79020000 		.4byte	.LASF3
+ 207 0041 02       		.uleb128 0x2
+ 208 0042 04       		.byte	0x4
+ 209 0043 05       		.byte	0x5
+ 210 0044 F3010000 		.4byte	.LASF4
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccMKIeUq.s 			page 7
+
+
+ 211 0048 02       		.uleb128 0x2
+ 212 0049 04       		.byte	0x4
+ 213 004a 07       		.byte	0x7
+ 214 004b FC010000 		.4byte	.LASF5
+ 215 004f 02       		.uleb128 0x2
+ 216 0050 08       		.byte	0x8
+ 217 0051 05       		.byte	0x5
+ 218 0052 00000000 		.4byte	.LASF6
+ 219 0056 02       		.uleb128 0x2
+ 220 0057 08       		.byte	0x8
+ 221 0058 07       		.byte	0x7
+ 222 0059 D0000000 		.4byte	.LASF7
+ 223 005d 03       		.uleb128 0x3
+ 224 005e 04       		.byte	0x4
+ 225 005f 05       		.byte	0x5
+ 226 0060 696E7400 		.ascii	"int\000"
+ 227 0064 02       		.uleb128 0x2
+ 228 0065 04       		.byte	0x4
+ 229 0066 07       		.byte	0x7
+ 230 0067 45000000 		.4byte	.LASF8
+ 231 006b 04       		.uleb128 0x4
+ 232 006c 81000000 		.4byte	.LASF12
+ 233 0070 02       		.byte	0x2
+ 234 0071 A1       		.byte	0xa1
+ 235 0072 2C000000 		.4byte	0x2c
+ 236 0076 02       		.uleb128 0x2
+ 237 0077 04       		.byte	0x4
+ 238 0078 04       		.byte	0x4
+ 239 0079 F0000000 		.4byte	.LASF9
+ 240 007d 02       		.uleb128 0x2
+ 241 007e 08       		.byte	0x8
+ 242 007f 04       		.byte	0x4
+ 243 0080 0E020000 		.4byte	.LASF10
+ 244 0084 02       		.uleb128 0x2
+ 245 0085 01       		.byte	0x1
+ 246 0086 08       		.byte	0x8
+ 247 0087 EE010000 		.4byte	.LASF11
+ 248 008b 05       		.uleb128 0x5
+ 249 008c 13030000 		.4byte	.LASF13
+ 250 0090 02       		.byte	0x2
+ 251 0091 4B01     		.2byte	0x14b
+ 252 0093 97000000 		.4byte	0x97
+ 253 0097 06       		.uleb128 0x6
+ 254 0098 6B000000 		.4byte	0x6b
+ 255 009c 02       		.uleb128 0x2
+ 256 009d 08       		.byte	0x8
+ 257 009e 04       		.byte	0x4
+ 258 009f FD020000 		.4byte	.LASF14
+ 259 00a3 02       		.uleb128 0x2
+ 260 00a4 04       		.byte	0x4
+ 261 00a5 07       		.byte	0x7
+ 262 00a6 18030000 		.4byte	.LASF15
+ 263 00aa 07       		.uleb128 0x7
+ 264 00ab 04       		.byte	0x4
+ 265 00ac 03       		.byte	0x3
+ 266 00ad 2E       		.byte	0x2e
+ 267 00ae E3000000 		.4byte	0xe3
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccMKIeUq.s 			page 8
+
+
+ 268 00b2 08       		.uleb128 0x8
+ 269 00b3 39000000 		.4byte	.LASF16
+ 270 00b7 03       		.byte	0x3
+ 271 00b8 30       		.byte	0x30
+ 272 00b9 6B000000 		.4byte	0x6b
+ 273 00bd 00       		.byte	0
+ 274 00be 08       		.uleb128 0x8
+ 275 00bf E7000000 		.4byte	.LASF17
+ 276 00c3 03       		.byte	0x3
+ 277 00c4 31       		.byte	0x31
+ 278 00c5 6B000000 		.4byte	0x6b
+ 279 00c9 01       		.byte	0x1
+ 280 00ca 08       		.uleb128 0x8
+ 281 00cb 87000000 		.4byte	.LASF18
+ 282 00cf 03       		.byte	0x3
+ 283 00d0 32       		.byte	0x32
+ 284 00d1 6B000000 		.4byte	0x6b
+ 285 00d5 02       		.byte	0x2
+ 286 00d6 08       		.uleb128 0x8
+ 287 00d7 F4020000 		.4byte	.LASF19
+ 288 00db 03       		.byte	0x3
+ 289 00dc 33       		.byte	0x33
+ 290 00dd 6B000000 		.4byte	0x6b
+ 291 00e1 03       		.byte	0x3
+ 292 00e2 00       		.byte	0
+ 293 00e3 04       		.uleb128 0x4
+ 294 00e4 98020000 		.4byte	.LASF20
+ 295 00e8 03       		.byte	0x3
+ 296 00e9 34       		.byte	0x34
+ 297 00ea AA000000 		.4byte	0xaa
+ 298 00ee 09       		.uleb128 0x9
+ 299 00ef 52000000 		.4byte	.LASF21
+ 300 00f3 01       		.byte	0x1
+ 301 00f4 25       		.byte	0x25
+ 302 00f5 00000000 		.4byte	.LFB0
+ 303 00f9 0C000000 		.4byte	.LFE0-.LFB0
+ 304 00fd 01       		.uleb128 0x1
+ 305 00fe 9C       		.byte	0x9c
+ 306 00ff 09       		.uleb128 0x9
+ 307 0100 F6000000 		.4byte	.LASF22
+ 308 0104 01       		.byte	0x1
+ 309 0105 3A       		.byte	0x3a
+ 310 0106 00000000 		.4byte	.LFB1
+ 311 010a 0C000000 		.4byte	.LFE1-.LFB1
+ 312 010e 01       		.uleb128 0x1
+ 313 010f 9C       		.byte	0x9c
+ 314 0110 0A       		.uleb128 0xa
+ 315 0111 C4010000 		.4byte	.LASF23
+ 316 0115 01       		.byte	0x1
+ 317 0116 53       		.byte	0x53
+ 318 0117 00000000 		.4byte	.LFB2
+ 319 011b 34000000 		.4byte	.LFE2-.LFB2
+ 320 011f 01       		.uleb128 0x1
+ 321 0120 9C       		.byte	0x9c
+ 322 0121 0A       		.uleb128 0xa
+ 323 0122 0E000000 		.4byte	.LASF24
+ 324 0126 01       		.byte	0x1
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccMKIeUq.s 			page 9
+
+
+ 325 0127 7A       		.byte	0x7a
+ 326 0128 00000000 		.4byte	.LFB3
+ 327 012c 1C000000 		.4byte	.LFE3-.LFB3
+ 328 0130 01       		.uleb128 0x1
+ 329 0131 9C       		.byte	0x9c
+ 330 0132 0B       		.uleb128 0xb
+ 331 0133 C9020000 		.4byte	.LASF28
+ 332 0137 01       		.byte	0x1
+ 333 0138 14       		.byte	0x14
+ 334 0139 E3000000 		.4byte	0xe3
+ 335 013d 05       		.uleb128 0x5
+ 336 013e 03       		.byte	0x3
+ 337 013f 00000000 		.4byte	Maximum_Peak_Detector_A_Sample_Hold_backup
+ 338 0143 00       		.byte	0
+ 339              		.section	.debug_abbrev,"",%progbits
+ 340              	.Ldebug_abbrev0:
+ 341 0000 01       		.uleb128 0x1
+ 342 0001 11       		.uleb128 0x11
+ 343 0002 01       		.byte	0x1
+ 344 0003 25       		.uleb128 0x25
+ 345 0004 0E       		.uleb128 0xe
+ 346 0005 13       		.uleb128 0x13
+ 347 0006 0B       		.uleb128 0xb
+ 348 0007 03       		.uleb128 0x3
+ 349 0008 0E       		.uleb128 0xe
+ 350 0009 1B       		.uleb128 0x1b
+ 351 000a 0E       		.uleb128 0xe
+ 352 000b 55       		.uleb128 0x55
+ 353 000c 17       		.uleb128 0x17
+ 354 000d 11       		.uleb128 0x11
+ 355 000e 01       		.uleb128 0x1
+ 356 000f 10       		.uleb128 0x10
+ 357 0010 17       		.uleb128 0x17
+ 358 0011 00       		.byte	0
+ 359 0012 00       		.byte	0
+ 360 0013 02       		.uleb128 0x2
+ 361 0014 24       		.uleb128 0x24
+ 362 0015 00       		.byte	0
+ 363 0016 0B       		.uleb128 0xb
+ 364 0017 0B       		.uleb128 0xb
+ 365 0018 3E       		.uleb128 0x3e
+ 366 0019 0B       		.uleb128 0xb
+ 367 001a 03       		.uleb128 0x3
+ 368 001b 0E       		.uleb128 0xe
+ 369 001c 00       		.byte	0
+ 370 001d 00       		.byte	0
+ 371 001e 03       		.uleb128 0x3
+ 372 001f 24       		.uleb128 0x24
+ 373 0020 00       		.byte	0
+ 374 0021 0B       		.uleb128 0xb
+ 375 0022 0B       		.uleb128 0xb
+ 376 0023 3E       		.uleb128 0x3e
+ 377 0024 0B       		.uleb128 0xb
+ 378 0025 03       		.uleb128 0x3
+ 379 0026 08       		.uleb128 0x8
+ 380 0027 00       		.byte	0
+ 381 0028 00       		.byte	0
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccMKIeUq.s 			page 10
+
+
+ 382 0029 04       		.uleb128 0x4
+ 383 002a 16       		.uleb128 0x16
+ 384 002b 00       		.byte	0
+ 385 002c 03       		.uleb128 0x3
+ 386 002d 0E       		.uleb128 0xe
+ 387 002e 3A       		.uleb128 0x3a
+ 388 002f 0B       		.uleb128 0xb
+ 389 0030 3B       		.uleb128 0x3b
+ 390 0031 0B       		.uleb128 0xb
+ 391 0032 49       		.uleb128 0x49
+ 392 0033 13       		.uleb128 0x13
+ 393 0034 00       		.byte	0
+ 394 0035 00       		.byte	0
+ 395 0036 05       		.uleb128 0x5
+ 396 0037 16       		.uleb128 0x16
+ 397 0038 00       		.byte	0
+ 398 0039 03       		.uleb128 0x3
+ 399 003a 0E       		.uleb128 0xe
+ 400 003b 3A       		.uleb128 0x3a
+ 401 003c 0B       		.uleb128 0xb
+ 402 003d 3B       		.uleb128 0x3b
+ 403 003e 05       		.uleb128 0x5
+ 404 003f 49       		.uleb128 0x49
+ 405 0040 13       		.uleb128 0x13
+ 406 0041 00       		.byte	0
+ 407 0042 00       		.byte	0
+ 408 0043 06       		.uleb128 0x6
+ 409 0044 35       		.uleb128 0x35
+ 410 0045 00       		.byte	0
+ 411 0046 49       		.uleb128 0x49
+ 412 0047 13       		.uleb128 0x13
+ 413 0048 00       		.byte	0
+ 414 0049 00       		.byte	0
+ 415 004a 07       		.uleb128 0x7
+ 416 004b 13       		.uleb128 0x13
+ 417 004c 01       		.byte	0x1
+ 418 004d 0B       		.uleb128 0xb
+ 419 004e 0B       		.uleb128 0xb
+ 420 004f 3A       		.uleb128 0x3a
+ 421 0050 0B       		.uleb128 0xb
+ 422 0051 3B       		.uleb128 0x3b
+ 423 0052 0B       		.uleb128 0xb
+ 424 0053 01       		.uleb128 0x1
+ 425 0054 13       		.uleb128 0x13
+ 426 0055 00       		.byte	0
+ 427 0056 00       		.byte	0
+ 428 0057 08       		.uleb128 0x8
+ 429 0058 0D       		.uleb128 0xd
+ 430 0059 00       		.byte	0
+ 431 005a 03       		.uleb128 0x3
+ 432 005b 0E       		.uleb128 0xe
+ 433 005c 3A       		.uleb128 0x3a
+ 434 005d 0B       		.uleb128 0xb
+ 435 005e 3B       		.uleb128 0x3b
+ 436 005f 0B       		.uleb128 0xb
+ 437 0060 49       		.uleb128 0x49
+ 438 0061 13       		.uleb128 0x13
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccMKIeUq.s 			page 11
+
+
+ 439 0062 38       		.uleb128 0x38
+ 440 0063 0B       		.uleb128 0xb
+ 441 0064 00       		.byte	0
+ 442 0065 00       		.byte	0
+ 443 0066 09       		.uleb128 0x9
+ 444 0067 2E       		.uleb128 0x2e
+ 445 0068 00       		.byte	0
+ 446 0069 3F       		.uleb128 0x3f
+ 447 006a 19       		.uleb128 0x19
+ 448 006b 03       		.uleb128 0x3
+ 449 006c 0E       		.uleb128 0xe
+ 450 006d 3A       		.uleb128 0x3a
+ 451 006e 0B       		.uleb128 0xb
+ 452 006f 3B       		.uleb128 0x3b
+ 453 0070 0B       		.uleb128 0xb
+ 454 0071 27       		.uleb128 0x27
+ 455 0072 19       		.uleb128 0x19
+ 456 0073 11       		.uleb128 0x11
+ 457 0074 01       		.uleb128 0x1
+ 458 0075 12       		.uleb128 0x12
+ 459 0076 06       		.uleb128 0x6
+ 460 0077 40       		.uleb128 0x40
+ 461 0078 18       		.uleb128 0x18
+ 462 0079 9742     		.uleb128 0x2117
+ 463 007b 19       		.uleb128 0x19
+ 464 007c 00       		.byte	0
+ 465 007d 00       		.byte	0
+ 466 007e 0A       		.uleb128 0xa
+ 467 007f 2E       		.uleb128 0x2e
+ 468 0080 00       		.byte	0
+ 469 0081 3F       		.uleb128 0x3f
+ 470 0082 19       		.uleb128 0x19
+ 471 0083 03       		.uleb128 0x3
+ 472 0084 0E       		.uleb128 0xe
+ 473 0085 3A       		.uleb128 0x3a
+ 474 0086 0B       		.uleb128 0xb
+ 475 0087 3B       		.uleb128 0x3b
+ 476 0088 0B       		.uleb128 0xb
+ 477 0089 27       		.uleb128 0x27
+ 478 008a 19       		.uleb128 0x19
+ 479 008b 11       		.uleb128 0x11
+ 480 008c 01       		.uleb128 0x1
+ 481 008d 12       		.uleb128 0x12
+ 482 008e 06       		.uleb128 0x6
+ 483 008f 40       		.uleb128 0x40
+ 484 0090 18       		.uleb128 0x18
+ 485 0091 9642     		.uleb128 0x2116
+ 486 0093 19       		.uleb128 0x19
+ 487 0094 00       		.byte	0
+ 488 0095 00       		.byte	0
+ 489 0096 0B       		.uleb128 0xb
+ 490 0097 34       		.uleb128 0x34
+ 491 0098 00       		.byte	0
+ 492 0099 03       		.uleb128 0x3
+ 493 009a 0E       		.uleb128 0xe
+ 494 009b 3A       		.uleb128 0x3a
+ 495 009c 0B       		.uleb128 0xb
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccMKIeUq.s 			page 12
+
+
+ 496 009d 3B       		.uleb128 0x3b
+ 497 009e 0B       		.uleb128 0xb
+ 498 009f 49       		.uleb128 0x49
+ 499 00a0 13       		.uleb128 0x13
+ 500 00a1 02       		.uleb128 0x2
+ 501 00a2 18       		.uleb128 0x18
+ 502 00a3 00       		.byte	0
+ 503 00a4 00       		.byte	0
+ 504 00a5 00       		.byte	0
+ 505              		.section	.debug_aranges,"",%progbits
+ 506 0000 34000000 		.4byte	0x34
+ 507 0004 0200     		.2byte	0x2
+ 508 0006 00000000 		.4byte	.Ldebug_info0
+ 509 000a 04       		.byte	0x4
+ 510 000b 00       		.byte	0
+ 511 000c 0000     		.2byte	0
+ 512 000e 0000     		.2byte	0
+ 513 0010 00000000 		.4byte	.LFB0
+ 514 0014 0C000000 		.4byte	.LFE0-.LFB0
+ 515 0018 00000000 		.4byte	.LFB1
+ 516 001c 0C000000 		.4byte	.LFE1-.LFB1
+ 517 0020 00000000 		.4byte	.LFB2
+ 518 0024 34000000 		.4byte	.LFE2-.LFB2
+ 519 0028 00000000 		.4byte	.LFB3
+ 520 002c 1C000000 		.4byte	.LFE3-.LFB3
+ 521 0030 00000000 		.4byte	0
+ 522 0034 00000000 		.4byte	0
+ 523              		.section	.debug_ranges,"",%progbits
+ 524              	.Ldebug_ranges0:
+ 525 0000 00000000 		.4byte	.LFB0
+ 526 0004 0C000000 		.4byte	.LFE0
+ 527 0008 00000000 		.4byte	.LFB1
+ 528 000c 0C000000 		.4byte	.LFE1
+ 529 0010 00000000 		.4byte	.LFB2
+ 530 0014 34000000 		.4byte	.LFE2
+ 531 0018 00000000 		.4byte	.LFB3
+ 532 001c 1C000000 		.4byte	.LFE3
+ 533 0020 00000000 		.4byte	0
+ 534 0024 00000000 		.4byte	0
+ 535              		.section	.debug_line,"",%progbits
+ 536              	.Ldebug_line0:
+ 537 0000 DC000000 		.section	.debug_str,"MS",%progbits,1
+ 537      02008C00 
+ 537      00000201 
+ 537      FB0E0D00 
+ 537      01010101 
+ 538              	.LASF6:
+ 539 0000 6C6F6E67 		.ascii	"long long int\000"
+ 539      206C6F6E 
+ 539      6720696E 
+ 539      7400
+ 540              	.LASF24:
+ 541 000e 4D617869 		.ascii	"Maximum_Peak_Detector_A_Sample_Hold_Wakeup\000"
+ 541      6D756D5F 
+ 541      5065616B 
+ 541      5F446574 
+ 541      6563746F 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccMKIeUq.s 			page 13
+
+
+ 542              	.LASF16:
+ 543 0039 656E6162 		.ascii	"enableState\000"
+ 543      6C655374 
+ 543      61746500 
+ 544              	.LASF8:
+ 545 0045 756E7369 		.ascii	"unsigned int\000"
+ 545      676E6564 
+ 545      20696E74 
+ 545      00
+ 546              	.LASF21:
+ 547 0052 4D617869 		.ascii	"Maximum_Peak_Detector_A_Sample_Hold_SaveConfig\000"
+ 547      6D756D5F 
+ 547      5065616B 
+ 547      5F446574 
+ 547      6563746F 
+ 548              	.LASF12:
+ 549 0081 75696E74 		.ascii	"uint8\000"
+ 549      3800
+ 550              	.LASF18:
+ 551 0087 73634352 		.ascii	"scCR1Reg\000"
+ 551      31526567 
+ 551      00
+ 552              	.LASF26:
+ 553 0090 47656E65 		.ascii	"Generated_Source\\PSoC5\\Maximum_Peak_Detector_A_Sa"
+ 553      72617465 
+ 553      645F536F 
+ 553      75726365 
+ 553      5C50536F 
+ 554 00c1 6D706C65 		.ascii	"mple_Hold_PM.c\000"
+ 554      5F486F6C 
+ 554      645F504D 
+ 554      2E6300
+ 555              	.LASF7:
+ 556 00d0 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 556      206C6F6E 
+ 556      6720756E 
+ 556      7369676E 
+ 556      65642069 
+ 557              	.LASF17:
+ 558 00e7 73634352 		.ascii	"scCR0Reg\000"
+ 558      30526567 
+ 558      00
+ 559              	.LASF9:
+ 560 00f0 666C6F61 		.ascii	"float\000"
+ 560      7400
+ 561              	.LASF22:
+ 562 00f6 4D617869 		.ascii	"Maximum_Peak_Detector_A_Sample_Hold_RestoreConfig\000"
+ 562      6D756D5F 
+ 562      5065616B 
+ 562      5F446574 
+ 562      6563746F 
+ 563              	.LASF25:
+ 564 0128 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 564      43313120 
+ 564      352E342E 
+ 564      31203230 
+ 564      31363036 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccMKIeUq.s 			page 14
+
+
+ 565 015b 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 565      20726576 
+ 565      6973696F 
+ 565      6E203233 
+ 565      37373135 
+ 566 018e 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 566      66756E63 
+ 566      74696F6E 
+ 566      2D736563 
+ 566      74696F6E 
+ 567              	.LASF1:
+ 568 01b6 756E7369 		.ascii	"unsigned char\000"
+ 568      676E6564 
+ 568      20636861 
+ 568      7200
+ 569              	.LASF23:
+ 570 01c4 4D617869 		.ascii	"Maximum_Peak_Detector_A_Sample_Hold_Sleep\000"
+ 570      6D756D5F 
+ 570      5065616B 
+ 570      5F446574 
+ 570      6563746F 
+ 571              	.LASF11:
+ 572 01ee 63686172 		.ascii	"char\000"
+ 572      00
+ 573              	.LASF4:
+ 574 01f3 6C6F6E67 		.ascii	"long int\000"
+ 574      20696E74 
+ 574      00
+ 575              	.LASF5:
+ 576 01fc 6C6F6E67 		.ascii	"long unsigned int\000"
+ 576      20756E73 
+ 576      69676E65 
+ 576      6420696E 
+ 576      7400
+ 577              	.LASF10:
+ 578 020e 646F7562 		.ascii	"double\000"
+ 578      6C6500
+ 579              	.LASF27:
+ 580 0215 433A5C55 		.ascii	"C:\\Users\\rens_\\Downloads\\platooning-master\\pla"
+ 580      73657273 
+ 580      5C72656E 
+ 580      735F5C44 
+ 580      6F776E6C 
+ 581 0243 746F6F6E 		.ascii	"tooning-master\\PSoC\\Platooning\\AngleMeasurement."
+ 581      696E672D 
+ 581      6D617374 
+ 581      65725C50 
+ 581      536F435C 
+ 582 0273 63796473 		.ascii	"cydsn\000"
+ 582      6E00
+ 583              	.LASF3:
+ 584 0279 73686F72 		.ascii	"short unsigned int\000"
+ 584      7420756E 
+ 584      7369676E 
+ 584      65642069 
+ 584      6E7400
+ 585              	.LASF0:
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccMKIeUq.s 			page 15
+
+
+ 586 028c 7369676E 		.ascii	"signed char\000"
+ 586      65642063 
+ 586      68617200 
+ 587              	.LASF20:
+ 588 0298 4D617869 		.ascii	"Maximum_Peak_Detector_A_Sample_Hold_backupStruct\000"
+ 588      6D756D5F 
+ 588      5065616B 
+ 588      5F446574 
+ 588      6563746F 
+ 589              	.LASF28:
+ 590 02c9 4D617869 		.ascii	"Maximum_Peak_Detector_A_Sample_Hold_backup\000"
+ 590      6D756D5F 
+ 590      5065616B 
+ 590      5F446574 
+ 590      6563746F 
+ 591              	.LASF19:
+ 592 02f4 73634352 		.ascii	"scCR2Reg\000"
+ 592      32526567 
+ 592      00
+ 593              	.LASF14:
+ 594 02fd 6C6F6E67 		.ascii	"long double\000"
+ 594      20646F75 
+ 594      626C6500 
+ 595              	.LASF2:
+ 596 0309 73686F72 		.ascii	"short int\000"
+ 596      7420696E 
+ 596      7400
+ 597              	.LASF13:
+ 598 0313 72656738 		.ascii	"reg8\000"
+ 598      00
+ 599              	.LASF15:
+ 600 0318 73697A65 		.ascii	"sizetype\000"
+ 600      74797065 
+ 600      00
+ 601              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

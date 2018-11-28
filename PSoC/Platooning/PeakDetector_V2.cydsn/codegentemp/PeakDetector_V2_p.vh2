@@ -1,5 +1,5 @@
 -- Project:   PeakDetector_V2
--- Generated: 11/23/2018 22:52:18
+-- Generated: 11/27/2018 09:44:39
 -- PSoC Creator  4.2
 
 ENTITY PeakDetector_V2 IS
@@ -33,25 +33,24 @@ ARCHITECTURE __DEFAULT__ OF PeakDetector_V2 IS
     SIGNAL Net_111 : bit;
     SIGNAL Net_114 : bit;
     SIGNAL Net_118 : bit;
-    SIGNAL Net_124 : bit;
-    ATTRIBUTE global_signal OF Net_124 : SIGNAL IS true;
-    SIGNAL Net_124_local : bit;
-    SIGNAL Net_145 : bit;
-    SIGNAL Net_16 : bit;
-    SIGNAL Net_174 : bit;
-    ATTRIBUTE global_signal OF Net_174 : SIGNAL IS true;
-    SIGNAL Net_174_local : bit;
-    SIGNAL Net_2 : bit;
-    SIGNAL Net_37 : bit;
-    SIGNAL Net_40 : bit;
+    SIGNAL Net_212 : bit;
+    SIGNAL Net_307 : bit;
+    SIGNAL Net_328 : bit;
+    SIGNAL Net_329 : bit;
+    SIGNAL Net_335 : bit;
+    SIGNAL Net_357 : bit;
+    SIGNAL Net_370 : bit;
+    ATTRIBUTE global_signal OF Net_370 : SIGNAL IS true;
+    SIGNAL Net_370_local : bit;
+    SIGNAL Net_385 : bit;
+    SIGNAL Net_390 : bit;
+    SIGNAL Net_416 : bit;
     SIGNAL Net_63 : bit;
-    SIGNAL Net_7 : bit;
-    SIGNAL Net_82 : bit;
-    SIGNAL Net_85 : bit;
-    SIGNAL Net_87 : bit;
+    SIGNAL Pin_2(0)__PA : bit;
     SIGNAL Rx(0)__PA : bit;
+    SIGNAL Signal_A(0)__PA : bit;
+    SIGNAL Signal_B(0)__PA : bit;
     SIGNAL Tx(0)__PA : bit;
-    SIGNAL \\\ADC_SAR_A:Bypass(0)\\__PA\ : bit;
     SIGNAL \ADC_SAR_A:Net_207_0\ : bit;
     SIGNAL \ADC_SAR_A:Net_207_10\ : bit;
     SIGNAL \ADC_SAR_A:Net_207_11\ : bit;
@@ -70,7 +69,6 @@ ARCHITECTURE __DEFAULT__ OF PeakDetector_V2 IS
     SIGNAL \ADC_SAR_A:Net_385\ : bit;
     ATTRIBUTE global_signal OF \ADC_SAR_A:Net_385\ : SIGNAL IS true;
     SIGNAL \ADC_SAR_A:Net_385_local\ : bit;
-    SIGNAL \\\ADC_SAR_B:Bypass(0)\\__PA\ : bit;
     SIGNAL \ADC_SAR_B:Net_207_0\ : bit;
     SIGNAL \ADC_SAR_B:Net_207_10\ : bit;
     SIGNAL \ADC_SAR_B:Net_207_11\ : bit;
@@ -153,11 +151,13 @@ ARCHITECTURE __DEFAULT__ OF PeakDetector_V2 IS
     ATTRIBUTE Location OF Rx(0) : LABEL IS "P12[6]";
     ATTRIBUTE lib_model OF Tx(0) : LABEL IS "iocell2";
     ATTRIBUTE Location OF Tx(0) : LABEL IS "P12[7]";
-    ATTRIBUTE lib_model OF \ADC_SAR_B:Bypass(0)\ : LABEL IS "iocell3";
-    ATTRIBUTE Location OF \ADC_SAR_B:Bypass(0)\ : LABEL IS "P0[2]";
-    ATTRIBUTE lib_model OF \ADC_SAR_A:Bypass(0)\ : LABEL IS "iocell4";
-    ATTRIBUTE Location OF \ADC_SAR_A:Bypass(0)\ : LABEL IS "P0[4]";
-    ATTRIBUTE lib_model OF Net_2 : LABEL IS "macrocell1";
+    ATTRIBUTE lib_model OF Signal_B(0) : LABEL IS "iocell3";
+    ATTRIBUTE Location OF Signal_B(0) : LABEL IS "P0[7]";
+    ATTRIBUTE lib_model OF Signal_A(0) : LABEL IS "iocell4";
+    ATTRIBUTE Location OF Signal_A(0) : LABEL IS "P0[6]";
+    ATTRIBUTE lib_model OF Pin_2(0) : LABEL IS "iocell5";
+    ATTRIBUTE Location OF Pin_2(0) : LABEL IS "P0[0]";
+    ATTRIBUTE lib_model OF Net_385 : LABEL IS "macrocell1";
     ATTRIBUTE lib_model OF \UART:BUART:counter_load_not\ : LABEL IS "macrocell2";
     ATTRIBUTE lib_model OF \UART:BUART:tx_status_0\ : LABEL IS "macrocell3";
     ATTRIBUTE lib_model OF \UART:BUART:tx_status_2\ : LABEL IS "macrocell4";
@@ -165,7 +165,7 @@ ARCHITECTURE __DEFAULT__ OF PeakDetector_V2 IS
     ATTRIBUTE lib_model OF \UART:BUART:rx_postpoll\ : LABEL IS "macrocell6";
     ATTRIBUTE lib_model OF \UART:BUART:rx_status_4\ : LABEL IS "macrocell7";
     ATTRIBUTE lib_model OF \UART:BUART:rx_status_5\ : LABEL IS "macrocell8";
-    ATTRIBUTE lib_model OF Net_145 : LABEL IS "macrocell9";
+    ATTRIBUTE lib_model OF Net_416 : LABEL IS "macrocell9";
     ATTRIBUTE lib_model OF Net_114 : LABEL IS "macrocell10";
     ATTRIBUTE lib_model OF \UART:BUART:sTX:TxShifter:u0\ : LABEL IS "datapathcell1";
     ATTRIBUTE lib_model OF \UART:BUART:sTX:sCLOCK:TxBitClkGen\ : LABEL IS "datapathcell2";
@@ -173,16 +173,14 @@ ARCHITECTURE __DEFAULT__ OF PeakDetector_V2 IS
     ATTRIBUTE lib_model OF \UART:BUART:sRX:RxShifter:u0\ : LABEL IS "datapathcell3";
     ATTRIBUTE lib_model OF \UART:BUART:sRX:RxSts\ : LABEL IS "statusicell2";
     ATTRIBUTE lib_model OF DMA_A : LABEL IS "drqcell1";
-    ATTRIBUTE Location OF autoVrefComparator_0 : LABEL IS "F(Comparator,3)";
     ATTRIBUTE Location OF \ADC_SAR_B:ADC_SAR\ : LABEL IS "F(SAR,1)";
     ATTRIBUTE Location OF \ADC_SAR_A:ADC_SAR\ : LABEL IS "F(SAR,0)";
     ATTRIBUTE lib_model OF DMA_B : LABEL IS "drqcell2";
-    ATTRIBUTE Location OF \Sample_Hold_B:SC\ : LABEL IS "F(SC,3)";
+    ATTRIBUTE Location OF \Sample_Hold_B:SC\ : LABEL IS "F(SC,1)";
     ATTRIBUTE Location OF \Sample_Hold_A:SC\ : LABEL IS "F(SC,2)";
     ATTRIBUTE lib_model OF \Control_Reg:Sync:ctrl_reg\ : LABEL IS "controlcell1";
-    ATTRIBUTE Location OF \Comp_A:ctComp\ : LABEL IS "F(Comparator,0)";
-    ATTRIBUTE Location OF \Comp_B:ctComp\ : LABEL IS "F(Comparator,1)";
-    ATTRIBUTE lib_model OF \Status_Reg:sts:sts_reg\ : LABEL IS "statuscell1";
+    ATTRIBUTE Location OF \Comp_A:ctComp\ : LABEL IS "F(Comparator,2)";
+    ATTRIBUTE Location OF \Comp_B:ctComp\ : LABEL IS "F(Comparator,0)";
     ATTRIBUTE lib_model OF \UART:BUART:txn\ : LABEL IS "macrocell11";
     ATTRIBUTE lib_model OF \UART:BUART:tx_state_1\ : LABEL IS "macrocell12";
     ATTRIBUTE lib_model OF \UART:BUART:tx_state_0\ : LABEL IS "macrocell13";
@@ -558,23 +556,6 @@ ARCHITECTURE __DEFAULT__ OF PeakDetector_V2 IS
             modout : OUT std_ulogic;
             dyn_cntl_udb : IN std_ulogic);
     END COMPONENT;
-    COMPONENT statuscell
-        PORT (
-            status_0 : IN std_ulogic;
-            status_1 : IN std_ulogic;
-            status_2 : IN std_ulogic;
-            status_3 : IN std_ulogic;
-            status_4 : IN std_ulogic;
-            status_5 : IN std_ulogic;
-            status_6 : IN std_ulogic;
-            status_7 : IN std_ulogic;
-            clock : IN std_ulogic;
-            reset : IN std_ulogic;
-            clk_en : IN std_ulogic);
-    END COMPONENT;
-    ATTRIBUTE udb_clk OF statuscell : COMPONENT IS "clock";
-    ATTRIBUTE udb_clken OF statuscell : COMPONENT IS "clk_en";
-    ATTRIBUTE udb_reset OF statuscell : COMPONENT IS "reset";
     COMPONENT statusicell
         PORT (
             status_0 : IN std_ulogic;
@@ -613,16 +594,14 @@ BEGIN
             aclk_0 => \ADC_SAR_B:Net_385_local\,
             clk_a_dig_glb_0 => \ADC_SAR_B:Net_381\,
             clk_a_dig_0 => \ADC_SAR_B:Net_381_local\,
+            dclk_glb_0 => Net_370,
+            dclk_0 => Net_370_local,
             aclk_glb_1 => \ADC_SAR_A:Net_385\,
             aclk_1 => \ADC_SAR_A:Net_385_local\,
             clk_a_dig_glb_1 => \ADC_SAR_A:Net_381\,
             clk_a_dig_1 => \ADC_SAR_A:Net_381_local\,
-            dclk_glb_0 => Net_174,
-            dclk_0 => Net_174_local,
             dclk_glb_1 => \UART:Net_9\,
             dclk_1 => \UART:Net_9_local\,
-            dclk_glb_2 => Net_124,
-            dclk_2 => Net_124_local,
             aclk_glb_ff_0 => \ClockBlock.aclk_glb_ff_0__sig\,
             aclk_glb_ff_1 => \ClockBlock.aclk_glb_ff_1__sig\);
 
@@ -709,7 +688,7 @@ BEGIN
         PORT MAP(
             pa_out => Rx(0)__PA,
             oe => open,
-            fb => Net_7,
+            fb => Net_390,
             pad_in => Rx(0)_PAD,
             in_clock => ClockBlock_BUS_CLK,
             in_clock_en => '1',
@@ -800,7 +779,7 @@ BEGIN
         PORT MAP(
             pa_out => Tx(0)__PA,
             oe => open,
-            pin_input => Net_2,
+            pin_input => Net_385,
             pad_out => Tx(0)_PAD,
             pad_in => Tx(0)_PAD,
             in_clock => open,
@@ -810,11 +789,11 @@ BEGIN
             out_clock_en => '1',
             out_reset => '0');
 
-    \ADC_SAR_B:Bypass\:logicalport
+    Signal_B:logicalport
         GENERIC MAP(
             drive_mode => "000",
             ibuf_enabled => "0",
-            id => "1ac789f5-0007-4895-bdd5-a5e5bbb658ab/16a808f6-2e13-45b9-bce0-b001c8655113",
+            id => "2fe8b180-6d1e-4c98-9fca-98b5fd08c457",
             init_dr_st => "0",
             input_buffer_sel => "00",
             input_clk_en => 0,
@@ -881,16 +860,16 @@ BEGIN
             out_clock_en => open,
             out_reset => open);
 
-    \ADC_SAR_B:Bypass(0)\:iocell
+    Signal_B(0):iocell
         GENERIC MAP(
             in_sync_mode => 0,
             out_sync_mode => 0,
             oe_sync_mode => 0,
-            logicalport => "\ADC_SAR_B:Bypass\",
+            logicalport => "Signal_B",
             logicalport_pin_id => 0,
             io_capabilities => "0000000000000000000000000000000000000000000000000000000000000010")
         PORT MAP(
-            pa_out => \\\ADC_SAR_B:Bypass(0)\\__PA\,
+            pa_out => Signal_B(0)__PA,
             oe => open,
             in_clock => open,
             in_clock_en => '1',
@@ -899,11 +878,11 @@ BEGIN
             out_clock_en => '1',
             out_reset => '0');
 
-    \ADC_SAR_A:Bypass\:logicalport
+    Signal_A:logicalport
         GENERIC MAP(
             drive_mode => "000",
             ibuf_enabled => "0",
-            id => "f9058b8e-d0dc-44db-aebd-7bbf77dedb1b/16a808f6-2e13-45b9-bce0-b001c8655113",
+            id => "77715107-f8d5-47e5-a629-0fb83101ac6b",
             init_dr_st => "0",
             input_buffer_sel => "00",
             input_clk_en => 0,
@@ -970,16 +949,16 @@ BEGIN
             out_clock_en => open,
             out_reset => open);
 
-    \ADC_SAR_A:Bypass(0)\:iocell
+    Signal_A(0):iocell
         GENERIC MAP(
             in_sync_mode => 0,
             out_sync_mode => 0,
             oe_sync_mode => 0,
-            logicalport => "\ADC_SAR_A:Bypass\",
+            logicalport => "Signal_A",
             logicalport_pin_id => 0,
             io_capabilities => "0000000000000000000000000000000000000000000000000000000000000010")
         PORT MAP(
-            pa_out => \\\ADC_SAR_A:Bypass(0)\\__PA\,
+            pa_out => Signal_A(0)__PA,
             oe => open,
             in_clock => open,
             in_clock_en => '1',
@@ -988,13 +967,102 @@ BEGIN
             out_clock_en => '1',
             out_reset => '0');
 
-    Net_2:macrocell
+    Pin_2:logicalport
+        GENERIC MAP(
+            drive_mode => "000",
+            ibuf_enabled => "0",
+            id => "c01ae8a1-f13c-40d5-b53b-1ceb67a4f516",
+            init_dr_st => "0",
+            input_buffer_sel => "00",
+            input_clk_en => 0,
+            input_sync => "1",
+            input_sync_mode => "0",
+            intr_mode => "00",
+            invert_in_clock => 0,
+            invert_in_clock_en => 0,
+            invert_in_reset => 0,
+            invert_out_clock => 0,
+            invert_out_clock_en => 0,
+            invert_out_reset => 0,
+            io_voltage => "",
+            layout_mode => "CONTIGUOUS",
+            oe_conn => "0",
+            oe_reset => 0,
+            oe_sync => "0",
+            output_clk_en => 0,
+            output_clock_mode => "0",
+            output_conn => "0",
+            output_mode => "0",
+            output_reset => 0,
+            output_sync => "0",
+            ovt_hyst_trim => "0",
+            ovt_needed => "0",
+            ovt_slew_control => "00",
+            pa_in_clock => -1,
+            pa_in_clock_en => -1,
+            pa_in_reset => -1,
+            pa_out_clock => -1,
+            pa_out_clock_en => -1,
+            pa_out_reset => -1,
+            pin_aliases => "",
+            pin_mode => "A",
+            por_state => 4,
+            port_alias_group => "",
+            port_alias_required => 0,
+            sio_group_cnt => 0,
+            sio_hifreq => "00000000",
+            sio_hyst => "1",
+            sio_ibuf => "00000000",
+            sio_info => "00",
+            sio_obuf => "00000000",
+            sio_refsel => "00000000",
+            sio_vohsel => "00000000",
+            sio_vtrip => "00000000",
+            slew_rate => "0",
+            spanning => 0,
+            sw_only => 0,
+            use_annotation => "0",
+            vtrip => "10",
+            width => 1,
+            in_clk_inv => 0,
+            in_clken_inv => 0,
+            in_clken_mode => 1,
+            in_rst_inv => 0,
+            out_clk_inv => 0,
+            out_clken_inv => 0,
+            out_clken_mode => 1,
+            out_rst_inv => 0)
+        PORT MAP(
+            in_clock_en => open,
+            in_reset => open,
+            out_clock_en => open,
+            out_reset => open);
+
+    Pin_2(0):iocell
+        GENERIC MAP(
+            in_sync_mode => 0,
+            out_sync_mode => 0,
+            oe_sync_mode => 0,
+            logicalport => "Pin_2",
+            logicalport_pin_id => 0,
+            io_capabilities => "0000000000000000000000000000000000000000000000000000000000000010")
+        PORT MAP(
+            pa_out => Pin_2(0)__PA,
+            oe => open,
+            in_clock => open,
+            in_clock_en => '1',
+            in_reset => '0',
+            out_clock => open,
+            out_clock_en => '1',
+            out_reset => '0');
+
+    Net_385:macrocell
         GENERIC MAP(
             eqn_main => "(!main_0)",
             regmode => 0,
             clken_mode => 1)
         PORT MAP(
-            q => Net_2,
+            q => Net_385,
             main_0 => \UART:BUART:txn\);
 
     \UART:BUART:counter_load_not\:macrocell
@@ -1051,7 +1119,7 @@ BEGIN
         PORT MAP(
             q => \UART:BUART:rx_postpoll\,
             main_0 => \UART:BUART:pollcount_1\,
-            main_1 => Net_7,
+            main_1 => Net_390,
             main_2 => \UART:BUART:pollcount_0\);
 
     \UART:BUART:rx_status_4\:macrocell
@@ -1074,15 +1142,15 @@ BEGIN
             main_0 => \UART:BUART:rx_fifonotempty\,
             main_1 => \UART:BUART:rx_state_stop1_reg\);
 
-    Net_145:macrocell
+    Net_416:macrocell
         GENERIC MAP(
             eqn_main => "(main_0 * main_1)",
             regmode => 0,
             clken_mode => 1)
         PORT MAP(
-            q => Net_145,
+            q => Net_416,
             main_0 => Net_63,
-            main_1 => Net_124_local);
+            main_1 => Net_370_local);
 
     Net_114:macrocell
         GENERIC MAP(
@@ -1271,21 +1339,17 @@ BEGIN
             drq_type => "10",
             num_tds => 0)
         PORT MAP(
-            dmareq => Net_37,
+            dmareq => Net_212,
             termin => '0',
-            termout => Net_16,
+            termout => Net_335,
             clock => ClockBlock_BUS_CLK);
-
-    autoVrefComparator_0:comparatorcell
-        PORT MAP(
-            clock => open);
 
     \ADC_SAR_B:IRQ\:interrupt
         GENERIC MAP(
             int_type => "10",
             is_nmi => 0)
         PORT MAP(
-            interrupt => Net_82,
+            interrupt => Net_329,
             clock => ClockBlock_BUS_CLK);
 
     \ADC_SAR_B:ADC_SAR\:sarcell
@@ -1304,7 +1368,7 @@ BEGIN
             vn_ctl_udb_1 => open,
             vn_ctl_udb_0 => open,
             irq => \ADC_SAR_B:Net_252\,
-            next => Net_85,
+            next => Net_357,
             data_out_udb_11 => \ADC_SAR_B:Net_207_11\,
             data_out_udb_10 => \ADC_SAR_B:Net_207_10\,
             data_out_udb_9 => \ADC_SAR_B:Net_207_9\,
@@ -1317,14 +1381,14 @@ BEGIN
             data_out_udb_2 => \ADC_SAR_B:Net_207_2\,
             data_out_udb_1 => \ADC_SAR_B:Net_207_1\,
             data_out_udb_0 => \ADC_SAR_B:Net_207_0\,
-            eof_udb => Net_82);
+            eof_udb => Net_329);
 
     ISR_A:interrupt
         GENERIC MAP(
             int_type => "10",
             is_nmi => 0)
         PORT MAP(
-            interrupt => Net_16,
+            interrupt => Net_335,
             clock => ClockBlock_BUS_CLK);
 
     \ADC_SAR_A:IRQ\:interrupt
@@ -1332,7 +1396,7 @@ BEGIN
             int_type => "10",
             is_nmi => 0)
         PORT MAP(
-            interrupt => Net_37,
+            interrupt => Net_212,
             clock => ClockBlock_BUS_CLK);
 
     \ADC_SAR_A:ADC_SAR\:sarcell
@@ -1351,7 +1415,7 @@ BEGIN
             vn_ctl_udb_1 => open,
             vn_ctl_udb_0 => open,
             irq => \ADC_SAR_A:Net_252\,
-            next => Net_40,
+            next => Net_307,
             data_out_udb_11 => \ADC_SAR_A:Net_207_11\,
             data_out_udb_10 => \ADC_SAR_A:Net_207_10\,
             data_out_udb_9 => \ADC_SAR_A:Net_207_9\,
@@ -1364,23 +1428,23 @@ BEGIN
             data_out_udb_2 => \ADC_SAR_A:Net_207_2\,
             data_out_udb_1 => \ADC_SAR_A:Net_207_1\,
             data_out_udb_0 => \ADC_SAR_A:Net_207_0\,
-            eof_udb => Net_37);
+            eof_udb => Net_212);
 
     DMA_B:drqcell
         GENERIC MAP(
             drq_type => "10",
             num_tds => 0)
         PORT MAP(
-            dmareq => Net_82,
+            dmareq => Net_329,
             termin => '0',
-            termout => Net_87,
+            termout => Net_328,
             clock => ClockBlock_BUS_CLK);
 
     \Sample_Hold_B:SC\:sccell
         GENERIC MAP(
             cy_registers => "")
         PORT MAP(
-            clk_udb => Net_145,
+            clk_udb => Net_416,
             dyn_cntl_udb => open,
             modout => \Sample_Hold_B:Net_56\);
 
@@ -1388,7 +1452,7 @@ BEGIN
         GENERIC MAP(
             cy_registers => "")
         PORT MAP(
-            clk_udb => Net_145,
+            clk_udb => Net_416,
             dyn_cntl_udb => open,
             modout => \Sample_Hold_A:Net_56\);
 
@@ -1416,21 +1480,21 @@ BEGIN
             int_type => "10",
             is_nmi => 0)
         PORT MAP(
-            interrupt => Net_87,
+            interrupt => Net_328,
             clock => ClockBlock_BUS_CLK);
 
     \Comp_A:ctComp\:comparatorcell
         GENERIC MAP(
             cy_registers => "")
         PORT MAP(
-            clk_udb => Net_124_local,
+            clk_udb => Net_370_local,
             out => Net_110);
 
     \Comp_B:ctComp\:comparatorcell
         GENERIC MAP(
             cy_registers => "")
         PORT MAP(
-            clk_udb => Net_124_local,
+            clk_udb => Net_370_local,
             out => Net_111);
 
     ISR_START:interrupt
@@ -1440,22 +1504,6 @@ BEGIN
         PORT MAP(
             interrupt => Net_114,
             clock => ClockBlock_BUS_CLK);
-
-    \Status_Reg:sts:sts_reg\:statuscell
-        GENERIC MAP(
-            cy_force_order => 1,
-            cy_md_select => "00000000",
-            clken_mode => 1)
-        PORT MAP(
-            clock => open,
-            status_7 => open,
-            status_6 => open,
-            status_5 => open,
-            status_4 => open,
-            status_3 => open,
-            status_2 => open,
-            status_1 => open,
-            status_0 => Net_145);
 
     \UART:BUART:txn\:macrocell
         GENERIC MAP(
@@ -1564,7 +1612,7 @@ BEGIN
             main_6 => \UART:BUART:rx_count_5\,
             main_7 => \UART:BUART:rx_count_4\,
             main_8 => \UART:BUART:pollcount_1\,
-            main_9 => Net_7,
+            main_9 => Net_390,
             main_10 => \UART:BUART:pollcount_0\);
 
     \UART:BUART:rx_load_fifo\:macrocell
@@ -1620,7 +1668,7 @@ BEGIN
             main_5 => \UART:BUART:rx_count_6\,
             main_6 => \UART:BUART:rx_count_5\,
             main_7 => \UART:BUART:rx_count_4\,
-            main_8 => Net_7,
+            main_8 => Net_390,
             main_9 => \UART:BUART:rx_last\);
 
     \UART:BUART:rx_bitclk_enable\:macrocell
@@ -1662,7 +1710,7 @@ BEGIN
             main_0 => \UART:BUART:rx_count_2\,
             main_1 => \UART:BUART:rx_count_1\,
             main_2 => \UART:BUART:pollcount_1\,
-            main_3 => Net_7,
+            main_3 => Net_390,
             main_4 => \UART:BUART:pollcount_0\);
 
     \UART:BUART:pollcount_0\:macrocell
@@ -1676,7 +1724,7 @@ BEGIN
             clock_0 => \UART:Net_9\,
             main_0 => \UART:BUART:rx_count_2\,
             main_1 => \UART:BUART:rx_count_1\,
-            main_2 => Net_7,
+            main_2 => Net_390,
             main_3 => \UART:BUART:pollcount_0\);
 
     \UART:BUART:rx_status_3\:macrocell
@@ -1694,7 +1742,7 @@ BEGIN
             main_3 => \UART:BUART:rx_state_3\,
             main_4 => \UART:BUART:rx_state_2\,
             main_5 => \UART:BUART:pollcount_1\,
-            main_6 => Net_7,
+            main_6 => Net_390,
             main_7 => \UART:BUART:pollcount_0\);
 
     \UART:BUART:rx_last\:macrocell
@@ -1706,6 +1754,6 @@ BEGIN
         PORT MAP(
             q => \UART:BUART:rx_last\,
             clock_0 => \UART:Net_9\,
-            main_0 => Net_7);
+            main_0 => Net_390);
 
 END __DEFAULT__;
