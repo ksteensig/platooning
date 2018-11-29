@@ -1,52 +1,21 @@
---------------- Build Started: 11/28/2018 15:02:07 Project: AngleMeasurement, Configuration: ARM GCC 5.4-2016-q2-update Debug ---------------
-cydsfit.exe -.appdatapath "C:\Users\mikke\AppData\Local\Cypress Semiconductor\PSoC Creator\4.2" -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -.fdsreffile=referenced_files.txt -p C:\Users\mikke\OneDrive\Documents\GitHub\platooning\PSoC\Platooning\AngleMeasurement.cydsn\AngleMeasurement.cyprj -d CY8C5888LTI-LP097 -s C:\Users\mikke\OneDrive\Documents\GitHub\platooning\PSoC\Platooning\AngleMeasurement.cydsn\Generated_Source\PSoC5 -- -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE
-Elaborating Design...
-ADD: sdb.M0061: information: Info from component: Maximum_Peak_Detector_A_Sample_Hold. Frequency of the LO input is not known to the design. Please set valid frequency in the text box provided in the configure window for mixer to operate properly.
- * C:\Users\mikke\OneDrive\Documents\GitHub\platooning\PSoC\Platooning\Peak_Detector_Component.cylib\Maximum_Peak_Detector_v1_2\Maximum_Peak_Detector_v1_2.cysch (Instance:Sample_Hold)
-ADD: sdb.M0061: information: Info from component: Maximum_Peak_Detector_B_Sample_Hold. Frequency of the LO input is not known to the design. Please set valid frequency in the text box provided in the configure window for mixer to operate properly.
- * C:\Users\mikke\OneDrive\Documents\GitHub\platooning\PSoC\Platooning\Peak_Detector_Component.cylib\Maximum_Peak_Detector_v1_2\Maximum_Peak_Detector_v1_2.cysch (Instance:Sample_Hold)
-HDL Generation...
-Synthesis...
-Tech Mapping...
-Analog Placement...
-Info: apr.M0002: Analog signal "\Maximum_Peak_Detector_A:Net_11\" is connected to one terminal only. (App=cydsfit)
-Log: apr.M0058: The analog placement iterative improvement is 31% done. (App=cydsfit)
-Log: apr.M0058: The analog placement iterative improvement is 51% done. (App=cydsfit)
-Log: apr.M0058: The analog placement iterative improvement is 81% done. (App=cydsfit)
-Analog Routing...
-Analog Code Generation...
-Digital Placement...
-Digital Routing...
-Bitstream Generation...
-Bitstream Verification...
-Static timing analysis...
-API Generation...
-Dependency Generation...
-Cleanup...
+--------------- Build Started: 11/29/2018 17:34:04 Project: AngleMeasurement, Configuration: ARM GCC 5.4-2016-q2-update Debug ---------------
+The code generation step is up to date.
 arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\CortexM3\ARM_GCC_541\Debug/main.lst -g -Wall -ffunction-sections -ffat-lto-objects -O0 -c main.c -o .\CortexM3\ARM_GCC_541\Debug\main.o
 main.c: In function 'main':
-main.c:74:11: warning: type defaults to 'int' in declaration of 'angle_conversion_factor' [-Wimplicit-int]
-     const angle_conversion_factor = 0;
-           ^
-main.c:165:22: warning: unused variable 'distance' [-Wunused-variable]
-             uint16_t distance = (d_t2 - d_t1) * 343;
-                      ^
-main.c:164:21: warning: unused variable 'angle' [-Wunused-variable]
-             int16_t angle = calculate_angle(ai - bi, angle_conversion_factor);
-                     ^
-main.c:142:10: warning: unused variable 'output' [-Wunused-variable]
-     char output[200];
-          ^
-arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\CortexM3\ARM_GCC_541\Debug/cyfitter_cfg.lst -g -Wall -ffunction-sections -ffat-lto-objects -O0 -c Generated_Source\PSoC5\cyfitter_cfg.c -o .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o
-arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\CortexM3\ARM_GCC_541\Debug/cymetadata.lst -g -Wall -ffunction-sections -ffat-lto-objects -O0 -c Generated_Source\PSoC5\cymetadata.c -o .\CortexM3\ARM_GCC_541\Debug\cymetadata.o
-arm-none-eabi-ar.exe -rs .\CortexM3\ARM_GCC_541\Debug\AngleMeasurement.a .\CortexM3\ARM_GCC_541\Debug\Maximum_Peak_Detector_A.o .\CortexM3\ARM_GCC_541\Debug\Clock_In.o .\CortexM3\ARM_GCC_541\Debug\Signal_A.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_A.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_A_INT.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_A_PM.o .\CortexM3\ARM_GCC_541\Debug\Signal_B.o .\CortexM3\ARM_GCC_541\Debug\Maximum_Peak_Detector_B.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_B.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_B_INT.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_B_PM.o .\CortexM3\ARM_GCC_541\Debug\Comp_A.o .\CortexM3\ARM_GCC_541\Debug\Comp_A_PM.o .\CortexM3\ARM_GCC_541\Debug\Comp_B.o .\CortexM3\ARM_GCC_541\Debug\Comp_B_PM.o .\CortexM3\ARM_GCC_541\Debug\ISR_START.o .\CortexM3\ARM_GCC_541\Debug\DMA_A_dma.o .\CortexM3\ARM_GCC_541\Debug\DMA_B_dma.o .\CortexM3\ARM_GCC_541\Debug\ISR_A.o .\CortexM3\ARM_GCC_541\Debug\ISR_B.o .\CortexM3\ARM_GCC_541\Debug\Maximum_Peak_Detector_A_Sample_Hold.o .\CortexM3\ARM_GCC_541\Debug\Maximum_Peak_Detector_A_Sample_Hold_PM.o .\CortexM3\ARM_GCC_541\Debug\Maximum_Peak_Detector_A_Comp_1.o .\CortexM3\ARM_GCC_541\Debug\Maximum_Peak_Detector_A_Comp_1_PM.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_A_IRQ.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_A_theACLK.o .\CortexM3\ARM_GCC_541\Debug\Maximum_Peak_Detector_B_Sample_Hold.o .\CortexM3\ARM_GCC_541\Debug\Maximum_Peak_Detector_B_Sample_Hold_PM.o .\CortexM3\ARM_GCC_541\Debug\Maximum_Peak_Detector_B_Comp_1.o .\CortexM3\ARM_GCC_541\Debug\Maximum_Peak_Detector_B_Comp_1_PM.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_B_IRQ.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_B_theACLK.o .\CortexM3\ARM_GCC_541\Debug\CyDmac.o .\CortexM3\ARM_GCC_541\Debug\CyFlash.o .\CortexM3\ARM_GCC_541\Debug\CyLib.o .\CortexM3\ARM_GCC_541\Debug\cyPm.o .\CortexM3\ARM_GCC_541\Debug\CySpc.o .\CortexM3\ARM_GCC_541\Debug\cyutils.o .\CortexM3\ARM_GCC_541\Debug\cy_em_eeprom.o .\CortexM3\ARM_GCC_541\Debug\Control_Reg.o .\CortexM3\ARM_GCC_541\Debug\Control_Reg_PM.o .\CortexM3\ARM_GCC_541\Debug\UART.o .\CortexM3\ARM_GCC_541\Debug\UART_PM.o .\CortexM3\ARM_GCC_541\Debug\UART_INT.o .\CortexM3\ARM_GCC_541\Debug\UART_BOOT.o .\CortexM3\ARM_GCC_541\Debug\UART_IntClock.o .\CortexM3\ARM_GCC_541\Debug\Pin_2.o .\CortexM3\ARM_GCC_541\Debug\Pin_1.o .\CortexM3\ARM_GCC_541\Debug\Counter.o .\CortexM3\ARM_GCC_541\Debug\Counter_PM.o .\CortexM3\ARM_GCC_541\Debug\Counter_Clock.o .\CortexM3\ARM_GCC_541\Debug\IRQ.o .\CortexM3\ARM_GCC_541\Debug\isr_IRQ.o .\CortexM3\ARM_GCC_541\Debug\SS.o .\CortexM3\ARM_GCC_541\Debug\CE.o .\CortexM3\ARM_GCC_541\Debug\LED.o .\CortexM3\ARM_GCC_541\Debug\nRF24_FUNCS.o .\CortexM3\ARM_GCC_541\Debug\nRF24_HAL.o .\CortexM3\ARM_GCC_541\Debug\nRF24_COMMANDS.o .\CortexM3\ARM_GCC_541\Debug\MISO.o .\CortexM3\ARM_GCC_541\Debug\MOSI.o .\CortexM3\ARM_GCC_541\Debug\SCLK.o .\CortexM3\ARM_GCC_541\Debug\SPI.o .\CortexM3\ARM_GCC_541\Debug\SPI_PM.o .\CortexM3\ARM_GCC_541\Debug\SPI_INT.o .\CortexM3\ARM_GCC_541\Debug\SPI_IntClock.o .\CortexM3\ARM_GCC_541\Debug\CyBootAsmGnu.o
+main.c:113:19: warning: unused variable 'RX_ADDR' [-Wunused-variable]
+     const uint8_t RX_ADDR[5]= {0xBA, 0xAD, 0xC0, 0xFF, 0xEE};
+                   ^
+main.c:78:17: warning: unused variable 'angle_conversion_factor' [-Wunused-variable]
+     const float angle_conversion_factor = 0;
+                 ^
+arm-none-eabi-ar.exe -rs .\CortexM3\ARM_GCC_541\Debug\AngleMeasurement.a .\CortexM3\ARM_GCC_541\Debug\Maximum_Peak_Detector_A.o .\CortexM3\ARM_GCC_541\Debug\Clock_In.o .\CortexM3\ARM_GCC_541\Debug\Signal_A.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_A.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_A_INT.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_A_PM.o .\CortexM3\ARM_GCC_541\Debug\Signal_B.o .\CortexM3\ARM_GCC_541\Debug\Maximum_Peak_Detector_B.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_B.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_B_INT.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_B_PM.o .\CortexM3\ARM_GCC_541\Debug\ISR_START.o .\CortexM3\ARM_GCC_541\Debug\DMA_A_dma.o .\CortexM3\ARM_GCC_541\Debug\DMA_B_dma.o .\CortexM3\ARM_GCC_541\Debug\ISR_A.o .\CortexM3\ARM_GCC_541\Debug\ISR_B.o .\CortexM3\ARM_GCC_541\Debug\Maximum_Peak_Detector_A_Sample_Hold.o .\CortexM3\ARM_GCC_541\Debug\Maximum_Peak_Detector_A_Sample_Hold_PM.o .\CortexM3\ARM_GCC_541\Debug\Maximum_Peak_Detector_A_Comp_1.o .\CortexM3\ARM_GCC_541\Debug\Maximum_Peak_Detector_A_Comp_1_PM.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_A_IRQ.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_A_theACLK.o .\CortexM3\ARM_GCC_541\Debug\Maximum_Peak_Detector_B_Sample_Hold.o .\CortexM3\ARM_GCC_541\Debug\Maximum_Peak_Detector_B_Sample_Hold_PM.o .\CortexM3\ARM_GCC_541\Debug\Maximum_Peak_Detector_B_Comp_1.o .\CortexM3\ARM_GCC_541\Debug\Maximum_Peak_Detector_B_Comp_1_PM.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_B_IRQ.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_B_theACLK.o .\CortexM3\ARM_GCC_541\Debug\CyDmac.o .\CortexM3\ARM_GCC_541\Debug\CyFlash.o .\CortexM3\ARM_GCC_541\Debug\CyLib.o .\CortexM3\ARM_GCC_541\Debug\cyPm.o .\CortexM3\ARM_GCC_541\Debug\CySpc.o .\CortexM3\ARM_GCC_541\Debug\cyutils.o .\CortexM3\ARM_GCC_541\Debug\cy_em_eeprom.o .\CortexM3\ARM_GCC_541\Debug\UART.o .\CortexM3\ARM_GCC_541\Debug\UART_PM.o .\CortexM3\ARM_GCC_541\Debug\UART_INT.o .\CortexM3\ARM_GCC_541\Debug\UART_BOOT.o .\CortexM3\ARM_GCC_541\Debug\UART_IntClock.o .\CortexM3\ARM_GCC_541\Debug\Pin_2.o .\CortexM3\ARM_GCC_541\Debug\Pin_1.o .\CortexM3\ARM_GCC_541\Debug\Pin_3.o .\CortexM3\ARM_GCC_541\Debug\Counter.o .\CortexM3\ARM_GCC_541\Debug\Counter_PM.o .\CortexM3\ARM_GCC_541\Debug\Counter_Clock.o .\CortexM3\ARM_GCC_541\Debug\IRQ.o .\CortexM3\ARM_GCC_541\Debug\isr_IRQ.o .\CortexM3\ARM_GCC_541\Debug\SS.o .\CortexM3\ARM_GCC_541\Debug\CE.o .\CortexM3\ARM_GCC_541\Debug\LED.o .\CortexM3\ARM_GCC_541\Debug\nRF24_FUNCS.o .\CortexM3\ARM_GCC_541\Debug\nRF24_HAL.o .\CortexM3\ARM_GCC_541\Debug\nRF24_COMMANDS.o .\CortexM3\ARM_GCC_541\Debug\MISO.o .\CortexM3\ARM_GCC_541\Debug\MOSI.o .\CortexM3\ARM_GCC_541\Debug\SCLK.o .\CortexM3\ARM_GCC_541\Debug\SPI.o .\CortexM3\ARM_GCC_541\Debug\SPI_PM.o .\CortexM3\ARM_GCC_541\Debug\SPI_INT.o .\CortexM3\ARM_GCC_541\Debug\SPI_IntClock.o .\CortexM3\ARM_GCC_541\Debug\Clock_In_1.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_A_Bypass.o .\CortexM3\ARM_GCC_541\Debug\ADC_SAR_B_Bypass.o .\CortexM3\ARM_GCC_541\Debug\CyBootAsmGnu.o
 arm-none-eabi-ar.exe: creating .\CortexM3\ARM_GCC_541\Debug\AngleMeasurement.a
-arm-none-eabi-gcc.exe -Wl,--start-group -o C:\Users\mikke\OneDrive\Documents\GitHub\platooning\PSoC\Platooning\AngleMeasurement.cydsn\CortexM3\ARM_GCC_541\Debug\AngleMeasurement.elf .\CortexM3\ARM_GCC_541\Debug\main.o .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o .\CortexM3\ARM_GCC_541\Debug\cymetadata.o .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o .\CortexM3\ARM_GCC_541\Debug\AngleMeasurement.a "C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CortexM3\ARM_GCC_541\Debug\CyComponentLibrary.a" -mcpu=cortex-m3 -mthumb -L Generated_Source\PSoC5 -Wl,-Map,.\CortexM3\ARM_GCC_541\Debug/AngleMeasurement.map -T Generated_Source\PSoC5\cm3gcc.ld -specs=nano.specs -Wl,--gc-sections -g -ffunction-sections -O0 -ffat-lto-objects -Wl,--end-group
-cyelftool.exe -C C:\Users\mikke\OneDrive\Documents\GitHub\platooning\PSoC\Platooning\AngleMeasurement.cydsn\CortexM3\ARM_GCC_541\Debug\AngleMeasurement.elf --flash_row_size 256 --flash_size 262144 --flash_offset 0x00000000
+arm-none-eabi-gcc.exe -Wl,--start-group -o C:\Users\rens_\Documents\platooning\PSoC\Platooning\AngleMeasurement.cydsn\CortexM3\ARM_GCC_541\Debug\AngleMeasurement.elf .\CortexM3\ARM_GCC_541\Debug\main.o .\CortexM3\ARM_GCC_541\Debug\cyfitter_cfg.o .\CortexM3\ARM_GCC_541\Debug\cymetadata.o .\CortexM3\ARM_GCC_541\Debug\Cm3Start.o .\CortexM3\ARM_GCC_541\Debug\AngleMeasurement.a "C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CortexM3\ARM_GCC_541\Debug\CyComponentLibrary.a" -mcpu=cortex-m3 -mthumb -L Generated_Source\PSoC5 -Wl,-Map,.\CortexM3\ARM_GCC_541\Debug/AngleMeasurement.map -T Generated_Source\PSoC5\cm3gcc.ld -specs=nano.specs -Wl,--gc-sections -g -ffunction-sections -O0 -ffat-lto-objects -Wl,--end-group
+cyelftool.exe -C C:\Users\rens_\Documents\platooning\PSoC\Platooning\AngleMeasurement.cydsn\CortexM3\ARM_GCC_541\Debug\AngleMeasurement.elf --flash_row_size 256 --flash_size 262144 --flash_offset 0x00000000
 No ELF section .cychecksum found, creating one
 Application checksum calculated and stored in ELF section .cychecksum
 Checksum calculated and stored in ELF section .cymeta
-cyelftool.exe -S C:\Users\mikke\OneDrive\Documents\GitHub\platooning\PSoC\Platooning\AngleMeasurement.cydsn\CortexM3\ARM_GCC_541\Debug\AngleMeasurement.elf
-Flash used: 12062 of 262144 bytes (4,6 %).
-SRAM used: 3301 of 65536 bytes (5,0 %). Stack: 2048 bytes. Heap: 128 bytes.
---------------- Build Succeeded: 11/28/2018 15:02:33 ---------------
+cyelftool.exe -S C:\Users\rens_\Documents\platooning\PSoC\Platooning\AngleMeasurement.cydsn\CortexM3\ARM_GCC_541\Debug\AngleMeasurement.elf
+Flash used: 11584 of 262144 bytes (4,4 %).
+SRAM used: 10605 of 65536 bytes (16,2 %). Stack: 2048 bytes. Heap: 128 bytes.
+--------------- Build Succeeded: 11/29/2018 17:34:06 ---------------

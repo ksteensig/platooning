@@ -11,7 +11,7 @@ unsigned char data;
 // Executed when the IRQ pin triggers an interrupt
 CY_ISR_PROTO(IRQ_Handler);
 
-#define DATA_SIZE 200
+#define DATA_SIZE 2000
 
 uint16_t DataA[DATA_SIZE];
 uint16_t DataB[DATA_SIZE];
@@ -35,13 +35,11 @@ uint8 DMA_B_TD[1];
 uint8_t ISR_A_done = 0;
 uint8_t ISR_B_done = 0;
 
-uint16_t d_t1;
-uint16_t d_t2;
+uint16_t dist_time;
 
 CY_ISR(ISR_START_Handler)
 {
-    d_t2 = Counter_ReadCounter();
-    Control_Reg_Write(0x00);
+    dist_time = Counter_ReadCounter();
     ADC_SAR_A_StartConvert();
     ADC_SAR_B_StartConvert();
 }
@@ -60,8 +58,14 @@ CY_ISR(ISR_OUT_B_Handler)
 
 CY_ISR(IRQ_Handler)
 {
+    Counter_WriteCounter(0);
     irq_flag = true;
     IRQ_ClearInterrupt();
+    nrf_irq flag = nRF24_get_irq_flag();
+    nRF24_clear_irq_flag(flag);
+            
+    // get the data from the transmitter
+    //nRF24_get_rx_payload(&data, 1);
 }
 
 int16_t calculate_angle(int16_t time_delta, float angle_conversion_factor)
@@ -71,10 +75,11 @@ int16_t calculate_angle(int16_t time_delta, float angle_conversion_factor)
 
 int main(void)
 {
-    const angle_conversion_factor = 0;
+    const float angle_conversion_factor = 0;
     
     UART_Start();
     Clock_In_Start();
+    Clock_In_1_Start();
     Counter_Clock_Start();
     ADC_SAR_A_Start();
     ADC_SAR_B_Start();
@@ -82,9 +87,7 @@ int main(void)
     Maximum_Peak_Detector_B_Start();
     ADC_SAR_A_IRQ_Enable();
     ADC_SAR_B_IRQ_Enable();
-    Comp_A_Start();
-    Comp_B_Start();
-    Control_Reg_Write(0x01);
+
     ISR_START_StartEx(ISR_START_Handler);
     ISR_A_StartEx(ISR_OUT_A_Handler);
     ISR_B_StartEx(ISR_OUT_B_Handler);
@@ -107,65 +110,51 @@ int main(void)
     CyDmaChEnable(DMA_A_Chan, 1);
     CyDmaChEnable(DMA_B_Chan, 1);
     
-    CyGlobalIntEnable;
     const uint8_t RX_ADDR[5]= {0xBA, 0xAD, 0xC0, 0xFF, 0xEE};
     
     // Set the Handler for the IRQ interrupt
-    isr_IRQ_StartEx(IRQ_Handler);
+    //isr_IRQ_StartEx(IRQ_Handler);
     
-    nRF24_start();
-    nRF24_set_rx_pipe_address(NRF_ADDR_PIPE0, RX_ADDR, 5);
-    nRF24_start_listening();
-    
-    while (1) {
-        
-        //UART_PutString("\n");
-        
-        while(false == irq_flag);
-            
-        // Get and clear the flag that caused the IRQ interrupt,
-        nrf_irq flag = nRF24_get_irq_flag();
-        nRF24_clear_irq_flag(flag);
-            
-        LED_Write(~LED_Read());
-            
-        // get the data from the transmitter
-        nRF24_get_rx_payload(&data, 1);
-            
-        // send data via UART
-     //   UART_PutString("R: ");
-        UART_PutChar(data);
-        UART_PutCRLF(0);
-            
-        irq_flag = false;
-    }
-    char output[200];
-    
+    //nRF24_start();
+    //nRF24_set_rx_pipe_address(NRF_ADDR_PIPE0, RX_ADDR, 5);
+    //nRF24_start_listening();
 
+    char output[200];
+  
+    CyGlobalIntEnable;
+    
     for(;;)
     {
         if (ISR_A_done && ISR_B_done) {
             CyGlobalIntDisable;
             uint16_t a = 0, b = 0;
-            uint8_t ai = 0, bi = 0;
+            uint16_t ai = 0, bi = 0;
             
-            for (uint8_t i = 0; i < DATA_SIZE; i++) {
-                if (DataA[i] > a) {
+            for (uint16_t i = 0; i < DATA_SIZE; i++) {
+                if (DataA[i] > (a + 5)) {
                     a = DataA[i];
                     ai = i;
                 }
                 
-                if (DataB[i] > b) {
+                if (DataB[i] > (b + 5)) {
                     b = DataB[i];
                     bi = i;
                 }
             }
             
-            int16_t angle = calculate_angle(ai - bi, angle_conversion_factor);
-            uint16_t distance = (d_t2 - d_t1) * 343;
+            // angle from -60 to 60
+            //int16_t angle = calculate_angle(ai - bi, angle_conversion_factor);
+            
+            // distance in mm, where speed of sound is 343000 mm/second
+            // first convert the time difference from us to ms, and then multiply by the speed of sound
+            //uint32_t distance = dist_time/1000.0 * 343000;
+            
+            
+               sprintf(output, "angle: %d, %d, %d\n", ai, bi, ai - bi);
+               UART_PutString(output); 
+
             
             ISR_A_done = ISR_B_done = 0;
-            Control_Reg_Write(0x01);
             
             CyGlobalIntEnable;
         }
