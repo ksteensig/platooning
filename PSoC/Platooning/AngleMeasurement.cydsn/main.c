@@ -38,9 +38,14 @@ uint8 DMA_B_TD[1];
 uint8_t ISR_A_done = 0;
 uint8_t ISR_B_done = 0;
 
-int8_t angle = 0;
-uint32_t distance = 0;
-uint16_t velocity = 0;
+int8_t angle = 0; // angle between front wheel of platoon follower compared to the platoon leader back wheels
+uint32_t distance = 0; // distance between follower and leader
+uint16_t velocity = 0; // platoon leader duty cycle
+
+// control system variables
+int16_t err = 0; // error
+int16_t reference = 0; // input
+int16_t result = 0; // output
 
 char output[200];
 
@@ -131,6 +136,9 @@ int main(void)
   
     CyGlobalIntEnable;
     
+    const uint16_t K = 0; // control system value for P-controller
+    int32_t duty_cycle = 0;
+    
     for(;;)
     {        
         if (ISR_A_done && ISR_B_done) {
@@ -188,6 +196,15 @@ int main(void)
             //}
 
             ISR_A_done = ISR_B_done = 0;
+                
+            err = reference - result;
+            duty_cycle = K * err + velocity;
+            
+            // if duty_cycle ends up being negative, it needs to be capped at 0
+            if (duty_cycle < 0)
+            {
+                duty_cycle = 0;
+            }
             
             CyGlobalIntEnable;
         }
