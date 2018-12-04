@@ -1,0 +1,2407 @@
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"Maximum_Peak_Detector_B_Comp_1.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	Maximum_Peak_Detector_B_Comp_1_initVar
+  20              		.bss
+  21              		.type	Maximum_Peak_Detector_B_Comp_1_initVar, %object
+  22              		.size	Maximum_Peak_Detector_B_Comp_1_initVar, 1
+  23              	Maximum_Peak_Detector_B_Comp_1_initVar:
+  24 0000 00       		.space	1
+  25              		.section	.text.Maximum_Peak_Detector_B_Comp_1_Init,"ax",%progbits
+  26              		.align	2
+  27              		.global	Maximum_Peak_Detector_B_Comp_1_Init
+  28              		.thumb
+  29              		.thumb_func
+  30              		.type	Maximum_Peak_Detector_B_Comp_1_Init, %function
+  31              	Maximum_Peak_Detector_B_Comp_1_Init:
+  32              	.LFB0:
+  33              		.file 1 "Generated_Source\\PSoC5\\Maximum_Peak_Detector_B_Comp_1.c"
+   1:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * File Name: Maximum_Peak_Detector_B_Comp_1.c
+   3:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Version 2.0
+   4:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+   5:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Description:
+   6:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  This file provides the source code to the API for the Comparator component
+   7:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+   8:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Note:
+   9:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  None
+  10:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+  11:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** ********************************************************************************
+  12:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  13:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  14:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  15:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * the software package with which this file was provided.
+  16:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *******************************************************************************/
+  17:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+  18:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** #include "Maximum_Peak_Detector_B_Comp_1.h"
+  19:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+  20:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** uint8 Maximum_Peak_Detector_B_Comp_1_initVar = 0u;
+  21:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+  22:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** /* Internal functions definitoin */
+  23:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** static void Maximum_Peak_Detector_B_Comp_1_trimAdjust(uint8 nibble) ;
+  24:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 2
+
+
+  25:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** /* static Maximum_Peak_Detector_B_Comp_1_backupStruct  Maximum_Peak_Detector_B_Comp_1_backup; */
+  26:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** #if (CY_PSOC5A)
+  27:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     static Maximum_Peak_Detector_B_Comp_1_LOWPOWER_BACKUP_STRUCT  Maximum_Peak_Detector_B_Comp_1_lo
+  28:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** #endif /* CY_PSOC5A */
+  29:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+  30:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** /* variable to decide whether or not to restore the control register in 
+  31:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****    Enable() API for PSoC5A only */
+  32:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** #if (CY_PSOC5A)
+  33:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     static uint8 Maximum_Peak_Detector_B_Comp_1_restoreReg = 0u;
+  34:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** #endif /* CY_PSOC5A */
+  35:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+  36:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+  37:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** /*******************************************************************************
+  38:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Function Name: Maximum_Peak_Detector_B_Comp_1_Init
+  39:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** ********************************************************************************
+  40:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+  41:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Summary:
+  42:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  Initialize to the schematic state
+  43:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * 
+  44:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Parameters:
+  45:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  void
+  46:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+  47:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Return:
+  48:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  void
+  49:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+  50:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *******************************************************************************/
+  51:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** void Maximum_Peak_Detector_B_Comp_1_Init(void) 
+  52:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** {
+  34              		.loc 1 52 0
+  35              		.cfi_startproc
+  36              		@ args = 0, pretend = 0, frame = 0
+  37              		@ frame_needed = 1, uses_anonymous_args = 0
+  38 0000 80B5     		push	{r7, lr}
+  39              		.cfi_def_cfa_offset 8
+  40              		.cfi_offset 7, -8
+  41              		.cfi_offset 14, -4
+  42 0002 00AF     		add	r7, sp, #0
+  43              		.cfi_def_cfa_register 7
+  53:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* Set default speed/power */
+  54:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     Maximum_Peak_Detector_B_Comp_1_SetSpeed(Maximum_Peak_Detector_B_Comp_1_DEFAULT_SPEED);
+  44              		.loc 1 54 0
+  45 0004 0020     		movs	r0, #0
+  46 0006 FFF7FEFF 		bl	Maximum_Peak_Detector_B_Comp_1_SetSpeed
+  55:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+  56:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* Set default Hysteresis */
+  57:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #if ( Maximum_Peak_Detector_B_Comp_1_DEFAULT_HYSTERESIS == 0u )
+  58:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         Maximum_Peak_Detector_B_Comp_1_CR |= Maximum_Peak_Detector_B_Comp_1_HYST_OFF;
+  47              		.loc 1 58 0
+  48 000a 154A     		ldr	r2, .L2
+  49 000c 144B     		ldr	r3, .L2
+  50 000e 1B78     		ldrb	r3, [r3]
+  51 0010 DBB2     		uxtb	r3, r3
+  52 0012 43F02003 		orr	r3, r3, #32
+  53 0016 DBB2     		uxtb	r3, r3
+  54 0018 1370     		strb	r3, [r2]
+  59:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #else
+  60:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         Maximum_Peak_Detector_B_Comp_1_CR &= (uint8)(~Maximum_Peak_Detector_B_Comp_1_HYST_OFF);
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 3
+
+
+  61:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #endif /* Maximum_Peak_Detector_B_Comp_1_DEFAULT_HYSTERESIS == 0u */
+  62:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* Power down override feature is not supported for PSoC5A. */
+  63:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #if (CY_PSOC3 || CY_PSOC5LP)
+  64:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         /* Set default Power Down Override */
+  65:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         #if ( Maximum_Peak_Detector_B_Comp_1_DEFAULT_PWRDWN_OVRD == 0u )
+  66:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             Maximum_Peak_Detector_B_Comp_1_CR &= (uint8)(~Maximum_Peak_Detector_B_Comp_1_PWRDWN_OVR
+  55              		.loc 1 66 0
+  56 001a 114A     		ldr	r2, .L2
+  57 001c 104B     		ldr	r3, .L2
+  58 001e 1B78     		ldrb	r3, [r3]
+  59 0020 DBB2     		uxtb	r3, r3
+  60 0022 23F00403 		bic	r3, r3, #4
+  61 0026 DBB2     		uxtb	r3, r3
+  62 0028 1370     		strb	r3, [r2]
+  67:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         #else 
+  68:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             Maximum_Peak_Detector_B_Comp_1_CR |= Maximum_Peak_Detector_B_Comp_1_PWRDWN_OVRD;
+  69:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         #endif /* Maximum_Peak_Detector_B_Comp_1_DEFAULT_PWRDWN_OVRD == 0u */
+  70:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #endif /* CY_PSOC3 || CY_PSOC5LP */
+  71:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     
+  72:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* Set mux always on logic */
+  73:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     Maximum_Peak_Detector_B_Comp_1_CR |= Maximum_Peak_Detector_B_Comp_1_MX_AO;
+  63              		.loc 1 73 0
+  64 002a 0D4A     		ldr	r2, .L2
+  65 002c 0C4B     		ldr	r3, .L2
+  66 002e 1B78     		ldrb	r3, [r3]
+  67 0030 DBB2     		uxtb	r3, r3
+  68 0032 43F00803 		orr	r3, r3, #8
+  69 0036 DBB2     		uxtb	r3, r3
+  70 0038 1370     		strb	r3, [r2]
+  74:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+  75:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* Set default sync */
+  76:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     Maximum_Peak_Detector_B_Comp_1_CLK &= (uint8)(~Maximum_Peak_Detector_B_Comp_1_SYNCCLK_MASK);
+  71              		.loc 1 76 0
+  72 003a 0A4A     		ldr	r2, .L2+4
+  73 003c 094B     		ldr	r3, .L2+4
+  74 003e 1B78     		ldrb	r3, [r3]
+  75 0040 DBB2     		uxtb	r3, r3
+  76 0042 23F01803 		bic	r3, r3, #24
+  77 0046 DBB2     		uxtb	r3, r3
+  78 0048 1370     		strb	r3, [r2]
+  77:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #if ( Maximum_Peak_Detector_B_Comp_1_DEFAULT_BYPASS_SYNC == 0u )
+  78:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         Maximum_Peak_Detector_B_Comp_1_CLK |= Maximum_Peak_Detector_B_Comp_1_SYNC_CLK_EN;
+  79              		.loc 1 78 0
+  80 004a 064A     		ldr	r2, .L2+4
+  81 004c 054B     		ldr	r3, .L2+4
+  82 004e 1B78     		ldrb	r3, [r3]
+  83 0050 DBB2     		uxtb	r3, r3
+  84 0052 43F00803 		orr	r3, r3, #8
+  85 0056 DBB2     		uxtb	r3, r3
+  86 0058 1370     		strb	r3, [r2]
+  79:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #else
+  80:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         Maximum_Peak_Detector_B_Comp_1_CLK |= Maximum_Peak_Detector_B_Comp_1_BYPASS_SYNC;
+  81:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #endif /* Maximum_Peak_Detector_B_Comp_1_DEFAULT_BYPASS_SYNC == 0u */
+  82:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** }
+  87              		.loc 1 82 0
+  88 005a 00BF     		nop
+  89 005c 80BD     		pop	{r7, pc}
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 4
+
+
+  90              	.L3:
+  91 005e 00BF     		.align	2
+  92              	.L2:
+  93 0060 41580040 		.word	1073764417
+  94 0064 CF5A0040 		.word	1073765071
+  95              		.cfi_endproc
+  96              	.LFE0:
+  97              		.size	Maximum_Peak_Detector_B_Comp_1_Init, .-Maximum_Peak_Detector_B_Comp_1_Init
+  98              		.section	.text.Maximum_Peak_Detector_B_Comp_1_Enable,"ax",%progbits
+  99              		.align	2
+ 100              		.global	Maximum_Peak_Detector_B_Comp_1_Enable
+ 101              		.thumb
+ 102              		.thumb_func
+ 103              		.type	Maximum_Peak_Detector_B_Comp_1_Enable, %function
+ 104              	Maximum_Peak_Detector_B_Comp_1_Enable:
+ 105              	.LFB1:
+  83:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+  84:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+  85:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** /*******************************************************************************
+  86:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Function Name: Maximum_Peak_Detector_B_Comp_1_Enable
+  87:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** ********************************************************************************
+  88:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+  89:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Summary:
+  90:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  Enable the Comparator
+  91:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * 
+  92:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Parameters:
+  93:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  void
+  94:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+  95:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Return:
+  96:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  void
+  97:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+  98:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *******************************************************************************/
+  99:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** void Maximum_Peak_Detector_B_Comp_1_Enable(void) 
+ 100:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** {
+ 106              		.loc 1 100 0
+ 107              		.cfi_startproc
+ 108              		@ args = 0, pretend = 0, frame = 0
+ 109              		@ frame_needed = 1, uses_anonymous_args = 0
+ 110              		@ link register save eliminated.
+ 111 0000 80B4     		push	{r7}
+ 112              		.cfi_def_cfa_offset 4
+ 113              		.cfi_offset 7, -4
+ 114 0002 00AF     		add	r7, sp, #0
+ 115              		.cfi_def_cfa_register 7
+ 101:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     Maximum_Peak_Detector_B_Comp_1_PWRMGR |= Maximum_Peak_Detector_B_Comp_1_ACT_PWR_EN;
+ 116              		.loc 1 101 0
+ 117 0004 094A     		ldr	r2, .L5
+ 118 0006 094B     		ldr	r3, .L5
+ 119 0008 1B78     		ldrb	r3, [r3]
+ 120 000a DBB2     		uxtb	r3, r3
+ 121 000c 43F00203 		orr	r3, r3, #2
+ 122 0010 DBB2     		uxtb	r3, r3
+ 123 0012 1370     		strb	r3, [r2]
+ 102:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     Maximum_Peak_Detector_B_Comp_1_STBY_PWRMGR |= Maximum_Peak_Detector_B_Comp_1_STBY_PWR_EN;
+ 124              		.loc 1 102 0
+ 125 0014 064A     		ldr	r2, .L5+4
+ 126 0016 064B     		ldr	r3, .L5+4
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 5
+
+
+ 127 0018 1B78     		ldrb	r3, [r3]
+ 128 001a DBB2     		uxtb	r3, r3
+ 129 001c 43F00203 		orr	r3, r3, #2
+ 130 0020 DBB2     		uxtb	r3, r3
+ 131 0022 1370     		strb	r3, [r2]
+ 103:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****      
+ 104:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****      /* This is to restore the value of register CR which is saved 
+ 105:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     in prior to the modification in stop() API */
+ 106:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #if (CY_PSOC5A)
+ 107:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         if(Maximum_Peak_Detector_B_Comp_1_restoreReg == 1u)
+ 108:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         {
+ 109:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             Maximum_Peak_Detector_B_Comp_1_CR = Maximum_Peak_Detector_B_Comp_1_lowPowerBackup.compC
+ 110:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 111:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             /* Clear the flag */
+ 112:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             Maximum_Peak_Detector_B_Comp_1_restoreReg = 0u;
+ 113:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         }
+ 114:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #endif /* CY_PSOC5A */
+ 115:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** }
+ 132              		.loc 1 115 0
+ 133 0024 00BF     		nop
+ 134 0026 BD46     		mov	sp, r7
+ 135              		.cfi_def_cfa_register 13
+ 136              		@ sp needed
+ 137 0028 80BC     		pop	{r7}
+ 138              		.cfi_restore 7
+ 139              		.cfi_def_cfa_offset 0
+ 140 002a 7047     		bx	lr
+ 141              	.L6:
+ 142              		.align	2
+ 143              	.L5:
+ 144 002c A7430040 		.word	1073759143
+ 145 0030 B7430040 		.word	1073759159
+ 146              		.cfi_endproc
+ 147              	.LFE1:
+ 148              		.size	Maximum_Peak_Detector_B_Comp_1_Enable, .-Maximum_Peak_Detector_B_Comp_1_Enable
+ 149              		.section	.text.Maximum_Peak_Detector_B_Comp_1_Start,"ax",%progbits
+ 150              		.align	2
+ 151              		.global	Maximum_Peak_Detector_B_Comp_1_Start
+ 152              		.thumb
+ 153              		.thumb_func
+ 154              		.type	Maximum_Peak_Detector_B_Comp_1_Start, %function
+ 155              	Maximum_Peak_Detector_B_Comp_1_Start:
+ 156              	.LFB2:
+ 116:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 117:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 118:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** /*******************************************************************************
+ 119:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Function Name: Maximum_Peak_Detector_B_Comp_1_Start
+ 120:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** ********************************************************************************
+ 121:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 122:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Summary:
+ 123:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  The start function initializes the Analog Comparator with the default values.
+ 124:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 125:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Parameters:
+ 126:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  void
+ 127:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 128:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Return:
+ 129:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  void 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 6
+
+
+ 130:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 131:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Global variables:
+ 132:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  Maximum_Peak_Detector_B_Comp_1_initVar: Is modified when this function is called for the 
+ 133:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *   first time. Is used to ensure that initialization happens only once.
+ 134:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  
+ 135:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *******************************************************************************/
+ 136:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** void Maximum_Peak_Detector_B_Comp_1_Start(void) 
+ 137:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** {
+ 157              		.loc 1 137 0
+ 158              		.cfi_startproc
+ 159              		@ args = 0, pretend = 0, frame = 0
+ 160              		@ frame_needed = 1, uses_anonymous_args = 0
+ 161 0000 80B5     		push	{r7, lr}
+ 162              		.cfi_def_cfa_offset 8
+ 163              		.cfi_offset 7, -8
+ 164              		.cfi_offset 14, -4
+ 165 0002 00AF     		add	r7, sp, #0
+ 166              		.cfi_def_cfa_register 7
+ 138:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 139:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     if ( Maximum_Peak_Detector_B_Comp_1_initVar == 0u )
+ 167              		.loc 1 139 0
+ 168 0004 064B     		ldr	r3, .L9
+ 169 0006 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 170 0008 002B     		cmp	r3, #0
+ 171 000a 04D1     		bne	.L8
+ 140:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     {
+ 141:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         Maximum_Peak_Detector_B_Comp_1_Init();
+ 172              		.loc 1 141 0
+ 173 000c FFF7FEFF 		bl	Maximum_Peak_Detector_B_Comp_1_Init
+ 142:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         
+ 143:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         Maximum_Peak_Detector_B_Comp_1_initVar = 1u;
+ 174              		.loc 1 143 0
+ 175 0010 034B     		ldr	r3, .L9
+ 176 0012 0122     		movs	r2, #1
+ 177 0014 1A70     		strb	r2, [r3]
+ 178              	.L8:
+ 144:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     }   
+ 145:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 146:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* Enable power to comparator */
+ 147:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     Maximum_Peak_Detector_B_Comp_1_Enable();    
+ 179              		.loc 1 147 0
+ 180 0016 FFF7FEFF 		bl	Maximum_Peak_Detector_B_Comp_1_Enable
+ 148:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** }
+ 181              		.loc 1 148 0
+ 182 001a 00BF     		nop
+ 183 001c 80BD     		pop	{r7, pc}
+ 184              	.L10:
+ 185 001e 00BF     		.align	2
+ 186              	.L9:
+ 187 0020 00000000 		.word	Maximum_Peak_Detector_B_Comp_1_initVar
+ 188              		.cfi_endproc
+ 189              	.LFE2:
+ 190              		.size	Maximum_Peak_Detector_B_Comp_1_Start, .-Maximum_Peak_Detector_B_Comp_1_Start
+ 191              		.section	.text.Maximum_Peak_Detector_B_Comp_1_Stop,"ax",%progbits
+ 192              		.align	2
+ 193              		.global	Maximum_Peak_Detector_B_Comp_1_Stop
+ 194              		.thumb
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 7
+
+
+ 195              		.thumb_func
+ 196              		.type	Maximum_Peak_Detector_B_Comp_1_Stop, %function
+ 197              	Maximum_Peak_Detector_B_Comp_1_Stop:
+ 198              	.LFB3:
+ 149:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 150:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 151:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** /*******************************************************************************
+ 152:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Function Name: Maximum_Peak_Detector_B_Comp_1_Stop
+ 153:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** ********************************************************************************
+ 154:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 155:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Summary:
+ 156:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  Powers down amplifier to lowest power state.
+ 157:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 158:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Parameters:
+ 159:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  void
+ 160:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 161:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Return:
+ 162:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  void
+ 163:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 164:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *******************************************************************************/
+ 165:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** void Maximum_Peak_Detector_B_Comp_1_Stop(void) 
+ 166:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** {
+ 199              		.loc 1 166 0
+ 200              		.cfi_startproc
+ 201              		@ args = 0, pretend = 0, frame = 0
+ 202              		@ frame_needed = 1, uses_anonymous_args = 0
+ 203              		@ link register save eliminated.
+ 204 0000 80B4     		push	{r7}
+ 205              		.cfi_def_cfa_offset 4
+ 206              		.cfi_offset 7, -4
+ 207 0002 00AF     		add	r7, sp, #0
+ 208              		.cfi_def_cfa_register 7
+ 167:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* Disable power to comparator */
+ 168:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     Maximum_Peak_Detector_B_Comp_1_PWRMGR &= (uint8)(~Maximum_Peak_Detector_B_Comp_1_ACT_PWR_EN);
+ 209              		.loc 1 168 0
+ 210 0004 094A     		ldr	r2, .L12
+ 211 0006 094B     		ldr	r3, .L12
+ 212 0008 1B78     		ldrb	r3, [r3]
+ 213 000a DBB2     		uxtb	r3, r3
+ 214 000c 23F00203 		bic	r3, r3, #2
+ 215 0010 DBB2     		uxtb	r3, r3
+ 216 0012 1370     		strb	r3, [r2]
+ 169:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     Maximum_Peak_Detector_B_Comp_1_STBY_PWRMGR &= (uint8)(~Maximum_Peak_Detector_B_Comp_1_STBY_PWR_
+ 217              		.loc 1 169 0
+ 218 0014 064A     		ldr	r2, .L12+4
+ 219 0016 064B     		ldr	r3, .L12+4
+ 220 0018 1B78     		ldrb	r3, [r3]
+ 221 001a DBB2     		uxtb	r3, r3
+ 222 001c 23F00203 		bic	r3, r3, #2
+ 223 0020 DBB2     		uxtb	r3, r3
+ 224 0022 1370     		strb	r3, [r2]
+ 170:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     
+ 171:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #if (CY_PSOC5A)
+ 172:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         /* Enable the variable */
+ 173:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         Maximum_Peak_Detector_B_Comp_1_restoreReg = 1u;
+ 174:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 175:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         /* Save the control register before clearing it */
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 8
+
+
+ 176:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         Maximum_Peak_Detector_B_Comp_1_lowPowerBackup.compCRReg = Maximum_Peak_Detector_B_Comp_1_CR
+ 177:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         Maximum_Peak_Detector_B_Comp_1_CR = Maximum_Peak_Detector_B_Comp_1_COMP_REG_CLR;
+ 178:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #endif /* CY_PSOC5A */
+ 179:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** }
+ 225              		.loc 1 179 0
+ 226 0024 00BF     		nop
+ 227 0026 BD46     		mov	sp, r7
+ 228              		.cfi_def_cfa_register 13
+ 229              		@ sp needed
+ 230 0028 80BC     		pop	{r7}
+ 231              		.cfi_restore 7
+ 232              		.cfi_def_cfa_offset 0
+ 233 002a 7047     		bx	lr
+ 234              	.L13:
+ 235              		.align	2
+ 236              	.L12:
+ 237 002c A7430040 		.word	1073759143
+ 238 0030 B7430040 		.word	1073759159
+ 239              		.cfi_endproc
+ 240              	.LFE3:
+ 241              		.size	Maximum_Peak_Detector_B_Comp_1_Stop, .-Maximum_Peak_Detector_B_Comp_1_Stop
+ 242              		.section	.text.Maximum_Peak_Detector_B_Comp_1_SetSpeed,"ax",%progbits
+ 243              		.align	2
+ 244              		.global	Maximum_Peak_Detector_B_Comp_1_SetSpeed
+ 245              		.thumb
+ 246              		.thumb_func
+ 247              		.type	Maximum_Peak_Detector_B_Comp_1_SetSpeed, %function
+ 248              	Maximum_Peak_Detector_B_Comp_1_SetSpeed:
+ 249              	.LFB4:
+ 180:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 181:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 182:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** /*******************************************************************************
+ 183:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Function Name: Maximum_Peak_Detector_B_Comp_1_SetSpeed
+ 184:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** ********************************************************************************
+ 185:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 186:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Summary:
+ 187:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  This function sets the speed of the Analog Comparator. The faster the speed
+ 188:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  the more power that is used.
+ 189:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 190:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Parameters:
+ 191:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  speed: (uint8) Sets operation mode of Comparator
+ 192:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 193:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Return:
+ 194:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  void
+ 195:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 196:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *******************************************************************************/
+ 197:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** void Maximum_Peak_Detector_B_Comp_1_SetSpeed(uint8 speed) 
+ 198:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** {
+ 250              		.loc 1 198 0
+ 251              		.cfi_startproc
+ 252              		@ args = 0, pretend = 0, frame = 8
+ 253              		@ frame_needed = 1, uses_anonymous_args = 0
+ 254              		@ link register save eliminated.
+ 255 0000 80B4     		push	{r7}
+ 256              		.cfi_def_cfa_offset 4
+ 257              		.cfi_offset 7, -4
+ 258 0002 83B0     		sub	sp, sp, #12
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 9
+
+
+ 259              		.cfi_def_cfa_offset 16
+ 260 0004 00AF     		add	r7, sp, #0
+ 261              		.cfi_def_cfa_register 7
+ 262 0006 0346     		mov	r3, r0
+ 263 0008 FB71     		strb	r3, [r7, #7]
+ 199:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* Clear and Set power level */    
+ 200:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     Maximum_Peak_Detector_B_Comp_1_CR = (Maximum_Peak_Detector_B_Comp_1_CR & (uint8)(~Maximum_Peak_
+ 264              		.loc 1 200 0
+ 265 000a 1749     		ldr	r1, .L18
+ 266 000c 164B     		ldr	r3, .L18
+ 267 000e 1B78     		ldrb	r3, [r3]
+ 268 0010 DBB2     		uxtb	r3, r3
+ 269 0012 5BB2     		sxtb	r3, r3
+ 270 0014 23F00303 		bic	r3, r3, #3
+ 271 0018 5AB2     		sxtb	r2, r3
+ 272 001a 97F90730 		ldrsb	r3, [r7, #7]
+ 273 001e 03F00303 		and	r3, r3, #3
+ 274 0022 5BB2     		sxtb	r3, r3
+ 275 0024 1343     		orrs	r3, r3, r2
+ 276 0026 5BB2     		sxtb	r3, r3
+ 277 0028 DBB2     		uxtb	r3, r3
+ 278 002a 0B70     		strb	r3, [r1]
+ 201:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****                            (speed & Maximum_Peak_Detector_B_Comp_1_PWR_MODE_MASK);
+ 202:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 203:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* Set trim value for high speed comparator */
+ 204:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     if(speed == Maximum_Peak_Detector_B_Comp_1_HIGHSPEED)
+ 279              		.loc 1 204 0
+ 280 002c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 281 002e 012B     		cmp	r3, #1
+ 282 0030 0AD1     		bne	.L15
+ 205:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     {
+ 206:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         /* PSoC5A */
+ 207:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         #if (CY_PSOC5A)
+ 208:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             Maximum_Peak_Detector_B_Comp_1_TR = Maximum_Peak_Detector_B_Comp_1_HS_TRIM_TR0;
+ 209:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         #endif /* CY_PSOC5A */
+ 210:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         
+ 211:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         /* PSoC3, PSoC5LP or later */
+ 212:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         #if (CY_PSOC3 || CY_PSOC5LP) 
+ 213:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             Maximum_Peak_Detector_B_Comp_1_TR0 = Maximum_Peak_Detector_B_Comp_1_HS_TRIM_TR0;
+ 283              		.loc 1 213 0
+ 284 0032 0E4B     		ldr	r3, .L18+4
+ 285 0034 0E4A     		ldr	r2, .L18+8
+ 286 0036 1278     		ldrb	r2, [r2]
+ 287 0038 D2B2     		uxtb	r2, r2
+ 288 003a 1A70     		strb	r2, [r3]
+ 214:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             Maximum_Peak_Detector_B_Comp_1_TR1 = Maximum_Peak_Detector_B_Comp_1_HS_TRIM_TR1;
+ 289              		.loc 1 214 0
+ 290 003c 0D4B     		ldr	r3, .L18+12
+ 291 003e 0E4A     		ldr	r2, .L18+16
+ 292 0040 1278     		ldrb	r2, [r2]
+ 293 0042 D2B2     		uxtb	r2, r2
+ 294 0044 1A70     		strb	r2, [r3]
+ 215:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         #endif /* CY_PSOC3 || CY_PSOC5LP */
+ 216:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     }
+ 217:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     else
+ 218:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     {
+ 219:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* PSoC5A */
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 10
+
+
+ 220:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         #if (CY_PSOC5A)
+ 221:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             Maximum_Peak_Detector_B_Comp_1_TR = Maximum_Peak_Detector_B_Comp_1_LS_TRIM_TR0;
+ 222:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         #endif /* CY_PSOC5A */
+ 223:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         
+ 224:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         /* PSoC3, PSoC5LP or later */
+ 225:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         #if (CY_PSOC3 || CY_PSOC5LP) 
+ 226:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             Maximum_Peak_Detector_B_Comp_1_TR0 = Maximum_Peak_Detector_B_Comp_1_LS_TRIM_TR0;
+ 227:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             Maximum_Peak_Detector_B_Comp_1_TR1 = Maximum_Peak_Detector_B_Comp_1_LS_TRIM_TR1;
+ 228:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         #endif /* CY_PSOC3 || CY_PSOC5LP */
+ 229:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     }
+ 230:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 231:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** }
+ 295              		.loc 1 231 0
+ 296 0046 09E0     		b	.L17
+ 297              	.L15:
+ 226:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             Maximum_Peak_Detector_B_Comp_1_TR1 = Maximum_Peak_Detector_B_Comp_1_LS_TRIM_TR1;
+ 298              		.loc 1 226 0
+ 299 0048 084B     		ldr	r3, .L18+4
+ 300 004a 0C4A     		ldr	r2, .L18+20
+ 301 004c 1278     		ldrb	r2, [r2]
+ 302 004e D2B2     		uxtb	r2, r2
+ 303 0050 1A70     		strb	r2, [r3]
+ 227:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         #endif /* CY_PSOC3 || CY_PSOC5LP */
+ 304              		.loc 1 227 0
+ 305 0052 084B     		ldr	r3, .L18+12
+ 306 0054 0A4A     		ldr	r2, .L18+24
+ 307 0056 1278     		ldrb	r2, [r2]
+ 308 0058 D2B2     		uxtb	r2, r2
+ 309 005a 1A70     		strb	r2, [r3]
+ 310              	.L17:
+ 311              		.loc 1 231 0
+ 312 005c 00BF     		nop
+ 313 005e 0C37     		adds	r7, r7, #12
+ 314              		.cfi_def_cfa_offset 4
+ 315 0060 BD46     		mov	sp, r7
+ 316              		.cfi_def_cfa_register 13
+ 317              		@ sp needed
+ 318 0062 80BC     		pop	{r7}
+ 319              		.cfi_restore 7
+ 320              		.cfi_def_cfa_offset 0
+ 321 0064 7047     		bx	lr
+ 322              	.L19:
+ 323 0066 00BF     		.align	2
+ 324              	.L18:
+ 325 0068 41580040 		.word	1073764417
+ 326 006c 32460040 		.word	1073759794
+ 327 0070 11010049 		.word	1224737041
+ 328 0074 33460040 		.word	1073759795
+ 329 0078 15010049 		.word	1224737045
+ 330 007c AF010049 		.word	1224737199
+ 331 0080 B7010049 		.word	1224737207
+ 332              		.cfi_endproc
+ 333              	.LFE4:
+ 334              		.size	Maximum_Peak_Detector_B_Comp_1_SetSpeed, .-Maximum_Peak_Detector_B_Comp_1_SetSpeed
+ 335              		.section	.text.Maximum_Peak_Detector_B_Comp_1_GetCompare,"ax",%progbits
+ 336              		.align	2
+ 337              		.global	Maximum_Peak_Detector_B_Comp_1_GetCompare
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 11
+
+
+ 338              		.thumb
+ 339              		.thumb_func
+ 340              		.type	Maximum_Peak_Detector_B_Comp_1_GetCompare, %function
+ 341              	Maximum_Peak_Detector_B_Comp_1_GetCompare:
+ 342              	.LFB5:
+ 232:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 233:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 234:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** /*******************************************************************************
+ 235:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Function Name: Maximum_Peak_Detector_B_Comp_1_GetCompare
+ 236:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** ********************************************************************************
+ 237:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 238:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Summary:
+ 239:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  This function returns the comparator output value.
+ 240:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  This value is not affected by the Polarity parameter.
+ 241:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  This valuea lways reflects a noninverted state.
+ 242:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 243:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Parameters:
+ 244:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *   None
+ 245:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 246:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Return:
+ 247:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  (uint8)  0     - if Pos_Input less than Neg_input
+ 248:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *           non 0 - if Pos_Input greater than Neg_input.
+ 249:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 250:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *******************************************************************************/
+ 251:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** uint8 Maximum_Peak_Detector_B_Comp_1_GetCompare(void) 
+ 252:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** {
+ 343              		.loc 1 252 0
+ 344              		.cfi_startproc
+ 345              		@ args = 0, pretend = 0, frame = 0
+ 346              		@ frame_needed = 1, uses_anonymous_args = 0
+ 347              		@ link register save eliminated.
+ 348 0000 80B4     		push	{r7}
+ 349              		.cfi_def_cfa_offset 4
+ 350              		.cfi_offset 7, -4
+ 351 0002 00AF     		add	r7, sp, #0
+ 352              		.cfi_def_cfa_register 7
+ 253:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     return( Maximum_Peak_Detector_B_Comp_1_WRK & Maximum_Peak_Detector_B_Comp_1_CMP_OUT_MASK);
+ 353              		.loc 1 253 0
+ 354 0004 044B     		ldr	r3, .L22
+ 355 0006 1B78     		ldrb	r3, [r3]
+ 356 0008 DBB2     		uxtb	r3, r3
+ 357 000a 03F00203 		and	r3, r3, #2
+ 358 000e DBB2     		uxtb	r3, r3
+ 254:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** }
+ 359              		.loc 1 254 0
+ 360 0010 1846     		mov	r0, r3
+ 361 0012 BD46     		mov	sp, r7
+ 362              		.cfi_def_cfa_register 13
+ 363              		@ sp needed
+ 364 0014 80BC     		pop	{r7}
+ 365              		.cfi_restore 7
+ 366              		.cfi_def_cfa_offset 0
+ 367 0016 7047     		bx	lr
+ 368              	.L23:
+ 369              		.align	2
+ 370              	.L22:
+ 371 0018 965B0040 		.word	1073765270
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 12
+
+
+ 372              		.cfi_endproc
+ 373              	.LFE5:
+ 374              		.size	Maximum_Peak_Detector_B_Comp_1_GetCompare, .-Maximum_Peak_Detector_B_Comp_1_GetCompare
+ 375              		.section	.text.Maximum_Peak_Detector_B_Comp_1_trimAdjust,"ax",%progbits
+ 376              		.align	2
+ 377              		.thumb
+ 378              		.thumb_func
+ 379              		.type	Maximum_Peak_Detector_B_Comp_1_trimAdjust, %function
+ 380              	Maximum_Peak_Detector_B_Comp_1_trimAdjust:
+ 381              	.LFB6:
+ 255:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 256:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 257:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** /*******************************************************************************
+ 258:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Function Name: Maximum_Peak_Detector_B_Comp_1_trimAdjust
+ 259:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** ********************************************************************************
+ 260:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 261:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Summary:
+ 262:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  This function adjusts the value in the low nibble/high nibble of the Analog 
+ 263:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  Comparator trim register
+ 264:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 265:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Parameters:  
+ 266:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  nibble:
+ 267:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *      0 -- adjusts the value in the low nibble
+ 268:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *      1 -- adjusts the value in the high nibble
+ 269:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 270:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Return:
+ 271:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  None
+ 272:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 273:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Theory: 
+ 274:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  Function assumes comparator block is setup for trim adjust.
+ 275:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  Intended to be called from Comp_ZeroCal()
+ 276:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * 
+ 277:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Side Effects:
+ 278:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  Routine uses a course 1ms delay following each trim adjustment to allow 
+ 279:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  the comparator output to respond.
+ 280:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 281:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *******************************************************************************/
+ 282:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** static void Maximum_Peak_Detector_B_Comp_1_trimAdjust(uint8 nibble) 
+ 283:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** {
+ 382              		.loc 1 283 0
+ 383              		.cfi_startproc
+ 384              		@ args = 0, pretend = 0, frame = 16
+ 385              		@ frame_needed = 1, uses_anonymous_args = 0
+ 386 0000 80B5     		push	{r7, lr}
+ 387              		.cfi_def_cfa_offset 8
+ 388              		.cfi_offset 7, -8
+ 389              		.cfi_offset 14, -4
+ 390 0002 84B0     		sub	sp, sp, #16
+ 391              		.cfi_def_cfa_offset 24
+ 392 0004 00AF     		add	r7, sp, #0
+ 393              		.cfi_def_cfa_register 7
+ 394 0006 0346     		mov	r3, r0
+ 395 0008 FB71     		strb	r3, [r7, #7]
+ 284:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     uint8 trimCnt, trimCntMax;
+ 285:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     uint8 cmpState;   
+ 286:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 287:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* get current state of comparator output */
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 13
+
+
+ 288:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     cmpState = Maximum_Peak_Detector_B_Comp_1_WRK & Maximum_Peak_Detector_B_Comp_1_CMP_OUT_MASK;
+ 396              		.loc 1 288 0
+ 397 000a 2A4B     		ldr	r3, .L37
+ 398 000c 1B78     		ldrb	r3, [r3]
+ 399 000e DBB2     		uxtb	r3, r3
+ 400 0010 03F00203 		and	r3, r3, #2
+ 401 0014 7B73     		strb	r3, [r7, #13]
+ 289:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     
+ 290:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     if (nibble == 0u)
+ 402              		.loc 1 290 0
+ 403 0016 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 404 0018 002B     		cmp	r3, #0
+ 405 001a 0BD1     		bne	.L25
+ 291:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     {    
+ 292:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         /* if comparator output is high, negative offset adjust is required */
+ 293:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         if ( cmpState != 0u )
+ 406              		.loc 1 293 0
+ 407 001c 7B7B     		ldrb	r3, [r7, #13]	@ zero_extendqisi2
+ 408 001e 002B     		cmp	r3, #0
+ 409 0020 13D0     		beq	.L27
+ 294:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         {
+ 295:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             /* PSoC5A */
+ 296:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             #if (CY_PSOC5A)
+ 297:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****                 Maximum_Peak_Detector_B_Comp_1_TR |= Maximum_Peak_Detector_B_Comp_1_CMP_TRIM1_DIR;
+ 298:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             #endif /* CY_PSOC5A */
+ 299:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             
+ 300:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             /* PSoC3, PSoC5LP or later */
+ 301:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             #if (CY_PSOC3 || CY_PSOC5LP)
+ 302:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****                 Maximum_Peak_Detector_B_Comp_1_TR0 |= Maximum_Peak_Detector_B_Comp_1_CMP_TR0_DIR;
+ 410              		.loc 1 302 0
+ 411 0022 254A     		ldr	r2, .L37+4
+ 412 0024 244B     		ldr	r3, .L37+4
+ 413 0026 1B78     		ldrb	r3, [r3]
+ 414 0028 DBB2     		uxtb	r3, r3
+ 415 002a 43F01003 		orr	r3, r3, #16
+ 416 002e DBB2     		uxtb	r3, r3
+ 417 0030 1370     		strb	r3, [r2]
+ 418 0032 0AE0     		b	.L27
+ 419              	.L25:
+ 303:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             #endif /* CY_PSOC3 || CY_PSOC5LP */
+ 304:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         }
+ 305:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     }
+ 306:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     else
+ 307:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     {
+ 308:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         /* if comparator output is low, positive offset adjust is required */
+ 309:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         if ( cmpState == 0u )
+ 420              		.loc 1 309 0
+ 421 0034 7B7B     		ldrb	r3, [r7, #13]	@ zero_extendqisi2
+ 422 0036 002B     		cmp	r3, #0
+ 423 0038 07D1     		bne	.L27
+ 310:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         {
+ 311:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             /* PSoC5A */
+ 312:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             #if (CY_PSOC5A)
+ 313:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****                 Maximum_Peak_Detector_B_Comp_1_TR |= Maximum_Peak_Detector_B_Comp_1_CMP_TRIM2_DIR; 
+ 314:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             #endif /* CY_PSOC5A */
+ 315:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             
+ 316:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             /* PSoC3, PSoC5LP or later */
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 14
+
+
+ 317:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             #if (CY_PSOC3 || CY_PSOC5LP)
+ 318:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****                 Maximum_Peak_Detector_B_Comp_1_TR1 |= Maximum_Peak_Detector_B_Comp_1_CMP_TR1_DIR;
+ 424              		.loc 1 318 0
+ 425 003a 204A     		ldr	r2, .L37+8
+ 426 003c 1F4B     		ldr	r3, .L37+8
+ 427 003e 1B78     		ldrb	r3, [r3]
+ 428 0040 DBB2     		uxtb	r3, r3
+ 429 0042 43F01003 		orr	r3, r3, #16
+ 430 0046 DBB2     		uxtb	r3, r3
+ 431 0048 1370     		strb	r3, [r2]
+ 432              	.L27:
+ 319:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             #endif /* CY_PSOC3 || CY_PSOC5LP */
+ 320:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         }
+ 321:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     }
+ 322:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 323:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* Increment trim value until compare output changes state */
+ 324:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 	
+ 325:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* PSoC5A */
+ 326:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 	#if (CY_PSOC5A)
+ 327:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 	    trimCntMax = 7u;
+ 328:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #endif
+ 329:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 	
+ 330:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 	/* PSoC3, PSoC5LP or later */
+ 331:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 	#if (CY_PSOC3 || CY_PSOC5LP)
+ 332:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     	if(nibble == 0u)
+ 433              		.loc 1 332 0
+ 434 004a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 435 004c 002B     		cmp	r3, #0
+ 436 004e 02D1     		bne	.L28
+ 333:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     	{
+ 334:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     		trimCntMax = 15u;
+ 437              		.loc 1 334 0
+ 438 0050 0F23     		movs	r3, #15
+ 439 0052 BB73     		strb	r3, [r7, #14]
+ 440 0054 01E0     		b	.L29
+ 441              	.L28:
+ 335:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     	}
+ 336:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     	else
+ 337:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     	{
+ 338:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     		trimCntMax = 7u;
+ 442              		.loc 1 338 0
+ 443 0056 0723     		movs	r3, #7
+ 444 0058 BB73     		strb	r3, [r7, #14]
+ 445              	.L29:
+ 339:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     	}
+ 340:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 	#endif
+ 341:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 	
+ 342:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     for ( trimCnt = 0u; trimCnt < trimCntMax; trimCnt++ )
+ 446              		.loc 1 342 0
+ 447 005a 0023     		movs	r3, #0
+ 448 005c FB73     		strb	r3, [r7, #15]
+ 449 005e 1FE0     		b	.L30
+ 450              	.L35:
+ 343:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 	{
+ 344:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         if (nibble == 0u)
+ 451              		.loc 1 344 0
+ 452 0060 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 15
+
+
+ 453 0062 002B     		cmp	r3, #0
+ 454 0064 07D1     		bne	.L31
+ 345:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         {
+ 346:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             /* PSoC5A */
+ 347:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             #if (CY_PSOC5A)
+ 348:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****                 Maximum_Peak_Detector_B_Comp_1_TR += 1u;
+ 349:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             #endif /* CY_PSOC5A */
+ 350:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             
+ 351:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             /* PSoC3, PSoC5LP or later */
+ 352:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             #if (CY_PSOC3 || CY_PSOC5LP)
+ 353:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****                 Maximum_Peak_Detector_B_Comp_1_TR0 += 1u;
+ 455              		.loc 1 353 0
+ 456 0066 144A     		ldr	r2, .L37+4
+ 457 0068 134B     		ldr	r3, .L37+4
+ 458 006a 1B78     		ldrb	r3, [r3]
+ 459 006c DBB2     		uxtb	r3, r3
+ 460 006e 0133     		adds	r3, r3, #1
+ 461 0070 DBB2     		uxtb	r3, r3
+ 462 0072 1370     		strb	r3, [r2]
+ 463 0074 06E0     		b	.L32
+ 464              	.L31:
+ 354:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             #endif /* CY_PSOC3 || CY_PSOC5LP */
+ 355:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         }
+ 356:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         else
+ 357:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         {
+ 358:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             /* PSoC5A */
+ 359:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             #if (CY_PSOC5A)
+ 360:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****                 Maximum_Peak_Detector_B_Comp_1_TR += 0x10u;
+ 361:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             #endif /* CY_PSOC5A */
+ 362:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             
+ 363:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             /* PSoC3, PSoC5LP or later */
+ 364:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             #if (CY_PSOC3 || CY_PSOC5LP)
+ 365:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****                 Maximum_Peak_Detector_B_Comp_1_TR1 += 1u;
+ 465              		.loc 1 365 0
+ 466 0076 114A     		ldr	r2, .L37+8
+ 467 0078 104B     		ldr	r3, .L37+8
+ 468 007a 1B78     		ldrb	r3, [r3]
+ 469 007c DBB2     		uxtb	r3, r3
+ 470 007e 0133     		adds	r3, r3, #1
+ 471 0080 DBB2     		uxtb	r3, r3
+ 472 0082 1370     		strb	r3, [r2]
+ 473              	.L32:
+ 366:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             #endif /* CY_PSOC3 || CY_PSOC5LP */
+ 367:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         }
+ 368:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         
+ 369:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         CyDelayUs(10u);
+ 474              		.loc 1 369 0
+ 475 0084 0A20     		movs	r0, #10
+ 476 0086 FFF7FEFF 		bl	CyDelayUs
+ 370:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         
+ 371:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         /* Check for change in comparator output */
+ 372:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         if ((Maximum_Peak_Detector_B_Comp_1_WRK & Maximum_Peak_Detector_B_Comp_1_CMP_OUT_MASK) != c
+ 477              		.loc 1 372 0
+ 478 008a 0A4B     		ldr	r3, .L37
+ 479 008c 1B78     		ldrb	r3, [r3]
+ 480 008e DBB2     		uxtb	r3, r3
+ 481 0090 03F00202 		and	r2, r3, #2
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 16
+
+
+ 482 0094 7B7B     		ldrb	r3, [r7, #13]	@ zero_extendqisi2
+ 483 0096 9A42     		cmp	r2, r3
+ 484 0098 07D1     		bne	.L36
+ 342:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 	{
+ 485              		.loc 1 342 0 discriminator 2
+ 486 009a FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 487 009c 0133     		adds	r3, r3, #1
+ 488 009e FB73     		strb	r3, [r7, #15]
+ 489              	.L30:
+ 342:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 	{
+ 490              		.loc 1 342 0 is_stmt 0 discriminator 1
+ 491 00a0 FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 492 00a2 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 493 00a4 9A42     		cmp	r2, r3
+ 494 00a6 DBD3     		bcc	.L35
+ 373:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         {
+ 374:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****             break;      /* output changed state, trim phase is complete */
+ 375:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         }        
+ 376:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     }    
+ 377:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** }
+ 495              		.loc 1 377 0 is_stmt 1
+ 496 00a8 00E0     		b	.L34
+ 497              	.L36:
+ 374:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         }        
+ 498              		.loc 1 374 0
+ 499 00aa 00BF     		nop
+ 500              	.L34:
+ 501              		.loc 1 377 0
+ 502 00ac 00BF     		nop
+ 503 00ae 1037     		adds	r7, r7, #16
+ 504              		.cfi_def_cfa_offset 8
+ 505 00b0 BD46     		mov	sp, r7
+ 506              		.cfi_def_cfa_register 13
+ 507              		@ sp needed
+ 508 00b2 80BD     		pop	{r7, pc}
+ 509              	.L38:
+ 510              		.align	2
+ 511              	.L37:
+ 512 00b4 965B0040 		.word	1073765270
+ 513 00b8 32460040 		.word	1073759794
+ 514 00bc 33460040 		.word	1073759795
+ 515              		.cfi_endproc
+ 516              	.LFE6:
+ 517              		.size	Maximum_Peak_Detector_B_Comp_1_trimAdjust, .-Maximum_Peak_Detector_B_Comp_1_trimAdjust
+ 518              		.section	.text.Maximum_Peak_Detector_B_Comp_1_ZeroCal,"ax",%progbits
+ 519              		.align	2
+ 520              		.global	Maximum_Peak_Detector_B_Comp_1_ZeroCal
+ 521              		.thumb
+ 522              		.thumb_func
+ 523              		.type	Maximum_Peak_Detector_B_Comp_1_ZeroCal, %function
+ 524              	Maximum_Peak_Detector_B_Comp_1_ZeroCal:
+ 525              	.LFB7:
+ 378:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 379:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 380:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** /*******************************************************************************
+ 381:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Function Name: Maximum_Peak_Detector_B_Comp_1_ZeroCal
+ 382:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** ********************************************************************************
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 17
+
+
+ 383:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 384:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Summary:
+ 385:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  This function calibrates the offset of the Analog Comparator.
+ 386:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 387:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Parameters:
+ 388:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  None
+ 389:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 390:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Return:
+ 391:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  (uint16)  value written in trim register when calibration complete.
+ 392:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 393:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Theory: 
+ 394:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  This function is used to optimize the calibration for user specific voltage
+ 395:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  range.  The comparator trim is adjusted to counter transistor offsets
+ 396:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *   - offset is defined as positive if the output transitions to high before inP
+ 397:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *     is greater than inN
+ 398:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *   - offset is defined as negative if the output transitions to high after inP
+ 399:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *     is greater than inP
+ 400:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 401:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  PSoC5A
+ 402:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  The Analog Comparator provides 1 byte for offset trim.  The byte contains two
+ 403:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  4 bit trim fields - one is a course trim and the other allows smaller
+ 404:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  offset adjustments only for slow modes.
+ 405:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  - low nibble - fine trim
+ 406:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  - high nibble - course trim
+ 407:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  PSoC3, PSoC5LP or later
+ 408:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  The Analog Comparator provides 2 bytes for offset trim.  The bytes contain two
+ 409:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  5 bit trim fields - one is a course trim and the other allows smaller
+ 410:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  offset adjustments only for slow modes.
+ 411:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  - TR0 - fine trim
+ 412:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  - TR1 - course trim
+ 413:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 414:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  Trim algorithm is a two phase process
+ 415:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  The first phase performs course offset adjustment
+ 416:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  The second phase serves one of two purposes depending on the outcome of the
+ 417:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  first phase
+ 418:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  - if the first trim value was maxed out without a comparator output 
+ 419:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *    transition, more offset will be added by adjusting the second trim value.
+ 420:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  - if the first trim phase resulted in a comparator output transition, the
+ 421:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *    second trim value will serve as fine trim (in the opposite direction)to
+ 422:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *    ensure the offset is < 1 mV.
+ 423:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 424:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Trim Process:   
+ 425:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  1) User applies a voltage to the negative input.  Voltage should be in the
+ 426:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *     comparator operating range or an average of the operating voltage range.
+ 427:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  2) Clear registers associated with analog routing to the positive input.
+ 428:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  3) Disable Hysteresis
+ 429:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  4) Set the calibration bit to short the negative and positive inputs to
+ 430:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *     the users calibration voltage.
+ 431:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  5) Clear the TR register  ( TR = 0x00 )
+ 432:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  ** LOW MODES
+ 433:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  6) Check if compare output is high, if so, set the MSb of course trim field 
+ 434:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *     to a 1.
+ 435:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  7) Increment the course trim field until the compare output changes
+ 436:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  8) Check if compare output is low, if so, set the MSb of fine trim field
+ 437:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *     to a 1.
+ 438:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  9) Increment the fine trim field until the compare output changes
+ 439:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  ** FAST MODE - skip the steps 8,9
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 18
+
+
+ 440:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 441:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Side Effects:
+ 442:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  Routine clears analog routing associated with the comparator positive input.  
+ 443:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  This may affect routing of signals from other components that are connected
+ 444:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  to the positive input of the comparator.
+ 445:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 446:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *******************************************************************************/
+ 447:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** uint16 Maximum_Peak_Detector_B_Comp_1_ZeroCal(void) 
+ 448:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** {
+ 526              		.loc 1 448 0
+ 527              		.cfi_startproc
+ 528              		@ args = 0, pretend = 0, frame = 8
+ 529              		@ frame_needed = 1, uses_anonymous_args = 0
+ 530 0000 80B5     		push	{r7, lr}
+ 531              		.cfi_def_cfa_offset 8
+ 532              		.cfi_offset 7, -8
+ 533              		.cfi_offset 14, -4
+ 534 0002 82B0     		sub	sp, sp, #8
+ 535              		.cfi_def_cfa_offset 16
+ 536 0004 00AF     		add	r7, sp, #0
+ 537              		.cfi_def_cfa_register 7
+ 449:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     uint8 tmpSW0;
+ 450:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     uint8 tmpSW2;
+ 451:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     uint8 tmpSW3;
+ 452:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     uint8 tmpCR;
+ 453:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 454:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* Save a copy of routing registers associated with inP */
+ 455:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     tmpSW0 = Maximum_Peak_Detector_B_Comp_1_SW0;
+ 538              		.loc 1 455 0
+ 539 0006 294B     		ldr	r3, .L43
+ 540 0008 1B78     		ldrb	r3, [r3]
+ 541 000a FB71     		strb	r3, [r7, #7]
+ 456:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     tmpSW2 = Maximum_Peak_Detector_B_Comp_1_SW2;
+ 542              		.loc 1 456 0
+ 543 000c 284B     		ldr	r3, .L43+4
+ 544 000e 1B78     		ldrb	r3, [r3]
+ 545 0010 BB71     		strb	r3, [r7, #6]
+ 457:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     tmpSW3 = Maximum_Peak_Detector_B_Comp_1_SW3;
+ 546              		.loc 1 457 0
+ 547 0012 284B     		ldr	r3, .L43+8
+ 548 0014 1B78     		ldrb	r3, [r3]
+ 549 0016 7B71     		strb	r3, [r7, #5]
+ 458:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 459:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****      /* Clear routing for inP, retain routing for inN */
+ 460:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     Maximum_Peak_Detector_B_Comp_1_SW0 = 0x00u;
+ 550              		.loc 1 460 0
+ 551 0018 244B     		ldr	r3, .L43
+ 552 001a 0022     		movs	r2, #0
+ 553 001c 1A70     		strb	r2, [r3]
+ 461:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     Maximum_Peak_Detector_B_Comp_1_SW2 = 0x00u;
+ 554              		.loc 1 461 0
+ 555 001e 244B     		ldr	r3, .L43+4
+ 556 0020 0022     		movs	r2, #0
+ 557 0022 1A70     		strb	r2, [r3]
+ 462:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     Maximum_Peak_Detector_B_Comp_1_SW3 = tmpSW3 & (uint8)(~Maximum_Peak_Detector_B_Comp_1_CMP_SW3_I
+ 558              		.loc 1 462 0
+ 559 0024 234A     		ldr	r2, .L43+8
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 19
+
+
+ 560 0026 7B79     		ldrb	r3, [r7, #5]
+ 561 0028 23F00903 		bic	r3, r3, #9
+ 562 002c DBB2     		uxtb	r3, r3
+ 563 002e 1370     		strb	r3, [r2]
+ 463:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 464:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* Preserve original configuration
+ 465:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****      * - turn off Hysteresis
+ 466:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****      * - set calibration bit - shorts inN to inP
+ 467:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     */
+ 468:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     tmpCR = Maximum_Peak_Detector_B_Comp_1_CR;
+ 564              		.loc 1 468 0
+ 565 0030 214B     		ldr	r3, .L43+12
+ 566 0032 1B78     		ldrb	r3, [r3]
+ 567 0034 3B71     		strb	r3, [r7, #4]
+ 469:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     Maximum_Peak_Detector_B_Comp_1_CR |= (Maximum_Peak_Detector_B_Comp_1_CAL_ON | Maximum_Peak_Dete
+ 568              		.loc 1 469 0
+ 569 0036 204A     		ldr	r2, .L43+12
+ 570 0038 1F4B     		ldr	r3, .L43+12
+ 571 003a 1B78     		ldrb	r3, [r3]
+ 572 003c DBB2     		uxtb	r3, r3
+ 573 003e 43F03003 		orr	r3, r3, #48
+ 574 0042 DBB2     		uxtb	r3, r3
+ 575 0044 1370     		strb	r3, [r2]
+ 470:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     
+ 471:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* Write default low values to trim register - no offset adjust */
+ 472:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* PSoC5A */
+ 473:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #if (CY_PSOC5A)
+ 474:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         Maximum_Peak_Detector_B_Comp_1_TR = Maximum_Peak_Detector_B_Comp_1_DEFAULT_CMP_TRIM;
+ 475:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #endif /* CY_PSOC5A */
+ 476:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     
+ 477:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* PSoC3, PSoC5LP or later */
+ 478:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #if (CY_PSOC3 || CY_PSOC5LP)
+ 479:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         Maximum_Peak_Detector_B_Comp_1_TR0 = Maximum_Peak_Detector_B_Comp_1_DEFAULT_CMP_TRIM;
+ 576              		.loc 1 479 0
+ 577 0046 1D4B     		ldr	r3, .L43+16
+ 578 0048 0022     		movs	r2, #0
+ 579 004a 1A70     		strb	r2, [r3]
+ 480:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         Maximum_Peak_Detector_B_Comp_1_TR1 = Maximum_Peak_Detector_B_Comp_1_DEFAULT_CMP_TRIM;
+ 580              		.loc 1 480 0
+ 581 004c 1C4B     		ldr	r3, .L43+20
+ 582 004e 0022     		movs	r2, #0
+ 583 0050 1A70     		strb	r2, [r3]
+ 481:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #endif /* CY_PSOC3 || CY_PSOC5LP */
+ 482:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 	
+ 483:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 	/* Two phase trim - slow modes, one phase trim - for fast */ 
+ 484:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     if ( (Maximum_Peak_Detector_B_Comp_1_CR & Maximum_Peak_Detector_B_Comp_1_PWR_MODE_MASK) == Maxi
+ 584              		.loc 1 484 0
+ 585 0052 194B     		ldr	r3, .L43+12
+ 586 0054 1B78     		ldrb	r3, [r3]
+ 587 0056 DBB2     		uxtb	r3, r3
+ 588 0058 03F00303 		and	r3, r3, #3
+ 589 005c 012B     		cmp	r3, #1
+ 590 005e 03D1     		bne	.L40
+ 485:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     {
+ 486:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         Maximum_Peak_Detector_B_Comp_1_trimAdjust(0u);
+ 591              		.loc 1 486 0
+ 592 0060 0020     		movs	r0, #0
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 20
+
+
+ 593 0062 FFF7FEFF 		bl	Maximum_Peak_Detector_B_Comp_1_trimAdjust
+ 594 0066 05E0     		b	.L41
+ 595              	.L40:
+ 487:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     }
+ 488:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     else /* default to trim for fast modes */
+ 489:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     {
+ 490:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         Maximum_Peak_Detector_B_Comp_1_trimAdjust(1u);
+ 596              		.loc 1 490 0
+ 597 0068 0120     		movs	r0, #1
+ 598 006a FFF7FEFF 		bl	Maximum_Peak_Detector_B_Comp_1_trimAdjust
+ 491:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 		Maximum_Peak_Detector_B_Comp_1_trimAdjust(0u);
+ 599              		.loc 1 491 0
+ 600 006e 0020     		movs	r0, #0
+ 601 0070 FFF7FEFF 		bl	Maximum_Peak_Detector_B_Comp_1_trimAdjust
+ 602              	.L41:
+ 492:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     }
+ 493:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****    
+ 494:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* Restore Config Register */
+ 495:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     Maximum_Peak_Detector_B_Comp_1_CR = tmpCR;
+ 603              		.loc 1 495 0
+ 604 0074 104A     		ldr	r2, .L43+12
+ 605 0076 3B79     		ldrb	r3, [r7, #4]
+ 606 0078 1370     		strb	r3, [r2]
+ 496:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     
+ 497:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* Restore routing registers for inP */
+ 498:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     Maximum_Peak_Detector_B_Comp_1_SW0 = tmpSW0;
+ 607              		.loc 1 498 0
+ 608 007a 0C4A     		ldr	r2, .L43
+ 609 007c FB79     		ldrb	r3, [r7, #7]
+ 610 007e 1370     		strb	r3, [r2]
+ 499:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     Maximum_Peak_Detector_B_Comp_1_SW2 = tmpSW2;
+ 611              		.loc 1 499 0
+ 612 0080 0B4A     		ldr	r2, .L43+4
+ 613 0082 BB79     		ldrb	r3, [r7, #6]
+ 614 0084 1370     		strb	r3, [r2]
+ 500:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     Maximum_Peak_Detector_B_Comp_1_SW3 = tmpSW3;
+ 615              		.loc 1 500 0
+ 616 0086 0B4A     		ldr	r2, .L43+8
+ 617 0088 7B79     		ldrb	r3, [r7, #5]
+ 618 008a 1370     		strb	r3, [r2]
+ 501:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     
+ 502:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* PSoC5A */
+ 503:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #if (CY_PSOC5A)
+ 504:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         return (uint16) Maximum_Peak_Detector_B_Comp_1_TR;
+ 505:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #endif /* CY_PSOC5A */
+ 506:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     
+ 507:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* PSoC3, PSoC5LP or later */
+ 508:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #if (CY_PSOC3 || CY_PSOC5LP)
+ 509:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         return ((uint16)((uint16)Maximum_Peak_Detector_B_Comp_1_TR1 << 8u) | (Maximum_Peak_Detector
+ 619              		.loc 1 509 0
+ 620 008c 0C4B     		ldr	r3, .L43+20
+ 621 008e 1B78     		ldrb	r3, [r3]
+ 622 0090 DBB2     		uxtb	r3, r3
+ 623 0092 9BB2     		uxth	r3, r3
+ 624 0094 1B02     		lsls	r3, r3, #8
+ 625 0096 9AB2     		uxth	r2, r3
+ 626 0098 084B     		ldr	r3, .L43+16
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 21
+
+
+ 627 009a 1B78     		ldrb	r3, [r3]
+ 628 009c DBB2     		uxtb	r3, r3
+ 629 009e 9BB2     		uxth	r3, r3
+ 630 00a0 1343     		orrs	r3, r3, r2
+ 631 00a2 9BB2     		uxth	r3, r3
+ 510:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #endif /* CY_PSOC3 || CY_PSOC5LP */
+ 511:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** }
+ 632              		.loc 1 511 0
+ 633 00a4 1846     		mov	r0, r3
+ 634 00a6 0837     		adds	r7, r7, #8
+ 635              		.cfi_def_cfa_offset 8
+ 636 00a8 BD46     		mov	sp, r7
+ 637              		.cfi_def_cfa_register 13
+ 638              		@ sp needed
+ 639 00aa 80BD     		pop	{r7, pc}
+ 640              	.L44:
+ 641              		.align	2
+ 642              	.L43:
+ 643 00ac C85A0040 		.word	1073765064
+ 644 00b0 CA5A0040 		.word	1073765066
+ 645 00b4 CB5A0040 		.word	1073765067
+ 646 00b8 41580040 		.word	1073764417
+ 647 00bc 32460040 		.word	1073759794
+ 648 00c0 33460040 		.word	1073759795
+ 649              		.cfi_endproc
+ 650              	.LFE7:
+ 651              		.size	Maximum_Peak_Detector_B_Comp_1_ZeroCal, .-Maximum_Peak_Detector_B_Comp_1_ZeroCal
+ 652              		.section	.text.Maximum_Peak_Detector_B_Comp_1_LoadTrim,"ax",%progbits
+ 653              		.align	2
+ 654              		.global	Maximum_Peak_Detector_B_Comp_1_LoadTrim
+ 655              		.thumb
+ 656              		.thumb_func
+ 657              		.type	Maximum_Peak_Detector_B_Comp_1_LoadTrim, %function
+ 658              	Maximum_Peak_Detector_B_Comp_1_LoadTrim:
+ 659              	.LFB8:
+ 512:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 513:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 514:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** /*******************************************************************************
+ 515:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Function Name: Maximum_Peak_Detector_B_Comp_1_LoadTrim
+ 516:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** ********************************************************************************
+ 517:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 518:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Summary:
+ 519:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  This function stores a value in the Analog Comparator trim register.
+ 520:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 521:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Parameters:  
+ 522:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  uint8 trimVal - trim value.  This value is the same format as the value 
+ 523:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  returned by the _ZeroCal routine.
+ 524:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 525:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** * Return:
+ 526:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *  None
+ 527:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *
+ 528:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** *******************************************************************************/
+ 529:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** void Maximum_Peak_Detector_B_Comp_1_LoadTrim(uint16 trimVal) 
+ 530:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** {
+ 660              		.loc 1 530 0
+ 661              		.cfi_startproc
+ 662              		@ args = 0, pretend = 0, frame = 8
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 22
+
+
+ 663              		@ frame_needed = 1, uses_anonymous_args = 0
+ 664              		@ link register save eliminated.
+ 665 0000 80B4     		push	{r7}
+ 666              		.cfi_def_cfa_offset 4
+ 667              		.cfi_offset 7, -4
+ 668 0002 83B0     		sub	sp, sp, #12
+ 669              		.cfi_def_cfa_offset 16
+ 670 0004 00AF     		add	r7, sp, #0
+ 671              		.cfi_def_cfa_register 7
+ 672 0006 0346     		mov	r3, r0
+ 673 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 531:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* Stores value in the Analog Comparator trim register */
+ 532:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* PSoC5A */
+ 533:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #if (CY_PSOC5A)
+ 534:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         Maximum_Peak_Detector_B_Comp_1_TR = (uint8) trimVal;
+ 535:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #endif /* CY_PSOC5A */
+ 536:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     
+ 537:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /* PSoC3, PSoC5LP or later */
+ 538:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #if (CY_PSOC3 || CY_PSOC5LP)
+ 539:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         /* Stores value in the Analog Comparator trim register for P-type load */
+ 540:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         Maximum_Peak_Detector_B_Comp_1_TR0 = (uint8) trimVal;
+ 674              		.loc 1 540 0
+ 675 000a 074B     		ldr	r3, .L46
+ 676 000c FA88     		ldrh	r2, [r7, #6]	@ movhi
+ 677 000e D2B2     		uxtb	r2, r2
+ 678 0010 1A70     		strb	r2, [r3]
+ 541:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         
+ 542:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         /* Stores value in the Analog Comparator trim register for N-type load */
+ 543:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         Maximum_Peak_Detector_B_Comp_1_TR1 = (uint8) (trimVal >> 8); 
+ 679              		.loc 1 543 0
+ 680 0012 064A     		ldr	r2, .L46+4
+ 681 0014 FB88     		ldrh	r3, [r7, #6]
+ 682 0016 1B0A     		lsrs	r3, r3, #8
+ 683 0018 9BB2     		uxth	r3, r3
+ 684 001a DBB2     		uxtb	r3, r3
+ 685 001c 1370     		strb	r3, [r2]
+ 544:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     #endif /* CY_PSOC3 || CY_PSOC5LP */
+ 545:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** }
+ 686              		.loc 1 545 0
+ 687 001e 00BF     		nop
+ 688 0020 0C37     		adds	r7, r7, #12
+ 689              		.cfi_def_cfa_offset 4
+ 690 0022 BD46     		mov	sp, r7
+ 691              		.cfi_def_cfa_register 13
+ 692              		@ sp needed
+ 693 0024 80BC     		pop	{r7}
+ 694              		.cfi_restore 7
+ 695              		.cfi_def_cfa_offset 0
+ 696 0026 7047     		bx	lr
+ 697              	.L47:
+ 698              		.align	2
+ 699              	.L46:
+ 700 0028 32460040 		.word	1073759794
+ 701 002c 33460040 		.word	1073759795
+ 702              		.cfi_endproc
+ 703              	.LFE8:
+ 704              		.size	Maximum_Peak_Detector_B_Comp_1_LoadTrim, .-Maximum_Peak_Detector_B_Comp_1_LoadTrim
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 23
+
+
+ 705              		.section	.text.Maximum_Peak_Detector_B_Comp_1_PwrDwnOverrideEnable,"ax",%progbits
+ 706              		.align	2
+ 707              		.global	Maximum_Peak_Detector_B_Comp_1_PwrDwnOverrideEnable
+ 708              		.thumb
+ 709              		.thumb_func
+ 710              		.type	Maximum_Peak_Detector_B_Comp_1_PwrDwnOverrideEnable, %function
+ 711              	Maximum_Peak_Detector_B_Comp_1_PwrDwnOverrideEnable:
+ 712              	.LFB9:
+ 546:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 547:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 548:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** #if (CY_PSOC3 || CY_PSOC5LP)
+ 549:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 550:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /*******************************************************************************
+ 551:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     * Function Name: Maximum_Peak_Detector_B_Comp_1_PwrDwnOverrideEnable
+ 552:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     ********************************************************************************
+ 553:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     *
+ 554:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     * Summary:
+ 555:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     *  This is the power down over-ride feature. This function ignores sleep 
+ 556:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     *  parameter and allows the component to stay active during sleep mode.
+ 557:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     *
+ 558:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     * Parameters:
+ 559:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     *  None
+ 560:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     *
+ 561:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     * Return:
+ 562:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     *  None
+ 563:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     *
+ 564:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     *******************************************************************************/
+ 565:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     void Maximum_Peak_Detector_B_Comp_1_PwrDwnOverrideEnable(void) 
+ 566:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     {
+ 713              		.loc 1 566 0
+ 714              		.cfi_startproc
+ 715              		@ args = 0, pretend = 0, frame = 0
+ 716              		@ frame_needed = 1, uses_anonymous_args = 0
+ 717              		@ link register save eliminated.
+ 718 0000 80B4     		push	{r7}
+ 719              		.cfi_def_cfa_offset 4
+ 720              		.cfi_offset 7, -4
+ 721 0002 00AF     		add	r7, sp, #0
+ 722              		.cfi_def_cfa_register 7
+ 567:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         /* Set the pd_override bit in CMP_CR register */
+ 568:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         Maximum_Peak_Detector_B_Comp_1_CR |= Maximum_Peak_Detector_B_Comp_1_PWRDWN_OVRD;
+ 723              		.loc 1 568 0
+ 724 0004 054A     		ldr	r2, .L49
+ 725 0006 054B     		ldr	r3, .L49
+ 726 0008 1B78     		ldrb	r3, [r3]
+ 727 000a DBB2     		uxtb	r3, r3
+ 728 000c 43F00403 		orr	r3, r3, #4
+ 729 0010 DBB2     		uxtb	r3, r3
+ 730 0012 1370     		strb	r3, [r2]
+ 569:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     }
+ 731              		.loc 1 569 0
+ 732 0014 00BF     		nop
+ 733 0016 BD46     		mov	sp, r7
+ 734              		.cfi_def_cfa_register 13
+ 735              		@ sp needed
+ 736 0018 80BC     		pop	{r7}
+ 737              		.cfi_restore 7
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 24
+
+
+ 738              		.cfi_def_cfa_offset 0
+ 739 001a 7047     		bx	lr
+ 740              	.L50:
+ 741              		.align	2
+ 742              	.L49:
+ 743 001c 41580040 		.word	1073764417
+ 744              		.cfi_endproc
+ 745              	.LFE9:
+ 746              		.size	Maximum_Peak_Detector_B_Comp_1_PwrDwnOverrideEnable, .-Maximum_Peak_Detector_B_Comp_1_PwrDwn
+ 747              		.section	.text.Maximum_Peak_Detector_B_Comp_1_PwrDwnOverrideDisable,"ax",%progbits
+ 748              		.align	2
+ 749              		.global	Maximum_Peak_Detector_B_Comp_1_PwrDwnOverrideDisable
+ 750              		.thumb
+ 751              		.thumb_func
+ 752              		.type	Maximum_Peak_Detector_B_Comp_1_PwrDwnOverrideDisable, %function
+ 753              	Maximum_Peak_Detector_B_Comp_1_PwrDwnOverrideDisable:
+ 754              	.LFB10:
+ 570:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 571:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c **** 
+ 572:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     /*******************************************************************************
+ 573:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     * Function Name: Maximum_Peak_Detector_B_Comp_1_PwrDwnOverrideDisable
+ 574:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     ********************************************************************************
+ 575:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     *
+ 576:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     * Summary:
+ 577:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     *  This is the power down over-ride feature. This allows the component to stay
+ 578:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     *  inactive during sleep.
+ 579:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     *
+ 580:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     * Parameters:
+ 581:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     *  None
+ 582:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     *
+ 583:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     * Return:
+ 584:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     *  None
+ 585:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     *
+ 586:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     *******************************************************************************/
+ 587:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     void Maximum_Peak_Detector_B_Comp_1_PwrDwnOverrideDisable(void) 
+ 588:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     {
+ 755              		.loc 1 588 0
+ 756              		.cfi_startproc
+ 757              		@ args = 0, pretend = 0, frame = 0
+ 758              		@ frame_needed = 1, uses_anonymous_args = 0
+ 759              		@ link register save eliminated.
+ 760 0000 80B4     		push	{r7}
+ 761              		.cfi_def_cfa_offset 4
+ 762              		.cfi_offset 7, -4
+ 763 0002 00AF     		add	r7, sp, #0
+ 764              		.cfi_def_cfa_register 7
+ 589:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         /* Reset the pd_override bit in CMP_CR register */
+ 590:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****         Maximum_Peak_Detector_B_Comp_1_CR &= (uint8)(~Maximum_Peak_Detector_B_Comp_1_PWRDWN_OVRD);
+ 765              		.loc 1 590 0
+ 766 0004 054A     		ldr	r2, .L52
+ 767 0006 054B     		ldr	r3, .L52
+ 768 0008 1B78     		ldrb	r3, [r3]
+ 769 000a DBB2     		uxtb	r3, r3
+ 770 000c 23F00403 		bic	r3, r3, #4
+ 771 0010 DBB2     		uxtb	r3, r3
+ 772 0012 1370     		strb	r3, [r2]
+ 591:Generated_Source\PSoC5/Maximum_Peak_Detector_B_Comp_1.c ****     }
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 25
+
+
+ 773              		.loc 1 591 0
+ 774 0014 00BF     		nop
+ 775 0016 BD46     		mov	sp, r7
+ 776              		.cfi_def_cfa_register 13
+ 777              		@ sp needed
+ 778 0018 80BC     		pop	{r7}
+ 779              		.cfi_restore 7
+ 780              		.cfi_def_cfa_offset 0
+ 781 001a 7047     		bx	lr
+ 782              	.L53:
+ 783              		.align	2
+ 784              	.L52:
+ 785 001c 41580040 		.word	1073764417
+ 786              		.cfi_endproc
+ 787              	.LFE10:
+ 788              		.size	Maximum_Peak_Detector_B_Comp_1_PwrDwnOverrideDisable, .-Maximum_Peak_Detector_B_Comp_1_PwrDw
+ 789              		.text
+ 790              	.Letext0:
+ 791              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 792              		.section	.debug_info,"",%progbits
+ 793              	.Ldebug_info0:
+ 794 0000 3F020000 		.4byte	0x23f
+ 795 0004 0400     		.2byte	0x4
+ 796 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 797 000a 04       		.byte	0x4
+ 798 000b 01       		.uleb128 0x1
+ 799 000c 34000000 		.4byte	.LASF36
+ 800 0010 0C       		.byte	0xc
+ 801 0011 60030000 		.4byte	.LASF37
+ 802 0015 43010000 		.4byte	.LASF38
+ 803 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 804 001d 00000000 		.4byte	0
+ 805 0021 00000000 		.4byte	.Ldebug_line0
+ 806 0025 02       		.uleb128 0x2
+ 807 0026 01       		.byte	0x1
+ 808 0027 06       		.byte	0x6
+ 809 0028 D4030000 		.4byte	.LASF0
+ 810 002c 02       		.uleb128 0x2
+ 811 002d 01       		.byte	0x1
+ 812 002e 08       		.byte	0x8
+ 813 002f C9010000 		.4byte	.LASF1
+ 814 0033 02       		.uleb128 0x2
+ 815 0034 02       		.byte	0x2
+ 816 0035 05       		.byte	0x5
+ 817 0036 39010000 		.4byte	.LASF2
+ 818 003a 02       		.uleb128 0x2
+ 819 003b 02       		.byte	0x2
+ 820 003c 07       		.byte	0x7
+ 821 003d 26010000 		.4byte	.LASF3
+ 822 0041 02       		.uleb128 0x2
+ 823 0042 04       		.byte	0x4
+ 824 0043 05       		.byte	0x5
+ 825 0044 BF030000 		.4byte	.LASF4
+ 826 0048 02       		.uleb128 0x2
+ 827 0049 04       		.byte	0x4
+ 828 004a 07       		.byte	0x7
+ 829 004b E4010000 		.4byte	.LASF5
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 26
+
+
+ 830 004f 02       		.uleb128 0x2
+ 831 0050 08       		.byte	0x8
+ 832 0051 05       		.byte	0x5
+ 833 0052 29030000 		.4byte	.LASF6
+ 834 0056 02       		.uleb128 0x2
+ 835 0057 08       		.byte	0x8
+ 836 0058 07       		.byte	0x7
+ 837 0059 D3020000 		.4byte	.LASF7
+ 838 005d 03       		.uleb128 0x3
+ 839 005e 04       		.byte	0x4
+ 840 005f 05       		.byte	0x5
+ 841 0060 696E7400 		.ascii	"int\000"
+ 842 0064 02       		.uleb128 0x2
+ 843 0065 04       		.byte	0x4
+ 844 0066 07       		.byte	0x7
+ 845 0067 BD020000 		.4byte	.LASF8
+ 846 006b 04       		.uleb128 0x4
+ 847 006c F6010000 		.4byte	.LASF9
+ 848 0070 02       		.byte	0x2
+ 849 0071 A1       		.byte	0xa1
+ 850 0072 2C000000 		.4byte	0x2c
+ 851 0076 04       		.uleb128 0x4
+ 852 0077 AF020000 		.4byte	.LASF10
+ 853 007b 02       		.byte	0x2
+ 854 007c A2       		.byte	0xa2
+ 855 007d 3A000000 		.4byte	0x3a
+ 856 0081 04       		.uleb128 0x4
+ 857 0082 B6020000 		.4byte	.LASF11
+ 858 0086 02       		.byte	0x2
+ 859 0087 A3       		.byte	0xa3
+ 860 0088 48000000 		.4byte	0x48
+ 861 008c 02       		.uleb128 0x2
+ 862 008d 04       		.byte	0x4
+ 863 008e 04       		.byte	0x4
+ 864 008f BC010000 		.4byte	.LASF12
+ 865 0093 02       		.uleb128 0x2
+ 866 0094 08       		.byte	0x8
+ 867 0095 04       		.byte	0x4
+ 868 0096 4A020000 		.4byte	.LASF13
+ 869 009a 02       		.uleb128 0x2
+ 870 009b 01       		.byte	0x1
+ 871 009c 08       		.byte	0x8
+ 872 009d 37030000 		.4byte	.LASF14
+ 873 00a1 05       		.uleb128 0x5
+ 874 00a2 D7010000 		.4byte	.LASF15
+ 875 00a6 02       		.byte	0x2
+ 876 00a7 4B01     		.2byte	0x14b
+ 877 00a9 AD000000 		.4byte	0xad
+ 878 00ad 06       		.uleb128 0x6
+ 879 00ae 6B000000 		.4byte	0x6b
+ 880 00b2 02       		.uleb128 0x2
+ 881 00b3 08       		.byte	0x8
+ 882 00b4 04       		.byte	0x4
+ 883 00b5 C8030000 		.4byte	.LASF16
+ 884 00b9 02       		.uleb128 0x2
+ 885 00ba 04       		.byte	0x4
+ 886 00bb 07       		.byte	0x7
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 27
+
+
+ 887 00bc 15030000 		.4byte	.LASF17
+ 888 00c0 07       		.uleb128 0x7
+ 889 00c1 26020000 		.4byte	.LASF18
+ 890 00c5 01       		.byte	0x1
+ 891 00c6 33       		.byte	0x33
+ 892 00c7 00000000 		.4byte	.LFB0
+ 893 00cb 68000000 		.4byte	.LFE0-.LFB0
+ 894 00cf 01       		.uleb128 0x1
+ 895 00d0 9C       		.byte	0x9c
+ 896 00d1 08       		.uleb128 0x8
+ 897 00d2 0E000000 		.4byte	.LASF19
+ 898 00d6 01       		.byte	0x1
+ 899 00d7 63       		.byte	0x63
+ 900 00d8 00000000 		.4byte	.LFB1
+ 901 00dc 34000000 		.4byte	.LFE1-.LFB1
+ 902 00e0 01       		.uleb128 0x1
+ 903 00e1 9C       		.byte	0x9c
+ 904 00e2 07       		.uleb128 0x7
+ 905 00e3 EA020000 		.4byte	.LASF20
+ 906 00e7 01       		.byte	0x1
+ 907 00e8 88       		.byte	0x88
+ 908 00e9 00000000 		.4byte	.LFB2
+ 909 00ed 24000000 		.4byte	.LFE2-.LFB2
+ 910 00f1 01       		.uleb128 0x1
+ 911 00f2 9C       		.byte	0x9c
+ 912 00f3 08       		.uleb128 0x8
+ 913 00f4 3C030000 		.4byte	.LASF21
+ 914 00f8 01       		.byte	0x1
+ 915 00f9 A5       		.byte	0xa5
+ 916 00fa 00000000 		.4byte	.LFB3
+ 917 00fe 34000000 		.4byte	.LFE3-.LFB3
+ 918 0102 01       		.uleb128 0x1
+ 919 0103 9C       		.byte	0x9c
+ 920 0104 09       		.uleb128 0x9
+ 921 0105 FE000000 		.4byte	.LASF31
+ 922 0109 01       		.byte	0x1
+ 923 010a C5       		.byte	0xc5
+ 924 010b 00000000 		.4byte	.LFB4
+ 925 010f 84000000 		.4byte	.LFE4-.LFB4
+ 926 0113 01       		.uleb128 0x1
+ 927 0114 9C       		.byte	0x9c
+ 928 0115 28010000 		.4byte	0x128
+ 929 0119 0A       		.uleb128 0xa
+ 930 011a 0F030000 		.4byte	.LASF22
+ 931 011e 01       		.byte	0x1
+ 932 011f C5       		.byte	0xc5
+ 933 0120 6B000000 		.4byte	0x6b
+ 934 0124 02       		.uleb128 0x2
+ 935 0125 91       		.byte	0x91
+ 936 0126 77       		.sleb128 -9
+ 937 0127 00       		.byte	0
+ 938 0128 0B       		.uleb128 0xb
+ 939 0129 FC010000 		.4byte	.LASF39
+ 940 012d 01       		.byte	0x1
+ 941 012e FB       		.byte	0xfb
+ 942 012f 6B000000 		.4byte	0x6b
+ 943 0133 00000000 		.4byte	.LFB5
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 28
+
+
+ 944 0137 1C000000 		.4byte	.LFE5-.LFB5
+ 945 013b 01       		.uleb128 0x1
+ 946 013c 9C       		.byte	0x9c
+ 947 013d 0C       		.uleb128 0xc
+ 948 013e 85020000 		.4byte	.LASF40
+ 949 0142 01       		.byte	0x1
+ 950 0143 1A01     		.2byte	0x11a
+ 951 0145 00000000 		.4byte	.LFB6
+ 952 0149 C0000000 		.4byte	.LFE6-.LFB6
+ 953 014d 01       		.uleb128 0x1
+ 954 014e 9C       		.byte	0x9c
+ 955 014f 90010000 		.4byte	0x190
+ 956 0153 0D       		.uleb128 0xd
+ 957 0154 08040000 		.4byte	.LASF23
+ 958 0158 01       		.byte	0x1
+ 959 0159 1A01     		.2byte	0x11a
+ 960 015b 6B000000 		.4byte	0x6b
+ 961 015f 02       		.uleb128 0x2
+ 962 0160 91       		.byte	0x91
+ 963 0161 6F       		.sleb128 -17
+ 964 0162 0E       		.uleb128 0xe
+ 965 0163 DC010000 		.4byte	.LASF24
+ 966 0167 01       		.byte	0x1
+ 967 0168 1C01     		.2byte	0x11c
+ 968 016a 6B000000 		.4byte	0x6b
+ 969 016e 02       		.uleb128 0x2
+ 970 016f 91       		.byte	0x91
+ 971 0170 77       		.sleb128 -9
+ 972 0171 0E       		.uleb128 0xe
+ 973 0172 1E030000 		.4byte	.LASF25
+ 974 0176 01       		.byte	0x1
+ 975 0177 1C01     		.2byte	0x11c
+ 976 0179 6B000000 		.4byte	0x6b
+ 977 017d 02       		.uleb128 0x2
+ 978 017e 91       		.byte	0x91
+ 979 017f 76       		.sleb128 -10
+ 980 0180 0E       		.uleb128 0xe
+ 981 0181 CA020000 		.4byte	.LASF26
+ 982 0185 01       		.byte	0x1
+ 983 0186 1D01     		.2byte	0x11d
+ 984 0188 6B000000 		.4byte	0x6b
+ 985 018c 02       		.uleb128 0x2
+ 986 018d 91       		.byte	0x91
+ 987 018e 75       		.sleb128 -11
+ 988 018f 00       		.byte	0
+ 989 0190 0F       		.uleb128 0xf
+ 990 0191 8E010000 		.4byte	.LASF41
+ 991 0195 01       		.byte	0x1
+ 992 0196 BF01     		.2byte	0x1bf
+ 993 0198 76000000 		.4byte	0x76
+ 994 019c 00000000 		.4byte	.LFB7
+ 995 01a0 C4000000 		.4byte	.LFE7-.LFB7
+ 996 01a4 01       		.uleb128 0x1
+ 997 01a5 9C       		.byte	0x9c
+ 998 01a6 E7010000 		.4byte	0x1e7
+ 999 01aa 0E       		.uleb128 0xe
+ 1000 01ab B5010000 		.4byte	.LASF27
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 29
+
+
+ 1001 01af 01       		.byte	0x1
+ 1002 01b0 C101     		.2byte	0x1c1
+ 1003 01b2 6B000000 		.4byte	0x6b
+ 1004 01b6 02       		.uleb128 0x2
+ 1005 01b7 91       		.byte	0x91
+ 1006 01b8 77       		.sleb128 -9
+ 1007 01b9 0E       		.uleb128 0xe
+ 1008 01ba C2000000 		.4byte	.LASF28
+ 1009 01be 01       		.byte	0x1
+ 1010 01bf C201     		.2byte	0x1c2
+ 1011 01c1 6B000000 		.4byte	0x6b
+ 1012 01c5 02       		.uleb128 0x2
+ 1013 01c6 91       		.byte	0x91
+ 1014 01c7 76       		.sleb128 -10
+ 1015 01c8 0E       		.uleb128 0xe
+ 1016 01c9 C2010000 		.4byte	.LASF29
+ 1017 01cd 01       		.byte	0x1
+ 1018 01ce C301     		.2byte	0x1c3
+ 1019 01d0 6B000000 		.4byte	0x6b
+ 1020 01d4 02       		.uleb128 0x2
+ 1021 01d5 91       		.byte	0x91
+ 1022 01d6 75       		.sleb128 -11
+ 1023 01d7 0E       		.uleb128 0xe
+ 1024 01d8 08000000 		.4byte	.LASF30
+ 1025 01dc 01       		.byte	0x1
+ 1026 01dd C401     		.2byte	0x1c4
+ 1027 01df 6B000000 		.4byte	0x6b
+ 1028 01e3 02       		.uleb128 0x2
+ 1029 01e4 91       		.byte	0x91
+ 1030 01e5 74       		.sleb128 -12
+ 1031 01e6 00       		.byte	0
+ 1032 01e7 10       		.uleb128 0x10
+ 1033 01e8 E0030000 		.4byte	.LASF32
+ 1034 01ec 01       		.byte	0x1
+ 1035 01ed 1102     		.2byte	0x211
+ 1036 01ef 00000000 		.4byte	.LFB8
+ 1037 01f3 30000000 		.4byte	.LFE8-.LFB8
+ 1038 01f7 01       		.uleb128 0x1
+ 1039 01f8 9C       		.byte	0x9c
+ 1040 01f9 0D020000 		.4byte	0x20d
+ 1041 01fd 0D       		.uleb128 0xd
+ 1042 01fe 00000000 		.4byte	.LASF33
+ 1043 0202 01       		.byte	0x1
+ 1044 0203 1102     		.2byte	0x211
+ 1045 0205 76000000 		.4byte	0x76
+ 1046 0209 02       		.uleb128 0x2
+ 1047 020a 91       		.byte	0x91
+ 1048 020b 76       		.sleb128 -10
+ 1049 020c 00       		.byte	0
+ 1050 020d 11       		.uleb128 0x11
+ 1051 020e 51020000 		.4byte	.LASF34
+ 1052 0212 01       		.byte	0x1
+ 1053 0213 3502     		.2byte	0x235
+ 1054 0215 00000000 		.4byte	.LFB9
+ 1055 0219 20000000 		.4byte	.LFE9-.LFB9
+ 1056 021d 01       		.uleb128 0x1
+ 1057 021e 9C       		.byte	0x9c
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 30
+
+
+ 1058 021f 11       		.uleb128 0x11
+ 1059 0220 C9000000 		.4byte	.LASF35
+ 1060 0224 01       		.byte	0x1
+ 1061 0225 4B02     		.2byte	0x24b
+ 1062 0227 00000000 		.4byte	.LFB10
+ 1063 022b 20000000 		.4byte	.LFE10-.LFB10
+ 1064 022f 01       		.uleb128 0x1
+ 1065 0230 9C       		.byte	0x9c
+ 1066 0231 12       		.uleb128 0x12
+ 1067 0232 98030000 		.4byte	.LASF42
+ 1068 0236 01       		.byte	0x1
+ 1069 0237 14       		.byte	0x14
+ 1070 0238 6B000000 		.4byte	0x6b
+ 1071 023c 05       		.uleb128 0x5
+ 1072 023d 03       		.byte	0x3
+ 1073 023e 00000000 		.4byte	Maximum_Peak_Detector_B_Comp_1_initVar
+ 1074 0242 00       		.byte	0
+ 1075              		.section	.debug_abbrev,"",%progbits
+ 1076              	.Ldebug_abbrev0:
+ 1077 0000 01       		.uleb128 0x1
+ 1078 0001 11       		.uleb128 0x11
+ 1079 0002 01       		.byte	0x1
+ 1080 0003 25       		.uleb128 0x25
+ 1081 0004 0E       		.uleb128 0xe
+ 1082 0005 13       		.uleb128 0x13
+ 1083 0006 0B       		.uleb128 0xb
+ 1084 0007 03       		.uleb128 0x3
+ 1085 0008 0E       		.uleb128 0xe
+ 1086 0009 1B       		.uleb128 0x1b
+ 1087 000a 0E       		.uleb128 0xe
+ 1088 000b 55       		.uleb128 0x55
+ 1089 000c 17       		.uleb128 0x17
+ 1090 000d 11       		.uleb128 0x11
+ 1091 000e 01       		.uleb128 0x1
+ 1092 000f 10       		.uleb128 0x10
+ 1093 0010 17       		.uleb128 0x17
+ 1094 0011 00       		.byte	0
+ 1095 0012 00       		.byte	0
+ 1096 0013 02       		.uleb128 0x2
+ 1097 0014 24       		.uleb128 0x24
+ 1098 0015 00       		.byte	0
+ 1099 0016 0B       		.uleb128 0xb
+ 1100 0017 0B       		.uleb128 0xb
+ 1101 0018 3E       		.uleb128 0x3e
+ 1102 0019 0B       		.uleb128 0xb
+ 1103 001a 03       		.uleb128 0x3
+ 1104 001b 0E       		.uleb128 0xe
+ 1105 001c 00       		.byte	0
+ 1106 001d 00       		.byte	0
+ 1107 001e 03       		.uleb128 0x3
+ 1108 001f 24       		.uleb128 0x24
+ 1109 0020 00       		.byte	0
+ 1110 0021 0B       		.uleb128 0xb
+ 1111 0022 0B       		.uleb128 0xb
+ 1112 0023 3E       		.uleb128 0x3e
+ 1113 0024 0B       		.uleb128 0xb
+ 1114 0025 03       		.uleb128 0x3
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 31
+
+
+ 1115 0026 08       		.uleb128 0x8
+ 1116 0027 00       		.byte	0
+ 1117 0028 00       		.byte	0
+ 1118 0029 04       		.uleb128 0x4
+ 1119 002a 16       		.uleb128 0x16
+ 1120 002b 00       		.byte	0
+ 1121 002c 03       		.uleb128 0x3
+ 1122 002d 0E       		.uleb128 0xe
+ 1123 002e 3A       		.uleb128 0x3a
+ 1124 002f 0B       		.uleb128 0xb
+ 1125 0030 3B       		.uleb128 0x3b
+ 1126 0031 0B       		.uleb128 0xb
+ 1127 0032 49       		.uleb128 0x49
+ 1128 0033 13       		.uleb128 0x13
+ 1129 0034 00       		.byte	0
+ 1130 0035 00       		.byte	0
+ 1131 0036 05       		.uleb128 0x5
+ 1132 0037 16       		.uleb128 0x16
+ 1133 0038 00       		.byte	0
+ 1134 0039 03       		.uleb128 0x3
+ 1135 003a 0E       		.uleb128 0xe
+ 1136 003b 3A       		.uleb128 0x3a
+ 1137 003c 0B       		.uleb128 0xb
+ 1138 003d 3B       		.uleb128 0x3b
+ 1139 003e 05       		.uleb128 0x5
+ 1140 003f 49       		.uleb128 0x49
+ 1141 0040 13       		.uleb128 0x13
+ 1142 0041 00       		.byte	0
+ 1143 0042 00       		.byte	0
+ 1144 0043 06       		.uleb128 0x6
+ 1145 0044 35       		.uleb128 0x35
+ 1146 0045 00       		.byte	0
+ 1147 0046 49       		.uleb128 0x49
+ 1148 0047 13       		.uleb128 0x13
+ 1149 0048 00       		.byte	0
+ 1150 0049 00       		.byte	0
+ 1151 004a 07       		.uleb128 0x7
+ 1152 004b 2E       		.uleb128 0x2e
+ 1153 004c 00       		.byte	0
+ 1154 004d 3F       		.uleb128 0x3f
+ 1155 004e 19       		.uleb128 0x19
+ 1156 004f 03       		.uleb128 0x3
+ 1157 0050 0E       		.uleb128 0xe
+ 1158 0051 3A       		.uleb128 0x3a
+ 1159 0052 0B       		.uleb128 0xb
+ 1160 0053 3B       		.uleb128 0x3b
+ 1161 0054 0B       		.uleb128 0xb
+ 1162 0055 27       		.uleb128 0x27
+ 1163 0056 19       		.uleb128 0x19
+ 1164 0057 11       		.uleb128 0x11
+ 1165 0058 01       		.uleb128 0x1
+ 1166 0059 12       		.uleb128 0x12
+ 1167 005a 06       		.uleb128 0x6
+ 1168 005b 40       		.uleb128 0x40
+ 1169 005c 18       		.uleb128 0x18
+ 1170 005d 9642     		.uleb128 0x2116
+ 1171 005f 19       		.uleb128 0x19
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 32
+
+
+ 1172 0060 00       		.byte	0
+ 1173 0061 00       		.byte	0
+ 1174 0062 08       		.uleb128 0x8
+ 1175 0063 2E       		.uleb128 0x2e
+ 1176 0064 00       		.byte	0
+ 1177 0065 3F       		.uleb128 0x3f
+ 1178 0066 19       		.uleb128 0x19
+ 1179 0067 03       		.uleb128 0x3
+ 1180 0068 0E       		.uleb128 0xe
+ 1181 0069 3A       		.uleb128 0x3a
+ 1182 006a 0B       		.uleb128 0xb
+ 1183 006b 3B       		.uleb128 0x3b
+ 1184 006c 0B       		.uleb128 0xb
+ 1185 006d 27       		.uleb128 0x27
+ 1186 006e 19       		.uleb128 0x19
+ 1187 006f 11       		.uleb128 0x11
+ 1188 0070 01       		.uleb128 0x1
+ 1189 0071 12       		.uleb128 0x12
+ 1190 0072 06       		.uleb128 0x6
+ 1191 0073 40       		.uleb128 0x40
+ 1192 0074 18       		.uleb128 0x18
+ 1193 0075 9742     		.uleb128 0x2117
+ 1194 0077 19       		.uleb128 0x19
+ 1195 0078 00       		.byte	0
+ 1196 0079 00       		.byte	0
+ 1197 007a 09       		.uleb128 0x9
+ 1198 007b 2E       		.uleb128 0x2e
+ 1199 007c 01       		.byte	0x1
+ 1200 007d 3F       		.uleb128 0x3f
+ 1201 007e 19       		.uleb128 0x19
+ 1202 007f 03       		.uleb128 0x3
+ 1203 0080 0E       		.uleb128 0xe
+ 1204 0081 3A       		.uleb128 0x3a
+ 1205 0082 0B       		.uleb128 0xb
+ 1206 0083 3B       		.uleb128 0x3b
+ 1207 0084 0B       		.uleb128 0xb
+ 1208 0085 27       		.uleb128 0x27
+ 1209 0086 19       		.uleb128 0x19
+ 1210 0087 11       		.uleb128 0x11
+ 1211 0088 01       		.uleb128 0x1
+ 1212 0089 12       		.uleb128 0x12
+ 1213 008a 06       		.uleb128 0x6
+ 1214 008b 40       		.uleb128 0x40
+ 1215 008c 18       		.uleb128 0x18
+ 1216 008d 9742     		.uleb128 0x2117
+ 1217 008f 19       		.uleb128 0x19
+ 1218 0090 01       		.uleb128 0x1
+ 1219 0091 13       		.uleb128 0x13
+ 1220 0092 00       		.byte	0
+ 1221 0093 00       		.byte	0
+ 1222 0094 0A       		.uleb128 0xa
+ 1223 0095 05       		.uleb128 0x5
+ 1224 0096 00       		.byte	0
+ 1225 0097 03       		.uleb128 0x3
+ 1226 0098 0E       		.uleb128 0xe
+ 1227 0099 3A       		.uleb128 0x3a
+ 1228 009a 0B       		.uleb128 0xb
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 33
+
+
+ 1229 009b 3B       		.uleb128 0x3b
+ 1230 009c 0B       		.uleb128 0xb
+ 1231 009d 49       		.uleb128 0x49
+ 1232 009e 13       		.uleb128 0x13
+ 1233 009f 02       		.uleb128 0x2
+ 1234 00a0 18       		.uleb128 0x18
+ 1235 00a1 00       		.byte	0
+ 1236 00a2 00       		.byte	0
+ 1237 00a3 0B       		.uleb128 0xb
+ 1238 00a4 2E       		.uleb128 0x2e
+ 1239 00a5 00       		.byte	0
+ 1240 00a6 3F       		.uleb128 0x3f
+ 1241 00a7 19       		.uleb128 0x19
+ 1242 00a8 03       		.uleb128 0x3
+ 1243 00a9 0E       		.uleb128 0xe
+ 1244 00aa 3A       		.uleb128 0x3a
+ 1245 00ab 0B       		.uleb128 0xb
+ 1246 00ac 3B       		.uleb128 0x3b
+ 1247 00ad 0B       		.uleb128 0xb
+ 1248 00ae 27       		.uleb128 0x27
+ 1249 00af 19       		.uleb128 0x19
+ 1250 00b0 49       		.uleb128 0x49
+ 1251 00b1 13       		.uleb128 0x13
+ 1252 00b2 11       		.uleb128 0x11
+ 1253 00b3 01       		.uleb128 0x1
+ 1254 00b4 12       		.uleb128 0x12
+ 1255 00b5 06       		.uleb128 0x6
+ 1256 00b6 40       		.uleb128 0x40
+ 1257 00b7 18       		.uleb128 0x18
+ 1258 00b8 9742     		.uleb128 0x2117
+ 1259 00ba 19       		.uleb128 0x19
+ 1260 00bb 00       		.byte	0
+ 1261 00bc 00       		.byte	0
+ 1262 00bd 0C       		.uleb128 0xc
+ 1263 00be 2E       		.uleb128 0x2e
+ 1264 00bf 01       		.byte	0x1
+ 1265 00c0 03       		.uleb128 0x3
+ 1266 00c1 0E       		.uleb128 0xe
+ 1267 00c2 3A       		.uleb128 0x3a
+ 1268 00c3 0B       		.uleb128 0xb
+ 1269 00c4 3B       		.uleb128 0x3b
+ 1270 00c5 05       		.uleb128 0x5
+ 1271 00c6 27       		.uleb128 0x27
+ 1272 00c7 19       		.uleb128 0x19
+ 1273 00c8 11       		.uleb128 0x11
+ 1274 00c9 01       		.uleb128 0x1
+ 1275 00ca 12       		.uleb128 0x12
+ 1276 00cb 06       		.uleb128 0x6
+ 1277 00cc 40       		.uleb128 0x40
+ 1278 00cd 18       		.uleb128 0x18
+ 1279 00ce 9642     		.uleb128 0x2116
+ 1280 00d0 19       		.uleb128 0x19
+ 1281 00d1 01       		.uleb128 0x1
+ 1282 00d2 13       		.uleb128 0x13
+ 1283 00d3 00       		.byte	0
+ 1284 00d4 00       		.byte	0
+ 1285 00d5 0D       		.uleb128 0xd
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 34
+
+
+ 1286 00d6 05       		.uleb128 0x5
+ 1287 00d7 00       		.byte	0
+ 1288 00d8 03       		.uleb128 0x3
+ 1289 00d9 0E       		.uleb128 0xe
+ 1290 00da 3A       		.uleb128 0x3a
+ 1291 00db 0B       		.uleb128 0xb
+ 1292 00dc 3B       		.uleb128 0x3b
+ 1293 00dd 05       		.uleb128 0x5
+ 1294 00de 49       		.uleb128 0x49
+ 1295 00df 13       		.uleb128 0x13
+ 1296 00e0 02       		.uleb128 0x2
+ 1297 00e1 18       		.uleb128 0x18
+ 1298 00e2 00       		.byte	0
+ 1299 00e3 00       		.byte	0
+ 1300 00e4 0E       		.uleb128 0xe
+ 1301 00e5 34       		.uleb128 0x34
+ 1302 00e6 00       		.byte	0
+ 1303 00e7 03       		.uleb128 0x3
+ 1304 00e8 0E       		.uleb128 0xe
+ 1305 00e9 3A       		.uleb128 0x3a
+ 1306 00ea 0B       		.uleb128 0xb
+ 1307 00eb 3B       		.uleb128 0x3b
+ 1308 00ec 05       		.uleb128 0x5
+ 1309 00ed 49       		.uleb128 0x49
+ 1310 00ee 13       		.uleb128 0x13
+ 1311 00ef 02       		.uleb128 0x2
+ 1312 00f0 18       		.uleb128 0x18
+ 1313 00f1 00       		.byte	0
+ 1314 00f2 00       		.byte	0
+ 1315 00f3 0F       		.uleb128 0xf
+ 1316 00f4 2E       		.uleb128 0x2e
+ 1317 00f5 01       		.byte	0x1
+ 1318 00f6 3F       		.uleb128 0x3f
+ 1319 00f7 19       		.uleb128 0x19
+ 1320 00f8 03       		.uleb128 0x3
+ 1321 00f9 0E       		.uleb128 0xe
+ 1322 00fa 3A       		.uleb128 0x3a
+ 1323 00fb 0B       		.uleb128 0xb
+ 1324 00fc 3B       		.uleb128 0x3b
+ 1325 00fd 05       		.uleb128 0x5
+ 1326 00fe 27       		.uleb128 0x27
+ 1327 00ff 19       		.uleb128 0x19
+ 1328 0100 49       		.uleb128 0x49
+ 1329 0101 13       		.uleb128 0x13
+ 1330 0102 11       		.uleb128 0x11
+ 1331 0103 01       		.uleb128 0x1
+ 1332 0104 12       		.uleb128 0x12
+ 1333 0105 06       		.uleb128 0x6
+ 1334 0106 40       		.uleb128 0x40
+ 1335 0107 18       		.uleb128 0x18
+ 1336 0108 9642     		.uleb128 0x2116
+ 1337 010a 19       		.uleb128 0x19
+ 1338 010b 01       		.uleb128 0x1
+ 1339 010c 13       		.uleb128 0x13
+ 1340 010d 00       		.byte	0
+ 1341 010e 00       		.byte	0
+ 1342 010f 10       		.uleb128 0x10
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 35
+
+
+ 1343 0110 2E       		.uleb128 0x2e
+ 1344 0111 01       		.byte	0x1
+ 1345 0112 3F       		.uleb128 0x3f
+ 1346 0113 19       		.uleb128 0x19
+ 1347 0114 03       		.uleb128 0x3
+ 1348 0115 0E       		.uleb128 0xe
+ 1349 0116 3A       		.uleb128 0x3a
+ 1350 0117 0B       		.uleb128 0xb
+ 1351 0118 3B       		.uleb128 0x3b
+ 1352 0119 05       		.uleb128 0x5
+ 1353 011a 27       		.uleb128 0x27
+ 1354 011b 19       		.uleb128 0x19
+ 1355 011c 11       		.uleb128 0x11
+ 1356 011d 01       		.uleb128 0x1
+ 1357 011e 12       		.uleb128 0x12
+ 1358 011f 06       		.uleb128 0x6
+ 1359 0120 40       		.uleb128 0x40
+ 1360 0121 18       		.uleb128 0x18
+ 1361 0122 9742     		.uleb128 0x2117
+ 1362 0124 19       		.uleb128 0x19
+ 1363 0125 01       		.uleb128 0x1
+ 1364 0126 13       		.uleb128 0x13
+ 1365 0127 00       		.byte	0
+ 1366 0128 00       		.byte	0
+ 1367 0129 11       		.uleb128 0x11
+ 1368 012a 2E       		.uleb128 0x2e
+ 1369 012b 00       		.byte	0
+ 1370 012c 3F       		.uleb128 0x3f
+ 1371 012d 19       		.uleb128 0x19
+ 1372 012e 03       		.uleb128 0x3
+ 1373 012f 0E       		.uleb128 0xe
+ 1374 0130 3A       		.uleb128 0x3a
+ 1375 0131 0B       		.uleb128 0xb
+ 1376 0132 3B       		.uleb128 0x3b
+ 1377 0133 05       		.uleb128 0x5
+ 1378 0134 27       		.uleb128 0x27
+ 1379 0135 19       		.uleb128 0x19
+ 1380 0136 11       		.uleb128 0x11
+ 1381 0137 01       		.uleb128 0x1
+ 1382 0138 12       		.uleb128 0x12
+ 1383 0139 06       		.uleb128 0x6
+ 1384 013a 40       		.uleb128 0x40
+ 1385 013b 18       		.uleb128 0x18
+ 1386 013c 9742     		.uleb128 0x2117
+ 1387 013e 19       		.uleb128 0x19
+ 1388 013f 00       		.byte	0
+ 1389 0140 00       		.byte	0
+ 1390 0141 12       		.uleb128 0x12
+ 1391 0142 34       		.uleb128 0x34
+ 1392 0143 00       		.byte	0
+ 1393 0144 03       		.uleb128 0x3
+ 1394 0145 0E       		.uleb128 0xe
+ 1395 0146 3A       		.uleb128 0x3a
+ 1396 0147 0B       		.uleb128 0xb
+ 1397 0148 3B       		.uleb128 0x3b
+ 1398 0149 0B       		.uleb128 0xb
+ 1399 014a 49       		.uleb128 0x49
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 36
+
+
+ 1400 014b 13       		.uleb128 0x13
+ 1401 014c 3F       		.uleb128 0x3f
+ 1402 014d 19       		.uleb128 0x19
+ 1403 014e 02       		.uleb128 0x2
+ 1404 014f 18       		.uleb128 0x18
+ 1405 0150 00       		.byte	0
+ 1406 0151 00       		.byte	0
+ 1407 0152 00       		.byte	0
+ 1408              		.section	.debug_aranges,"",%progbits
+ 1409 0000 6C000000 		.4byte	0x6c
+ 1410 0004 0200     		.2byte	0x2
+ 1411 0006 00000000 		.4byte	.Ldebug_info0
+ 1412 000a 04       		.byte	0x4
+ 1413 000b 00       		.byte	0
+ 1414 000c 0000     		.2byte	0
+ 1415 000e 0000     		.2byte	0
+ 1416 0010 00000000 		.4byte	.LFB0
+ 1417 0014 68000000 		.4byte	.LFE0-.LFB0
+ 1418 0018 00000000 		.4byte	.LFB1
+ 1419 001c 34000000 		.4byte	.LFE1-.LFB1
+ 1420 0020 00000000 		.4byte	.LFB2
+ 1421 0024 24000000 		.4byte	.LFE2-.LFB2
+ 1422 0028 00000000 		.4byte	.LFB3
+ 1423 002c 34000000 		.4byte	.LFE3-.LFB3
+ 1424 0030 00000000 		.4byte	.LFB4
+ 1425 0034 84000000 		.4byte	.LFE4-.LFB4
+ 1426 0038 00000000 		.4byte	.LFB5
+ 1427 003c 1C000000 		.4byte	.LFE5-.LFB5
+ 1428 0040 00000000 		.4byte	.LFB6
+ 1429 0044 C0000000 		.4byte	.LFE6-.LFB6
+ 1430 0048 00000000 		.4byte	.LFB7
+ 1431 004c C4000000 		.4byte	.LFE7-.LFB7
+ 1432 0050 00000000 		.4byte	.LFB8
+ 1433 0054 30000000 		.4byte	.LFE8-.LFB8
+ 1434 0058 00000000 		.4byte	.LFB9
+ 1435 005c 20000000 		.4byte	.LFE9-.LFB9
+ 1436 0060 00000000 		.4byte	.LFB10
+ 1437 0064 20000000 		.4byte	.LFE10-.LFB10
+ 1438 0068 00000000 		.4byte	0
+ 1439 006c 00000000 		.4byte	0
+ 1440              		.section	.debug_ranges,"",%progbits
+ 1441              	.Ldebug_ranges0:
+ 1442 0000 00000000 		.4byte	.LFB0
+ 1443 0004 68000000 		.4byte	.LFE0
+ 1444 0008 00000000 		.4byte	.LFB1
+ 1445 000c 34000000 		.4byte	.LFE1
+ 1446 0010 00000000 		.4byte	.LFB2
+ 1447 0014 24000000 		.4byte	.LFE2
+ 1448 0018 00000000 		.4byte	.LFB3
+ 1449 001c 34000000 		.4byte	.LFE3
+ 1450 0020 00000000 		.4byte	.LFB4
+ 1451 0024 84000000 		.4byte	.LFE4
+ 1452 0028 00000000 		.4byte	.LFB5
+ 1453 002c 1C000000 		.4byte	.LFE5
+ 1454 0030 00000000 		.4byte	.LFB6
+ 1455 0034 C0000000 		.4byte	.LFE6
+ 1456 0038 00000000 		.4byte	.LFB7
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 37
+
+
+ 1457 003c C4000000 		.4byte	.LFE7
+ 1458 0040 00000000 		.4byte	.LFB8
+ 1459 0044 30000000 		.4byte	.LFE8
+ 1460 0048 00000000 		.4byte	.LFB9
+ 1461 004c 20000000 		.4byte	.LFE9
+ 1462 0050 00000000 		.4byte	.LFB10
+ 1463 0054 20000000 		.4byte	.LFE10
+ 1464 0058 00000000 		.4byte	0
+ 1465 005c 00000000 		.4byte	0
+ 1466              		.section	.debug_line,"",%progbits
+ 1467              	.Ldebug_line0:
+ 1468 0000 82010000 		.section	.debug_str,"MS",%progbits,1
+ 1468      02005B00 
+ 1468      00000201 
+ 1468      FB0E0D00 
+ 1468      01010101 
+ 1469              	.LASF33:
+ 1470 0000 7472696D 		.ascii	"trimVal\000"
+ 1470      56616C00 
+ 1471              	.LASF30:
+ 1472 0008 746D7043 		.ascii	"tmpCR\000"
+ 1472      5200
+ 1473              	.LASF19:
+ 1474 000e 4D617869 		.ascii	"Maximum_Peak_Detector_B_Comp_1_Enable\000"
+ 1474      6D756D5F 
+ 1474      5065616B 
+ 1474      5F446574 
+ 1474      6563746F 
+ 1475              	.LASF36:
+ 1476 0034 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1476      43313120 
+ 1476      352E342E 
+ 1476      31203230 
+ 1476      31363036 
+ 1477 0067 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1477      20726576 
+ 1477      6973696F 
+ 1477      6E203233 
+ 1477      37373135 
+ 1478 009a 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 1478      66756E63 
+ 1478      74696F6E 
+ 1478      2D736563 
+ 1478      74696F6E 
+ 1479              	.LASF28:
+ 1480 00c2 746D7053 		.ascii	"tmpSW2\000"
+ 1480      573200
+ 1481              	.LASF35:
+ 1482 00c9 4D617869 		.ascii	"Maximum_Peak_Detector_B_Comp_1_PwrDwnOverrideDisabl"
+ 1482      6D756D5F 
+ 1482      5065616B 
+ 1482      5F446574 
+ 1482      6563746F 
+ 1483 00fc 6500     		.ascii	"e\000"
+ 1484              	.LASF31:
+ 1485 00fe 4D617869 		.ascii	"Maximum_Peak_Detector_B_Comp_1_SetSpeed\000"
+ 1485      6D756D5F 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 38
+
+
+ 1485      5065616B 
+ 1485      5F446574 
+ 1485      6563746F 
+ 1486              	.LASF3:
+ 1487 0126 73686F72 		.ascii	"short unsigned int\000"
+ 1487      7420756E 
+ 1487      7369676E 
+ 1487      65642069 
+ 1487      6E7400
+ 1488              	.LASF2:
+ 1489 0139 73686F72 		.ascii	"short int\000"
+ 1489      7420696E 
+ 1489      7400
+ 1490              	.LASF38:
+ 1491 0143 433A5C55 		.ascii	"C:\\Users\\rens_\\Documents\\platooning\\PSoC\\Plat"
+ 1491      73657273 
+ 1491      5C72656E 
+ 1491      735F5C44 
+ 1491      6F63756D 
+ 1492 0170 6F6F6E69 		.ascii	"ooning\\AngleMeasurement.cydsn\000"
+ 1492      6E675C41 
+ 1492      6E676C65 
+ 1492      4D656173 
+ 1492      7572656D 
+ 1493              	.LASF41:
+ 1494 018e 4D617869 		.ascii	"Maximum_Peak_Detector_B_Comp_1_ZeroCal\000"
+ 1494      6D756D5F 
+ 1494      5065616B 
+ 1494      5F446574 
+ 1494      6563746F 
+ 1495              	.LASF27:
+ 1496 01b5 746D7053 		.ascii	"tmpSW0\000"
+ 1496      573000
+ 1497              	.LASF12:
+ 1498 01bc 666C6F61 		.ascii	"float\000"
+ 1498      7400
+ 1499              	.LASF29:
+ 1500 01c2 746D7053 		.ascii	"tmpSW3\000"
+ 1500      573300
+ 1501              	.LASF1:
+ 1502 01c9 756E7369 		.ascii	"unsigned char\000"
+ 1502      676E6564 
+ 1502      20636861 
+ 1502      7200
+ 1503              	.LASF15:
+ 1504 01d7 72656738 		.ascii	"reg8\000"
+ 1504      00
+ 1505              	.LASF24:
+ 1506 01dc 7472696D 		.ascii	"trimCnt\000"
+ 1506      436E7400 
+ 1507              	.LASF5:
+ 1508 01e4 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1508      20756E73 
+ 1508      69676E65 
+ 1508      6420696E 
+ 1508      7400
+ 1509              	.LASF9:
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 39
+
+
+ 1510 01f6 75696E74 		.ascii	"uint8\000"
+ 1510      3800
+ 1511              	.LASF39:
+ 1512 01fc 4D617869 		.ascii	"Maximum_Peak_Detector_B_Comp_1_GetCompare\000"
+ 1512      6D756D5F 
+ 1512      5065616B 
+ 1512      5F446574 
+ 1512      6563746F 
+ 1513              	.LASF18:
+ 1514 0226 4D617869 		.ascii	"Maximum_Peak_Detector_B_Comp_1_Init\000"
+ 1514      6D756D5F 
+ 1514      5065616B 
+ 1514      5F446574 
+ 1514      6563746F 
+ 1515              	.LASF13:
+ 1516 024a 646F7562 		.ascii	"double\000"
+ 1516      6C6500
+ 1517              	.LASF34:
+ 1518 0251 4D617869 		.ascii	"Maximum_Peak_Detector_B_Comp_1_PwrDwnOverrideEnable"
+ 1518      6D756D5F 
+ 1518      5065616B 
+ 1518      5F446574 
+ 1518      6563746F 
+ 1519 0284 00       		.ascii	"\000"
+ 1520              	.LASF40:
+ 1521 0285 4D617869 		.ascii	"Maximum_Peak_Detector_B_Comp_1_trimAdjust\000"
+ 1521      6D756D5F 
+ 1521      5065616B 
+ 1521      5F446574 
+ 1521      6563746F 
+ 1522              	.LASF10:
+ 1523 02af 75696E74 		.ascii	"uint16\000"
+ 1523      313600
+ 1524              	.LASF11:
+ 1525 02b6 75696E74 		.ascii	"uint32\000"
+ 1525      333200
+ 1526              	.LASF8:
+ 1527 02bd 756E7369 		.ascii	"unsigned int\000"
+ 1527      676E6564 
+ 1527      20696E74 
+ 1527      00
+ 1528              	.LASF26:
+ 1529 02ca 636D7053 		.ascii	"cmpState\000"
+ 1529      74617465 
+ 1529      00
+ 1530              	.LASF7:
+ 1531 02d3 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1531      206C6F6E 
+ 1531      6720756E 
+ 1531      7369676E 
+ 1531      65642069 
+ 1532              	.LASF20:
+ 1533 02ea 4D617869 		.ascii	"Maximum_Peak_Detector_B_Comp_1_Start\000"
+ 1533      6D756D5F 
+ 1533      5065616B 
+ 1533      5F446574 
+ 1533      6563746F 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 40
+
+
+ 1534              	.LASF22:
+ 1535 030f 73706565 		.ascii	"speed\000"
+ 1535      6400
+ 1536              	.LASF17:
+ 1537 0315 73697A65 		.ascii	"sizetype\000"
+ 1537      74797065 
+ 1537      00
+ 1538              	.LASF25:
+ 1539 031e 7472696D 		.ascii	"trimCntMax\000"
+ 1539      436E744D 
+ 1539      617800
+ 1540              	.LASF6:
+ 1541 0329 6C6F6E67 		.ascii	"long long int\000"
+ 1541      206C6F6E 
+ 1541      6720696E 
+ 1541      7400
+ 1542              	.LASF14:
+ 1543 0337 63686172 		.ascii	"char\000"
+ 1543      00
+ 1544              	.LASF21:
+ 1545 033c 4D617869 		.ascii	"Maximum_Peak_Detector_B_Comp_1_Stop\000"
+ 1545      6D756D5F 
+ 1545      5065616B 
+ 1545      5F446574 
+ 1545      6563746F 
+ 1546              	.LASF37:
+ 1547 0360 47656E65 		.ascii	"Generated_Source\\PSoC5\\Maximum_Peak_Detector_B_Co"
+ 1547      72617465 
+ 1547      645F536F 
+ 1547      75726365 
+ 1547      5C50536F 
+ 1548 0391 6D705F31 		.ascii	"mp_1.c\000"
+ 1548      2E6300
+ 1549              	.LASF42:
+ 1550 0398 4D617869 		.ascii	"Maximum_Peak_Detector_B_Comp_1_initVar\000"
+ 1550      6D756D5F 
+ 1550      5065616B 
+ 1550      5F446574 
+ 1550      6563746F 
+ 1551              	.LASF4:
+ 1552 03bf 6C6F6E67 		.ascii	"long int\000"
+ 1552      20696E74 
+ 1552      00
+ 1553              	.LASF16:
+ 1554 03c8 6C6F6E67 		.ascii	"long double\000"
+ 1554      20646F75 
+ 1554      626C6500 
+ 1555              	.LASF0:
+ 1556 03d4 7369676E 		.ascii	"signed char\000"
+ 1556      65642063 
+ 1556      68617200 
+ 1557              	.LASF32:
+ 1558 03e0 4D617869 		.ascii	"Maximum_Peak_Detector_B_Comp_1_LoadTrim\000"
+ 1558      6D756D5F 
+ 1558      5065616B 
+ 1558      5F446574 
+ 1558      6563746F 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccd7Apdd.s 			page 41
+
+
+ 1559              	.LASF23:
+ 1560 0408 6E696262 		.ascii	"nibble\000"
+ 1560      6C6500
+ 1561              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

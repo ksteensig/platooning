@@ -1,0 +1,1112 @@
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cclTRMIa.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"IRQ.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.IRQ_Write,"ax",%progbits
+  20              		.align	2
+  21              		.global	IRQ_Write
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	IRQ_Write, %function
+  25              	IRQ_Write:
+  26              	.LFB0:
+  27              		.file 1 "Generated_Source\\PSoC5\\IRQ.c"
+   1:Generated_Source\PSoC5/IRQ.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/IRQ.c **** * File Name: IRQ.c  
+   3:Generated_Source\PSoC5/IRQ.c **** * Version 2.20
+   4:Generated_Source\PSoC5/IRQ.c **** *
+   5:Generated_Source\PSoC5/IRQ.c **** * Description:
+   6:Generated_Source\PSoC5/IRQ.c **** *  This file contains API to enable firmware control of a Pins component.
+   7:Generated_Source\PSoC5/IRQ.c **** *
+   8:Generated_Source\PSoC5/IRQ.c **** * Note:
+   9:Generated_Source\PSoC5/IRQ.c **** *
+  10:Generated_Source\PSoC5/IRQ.c **** ********************************************************************************
+  11:Generated_Source\PSoC5/IRQ.c **** * Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
+  12:Generated_Source\PSoC5/IRQ.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  13:Generated_Source\PSoC5/IRQ.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  14:Generated_Source\PSoC5/IRQ.c **** * the software package with which this file was provided.
+  15:Generated_Source\PSoC5/IRQ.c **** *******************************************************************************/
+  16:Generated_Source\PSoC5/IRQ.c **** 
+  17:Generated_Source\PSoC5/IRQ.c **** #include "cytypes.h"
+  18:Generated_Source\PSoC5/IRQ.c **** #include "IRQ.h"
+  19:Generated_Source\PSoC5/IRQ.c **** 
+  20:Generated_Source\PSoC5/IRQ.c **** /* APIs are not generated for P15[7:6] on PSoC 5 */
+  21:Generated_Source\PSoC5/IRQ.c **** #if !(CY_PSOC5A &&\
+  22:Generated_Source\PSoC5/IRQ.c **** 	 IRQ__PORT == 15 && ((IRQ__MASK & 0xC0) != 0))
+  23:Generated_Source\PSoC5/IRQ.c **** 
+  24:Generated_Source\PSoC5/IRQ.c **** 
+  25:Generated_Source\PSoC5/IRQ.c **** /*******************************************************************************
+  26:Generated_Source\PSoC5/IRQ.c **** * Function Name: IRQ_Write
+  27:Generated_Source\PSoC5/IRQ.c **** ****************************************************************************//**
+  28:Generated_Source\PSoC5/IRQ.c **** *
+  29:Generated_Source\PSoC5/IRQ.c **** * \brief Writes the value to the physical port (data output register), masking
+  30:Generated_Source\PSoC5/IRQ.c **** *  and shifting the bits appropriately. 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cclTRMIa.s 			page 2
+
+
+  31:Generated_Source\PSoC5/IRQ.c **** *
+  32:Generated_Source\PSoC5/IRQ.c **** * The data output register controls the signal applied to the physical pin in 
+  33:Generated_Source\PSoC5/IRQ.c **** * conjunction with the drive mode parameter. This function avoids changing 
+  34:Generated_Source\PSoC5/IRQ.c **** * other bits in the port by using the appropriate method (read-modify-write or
+  35:Generated_Source\PSoC5/IRQ.c **** * bit banding).
+  36:Generated_Source\PSoC5/IRQ.c **** *
+  37:Generated_Source\PSoC5/IRQ.c **** * <b>Note</b> This function should not be used on a hardware digital output pin 
+  38:Generated_Source\PSoC5/IRQ.c **** * as it is driven by the hardware signal attached to it.
+  39:Generated_Source\PSoC5/IRQ.c **** *
+  40:Generated_Source\PSoC5/IRQ.c **** * \param value
+  41:Generated_Source\PSoC5/IRQ.c **** *  Value to write to the component instance.
+  42:Generated_Source\PSoC5/IRQ.c **** *
+  43:Generated_Source\PSoC5/IRQ.c **** * \return 
+  44:Generated_Source\PSoC5/IRQ.c **** *  None 
+  45:Generated_Source\PSoC5/IRQ.c **** *
+  46:Generated_Source\PSoC5/IRQ.c **** * \sideeffect
+  47:Generated_Source\PSoC5/IRQ.c **** *  If you use read-modify-write operations that are not atomic; the Interrupt 
+  48:Generated_Source\PSoC5/IRQ.c **** *  Service Routines (ISR) can cause corruption of this function. An ISR that 
+  49:Generated_Source\PSoC5/IRQ.c **** *  interrupts this function and performs writes to the Pins component data 
+  50:Generated_Source\PSoC5/IRQ.c **** *  register can cause corrupted port data. To avoid this issue, you should 
+  51:Generated_Source\PSoC5/IRQ.c **** *  either use the Per-Pin APIs (primary method) or disable interrupts around 
+  52:Generated_Source\PSoC5/IRQ.c **** *  this function.
+  53:Generated_Source\PSoC5/IRQ.c **** *
+  54:Generated_Source\PSoC5/IRQ.c **** * \funcusage
+  55:Generated_Source\PSoC5/IRQ.c **** *  \snippet IRQ_SUT.c usage_IRQ_Write
+  56:Generated_Source\PSoC5/IRQ.c **** *******************************************************************************/
+  57:Generated_Source\PSoC5/IRQ.c **** void IRQ_Write(uint8 value)
+  58:Generated_Source\PSoC5/IRQ.c **** {
+  28              		.loc 1 58 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 16
+  31              		@ frame_needed = 1, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33 0000 80B4     		push	{r7}
+  34              		.cfi_def_cfa_offset 4
+  35              		.cfi_offset 7, -4
+  36 0002 85B0     		sub	sp, sp, #20
+  37              		.cfi_def_cfa_offset 24
+  38 0004 00AF     		add	r7, sp, #0
+  39              		.cfi_def_cfa_register 7
+  40 0006 0346     		mov	r3, r0
+  41 0008 FB71     		strb	r3, [r7, #7]
+  59:Generated_Source\PSoC5/IRQ.c ****     uint8 staticBits = (IRQ_DR & (uint8)(~IRQ_MASK));
+  42              		.loc 1 59 0
+  43 000a 0B4B     		ldr	r3, .L2
+  44 000c 1B78     		ldrb	r3, [r3]
+  45 000e DBB2     		uxtb	r3, r3
+  46 0010 23F00203 		bic	r3, r3, #2
+  47 0014 FB73     		strb	r3, [r7, #15]
+  60:Generated_Source\PSoC5/IRQ.c ****     IRQ_DR = staticBits | ((uint8)(value << IRQ_SHIFT) & IRQ_MASK);
+  48              		.loc 1 60 0
+  49 0016 0849     		ldr	r1, .L2
+  50 0018 FB79     		ldrb	r3, [r7, #7]
+  51 001a 5B00     		lsls	r3, r3, #1
+  52 001c DBB2     		uxtb	r3, r3
+  53 001e 03F00203 		and	r3, r3, #2
+  54 0022 DAB2     		uxtb	r2, r3
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cclTRMIa.s 			page 3
+
+
+  55 0024 FB7B     		ldrb	r3, [r7, #15]
+  56 0026 1343     		orrs	r3, r3, r2
+  57 0028 DBB2     		uxtb	r3, r3
+  58 002a 0B70     		strb	r3, [r1]
+  61:Generated_Source\PSoC5/IRQ.c **** }
+  59              		.loc 1 61 0
+  60 002c 00BF     		nop
+  61 002e 1437     		adds	r7, r7, #20
+  62              		.cfi_def_cfa_offset 4
+  63 0030 BD46     		mov	sp, r7
+  64              		.cfi_def_cfa_register 13
+  65              		@ sp needed
+  66 0032 80BC     		pop	{r7}
+  67              		.cfi_restore 7
+  68              		.cfi_def_cfa_offset 0
+  69 0034 7047     		bx	lr
+  70              	.L3:
+  71 0036 00BF     		.align	2
+  72              	.L2:
+  73 0038 C0510040 		.word	1073762752
+  74              		.cfi_endproc
+  75              	.LFE0:
+  76              		.size	IRQ_Write, .-IRQ_Write
+  77              		.section	.text.IRQ_SetDriveMode,"ax",%progbits
+  78              		.align	2
+  79              		.global	IRQ_SetDriveMode
+  80              		.thumb
+  81              		.thumb_func
+  82              		.type	IRQ_SetDriveMode, %function
+  83              	IRQ_SetDriveMode:
+  84              	.LFB1:
+  62:Generated_Source\PSoC5/IRQ.c **** 
+  63:Generated_Source\PSoC5/IRQ.c **** 
+  64:Generated_Source\PSoC5/IRQ.c **** /*******************************************************************************
+  65:Generated_Source\PSoC5/IRQ.c **** * Function Name: IRQ_SetDriveMode
+  66:Generated_Source\PSoC5/IRQ.c **** ****************************************************************************//**
+  67:Generated_Source\PSoC5/IRQ.c **** *
+  68:Generated_Source\PSoC5/IRQ.c **** * \brief Sets the drive mode for each of the Pins component's pins.
+  69:Generated_Source\PSoC5/IRQ.c **** * 
+  70:Generated_Source\PSoC5/IRQ.c **** * <b>Note</b> This affects all pins in the Pins component instance. Use the
+  71:Generated_Source\PSoC5/IRQ.c **** * Per-Pin APIs if you wish to control individual pin's drive modes.
+  72:Generated_Source\PSoC5/IRQ.c **** *
+  73:Generated_Source\PSoC5/IRQ.c **** * \param mode
+  74:Generated_Source\PSoC5/IRQ.c **** *  Mode for the selected signals. Valid options are documented in 
+  75:Generated_Source\PSoC5/IRQ.c **** *  \ref driveMode.
+  76:Generated_Source\PSoC5/IRQ.c **** *
+  77:Generated_Source\PSoC5/IRQ.c **** * \return
+  78:Generated_Source\PSoC5/IRQ.c **** *  None
+  79:Generated_Source\PSoC5/IRQ.c **** *
+  80:Generated_Source\PSoC5/IRQ.c **** * \sideeffect
+  81:Generated_Source\PSoC5/IRQ.c **** *  If you use read-modify-write operations that are not atomic, the ISR can
+  82:Generated_Source\PSoC5/IRQ.c **** *  cause corruption of this function. An ISR that interrupts this function 
+  83:Generated_Source\PSoC5/IRQ.c **** *  and performs writes to the Pins component Drive Mode registers can cause 
+  84:Generated_Source\PSoC5/IRQ.c **** *  corrupted port data. To avoid this issue, you should either use the Per-Pin
+  85:Generated_Source\PSoC5/IRQ.c **** *  APIs (primary method) or disable interrupts around this function.
+  86:Generated_Source\PSoC5/IRQ.c **** *
+  87:Generated_Source\PSoC5/IRQ.c **** * \funcusage
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cclTRMIa.s 			page 4
+
+
+  88:Generated_Source\PSoC5/IRQ.c **** *  \snippet IRQ_SUT.c usage_IRQ_SetDriveMode
+  89:Generated_Source\PSoC5/IRQ.c **** *******************************************************************************/
+  90:Generated_Source\PSoC5/IRQ.c **** void IRQ_SetDriveMode(uint8 mode)
+  91:Generated_Source\PSoC5/IRQ.c **** {
+  85              		.loc 1 91 0
+  86              		.cfi_startproc
+  87              		@ args = 0, pretend = 0, frame = 8
+  88              		@ frame_needed = 1, uses_anonymous_args = 0
+  89              		@ link register save eliminated.
+  90 0000 80B4     		push	{r7}
+  91              		.cfi_def_cfa_offset 4
+  92              		.cfi_offset 7, -4
+  93 0002 83B0     		sub	sp, sp, #12
+  94              		.cfi_def_cfa_offset 16
+  95 0004 00AF     		add	r7, sp, #0
+  96              		.cfi_def_cfa_register 7
+  97 0006 0346     		mov	r3, r0
+  98 0008 FB71     		strb	r3, [r7, #7]
+  92:Generated_Source\PSoC5/IRQ.c **** 	CyPins_SetPinDriveMode(IRQ_0, mode);
+  99              		.loc 1 92 0
+ 100 000a 0B49     		ldr	r1, .L5
+ 101 000c 0A4B     		ldr	r3, .L5
+ 102 000e 1B78     		ldrb	r3, [r3]
+ 103 0010 DBB2     		uxtb	r3, r3
+ 104 0012 5BB2     		sxtb	r3, r3
+ 105 0014 23F00E03 		bic	r3, r3, #14
+ 106 0018 5AB2     		sxtb	r2, r3
+ 107 001a 97F90730 		ldrsb	r3, [r7, #7]
+ 108 001e 03F00E03 		and	r3, r3, #14
+ 109 0022 5BB2     		sxtb	r3, r3
+ 110 0024 1343     		orrs	r3, r3, r2
+ 111 0026 5BB2     		sxtb	r3, r3
+ 112 0028 DBB2     		uxtb	r3, r3
+ 113 002a 0B70     		strb	r3, [r1]
+  93:Generated_Source\PSoC5/IRQ.c **** }
+ 114              		.loc 1 93 0
+ 115 002c 00BF     		nop
+ 116 002e 0C37     		adds	r7, r7, #12
+ 117              		.cfi_def_cfa_offset 4
+ 118 0030 BD46     		mov	sp, r7
+ 119              		.cfi_def_cfa_register 13
+ 120              		@ sp needed
+ 121 0032 80BC     		pop	{r7}
+ 122              		.cfi_restore 7
+ 123              		.cfi_def_cfa_offset 0
+ 124 0034 7047     		bx	lr
+ 125              	.L6:
+ 126 0036 00BF     		.align	2
+ 127              	.L5:
+ 128 0038 61500040 		.word	1073762401
+ 129              		.cfi_endproc
+ 130              	.LFE1:
+ 131              		.size	IRQ_SetDriveMode, .-IRQ_SetDriveMode
+ 132              		.section	.text.IRQ_Read,"ax",%progbits
+ 133              		.align	2
+ 134              		.global	IRQ_Read
+ 135              		.thumb
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cclTRMIa.s 			page 5
+
+
+ 136              		.thumb_func
+ 137              		.type	IRQ_Read, %function
+ 138              	IRQ_Read:
+ 139              	.LFB2:
+  94:Generated_Source\PSoC5/IRQ.c **** 
+  95:Generated_Source\PSoC5/IRQ.c **** 
+  96:Generated_Source\PSoC5/IRQ.c **** /*******************************************************************************
+  97:Generated_Source\PSoC5/IRQ.c **** * Function Name: IRQ_Read
+  98:Generated_Source\PSoC5/IRQ.c **** ****************************************************************************//**
+  99:Generated_Source\PSoC5/IRQ.c **** *
+ 100:Generated_Source\PSoC5/IRQ.c **** * \brief Reads the associated physical port (pin status register) and masks 
+ 101:Generated_Source\PSoC5/IRQ.c **** *  the required bits according to the width and bit position of the component
+ 102:Generated_Source\PSoC5/IRQ.c **** *  instance. 
+ 103:Generated_Source\PSoC5/IRQ.c **** *
+ 104:Generated_Source\PSoC5/IRQ.c **** * The pin's status register returns the current logic level present on the 
+ 105:Generated_Source\PSoC5/IRQ.c **** * physical pin.
+ 106:Generated_Source\PSoC5/IRQ.c **** *
+ 107:Generated_Source\PSoC5/IRQ.c **** * \return 
+ 108:Generated_Source\PSoC5/IRQ.c **** *  The current value for the pins in the component as a right justified number.
+ 109:Generated_Source\PSoC5/IRQ.c **** *
+ 110:Generated_Source\PSoC5/IRQ.c **** * \funcusage
+ 111:Generated_Source\PSoC5/IRQ.c **** *  \snippet IRQ_SUT.c usage_IRQ_Read  
+ 112:Generated_Source\PSoC5/IRQ.c **** *******************************************************************************/
+ 113:Generated_Source\PSoC5/IRQ.c **** uint8 IRQ_Read(void)
+ 114:Generated_Source\PSoC5/IRQ.c **** {
+ 140              		.loc 1 114 0
+ 141              		.cfi_startproc
+ 142              		@ args = 0, pretend = 0, frame = 0
+ 143              		@ frame_needed = 1, uses_anonymous_args = 0
+ 144              		@ link register save eliminated.
+ 145 0000 80B4     		push	{r7}
+ 146              		.cfi_def_cfa_offset 4
+ 147              		.cfi_offset 7, -4
+ 148 0002 00AF     		add	r7, sp, #0
+ 149              		.cfi_def_cfa_register 7
+ 115:Generated_Source\PSoC5/IRQ.c ****     return (IRQ_PS & IRQ_MASK) >> IRQ_SHIFT;
+ 150              		.loc 1 115 0
+ 151 0004 054B     		ldr	r3, .L9
+ 152 0006 1B78     		ldrb	r3, [r3]
+ 153 0008 DBB2     		uxtb	r3, r3
+ 154 000a 03F00203 		and	r3, r3, #2
+ 155 000e 5B08     		lsrs	r3, r3, #1
+ 156 0010 DBB2     		uxtb	r3, r3
+ 116:Generated_Source\PSoC5/IRQ.c **** }
+ 157              		.loc 1 116 0
+ 158 0012 1846     		mov	r0, r3
+ 159 0014 BD46     		mov	sp, r7
+ 160              		.cfi_def_cfa_register 13
+ 161              		@ sp needed
+ 162 0016 80BC     		pop	{r7}
+ 163              		.cfi_restore 7
+ 164              		.cfi_def_cfa_offset 0
+ 165 0018 7047     		bx	lr
+ 166              	.L10:
+ 167 001a 00BF     		.align	2
+ 168              	.L9:
+ 169 001c C1510040 		.word	1073762753
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cclTRMIa.s 			page 6
+
+
+ 170              		.cfi_endproc
+ 171              	.LFE2:
+ 172              		.size	IRQ_Read, .-IRQ_Read
+ 173              		.section	.text.IRQ_ReadDataReg,"ax",%progbits
+ 174              		.align	2
+ 175              		.global	IRQ_ReadDataReg
+ 176              		.thumb
+ 177              		.thumb_func
+ 178              		.type	IRQ_ReadDataReg, %function
+ 179              	IRQ_ReadDataReg:
+ 180              	.LFB3:
+ 117:Generated_Source\PSoC5/IRQ.c **** 
+ 118:Generated_Source\PSoC5/IRQ.c **** 
+ 119:Generated_Source\PSoC5/IRQ.c **** /*******************************************************************************
+ 120:Generated_Source\PSoC5/IRQ.c **** * Function Name: IRQ_ReadDataReg
+ 121:Generated_Source\PSoC5/IRQ.c **** ****************************************************************************//**
+ 122:Generated_Source\PSoC5/IRQ.c **** *
+ 123:Generated_Source\PSoC5/IRQ.c **** * \brief Reads the associated physical port's data output register and masks 
+ 124:Generated_Source\PSoC5/IRQ.c **** *  the correct bits according to the width and bit position of the component 
+ 125:Generated_Source\PSoC5/IRQ.c **** *  instance. 
+ 126:Generated_Source\PSoC5/IRQ.c **** *
+ 127:Generated_Source\PSoC5/IRQ.c **** * The data output register controls the signal applied to the physical pin in 
+ 128:Generated_Source\PSoC5/IRQ.c **** * conjunction with the drive mode parameter. This is not the same as the 
+ 129:Generated_Source\PSoC5/IRQ.c **** * preferred IRQ_Read() API because the 
+ 130:Generated_Source\PSoC5/IRQ.c **** * IRQ_ReadDataReg() reads the data register instead of the status 
+ 131:Generated_Source\PSoC5/IRQ.c **** * register. For output pins this is a useful function to determine the value 
+ 132:Generated_Source\PSoC5/IRQ.c **** * just written to the pin.
+ 133:Generated_Source\PSoC5/IRQ.c **** *
+ 134:Generated_Source\PSoC5/IRQ.c **** * \return 
+ 135:Generated_Source\PSoC5/IRQ.c **** *  The current value of the data register masked and shifted into a right 
+ 136:Generated_Source\PSoC5/IRQ.c **** *  justified number for the component instance.
+ 137:Generated_Source\PSoC5/IRQ.c **** *
+ 138:Generated_Source\PSoC5/IRQ.c **** * \funcusage
+ 139:Generated_Source\PSoC5/IRQ.c **** *  \snippet IRQ_SUT.c usage_IRQ_ReadDataReg 
+ 140:Generated_Source\PSoC5/IRQ.c **** *******************************************************************************/
+ 141:Generated_Source\PSoC5/IRQ.c **** uint8 IRQ_ReadDataReg(void)
+ 142:Generated_Source\PSoC5/IRQ.c **** {
+ 181              		.loc 1 142 0
+ 182              		.cfi_startproc
+ 183              		@ args = 0, pretend = 0, frame = 0
+ 184              		@ frame_needed = 1, uses_anonymous_args = 0
+ 185              		@ link register save eliminated.
+ 186 0000 80B4     		push	{r7}
+ 187              		.cfi_def_cfa_offset 4
+ 188              		.cfi_offset 7, -4
+ 189 0002 00AF     		add	r7, sp, #0
+ 190              		.cfi_def_cfa_register 7
+ 143:Generated_Source\PSoC5/IRQ.c ****     return (IRQ_DR & IRQ_MASK) >> IRQ_SHIFT;
+ 191              		.loc 1 143 0
+ 192 0004 054B     		ldr	r3, .L13
+ 193 0006 1B78     		ldrb	r3, [r3]
+ 194 0008 DBB2     		uxtb	r3, r3
+ 195 000a 03F00203 		and	r3, r3, #2
+ 196 000e 5B08     		lsrs	r3, r3, #1
+ 197 0010 DBB2     		uxtb	r3, r3
+ 144:Generated_Source\PSoC5/IRQ.c **** }
+ 198              		.loc 1 144 0
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cclTRMIa.s 			page 7
+
+
+ 199 0012 1846     		mov	r0, r3
+ 200 0014 BD46     		mov	sp, r7
+ 201              		.cfi_def_cfa_register 13
+ 202              		@ sp needed
+ 203 0016 80BC     		pop	{r7}
+ 204              		.cfi_restore 7
+ 205              		.cfi_def_cfa_offset 0
+ 206 0018 7047     		bx	lr
+ 207              	.L14:
+ 208 001a 00BF     		.align	2
+ 209              	.L13:
+ 210 001c C0510040 		.word	1073762752
+ 211              		.cfi_endproc
+ 212              	.LFE3:
+ 213              		.size	IRQ_ReadDataReg, .-IRQ_ReadDataReg
+ 214              		.section	.text.IRQ_SetInterruptMode,"ax",%progbits
+ 215              		.align	2
+ 216              		.global	IRQ_SetInterruptMode
+ 217              		.thumb
+ 218              		.thumb_func
+ 219              		.type	IRQ_SetInterruptMode, %function
+ 220              	IRQ_SetInterruptMode:
+ 221              	.LFB4:
+ 145:Generated_Source\PSoC5/IRQ.c **** 
+ 146:Generated_Source\PSoC5/IRQ.c **** 
+ 147:Generated_Source\PSoC5/IRQ.c **** /* If interrupt is connected for this Pins component */ 
+ 148:Generated_Source\PSoC5/IRQ.c **** #if defined(IRQ_INTSTAT) 
+ 149:Generated_Source\PSoC5/IRQ.c **** 
+ 150:Generated_Source\PSoC5/IRQ.c ****     /*******************************************************************************
+ 151:Generated_Source\PSoC5/IRQ.c ****     * Function Name: IRQ_SetInterruptMode
+ 152:Generated_Source\PSoC5/IRQ.c ****     ****************************************************************************//**
+ 153:Generated_Source\PSoC5/IRQ.c ****     *
+ 154:Generated_Source\PSoC5/IRQ.c ****     * \brief Configures the interrupt mode for each of the Pins component's
+ 155:Generated_Source\PSoC5/IRQ.c ****     *  pins. Alternatively you may set the interrupt mode for all the pins
+ 156:Generated_Source\PSoC5/IRQ.c ****     *  specified in the Pins component.
+ 157:Generated_Source\PSoC5/IRQ.c ****     *
+ 158:Generated_Source\PSoC5/IRQ.c ****     *  <b>Note</b> The interrupt is port-wide and therefore any enabled pin
+ 159:Generated_Source\PSoC5/IRQ.c ****     *  interrupt may trigger it.
+ 160:Generated_Source\PSoC5/IRQ.c ****     *
+ 161:Generated_Source\PSoC5/IRQ.c ****     * \param position
+ 162:Generated_Source\PSoC5/IRQ.c ****     *  The pin position as listed in the Pins component. You may OR these to be 
+ 163:Generated_Source\PSoC5/IRQ.c ****     *  able to configure the interrupt mode of multiple pins within a Pins 
+ 164:Generated_Source\PSoC5/IRQ.c ****     *  component. Or you may use IRQ_INTR_ALL to configure the
+ 165:Generated_Source\PSoC5/IRQ.c ****     *  interrupt mode of all the pins in the Pins component.       
+ 166:Generated_Source\PSoC5/IRQ.c ****     *  - IRQ_0_INTR       (First pin in the list)
+ 167:Generated_Source\PSoC5/IRQ.c ****     *  - IRQ_1_INTR       (Second pin in the list)
+ 168:Generated_Source\PSoC5/IRQ.c ****     *  - ...
+ 169:Generated_Source\PSoC5/IRQ.c ****     *  - IRQ_INTR_ALL     (All pins in Pins component)
+ 170:Generated_Source\PSoC5/IRQ.c ****     *
+ 171:Generated_Source\PSoC5/IRQ.c ****     * \param mode
+ 172:Generated_Source\PSoC5/IRQ.c ****     *  Interrupt mode for the selected pins. Valid options are documented in
+ 173:Generated_Source\PSoC5/IRQ.c ****     *  \ref intrMode.
+ 174:Generated_Source\PSoC5/IRQ.c ****     *
+ 175:Generated_Source\PSoC5/IRQ.c ****     * \return 
+ 176:Generated_Source\PSoC5/IRQ.c ****     *  None
+ 177:Generated_Source\PSoC5/IRQ.c ****     *  
+ 178:Generated_Source\PSoC5/IRQ.c ****     * \sideeffect
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cclTRMIa.s 			page 8
+
+
+ 179:Generated_Source\PSoC5/IRQ.c ****     *  It is recommended that the interrupt be disabled before calling this 
+ 180:Generated_Source\PSoC5/IRQ.c ****     *  function to avoid unintended interrupt requests. Note that the interrupt
+ 181:Generated_Source\PSoC5/IRQ.c ****     *  type is port wide, and therefore will trigger for any enabled pin on the 
+ 182:Generated_Source\PSoC5/IRQ.c ****     *  port.
+ 183:Generated_Source\PSoC5/IRQ.c ****     *
+ 184:Generated_Source\PSoC5/IRQ.c ****     * \funcusage
+ 185:Generated_Source\PSoC5/IRQ.c ****     *  \snippet IRQ_SUT.c usage_IRQ_SetInterruptMode
+ 186:Generated_Source\PSoC5/IRQ.c ****     *******************************************************************************/
+ 187:Generated_Source\PSoC5/IRQ.c ****     void IRQ_SetInterruptMode(uint16 position, uint16 mode)
+ 188:Generated_Source\PSoC5/IRQ.c ****     {
+ 222              		.loc 1 188 0
+ 223              		.cfi_startproc
+ 224              		@ args = 0, pretend = 0, frame = 8
+ 225              		@ frame_needed = 1, uses_anonymous_args = 0
+ 226              		@ link register save eliminated.
+ 227 0000 80B4     		push	{r7}
+ 228              		.cfi_def_cfa_offset 4
+ 229              		.cfi_offset 7, -4
+ 230 0002 83B0     		sub	sp, sp, #12
+ 231              		.cfi_def_cfa_offset 16
+ 232 0004 00AF     		add	r7, sp, #0
+ 233              		.cfi_def_cfa_register 7
+ 234 0006 0346     		mov	r3, r0
+ 235 0008 0A46     		mov	r2, r1
+ 236 000a FB80     		strh	r3, [r7, #6]	@ movhi
+ 237 000c 1346     		mov	r3, r2	@ movhi
+ 238 000e BB80     		strh	r3, [r7, #4]	@ movhi
+ 189:Generated_Source\PSoC5/IRQ.c **** 		if((position & IRQ_0_INTR) != 0u) 
+ 239              		.loc 1 189 0
+ 240 0010 FB88     		ldrh	r3, [r7, #6]
+ 241 0012 03F00203 		and	r3, r3, #2
+ 242 0016 002B     		cmp	r3, #0
+ 243 0018 03D0     		beq	.L17
+ 190:Generated_Source\PSoC5/IRQ.c **** 		{ 
+ 191:Generated_Source\PSoC5/IRQ.c **** 			 IRQ_0_INTTYPE_REG = (uint8)mode; 
+ 244              		.loc 1 191 0
+ 245 001a 044B     		ldr	r3, .L18
+ 246 001c BA88     		ldrh	r2, [r7, #4]	@ movhi
+ 247 001e D2B2     		uxtb	r2, r2
+ 248 0020 1A70     		strb	r2, [r3]
+ 249              	.L17:
+ 192:Generated_Source\PSoC5/IRQ.c **** 		}
+ 193:Generated_Source\PSoC5/IRQ.c ****     }
+ 250              		.loc 1 193 0
+ 251 0022 00BF     		nop
+ 252 0024 0C37     		adds	r7, r7, #12
+ 253              		.cfi_def_cfa_offset 4
+ 254 0026 BD46     		mov	sp, r7
+ 255              		.cfi_def_cfa_register 13
+ 256              		@ sp needed
+ 257 0028 80BC     		pop	{r7}
+ 258              		.cfi_restore 7
+ 259              		.cfi_def_cfa_offset 0
+ 260 002a 7047     		bx	lr
+ 261              	.L19:
+ 262              		.align	2
+ 263              	.L18:
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cclTRMIa.s 			page 9
+
+
+ 264 002c 61450040 		.word	1073759585
+ 265              		.cfi_endproc
+ 266              	.LFE4:
+ 267              		.size	IRQ_SetInterruptMode, .-IRQ_SetInterruptMode
+ 268              		.section	.text.IRQ_ClearInterrupt,"ax",%progbits
+ 269              		.align	2
+ 270              		.global	IRQ_ClearInterrupt
+ 271              		.thumb
+ 272              		.thumb_func
+ 273              		.type	IRQ_ClearInterrupt, %function
+ 274              	IRQ_ClearInterrupt:
+ 275              	.LFB5:
+ 194:Generated_Source\PSoC5/IRQ.c ****     
+ 195:Generated_Source\PSoC5/IRQ.c ****     
+ 196:Generated_Source\PSoC5/IRQ.c ****     /*******************************************************************************
+ 197:Generated_Source\PSoC5/IRQ.c ****     * Function Name: IRQ_ClearInterrupt
+ 198:Generated_Source\PSoC5/IRQ.c ****     ****************************************************************************//**
+ 199:Generated_Source\PSoC5/IRQ.c ****     *
+ 200:Generated_Source\PSoC5/IRQ.c ****     * \brief Clears any active interrupts attached with the component and returns 
+ 201:Generated_Source\PSoC5/IRQ.c ****     *  the value of the interrupt status register allowing determination of which
+ 202:Generated_Source\PSoC5/IRQ.c ****     *  pins generated an interrupt event.
+ 203:Generated_Source\PSoC5/IRQ.c ****     *
+ 204:Generated_Source\PSoC5/IRQ.c ****     * \return 
+ 205:Generated_Source\PSoC5/IRQ.c ****     *  The right-shifted current value of the interrupt status register. Each pin 
+ 206:Generated_Source\PSoC5/IRQ.c ****     *  has one bit set if it generated an interrupt event. For example, bit 0 is 
+ 207:Generated_Source\PSoC5/IRQ.c ****     *  for pin 0 and bit 1 is for pin 1 of the Pins component.
+ 208:Generated_Source\PSoC5/IRQ.c ****     *  
+ 209:Generated_Source\PSoC5/IRQ.c ****     * \sideeffect
+ 210:Generated_Source\PSoC5/IRQ.c ****     *  Clears all bits of the physical port's interrupt status register, not just
+ 211:Generated_Source\PSoC5/IRQ.c ****     *  those associated with the Pins component.
+ 212:Generated_Source\PSoC5/IRQ.c ****     *
+ 213:Generated_Source\PSoC5/IRQ.c ****     * \funcusage
+ 214:Generated_Source\PSoC5/IRQ.c ****     *  \snippet IRQ_SUT.c usage_IRQ_ClearInterrupt
+ 215:Generated_Source\PSoC5/IRQ.c ****     *******************************************************************************/
+ 216:Generated_Source\PSoC5/IRQ.c ****     uint8 IRQ_ClearInterrupt(void)
+ 217:Generated_Source\PSoC5/IRQ.c ****     {
+ 276              		.loc 1 217 0
+ 277              		.cfi_startproc
+ 278              		@ args = 0, pretend = 0, frame = 0
+ 279              		@ frame_needed = 1, uses_anonymous_args = 0
+ 280              		@ link register save eliminated.
+ 281 0000 80B4     		push	{r7}
+ 282              		.cfi_def_cfa_offset 4
+ 283              		.cfi_offset 7, -4
+ 284 0002 00AF     		add	r7, sp, #0
+ 285              		.cfi_def_cfa_register 7
+ 218:Generated_Source\PSoC5/IRQ.c ****         return (IRQ_INTSTAT & IRQ_MASK) >> IRQ_SHIFT;
+ 286              		.loc 1 218 0
+ 287 0004 054B     		ldr	r3, .L22
+ 288 0006 1B78     		ldrb	r3, [r3]
+ 289 0008 DBB2     		uxtb	r3, r3
+ 290 000a 03F00203 		and	r3, r3, #2
+ 291 000e 5B08     		lsrs	r3, r3, #1
+ 292 0010 DBB2     		uxtb	r3, r3
+ 219:Generated_Source\PSoC5/IRQ.c ****     }
+ 293              		.loc 1 219 0
+ 294 0012 1846     		mov	r0, r3
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cclTRMIa.s 			page 10
+
+
+ 295 0014 BD46     		mov	sp, r7
+ 296              		.cfi_def_cfa_register 13
+ 297              		@ sp needed
+ 298 0016 80BC     		pop	{r7}
+ 299              		.cfi_restore 7
+ 300              		.cfi_def_cfa_offset 0
+ 301 0018 7047     		bx	lr
+ 302              	.L23:
+ 303 001a 00BF     		.align	2
+ 304              	.L22:
+ 305 001c 8C450040 		.word	1073759628
+ 306              		.cfi_endproc
+ 307              	.LFE5:
+ 308              		.size	IRQ_ClearInterrupt, .-IRQ_ClearInterrupt
+ 309              		.text
+ 310              	.Letext0:
+ 311              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 312              		.section	.debug_info,"",%progbits
+ 313              	.Ldebug_info0:
+ 314 0000 6B010000 		.4byte	0x16b
+ 315 0004 0400     		.2byte	0x4
+ 316 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 317 000a 04       		.byte	0x4
+ 318 000b 01       		.uleb128 0x1
+ 319 000c 00000000 		.4byte	.LASF24
+ 320 0010 0C       		.byte	0xc
+ 321 0011 A2010000 		.4byte	.LASF25
+ 322 0015 A8000000 		.4byte	.LASF26
+ 323 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 324 001d 00000000 		.4byte	0
+ 325 0021 00000000 		.4byte	.Ldebug_line0
+ 326 0025 02       		.uleb128 0x2
+ 327 0026 01       		.byte	0x1
+ 328 0027 06       		.byte	0x6
+ 329 0028 FA010000 		.4byte	.LASF0
+ 330 002c 02       		.uleb128 0x2
+ 331 002d 01       		.byte	0x1
+ 332 002e 08       		.byte	0x8
+ 333 002f 31010000 		.4byte	.LASF1
+ 334 0033 02       		.uleb128 0x2
+ 335 0034 02       		.byte	0x2
+ 336 0035 05       		.byte	0x5
+ 337 0036 E1010000 		.4byte	.LASF2
+ 338 003a 02       		.uleb128 0x2
+ 339 003b 02       		.byte	0x2
+ 340 003c 07       		.byte	0x7
+ 341 003d 56010000 		.4byte	.LASF3
+ 342 0041 02       		.uleb128 0x2
+ 343 0042 04       		.byte	0x4
+ 344 0043 05       		.byte	0x5
+ 345 0044 F1010000 		.4byte	.LASF4
+ 346 0048 02       		.uleb128 0x2
+ 347 0049 04       		.byte	0x4
+ 348 004a 07       		.byte	0x7
+ 349 004b 44010000 		.4byte	.LASF5
+ 350 004f 02       		.uleb128 0x2
+ 351 0050 08       		.byte	0x8
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cclTRMIa.s 			page 11
+
+
+ 352 0051 05       		.byte	0x5
+ 353 0052 CE010000 		.4byte	.LASF6
+ 354 0056 02       		.uleb128 0x2
+ 355 0057 08       		.byte	0x8
+ 356 0058 07       		.byte	0x7
+ 357 0059 1A010000 		.4byte	.LASF7
+ 358 005d 03       		.uleb128 0x3
+ 359 005e 04       		.byte	0x4
+ 360 005f 05       		.byte	0x5
+ 361 0060 696E7400 		.ascii	"int\000"
+ 362 0064 02       		.uleb128 0x2
+ 363 0065 04       		.byte	0x4
+ 364 0066 07       		.byte	0x7
+ 365 0067 95010000 		.4byte	.LASF8
+ 366 006b 04       		.uleb128 0x4
+ 367 006c EB010000 		.4byte	.LASF9
+ 368 0070 02       		.byte	0x2
+ 369 0071 A1       		.byte	0xa1
+ 370 0072 2C000000 		.4byte	0x2c
+ 371 0076 04       		.uleb128 0x4
+ 372 0077 85010000 		.4byte	.LASF10
+ 373 007b 02       		.byte	0x2
+ 374 007c A2       		.byte	0xa2
+ 375 007d 3A000000 		.4byte	0x3a
+ 376 0081 02       		.uleb128 0x2
+ 377 0082 04       		.byte	0x4
+ 378 0083 04       		.byte	0x4
+ 379 0084 14010000 		.4byte	.LASF11
+ 380 0088 02       		.uleb128 0x2
+ 381 0089 08       		.byte	0x8
+ 382 008a 04       		.byte	0x4
+ 383 008b 7E010000 		.4byte	.LASF12
+ 384 008f 02       		.uleb128 0x2
+ 385 0090 01       		.byte	0x1
+ 386 0091 08       		.byte	0x8
+ 387 0092 DC010000 		.4byte	.LASF13
+ 388 0096 05       		.uleb128 0x5
+ 389 0097 3F010000 		.4byte	.LASF14
+ 390 009b 02       		.byte	0x2
+ 391 009c 4B01     		.2byte	0x14b
+ 392 009e A2000000 		.4byte	0xa2
+ 393 00a2 06       		.uleb128 0x6
+ 394 00a3 6B000000 		.4byte	0x6b
+ 395 00a7 07       		.uleb128 0x7
+ 396 00a8 BF010000 		.4byte	.LASF15
+ 397 00ac 01       		.byte	0x1
+ 398 00ad 39       		.byte	0x39
+ 399 00ae 00000000 		.4byte	.LFB0
+ 400 00b2 3C000000 		.4byte	.LFE0-.LFB0
+ 401 00b6 01       		.uleb128 0x1
+ 402 00b7 9C       		.byte	0x9c
+ 403 00b8 D9000000 		.4byte	0xd9
+ 404 00bc 08       		.uleb128 0x8
+ 405 00bd 8E000000 		.4byte	.LASF17
+ 406 00c1 01       		.byte	0x1
+ 407 00c2 39       		.byte	0x39
+ 408 00c3 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cclTRMIa.s 			page 12
+
+
+ 409 00c7 02       		.uleb128 0x2
+ 410 00c8 91       		.byte	0x91
+ 411 00c9 6F       		.sleb128 -17
+ 412 00ca 09       		.uleb128 0x9
+ 413 00cb 9D000000 		.4byte	.LASF27
+ 414 00cf 01       		.byte	0x1
+ 415 00d0 3B       		.byte	0x3b
+ 416 00d1 6B000000 		.4byte	0x6b
+ 417 00d5 02       		.uleb128 0x2
+ 418 00d6 91       		.byte	0x91
+ 419 00d7 77       		.sleb128 -9
+ 420 00d8 00       		.byte	0
+ 421 00d9 07       		.uleb128 0x7
+ 422 00da 03010000 		.4byte	.LASF16
+ 423 00de 01       		.byte	0x1
+ 424 00df 5A       		.byte	0x5a
+ 425 00e0 00000000 		.4byte	.LFB1
+ 426 00e4 3C000000 		.4byte	.LFE1-.LFB1
+ 427 00e8 01       		.uleb128 0x1
+ 428 00e9 9C       		.byte	0x9c
+ 429 00ea FD000000 		.4byte	0xfd
+ 430 00ee 08       		.uleb128 0x8
+ 431 00ef C9010000 		.4byte	.LASF18
+ 432 00f3 01       		.byte	0x1
+ 433 00f4 5A       		.byte	0x5a
+ 434 00f5 6B000000 		.4byte	0x6b
+ 435 00f9 02       		.uleb128 0x2
+ 436 00fa 91       		.byte	0x91
+ 437 00fb 77       		.sleb128 -9
+ 438 00fc 00       		.byte	0
+ 439 00fd 0A       		.uleb128 0xa
+ 440 00fe 94000000 		.4byte	.LASF19
+ 441 0102 01       		.byte	0x1
+ 442 0103 71       		.byte	0x71
+ 443 0104 6B000000 		.4byte	0x6b
+ 444 0108 00000000 		.4byte	.LFB2
+ 445 010c 20000000 		.4byte	.LFE2-.LFB2
+ 446 0110 01       		.uleb128 0x1
+ 447 0111 9C       		.byte	0x9c
+ 448 0112 0A       		.uleb128 0xa
+ 449 0113 F3000000 		.4byte	.LASF20
+ 450 0117 01       		.byte	0x1
+ 451 0118 8D       		.byte	0x8d
+ 452 0119 6B000000 		.4byte	0x6b
+ 453 011d 00000000 		.4byte	.LFB3
+ 454 0121 20000000 		.4byte	.LFE3-.LFB3
+ 455 0125 01       		.uleb128 0x1
+ 456 0126 9C       		.byte	0x9c
+ 457 0127 07       		.uleb128 0x7
+ 458 0128 69010000 		.4byte	.LASF21
+ 459 012c 01       		.byte	0x1
+ 460 012d BB       		.byte	0xbb
+ 461 012e 00000000 		.4byte	.LFB4
+ 462 0132 30000000 		.4byte	.LFE4-.LFB4
+ 463 0136 01       		.uleb128 0x1
+ 464 0137 9C       		.byte	0x9c
+ 465 0138 59010000 		.4byte	0x159
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cclTRMIa.s 			page 13
+
+
+ 466 013c 08       		.uleb128 0x8
+ 467 013d 8C010000 		.4byte	.LASF22
+ 468 0141 01       		.byte	0x1
+ 469 0142 BB       		.byte	0xbb
+ 470 0143 76000000 		.4byte	0x76
+ 471 0147 02       		.uleb128 0x2
+ 472 0148 91       		.byte	0x91
+ 473 0149 76       		.sleb128 -10
+ 474 014a 08       		.uleb128 0x8
+ 475 014b C9010000 		.4byte	.LASF18
+ 476 014f 01       		.byte	0x1
+ 477 0150 BB       		.byte	0xbb
+ 478 0151 76000000 		.4byte	0x76
+ 479 0155 02       		.uleb128 0x2
+ 480 0156 91       		.byte	0x91
+ 481 0157 74       		.sleb128 -12
+ 482 0158 00       		.byte	0
+ 483 0159 0A       		.uleb128 0xa
+ 484 015a 06020000 		.4byte	.LASF23
+ 485 015e 01       		.byte	0x1
+ 486 015f D8       		.byte	0xd8
+ 487 0160 6B000000 		.4byte	0x6b
+ 488 0164 00000000 		.4byte	.LFB5
+ 489 0168 20000000 		.4byte	.LFE5-.LFB5
+ 490 016c 01       		.uleb128 0x1
+ 491 016d 9C       		.byte	0x9c
+ 492 016e 00       		.byte	0
+ 493              		.section	.debug_abbrev,"",%progbits
+ 494              	.Ldebug_abbrev0:
+ 495 0000 01       		.uleb128 0x1
+ 496 0001 11       		.uleb128 0x11
+ 497 0002 01       		.byte	0x1
+ 498 0003 25       		.uleb128 0x25
+ 499 0004 0E       		.uleb128 0xe
+ 500 0005 13       		.uleb128 0x13
+ 501 0006 0B       		.uleb128 0xb
+ 502 0007 03       		.uleb128 0x3
+ 503 0008 0E       		.uleb128 0xe
+ 504 0009 1B       		.uleb128 0x1b
+ 505 000a 0E       		.uleb128 0xe
+ 506 000b 55       		.uleb128 0x55
+ 507 000c 17       		.uleb128 0x17
+ 508 000d 11       		.uleb128 0x11
+ 509 000e 01       		.uleb128 0x1
+ 510 000f 10       		.uleb128 0x10
+ 511 0010 17       		.uleb128 0x17
+ 512 0011 00       		.byte	0
+ 513 0012 00       		.byte	0
+ 514 0013 02       		.uleb128 0x2
+ 515 0014 24       		.uleb128 0x24
+ 516 0015 00       		.byte	0
+ 517 0016 0B       		.uleb128 0xb
+ 518 0017 0B       		.uleb128 0xb
+ 519 0018 3E       		.uleb128 0x3e
+ 520 0019 0B       		.uleb128 0xb
+ 521 001a 03       		.uleb128 0x3
+ 522 001b 0E       		.uleb128 0xe
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cclTRMIa.s 			page 14
+
+
+ 523 001c 00       		.byte	0
+ 524 001d 00       		.byte	0
+ 525 001e 03       		.uleb128 0x3
+ 526 001f 24       		.uleb128 0x24
+ 527 0020 00       		.byte	0
+ 528 0021 0B       		.uleb128 0xb
+ 529 0022 0B       		.uleb128 0xb
+ 530 0023 3E       		.uleb128 0x3e
+ 531 0024 0B       		.uleb128 0xb
+ 532 0025 03       		.uleb128 0x3
+ 533 0026 08       		.uleb128 0x8
+ 534 0027 00       		.byte	0
+ 535 0028 00       		.byte	0
+ 536 0029 04       		.uleb128 0x4
+ 537 002a 16       		.uleb128 0x16
+ 538 002b 00       		.byte	0
+ 539 002c 03       		.uleb128 0x3
+ 540 002d 0E       		.uleb128 0xe
+ 541 002e 3A       		.uleb128 0x3a
+ 542 002f 0B       		.uleb128 0xb
+ 543 0030 3B       		.uleb128 0x3b
+ 544 0031 0B       		.uleb128 0xb
+ 545 0032 49       		.uleb128 0x49
+ 546 0033 13       		.uleb128 0x13
+ 547 0034 00       		.byte	0
+ 548 0035 00       		.byte	0
+ 549 0036 05       		.uleb128 0x5
+ 550 0037 16       		.uleb128 0x16
+ 551 0038 00       		.byte	0
+ 552 0039 03       		.uleb128 0x3
+ 553 003a 0E       		.uleb128 0xe
+ 554 003b 3A       		.uleb128 0x3a
+ 555 003c 0B       		.uleb128 0xb
+ 556 003d 3B       		.uleb128 0x3b
+ 557 003e 05       		.uleb128 0x5
+ 558 003f 49       		.uleb128 0x49
+ 559 0040 13       		.uleb128 0x13
+ 560 0041 00       		.byte	0
+ 561 0042 00       		.byte	0
+ 562 0043 06       		.uleb128 0x6
+ 563 0044 35       		.uleb128 0x35
+ 564 0045 00       		.byte	0
+ 565 0046 49       		.uleb128 0x49
+ 566 0047 13       		.uleb128 0x13
+ 567 0048 00       		.byte	0
+ 568 0049 00       		.byte	0
+ 569 004a 07       		.uleb128 0x7
+ 570 004b 2E       		.uleb128 0x2e
+ 571 004c 01       		.byte	0x1
+ 572 004d 3F       		.uleb128 0x3f
+ 573 004e 19       		.uleb128 0x19
+ 574 004f 03       		.uleb128 0x3
+ 575 0050 0E       		.uleb128 0xe
+ 576 0051 3A       		.uleb128 0x3a
+ 577 0052 0B       		.uleb128 0xb
+ 578 0053 3B       		.uleb128 0x3b
+ 579 0054 0B       		.uleb128 0xb
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cclTRMIa.s 			page 15
+
+
+ 580 0055 27       		.uleb128 0x27
+ 581 0056 19       		.uleb128 0x19
+ 582 0057 11       		.uleb128 0x11
+ 583 0058 01       		.uleb128 0x1
+ 584 0059 12       		.uleb128 0x12
+ 585 005a 06       		.uleb128 0x6
+ 586 005b 40       		.uleb128 0x40
+ 587 005c 18       		.uleb128 0x18
+ 588 005d 9742     		.uleb128 0x2117
+ 589 005f 19       		.uleb128 0x19
+ 590 0060 01       		.uleb128 0x1
+ 591 0061 13       		.uleb128 0x13
+ 592 0062 00       		.byte	0
+ 593 0063 00       		.byte	0
+ 594 0064 08       		.uleb128 0x8
+ 595 0065 05       		.uleb128 0x5
+ 596 0066 00       		.byte	0
+ 597 0067 03       		.uleb128 0x3
+ 598 0068 0E       		.uleb128 0xe
+ 599 0069 3A       		.uleb128 0x3a
+ 600 006a 0B       		.uleb128 0xb
+ 601 006b 3B       		.uleb128 0x3b
+ 602 006c 0B       		.uleb128 0xb
+ 603 006d 49       		.uleb128 0x49
+ 604 006e 13       		.uleb128 0x13
+ 605 006f 02       		.uleb128 0x2
+ 606 0070 18       		.uleb128 0x18
+ 607 0071 00       		.byte	0
+ 608 0072 00       		.byte	0
+ 609 0073 09       		.uleb128 0x9
+ 610 0074 34       		.uleb128 0x34
+ 611 0075 00       		.byte	0
+ 612 0076 03       		.uleb128 0x3
+ 613 0077 0E       		.uleb128 0xe
+ 614 0078 3A       		.uleb128 0x3a
+ 615 0079 0B       		.uleb128 0xb
+ 616 007a 3B       		.uleb128 0x3b
+ 617 007b 0B       		.uleb128 0xb
+ 618 007c 49       		.uleb128 0x49
+ 619 007d 13       		.uleb128 0x13
+ 620 007e 02       		.uleb128 0x2
+ 621 007f 18       		.uleb128 0x18
+ 622 0080 00       		.byte	0
+ 623 0081 00       		.byte	0
+ 624 0082 0A       		.uleb128 0xa
+ 625 0083 2E       		.uleb128 0x2e
+ 626 0084 00       		.byte	0
+ 627 0085 3F       		.uleb128 0x3f
+ 628 0086 19       		.uleb128 0x19
+ 629 0087 03       		.uleb128 0x3
+ 630 0088 0E       		.uleb128 0xe
+ 631 0089 3A       		.uleb128 0x3a
+ 632 008a 0B       		.uleb128 0xb
+ 633 008b 3B       		.uleb128 0x3b
+ 634 008c 0B       		.uleb128 0xb
+ 635 008d 27       		.uleb128 0x27
+ 636 008e 19       		.uleb128 0x19
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cclTRMIa.s 			page 16
+
+
+ 637 008f 49       		.uleb128 0x49
+ 638 0090 13       		.uleb128 0x13
+ 639 0091 11       		.uleb128 0x11
+ 640 0092 01       		.uleb128 0x1
+ 641 0093 12       		.uleb128 0x12
+ 642 0094 06       		.uleb128 0x6
+ 643 0095 40       		.uleb128 0x40
+ 644 0096 18       		.uleb128 0x18
+ 645 0097 9742     		.uleb128 0x2117
+ 646 0099 19       		.uleb128 0x19
+ 647 009a 00       		.byte	0
+ 648 009b 00       		.byte	0
+ 649 009c 00       		.byte	0
+ 650              		.section	.debug_aranges,"",%progbits
+ 651 0000 44000000 		.4byte	0x44
+ 652 0004 0200     		.2byte	0x2
+ 653 0006 00000000 		.4byte	.Ldebug_info0
+ 654 000a 04       		.byte	0x4
+ 655 000b 00       		.byte	0
+ 656 000c 0000     		.2byte	0
+ 657 000e 0000     		.2byte	0
+ 658 0010 00000000 		.4byte	.LFB0
+ 659 0014 3C000000 		.4byte	.LFE0-.LFB0
+ 660 0018 00000000 		.4byte	.LFB1
+ 661 001c 3C000000 		.4byte	.LFE1-.LFB1
+ 662 0020 00000000 		.4byte	.LFB2
+ 663 0024 20000000 		.4byte	.LFE2-.LFB2
+ 664 0028 00000000 		.4byte	.LFB3
+ 665 002c 20000000 		.4byte	.LFE3-.LFB3
+ 666 0030 00000000 		.4byte	.LFB4
+ 667 0034 30000000 		.4byte	.LFE4-.LFB4
+ 668 0038 00000000 		.4byte	.LFB5
+ 669 003c 20000000 		.4byte	.LFE5-.LFB5
+ 670 0040 00000000 		.4byte	0
+ 671 0044 00000000 		.4byte	0
+ 672              		.section	.debug_ranges,"",%progbits
+ 673              	.Ldebug_ranges0:
+ 674 0000 00000000 		.4byte	.LFB0
+ 675 0004 3C000000 		.4byte	.LFE0
+ 676 0008 00000000 		.4byte	.LFB1
+ 677 000c 3C000000 		.4byte	.LFE1
+ 678 0010 00000000 		.4byte	.LFB2
+ 679 0014 20000000 		.4byte	.LFE2
+ 680 0018 00000000 		.4byte	.LFB3
+ 681 001c 20000000 		.4byte	.LFE3
+ 682 0020 00000000 		.4byte	.LFB4
+ 683 0024 30000000 		.4byte	.LFE4
+ 684 0028 00000000 		.4byte	.LFB5
+ 685 002c 20000000 		.4byte	.LFE5
+ 686 0030 00000000 		.4byte	0
+ 687 0034 00000000 		.4byte	0
+ 688              		.section	.debug_line,"",%progbits
+ 689              	.Ldebug_line0:
+ 690 0000 B4000000 		.section	.debug_str,"MS",%progbits,1
+ 690      02004000 
+ 690      00000201 
+ 690      FB0E0D00 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cclTRMIa.s 			page 17
+
+
+ 690      01010101 
+ 691              	.LASF24:
+ 692 0000 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 692      43313120 
+ 692      352E342E 
+ 692      31203230 
+ 692      31363036 
+ 693 0033 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 693      20726576 
+ 693      6973696F 
+ 693      6E203233 
+ 693      37373135 
+ 694 0066 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 694      66756E63 
+ 694      74696F6E 
+ 694      2D736563 
+ 694      74696F6E 
+ 695              	.LASF17:
+ 696 008e 76616C75 		.ascii	"value\000"
+ 696      6500
+ 697              	.LASF19:
+ 698 0094 4952515F 		.ascii	"IRQ_Read\000"
+ 698      52656164 
+ 698      00
+ 699              	.LASF27:
+ 700 009d 73746174 		.ascii	"staticBits\000"
+ 700      69634269 
+ 700      747300
+ 701              	.LASF26:
+ 702 00a8 433A5C55 		.ascii	"C:\\Users\\rens_\\Documents\\platooning\\PSoC\\Plat"
+ 702      73657273 
+ 702      5C72656E 
+ 702      735F5C44 
+ 702      6F63756D 
+ 703 00d5 6F6F6E69 		.ascii	"ooning\\AngleMeasurement.cydsn\000"
+ 703      6E675C41 
+ 703      6E676C65 
+ 703      4D656173 
+ 703      7572656D 
+ 704              	.LASF20:
+ 705 00f3 4952515F 		.ascii	"IRQ_ReadDataReg\000"
+ 705      52656164 
+ 705      44617461 
+ 705      52656700 
+ 706              	.LASF16:
+ 707 0103 4952515F 		.ascii	"IRQ_SetDriveMode\000"
+ 707      53657444 
+ 707      72697665 
+ 707      4D6F6465 
+ 707      00
+ 708              	.LASF11:
+ 709 0114 666C6F61 		.ascii	"float\000"
+ 709      7400
+ 710              	.LASF7:
+ 711 011a 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 711      206C6F6E 
+ 711      6720756E 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cclTRMIa.s 			page 18
+
+
+ 711      7369676E 
+ 711      65642069 
+ 712              	.LASF1:
+ 713 0131 756E7369 		.ascii	"unsigned char\000"
+ 713      676E6564 
+ 713      20636861 
+ 713      7200
+ 714              	.LASF14:
+ 715 013f 72656738 		.ascii	"reg8\000"
+ 715      00
+ 716              	.LASF5:
+ 717 0144 6C6F6E67 		.ascii	"long unsigned int\000"
+ 717      20756E73 
+ 717      69676E65 
+ 717      6420696E 
+ 717      7400
+ 718              	.LASF3:
+ 719 0156 73686F72 		.ascii	"short unsigned int\000"
+ 719      7420756E 
+ 719      7369676E 
+ 719      65642069 
+ 719      6E7400
+ 720              	.LASF21:
+ 721 0169 4952515F 		.ascii	"IRQ_SetInterruptMode\000"
+ 721      53657449 
+ 721      6E746572 
+ 721      72757074 
+ 721      4D6F6465 
+ 722              	.LASF12:
+ 723 017e 646F7562 		.ascii	"double\000"
+ 723      6C6500
+ 724              	.LASF10:
+ 725 0185 75696E74 		.ascii	"uint16\000"
+ 725      313600
+ 726              	.LASF22:
+ 727 018c 706F7369 		.ascii	"position\000"
+ 727      74696F6E 
+ 727      00
+ 728              	.LASF8:
+ 729 0195 756E7369 		.ascii	"unsigned int\000"
+ 729      676E6564 
+ 729      20696E74 
+ 729      00
+ 730              	.LASF25:
+ 731 01a2 47656E65 		.ascii	"Generated_Source\\PSoC5\\IRQ.c\000"
+ 731      72617465 
+ 731      645F536F 
+ 731      75726365 
+ 731      5C50536F 
+ 732              	.LASF15:
+ 733 01bf 4952515F 		.ascii	"IRQ_Write\000"
+ 733      57726974 
+ 733      6500
+ 734              	.LASF18:
+ 735 01c9 6D6F6465 		.ascii	"mode\000"
+ 735      00
+ 736              	.LASF6:
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\cclTRMIa.s 			page 19
+
+
+ 737 01ce 6C6F6E67 		.ascii	"long long int\000"
+ 737      206C6F6E 
+ 737      6720696E 
+ 737      7400
+ 738              	.LASF13:
+ 739 01dc 63686172 		.ascii	"char\000"
+ 739      00
+ 740              	.LASF2:
+ 741 01e1 73686F72 		.ascii	"short int\000"
+ 741      7420696E 
+ 741      7400
+ 742              	.LASF9:
+ 743 01eb 75696E74 		.ascii	"uint8\000"
+ 743      3800
+ 744              	.LASF4:
+ 745 01f1 6C6F6E67 		.ascii	"long int\000"
+ 745      20696E74 
+ 745      00
+ 746              	.LASF0:
+ 747 01fa 7369676E 		.ascii	"signed char\000"
+ 747      65642063 
+ 747      68617200 
+ 748              	.LASF23:
+ 749 0206 4952515F 		.ascii	"IRQ_ClearInterrupt\000"
+ 749      436C6561 
+ 749      72496E74 
+ 749      65727275 
+ 749      707400
+ 750              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

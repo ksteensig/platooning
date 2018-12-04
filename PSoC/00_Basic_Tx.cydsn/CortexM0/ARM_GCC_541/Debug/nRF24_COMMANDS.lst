@@ -1,0 +1,2684 @@
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"nRF24_COMMANDS.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.nRF24_send_command,"ax",%progbits
+  20              		.align	2
+  21              		.global	nRF24_send_command
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	nRF24_send_command, %function
+  25              	nRF24_send_command:
+  26              	.LFB0:
+  27              		.file 1 "Generated_Source\\PSoC4\\nRF24_COMMANDS.c"
+   1:Generated_Source\PSoC4/nRF24_COMMANDS.c **** /****************************************************************************
+   2:Generated_Source\PSoC4/nRF24_COMMANDS.c **** * This file is part of the nRF24 Custom Component for PSoC Devices.
+   3:Generated_Source\PSoC4/nRF24_COMMANDS.c **** *
+   4:Generated_Source\PSoC4/nRF24_COMMANDS.c **** * Copyright (C) 2017 Carlos Diaz <carlos.santiago.diaz@gmail.com>
+   5:Generated_Source\PSoC4/nRF24_COMMANDS.c **** *
+   6:Generated_Source\PSoC4/nRF24_COMMANDS.c **** * Permission to use, copy, modify, and/or distribute this software for any
+   7:Generated_Source\PSoC4/nRF24_COMMANDS.c **** * purpose with or without fee is hereby granted, provided that the above
+   8:Generated_Source\PSoC4/nRF24_COMMANDS.c **** * copyright notice and this permission notice appear in all copies.
+   9:Generated_Source\PSoC4/nRF24_COMMANDS.c **** *
+  10:Generated_Source\PSoC4/nRF24_COMMANDS.c **** * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+  11:Generated_Source\PSoC4/nRF24_COMMANDS.c **** * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+  12:Generated_Source\PSoC4/nRF24_COMMANDS.c **** * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+  13:Generated_Source\PSoC4/nRF24_COMMANDS.c **** * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+  14:Generated_Source\PSoC4/nRF24_COMMANDS.c **** * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+  15:Generated_Source\PSoC4/nRF24_COMMANDS.c **** * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+  16:Generated_Source\PSoC4/nRF24_COMMANDS.c **** * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+  17:Generated_Source\PSoC4/nRF24_COMMANDS.c **** ****************************************************************************/
+  18:Generated_Source\PSoC4/nRF24_COMMANDS.c **** 
+  19:Generated_Source\PSoC4/nRF24_COMMANDS.c **** /**
+  20:Generated_Source\PSoC4/nRF24_COMMANDS.c **** * @file nRF24_COMMANDS.c
+  21:Generated_Source\PSoC4/nRF24_COMMANDS.c **** *
+  22:Generated_Source\PSoC4/nRF24_COMMANDS.c **** * @brief The nRF24 radio is controlled via commands, this file implement all
+  23:Generated_Source\PSoC4/nRF24_COMMANDS.c **** * the available commands.
+  24:Generated_Source\PSoC4/nRF24_COMMANDS.c **** */
+  25:Generated_Source\PSoC4/nRF24_COMMANDS.c **** 
+  26:Generated_Source\PSoC4/nRF24_COMMANDS.c **** #include "nRF24_CONFIG.h"
+  27:Generated_Source\PSoC4/nRF24_COMMANDS.c **** #include "nRF24_HAL.h"
+  28:Generated_Source\PSoC4/nRF24_COMMANDS.c **** #include "nRF24_COMMANDS.h"
+  29:Generated_Source\PSoC4/nRF24_COMMANDS.c **** #include "nRF24_DEFS.h"
+  30:Generated_Source\PSoC4/nRF24_COMMANDS.c **** 
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 2
+
+
+  31:Generated_Source\PSoC4/nRF24_COMMANDS.c **** /**
+  32:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * Send the specified command to the nRF24 radio.
+  33:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  *
+  34:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * @param const nrf_cmd cmd: Command to send to the nRF24 radio.
+  35:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  */
+  36:Generated_Source\PSoC4/nRF24_COMMANDS.c **** void nRF24_send_command(const nrf_cmd cmd)
+  37:Generated_Source\PSoC4/nRF24_COMMANDS.c **** {
+  28              		.loc 1 37 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 16
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 00B5     		push	{lr}
+  34              		.cfi_def_cfa_offset 4
+  35              		.cfi_offset 14, -4
+  36 0002 85B0     		sub	sp, sp, #20
+  37              		.cfi_def_cfa_offset 24
+  38 0004 6B46     		mov	r3, sp
+  39 0006 D871     		strb	r0, [r3, #7]
+  40 0008 0733     		adds	r3, r3, #7
+  38:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     uint8_t status = 0;
+  41              		.loc 1 38 0
+  42 000a 0F21     		movs	r1, #15
+  43 000c 6944     		add	r1, r1, sp
+  44 000e 0022     		movs	r2, #0
+  45 0010 0A70     		strb	r2, [r1]
+  39:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     
+  40:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     nRF24_spi_xfer(&cmd, &status, 1);
+  46              		.loc 1 40 0
+  47 0012 0132     		adds	r2, r2, #1
+  48 0014 1800     		movs	r0, r3
+  49              	.LVL1:
+  50 0016 FFF7FEFF 		bl	nRF24_spi_xfer
+  51              	.LVL2:
+  41:Generated_Source\PSoC4/nRF24_COMMANDS.c **** }
+  52              		.loc 1 41 0
+  53 001a 05B0     		add	sp, sp, #20
+  54              	.LVL3:
+  55              		@ sp needed
+  56 001c 00BD     		pop	{pc}
+  57              		.cfi_endproc
+  58              	.LFE0:
+  59              		.size	nRF24_send_command, .-nRF24_send_command
+  60 001e C046     		.section	.text.nRF24_reuse_tx_payload_cmd,"ax",%progbits
+  61              		.align	2
+  62              		.global	nRF24_reuse_tx_payload_cmd
+  63              		.code	16
+  64              		.thumb_func
+  65              		.type	nRF24_reuse_tx_payload_cmd, %function
+  66              	nRF24_reuse_tx_payload_cmd:
+  67              	.LFB1:
+  42:Generated_Source\PSoC4/nRF24_COMMANDS.c **** 
+  43:Generated_Source\PSoC4/nRF24_COMMANDS.c **** /**
+  44:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * @brief Reuse last transmitted payload.
+  45:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  *
+  46:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * Used for a PTX device.
+  47:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * Reuse last transmitted payload. TX payload reuse is active until
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 3
+
+
+  48:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * W_TX_PAYLOAD or FLUSH_TX is executed, TX payload reuse must not be
+  49:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * activated or deactivated during package transmission.
+  50:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  */
+  51:Generated_Source\PSoC4/nRF24_COMMANDS.c **** void nRF24_reuse_tx_payload_cmd(void)
+  52:Generated_Source\PSoC4/nRF24_COMMANDS.c **** {
+  68              		.loc 1 52 0
+  69              		.cfi_startproc
+  70              		@ args = 0, pretend = 0, frame = 0
+  71              		@ frame_needed = 0, uses_anonymous_args = 0
+  72 0000 10B5     		push	{r4, lr}
+  73              		.cfi_def_cfa_offset 8
+  74              		.cfi_offset 4, -8
+  75              		.cfi_offset 14, -4
+  53:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     nRF24_send_command(NRF_CMD_REUSE_TX_PL);
+  76              		.loc 1 53 0
+  77 0002 E320     		movs	r0, #227
+  78 0004 FFF7FEFF 		bl	nRF24_send_command
+  79              	.LVL4:
+  54:Generated_Source\PSoC4/nRF24_COMMANDS.c **** }
+  80              		.loc 1 54 0
+  81              		@ sp needed
+  82 0008 10BD     		pop	{r4, pc}
+  83              		.cfi_endproc
+  84              	.LFE1:
+  85              		.size	nRF24_reuse_tx_payload_cmd, .-nRF24_reuse_tx_payload_cmd
+  86 000a C046     		.section	.text.nRF24_flush_rx_cmd,"ax",%progbits
+  87              		.align	2
+  88              		.global	nRF24_flush_rx_cmd
+  89              		.code	16
+  90              		.thumb_func
+  91              		.type	nRF24_flush_rx_cmd, %function
+  92              	nRF24_flush_rx_cmd:
+  93              	.LFB2:
+  55:Generated_Source\PSoC4/nRF24_COMMANDS.c **** 
+  56:Generated_Source\PSoC4/nRF24_COMMANDS.c **** /**
+  57:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * @brief Flush RX FIFO.
+  58:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  *
+  59:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * Used in RX mode.
+  60:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * Flush RX FIFO. Should be not executed during transmission of acknowledge,
+  61:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * that is, acknowledge package will not be completed.
+  62:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  */
+  63:Generated_Source\PSoC4/nRF24_COMMANDS.c **** void nRF24_flush_rx_cmd(void)
+  64:Generated_Source\PSoC4/nRF24_COMMANDS.c **** {
+  94              		.loc 1 64 0
+  95              		.cfi_startproc
+  96              		@ args = 0, pretend = 0, frame = 0
+  97              		@ frame_needed = 0, uses_anonymous_args = 0
+  98 0000 10B5     		push	{r4, lr}
+  99              		.cfi_def_cfa_offset 8
+ 100              		.cfi_offset 4, -8
+ 101              		.cfi_offset 14, -4
+  65:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     nRF24_send_command(NRF_CMD_FLUSH_RX);
+ 102              		.loc 1 65 0
+ 103 0002 E220     		movs	r0, #226
+ 104 0004 FFF7FEFF 		bl	nRF24_send_command
+ 105              	.LVL5:
+  66:Generated_Source\PSoC4/nRF24_COMMANDS.c **** }
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 4
+
+
+ 106              		.loc 1 66 0
+ 107              		@ sp needed
+ 108 0008 10BD     		pop	{r4, pc}
+ 109              		.cfi_endproc
+ 110              	.LFE2:
+ 111              		.size	nRF24_flush_rx_cmd, .-nRF24_flush_rx_cmd
+ 112 000a C046     		.section	.text.nRF24_flush_tx_cmd,"ax",%progbits
+ 113              		.align	2
+ 114              		.global	nRF24_flush_tx_cmd
+ 115              		.code	16
+ 116              		.thumb_func
+ 117              		.type	nRF24_flush_tx_cmd, %function
+ 118              	nRF24_flush_tx_cmd:
+ 119              	.LFB3:
+  67:Generated_Source\PSoC4/nRF24_COMMANDS.c **** 
+  68:Generated_Source\PSoC4/nRF24_COMMANDS.c **** /**
+  69:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * Used in TX mode.
+  70:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * Flush TX FIFO.
+  71:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  */
+  72:Generated_Source\PSoC4/nRF24_COMMANDS.c **** void nRF24_flush_tx_cmd(void)
+  73:Generated_Source\PSoC4/nRF24_COMMANDS.c **** {
+ 120              		.loc 1 73 0
+ 121              		.cfi_startproc
+ 122              		@ args = 0, pretend = 0, frame = 0
+ 123              		@ frame_needed = 0, uses_anonymous_args = 0
+ 124 0000 10B5     		push	{r4, lr}
+ 125              		.cfi_def_cfa_offset 8
+ 126              		.cfi_offset 4, -8
+ 127              		.cfi_offset 14, -4
+  74:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     nRF24_send_command(NRF_CMD_FLUSH_TX);
+ 128              		.loc 1 74 0
+ 129 0002 E120     		movs	r0, #225
+ 130 0004 FFF7FEFF 		bl	nRF24_send_command
+ 131              	.LVL6:
+  75:Generated_Source\PSoC4/nRF24_COMMANDS.c **** }
+ 132              		.loc 1 75 0
+ 133              		@ sp needed
+ 134 0008 10BD     		pop	{r4, pc}
+ 135              		.cfi_endproc
+ 136              	.LFE3:
+ 137              		.size	nRF24_flush_tx_cmd, .-nRF24_flush_tx_cmd
+ 138 000a C046     		.section	.text.nRF24_read_rx_payload_cmd,"ax",%progbits
+ 139              		.align	2
+ 140              		.global	nRF24_read_rx_payload_cmd
+ 141              		.code	16
+ 142              		.thumb_func
+ 143              		.type	nRF24_read_rx_payload_cmd, %function
+ 144              	nRF24_read_rx_payload_cmd:
+ 145              	.LFB4:
+  76:Generated_Source\PSoC4/nRF24_COMMANDS.c **** 
+  77:Generated_Source\PSoC4/nRF24_COMMANDS.c **** /**
+  78:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * Used in RX mode.
+  79:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * Read RX payload: 1 - 32 bytes. A read operation always starts at byte 0.
+  80:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * Payload is deleted from FIFO after it is read.
+  81:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  *
+  82:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * @param data: Data to be read.
+  83:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * @param data_size: Bytes of data to be read (max 32).
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 5
+
+
+  84:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  */
+  85:Generated_Source\PSoC4/nRF24_COMMANDS.c **** void nRF24_read_rx_payload_cmd(uint8_t *data, const size_t data_size)
+  86:Generated_Source\PSoC4/nRF24_COMMANDS.c **** {
+ 146              		.loc 1 86 0
+ 147              		.cfi_startproc
+ 148              		@ args = 0, pretend = 0, frame = 0
+ 149              		@ frame_needed = 1, uses_anonymous_args = 0
+ 150              	.LVL7:
+ 151 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 152              		.cfi_def_cfa_offset 24
+ 153              		.cfi_offset 3, -24
+ 154              		.cfi_offset 4, -20
+ 155              		.cfi_offset 5, -16
+ 156              		.cfi_offset 6, -12
+ 157              		.cfi_offset 7, -8
+ 158              		.cfi_offset 14, -4
+ 159 0002 00AF     		add	r7, sp, #0
+ 160              		.cfi_def_cfa_register 7
+ 161 0004 0400     		movs	r4, r0
+ 162 0006 0E00     		movs	r6, r1
+  87:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     uint8_t nrf_data_out[data_size + 1];
+ 163              		.loc 1 87 0
+ 164 0008 4A1C     		adds	r2, r1, #1
+ 165 000a 0B00     		movs	r3, r1
+ 166 000c 0833     		adds	r3, r3, #8
+ 167 000e DB08     		lsrs	r3, r3, #3
+ 168 0010 DB00     		lsls	r3, r3, #3
+ 169 0012 6946     		mov	r1, sp
+ 170              	.LVL8:
+ 171 0014 C91A     		subs	r1, r1, r3
+ 172 0016 8D46     		mov	sp, r1
+ 173 0018 6D46     		mov	r5, sp
+ 174              	.LVL9:
+  88:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     // the nrf_data_in array is to keep the spi sending dummy bytes so the
+  89:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     // radio can send us the payload, there's no need to set the array to
+  90:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     // any specific value, apart of the first element being the command
+  91:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     uint8_t nrf_data_in[data_size + 1];
+ 175              		.loc 1 91 0
+ 176 001a CB1A     		subs	r3, r1, r3
+ 177 001c 9D46     		mov	sp, r3
+ 178              	.LVL10:
+  92:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     
+  93:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     nrf_data_in[0] = NRF_CMD_R_RX_PAYLOAD;
+ 179              		.loc 1 93 0
+ 180 001e 6121     		movs	r1, #97
+ 181              	.LVL11:
+ 182 0020 1970     		strb	r1, [r3]
+  94:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     
+  95:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     nRF24_spi_xfer(nrf_data_in, nrf_data_out, sizeof(nrf_data_out));
+ 183              		.loc 1 95 0
+ 184 0022 2900     		movs	r1, r5
+ 185 0024 6846     		mov	r0, sp
+ 186              	.LVL12:
+ 187 0026 FFF7FEFF 		bl	nRF24_spi_xfer
+ 188              	.LVL13:
+  96:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     
+  97:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     memcpy(data, &nrf_data_out[1], data_size);
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 6
+
+
+ 189              		.loc 1 97 0
+ 190 002a 691C     		adds	r1, r5, #1
+ 191 002c 3200     		movs	r2, r6
+ 192 002e 2000     		movs	r0, r4
+ 193 0030 FFF7FEFF 		bl	memcpy
+ 194              	.LVL14:
+  98:Generated_Source\PSoC4/nRF24_COMMANDS.c **** }
+ 195              		.loc 1 98 0
+ 196 0034 BD46     		mov	sp, r7
+ 197              	.LVL15:
+ 198              		@ sp needed
+ 199              	.LVL16:
+ 200              	.LVL17:
+ 201              	.LVL18:
+ 202 0036 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 203              		.cfi_endproc
+ 204              	.LFE4:
+ 205              		.size	nRF24_read_rx_payload_cmd, .-nRF24_read_rx_payload_cmd
+ 206              		.section	.text.nRF24_write_tx_payload_cmd,"ax",%progbits
+ 207              		.align	2
+ 208              		.global	nRF24_write_tx_payload_cmd
+ 209              		.code	16
+ 210              		.thumb_func
+ 211              		.type	nRF24_write_tx_payload_cmd, %function
+ 212              	nRF24_write_tx_payload_cmd:
+ 213              	.LFB5:
+  99:Generated_Source\PSoC4/nRF24_COMMANDS.c **** 
+ 100:Generated_Source\PSoC4/nRF24_COMMANDS.c **** /**
+ 101:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * Write TX payload: 1 - 32 bytes.
+ 102:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * A write operation always starts at byte 0 used in TX payload.
+ 103:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  *
+ 104:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * @param const uint8_t* data: Data to be sent.
+ 105:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * @param const size_t size: Bytes of data to be sent (max 32).
+ 106:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  */
+ 107:Generated_Source\PSoC4/nRF24_COMMANDS.c **** void nRF24_write_tx_payload_cmd(const uint8_t *data, const size_t data_size)
+ 108:Generated_Source\PSoC4/nRF24_COMMANDS.c **** {
+ 214              		.loc 1 108 0
+ 215              		.cfi_startproc
+ 216              		@ args = 0, pretend = 0, frame = 0
+ 217              		@ frame_needed = 1, uses_anonymous_args = 0
+ 218              	.LVL19:
+ 219 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 220              		.cfi_def_cfa_offset 24
+ 221              		.cfi_offset 3, -24
+ 222              		.cfi_offset 4, -20
+ 223              		.cfi_offset 5, -16
+ 224              		.cfi_offset 6, -12
+ 225              		.cfi_offset 7, -8
+ 226              		.cfi_offset 14, -4
+ 227 0002 00AF     		add	r7, sp, #0
+ 228              		.cfi_def_cfa_register 7
+ 229 0004 0500     		movs	r5, r0
+ 230 0006 0A00     		movs	r2, r1
+ 109:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     uint8_t nrf_data_in[data_size + 1];
+ 231              		.loc 1 109 0
+ 232 0008 4E1C     		adds	r6, r1, #1
+ 233 000a 0B00     		movs	r3, r1
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 7
+
+
+ 234 000c 0833     		adds	r3, r3, #8
+ 235 000e DB08     		lsrs	r3, r3, #3
+ 236 0010 DB00     		lsls	r3, r3, #3
+ 237 0012 6946     		mov	r1, sp
+ 238              	.LVL20:
+ 239 0014 C91A     		subs	r1, r1, r3
+ 240 0016 8D46     		mov	sp, r1
+ 241 0018 6C46     		mov	r4, sp
+ 242              	.LVL21:
+ 110:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     uint8_t nrf_data_out[data_size + 1];
+ 243              		.loc 1 110 0
+ 244 001a CB1A     		subs	r3, r1, r3
+ 245 001c 9D46     		mov	sp, r3
+ 246              	.LVL22:
+ 111:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     
+ 112:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     nrf_data_in[0] = NRF_CMD_W_TX_PAYLOAD;
+ 247              		.loc 1 112 0
+ 248 001e A023     		movs	r3, #160
+ 249              	.LVL23:
+ 250 0020 2370     		strb	r3, [r4]
+ 113:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     memcpy(&nrf_data_in[1], data, data_size);
+ 251              		.loc 1 113 0
+ 252 0022 601C     		adds	r0, r4, #1
+ 253              	.LVL24:
+ 254 0024 2900     		movs	r1, r5
+ 255              	.LVL25:
+ 256 0026 FFF7FEFF 		bl	memcpy
+ 257              	.LVL26:
+ 114:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     
+ 115:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     nRF24_spi_xfer(nrf_data_in, nrf_data_out, sizeof(nrf_data_in));
+ 258              		.loc 1 115 0
+ 259 002a 3200     		movs	r2, r6
+ 260 002c 6946     		mov	r1, sp
+ 261 002e 2000     		movs	r0, r4
+ 262 0030 FFF7FEFF 		bl	nRF24_spi_xfer
+ 263              	.LVL27:
+ 116:Generated_Source\PSoC4/nRF24_COMMANDS.c **** }
+ 264              		.loc 1 116 0
+ 265 0034 BD46     		mov	sp, r7
+ 266              	.LVL28:
+ 267              		@ sp needed
+ 268              	.LVL29:
+ 269              	.LVL30:
+ 270              	.LVL31:
+ 271 0036 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 272              		.cfi_endproc
+ 273              	.LFE5:
+ 274              		.size	nRF24_write_tx_payload_cmd, .-nRF24_write_tx_payload_cmd
+ 275              		.section	.text.nRF24_read_payload_width_cmd,"ax",%progbits
+ 276              		.align	2
+ 277              		.global	nRF24_read_payload_width_cmd
+ 278              		.code	16
+ 279              		.thumb_func
+ 280              		.type	nRF24_read_payload_width_cmd, %function
+ 281              	nRF24_read_payload_width_cmd:
+ 282              	.LFB6:
+ 117:Generated_Source\PSoC4/nRF24_COMMANDS.c **** 
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 8
+
+
+ 118:Generated_Source\PSoC4/nRF24_COMMANDS.c **** /**
+ 119:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * Read RX payload width for the top R_RX_PAYLOAD in the RX FIFO.
+ 120:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * Note: Flush RX FIFO if the read value is larger than 32 bytes.
+ 121:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  *
+ 122:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * @return uint8_t: width of the payload on the top of the RX FIFO.
+ 123:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  */
+ 124:Generated_Source\PSoC4/nRF24_COMMANDS.c **** uint8_t nRF24_read_payload_width_cmd(void)
+ 125:Generated_Source\PSoC4/nRF24_COMMANDS.c **** {
+ 283              		.loc 1 125 0
+ 284              		.cfi_startproc
+ 285              		@ args = 0, pretend = 0, frame = 8
+ 286              		@ frame_needed = 0, uses_anonymous_args = 0
+ 287 0000 00B5     		push	{lr}
+ 288              		.cfi_def_cfa_offset 4
+ 289              		.cfi_offset 14, -4
+ 290 0002 83B0     		sub	sp, sp, #12
+ 291              		.cfi_def_cfa_offset 16
+ 126:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     uint8_t nrf_data_in[2] = {
+ 292              		.loc 1 126 0
+ 293 0004 0222     		movs	r2, #2
+ 294 0006 0B49     		ldr	r1, .L9
+ 295 0008 01A8     		add	r0, sp, #4
+ 296 000a FFF7FEFF 		bl	memcpy
+ 297              	.LVL32:
+ 127:Generated_Source\PSoC4/nRF24_COMMANDS.c ****         NRF_CMD_R_RX_PL_WID, NRF_CMD_NOP
+ 128:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     };
+ 129:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     // nrf_data_out[0] = STATUS_REGISTER, nrf_data_out[1] = payload_width
+ 130:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     uint8_t nrf_data_out[2] = {0};
+ 298              		.loc 1 130 0
+ 299 000e 0023     		movs	r3, #0
+ 300 0010 6A46     		mov	r2, sp
+ 301 0012 1380     		strh	r3, [r2]
+ 131:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     
+ 132:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     nRF24_spi_xfer(nrf_data_in, nrf_data_out, sizeof(nrf_data_in));
+ 302              		.loc 1 132 0
+ 303 0014 0222     		movs	r2, #2
+ 304 0016 6946     		mov	r1, sp
+ 305 0018 01A8     		add	r0, sp, #4
+ 306 001a FFF7FEFF 		bl	nRF24_spi_xfer
+ 307              	.LVL33:
+ 133:Generated_Source\PSoC4/nRF24_COMMANDS.c **** 
+ 134:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     // If width is greater than 32 then is garbage, we must flush the RX FIFO
+ 135:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     if (32 < nrf_data_out[1]) {
+ 308              		.loc 1 135 0
+ 309 001e 6B46     		mov	r3, sp
+ 310 0020 5B78     		ldrb	r3, [r3, #1]
+ 311 0022 202B     		cmp	r3, #32
+ 312 0024 01D9     		bls	.L8
+ 136:Generated_Source\PSoC4/nRF24_COMMANDS.c ****         nRF24_flush_rx_cmd();
+ 313              		.loc 1 136 0
+ 314 0026 FFF7FEFF 		bl	nRF24_flush_rx_cmd
+ 315              	.LVL34:
+ 316              	.L8:
+ 137:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     }
+ 138:Generated_Source\PSoC4/nRF24_COMMANDS.c **** 
+ 139:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     return nrf_data_out[1];
+ 317              		.loc 1 139 0
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 9
+
+
+ 318 002a 6B46     		mov	r3, sp
+ 319 002c 5878     		ldrb	r0, [r3, #1]
+ 140:Generated_Source\PSoC4/nRF24_COMMANDS.c **** }
+ 320              		.loc 1 140 0
+ 321 002e 03B0     		add	sp, sp, #12
+ 322              		@ sp needed
+ 323 0030 00BD     		pop	{pc}
+ 324              	.L10:
+ 325 0032 C046     		.align	2
+ 326              	.L9:
+ 327 0034 00000000 		.word	.LANCHOR0
+ 328              		.cfi_endproc
+ 329              	.LFE6:
+ 330              		.size	nRF24_read_payload_width_cmd, .-nRF24_read_payload_width_cmd
+ 331              		.section	.text.nRF24_write_ack_payload_cmd,"ax",%progbits
+ 332              		.align	2
+ 333              		.global	nRF24_write_ack_payload_cmd
+ 334              		.code	16
+ 335              		.thumb_func
+ 336              		.type	nRF24_write_ack_payload_cmd, %function
+ 337              	nRF24_write_ack_payload_cmd:
+ 338              	.LFB7:
+ 141:Generated_Source\PSoC4/nRF24_COMMANDS.c **** 
+ 142:Generated_Source\PSoC4/nRF24_COMMANDS.c **** /**
+ 143:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * @brief Write Payload to be transmitted together with ACK packet.
+ 144:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  *
+ 145:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * Used in RX mode.
+ 146:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * Write Payload to be transmitted together with ACK packet on PIPE PPP
+ 147:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * (PPP valid in the range from 000 to 101). Maximum three ACK packet
+ 148:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * payloads can be pending. Payloads with same PPP are handled using
+ 149:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * first in - first out principle.
+ 150:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * Write payload: 1 - 32 bytes.
+ 151:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * A write operation always starts at byte 0.
+ 152:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  *
+ 153:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * @param const nrf_pipe pipe: Pipe to use.
+ 154:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * @param const uint8_t* data: Data to be sent.
+ 155:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * @param const size_t size: Bytes of data to be sent (max 32)
+ 156:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  */
+ 157:Generated_Source\PSoC4/nRF24_COMMANDS.c **** void nRF24_write_ack_payload_cmd(const nrf_pipe pipe, const uint8_t* data,
+ 158:Generated_Source\PSoC4/nRF24_COMMANDS.c ****                                         const size_t data_size)
+ 159:Generated_Source\PSoC4/nRF24_COMMANDS.c **** {
+ 339              		.loc 1 159 0
+ 340              		.cfi_startproc
+ 341              		@ args = 0, pretend = 0, frame = 0
+ 342              		@ frame_needed = 1, uses_anonymous_args = 0
+ 343              	.LVL35:
+ 344 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 345              		.cfi_def_cfa_offset 24
+ 346              		.cfi_offset 3, -24
+ 347              		.cfi_offset 4, -20
+ 348              		.cfi_offset 5, -16
+ 349              		.cfi_offset 6, -12
+ 350              		.cfi_offset 7, -8
+ 351              		.cfi_offset 14, -4
+ 352 0002 00AF     		add	r7, sp, #0
+ 353              		.cfi_def_cfa_register 7
+ 160:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     uint8_t nrf_data_in[data_size + 1];
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 10
+
+
+ 354              		.loc 1 160 0
+ 355 0004 551C     		adds	r5, r2, #1
+ 356 0006 1300     		movs	r3, r2
+ 357 0008 0833     		adds	r3, r3, #8
+ 358 000a DB08     		lsrs	r3, r3, #3
+ 359 000c DB00     		lsls	r3, r3, #3
+ 360 000e 6C46     		mov	r4, sp
+ 361 0010 E41A     		subs	r4, r4, r3
+ 362 0012 A546     		mov	sp, r4
+ 363              	.LVL36:
+ 161:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     uint8_t nrf_data_out[data_size + 1];
+ 364              		.loc 1 161 0
+ 365 0014 6E46     		mov	r6, sp
+ 366 0016 F31A     		subs	r3, r6, r3
+ 367 0018 9D46     		mov	sp, r3
+ 368              	.LVL37:
+ 162:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     
+ 163:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     nrf_data_in[0] = NRF_CMD_W_ACK_PAYLOAD | pipe;
+ 369              		.loc 1 163 0
+ 370 001a 5823     		movs	r3, #88
+ 371              	.LVL38:
+ 372 001c 5B42     		rsbs	r3, r3, #0
+ 373 001e 1843     		orrs	r0, r3
+ 374              	.LVL39:
+ 375 0020 2070     		strb	r0, [r4]
+ 164:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     memcpy(&nrf_data_in[1], data, data_size);
+ 376              		.loc 1 164 0
+ 377 0022 601C     		adds	r0, r4, #1
+ 378 0024 FFF7FEFF 		bl	memcpy
+ 379              	.LVL40:
+ 165:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     
+ 166:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     nRF24_spi_xfer(nrf_data_in, nrf_data_out, sizeof(nrf_data_in));
+ 380              		.loc 1 166 0
+ 381 0028 2A00     		movs	r2, r5
+ 382 002a 6946     		mov	r1, sp
+ 383 002c 2000     		movs	r0, r4
+ 384 002e FFF7FEFF 		bl	nRF24_spi_xfer
+ 385              	.LVL41:
+ 167:Generated_Source\PSoC4/nRF24_COMMANDS.c **** }
+ 386              		.loc 1 167 0
+ 387 0032 BD46     		mov	sp, r7
+ 388              	.LVL42:
+ 389              		@ sp needed
+ 390              	.LVL43:
+ 391              	.LVL44:
+ 392              	.LVL45:
+ 393 0034 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 394              		.cfi_endproc
+ 395              	.LFE7:
+ 396              		.size	nRF24_write_ack_payload_cmd, .-nRF24_write_ack_payload_cmd
+ 397 0036 C046     		.section	.text.nRF24_no_ack_payload_cmd,"ax",%progbits
+ 398              		.align	2
+ 399              		.global	nRF24_no_ack_payload_cmd
+ 400              		.code	16
+ 401              		.thumb_func
+ 402              		.type	nRF24_no_ack_payload_cmd, %function
+ 403              	nRF24_no_ack_payload_cmd:
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 11
+
+
+ 404              	.LFB8:
+ 168:Generated_Source\PSoC4/nRF24_COMMANDS.c **** 
+ 169:Generated_Source\PSoC4/nRF24_COMMANDS.c **** /**
+ 170:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * Used in TX mode.
+ 171:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * Disable AUTOACK on this packet.
+ 172:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  *
+ 173:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * @param const uint8_t* data: Data to be sent.
+ 174:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * @param const size_t size: Bytes of data to be sent (max 32).
+ 175:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  */
+ 176:Generated_Source\PSoC4/nRF24_COMMANDS.c **** void nRF24_no_ack_payload_cmd(const uint8_t* data, const size_t data_size)
+ 177:Generated_Source\PSoC4/nRF24_COMMANDS.c **** {
+ 405              		.loc 1 177 0
+ 406              		.cfi_startproc
+ 407              		@ args = 0, pretend = 0, frame = 0
+ 408              		@ frame_needed = 1, uses_anonymous_args = 0
+ 409              	.LVL46:
+ 410 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 411              		.cfi_def_cfa_offset 24
+ 412              		.cfi_offset 3, -24
+ 413              		.cfi_offset 4, -20
+ 414              		.cfi_offset 5, -16
+ 415              		.cfi_offset 6, -12
+ 416              		.cfi_offset 7, -8
+ 417              		.cfi_offset 14, -4
+ 418 0002 00AF     		add	r7, sp, #0
+ 419              		.cfi_def_cfa_register 7
+ 420 0004 0500     		movs	r5, r0
+ 421 0006 0A00     		movs	r2, r1
+ 178:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     uint8_t nrf_data_in[data_size + 1];
+ 422              		.loc 1 178 0
+ 423 0008 4E1C     		adds	r6, r1, #1
+ 424 000a 0B00     		movs	r3, r1
+ 425 000c 0833     		adds	r3, r3, #8
+ 426 000e DB08     		lsrs	r3, r3, #3
+ 427 0010 DB00     		lsls	r3, r3, #3
+ 428 0012 6946     		mov	r1, sp
+ 429              	.LVL47:
+ 430 0014 C91A     		subs	r1, r1, r3
+ 431 0016 8D46     		mov	sp, r1
+ 432 0018 6C46     		mov	r4, sp
+ 433              	.LVL48:
+ 179:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     uint8_t nrf_data_out[data_size + 1];
+ 434              		.loc 1 179 0
+ 435 001a CB1A     		subs	r3, r1, r3
+ 436 001c 9D46     		mov	sp, r3
+ 437              	.LVL49:
+ 180:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     
+ 181:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     nrf_data_in[0] = NRF_CMD_W_TX_PAYLOAD_NOACK;
+ 438              		.loc 1 181 0
+ 439 001e B023     		movs	r3, #176
+ 440              	.LVL50:
+ 441 0020 2370     		strb	r3, [r4]
+ 182:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     memcpy(&nrf_data_in[1], data, data_size);
+ 442              		.loc 1 182 0
+ 443 0022 601C     		adds	r0, r4, #1
+ 444              	.LVL51:
+ 445 0024 2900     		movs	r1, r5
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 12
+
+
+ 446              	.LVL52:
+ 447 0026 FFF7FEFF 		bl	memcpy
+ 448              	.LVL53:
+ 183:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     
+ 184:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     nRF24_spi_xfer(nrf_data_in, nrf_data_out, sizeof(nrf_data_in));
+ 449              		.loc 1 184 0
+ 450 002a 3200     		movs	r2, r6
+ 451 002c 6946     		mov	r1, sp
+ 452 002e 2000     		movs	r0, r4
+ 453 0030 FFF7FEFF 		bl	nRF24_spi_xfer
+ 454              	.LVL54:
+ 185:Generated_Source\PSoC4/nRF24_COMMANDS.c **** }
+ 455              		.loc 1 185 0
+ 456 0034 BD46     		mov	sp, r7
+ 457              	.LVL55:
+ 458              		@ sp needed
+ 459              	.LVL56:
+ 460              	.LVL57:
+ 461              	.LVL58:
+ 462 0036 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 463              		.cfi_endproc
+ 464              	.LFE8:
+ 465              		.size	nRF24_no_ack_payload_cmd, .-nRF24_no_ack_payload_cmd
+ 466              		.section	.text.nRF24_nop_cmd,"ax",%progbits
+ 467              		.align	2
+ 468              		.global	nRF24_nop_cmd
+ 469              		.code	16
+ 470              		.thumb_func
+ 471              		.type	nRF24_nop_cmd, %function
+ 472              	nRF24_nop_cmd:
+ 473              	.LFB9:
+ 186:Generated_Source\PSoC4/nRF24_COMMANDS.c **** 
+ 187:Generated_Source\PSoC4/nRF24_COMMANDS.c **** /**
+ 188:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * NOP (No OPeration) Command. Useful to read the STATUS register.
+ 189:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  *
+ 190:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  * @return uint8_t: STATUS register.
+ 191:Generated_Source\PSoC4/nRF24_COMMANDS.c ****  */
+ 192:Generated_Source\PSoC4/nRF24_COMMANDS.c **** uint8_t nRF24_nop_cmd(void)
+ 193:Generated_Source\PSoC4/nRF24_COMMANDS.c **** {
+ 474              		.loc 1 193 0
+ 475              		.cfi_startproc
+ 476              		@ args = 0, pretend = 0, frame = 8
+ 477              		@ frame_needed = 0, uses_anonymous_args = 0
+ 478 0000 10B5     		push	{r4, lr}
+ 479              		.cfi_def_cfa_offset 8
+ 480              		.cfi_offset 4, -8
+ 481              		.cfi_offset 14, -4
+ 482 0002 82B0     		sub	sp, sp, #8
+ 483              		.cfi_def_cfa_offset 16
+ 194:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     uint8_t dummy = 0xFF;
+ 484              		.loc 1 194 0
+ 485 0004 6B46     		mov	r3, sp
+ 486 0006 D81D     		adds	r0, r3, #7
+ 487 0008 FF23     		movs	r3, #255
+ 488 000a 0370     		strb	r3, [r0]
+ 195:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     uint8_t status = 0;
+ 489              		.loc 1 195 0
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 13
+
+
+ 490 000c 6B46     		mov	r3, sp
+ 491 000e 9C1D     		adds	r4, r3, #6
+ 492 0010 0023     		movs	r3, #0
+ 493 0012 2370     		strb	r3, [r4]
+ 196:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     
+ 197:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     nRF24_spi_xfer(&dummy, &status, 1);
+ 494              		.loc 1 197 0
+ 495 0014 0122     		movs	r2, #1
+ 496 0016 2100     		movs	r1, r4
+ 497 0018 FFF7FEFF 		bl	nRF24_spi_xfer
+ 498              	.LVL59:
+ 198:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     
+ 199:Generated_Source\PSoC4/nRF24_COMMANDS.c ****     return status;
+ 499              		.loc 1 199 0
+ 500 001c 2078     		ldrb	r0, [r4]
+ 200:Generated_Source\PSoC4/nRF24_COMMANDS.c **** }
+ 501              		.loc 1 200 0
+ 502 001e 02B0     		add	sp, sp, #8
+ 503              		@ sp needed
+ 504 0020 10BD     		pop	{r4, pc}
+ 505              		.cfi_endproc
+ 506              	.LFE9:
+ 507              		.size	nRF24_nop_cmd, .-nRF24_nop_cmd
+ 508 0022 C046     		.section	.rodata
+ 509              		.align	2
+ 510              		.set	.LANCHOR0,. + 0
+ 511              	.LC0:
+ 512 0000 60       		.byte	96
+ 513 0001 FF       		.byte	-1
+ 514              		.text
+ 515              	.Letext0:
+ 516              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 517              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 518              		.file 4 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 519              		.file 5 "Generated_Source\\PSoC4\\nRF24_DEFS.h"
+ 520              		.file 6 "Generated_Source\\PSoC4\\nRF24_HAL.h"
+ 521              		.section	.debug_info,"",%progbits
+ 522              	.Ldebug_info0:
+ 523 0000 F7050000 		.4byte	0x5f7
+ 524 0004 0400     		.2byte	0x4
+ 525 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 526 000a 04       		.byte	0x4
+ 527 000b 01       		.uleb128 0x1
+ 528 000c 8A020000 		.4byte	.LASF53
+ 529 0010 0C       		.byte	0xc
+ 530 0011 E5010000 		.4byte	.LASF54
+ 531 0015 2C000000 		.4byte	.LASF55
+ 532 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 533 001d 00000000 		.4byte	0
+ 534 0021 00000000 		.4byte	.Ldebug_line0
+ 535 0025 02       		.uleb128 0x2
+ 536 0026 01       		.byte	0x1
+ 537 0027 06       		.byte	0x6
+ 538 0028 F8030000 		.4byte	.LASF0
+ 539 002c 03       		.uleb128 0x3
+ 540 002d 00000000 		.4byte	.LASF9
+ 541 0031 02       		.byte	0x2
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 14
+
+
+ 542 0032 1D       		.byte	0x1d
+ 543 0033 37000000 		.4byte	0x37
+ 544 0037 02       		.uleb128 0x2
+ 545 0038 01       		.byte	0x1
+ 546 0039 08       		.byte	0x8
+ 547 003a FB000000 		.4byte	.LASF1
+ 548 003e 02       		.uleb128 0x2
+ 549 003f 02       		.byte	0x2
+ 550 0040 05       		.byte	0x5
+ 551 0041 9D030000 		.4byte	.LASF2
+ 552 0045 02       		.uleb128 0x2
+ 553 0046 02       		.byte	0x2
+ 554 0047 07       		.byte	0x7
+ 555 0048 A1000000 		.4byte	.LASF3
+ 556 004c 02       		.uleb128 0x2
+ 557 004d 04       		.byte	0x4
+ 558 004e 05       		.byte	0x5
+ 559 004f CF030000 		.4byte	.LASF4
+ 560 0053 02       		.uleb128 0x2
+ 561 0054 04       		.byte	0x4
+ 562 0055 07       		.byte	0x7
+ 563 0056 8E010000 		.4byte	.LASF5
+ 564 005a 02       		.uleb128 0x2
+ 565 005b 08       		.byte	0x8
+ 566 005c 05       		.byte	0x5
+ 567 005d 52030000 		.4byte	.LASF6
+ 568 0061 02       		.uleb128 0x2
+ 569 0062 08       		.byte	0x8
+ 570 0063 07       		.byte	0x7
+ 571 0064 3A020000 		.4byte	.LASF7
+ 572 0068 04       		.uleb128 0x4
+ 573 0069 04       		.byte	0x4
+ 574 006a 05       		.byte	0x5
+ 575 006b 696E7400 		.ascii	"int\000"
+ 576 006f 02       		.uleb128 0x2
+ 577 0070 04       		.byte	0x4
+ 578 0071 07       		.byte	0x7
+ 579 0072 12020000 		.4byte	.LASF8
+ 580 0076 03       		.uleb128 0x3
+ 581 0077 51020000 		.4byte	.LASF10
+ 582 007b 03       		.byte	0x3
+ 583 007c 18       		.byte	0x18
+ 584 007d 2C000000 		.4byte	0x2c
+ 585 0081 02       		.uleb128 0x2
+ 586 0082 04       		.byte	0x4
+ 587 0083 04       		.byte	0x4
+ 588 0084 DD000000 		.4byte	.LASF11
+ 589 0088 02       		.uleb128 0x2
+ 590 0089 08       		.byte	0x8
+ 591 008a 04       		.byte	0x4
+ 592 008b 04040000 		.4byte	.LASF12
+ 593 008f 02       		.uleb128 0x2
+ 594 0090 01       		.byte	0x1
+ 595 0091 08       		.byte	0x8
+ 596 0092 7E030000 		.4byte	.LASF13
+ 597 0096 03       		.uleb128 0x3
+ 598 0097 0A000000 		.4byte	.LASF14
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 15
+
+
+ 599 009b 04       		.byte	0x4
+ 600 009c D8       		.byte	0xd8
+ 601 009d 6F000000 		.4byte	0x6f
+ 602 00a1 02       		.uleb128 0x2
+ 603 00a2 08       		.byte	0x8
+ 604 00a3 04       		.byte	0x4
+ 605 00a4 EC030000 		.4byte	.LASF15
+ 606 00a8 02       		.uleb128 0x2
+ 607 00a9 04       		.byte	0x4
+ 608 00aa 07       		.byte	0x7
+ 609 00ab 60030000 		.4byte	.LASF16
+ 610 00af 05       		.uleb128 0x5
+ 611 00b0 01       		.byte	0x1
+ 612 00b1 37000000 		.4byte	0x37
+ 613 00b5 05       		.byte	0x5
+ 614 00b6 3C       		.byte	0x3c
+ 615 00b7 FE000000 		.4byte	0xfe
+ 616 00bb 06       		.uleb128 0x6
+ 617 00bc 83030000 		.4byte	.LASF17
+ 618 00c0 00       		.byte	0
+ 619 00c1 06       		.uleb128 0x6
+ 620 00c2 73000000 		.4byte	.LASF18
+ 621 00c6 20       		.byte	0x20
+ 622 00c7 06       		.uleb128 0x6
+ 623 00c8 A7030000 		.4byte	.LASF19
+ 624 00cc 61       		.byte	0x61
+ 625 00cd 06       		.uleb128 0x6
+ 626 00ce 69030000 		.4byte	.LASF20
+ 627 00d2 A0       		.byte	0xa0
+ 628 00d3 06       		.uleb128 0x6
+ 629 00d4 25030000 		.4byte	.LASF21
+ 630 00d8 E1       		.byte	0xe1
+ 631 00d9 06       		.uleb128 0x6
+ 632 00da 65020000 		.4byte	.LASF22
+ 633 00de E2       		.byte	0xe2
+ 634 00df 06       		.uleb128 0x6
+ 635 00e0 D8030000 		.4byte	.LASF23
+ 636 00e4 E3       		.byte	0xe3
+ 637 00e5 06       		.uleb128 0x6
+ 638 00e6 76020000 		.4byte	.LASF24
+ 639 00ea 60       		.byte	0x60
+ 640 00eb 06       		.uleb128 0x6
+ 641 00ec B9010000 		.4byte	.LASF25
+ 642 00f0 A8       		.byte	0xa8
+ 643 00f1 06       		.uleb128 0x6
+ 644 00f2 1F020000 		.4byte	.LASF26
+ 645 00f6 B0       		.byte	0xb0
+ 646 00f7 06       		.uleb128 0x6
+ 647 00f8 82010000 		.4byte	.LASF27
+ 648 00fc FF       		.byte	0xff
+ 649 00fd 00       		.byte	0
+ 650 00fe 03       		.uleb128 0x3
+ 651 00ff CF010000 		.4byte	.LASF28
+ 652 0103 05       		.byte	0x5
+ 653 0104 48       		.byte	0x48
+ 654 0105 AF000000 		.4byte	0xaf
+ 655 0109 05       		.uleb128 0x5
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 16
+
+
+ 656 010a 01       		.byte	0x1
+ 657 010b 37000000 		.4byte	0x37
+ 658 010f 05       		.byte	0x5
+ 659 0110 4B       		.byte	0x4b
+ 660 0111 3A010000 		.4byte	0x13a
+ 661 0115 06       		.uleb128 0x6
+ 662 0116 4A010000 		.4byte	.LASF29
+ 663 011a 00       		.byte	0
+ 664 011b 06       		.uleb128 0x6
+ 665 011c 54010000 		.4byte	.LASF30
+ 666 0120 01       		.byte	0x1
+ 667 0121 06       		.uleb128 0x6
+ 668 0122 5E010000 		.4byte	.LASF31
+ 669 0126 02       		.byte	0x2
+ 670 0127 06       		.uleb128 0x6
+ 671 0128 40010000 		.4byte	.LASF32
+ 672 012c 03       		.byte	0x3
+ 673 012d 06       		.uleb128 0x6
+ 674 012e 6E010000 		.4byte	.LASF33
+ 675 0132 04       		.byte	0x4
+ 676 0133 06       		.uleb128 0x6
+ 677 0134 78010000 		.4byte	.LASF34
+ 678 0138 05       		.byte	0x5
+ 679 0139 00       		.byte	0
+ 680 013a 03       		.uleb128 0x3
+ 681 013b D4000000 		.4byte	.LASF35
+ 682 013f 05       		.byte	0x5
+ 683 0140 52       		.byte	0x52
+ 684 0141 09010000 		.4byte	0x109
+ 685 0145 07       		.uleb128 0x7
+ 686 0146 BC030000 		.4byte	.LASF36
+ 687 014a 01       		.byte	0x1
+ 688 014b 24       		.byte	0x24
+ 689 014c 00000000 		.4byte	.LFB0
+ 690 0150 1E000000 		.4byte	.LFE0-.LFB0
+ 691 0154 01       		.uleb128 0x1
+ 692 0155 9C       		.byte	0x9c
+ 693 0156 93010000 		.4byte	0x193
+ 694 015a 08       		.uleb128 0x8
+ 695 015b 636D6400 		.ascii	"cmd\000"
+ 696 015f 01       		.byte	0x1
+ 697 0160 24       		.byte	0x24
+ 698 0161 93010000 		.4byte	0x193
+ 699 0165 00000000 		.4byte	.LLST0
+ 700 0169 09       		.uleb128 0x9
+ 701 016a CD000000 		.4byte	.LASF43
+ 702 016e 01       		.byte	0x1
+ 703 016f 26       		.byte	0x26
+ 704 0170 76000000 		.4byte	0x76
+ 705 0174 02       		.uleb128 0x2
+ 706 0175 91       		.byte	0x91
+ 707 0176 77       		.sleb128 -9
+ 708 0177 0A       		.uleb128 0xa
+ 709 0178 1A000000 		.4byte	.LVL2
+ 710 017c E6050000 		.4byte	0x5e6
+ 711 0180 0B       		.uleb128 0xb
+ 712 0181 01       		.uleb128 0x1
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 17
+
+
+ 713 0182 50       		.byte	0x50
+ 714 0183 02       		.uleb128 0x2
+ 715 0184 7D       		.byte	0x7d
+ 716 0185 07       		.sleb128 7
+ 717 0186 0B       		.uleb128 0xb
+ 718 0187 01       		.uleb128 0x1
+ 719 0188 51       		.byte	0x51
+ 720 0189 02       		.uleb128 0x2
+ 721 018a 91       		.byte	0x91
+ 722 018b 77       		.sleb128 -9
+ 723 018c 0B       		.uleb128 0xb
+ 724 018d 01       		.uleb128 0x1
+ 725 018e 52       		.byte	0x52
+ 726 018f 01       		.uleb128 0x1
+ 727 0190 31       		.byte	0x31
+ 728 0191 00       		.byte	0
+ 729 0192 00       		.byte	0
+ 730 0193 0C       		.uleb128 0xc
+ 731 0194 FE000000 		.4byte	0xfe
+ 732 0198 07       		.uleb128 0x7
+ 733 0199 86000000 		.4byte	.LASF37
+ 734 019d 01       		.byte	0x1
+ 735 019e 33       		.byte	0x33
+ 736 019f 00000000 		.4byte	.LFB1
+ 737 01a3 0A000000 		.4byte	.LFE1-.LFB1
+ 738 01a7 01       		.uleb128 0x1
+ 739 01a8 9C       		.byte	0x9c
+ 740 01a9 BE010000 		.4byte	0x1be
+ 741 01ad 0A       		.uleb128 0xa
+ 742 01ae 08000000 		.4byte	.LVL4
+ 743 01b2 45010000 		.4byte	0x145
+ 744 01b6 0B       		.uleb128 0xb
+ 745 01b7 01       		.uleb128 0x1
+ 746 01b8 50       		.byte	0x50
+ 747 01b9 02       		.uleb128 0x2
+ 748 01ba 09       		.byte	0x9
+ 749 01bb E3       		.byte	0xe3
+ 750 01bc 00       		.byte	0
+ 751 01bd 00       		.byte	0
+ 752 01be 07       		.uleb128 0x7
+ 753 01bf E8000000 		.4byte	.LASF38
+ 754 01c3 01       		.byte	0x1
+ 755 01c4 3F       		.byte	0x3f
+ 756 01c5 00000000 		.4byte	.LFB2
+ 757 01c9 0A000000 		.4byte	.LFE2-.LFB2
+ 758 01cd 01       		.uleb128 0x1
+ 759 01ce 9C       		.byte	0x9c
+ 760 01cf E4010000 		.4byte	0x1e4
+ 761 01d3 0A       		.uleb128 0xa
+ 762 01d4 08000000 		.4byte	.LVL5
+ 763 01d8 45010000 		.4byte	0x145
+ 764 01dc 0B       		.uleb128 0xb
+ 765 01dd 01       		.uleb128 0x1
+ 766 01de 50       		.byte	0x50
+ 767 01df 02       		.uleb128 0x2
+ 768 01e0 09       		.byte	0x9
+ 769 01e1 E2       		.byte	0xe2
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 18
+
+
+ 770 01e2 00       		.byte	0
+ 771 01e3 00       		.byte	0
+ 772 01e4 07       		.uleb128 0x7
+ 773 01e5 0B040000 		.4byte	.LASF39
+ 774 01e9 01       		.byte	0x1
+ 775 01ea 48       		.byte	0x48
+ 776 01eb 00000000 		.4byte	.LFB3
+ 777 01ef 0A000000 		.4byte	.LFE3-.LFB3
+ 778 01f3 01       		.uleb128 0x1
+ 779 01f4 9C       		.byte	0x9c
+ 780 01f5 0A020000 		.4byte	0x20a
+ 781 01f9 0A       		.uleb128 0xa
+ 782 01fa 08000000 		.4byte	.LVL6
+ 783 01fe 45010000 		.4byte	0x145
+ 784 0202 0B       		.uleb128 0xb
+ 785 0203 01       		.uleb128 0x1
+ 786 0204 50       		.byte	0x50
+ 787 0205 02       		.uleb128 0x2
+ 788 0206 09       		.byte	0x9
+ 789 0207 E1       		.byte	0xe1
+ 790 0208 00       		.byte	0
+ 791 0209 00       		.byte	0
+ 792 020a 07       		.uleb128 0x7
+ 793 020b 26010000 		.4byte	.LASF40
+ 794 020f 01       		.byte	0x1
+ 795 0210 55       		.byte	0x55
+ 796 0211 00000000 		.4byte	.LFB4
+ 797 0215 38000000 		.4byte	.LFE4-.LFB4
+ 798 0219 01       		.uleb128 0x1
+ 799 021a 9C       		.byte	0x9c
+ 800 021b 98020000 		.4byte	0x298
+ 801 021f 0D       		.uleb128 0xd
+ 802 0220 E3000000 		.4byte	.LASF41
+ 803 0224 01       		.byte	0x1
+ 804 0225 55       		.byte	0x55
+ 805 0226 98020000 		.4byte	0x298
+ 806 022a 37000000 		.4byte	.LLST1
+ 807 022e 0D       		.uleb128 0xd
+ 808 022f B4000000 		.4byte	.LASF42
+ 809 0233 01       		.byte	0x1
+ 810 0234 55       		.byte	0x55
+ 811 0235 9E020000 		.4byte	0x29e
+ 812 0239 63000000 		.4byte	.LLST2
+ 813 023d 0E       		.uleb128 0xe
+ 814 023e 18030000 		.4byte	.LASF44
+ 815 0242 01       		.byte	0x1
+ 816 0243 57       		.byte	0x57
+ 817 0244 A3020000 		.4byte	0x2a3
+ 818 0248 8F000000 		.4byte	.LLST3
+ 819 024c 0E       		.uleb128 0xe
+ 820 024d 59020000 		.4byte	.LASF45
+ 821 0251 01       		.byte	0x1
+ 822 0252 5B       		.byte	0x5b
+ 823 0253 B6020000 		.4byte	0x2b6
+ 824 0257 AF000000 		.4byte	.LLST4
+ 825 025b 0F       		.uleb128 0xf
+ 826 025c 2A000000 		.4byte	.LVL13
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 19
+
+
+ 827 0260 E6050000 		.4byte	0x5e6
+ 828 0264 7B020000 		.4byte	0x27b
+ 829 0268 0B       		.uleb128 0xb
+ 830 0269 01       		.uleb128 0x1
+ 831 026a 50       		.byte	0x50
+ 832 026b 02       		.uleb128 0x2
+ 833 026c 7D       		.byte	0x7d
+ 834 026d 00       		.sleb128 0
+ 835 026e 0B       		.uleb128 0xb
+ 836 026f 01       		.uleb128 0x1
+ 837 0270 51       		.byte	0x51
+ 838 0271 02       		.uleb128 0x2
+ 839 0272 75       		.byte	0x75
+ 840 0273 00       		.sleb128 0
+ 841 0274 0B       		.uleb128 0xb
+ 842 0275 01       		.uleb128 0x1
+ 843 0276 52       		.byte	0x52
+ 844 0277 02       		.uleb128 0x2
+ 845 0278 76       		.byte	0x76
+ 846 0279 01       		.sleb128 1
+ 847 027a 00       		.byte	0
+ 848 027b 0A       		.uleb128 0xa
+ 849 027c 34000000 		.4byte	.LVL14
+ 850 0280 F1050000 		.4byte	0x5f1
+ 851 0284 0B       		.uleb128 0xb
+ 852 0285 01       		.uleb128 0x1
+ 853 0286 50       		.byte	0x50
+ 854 0287 02       		.uleb128 0x2
+ 855 0288 74       		.byte	0x74
+ 856 0289 00       		.sleb128 0
+ 857 028a 0B       		.uleb128 0xb
+ 858 028b 01       		.uleb128 0x1
+ 859 028c 51       		.byte	0x51
+ 860 028d 02       		.uleb128 0x2
+ 861 028e 75       		.byte	0x75
+ 862 028f 01       		.sleb128 1
+ 863 0290 0B       		.uleb128 0xb
+ 864 0291 01       		.uleb128 0x1
+ 865 0292 52       		.byte	0x52
+ 866 0293 02       		.uleb128 0x2
+ 867 0294 76       		.byte	0x76
+ 868 0295 00       		.sleb128 0
+ 869 0296 00       		.byte	0
+ 870 0297 00       		.byte	0
+ 871 0298 10       		.uleb128 0x10
+ 872 0299 04       		.byte	0x4
+ 873 029a 76000000 		.4byte	0x76
+ 874 029e 0C       		.uleb128 0xc
+ 875 029f 96000000 		.4byte	0x96
+ 876 02a3 11       		.uleb128 0x11
+ 877 02a4 76000000 		.4byte	0x76
+ 878 02a8 B6020000 		.4byte	0x2b6
+ 879 02ac 12       		.uleb128 0x12
+ 880 02ad A8000000 		.4byte	0xa8
+ 881 02b1 2E020000 		.4byte	0x22e
+ 882 02b5 00       		.byte	0
+ 883 02b6 11       		.uleb128 0x11
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 20
+
+
+ 884 02b7 76000000 		.4byte	0x76
+ 885 02bb C9020000 		.4byte	0x2c9
+ 886 02bf 12       		.uleb128 0x12
+ 887 02c0 A8000000 		.4byte	0xa8
+ 888 02c4 2E020000 		.4byte	0x22e
+ 889 02c8 00       		.byte	0
+ 890 02c9 07       		.uleb128 0x7
+ 891 02ca 11000000 		.4byte	.LASF46
+ 892 02ce 01       		.byte	0x1
+ 893 02cf 6B       		.byte	0x6b
+ 894 02d0 00000000 		.4byte	.LFB5
+ 895 02d4 38000000 		.4byte	.LFE5-.LFB5
+ 896 02d8 01       		.uleb128 0x1
+ 897 02d9 9C       		.byte	0x9c
+ 898 02da 57030000 		.4byte	0x357
+ 899 02de 0D       		.uleb128 0xd
+ 900 02df E3000000 		.4byte	.LASF41
+ 901 02e3 01       		.byte	0x1
+ 902 02e4 6B       		.byte	0x6b
+ 903 02e5 57030000 		.4byte	0x357
+ 904 02e9 E2000000 		.4byte	.LLST5
+ 905 02ed 0D       		.uleb128 0xd
+ 906 02ee B4000000 		.4byte	.LASF42
+ 907 02f2 01       		.byte	0x1
+ 908 02f3 6B       		.byte	0x6b
+ 909 02f4 9E020000 		.4byte	0x29e
+ 910 02f8 0E010000 		.4byte	.LLST6
+ 911 02fc 0E       		.uleb128 0xe
+ 912 02fd 59020000 		.4byte	.LASF45
+ 913 0301 01       		.byte	0x1
+ 914 0302 6D       		.byte	0x6d
+ 915 0303 62030000 		.4byte	0x362
+ 916 0307 47010000 		.4byte	.LLST7
+ 917 030b 0E       		.uleb128 0xe
+ 918 030c 18030000 		.4byte	.LASF44
+ 919 0310 01       		.byte	0x1
+ 920 0311 6E       		.byte	0x6e
+ 921 0312 75030000 		.4byte	0x375
+ 922 0316 67010000 		.4byte	.LLST8
+ 923 031a 0F       		.uleb128 0xf
+ 924 031b 2A000000 		.4byte	.LVL26
+ 925 031f F1050000 		.4byte	0x5f1
+ 926 0323 3A030000 		.4byte	0x33a
+ 927 0327 0B       		.uleb128 0xb
+ 928 0328 01       		.uleb128 0x1
+ 929 0329 50       		.byte	0x50
+ 930 032a 02       		.uleb128 0x2
+ 931 032b 74       		.byte	0x74
+ 932 032c 01       		.sleb128 1
+ 933 032d 0B       		.uleb128 0xb
+ 934 032e 01       		.uleb128 0x1
+ 935 032f 51       		.byte	0x51
+ 936 0330 02       		.uleb128 0x2
+ 937 0331 75       		.byte	0x75
+ 938 0332 00       		.sleb128 0
+ 939 0333 0B       		.uleb128 0xb
+ 940 0334 01       		.uleb128 0x1
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 21
+
+
+ 941 0335 52       		.byte	0x52
+ 942 0336 02       		.uleb128 0x2
+ 943 0337 76       		.byte	0x76
+ 944 0338 7F       		.sleb128 -1
+ 945 0339 00       		.byte	0
+ 946 033a 0A       		.uleb128 0xa
+ 947 033b 34000000 		.4byte	.LVL27
+ 948 033f E6050000 		.4byte	0x5e6
+ 949 0343 0B       		.uleb128 0xb
+ 950 0344 01       		.uleb128 0x1
+ 951 0345 50       		.byte	0x50
+ 952 0346 02       		.uleb128 0x2
+ 953 0347 74       		.byte	0x74
+ 954 0348 00       		.sleb128 0
+ 955 0349 0B       		.uleb128 0xb
+ 956 034a 01       		.uleb128 0x1
+ 957 034b 51       		.byte	0x51
+ 958 034c 02       		.uleb128 0x2
+ 959 034d 7D       		.byte	0x7d
+ 960 034e 00       		.sleb128 0
+ 961 034f 0B       		.uleb128 0xb
+ 962 0350 01       		.uleb128 0x1
+ 963 0351 52       		.byte	0x52
+ 964 0352 02       		.uleb128 0x2
+ 965 0353 76       		.byte	0x76
+ 966 0354 00       		.sleb128 0
+ 967 0355 00       		.byte	0
+ 968 0356 00       		.byte	0
+ 969 0357 10       		.uleb128 0x10
+ 970 0358 04       		.byte	0x4
+ 971 0359 5D030000 		.4byte	0x35d
+ 972 035d 0C       		.uleb128 0xc
+ 973 035e 76000000 		.4byte	0x76
+ 974 0362 11       		.uleb128 0x11
+ 975 0363 76000000 		.4byte	0x76
+ 976 0367 75030000 		.4byte	0x375
+ 977 036b 12       		.uleb128 0x12
+ 978 036c A8000000 		.4byte	0xa8
+ 979 0370 ED020000 		.4byte	0x2ed
+ 980 0374 00       		.byte	0
+ 981 0375 11       		.uleb128 0x11
+ 982 0376 76000000 		.4byte	0x76
+ 983 037a 88030000 		.4byte	0x388
+ 984 037e 12       		.uleb128 0x12
+ 985 037f A8000000 		.4byte	0xa8
+ 986 0383 ED020000 		.4byte	0x2ed
+ 987 0387 00       		.byte	0
+ 988 0388 13       		.uleb128 0x13
+ 989 0389 09010000 		.4byte	.LASF50
+ 990 038d 01       		.byte	0x1
+ 991 038e 7C       		.byte	0x7c
+ 992 038f 76000000 		.4byte	0x76
+ 993 0393 00000000 		.4byte	.LFB6
+ 994 0397 38000000 		.4byte	.LFE6-.LFB6
+ 995 039b 01       		.uleb128 0x1
+ 996 039c 9C       		.byte	0x9c
+ 997 039d 08040000 		.4byte	0x408
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 22
+
+
+ 998 03a1 09       		.uleb128 0x9
+ 999 03a2 59020000 		.4byte	.LASF45
+ 1000 03a6 01       		.byte	0x1
+ 1001 03a7 7E       		.byte	0x7e
+ 1002 03a8 08040000 		.4byte	0x408
+ 1003 03ac 02       		.uleb128 0x2
+ 1004 03ad 91       		.byte	0x91
+ 1005 03ae 74       		.sleb128 -12
+ 1006 03af 09       		.uleb128 0x9
+ 1007 03b0 18030000 		.4byte	.LASF44
+ 1008 03b4 01       		.byte	0x1
+ 1009 03b5 82       		.byte	0x82
+ 1010 03b6 08040000 		.4byte	0x408
+ 1011 03ba 02       		.uleb128 0x2
+ 1012 03bb 91       		.byte	0x91
+ 1013 03bc 70       		.sleb128 -16
+ 1014 03bd 0F       		.uleb128 0xf
+ 1015 03be 0E000000 		.4byte	.LVL32
+ 1016 03c2 F1050000 		.4byte	0x5f1
+ 1017 03c6 DF030000 		.4byte	0x3df
+ 1018 03ca 0B       		.uleb128 0xb
+ 1019 03cb 01       		.uleb128 0x1
+ 1020 03cc 50       		.byte	0x50
+ 1021 03cd 02       		.uleb128 0x2
+ 1022 03ce 91       		.byte	0x91
+ 1023 03cf 74       		.sleb128 -12
+ 1024 03d0 0B       		.uleb128 0xb
+ 1025 03d1 01       		.uleb128 0x1
+ 1026 03d2 51       		.byte	0x51
+ 1027 03d3 05       		.uleb128 0x5
+ 1028 03d4 03       		.byte	0x3
+ 1029 03d5 00000000 		.4byte	.LANCHOR0
+ 1030 03d9 0B       		.uleb128 0xb
+ 1031 03da 01       		.uleb128 0x1
+ 1032 03db 52       		.byte	0x52
+ 1033 03dc 01       		.uleb128 0x1
+ 1034 03dd 32       		.byte	0x32
+ 1035 03de 00       		.byte	0
+ 1036 03df 0F       		.uleb128 0xf
+ 1037 03e0 1E000000 		.4byte	.LVL33
+ 1038 03e4 E6050000 		.4byte	0x5e6
+ 1039 03e8 FE030000 		.4byte	0x3fe
+ 1040 03ec 0B       		.uleb128 0xb
+ 1041 03ed 01       		.uleb128 0x1
+ 1042 03ee 50       		.byte	0x50
+ 1043 03ef 02       		.uleb128 0x2
+ 1044 03f0 91       		.byte	0x91
+ 1045 03f1 74       		.sleb128 -12
+ 1046 03f2 0B       		.uleb128 0xb
+ 1047 03f3 01       		.uleb128 0x1
+ 1048 03f4 51       		.byte	0x51
+ 1049 03f5 02       		.uleb128 0x2
+ 1050 03f6 7D       		.byte	0x7d
+ 1051 03f7 00       		.sleb128 0
+ 1052 03f8 0B       		.uleb128 0xb
+ 1053 03f9 01       		.uleb128 0x1
+ 1054 03fa 52       		.byte	0x52
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 23
+
+
+ 1055 03fb 01       		.uleb128 0x1
+ 1056 03fc 32       		.byte	0x32
+ 1057 03fd 00       		.byte	0
+ 1058 03fe 14       		.uleb128 0x14
+ 1059 03ff 2A000000 		.4byte	.LVL34
+ 1060 0403 BE010000 		.4byte	0x1be
+ 1061 0407 00       		.byte	0
+ 1062 0408 11       		.uleb128 0x11
+ 1063 0409 76000000 		.4byte	0x76
+ 1064 040d 18040000 		.4byte	0x418
+ 1065 0411 15       		.uleb128 0x15
+ 1066 0412 A8000000 		.4byte	0xa8
+ 1067 0416 01       		.byte	0x1
+ 1068 0417 00       		.byte	0
+ 1069 0418 07       		.uleb128 0x7
+ 1070 0419 36030000 		.4byte	.LASF47
+ 1071 041d 01       		.byte	0x1
+ 1072 041e 9D       		.byte	0x9d
+ 1073 041f 00000000 		.4byte	.LFB7
+ 1074 0423 36000000 		.4byte	.LFE7-.LFB7
+ 1075 0427 01       		.uleb128 0x1
+ 1076 0428 9C       		.byte	0x9c
+ 1077 0429 B6040000 		.4byte	0x4b6
+ 1078 042d 0D       		.uleb128 0xd
+ 1079 042e 0D020000 		.4byte	.LASF48
+ 1080 0432 01       		.byte	0x1
+ 1081 0433 9D       		.byte	0x9d
+ 1082 0434 B6040000 		.4byte	0x4b6
+ 1083 0438 9A010000 		.4byte	.LLST9
+ 1084 043c 0D       		.uleb128 0xd
+ 1085 043d E3000000 		.4byte	.LASF41
+ 1086 0441 01       		.byte	0x1
+ 1087 0442 9D       		.byte	0x9d
+ 1088 0443 57030000 		.4byte	0x357
+ 1089 0447 BB010000 		.4byte	.LLST10
+ 1090 044b 0D       		.uleb128 0xd
+ 1091 044c B4000000 		.4byte	.LASF42
+ 1092 0450 01       		.byte	0x1
+ 1093 0451 9E       		.byte	0x9e
+ 1094 0452 9E020000 		.4byte	0x29e
+ 1095 0456 DC010000 		.4byte	.LLST11
+ 1096 045a 0E       		.uleb128 0xe
+ 1097 045b 59020000 		.4byte	.LASF45
+ 1098 045f 01       		.byte	0x1
+ 1099 0460 A0       		.byte	0xa0
+ 1100 0461 BB040000 		.4byte	0x4bb
+ 1101 0465 0A020000 		.4byte	.LLST12
+ 1102 0469 0E       		.uleb128 0xe
+ 1103 046a 18030000 		.4byte	.LASF44
+ 1104 046e 01       		.byte	0x1
+ 1105 046f A1       		.byte	0xa1
+ 1106 0470 CE040000 		.4byte	0x4ce
+ 1107 0474 2A020000 		.4byte	.LLST13
+ 1108 0478 0F       		.uleb128 0xf
+ 1109 0479 28000000 		.4byte	.LVL40
+ 1110 047d F1050000 		.4byte	0x5f1
+ 1111 0481 99040000 		.4byte	0x499
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 24
+
+
+ 1112 0485 0B       		.uleb128 0xb
+ 1113 0486 01       		.uleb128 0x1
+ 1114 0487 50       		.byte	0x50
+ 1115 0488 02       		.uleb128 0x2
+ 1116 0489 74       		.byte	0x74
+ 1117 048a 01       		.sleb128 1
+ 1118 048b 0B       		.uleb128 0xb
+ 1119 048c 01       		.uleb128 0x1
+ 1120 048d 51       		.byte	0x51
+ 1121 048e 03       		.uleb128 0x3
+ 1122 048f F3       		.byte	0xf3
+ 1123 0490 01       		.uleb128 0x1
+ 1124 0491 51       		.byte	0x51
+ 1125 0492 0B       		.uleb128 0xb
+ 1126 0493 01       		.uleb128 0x1
+ 1127 0494 52       		.byte	0x52
+ 1128 0495 02       		.uleb128 0x2
+ 1129 0496 75       		.byte	0x75
+ 1130 0497 7F       		.sleb128 -1
+ 1131 0498 00       		.byte	0
+ 1132 0499 0A       		.uleb128 0xa
+ 1133 049a 32000000 		.4byte	.LVL41
+ 1134 049e E6050000 		.4byte	0x5e6
+ 1135 04a2 0B       		.uleb128 0xb
+ 1136 04a3 01       		.uleb128 0x1
+ 1137 04a4 50       		.byte	0x50
+ 1138 04a5 02       		.uleb128 0x2
+ 1139 04a6 74       		.byte	0x74
+ 1140 04a7 00       		.sleb128 0
+ 1141 04a8 0B       		.uleb128 0xb
+ 1142 04a9 01       		.uleb128 0x1
+ 1143 04aa 51       		.byte	0x51
+ 1144 04ab 02       		.uleb128 0x2
+ 1145 04ac 7D       		.byte	0x7d
+ 1146 04ad 00       		.sleb128 0
+ 1147 04ae 0B       		.uleb128 0xb
+ 1148 04af 01       		.uleb128 0x1
+ 1149 04b0 52       		.byte	0x52
+ 1150 04b1 02       		.uleb128 0x2
+ 1151 04b2 75       		.byte	0x75
+ 1152 04b3 00       		.sleb128 0
+ 1153 04b4 00       		.byte	0
+ 1154 04b5 00       		.byte	0
+ 1155 04b6 0C       		.uleb128 0xc
+ 1156 04b7 3A010000 		.4byte	0x13a
+ 1157 04bb 11       		.uleb128 0x11
+ 1158 04bc 76000000 		.4byte	0x76
+ 1159 04c0 CE040000 		.4byte	0x4ce
+ 1160 04c4 12       		.uleb128 0x12
+ 1161 04c5 A8000000 		.4byte	0xa8
+ 1162 04c9 4B040000 		.4byte	0x44b
+ 1163 04cd 00       		.byte	0
+ 1164 04ce 11       		.uleb128 0x11
+ 1165 04cf 76000000 		.4byte	0x76
+ 1166 04d3 E1040000 		.4byte	0x4e1
+ 1167 04d7 12       		.uleb128 0x12
+ 1168 04d8 A8000000 		.4byte	0xa8
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 25
+
+
+ 1169 04dc 4B040000 		.4byte	0x44b
+ 1170 04e0 00       		.byte	0
+ 1171 04e1 07       		.uleb128 0x7
+ 1172 04e2 A0010000 		.4byte	.LASF49
+ 1173 04e6 01       		.byte	0x1
+ 1174 04e7 B0       		.byte	0xb0
+ 1175 04e8 00000000 		.4byte	.LFB8
+ 1176 04ec 38000000 		.4byte	.LFE8-.LFB8
+ 1177 04f0 01       		.uleb128 0x1
+ 1178 04f1 9C       		.byte	0x9c
+ 1179 04f2 6F050000 		.4byte	0x56f
+ 1180 04f6 0D       		.uleb128 0xd
+ 1181 04f7 E3000000 		.4byte	.LASF41
+ 1182 04fb 01       		.byte	0x1
+ 1183 04fc B0       		.byte	0xb0
+ 1184 04fd 57030000 		.4byte	0x357
+ 1185 0501 86020000 		.4byte	.LLST14
+ 1186 0505 0D       		.uleb128 0xd
+ 1187 0506 B4000000 		.4byte	.LASF42
+ 1188 050a 01       		.byte	0x1
+ 1189 050b B0       		.byte	0xb0
+ 1190 050c 9E020000 		.4byte	0x29e
+ 1191 0510 B2020000 		.4byte	.LLST15
+ 1192 0514 0E       		.uleb128 0xe
+ 1193 0515 59020000 		.4byte	.LASF45
+ 1194 0519 01       		.byte	0x1
+ 1195 051a B2       		.byte	0xb2
+ 1196 051b 6F050000 		.4byte	0x56f
+ 1197 051f EB020000 		.4byte	.LLST16
+ 1198 0523 0E       		.uleb128 0xe
+ 1199 0524 18030000 		.4byte	.LASF44
+ 1200 0528 01       		.byte	0x1
+ 1201 0529 B3       		.byte	0xb3
+ 1202 052a 82050000 		.4byte	0x582
+ 1203 052e 0B030000 		.4byte	.LLST17
+ 1204 0532 0F       		.uleb128 0xf
+ 1205 0533 2A000000 		.4byte	.LVL53
+ 1206 0537 F1050000 		.4byte	0x5f1
+ 1207 053b 52050000 		.4byte	0x552
+ 1208 053f 0B       		.uleb128 0xb
+ 1209 0540 01       		.uleb128 0x1
+ 1210 0541 50       		.byte	0x50
+ 1211 0542 02       		.uleb128 0x2
+ 1212 0543 74       		.byte	0x74
+ 1213 0544 01       		.sleb128 1
+ 1214 0545 0B       		.uleb128 0xb
+ 1215 0546 01       		.uleb128 0x1
+ 1216 0547 51       		.byte	0x51
+ 1217 0548 02       		.uleb128 0x2
+ 1218 0549 75       		.byte	0x75
+ 1219 054a 00       		.sleb128 0
+ 1220 054b 0B       		.uleb128 0xb
+ 1221 054c 01       		.uleb128 0x1
+ 1222 054d 52       		.byte	0x52
+ 1223 054e 02       		.uleb128 0x2
+ 1224 054f 76       		.byte	0x76
+ 1225 0550 7F       		.sleb128 -1
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 26
+
+
+ 1226 0551 00       		.byte	0
+ 1227 0552 0A       		.uleb128 0xa
+ 1228 0553 34000000 		.4byte	.LVL54
+ 1229 0557 E6050000 		.4byte	0x5e6
+ 1230 055b 0B       		.uleb128 0xb
+ 1231 055c 01       		.uleb128 0x1
+ 1232 055d 50       		.byte	0x50
+ 1233 055e 02       		.uleb128 0x2
+ 1234 055f 74       		.byte	0x74
+ 1235 0560 00       		.sleb128 0
+ 1236 0561 0B       		.uleb128 0xb
+ 1237 0562 01       		.uleb128 0x1
+ 1238 0563 51       		.byte	0x51
+ 1239 0564 02       		.uleb128 0x2
+ 1240 0565 7D       		.byte	0x7d
+ 1241 0566 00       		.sleb128 0
+ 1242 0567 0B       		.uleb128 0xb
+ 1243 0568 01       		.uleb128 0x1
+ 1244 0569 52       		.byte	0x52
+ 1245 056a 02       		.uleb128 0x2
+ 1246 056b 76       		.byte	0x76
+ 1247 056c 00       		.sleb128 0
+ 1248 056d 00       		.byte	0
+ 1249 056e 00       		.byte	0
+ 1250 056f 11       		.uleb128 0x11
+ 1251 0570 76000000 		.4byte	0x76
+ 1252 0574 82050000 		.4byte	0x582
+ 1253 0578 12       		.uleb128 0x12
+ 1254 0579 A8000000 		.4byte	0xa8
+ 1255 057d 05050000 		.4byte	0x505
+ 1256 0581 00       		.byte	0
+ 1257 0582 11       		.uleb128 0x11
+ 1258 0583 76000000 		.4byte	0x76
+ 1259 0587 95050000 		.4byte	0x595
+ 1260 058b 12       		.uleb128 0x12
+ 1261 058c A8000000 		.4byte	0xa8
+ 1262 0590 05050000 		.4byte	0x505
+ 1263 0594 00       		.byte	0
+ 1264 0595 13       		.uleb128 0x13
+ 1265 0596 D7010000 		.4byte	.LASF51
+ 1266 059a 01       		.byte	0x1
+ 1267 059b C0       		.byte	0xc0
+ 1268 059c 76000000 		.4byte	0x76
+ 1269 05a0 00000000 		.4byte	.LFB9
+ 1270 05a4 22000000 		.4byte	.LFE9-.LFB9
+ 1271 05a8 01       		.uleb128 0x1
+ 1272 05a9 9C       		.byte	0x9c
+ 1273 05aa E6050000 		.4byte	0x5e6
+ 1274 05ae 09       		.uleb128 0x9
+ 1275 05af 68010000 		.4byte	.LASF52
+ 1276 05b3 01       		.byte	0x1
+ 1277 05b4 C2       		.byte	0xc2
+ 1278 05b5 76000000 		.4byte	0x76
+ 1279 05b9 02       		.uleb128 0x2
+ 1280 05ba 91       		.byte	0x91
+ 1281 05bb 77       		.sleb128 -9
+ 1282 05bc 09       		.uleb128 0x9
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 27
+
+
+ 1283 05bd CD000000 		.4byte	.LASF43
+ 1284 05c1 01       		.byte	0x1
+ 1285 05c2 C3       		.byte	0xc3
+ 1286 05c3 76000000 		.4byte	0x76
+ 1287 05c7 02       		.uleb128 0x2
+ 1288 05c8 91       		.byte	0x91
+ 1289 05c9 76       		.sleb128 -10
+ 1290 05ca 0A       		.uleb128 0xa
+ 1291 05cb 1C000000 		.4byte	.LVL59
+ 1292 05cf E6050000 		.4byte	0x5e6
+ 1293 05d3 0B       		.uleb128 0xb
+ 1294 05d4 01       		.uleb128 0x1
+ 1295 05d5 50       		.byte	0x50
+ 1296 05d6 02       		.uleb128 0x2
+ 1297 05d7 7D       		.byte	0x7d
+ 1298 05d8 07       		.sleb128 7
+ 1299 05d9 0B       		.uleb128 0xb
+ 1300 05da 01       		.uleb128 0x1
+ 1301 05db 51       		.byte	0x51
+ 1302 05dc 02       		.uleb128 0x2
+ 1303 05dd 74       		.byte	0x74
+ 1304 05de 00       		.sleb128 0
+ 1305 05df 0B       		.uleb128 0xb
+ 1306 05e0 01       		.uleb128 0x1
+ 1307 05e1 52       		.byte	0x52
+ 1308 05e2 01       		.uleb128 0x1
+ 1309 05e3 31       		.byte	0x31
+ 1310 05e4 00       		.byte	0
+ 1311 05e5 00       		.byte	0
+ 1312 05e6 16       		.uleb128 0x16
+ 1313 05e7 BE000000 		.4byte	.LASF56
+ 1314 05eb BE000000 		.4byte	.LASF56
+ 1315 05ef 06       		.byte	0x6
+ 1316 05f0 1D       		.byte	0x1d
+ 1317 05f1 17       		.uleb128 0x17
+ 1318 05f2 96030000 		.4byte	.LASF57
+ 1319 05f6 96030000 		.4byte	.LASF57
+ 1320 05fa 00       		.byte	0
+ 1321              		.section	.debug_abbrev,"",%progbits
+ 1322              	.Ldebug_abbrev0:
+ 1323 0000 01       		.uleb128 0x1
+ 1324 0001 11       		.uleb128 0x11
+ 1325 0002 01       		.byte	0x1
+ 1326 0003 25       		.uleb128 0x25
+ 1327 0004 0E       		.uleb128 0xe
+ 1328 0005 13       		.uleb128 0x13
+ 1329 0006 0B       		.uleb128 0xb
+ 1330 0007 03       		.uleb128 0x3
+ 1331 0008 0E       		.uleb128 0xe
+ 1332 0009 1B       		.uleb128 0x1b
+ 1333 000a 0E       		.uleb128 0xe
+ 1334 000b 55       		.uleb128 0x55
+ 1335 000c 17       		.uleb128 0x17
+ 1336 000d 11       		.uleb128 0x11
+ 1337 000e 01       		.uleb128 0x1
+ 1338 000f 10       		.uleb128 0x10
+ 1339 0010 17       		.uleb128 0x17
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 28
+
+
+ 1340 0011 00       		.byte	0
+ 1341 0012 00       		.byte	0
+ 1342 0013 02       		.uleb128 0x2
+ 1343 0014 24       		.uleb128 0x24
+ 1344 0015 00       		.byte	0
+ 1345 0016 0B       		.uleb128 0xb
+ 1346 0017 0B       		.uleb128 0xb
+ 1347 0018 3E       		.uleb128 0x3e
+ 1348 0019 0B       		.uleb128 0xb
+ 1349 001a 03       		.uleb128 0x3
+ 1350 001b 0E       		.uleb128 0xe
+ 1351 001c 00       		.byte	0
+ 1352 001d 00       		.byte	0
+ 1353 001e 03       		.uleb128 0x3
+ 1354 001f 16       		.uleb128 0x16
+ 1355 0020 00       		.byte	0
+ 1356 0021 03       		.uleb128 0x3
+ 1357 0022 0E       		.uleb128 0xe
+ 1358 0023 3A       		.uleb128 0x3a
+ 1359 0024 0B       		.uleb128 0xb
+ 1360 0025 3B       		.uleb128 0x3b
+ 1361 0026 0B       		.uleb128 0xb
+ 1362 0027 49       		.uleb128 0x49
+ 1363 0028 13       		.uleb128 0x13
+ 1364 0029 00       		.byte	0
+ 1365 002a 00       		.byte	0
+ 1366 002b 04       		.uleb128 0x4
+ 1367 002c 24       		.uleb128 0x24
+ 1368 002d 00       		.byte	0
+ 1369 002e 0B       		.uleb128 0xb
+ 1370 002f 0B       		.uleb128 0xb
+ 1371 0030 3E       		.uleb128 0x3e
+ 1372 0031 0B       		.uleb128 0xb
+ 1373 0032 03       		.uleb128 0x3
+ 1374 0033 08       		.uleb128 0x8
+ 1375 0034 00       		.byte	0
+ 1376 0035 00       		.byte	0
+ 1377 0036 05       		.uleb128 0x5
+ 1378 0037 04       		.uleb128 0x4
+ 1379 0038 01       		.byte	0x1
+ 1380 0039 0B       		.uleb128 0xb
+ 1381 003a 0B       		.uleb128 0xb
+ 1382 003b 49       		.uleb128 0x49
+ 1383 003c 13       		.uleb128 0x13
+ 1384 003d 3A       		.uleb128 0x3a
+ 1385 003e 0B       		.uleb128 0xb
+ 1386 003f 3B       		.uleb128 0x3b
+ 1387 0040 0B       		.uleb128 0xb
+ 1388 0041 01       		.uleb128 0x1
+ 1389 0042 13       		.uleb128 0x13
+ 1390 0043 00       		.byte	0
+ 1391 0044 00       		.byte	0
+ 1392 0045 06       		.uleb128 0x6
+ 1393 0046 28       		.uleb128 0x28
+ 1394 0047 00       		.byte	0
+ 1395 0048 03       		.uleb128 0x3
+ 1396 0049 0E       		.uleb128 0xe
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 29
+
+
+ 1397 004a 1C       		.uleb128 0x1c
+ 1398 004b 0B       		.uleb128 0xb
+ 1399 004c 00       		.byte	0
+ 1400 004d 00       		.byte	0
+ 1401 004e 07       		.uleb128 0x7
+ 1402 004f 2E       		.uleb128 0x2e
+ 1403 0050 01       		.byte	0x1
+ 1404 0051 3F       		.uleb128 0x3f
+ 1405 0052 19       		.uleb128 0x19
+ 1406 0053 03       		.uleb128 0x3
+ 1407 0054 0E       		.uleb128 0xe
+ 1408 0055 3A       		.uleb128 0x3a
+ 1409 0056 0B       		.uleb128 0xb
+ 1410 0057 3B       		.uleb128 0x3b
+ 1411 0058 0B       		.uleb128 0xb
+ 1412 0059 27       		.uleb128 0x27
+ 1413 005a 19       		.uleb128 0x19
+ 1414 005b 11       		.uleb128 0x11
+ 1415 005c 01       		.uleb128 0x1
+ 1416 005d 12       		.uleb128 0x12
+ 1417 005e 06       		.uleb128 0x6
+ 1418 005f 40       		.uleb128 0x40
+ 1419 0060 18       		.uleb128 0x18
+ 1420 0061 9742     		.uleb128 0x2117
+ 1421 0063 19       		.uleb128 0x19
+ 1422 0064 01       		.uleb128 0x1
+ 1423 0065 13       		.uleb128 0x13
+ 1424 0066 00       		.byte	0
+ 1425 0067 00       		.byte	0
+ 1426 0068 08       		.uleb128 0x8
+ 1427 0069 05       		.uleb128 0x5
+ 1428 006a 00       		.byte	0
+ 1429 006b 03       		.uleb128 0x3
+ 1430 006c 08       		.uleb128 0x8
+ 1431 006d 3A       		.uleb128 0x3a
+ 1432 006e 0B       		.uleb128 0xb
+ 1433 006f 3B       		.uleb128 0x3b
+ 1434 0070 0B       		.uleb128 0xb
+ 1435 0071 49       		.uleb128 0x49
+ 1436 0072 13       		.uleb128 0x13
+ 1437 0073 02       		.uleb128 0x2
+ 1438 0074 17       		.uleb128 0x17
+ 1439 0075 00       		.byte	0
+ 1440 0076 00       		.byte	0
+ 1441 0077 09       		.uleb128 0x9
+ 1442 0078 34       		.uleb128 0x34
+ 1443 0079 00       		.byte	0
+ 1444 007a 03       		.uleb128 0x3
+ 1445 007b 0E       		.uleb128 0xe
+ 1446 007c 3A       		.uleb128 0x3a
+ 1447 007d 0B       		.uleb128 0xb
+ 1448 007e 3B       		.uleb128 0x3b
+ 1449 007f 0B       		.uleb128 0xb
+ 1450 0080 49       		.uleb128 0x49
+ 1451 0081 13       		.uleb128 0x13
+ 1452 0082 02       		.uleb128 0x2
+ 1453 0083 18       		.uleb128 0x18
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 30
+
+
+ 1454 0084 00       		.byte	0
+ 1455 0085 00       		.byte	0
+ 1456 0086 0A       		.uleb128 0xa
+ 1457 0087 898201   		.uleb128 0x4109
+ 1458 008a 01       		.byte	0x1
+ 1459 008b 11       		.uleb128 0x11
+ 1460 008c 01       		.uleb128 0x1
+ 1461 008d 31       		.uleb128 0x31
+ 1462 008e 13       		.uleb128 0x13
+ 1463 008f 00       		.byte	0
+ 1464 0090 00       		.byte	0
+ 1465 0091 0B       		.uleb128 0xb
+ 1466 0092 8A8201   		.uleb128 0x410a
+ 1467 0095 00       		.byte	0
+ 1468 0096 02       		.uleb128 0x2
+ 1469 0097 18       		.uleb128 0x18
+ 1470 0098 9142     		.uleb128 0x2111
+ 1471 009a 18       		.uleb128 0x18
+ 1472 009b 00       		.byte	0
+ 1473 009c 00       		.byte	0
+ 1474 009d 0C       		.uleb128 0xc
+ 1475 009e 26       		.uleb128 0x26
+ 1476 009f 00       		.byte	0
+ 1477 00a0 49       		.uleb128 0x49
+ 1478 00a1 13       		.uleb128 0x13
+ 1479 00a2 00       		.byte	0
+ 1480 00a3 00       		.byte	0
+ 1481 00a4 0D       		.uleb128 0xd
+ 1482 00a5 05       		.uleb128 0x5
+ 1483 00a6 00       		.byte	0
+ 1484 00a7 03       		.uleb128 0x3
+ 1485 00a8 0E       		.uleb128 0xe
+ 1486 00a9 3A       		.uleb128 0x3a
+ 1487 00aa 0B       		.uleb128 0xb
+ 1488 00ab 3B       		.uleb128 0x3b
+ 1489 00ac 0B       		.uleb128 0xb
+ 1490 00ad 49       		.uleb128 0x49
+ 1491 00ae 13       		.uleb128 0x13
+ 1492 00af 02       		.uleb128 0x2
+ 1493 00b0 17       		.uleb128 0x17
+ 1494 00b1 00       		.byte	0
+ 1495 00b2 00       		.byte	0
+ 1496 00b3 0E       		.uleb128 0xe
+ 1497 00b4 34       		.uleb128 0x34
+ 1498 00b5 00       		.byte	0
+ 1499 00b6 03       		.uleb128 0x3
+ 1500 00b7 0E       		.uleb128 0xe
+ 1501 00b8 3A       		.uleb128 0x3a
+ 1502 00b9 0B       		.uleb128 0xb
+ 1503 00ba 3B       		.uleb128 0x3b
+ 1504 00bb 0B       		.uleb128 0xb
+ 1505 00bc 49       		.uleb128 0x49
+ 1506 00bd 13       		.uleb128 0x13
+ 1507 00be 02       		.uleb128 0x2
+ 1508 00bf 17       		.uleb128 0x17
+ 1509 00c0 00       		.byte	0
+ 1510 00c1 00       		.byte	0
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 31
+
+
+ 1511 00c2 0F       		.uleb128 0xf
+ 1512 00c3 898201   		.uleb128 0x4109
+ 1513 00c6 01       		.byte	0x1
+ 1514 00c7 11       		.uleb128 0x11
+ 1515 00c8 01       		.uleb128 0x1
+ 1516 00c9 31       		.uleb128 0x31
+ 1517 00ca 13       		.uleb128 0x13
+ 1518 00cb 01       		.uleb128 0x1
+ 1519 00cc 13       		.uleb128 0x13
+ 1520 00cd 00       		.byte	0
+ 1521 00ce 00       		.byte	0
+ 1522 00cf 10       		.uleb128 0x10
+ 1523 00d0 0F       		.uleb128 0xf
+ 1524 00d1 00       		.byte	0
+ 1525 00d2 0B       		.uleb128 0xb
+ 1526 00d3 0B       		.uleb128 0xb
+ 1527 00d4 49       		.uleb128 0x49
+ 1528 00d5 13       		.uleb128 0x13
+ 1529 00d6 00       		.byte	0
+ 1530 00d7 00       		.byte	0
+ 1531 00d8 11       		.uleb128 0x11
+ 1532 00d9 01       		.uleb128 0x1
+ 1533 00da 01       		.byte	0x1
+ 1534 00db 49       		.uleb128 0x49
+ 1535 00dc 13       		.uleb128 0x13
+ 1536 00dd 01       		.uleb128 0x1
+ 1537 00de 13       		.uleb128 0x13
+ 1538 00df 00       		.byte	0
+ 1539 00e0 00       		.byte	0
+ 1540 00e1 12       		.uleb128 0x12
+ 1541 00e2 21       		.uleb128 0x21
+ 1542 00e3 00       		.byte	0
+ 1543 00e4 49       		.uleb128 0x49
+ 1544 00e5 13       		.uleb128 0x13
+ 1545 00e6 2F       		.uleb128 0x2f
+ 1546 00e7 13       		.uleb128 0x13
+ 1547 00e8 00       		.byte	0
+ 1548 00e9 00       		.byte	0
+ 1549 00ea 13       		.uleb128 0x13
+ 1550 00eb 2E       		.uleb128 0x2e
+ 1551 00ec 01       		.byte	0x1
+ 1552 00ed 3F       		.uleb128 0x3f
+ 1553 00ee 19       		.uleb128 0x19
+ 1554 00ef 03       		.uleb128 0x3
+ 1555 00f0 0E       		.uleb128 0xe
+ 1556 00f1 3A       		.uleb128 0x3a
+ 1557 00f2 0B       		.uleb128 0xb
+ 1558 00f3 3B       		.uleb128 0x3b
+ 1559 00f4 0B       		.uleb128 0xb
+ 1560 00f5 27       		.uleb128 0x27
+ 1561 00f6 19       		.uleb128 0x19
+ 1562 00f7 49       		.uleb128 0x49
+ 1563 00f8 13       		.uleb128 0x13
+ 1564 00f9 11       		.uleb128 0x11
+ 1565 00fa 01       		.uleb128 0x1
+ 1566 00fb 12       		.uleb128 0x12
+ 1567 00fc 06       		.uleb128 0x6
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 32
+
+
+ 1568 00fd 40       		.uleb128 0x40
+ 1569 00fe 18       		.uleb128 0x18
+ 1570 00ff 9742     		.uleb128 0x2117
+ 1571 0101 19       		.uleb128 0x19
+ 1572 0102 01       		.uleb128 0x1
+ 1573 0103 13       		.uleb128 0x13
+ 1574 0104 00       		.byte	0
+ 1575 0105 00       		.byte	0
+ 1576 0106 14       		.uleb128 0x14
+ 1577 0107 898201   		.uleb128 0x4109
+ 1578 010a 00       		.byte	0
+ 1579 010b 11       		.uleb128 0x11
+ 1580 010c 01       		.uleb128 0x1
+ 1581 010d 31       		.uleb128 0x31
+ 1582 010e 13       		.uleb128 0x13
+ 1583 010f 00       		.byte	0
+ 1584 0110 00       		.byte	0
+ 1585 0111 15       		.uleb128 0x15
+ 1586 0112 21       		.uleb128 0x21
+ 1587 0113 00       		.byte	0
+ 1588 0114 49       		.uleb128 0x49
+ 1589 0115 13       		.uleb128 0x13
+ 1590 0116 2F       		.uleb128 0x2f
+ 1591 0117 0B       		.uleb128 0xb
+ 1592 0118 00       		.byte	0
+ 1593 0119 00       		.byte	0
+ 1594 011a 16       		.uleb128 0x16
+ 1595 011b 2E       		.uleb128 0x2e
+ 1596 011c 00       		.byte	0
+ 1597 011d 3F       		.uleb128 0x3f
+ 1598 011e 19       		.uleb128 0x19
+ 1599 011f 3C       		.uleb128 0x3c
+ 1600 0120 19       		.uleb128 0x19
+ 1601 0121 6E       		.uleb128 0x6e
+ 1602 0122 0E       		.uleb128 0xe
+ 1603 0123 03       		.uleb128 0x3
+ 1604 0124 0E       		.uleb128 0xe
+ 1605 0125 3A       		.uleb128 0x3a
+ 1606 0126 0B       		.uleb128 0xb
+ 1607 0127 3B       		.uleb128 0x3b
+ 1608 0128 0B       		.uleb128 0xb
+ 1609 0129 00       		.byte	0
+ 1610 012a 00       		.byte	0
+ 1611 012b 17       		.uleb128 0x17
+ 1612 012c 2E       		.uleb128 0x2e
+ 1613 012d 00       		.byte	0
+ 1614 012e 3F       		.uleb128 0x3f
+ 1615 012f 19       		.uleb128 0x19
+ 1616 0130 3C       		.uleb128 0x3c
+ 1617 0131 19       		.uleb128 0x19
+ 1618 0132 6E       		.uleb128 0x6e
+ 1619 0133 0E       		.uleb128 0xe
+ 1620 0134 03       		.uleb128 0x3
+ 1621 0135 0E       		.uleb128 0xe
+ 1622 0136 00       		.byte	0
+ 1623 0137 00       		.byte	0
+ 1624 0138 00       		.byte	0
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 33
+
+
+ 1625              		.section	.debug_loc,"",%progbits
+ 1626              	.Ldebug_loc0:
+ 1627              	.LLST0:
+ 1628 0000 00000000 		.4byte	.LVL0
+ 1629 0004 16000000 		.4byte	.LVL1
+ 1630 0008 0100     		.2byte	0x1
+ 1631 000a 50       		.byte	0x50
+ 1632 000b 16000000 		.4byte	.LVL1
+ 1633 000f 19000000 		.4byte	.LVL2-1
+ 1634 0013 0200     		.2byte	0x2
+ 1635 0015 70       		.byte	0x70
+ 1636 0016 00       		.sleb128 0
+ 1637 0017 19000000 		.4byte	.LVL2-1
+ 1638 001b 1C000000 		.4byte	.LVL3
+ 1639 001f 0200     		.2byte	0x2
+ 1640 0021 7D       		.byte	0x7d
+ 1641 0022 07       		.sleb128 7
+ 1642 0023 1C000000 		.4byte	.LVL3
+ 1643 0027 1E000000 		.4byte	.LFE0
+ 1644 002b 0200     		.2byte	0x2
+ 1645 002d 91       		.byte	0x91
+ 1646 002e 6F       		.sleb128 -17
+ 1647 002f 00000000 		.4byte	0
+ 1648 0033 00000000 		.4byte	0
+ 1649              	.LLST1:
+ 1650 0037 00000000 		.4byte	.LVL7
+ 1651 003b 26000000 		.4byte	.LVL12
+ 1652 003f 0100     		.2byte	0x1
+ 1653 0041 50       		.byte	0x50
+ 1654 0042 26000000 		.4byte	.LVL12
+ 1655 0046 36000000 		.4byte	.LVL16
+ 1656 004a 0100     		.2byte	0x1
+ 1657 004c 54       		.byte	0x54
+ 1658 004d 36000000 		.4byte	.LVL16
+ 1659 0051 38000000 		.4byte	.LFE4
+ 1660 0055 0400     		.2byte	0x4
+ 1661 0057 F3       		.byte	0xf3
+ 1662 0058 01       		.uleb128 0x1
+ 1663 0059 50       		.byte	0x50
+ 1664 005a 9F       		.byte	0x9f
+ 1665 005b 00000000 		.4byte	0
+ 1666 005f 00000000 		.4byte	0
+ 1667              	.LLST2:
+ 1668 0063 00000000 		.4byte	.LVL7
+ 1669 0067 14000000 		.4byte	.LVL8
+ 1670 006b 0100     		.2byte	0x1
+ 1671 006d 51       		.byte	0x51
+ 1672 006e 14000000 		.4byte	.LVL8
+ 1673 0072 36000000 		.4byte	.LVL18
+ 1674 0076 0100     		.2byte	0x1
+ 1675 0078 56       		.byte	0x56
+ 1676 0079 36000000 		.4byte	.LVL18
+ 1677 007d 38000000 		.4byte	.LFE4
+ 1678 0081 0400     		.2byte	0x4
+ 1679 0083 F3       		.byte	0xf3
+ 1680 0084 01       		.uleb128 0x1
+ 1681 0085 51       		.byte	0x51
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 34
+
+
+ 1682 0086 9F       		.byte	0x9f
+ 1683 0087 00000000 		.4byte	0
+ 1684 008b 00000000 		.4byte	0
+ 1685              	.LLST3:
+ 1686 008f 1A000000 		.4byte	.LVL9
+ 1687 0093 20000000 		.4byte	.LVL11
+ 1688 0097 0200     		.2byte	0x2
+ 1689 0099 71       		.byte	0x71
+ 1690 009a 00       		.sleb128 0
+ 1691 009b 20000000 		.4byte	.LVL11
+ 1692 009f 36000000 		.4byte	.LVL17
+ 1693 00a3 0200     		.2byte	0x2
+ 1694 00a5 75       		.byte	0x75
+ 1695 00a6 00       		.sleb128 0
+ 1696 00a7 00000000 		.4byte	0
+ 1697 00ab 00000000 		.4byte	0
+ 1698              	.LLST4:
+ 1699 00af 1E000000 		.4byte	.LVL10
+ 1700 00b3 29000000 		.4byte	.LVL13-1
+ 1701 00b7 0200     		.2byte	0x2
+ 1702 00b9 73       		.byte	0x73
+ 1703 00ba 00       		.sleb128 0
+ 1704 00bb 29000000 		.4byte	.LVL13-1
+ 1705 00bf 36000000 		.4byte	.LVL15
+ 1706 00c3 0200     		.2byte	0x2
+ 1707 00c5 7D       		.byte	0x7d
+ 1708 00c6 00       		.sleb128 0
+ 1709 00c7 36000000 		.4byte	.LVL15
+ 1710 00cb 36000000 		.4byte	.LVL17
+ 1711 00cf 0900     		.2byte	0x9
+ 1712 00d1 75       		.byte	0x75
+ 1713 00d2 00       		.sleb128 0
+ 1714 00d3 76       		.byte	0x76
+ 1715 00d4 08       		.sleb128 8
+ 1716 00d5 33       		.byte	0x33
+ 1717 00d6 25       		.byte	0x25
+ 1718 00d7 33       		.byte	0x33
+ 1719 00d8 24       		.byte	0x24
+ 1720 00d9 1C       		.byte	0x1c
+ 1721 00da 00000000 		.4byte	0
+ 1722 00de 00000000 		.4byte	0
+ 1723              	.LLST5:
+ 1724 00e2 00000000 		.4byte	.LVL19
+ 1725 00e6 24000000 		.4byte	.LVL24
+ 1726 00ea 0100     		.2byte	0x1
+ 1727 00ec 50       		.byte	0x50
+ 1728 00ed 24000000 		.4byte	.LVL24
+ 1729 00f1 36000000 		.4byte	.LVL30
+ 1730 00f5 0100     		.2byte	0x1
+ 1731 00f7 55       		.byte	0x55
+ 1732 00f8 36000000 		.4byte	.LVL30
+ 1733 00fc 38000000 		.4byte	.LFE5
+ 1734 0100 0400     		.2byte	0x4
+ 1735 0102 F3       		.byte	0xf3
+ 1736 0103 01       		.uleb128 0x1
+ 1737 0104 50       		.byte	0x50
+ 1738 0105 9F       		.byte	0x9f
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 35
+
+
+ 1739 0106 00000000 		.4byte	0
+ 1740 010a 00000000 		.4byte	0
+ 1741              	.LLST6:
+ 1742 010e 00000000 		.4byte	.LVL19
+ 1743 0112 14000000 		.4byte	.LVL20
+ 1744 0116 0100     		.2byte	0x1
+ 1745 0118 51       		.byte	0x51
+ 1746 0119 14000000 		.4byte	.LVL20
+ 1747 011d 29000000 		.4byte	.LVL26-1
+ 1748 0121 0100     		.2byte	0x1
+ 1749 0123 52       		.byte	0x52
+ 1750 0124 29000000 		.4byte	.LVL26-1
+ 1751 0128 36000000 		.4byte	.LVL31
+ 1752 012c 0300     		.2byte	0x3
+ 1753 012e 76       		.byte	0x76
+ 1754 012f 7F       		.sleb128 -1
+ 1755 0130 9F       		.byte	0x9f
+ 1756 0131 36000000 		.4byte	.LVL31
+ 1757 0135 38000000 		.4byte	.LFE5
+ 1758 0139 0400     		.2byte	0x4
+ 1759 013b F3       		.byte	0xf3
+ 1760 013c 01       		.uleb128 0x1
+ 1761 013d 51       		.byte	0x51
+ 1762 013e 9F       		.byte	0x9f
+ 1763 013f 00000000 		.4byte	0
+ 1764 0143 00000000 		.4byte	0
+ 1765              	.LLST7:
+ 1766 0147 1A000000 		.4byte	.LVL21
+ 1767 014b 26000000 		.4byte	.LVL25
+ 1768 014f 0200     		.2byte	0x2
+ 1769 0151 71       		.byte	0x71
+ 1770 0152 00       		.sleb128 0
+ 1771 0153 26000000 		.4byte	.LVL25
+ 1772 0157 36000000 		.4byte	.LVL29
+ 1773 015b 0200     		.2byte	0x2
+ 1774 015d 74       		.byte	0x74
+ 1775 015e 00       		.sleb128 0
+ 1776 015f 00000000 		.4byte	0
+ 1777 0163 00000000 		.4byte	0
+ 1778              	.LLST8:
+ 1779 0167 1E000000 		.4byte	.LVL22
+ 1780 016b 20000000 		.4byte	.LVL23
+ 1781 016f 0200     		.2byte	0x2
+ 1782 0171 73       		.byte	0x73
+ 1783 0172 00       		.sleb128 0
+ 1784 0173 20000000 		.4byte	.LVL23
+ 1785 0177 36000000 		.4byte	.LVL28
+ 1786 017b 0200     		.2byte	0x2
+ 1787 017d 7D       		.byte	0x7d
+ 1788 017e 00       		.sleb128 0
+ 1789 017f 36000000 		.4byte	.LVL28
+ 1790 0183 36000000 		.4byte	.LVL29
+ 1791 0187 0900     		.2byte	0x9
+ 1792 0189 74       		.byte	0x74
+ 1793 018a 00       		.sleb128 0
+ 1794 018b 76       		.byte	0x76
+ 1795 018c 07       		.sleb128 7
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 36
+
+
+ 1796 018d 33       		.byte	0x33
+ 1797 018e 25       		.byte	0x25
+ 1798 018f 33       		.byte	0x33
+ 1799 0190 24       		.byte	0x24
+ 1800 0191 1C       		.byte	0x1c
+ 1801 0192 00000000 		.4byte	0
+ 1802 0196 00000000 		.4byte	0
+ 1803              	.LLST9:
+ 1804 019a 00000000 		.4byte	.LVL35
+ 1805 019e 20000000 		.4byte	.LVL39
+ 1806 01a2 0100     		.2byte	0x1
+ 1807 01a4 50       		.byte	0x50
+ 1808 01a5 20000000 		.4byte	.LVL39
+ 1809 01a9 36000000 		.4byte	.LFE7
+ 1810 01ad 0400     		.2byte	0x4
+ 1811 01af F3       		.byte	0xf3
+ 1812 01b0 01       		.uleb128 0x1
+ 1813 01b1 50       		.byte	0x50
+ 1814 01b2 9F       		.byte	0x9f
+ 1815 01b3 00000000 		.4byte	0
+ 1816 01b7 00000000 		.4byte	0
+ 1817              	.LLST10:
+ 1818 01bb 00000000 		.4byte	.LVL35
+ 1819 01bf 27000000 		.4byte	.LVL40-1
+ 1820 01c3 0100     		.2byte	0x1
+ 1821 01c5 51       		.byte	0x51
+ 1822 01c6 27000000 		.4byte	.LVL40-1
+ 1823 01ca 36000000 		.4byte	.LFE7
+ 1824 01ce 0400     		.2byte	0x4
+ 1825 01d0 F3       		.byte	0xf3
+ 1826 01d1 01       		.uleb128 0x1
+ 1827 01d2 51       		.byte	0x51
+ 1828 01d3 9F       		.byte	0x9f
+ 1829 01d4 00000000 		.4byte	0
+ 1830 01d8 00000000 		.4byte	0
+ 1831              	.LLST11:
+ 1832 01dc 00000000 		.4byte	.LVL35
+ 1833 01e0 27000000 		.4byte	.LVL40-1
+ 1834 01e4 0100     		.2byte	0x1
+ 1835 01e6 52       		.byte	0x52
+ 1836 01e7 27000000 		.4byte	.LVL40-1
+ 1837 01eb 34000000 		.4byte	.LVL44
+ 1838 01ef 0300     		.2byte	0x3
+ 1839 01f1 75       		.byte	0x75
+ 1840 01f2 7F       		.sleb128 -1
+ 1841 01f3 9F       		.byte	0x9f
+ 1842 01f4 34000000 		.4byte	.LVL44
+ 1843 01f8 36000000 		.4byte	.LFE7
+ 1844 01fc 0400     		.2byte	0x4
+ 1845 01fe F3       		.byte	0xf3
+ 1846 01ff 01       		.uleb128 0x1
+ 1847 0200 52       		.byte	0x52
+ 1848 0201 9F       		.byte	0x9f
+ 1849 0202 00000000 		.4byte	0
+ 1850 0206 00000000 		.4byte	0
+ 1851              	.LLST12:
+ 1852 020a 14000000 		.4byte	.LVL36
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 37
+
+
+ 1853 020e 34000000 		.4byte	.LVL43
+ 1854 0212 0200     		.2byte	0x2
+ 1855 0214 74       		.byte	0x74
+ 1856 0215 00       		.sleb128 0
+ 1857 0216 34000000 		.4byte	.LVL43
+ 1858 021a 34000000 		.4byte	.LVL45
+ 1859 021e 0200     		.2byte	0x2
+ 1860 0220 76       		.byte	0x76
+ 1861 0221 00       		.sleb128 0
+ 1862 0222 00000000 		.4byte	0
+ 1863 0226 00000000 		.4byte	0
+ 1864              	.LLST13:
+ 1865 022a 1A000000 		.4byte	.LVL37
+ 1866 022e 1C000000 		.4byte	.LVL38
+ 1867 0232 0200     		.2byte	0x2
+ 1868 0234 73       		.byte	0x73
+ 1869 0235 00       		.sleb128 0
+ 1870 0236 1C000000 		.4byte	.LVL38
+ 1871 023a 34000000 		.4byte	.LVL42
+ 1872 023e 0200     		.2byte	0x2
+ 1873 0240 7D       		.byte	0x7d
+ 1874 0241 00       		.sleb128 0
+ 1875 0242 34000000 		.4byte	.LVL42
+ 1876 0246 34000000 		.4byte	.LVL43
+ 1877 024a 0900     		.2byte	0x9
+ 1878 024c 74       		.byte	0x74
+ 1879 024d 00       		.sleb128 0
+ 1880 024e 75       		.byte	0x75
+ 1881 024f 07       		.sleb128 7
+ 1882 0250 33       		.byte	0x33
+ 1883 0251 25       		.byte	0x25
+ 1884 0252 33       		.byte	0x33
+ 1885 0253 24       		.byte	0x24
+ 1886 0254 1C       		.byte	0x1c
+ 1887 0255 34000000 		.4byte	.LVL43
+ 1888 0259 34000000 		.4byte	.LVL44
+ 1889 025d 0900     		.2byte	0x9
+ 1890 025f 76       		.byte	0x76
+ 1891 0260 00       		.sleb128 0
+ 1892 0261 75       		.byte	0x75
+ 1893 0262 07       		.sleb128 7
+ 1894 0263 33       		.byte	0x33
+ 1895 0264 25       		.byte	0x25
+ 1896 0265 33       		.byte	0x33
+ 1897 0266 24       		.byte	0x24
+ 1898 0267 1C       		.byte	0x1c
+ 1899 0268 34000000 		.4byte	.LVL44
+ 1900 026c 34000000 		.4byte	.LVL45
+ 1901 0270 0C00     		.2byte	0xc
+ 1902 0272 76       		.byte	0x76
+ 1903 0273 00       		.sleb128 0
+ 1904 0274 F3       		.byte	0xf3
+ 1905 0275 01       		.uleb128 0x1
+ 1906 0276 52       		.byte	0x52
+ 1907 0277 23       		.byte	0x23
+ 1908 0278 08       		.uleb128 0x8
+ 1909 0279 33       		.byte	0x33
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 38
+
+
+ 1910 027a 25       		.byte	0x25
+ 1911 027b 33       		.byte	0x33
+ 1912 027c 24       		.byte	0x24
+ 1913 027d 1C       		.byte	0x1c
+ 1914 027e 00000000 		.4byte	0
+ 1915 0282 00000000 		.4byte	0
+ 1916              	.LLST14:
+ 1917 0286 00000000 		.4byte	.LVL46
+ 1918 028a 24000000 		.4byte	.LVL51
+ 1919 028e 0100     		.2byte	0x1
+ 1920 0290 50       		.byte	0x50
+ 1921 0291 24000000 		.4byte	.LVL51
+ 1922 0295 36000000 		.4byte	.LVL57
+ 1923 0299 0100     		.2byte	0x1
+ 1924 029b 55       		.byte	0x55
+ 1925 029c 36000000 		.4byte	.LVL57
+ 1926 02a0 38000000 		.4byte	.LFE8
+ 1927 02a4 0400     		.2byte	0x4
+ 1928 02a6 F3       		.byte	0xf3
+ 1929 02a7 01       		.uleb128 0x1
+ 1930 02a8 50       		.byte	0x50
+ 1931 02a9 9F       		.byte	0x9f
+ 1932 02aa 00000000 		.4byte	0
+ 1933 02ae 00000000 		.4byte	0
+ 1934              	.LLST15:
+ 1935 02b2 00000000 		.4byte	.LVL46
+ 1936 02b6 14000000 		.4byte	.LVL47
+ 1937 02ba 0100     		.2byte	0x1
+ 1938 02bc 51       		.byte	0x51
+ 1939 02bd 14000000 		.4byte	.LVL47
+ 1940 02c1 29000000 		.4byte	.LVL53-1
+ 1941 02c5 0100     		.2byte	0x1
+ 1942 02c7 52       		.byte	0x52
+ 1943 02c8 29000000 		.4byte	.LVL53-1
+ 1944 02cc 36000000 		.4byte	.LVL58
+ 1945 02d0 0300     		.2byte	0x3
+ 1946 02d2 76       		.byte	0x76
+ 1947 02d3 7F       		.sleb128 -1
+ 1948 02d4 9F       		.byte	0x9f
+ 1949 02d5 36000000 		.4byte	.LVL58
+ 1950 02d9 38000000 		.4byte	.LFE8
+ 1951 02dd 0400     		.2byte	0x4
+ 1952 02df F3       		.byte	0xf3
+ 1953 02e0 01       		.uleb128 0x1
+ 1954 02e1 51       		.byte	0x51
+ 1955 02e2 9F       		.byte	0x9f
+ 1956 02e3 00000000 		.4byte	0
+ 1957 02e7 00000000 		.4byte	0
+ 1958              	.LLST16:
+ 1959 02eb 1A000000 		.4byte	.LVL48
+ 1960 02ef 26000000 		.4byte	.LVL52
+ 1961 02f3 0200     		.2byte	0x2
+ 1962 02f5 71       		.byte	0x71
+ 1963 02f6 00       		.sleb128 0
+ 1964 02f7 26000000 		.4byte	.LVL52
+ 1965 02fb 36000000 		.4byte	.LVL56
+ 1966 02ff 0200     		.2byte	0x2
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 39
+
+
+ 1967 0301 74       		.byte	0x74
+ 1968 0302 00       		.sleb128 0
+ 1969 0303 00000000 		.4byte	0
+ 1970 0307 00000000 		.4byte	0
+ 1971              	.LLST17:
+ 1972 030b 1E000000 		.4byte	.LVL49
+ 1973 030f 20000000 		.4byte	.LVL50
+ 1974 0313 0200     		.2byte	0x2
+ 1975 0315 73       		.byte	0x73
+ 1976 0316 00       		.sleb128 0
+ 1977 0317 20000000 		.4byte	.LVL50
+ 1978 031b 36000000 		.4byte	.LVL55
+ 1979 031f 0200     		.2byte	0x2
+ 1980 0321 7D       		.byte	0x7d
+ 1981 0322 00       		.sleb128 0
+ 1982 0323 36000000 		.4byte	.LVL55
+ 1983 0327 36000000 		.4byte	.LVL56
+ 1984 032b 0900     		.2byte	0x9
+ 1985 032d 74       		.byte	0x74
+ 1986 032e 00       		.sleb128 0
+ 1987 032f 76       		.byte	0x76
+ 1988 0330 07       		.sleb128 7
+ 1989 0331 33       		.byte	0x33
+ 1990 0332 25       		.byte	0x25
+ 1991 0333 33       		.byte	0x33
+ 1992 0334 24       		.byte	0x24
+ 1993 0335 1C       		.byte	0x1c
+ 1994 0336 00000000 		.4byte	0
+ 1995 033a 00000000 		.4byte	0
+ 1996              		.section	.debug_aranges,"",%progbits
+ 1997 0000 64000000 		.4byte	0x64
+ 1998 0004 0200     		.2byte	0x2
+ 1999 0006 00000000 		.4byte	.Ldebug_info0
+ 2000 000a 04       		.byte	0x4
+ 2001 000b 00       		.byte	0
+ 2002 000c 0000     		.2byte	0
+ 2003 000e 0000     		.2byte	0
+ 2004 0010 00000000 		.4byte	.LFB0
+ 2005 0014 1E000000 		.4byte	.LFE0-.LFB0
+ 2006 0018 00000000 		.4byte	.LFB1
+ 2007 001c 0A000000 		.4byte	.LFE1-.LFB1
+ 2008 0020 00000000 		.4byte	.LFB2
+ 2009 0024 0A000000 		.4byte	.LFE2-.LFB2
+ 2010 0028 00000000 		.4byte	.LFB3
+ 2011 002c 0A000000 		.4byte	.LFE3-.LFB3
+ 2012 0030 00000000 		.4byte	.LFB4
+ 2013 0034 38000000 		.4byte	.LFE4-.LFB4
+ 2014 0038 00000000 		.4byte	.LFB5
+ 2015 003c 38000000 		.4byte	.LFE5-.LFB5
+ 2016 0040 00000000 		.4byte	.LFB6
+ 2017 0044 38000000 		.4byte	.LFE6-.LFB6
+ 2018 0048 00000000 		.4byte	.LFB7
+ 2019 004c 36000000 		.4byte	.LFE7-.LFB7
+ 2020 0050 00000000 		.4byte	.LFB8
+ 2021 0054 38000000 		.4byte	.LFE8-.LFB8
+ 2022 0058 00000000 		.4byte	.LFB9
+ 2023 005c 22000000 		.4byte	.LFE9-.LFB9
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 40
+
+
+ 2024 0060 00000000 		.4byte	0
+ 2025 0064 00000000 		.4byte	0
+ 2026              		.section	.debug_ranges,"",%progbits
+ 2027              	.Ldebug_ranges0:
+ 2028 0000 00000000 		.4byte	.LFB0
+ 2029 0004 1E000000 		.4byte	.LFE0
+ 2030 0008 00000000 		.4byte	.LFB1
+ 2031 000c 0A000000 		.4byte	.LFE1
+ 2032 0010 00000000 		.4byte	.LFB2
+ 2033 0014 0A000000 		.4byte	.LFE2
+ 2034 0018 00000000 		.4byte	.LFB3
+ 2035 001c 0A000000 		.4byte	.LFE3
+ 2036 0020 00000000 		.4byte	.LFB4
+ 2037 0024 38000000 		.4byte	.LFE4
+ 2038 0028 00000000 		.4byte	.LFB5
+ 2039 002c 38000000 		.4byte	.LFE5
+ 2040 0030 00000000 		.4byte	.LFB6
+ 2041 0034 38000000 		.4byte	.LFE6
+ 2042 0038 00000000 		.4byte	.LFB7
+ 2043 003c 36000000 		.4byte	.LFE7
+ 2044 0040 00000000 		.4byte	.LFB8
+ 2045 0044 38000000 		.4byte	.LFE8
+ 2046 0048 00000000 		.4byte	.LFB9
+ 2047 004c 22000000 		.4byte	.LFE9
+ 2048 0050 00000000 		.4byte	0
+ 2049 0054 00000000 		.4byte	0
+ 2050              		.section	.debug_line,"",%progbits
+ 2051              	.Ldebug_line0:
+ 2052 0000 AC020000 		.section	.debug_str,"MS",%progbits,1
+ 2052      0200DC01 
+ 2052      00000201 
+ 2052      FB0E0D00 
+ 2052      01010101 
+ 2053              	.LASF9:
+ 2054 0000 5F5F7569 		.ascii	"__uint8_t\000"
+ 2054      6E74385F 
+ 2054      7400
+ 2055              	.LASF14:
+ 2056 000a 73697A65 		.ascii	"size_t\000"
+ 2056      5F7400
+ 2057              	.LASF46:
+ 2058 0011 6E524632 		.ascii	"nRF24_write_tx_payload_cmd\000"
+ 2058      345F7772 
+ 2058      6974655F 
+ 2058      74785F70 
+ 2058      61796C6F 
+ 2059              	.LASF55:
+ 2060 002c 433A5C55 		.ascii	"C:\\Users\\mikke\\Desktop\\nRF24_Example_Projects-m"
+ 2060      73657273 
+ 2060      5C6D696B 
+ 2060      6B655C44 
+ 2060      65736B74 
+ 2061 005b 61737465 		.ascii	"aster\\00_Basic_Tx.cydsn\000"
+ 2061      725C3030 
+ 2061      5F426173 
+ 2061      69635F54 
+ 2061      782E6379 
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 41
+
+
+ 2062              	.LASF18:
+ 2063 0073 4E52465F 		.ascii	"NRF_CMD_W_REGISTER\000"
+ 2063      434D445F 
+ 2063      575F5245 
+ 2063      47495354 
+ 2063      455200
+ 2064              	.LASF37:
+ 2065 0086 6E524632 		.ascii	"nRF24_reuse_tx_payload_cmd\000"
+ 2065      345F7265 
+ 2065      7573655F 
+ 2065      74785F70 
+ 2065      61796C6F 
+ 2066              	.LASF3:
+ 2067 00a1 73686F72 		.ascii	"short unsigned int\000"
+ 2067      7420756E 
+ 2067      7369676E 
+ 2067      65642069 
+ 2067      6E7400
+ 2068              	.LASF42:
+ 2069 00b4 64617461 		.ascii	"data_size\000"
+ 2069      5F73697A 
+ 2069      6500
+ 2070              	.LASF56:
+ 2071 00be 6E524632 		.ascii	"nRF24_spi_xfer\000"
+ 2071      345F7370 
+ 2071      695F7866 
+ 2071      657200
+ 2072              	.LASF43:
+ 2073 00cd 73746174 		.ascii	"status\000"
+ 2073      757300
+ 2074              	.LASF35:
+ 2075 00d4 6E72665F 		.ascii	"nrf_pipe\000"
+ 2075      70697065 
+ 2075      00
+ 2076              	.LASF11:
+ 2077 00dd 666C6F61 		.ascii	"float\000"
+ 2077      7400
+ 2078              	.LASF41:
+ 2079 00e3 64617461 		.ascii	"data\000"
+ 2079      00
+ 2080              	.LASF38:
+ 2081 00e8 6E524632 		.ascii	"nRF24_flush_rx_cmd\000"
+ 2081      345F666C 
+ 2081      7573685F 
+ 2081      72785F63 
+ 2081      6D6400
+ 2082              	.LASF1:
+ 2083 00fb 756E7369 		.ascii	"unsigned char\000"
+ 2083      676E6564 
+ 2083      20636861 
+ 2083      7200
+ 2084              	.LASF50:
+ 2085 0109 6E524632 		.ascii	"nRF24_read_payload_width_cmd\000"
+ 2085      345F7265 
+ 2085      61645F70 
+ 2085      61796C6F 
+ 2085      61645F77 
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 42
+
+
+ 2086              	.LASF40:
+ 2087 0126 6E524632 		.ascii	"nRF24_read_rx_payload_cmd\000"
+ 2087      345F7265 
+ 2087      61645F72 
+ 2087      785F7061 
+ 2087      796C6F61 
+ 2088              	.LASF32:
+ 2089 0140 4E52465F 		.ascii	"NRF_PIPE3\000"
+ 2089      50495045 
+ 2089      3300
+ 2090              	.LASF29:
+ 2091 014a 4E52465F 		.ascii	"NRF_PIPE0\000"
+ 2091      50495045 
+ 2091      3000
+ 2092              	.LASF30:
+ 2093 0154 4E52465F 		.ascii	"NRF_PIPE1\000"
+ 2093      50495045 
+ 2093      3100
+ 2094              	.LASF31:
+ 2095 015e 4E52465F 		.ascii	"NRF_PIPE2\000"
+ 2095      50495045 
+ 2095      3200
+ 2096              	.LASF52:
+ 2097 0168 64756D6D 		.ascii	"dummy\000"
+ 2097      7900
+ 2098              	.LASF33:
+ 2099 016e 4E52465F 		.ascii	"NRF_PIPE4\000"
+ 2099      50495045 
+ 2099      3400
+ 2100              	.LASF34:
+ 2101 0178 4E52465F 		.ascii	"NRF_PIPE5\000"
+ 2101      50495045 
+ 2101      3500
+ 2102              	.LASF27:
+ 2103 0182 4E52465F 		.ascii	"NRF_CMD_NOP\000"
+ 2103      434D445F 
+ 2103      4E4F5000 
+ 2104              	.LASF5:
+ 2105 018e 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2105      20756E73 
+ 2105      69676E65 
+ 2105      6420696E 
+ 2105      7400
+ 2106              	.LASF49:
+ 2107 01a0 6E524632 		.ascii	"nRF24_no_ack_payload_cmd\000"
+ 2107      345F6E6F 
+ 2107      5F61636B 
+ 2107      5F706179 
+ 2107      6C6F6164 
+ 2108              	.LASF25:
+ 2109 01b9 4E52465F 		.ascii	"NRF_CMD_W_ACK_PAYLOAD\000"
+ 2109      434D445F 
+ 2109      575F4143 
+ 2109      4B5F5041 
+ 2109      594C4F41 
+ 2110              	.LASF28:
+ 2111 01cf 6E72665F 		.ascii	"nrf_cmd\000"
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 43
+
+
+ 2111      636D6400 
+ 2112              	.LASF51:
+ 2113 01d7 6E524632 		.ascii	"nRF24_nop_cmd\000"
+ 2113      345F6E6F 
+ 2113      705F636D 
+ 2113      6400
+ 2114              	.LASF54:
+ 2115 01e5 47656E65 		.ascii	"Generated_Source\\PSoC4\\nRF24_COMMANDS.c\000"
+ 2115      72617465 
+ 2115      645F536F 
+ 2115      75726365 
+ 2115      5C50536F 
+ 2116              	.LASF48:
+ 2117 020d 70697065 		.ascii	"pipe\000"
+ 2117      00
+ 2118              	.LASF8:
+ 2119 0212 756E7369 		.ascii	"unsigned int\000"
+ 2119      676E6564 
+ 2119      20696E74 
+ 2119      00
+ 2120              	.LASF26:
+ 2121 021f 4E52465F 		.ascii	"NRF_CMD_W_TX_PAYLOAD_NOACK\000"
+ 2121      434D445F 
+ 2121      575F5458 
+ 2121      5F504159 
+ 2121      4C4F4144 
+ 2122              	.LASF7:
+ 2123 023a 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2123      206C6F6E 
+ 2123      6720756E 
+ 2123      7369676E 
+ 2123      65642069 
+ 2124              	.LASF10:
+ 2125 0251 75696E74 		.ascii	"uint8_t\000"
+ 2125      385F7400 
+ 2126              	.LASF45:
+ 2127 0259 6E72665F 		.ascii	"nrf_data_in\000"
+ 2127      64617461 
+ 2127      5F696E00 
+ 2128              	.LASF22:
+ 2129 0265 4E52465F 		.ascii	"NRF_CMD_FLUSH_RX\000"
+ 2129      434D445F 
+ 2129      464C5553 
+ 2129      485F5258 
+ 2129      00
+ 2130              	.LASF24:
+ 2131 0276 4E52465F 		.ascii	"NRF_CMD_R_RX_PL_WID\000"
+ 2131      434D445F 
+ 2131      525F5258 
+ 2131      5F504C5F 
+ 2131      57494400 
+ 2132              	.LASF53:
+ 2133 028a 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 2133      43313120 
+ 2133      352E342E 
+ 2133      31203230 
+ 2133      31363036 
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 44
+
+
+ 2134 02bd 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 2134      20726576 
+ 2134      6973696F 
+ 2134      6E203233 
+ 2134      37373135 
+ 2135 02f0 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 2135      66756E63 
+ 2135      74696F6E 
+ 2135      2D736563 
+ 2135      74696F6E 
+ 2136              	.LASF44:
+ 2137 0318 6E72665F 		.ascii	"nrf_data_out\000"
+ 2137      64617461 
+ 2137      5F6F7574 
+ 2137      00
+ 2138              	.LASF21:
+ 2139 0325 4E52465F 		.ascii	"NRF_CMD_FLUSH_TX\000"
+ 2139      434D445F 
+ 2139      464C5553 
+ 2139      485F5458 
+ 2139      00
+ 2140              	.LASF47:
+ 2141 0336 6E524632 		.ascii	"nRF24_write_ack_payload_cmd\000"
+ 2141      345F7772 
+ 2141      6974655F 
+ 2141      61636B5F 
+ 2141      7061796C 
+ 2142              	.LASF6:
+ 2143 0352 6C6F6E67 		.ascii	"long long int\000"
+ 2143      206C6F6E 
+ 2143      6720696E 
+ 2143      7400
+ 2144              	.LASF16:
+ 2145 0360 73697A65 		.ascii	"sizetype\000"
+ 2145      74797065 
+ 2145      00
+ 2146              	.LASF20:
+ 2147 0369 4E52465F 		.ascii	"NRF_CMD_W_TX_PAYLOAD\000"
+ 2147      434D445F 
+ 2147      575F5458 
+ 2147      5F504159 
+ 2147      4C4F4144 
+ 2148              	.LASF13:
+ 2149 037e 63686172 		.ascii	"char\000"
+ 2149      00
+ 2150              	.LASF17:
+ 2151 0383 4E52465F 		.ascii	"NRF_CMD_R_REGISTER\000"
+ 2151      434D445F 
+ 2151      525F5245 
+ 2151      47495354 
+ 2151      455200
+ 2152              	.LASF57:
+ 2153 0396 6D656D63 		.ascii	"memcpy\000"
+ 2153      707900
+ 2154              	.LASF2:
+ 2155 039d 73686F72 		.ascii	"short int\000"
+ 2155      7420696E 
+ARM GAS  C:\Users\mikke\AppData\Local\Temp\cc6ptaS1.s 			page 45
+
+
+ 2155      7400
+ 2156              	.LASF19:
+ 2157 03a7 4E52465F 		.ascii	"NRF_CMD_R_RX_PAYLOAD\000"
+ 2157      434D445F 
+ 2157      525F5258 
+ 2157      5F504159 
+ 2157      4C4F4144 
+ 2158              	.LASF36:
+ 2159 03bc 6E524632 		.ascii	"nRF24_send_command\000"
+ 2159      345F7365 
+ 2159      6E645F63 
+ 2159      6F6D6D61 
+ 2159      6E6400
+ 2160              	.LASF4:
+ 2161 03cf 6C6F6E67 		.ascii	"long int\000"
+ 2161      20696E74 
+ 2161      00
+ 2162              	.LASF23:
+ 2163 03d8 4E52465F 		.ascii	"NRF_CMD_REUSE_TX_PL\000"
+ 2163      434D445F 
+ 2163      52455553 
+ 2163      455F5458 
+ 2163      5F504C00 
+ 2164              	.LASF15:
+ 2165 03ec 6C6F6E67 		.ascii	"long double\000"
+ 2165      20646F75 
+ 2165      626C6500 
+ 2166              	.LASF0:
+ 2167 03f8 7369676E 		.ascii	"signed char\000"
+ 2167      65642063 
+ 2167      68617200 
+ 2168              	.LASF12:
+ 2169 0404 646F7562 		.ascii	"double\000"
+ 2169      6C6500
+ 2170              	.LASF39:
+ 2171 040b 6E524632 		.ascii	"nRF24_flush_tx_cmd\000"
+ 2171      345F666C 
+ 2171      7573685F 
+ 2171      74785F63 
+ 2171      6D6400
+ 2172              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

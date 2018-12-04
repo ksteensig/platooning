@@ -1,0 +1,2715 @@
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	irq_flag
+  20              		.bss
+  21              		.type	irq_flag, %object
+  22              		.size	irq_flag, 1
+  23              	irq_flag:
+  24 0000 00       		.space	1
+  25              		.comm	data,1,1
+  26              		.comm	DataA,3000,4
+  27              		.comm	DataB,3000,4
+  28              		.comm	DMA_A_Chan,1,1
+  29              		.comm	DMA_A_TD,1,4
+  30              		.comm	DMA_B_Chan,1,1
+  31              		.comm	DMA_B_TD,1,4
+  32              		.global	ISR_A_done
+  33              		.type	ISR_A_done, %object
+  34              		.size	ISR_A_done, 1
+  35              	ISR_A_done:
+  36 0001 00       		.space	1
+  37              		.global	ISR_B_done
+  38              		.type	ISR_B_done, %object
+  39              		.size	ISR_B_done, 1
+  40              	ISR_B_done:
+  41 0002 00       		.space	1
+  42              		.global	angle
+  43              		.type	angle, %object
+  44              		.size	angle, 1
+  45              	angle:
+  46 0003 00       		.space	1
+  47              		.global	distance
+  48              		.align	2
+  49              		.type	distance, %object
+  50              		.size	distance, 4
+  51              	distance:
+  52 0004 00000000 		.space	4
+  53              		.global	velocity
+  54              		.align	1
+  55              		.type	velocity, %object
+  56              		.size	velocity, 2
+  57              	velocity:
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 2
+
+
+  58 0008 0000     		.space	2
+  59              		.comm	output,200,4
+  60              		.section	.text.ISR_START_Handler,"ax",%progbits
+  61              		.align	2
+  62              		.global	ISR_START_Handler
+  63              		.thumb
+  64              		.thumb_func
+  65              		.type	ISR_START_Handler, %function
+  66              	ISR_START_Handler:
+  67              	.LFB57:
+  68              		.file 1 "main.c"
+   1:main.c        **** #include "project.h"
+   2:main.c        **** 
+   3:main.c        **** #include <stdio.h>
+   4:main.c        **** #include <stdbool.h>
+   5:main.c        **** 
+   6:main.c        **** volatile bool irq_flag = false;
+   7:main.c        **** 
+   8:main.c        **** // here we will store the received data
+   9:main.c        **** unsigned char data;
+  10:main.c        **** 
+  11:main.c        **** // Executed when the IRQ pin triggers an interrupt
+  12:main.c        **** CY_ISR_PROTO(IRQ_Handler);
+  13:main.c        **** 
+  14:main.c        **** #define DATA_SIZE 1500
+  15:main.c        **** 
+  16:main.c        **** uint16_t DataA[DATA_SIZE];
+  17:main.c        **** uint16_t DataB[DATA_SIZE];
+  18:main.c        **** 
+  19:main.c        **** #define DMA_A_BYTES_PER_BURST 2
+  20:main.c        **** #define DMA_A_REQUEST_PER_BURST 1
+  21:main.c        **** #define DMA_A_SRC_BASE (CYDEV_PERIPH_BASE)
+  22:main.c        **** #define DMA_A_DST_BASE (CYDEV_SRAM_BASE)
+  23:main.c        **** 
+  24:main.c        **** #define DMA_B_BYTES_PER_BURST 2
+  25:main.c        **** #define DMA_B_REQUEST_PER_BURST 1
+  26:main.c        **** #define DMA_B_SRC_BASE (CYDEV_PERIPH_BASE)
+  27:main.c        **** #define DMA_B_DST_BASE (CYDEV_SRAM_BASE)
+  28:main.c        **** 
+  29:main.c        **** uint8 DMA_A_Chan;
+  30:main.c        **** uint8 DMA_A_TD[1];
+  31:main.c        **** 
+  32:main.c        **** uint8 DMA_B_Chan;
+  33:main.c        **** uint8 DMA_B_TD[1];
+  34:main.c        **** 
+  35:main.c        **** uint8_t ISR_A_done = 0;
+  36:main.c        **** uint8_t ISR_B_done = 0;
+  37:main.c        **** 
+  38:main.c        **** int8_t angle = 0;
+  39:main.c        **** uint32_t distance = 0;
+  40:main.c        **** uint16_t velocity = 0;
+  41:main.c        **** 
+  42:main.c        **** char output[200];
+  43:main.c        **** 
+  44:main.c        **** CY_ISR(ISR_START_Handler)
+  45:main.c        **** {
+  69              		.loc 1 45 0
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 3
+
+
+  70              		.cfi_startproc
+  71              		@ args = 0, pretend = 0, frame = 0
+  72              		@ frame_needed = 1, uses_anonymous_args = 0
+  73 0000 80B5     		push	{r7, lr}
+  74              		.cfi_def_cfa_offset 8
+  75              		.cfi_offset 7, -8
+  76              		.cfi_offset 14, -4
+  77 0002 00AF     		add	r7, sp, #0
+  78              		.cfi_def_cfa_register 7
+  46:main.c        ****     ADC_SAR_A_StartConvert();
+  79              		.loc 1 46 0
+  80 0004 FFF7FEFF 		bl	ADC_SAR_A_StartConvert
+  47:main.c        ****     ADC_SAR_B_StartConvert();
+  81              		.loc 1 47 0
+  82 0008 FFF7FEFF 		bl	ADC_SAR_B_StartConvert
+  48:main.c        **** }
+  83              		.loc 1 48 0
+  84 000c 00BF     		nop
+  85 000e 80BD     		pop	{r7, pc}
+  86              		.cfi_endproc
+  87              	.LFE57:
+  88              		.size	ISR_START_Handler, .-ISR_START_Handler
+  89              		.section	.text.ISR_OUT_A_Handler,"ax",%progbits
+  90              		.align	2
+  91              		.global	ISR_OUT_A_Handler
+  92              		.thumb
+  93              		.thumb_func
+  94              		.type	ISR_OUT_A_Handler, %function
+  95              	ISR_OUT_A_Handler:
+  96              	.LFB58:
+  49:main.c        **** 
+  50:main.c        **** CY_ISR(ISR_OUT_A_Handler)
+  51:main.c        **** {
+  97              		.loc 1 51 0
+  98              		.cfi_startproc
+  99              		@ args = 0, pretend = 0, frame = 0
+ 100              		@ frame_needed = 1, uses_anonymous_args = 0
+ 101 0000 80B5     		push	{r7, lr}
+ 102              		.cfi_def_cfa_offset 8
+ 103              		.cfi_offset 7, -8
+ 104              		.cfi_offset 14, -4
+ 105 0002 00AF     		add	r7, sp, #0
+ 106              		.cfi_def_cfa_register 7
+  52:main.c        ****     ADC_SAR_A_StopConvert();
+ 107              		.loc 1 52 0
+ 108 0004 FFF7FEFF 		bl	ADC_SAR_A_StopConvert
+  53:main.c        ****     ISR_A_done = 1;
+ 109              		.loc 1 53 0
+ 110 0008 024B     		ldr	r3, .L3
+ 111 000a 0122     		movs	r2, #1
+ 112 000c 1A70     		strb	r2, [r3]
+  54:main.c        **** }
+ 113              		.loc 1 54 0
+ 114 000e 00BF     		nop
+ 115 0010 80BD     		pop	{r7, pc}
+ 116              	.L4:
+ 117 0012 00BF     		.align	2
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 4
+
+
+ 118              	.L3:
+ 119 0014 00000000 		.word	ISR_A_done
+ 120              		.cfi_endproc
+ 121              	.LFE58:
+ 122              		.size	ISR_OUT_A_Handler, .-ISR_OUT_A_Handler
+ 123              		.section	.text.ISR_OUT_B_Handler,"ax",%progbits
+ 124              		.align	2
+ 125              		.global	ISR_OUT_B_Handler
+ 126              		.thumb
+ 127              		.thumb_func
+ 128              		.type	ISR_OUT_B_Handler, %function
+ 129              	ISR_OUT_B_Handler:
+ 130              	.LFB59:
+  55:main.c        **** 
+  56:main.c        **** CY_ISR(ISR_OUT_B_Handler)
+  57:main.c        **** {
+ 131              		.loc 1 57 0
+ 132              		.cfi_startproc
+ 133              		@ args = 0, pretend = 0, frame = 0
+ 134              		@ frame_needed = 1, uses_anonymous_args = 0
+ 135 0000 80B5     		push	{r7, lr}
+ 136              		.cfi_def_cfa_offset 8
+ 137              		.cfi_offset 7, -8
+ 138              		.cfi_offset 14, -4
+ 139 0002 00AF     		add	r7, sp, #0
+ 140              		.cfi_def_cfa_register 7
+  58:main.c        ****     ADC_SAR_B_StopConvert();
+ 141              		.loc 1 58 0
+ 142 0004 FFF7FEFF 		bl	ADC_SAR_B_StopConvert
+  59:main.c        ****     ISR_B_done = 1;
+ 143              		.loc 1 59 0
+ 144 0008 024B     		ldr	r3, .L6
+ 145 000a 0122     		movs	r2, #1
+ 146 000c 1A70     		strb	r2, [r3]
+  60:main.c        **** }
+ 147              		.loc 1 60 0
+ 148 000e 00BF     		nop
+ 149 0010 80BD     		pop	{r7, pc}
+ 150              	.L7:
+ 151 0012 00BF     		.align	2
+ 152              	.L6:
+ 153 0014 00000000 		.word	ISR_B_done
+ 154              		.cfi_endproc
+ 155              	.LFE59:
+ 156              		.size	ISR_OUT_B_Handler, .-ISR_OUT_B_Handler
+ 157              		.section	.text.IRQ_Handler,"ax",%progbits
+ 158              		.align	2
+ 159              		.global	IRQ_Handler
+ 160              		.thumb
+ 161              		.thumb_func
+ 162              		.type	IRQ_Handler, %function
+ 163              	IRQ_Handler:
+ 164              	.LFB60:
+  61:main.c        **** 
+  62:main.c        **** CY_ISR(IRQ_Handler)
+  63:main.c        **** {
+ 165              		.loc 1 63 0
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 5
+
+
+ 166              		.cfi_startproc
+ 167              		@ args = 0, pretend = 0, frame = 8
+ 168              		@ frame_needed = 1, uses_anonymous_args = 0
+ 169 0000 80B5     		push	{r7, lr}
+ 170              		.cfi_def_cfa_offset 8
+ 171              		.cfi_offset 7, -8
+ 172              		.cfi_offset 14, -4
+ 173 0002 82B0     		sub	sp, sp, #8
+ 174              		.cfi_def_cfa_offset 16
+ 175 0004 00AF     		add	r7, sp, #0
+ 176              		.cfi_def_cfa_register 7
+  64:main.c        ****     ADC_SAR_A_StartConvert();
+ 177              		.loc 1 64 0
+ 178 0006 FFF7FEFF 		bl	ADC_SAR_A_StartConvert
+  65:main.c        ****     ADC_SAR_B_StartConvert();
+ 179              		.loc 1 65 0
+ 180 000a FFF7FEFF 		bl	ADC_SAR_B_StartConvert
+  66:main.c        ****     irq_flag = true;
+ 181              		.loc 1 66 0
+ 182 000e 134B     		ldr	r3, .L9
+ 183 0010 0122     		movs	r2, #1
+ 184 0012 1A70     		strb	r2, [r3]
+  67:main.c        ****     IRQ_ClearInterrupt();
+ 185              		.loc 1 67 0
+ 186 0014 FFF7FEFF 		bl	IRQ_ClearInterrupt
+  68:main.c        ****     nrf_irq flag = nRF24_get_irq_flag();
+ 187              		.loc 1 68 0
+ 188 0018 FFF7FEFF 		bl	nRF24_get_irq_flag
+ 189 001c 0346     		mov	r3, r0
+ 190 001e FB71     		strb	r3, [r7, #7]
+  69:main.c        ****     nRF24_clear_irq_flag(flag);
+ 191              		.loc 1 69 0
+ 192 0020 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 193 0022 1846     		mov	r0, r3
+ 194 0024 FFF7FEFF 		bl	nRF24_clear_irq_flag
+  70:main.c        **** 
+  71:main.c        ****     uint16_t data = 0;
+ 195              		.loc 1 71 0
+ 196 0028 0023     		movs	r3, #0
+ 197 002a BB80     		strh	r3, [r7, #4]	@ movhi
+  72:main.c        ****     
+  73:main.c        ****     // get the data from the transmitter
+  74:main.c        ****     nRF24_get_rx_payload((uint8_t *)&data, 2);
+ 198              		.loc 1 74 0
+ 199 002c 3B1D     		adds	r3, r7, #4
+ 200 002e 0221     		movs	r1, #2
+ 201 0030 1846     		mov	r0, r3
+ 202 0032 FFF7FEFF 		bl	nRF24_get_rx_payload
+  75:main.c        ****     
+  76:main.c        ****     // because the ARM device is little endian, the data is stored in the incorrect order
+  77:main.c        ****     // so the data consists of the LSB|MSB of the velocity
+  78:main.c        ****     velocity = data << 0x08;
+ 203              		.loc 1 78 0
+ 204 0036 BB88     		ldrh	r3, [r7, #4]
+ 205 0038 1B02     		lsls	r3, r3, #8
+ 206 003a 9AB2     		uxth	r2, r3
+ 207 003c 084B     		ldr	r3, .L9+4
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 6
+
+
+ 208 003e 1A80     		strh	r2, [r3]	@ movhi
+  79:main.c        ****     velocity |= data >> 0x08;
+ 209              		.loc 1 79 0
+ 210 0040 BB88     		ldrh	r3, [r7, #4]
+ 211 0042 1B0A     		lsrs	r3, r3, #8
+ 212 0044 9AB2     		uxth	r2, r3
+ 213 0046 064B     		ldr	r3, .L9+4
+ 214 0048 1B88     		ldrh	r3, [r3]
+ 215 004a 1343     		orrs	r3, r3, r2
+ 216 004c 9AB2     		uxth	r2, r3
+ 217 004e 044B     		ldr	r3, .L9+4
+ 218 0050 1A80     		strh	r2, [r3]	@ movhi
+  80:main.c        **** }
+ 219              		.loc 1 80 0
+ 220 0052 00BF     		nop
+ 221 0054 0837     		adds	r7, r7, #8
+ 222              		.cfi_def_cfa_offset 8
+ 223 0056 BD46     		mov	sp, r7
+ 224              		.cfi_def_cfa_register 13
+ 225              		@ sp needed
+ 226 0058 80BD     		pop	{r7, pc}
+ 227              	.L10:
+ 228 005a 00BF     		.align	2
+ 229              	.L9:
+ 230 005c 00000000 		.word	irq_flag
+ 231 0060 00000000 		.word	velocity
+ 232              		.cfi_endproc
+ 233              	.LFE60:
+ 234              		.size	IRQ_Handler, .-IRQ_Handler
+ 235              		.global	__aeabi_i2d
+ 236              		.global	__aeabi_ddiv
+ 237              		.global	__aeabi_d2uiz
+ 238              		.global	__aeabi_dmul
+ 239              		.global	__aeabi_d2iz
+ 240              		.global	__aeabi_dsub
+ 241              		.section	.rodata
+ 242              		.align	2
+ 243              	.LC0:
+ 244 0000 25640A00 		.ascii	"%d\012\000"
+ 245              		.section	.text.main,"ax",%progbits
+ 246              		.align	2
+ 247              		.global	main
+ 248              		.thumb
+ 249              		.thumb_func
+ 250              		.type	main, %function
+ 251              	main:
+ 252              	.LFB61:
+  81:main.c        **** 
+  82:main.c        **** int main(void)
+  83:main.c        **** {    
+ 253              		.loc 1 83 0
+ 254              		.cfi_startproc
+ 255              		@ args = 0, pretend = 0, frame = 24
+ 256              		@ frame_needed = 1, uses_anonymous_args = 0
+ 257 0000 90B5     		push	{r4, r7, lr}
+ 258              		.cfi_def_cfa_offset 12
+ 259              		.cfi_offset 4, -12
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 7
+
+
+ 260              		.cfi_offset 7, -8
+ 261              		.cfi_offset 14, -4
+ 262 0002 87B0     		sub	sp, sp, #28
+ 263              		.cfi_def_cfa_offset 40
+ 264 0004 00AF     		add	r7, sp, #0
+ 265              		.cfi_def_cfa_register 7
+  84:main.c        ****     UART_Start();
+ 266              		.loc 1 84 0
+ 267 0006 FFF7FEFF 		bl	UART_Start
+  85:main.c        ****     Clock_In_Start();
+ 268              		.loc 1 85 0
+ 269 000a FFF7FEFF 		bl	Clock_In_Start
+  86:main.c        ****     Clock_In_1_Start();
+ 270              		.loc 1 86 0
+ 271 000e FFF7FEFF 		bl	Clock_In_1_Start
+  87:main.c        ****     ADC_SAR_A_Start();
+ 272              		.loc 1 87 0
+ 273 0012 FFF7FEFF 		bl	ADC_SAR_A_Start
+  88:main.c        ****     ADC_SAR_B_Start();
+ 274              		.loc 1 88 0
+ 275 0016 FFF7FEFF 		bl	ADC_SAR_B_Start
+  89:main.c        ****     Maximum_Peak_Detector_A_Start();
+ 276              		.loc 1 89 0
+ 277 001a FFF7FEFF 		bl	Maximum_Peak_Detector_A_Start
+  90:main.c        ****     Maximum_Peak_Detector_B_Start();
+ 278              		.loc 1 90 0
+ 279 001e FFF7FEFF 		bl	Maximum_Peak_Detector_B_Start
+  91:main.c        ****     ADC_SAR_A_IRQ_Enable();
+ 280              		.loc 1 91 0
+ 281 0022 FFF7FEFF 		bl	ADC_SAR_A_IRQ_Enable
+  92:main.c        ****     ADC_SAR_B_IRQ_Enable();
+ 282              		.loc 1 92 0
+ 283 0026 FFF7FEFF 		bl	ADC_SAR_B_IRQ_Enable
+  93:main.c        **** 
+  94:main.c        ****     ISR_A_StartEx(ISR_OUT_A_Handler);
+ 284              		.loc 1 94 0
+ 285 002a BD48     		ldr	r0, .L20+16
+ 286 002c FFF7FEFF 		bl	ISR_A_StartEx
+  95:main.c        ****     ISR_B_StartEx(ISR_OUT_B_Handler);
+ 287              		.loc 1 95 0
+ 288 0030 BC48     		ldr	r0, .L20+20
+ 289 0032 FFF7FEFF 		bl	ISR_B_StartEx
+  96:main.c        ****     NETWORK_PIN_StartEx(ISR_START_Handler);
+ 290              		.loc 1 96 0
+ 291 0036 BC48     		ldr	r0, .L20+24
+ 292 0038 FFF7FEFF 		bl	NETWORK_PIN_StartEx
+  97:main.c        ****     
+  98:main.c        ****     /* configuration of DMA, this is black magic done by the DMA Wizard */
+  99:main.c        ****     DMA_A_Chan = DMA_A_DmaInitialize(DMA_A_BYTES_PER_BURST, DMA_A_REQUEST_PER_BURST, 
+ 293              		.loc 1 99 0
+ 294 003c 41F6FF73 		movw	r3, #8191
+ 295 0040 4FF48042 		mov	r2, #16384
+ 296 0044 0121     		movs	r1, #1
+ 297 0046 0220     		movs	r0, #2
+ 298 0048 FFF7FEFF 		bl	DMA_A_DmaInitialize
+ 299 004c 0346     		mov	r3, r0
+ 300 004e 1A46     		mov	r2, r3
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 8
+
+
+ 301 0050 B64B     		ldr	r3, .L20+28
+ 302 0052 1A70     		strb	r2, [r3]
+ 100:main.c        ****         HI16(DMA_A_SRC_BASE), HI16(DMA_A_DST_BASE));
+ 101:main.c        ****     DMA_A_TD[0] = CyDmaTdAllocate();
+ 303              		.loc 1 101 0
+ 304 0054 FFF7FEFF 		bl	CyDmaTdAllocate
+ 305 0058 0346     		mov	r3, r0
+ 306 005a 1A46     		mov	r2, r3
+ 307 005c B44B     		ldr	r3, .L20+32
+ 308 005e 1A70     		strb	r2, [r3]
+ 102:main.c        ****     CyDmaTdSetConfiguration(DMA_A_TD[0], DATA_SIZE * 2, DMA_A_TD[0], DMA_A__TD_TERMOUT_EN | CY_DMA_
+ 309              		.loc 1 102 0
+ 310 0060 B34B     		ldr	r3, .L20+32
+ 311 0062 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 312 0064 B24B     		ldr	r3, .L20+32
+ 313 0066 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 314 0068 0623     		movs	r3, #6
+ 315 006a 40F6B831 		movw	r1, #3000
+ 316 006e FFF7FEFF 		bl	CyDmaTdSetConfiguration
+ 103:main.c        ****     CyDmaTdSetAddress(DMA_A_TD[0], LO16((uint32)ADC_SAR_A_SAR_WRK0_PTR), LO16((uint32)DataA));
+ 317              		.loc 1 103 0
+ 318 0072 AF4B     		ldr	r3, .L20+32
+ 319 0074 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 320 0076 AF4A     		ldr	r2, .L20+36
+ 321 0078 92B2     		uxth	r2, r2
+ 322 007a 45F6A031 		movw	r1, #23456
+ 323 007e 1846     		mov	r0, r3
+ 324 0080 FFF7FEFF 		bl	CyDmaTdSetAddress
+ 104:main.c        ****     CyDmaChSetInitialTd(DMA_A_Chan, DMA_A_TD[0]);
+ 325              		.loc 1 104 0
+ 326 0084 A94B     		ldr	r3, .L20+28
+ 327 0086 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 328 0088 A94B     		ldr	r3, .L20+32
+ 329 008a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 330 008c 1946     		mov	r1, r3
+ 331 008e 1046     		mov	r0, r2
+ 332 0090 FFF7FEFF 		bl	CyDmaChSetInitialTd
+ 105:main.c        ****     
+ 106:main.c        ****     /* configuration of DMA, this is black magic done by the DMA Wizard */
+ 107:main.c        ****     DMA_B_Chan = DMA_B_DmaInitialize(DMA_B_BYTES_PER_BURST, DMA_B_REQUEST_PER_BURST, 
+ 333              		.loc 1 107 0
+ 334 0094 41F6FF73 		movw	r3, #8191
+ 335 0098 4FF48042 		mov	r2, #16384
+ 336 009c 0121     		movs	r1, #1
+ 337 009e 0220     		movs	r0, #2
+ 338 00a0 FFF7FEFF 		bl	DMA_B_DmaInitialize
+ 339 00a4 0346     		mov	r3, r0
+ 340 00a6 1A46     		mov	r2, r3
+ 341 00a8 A34B     		ldr	r3, .L20+40
+ 342 00aa 1A70     		strb	r2, [r3]
+ 108:main.c        ****         HI16(DMA_B_SRC_BASE), HI16(DMA_B_DST_BASE));
+ 109:main.c        ****     DMA_B_TD[0] = CyDmaTdAllocate();
+ 343              		.loc 1 109 0
+ 344 00ac FFF7FEFF 		bl	CyDmaTdAllocate
+ 345 00b0 0346     		mov	r3, r0
+ 346 00b2 1A46     		mov	r2, r3
+ 347 00b4 A14B     		ldr	r3, .L20+44
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 9
+
+
+ 348 00b6 1A70     		strb	r2, [r3]
+ 110:main.c        ****     CyDmaTdSetConfiguration(DMA_B_TD[0], DATA_SIZE * 2, DMA_B_TD[0], DMA_B__TD_TERMOUT_EN | CY_DMA_
+ 349              		.loc 1 110 0
+ 350 00b8 A04B     		ldr	r3, .L20+44
+ 351 00ba 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 352 00bc 9F4B     		ldr	r3, .L20+44
+ 353 00be 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 354 00c0 0623     		movs	r3, #6
+ 355 00c2 40F6B831 		movw	r1, #3000
+ 356 00c6 FFF7FEFF 		bl	CyDmaTdSetConfiguration
+ 111:main.c        ****     CyDmaTdSetAddress(DMA_B_TD[0], LO16((uint32)ADC_SAR_B_SAR_WRK0_PTR), LO16((uint32)DataB));
+ 357              		.loc 1 111 0
+ 358 00ca 9C4B     		ldr	r3, .L20+44
+ 359 00cc 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 360 00ce 9C4A     		ldr	r2, .L20+48
+ 361 00d0 92B2     		uxth	r2, r2
+ 362 00d2 45F6A231 		movw	r1, #23458
+ 363 00d6 1846     		mov	r0, r3
+ 364 00d8 FFF7FEFF 		bl	CyDmaTdSetAddress
+ 112:main.c        ****     CyDmaChSetInitialTd(DMA_B_Chan, DMA_B_TD[0]);
+ 365              		.loc 1 112 0
+ 366 00dc 964B     		ldr	r3, .L20+40
+ 367 00de 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 368 00e0 964B     		ldr	r3, .L20+44
+ 369 00e2 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 370 00e4 1946     		mov	r1, r3
+ 371 00e6 1046     		mov	r0, r2
+ 372 00e8 FFF7FEFF 		bl	CyDmaChSetInitialTd
+ 113:main.c        ****     
+ 114:main.c        ****     /* enable DMA channels */
+ 115:main.c        ****     CyDmaChEnable(DMA_A_Chan, 1);
+ 373              		.loc 1 115 0
+ 374 00ec 8F4B     		ldr	r3, .L20+28
+ 375 00ee 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 376 00f0 0121     		movs	r1, #1
+ 377 00f2 1846     		mov	r0, r3
+ 378 00f4 FFF7FEFF 		bl	CyDmaChEnable
+ 116:main.c        ****     CyDmaChEnable(DMA_B_Chan, 1);
+ 379              		.loc 1 116 0
+ 380 00f8 8F4B     		ldr	r3, .L20+40
+ 381 00fa 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 382 00fc 0121     		movs	r1, #1
+ 383 00fe 1846     		mov	r0, r3
+ 384 0100 FFF7FEFF 		bl	CyDmaChEnable
+ 117:main.c        ****     
+ 118:main.c        ****     const uint8_t RX_ADDR[5]= {0xBA, 0xAD, 0xC0, 0xFF, 0xEE};
+ 119:main.c        ****     //isr_IRQ_StartEx(IRQ_Handler);
+ 120:main.c        ****     
+ 121:main.c        ****     //nRF24_start();
+ 122:main.c        ****     //nRF24_set_rx_pipe_address(NRF_ADDR_PIPE0, RX_ADDR, 5);
+ 123:main.c        ****     //nRF24_start_listening();
+ 124:main.c        ****   
+ 125:main.c        ****     CyGlobalIntEnable;
+ 385              		.loc 1 125 0
+ 386              		.syntax unified
+ 387              	@ 125 "main.c" 1
+ 388 0104 62B6     		CPSIE   i
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 10
+
+
+ 389              	@ 0 "" 2
+ 390              		.thumb
+ 391              		.syntax unified
+ 392              	.L19:
+ 126:main.c        ****     
+ 127:main.c        ****     for(;;)
+ 128:main.c        ****     {        
+ 129:main.c        ****         if (ISR_A_done && ISR_B_done) {
+ 393              		.loc 1 129 0
+ 394 0106 8F4B     		ldr	r3, .L20+52
+ 395 0108 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 396 010a 002B     		cmp	r3, #0
+ 397 010c FBD0     		beq	.L19
+ 398              		.loc 1 129 0 is_stmt 0 discriminator 1
+ 399 010e 8E4B     		ldr	r3, .L20+56
+ 400 0110 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 401 0112 002B     		cmp	r3, #0
+ 402 0114 F7D0     		beq	.L19
+ 403              	.LBB2:
+ 130:main.c        ****             CyGlobalIntDisable;
+ 404              		.loc 1 130 0 is_stmt 1
+ 405              		.syntax unified
+ 406              	@ 130 "main.c" 1
+ 407 0116 72B6     		CPSID   i
+ 408              	@ 0 "" 2
+ 131:main.c        ****             uint16_t a = 0, b = 0;
+ 409              		.loc 1 131 0
+ 410              		.thumb
+ 411              		.syntax unified
+ 412 0118 0023     		movs	r3, #0
+ 413 011a FB82     		strh	r3, [r7, #22]	@ movhi
+ 414 011c 0023     		movs	r3, #0
+ 415 011e BB82     		strh	r3, [r7, #20]	@ movhi
+ 132:main.c        ****             
+ 133:main.c        ****             // ai1, ai2 and ai3 are the first, second and third highest amplitude time indices
+ 134:main.c        ****             // this means DataA[ai1] > DataA[ai2] > DataA[ai3]
+ 135:main.c        ****             uint16_t ai1 = 0, ai2 = 0, ai3 = 0;
+ 416              		.loc 1 135 0
+ 417 0120 0023     		movs	r3, #0
+ 418 0122 7B82     		strh	r3, [r7, #18]	@ movhi
+ 419 0124 0023     		movs	r3, #0
+ 420 0126 3B82     		strh	r3, [r7, #16]	@ movhi
+ 421 0128 0023     		movs	r3, #0
+ 422 012a FB81     		strh	r3, [r7, #14]	@ movhi
+ 136:main.c        ****             
+ 137:main.c        ****             // bi1, bi2 and bi3 are the first, second and third highest amplitude time indices
+ 138:main.c        ****             // this means DataB[bi1] > DataB[bi2] > DataB[bi3]
+ 139:main.c        ****             uint16_t bi1 = 0, bi2 = 0, bi3 = 0;
+ 423              		.loc 1 139 0
+ 424 012c 0023     		movs	r3, #0
+ 425 012e BB81     		strh	r3, [r7, #12]	@ movhi
+ 426 0130 0023     		movs	r3, #0
+ 427 0132 7B81     		strh	r3, [r7, #10]	@ movhi
+ 428 0134 0023     		movs	r3, #0
+ 429 0136 3B81     		strh	r3, [r7, #8]	@ movhi
+ 430              	.LBB3:
+ 140:main.c        ****             
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 11
+
+
+ 141:main.c        ****             // find the 3 biggest time indices of DataA and DataB
+ 142:main.c        ****             for (uint16_t i = 0; i < DATA_SIZE; i++) {
+ 431              		.loc 1 142 0
+ 432 0138 0023     		movs	r3, #0
+ 433 013a FB80     		strh	r3, [r7, #6]	@ movhi
+ 434 013c 26E0     		b	.L13
+ 435              	.L16:
+ 143:main.c        ****                 if (DataA[i] > a) {
+ 436              		.loc 1 143 0
+ 437 013e FB88     		ldrh	r3, [r7, #6]
+ 438 0140 7C4A     		ldr	r2, .L20+36
+ 439 0142 32F81330 		ldrh	r3, [r2, r3, lsl #1]
+ 440 0146 FA8A     		ldrh	r2, [r7, #22]
+ 441 0148 9A42     		cmp	r2, r3
+ 442 014a 0AD2     		bcs	.L14
+ 144:main.c        ****                     a = DataA[i];
+ 443              		.loc 1 144 0
+ 444 014c FB88     		ldrh	r3, [r7, #6]
+ 445 014e 794A     		ldr	r2, .L20+36
+ 446 0150 32F81330 		ldrh	r3, [r2, r3, lsl #1]	@ movhi
+ 447 0154 FB82     		strh	r3, [r7, #22]	@ movhi
+ 145:main.c        ****                     ai3 = ai2;
+ 448              		.loc 1 145 0
+ 449 0156 3B8A     		ldrh	r3, [r7, #16]	@ movhi
+ 450 0158 FB81     		strh	r3, [r7, #14]	@ movhi
+ 146:main.c        ****                     ai2 = ai1;
+ 451              		.loc 1 146 0
+ 452 015a 7B8A     		ldrh	r3, [r7, #18]	@ movhi
+ 453 015c 3B82     		strh	r3, [r7, #16]	@ movhi
+ 147:main.c        ****                     ai1 = i;
+ 454              		.loc 1 147 0
+ 455 015e FB88     		ldrh	r3, [r7, #6]	@ movhi
+ 456 0160 7B82     		strh	r3, [r7, #18]	@ movhi
+ 457              	.L14:
+ 148:main.c        ****                 }
+ 149:main.c        ****                 
+ 150:main.c        ****                 if (DataB[i] > b) {
+ 458              		.loc 1 150 0
+ 459 0162 FB88     		ldrh	r3, [r7, #6]
+ 460 0164 764A     		ldr	r2, .L20+48
+ 461 0166 32F81330 		ldrh	r3, [r2, r3, lsl #1]
+ 462 016a BA8A     		ldrh	r2, [r7, #20]
+ 463 016c 9A42     		cmp	r2, r3
+ 464 016e 0AD2     		bcs	.L15
+ 151:main.c        ****                     b = DataB[i];
+ 465              		.loc 1 151 0
+ 466 0170 FB88     		ldrh	r3, [r7, #6]
+ 467 0172 734A     		ldr	r2, .L20+48
+ 468 0174 32F81330 		ldrh	r3, [r2, r3, lsl #1]	@ movhi
+ 469 0178 BB82     		strh	r3, [r7, #20]	@ movhi
+ 152:main.c        ****                     bi3 = bi2;
+ 470              		.loc 1 152 0
+ 471 017a 7B89     		ldrh	r3, [r7, #10]	@ movhi
+ 472 017c 3B81     		strh	r3, [r7, #8]	@ movhi
+ 153:main.c        ****                     bi2 = bi1;
+ 473              		.loc 1 153 0
+ 474 017e BB89     		ldrh	r3, [r7, #12]	@ movhi
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 12
+
+
+ 475 0180 7B81     		strh	r3, [r7, #10]	@ movhi
+ 154:main.c        ****                     bi1 = i;
+ 476              		.loc 1 154 0
+ 477 0182 FB88     		ldrh	r3, [r7, #6]	@ movhi
+ 478 0184 BB81     		strh	r3, [r7, #12]	@ movhi
+ 479              	.L15:
+ 142:main.c        ****                 if (DataA[i] > a) {
+ 480              		.loc 1 142 0 discriminator 2
+ 481 0186 FB88     		ldrh	r3, [r7, #6]
+ 482 0188 0133     		adds	r3, r3, #1
+ 483 018a FB80     		strh	r3, [r7, #6]	@ movhi
+ 484              	.L13:
+ 142:main.c        ****                 if (DataA[i] > a) {
+ 485              		.loc 1 142 0 is_stmt 0 discriminator 1
+ 486 018c FB88     		ldrh	r3, [r7, #6]
+ 487 018e 40F2DB52 		movw	r2, #1499
+ 488 0192 9342     		cmp	r3, r2
+ 489 0194 D3D9     		bls	.L16
+ 490              	.LBE3:
+ 155:main.c        ****                 }
+ 156:main.c        ****             }
+ 157:main.c        ****             
+ 158:main.c        ****             // calculate the average ai and bi
+ 159:main.c        ****             uint16_t ai = (ai1 + ai2 + ai3)/3.0;
+ 491              		.loc 1 159 0 is_stmt 1
+ 492 0196 7A8A     		ldrh	r2, [r7, #18]
+ 493 0198 3B8A     		ldrh	r3, [r7, #16]
+ 494 019a 1A44     		add	r2, r2, r3
+ 495 019c FB89     		ldrh	r3, [r7, #14]
+ 496 019e 1344     		add	r3, r3, r2
+ 497 01a0 1846     		mov	r0, r3
+ 498 01a2 FFF7FEFF 		bl	__aeabi_i2d
+ 499 01a6 4FF00002 		mov	r2, #0
+ 500 01aa 684B     		ldr	r3, .L20+60
+ 501 01ac FFF7FEFF 		bl	__aeabi_ddiv
+ 502 01b0 0346     		mov	r3, r0
+ 503 01b2 0C46     		mov	r4, r1
+ 504 01b4 1846     		mov	r0, r3
+ 505 01b6 2146     		mov	r1, r4
+ 506 01b8 FFF7FEFF 		bl	__aeabi_d2uiz
+ 507 01bc 0346     		mov	r3, r0
+ 508 01be BB80     		strh	r3, [r7, #4]	@ movhi
+ 160:main.c        ****             uint16_t bi = (bi1 + bi2 + bi3)/3.0;
+ 509              		.loc 1 160 0
+ 510 01c0 BA89     		ldrh	r2, [r7, #12]
+ 511 01c2 7B89     		ldrh	r3, [r7, #10]
+ 512 01c4 1A44     		add	r2, r2, r3
+ 513 01c6 3B89     		ldrh	r3, [r7, #8]
+ 514 01c8 1344     		add	r3, r3, r2
+ 515 01ca 1846     		mov	r0, r3
+ 516 01cc FFF7FEFF 		bl	__aeabi_i2d
+ 517 01d0 4FF00002 		mov	r2, #0
+ 518 01d4 5D4B     		ldr	r3, .L20+60
+ 519 01d6 FFF7FEFF 		bl	__aeabi_ddiv
+ 520 01da 0346     		mov	r3, r0
+ 521 01dc 0C46     		mov	r4, r1
+ 522 01de 1846     		mov	r0, r3
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 13
+
+
+ 523 01e0 2146     		mov	r1, r4
+ 524 01e2 FFF7FEFF 		bl	__aeabi_d2uiz
+ 525 01e6 0346     		mov	r3, r0
+ 526 01e8 7B80     		strh	r3, [r7, #2]	@ movhi
+ 161:main.c        ****             
+ 162:main.c        ****             // angle from -60 to 60
+ 163:main.c        ****             // 2.25 us per sample
+ 164:main.c        ****             // 1 us = 0.2 degrees
+ 165:main.c        ****             angle = (ai - bi) * 2.25 * 0.2;
+ 527              		.loc 1 165 0
+ 528 01ea BA88     		ldrh	r2, [r7, #4]
+ 529 01ec 7B88     		ldrh	r3, [r7, #2]
+ 530 01ee D31A     		subs	r3, r2, r3
+ 531 01f0 1846     		mov	r0, r3
+ 532 01f2 FFF7FEFF 		bl	__aeabi_i2d
+ 533 01f6 4FF00002 		mov	r2, #0
+ 534 01fa 554B     		ldr	r3, .L20+64
+ 535 01fc FFF7FEFF 		bl	__aeabi_dmul
+ 536 0200 0346     		mov	r3, r0
+ 537 0202 0C46     		mov	r4, r1
+ 538 0204 1846     		mov	r0, r3
+ 539 0206 2146     		mov	r1, r4
+ 540 0208 41A3     		adr	r3, .L20
+ 541 020a D3E90023 		ldrd	r2, [r3]
+ 542 020e FFF7FEFF 		bl	__aeabi_dmul
+ 543 0212 0346     		mov	r3, r0
+ 544 0214 0C46     		mov	r4, r1
+ 545 0216 1846     		mov	r0, r3
+ 546 0218 2146     		mov	r1, r4
+ 547 021a FFF7FEFF 		bl	__aeabi_d2iz
+ 548 021e 0346     		mov	r3, r0
+ 549 0220 5AB2     		sxtb	r2, r3
+ 550 0222 4C4B     		ldr	r3, .L20+68
+ 551 0224 1A70     		strb	r2, [r3]
+ 166:main.c        ****             
+ 167:main.c        ****             // distance in mm, where speed of sound is 343 mm/ms
+ 168:main.c        ****             // first convert the time difference from us to ms, and then multiply by the speed of s
+ 169:main.c        ****             // use ai and bi depending on which has the closest peak to the network ping
+ 170:main.c        ****             // The 500 value subtracted has been experimentally found
+ 171:main.c        ****             if (ai < bi) {
+ 552              		.loc 1 171 0
+ 553 0226 BA88     		ldrh	r2, [r7, #4]
+ 554 0228 7B88     		ldrh	r3, [r7, #2]
+ 555 022a 9A42     		cmp	r2, r3
+ 556 022c 2DD2     		bcs	.L17
+ 172:main.c        ****                 distance = (ai * 2.25)/1000.0 * 343 - 500;
+ 557              		.loc 1 172 0
+ 558 022e BB88     		ldrh	r3, [r7, #4]
+ 559 0230 1846     		mov	r0, r3
+ 560 0232 FFF7FEFF 		bl	__aeabi_i2d
+ 561 0236 4FF00002 		mov	r2, #0
+ 562 023a 454B     		ldr	r3, .L20+64
+ 563 023c FFF7FEFF 		bl	__aeabi_dmul
+ 564 0240 0346     		mov	r3, r0
+ 565 0242 0C46     		mov	r4, r1
+ 566 0244 1846     		mov	r0, r3
+ 567 0246 2146     		mov	r1, r4
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 14
+
+
+ 568 0248 4FF00002 		mov	r2, #0
+ 569 024c 424B     		ldr	r3, .L20+72
+ 570 024e FFF7FEFF 		bl	__aeabi_ddiv
+ 571 0252 0346     		mov	r3, r0
+ 572 0254 0C46     		mov	r4, r1
+ 573 0256 1846     		mov	r0, r3
+ 574 0258 2146     		mov	r1, r4
+ 575 025a 2FA3     		adr	r3, .L20+8
+ 576 025c D3E90023 		ldrd	r2, [r3]
+ 577 0260 FFF7FEFF 		bl	__aeabi_dmul
+ 578 0264 0346     		mov	r3, r0
+ 579 0266 0C46     		mov	r4, r1
+ 580 0268 1846     		mov	r0, r3
+ 581 026a 2146     		mov	r1, r4
+ 582 026c 4FF00002 		mov	r2, #0
+ 583 0270 3A4B     		ldr	r3, .L20+76
+ 584 0272 FFF7FEFF 		bl	__aeabi_dsub
+ 585 0276 0346     		mov	r3, r0
+ 586 0278 0C46     		mov	r4, r1
+ 587 027a 1846     		mov	r0, r3
+ 588 027c 2146     		mov	r1, r4
+ 589 027e FFF7FEFF 		bl	__aeabi_d2uiz
+ 590 0282 0246     		mov	r2, r0
+ 591 0284 364B     		ldr	r3, .L20+80
+ 592 0286 1A60     		str	r2, [r3]
+ 593 0288 2CE0     		b	.L18
+ 594              	.L17:
+ 173:main.c        ****             } else {
+ 174:main.c        ****                 distance = (bi * 2.25)/1000.0 * 343 - 500;
+ 595              		.loc 1 174 0
+ 596 028a 7B88     		ldrh	r3, [r7, #2]
+ 597 028c 1846     		mov	r0, r3
+ 598 028e FFF7FEFF 		bl	__aeabi_i2d
+ 599 0292 4FF00002 		mov	r2, #0
+ 600 0296 2E4B     		ldr	r3, .L20+64
+ 601 0298 FFF7FEFF 		bl	__aeabi_dmul
+ 602 029c 0346     		mov	r3, r0
+ 603 029e 0C46     		mov	r4, r1
+ 604 02a0 1846     		mov	r0, r3
+ 605 02a2 2146     		mov	r1, r4
+ 606 02a4 4FF00002 		mov	r2, #0
+ 607 02a8 2B4B     		ldr	r3, .L20+72
+ 608 02aa FFF7FEFF 		bl	__aeabi_ddiv
+ 609 02ae 0346     		mov	r3, r0
+ 610 02b0 0C46     		mov	r4, r1
+ 611 02b2 1846     		mov	r0, r3
+ 612 02b4 2146     		mov	r1, r4
+ 613 02b6 18A3     		adr	r3, .L20+8
+ 614 02b8 D3E90023 		ldrd	r2, [r3]
+ 615 02bc FFF7FEFF 		bl	__aeabi_dmul
+ 616 02c0 0346     		mov	r3, r0
+ 617 02c2 0C46     		mov	r4, r1
+ 618 02c4 1846     		mov	r0, r3
+ 619 02c6 2146     		mov	r1, r4
+ 620 02c8 4FF00002 		mov	r2, #0
+ 621 02cc 234B     		ldr	r3, .L20+76
+ 622 02ce FFF7FEFF 		bl	__aeabi_dsub
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 15
+
+
+ 623 02d2 0346     		mov	r3, r0
+ 624 02d4 0C46     		mov	r4, r1
+ 625 02d6 1846     		mov	r0, r3
+ 626 02d8 2146     		mov	r1, r4
+ 627 02da FFF7FEFF 		bl	__aeabi_d2uiz
+ 628 02de 0246     		mov	r2, r0
+ 629 02e0 1F4B     		ldr	r3, .L20+80
+ 630 02e2 1A60     		str	r2, [r3]
+ 631              	.L18:
+ 175:main.c        ****             }
+ 176:main.c        ****             
+ 177:main.c        ****             
+ 178:main.c        ****             //for (uint16_t i = 0; i < DATA_SIZE; i++) {
+ 179:main.c        ****                 sprintf(output, "%d\n", angle);
+ 632              		.loc 1 179 0
+ 633 02e4 1B4B     		ldr	r3, .L20+68
+ 634 02e6 93F90030 		ldrsb	r3, [r3]
+ 635 02ea 1A46     		mov	r2, r3
+ 636 02ec 1D49     		ldr	r1, .L20+84
+ 637 02ee 1E48     		ldr	r0, .L20+88
+ 638 02f0 FFF7FEFF 		bl	sprintf
+ 180:main.c        ****                 UART_PutString(output); 
+ 639              		.loc 1 180 0
+ 640 02f4 1C48     		ldr	r0, .L20+88
+ 641 02f6 FFF7FEFF 		bl	UART_PutString
+ 181:main.c        ****             //}
+ 182:main.c        **** 
+ 183:main.c        ****             ISR_A_done = ISR_B_done = 0;
+ 642              		.loc 1 183 0
+ 643 02fa 134B     		ldr	r3, .L20+56
+ 644 02fc 0022     		movs	r2, #0
+ 645 02fe 1A70     		strb	r2, [r3]
+ 646 0300 114B     		ldr	r3, .L20+56
+ 647 0302 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 648 0304 0F4B     		ldr	r3, .L20+52
+ 649 0306 1A70     		strb	r2, [r3]
+ 184:main.c        ****             
+ 185:main.c        ****             CyGlobalIntEnable;
+ 650              		.loc 1 185 0
+ 651              		.syntax unified
+ 652              	@ 185 "main.c" 1
+ 653 0308 62B6     		CPSIE   i
+ 654              	@ 0 "" 2
+ 655              		.thumb
+ 656              		.syntax unified
+ 657              	.LBE2:
+ 186:main.c        ****         }
+ 187:main.c        ****     }
+ 658              		.loc 1 187 0
+ 659 030a FCE6     		b	.L19
+ 660              	.L21:
+ 661 030c AFF30080 		.align	3
+ 662              	.L20:
+ 663 0310 9A999999 		.word	-1717986918
+ 664 0314 9999C93F 		.word	1070176665
+ 665 0318 00000000 		.word	0
+ 666 031c 00707540 		.word	1081438208
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 16
+
+
+ 667 0320 00000000 		.word	ISR_OUT_A_Handler
+ 668 0324 00000000 		.word	ISR_OUT_B_Handler
+ 669 0328 00000000 		.word	ISR_START_Handler
+ 670 032c 00000000 		.word	DMA_A_Chan
+ 671 0330 00000000 		.word	DMA_A_TD
+ 672 0334 00000000 		.word	DataA
+ 673 0338 00000000 		.word	DMA_B_Chan
+ 674 033c 00000000 		.word	DMA_B_TD
+ 675 0340 00000000 		.word	DataB
+ 676 0344 00000000 		.word	ISR_A_done
+ 677 0348 00000000 		.word	ISR_B_done
+ 678 034c 00000840 		.word	1074266112
+ 679 0350 00000240 		.word	1073872896
+ 680 0354 00000000 		.word	angle
+ 681 0358 00408F40 		.word	1083129856
+ 682 035c 00407F40 		.word	1082081280
+ 683 0360 00000000 		.word	distance
+ 684 0364 00000000 		.word	.LC0
+ 685 0368 00000000 		.word	output
+ 686              		.cfi_endproc
+ 687              	.LFE61:
+ 688              		.size	main, .-main
+ 689              		.section	.rodata
+ 690              		.align	2
+ 691              		.type	RX_ADDR.7814, %object
+ 692              		.size	RX_ADDR.7814, 5
+ 693              	RX_ADDR.7814:
+ 694 0004 BA       		.byte	-70
+ 695 0005 AD       		.byte	-83
+ 696 0006 C0       		.byte	-64
+ 697 0007 FF       		.byte	-1
+ 698 0008 EE       		.byte	-18
+ 699              		.text
+ 700              	.Letext0:
+ 701              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 702              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 703              		.file 4 "Generated_Source\\PSoC5/cytypes.h"
+ 704              		.file 5 "Generated_Source\\PSoC5/nRF24_DEFS.h"
+ 705              		.file 6 "Generated_Source\\PSoC5/core_cm3.h"
+ 706              		.section	.debug_info,"",%progbits
+ 707              	.Ldebug_info0:
+ 708 0000 C0050000 		.4byte	0x5c0
+ 709 0004 0400     		.2byte	0x4
+ 710 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 711 000a 04       		.byte	0x4
+ 712 000b 01       		.uleb128 0x1
+ 713 000c 51000000 		.4byte	.LASF115
+ 714 0010 0C       		.byte	0xc
+ 715 0011 4F030000 		.4byte	.LASF116
+ 716 0015 8C030000 		.4byte	.LASF117
+ 717 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 718 001d 00000000 		.4byte	0
+ 719 0021 00000000 		.4byte	.Ldebug_line0
+ 720 0025 02       		.uleb128 0x2
+ 721 0026 4D010000 		.4byte	.LASF0
+ 722 002a 02       		.byte	0x2
+ 723 002b 1B       		.byte	0x1b
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 17
+
+
+ 724 002c 30000000 		.4byte	0x30
+ 725 0030 03       		.uleb128 0x3
+ 726 0031 01       		.byte	0x1
+ 727 0032 06       		.byte	0x6
+ 728 0033 71010000 		.4byte	.LASF2
+ 729 0037 02       		.uleb128 0x2
+ 730 0038 47000000 		.4byte	.LASF1
+ 731 003c 02       		.byte	0x2
+ 732 003d 1D       		.byte	0x1d
+ 733 003e 42000000 		.4byte	0x42
+ 734 0042 03       		.uleb128 0x3
+ 735 0043 01       		.byte	0x1
+ 736 0044 08       		.byte	0x8
+ 737 0045 B5050000 		.4byte	.LASF3
+ 738 0049 03       		.uleb128 0x3
+ 739 004a 02       		.byte	0x2
+ 740 004b 05       		.byte	0x5
+ 741 004c 65030000 		.4byte	.LASF4
+ 742 0050 02       		.uleb128 0x2
+ 743 0051 59060000 		.4byte	.LASF5
+ 744 0055 02       		.byte	0x2
+ 745 0056 2B       		.byte	0x2b
+ 746 0057 5B000000 		.4byte	0x5b
+ 747 005b 03       		.uleb128 0x3
+ 748 005c 02       		.byte	0x2
+ 749 005d 07       		.byte	0x7
+ 750 005e 30030000 		.4byte	.LASF6
+ 751 0062 02       		.uleb128 0x2
+ 752 0063 8A060000 		.4byte	.LASF7
+ 753 0067 02       		.byte	0x2
+ 754 0068 3F       		.byte	0x3f
+ 755 0069 6D000000 		.4byte	0x6d
+ 756 006d 03       		.uleb128 0x3
+ 757 006e 04       		.byte	0x4
+ 758 006f 05       		.byte	0x5
+ 759 0070 8B010000 		.4byte	.LASF8
+ 760 0074 02       		.uleb128 0x2
+ 761 0075 75020000 		.4byte	.LASF9
+ 762 0079 02       		.byte	0x2
+ 763 007a 41       		.byte	0x41
+ 764 007b 7F000000 		.4byte	0x7f
+ 765 007f 03       		.uleb128 0x3
+ 766 0080 04       		.byte	0x4
+ 767 0081 07       		.byte	0x7
+ 768 0082 08060000 		.4byte	.LASF10
+ 769 0086 03       		.uleb128 0x3
+ 770 0087 08       		.byte	0x8
+ 771 0088 05       		.byte	0x5
+ 772 0089 63010000 		.4byte	.LASF11
+ 773 008d 03       		.uleb128 0x3
+ 774 008e 08       		.byte	0x8
+ 775 008f 07       		.byte	0x7
+ 776 0090 0B010000 		.4byte	.LASF12
+ 777 0094 04       		.uleb128 0x4
+ 778 0095 04       		.byte	0x4
+ 779 0096 05       		.byte	0x5
+ 780 0097 696E7400 		.ascii	"int\000"
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 18
+
+
+ 781 009b 03       		.uleb128 0x3
+ 782 009c 04       		.byte	0x4
+ 783 009d 07       		.byte	0x7
+ 784 009e A5020000 		.4byte	.LASF13
+ 785 00a2 02       		.uleb128 0x2
+ 786 00a3 BC060000 		.4byte	.LASF14
+ 787 00a7 03       		.byte	0x3
+ 788 00a8 14       		.byte	0x14
+ 789 00a9 25000000 		.4byte	0x25
+ 790 00ad 02       		.uleb128 0x2
+ 791 00ae 5F070000 		.4byte	.LASF15
+ 792 00b2 03       		.byte	0x3
+ 793 00b3 18       		.byte	0x18
+ 794 00b4 37000000 		.4byte	0x37
+ 795 00b8 02       		.uleb128 0x2
+ 796 00b9 5C030000 		.4byte	.LASF16
+ 797 00bd 03       		.byte	0x3
+ 798 00be 24       		.byte	0x24
+ 799 00bf 50000000 		.4byte	0x50
+ 800 00c3 02       		.uleb128 0x2
+ 801 00c4 AD050000 		.4byte	.LASF17
+ 802 00c8 03       		.byte	0x3
+ 803 00c9 2C       		.byte	0x2c
+ 804 00ca 62000000 		.4byte	0x62
+ 805 00ce 02       		.uleb128 0x2
+ 806 00cf FF050000 		.4byte	.LASF18
+ 807 00d3 03       		.byte	0x3
+ 808 00d4 30       		.byte	0x30
+ 809 00d5 74000000 		.4byte	0x74
+ 810 00d9 02       		.uleb128 0x2
+ 811 00da 25030000 		.4byte	.LASF19
+ 812 00de 04       		.byte	0x4
+ 813 00df A1       		.byte	0xa1
+ 814 00e0 42000000 		.4byte	0x42
+ 815 00e4 02       		.uleb128 0x2
+ 816 00e5 00000000 		.4byte	.LASF20
+ 817 00e9 04       		.byte	0x4
+ 818 00ea A2       		.byte	0xa2
+ 819 00eb 5B000000 		.4byte	0x5b
+ 820 00ef 02       		.uleb128 0x2
+ 821 00f0 55020000 		.4byte	.LASF21
+ 822 00f4 04       		.byte	0x4
+ 823 00f5 A3       		.byte	0xa3
+ 824 00f6 7F000000 		.4byte	0x7f
+ 825 00fa 03       		.uleb128 0x3
+ 826 00fb 04       		.byte	0x4
+ 827 00fc 04       		.byte	0x4
+ 828 00fd 34050000 		.4byte	.LASF22
+ 829 0101 03       		.uleb128 0x3
+ 830 0102 08       		.byte	0x8
+ 831 0103 04       		.byte	0x4
+ 832 0104 CA010000 		.4byte	.LASF23
+ 833 0108 03       		.uleb128 0x3
+ 834 0109 01       		.byte	0x1
+ 835 010a 08       		.byte	0x8
+ 836 010b 1A060000 		.4byte	.LASF24
+ 837 010f 05       		.uleb128 0x5
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 19
+
+
+ 838 0110 56050000 		.4byte	.LASF25
+ 839 0114 04       		.byte	0x4
+ 840 0115 4B01     		.2byte	0x14b
+ 841 0117 1B010000 		.4byte	0x11b
+ 842 011b 06       		.uleb128 0x6
+ 843 011c D9000000 		.4byte	0xd9
+ 844 0120 03       		.uleb128 0x3
+ 845 0121 08       		.byte	0x8
+ 846 0122 04       		.byte	0x4
+ 847 0123 2E040000 		.4byte	.LASF26
+ 848 0127 03       		.uleb128 0x3
+ 849 0128 04       		.byte	0x4
+ 850 0129 07       		.byte	0x7
+ 851 012a 25040000 		.4byte	.LASF27
+ 852 012e 07       		.uleb128 0x7
+ 853 012f 01       		.byte	0x1
+ 854 0130 42000000 		.4byte	0x42
+ 855 0134 05       		.byte	0x5
+ 856 0135 1E       		.byte	0x1e
+ 857 0136 D7010000 		.4byte	0x1d7
+ 858 013a 08       		.uleb128 0x8
+ 859 013b 94010000 		.4byte	.LASF28
+ 860 013f 00       		.byte	0
+ 861 0140 08       		.uleb128 0x8
+ 862 0141 9D060000 		.4byte	.LASF29
+ 863 0145 01       		.byte	0x1
+ 864 0146 08       		.uleb128 0x8
+ 865 0147 3A040000 		.4byte	.LASF30
+ 866 014b 02       		.byte	0x2
+ 867 014c 08       		.uleb128 0x8
+ 868 014d AB010000 		.4byte	.LASF31
+ 869 0151 03       		.byte	0x3
+ 870 0152 08       		.uleb128 0x8
+ 871 0153 F6020000 		.4byte	.LASF32
+ 872 0157 04       		.byte	0x4
+ 873 0158 08       		.uleb128 0x8
+ 874 0159 BC010000 		.4byte	.LASF33
+ 875 015d 05       		.byte	0x5
+ 876 015e 08       		.uleb128 0x8
+ 877 015f 14030000 		.4byte	.LASF34
+ 878 0163 06       		.byte	0x6
+ 879 0164 08       		.uleb128 0x8
+ 880 0165 96020000 		.4byte	.LASF35
+ 881 0169 07       		.byte	0x7
+ 882 016a 08       		.uleb128 0x8
+ 883 016b 0D080000 		.4byte	.LASF36
+ 884 016f 08       		.byte	0x8
+ 885 0170 08       		.uleb128 0x8
+ 886 0171 19040000 		.4byte	.LASF37
+ 887 0175 09       		.byte	0x9
+ 888 0176 08       		.uleb128 0x8
+ 889 0177 43050000 		.4byte	.LASF38
+ 890 017b 0A       		.byte	0xa
+ 891 017c 08       		.uleb128 0x8
+ 892 017d DC020000 		.4byte	.LASF39
+ 893 0181 0B       		.byte	0xb
+ 894 0182 08       		.uleb128 0x8
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 20
+
+
+ 895 0183 5B050000 		.4byte	.LASF40
+ 896 0187 0C       		.byte	0xc
+ 897 0188 08       		.uleb128 0x8
+ 898 0189 6E050000 		.4byte	.LASF41
+ 899 018d 0D       		.byte	0xd
+ 900 018e 08       		.uleb128 0x8
+ 901 018f 81050000 		.4byte	.LASF42
+ 902 0193 0E       		.byte	0xe
+ 903 0194 08       		.uleb128 0x8
+ 904 0195 94050000 		.4byte	.LASF43
+ 905 0199 0F       		.byte	0xf
+ 906 019a 08       		.uleb128 0x8
+ 907 019b 10070000 		.4byte	.LASF44
+ 908 019f 10       		.byte	0x10
+ 909 01a0 08       		.uleb128 0x8
+ 910 01a1 AB060000 		.4byte	.LASF45
+ 911 01a5 11       		.byte	0x11
+ 912 01a6 08       		.uleb128 0x8
+ 913 01a7 DB040000 		.4byte	.LASF46
+ 914 01ab 12       		.byte	0x12
+ 915 01ac 08       		.uleb128 0x8
+ 916 01ad C3060000 		.4byte	.LASF47
+ 917 01b1 13       		.byte	0x13
+ 918 01b2 08       		.uleb128 0x8
+ 919 01b3 D4060000 		.4byte	.LASF48
+ 920 01b7 14       		.byte	0x14
+ 921 01b8 08       		.uleb128 0x8
+ 922 01b9 00050000 		.4byte	.LASF49
+ 923 01bd 15       		.byte	0x15
+ 924 01be 08       		.uleb128 0x8
+ 925 01bf FF060000 		.4byte	.LASF50
+ 926 01c3 16       		.byte	0x16
+ 927 01c4 08       		.uleb128 0x8
+ 928 01c5 EC040000 		.4byte	.LASF51
+ 929 01c9 17       		.byte	0x17
+ 930 01ca 08       		.uleb128 0x8
+ 931 01cb 3F010000 		.4byte	.LASF52
+ 932 01cf 1C       		.byte	0x1c
+ 933 01d0 08       		.uleb128 0x8
+ 934 01d1 1B000000 		.4byte	.LASF53
+ 935 01d5 1D       		.byte	0x1d
+ 936 01d6 00       		.byte	0
+ 937 01d7 07       		.uleb128 0x7
+ 938 01d8 01       		.byte	0x1
+ 939 01d9 42000000 		.4byte	0x42
+ 940 01dd 05       		.byte	0x5
+ 941 01de 6D       		.byte	0x6d
+ 942 01df FC010000 		.4byte	0x1fc
+ 943 01e3 08       		.uleb128 0x8
+ 944 01e4 89020000 		.4byte	.LASF54
+ 945 01e8 00       		.byte	0
+ 946 01e9 08       		.uleb128 0x8
+ 947 01ea B2020000 		.4byte	.LASF55
+ 948 01ee 04       		.byte	0x4
+ 949 01ef 08       		.uleb128 0x8
+ 950 01f0 7D010000 		.4byte	.LASF56
+ 951 01f4 05       		.byte	0x5
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 21
+
+
+ 952 01f5 08       		.uleb128 0x8
+ 953 01f6 E3010000 		.4byte	.LASF57
+ 954 01fa 06       		.byte	0x6
+ 955 01fb 00       		.byte	0
+ 956 01fc 02       		.uleb128 0x2
+ 957 01fd A3010000 		.4byte	.LASF58
+ 958 0201 05       		.byte	0x5
+ 959 0202 72       		.byte	0x72
+ 960 0203 D7010000 		.4byte	0x1d7
+ 961 0207 07       		.uleb128 0x7
+ 962 0208 01       		.byte	0x1
+ 963 0209 42000000 		.4byte	0x42
+ 964 020d 05       		.byte	0x5
+ 965 020e 75       		.byte	0x75
+ 966 020f 3E020000 		.4byte	0x23e
+ 967 0213 08       		.uleb128 0x8
+ 968 0214 28010000 		.4byte	.LASF59
+ 969 0218 00       		.byte	0
+ 970 0219 08       		.uleb128 0x8
+ 971 021a C3050000 		.4byte	.LASF60
+ 972 021e 01       		.byte	0x1
+ 973 021f 08       		.uleb128 0x8
+ 974 0220 07000000 		.4byte	.LASF61
+ 975 0224 02       		.byte	0x2
+ 976 0225 08       		.uleb128 0x8
+ 977 0226 D9050000 		.4byte	.LASF62
+ 978 022a 03       		.byte	0x3
+ 979 022b 08       		.uleb128 0x8
+ 980 022c C1020000 		.4byte	.LASF63
+ 981 0230 04       		.byte	0x4
+ 982 0231 08       		.uleb128 0x8
+ 983 0232 E5060000 		.4byte	.LASF64
+ 984 0236 05       		.byte	0x5
+ 985 0237 08       		.uleb128 0x8
+ 986 0238 11050000 		.4byte	.LASF65
+ 987 023c 06       		.byte	0x6
+ 988 023d 00       		.byte	0
+ 989 023e 07       		.uleb128 0x7
+ 990 023f 01       		.byte	0x1
+ 991 0240 42000000 		.4byte	0x42
+ 992 0244 05       		.byte	0x5
+ 993 0245 91       		.byte	0x91
+ 994 0246 6F020000 		.4byte	0x26f
+ 995 024a 08       		.uleb128 0x8
+ 996 024b 57040000 		.4byte	.LASF66
+ 997 024f 00       		.byte	0
+ 998 0250 08       		.uleb128 0x8
+ 999 0251 6D040000 		.4byte	.LASF67
+ 1000 0255 01       		.byte	0x1
+ 1001 0256 08       		.uleb128 0x8
+ 1002 0257 83040000 		.4byte	.LASF68
+ 1003 025b 02       		.byte	0x2
+ 1004 025c 08       		.uleb128 0x8
+ 1005 025d 99040000 		.4byte	.LASF69
+ 1006 0261 03       		.byte	0x3
+ 1007 0262 08       		.uleb128 0x8
+ 1008 0263 AF040000 		.4byte	.LASF70
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 22
+
+
+ 1009 0267 04       		.byte	0x4
+ 1010 0268 08       		.uleb128 0x8
+ 1011 0269 C5040000 		.4byte	.LASF71
+ 1012 026d 05       		.byte	0x5
+ 1013 026e 00       		.byte	0
+ 1014 026f 07       		.uleb128 0x7
+ 1015 0270 01       		.byte	0x1
+ 1016 0271 42000000 		.4byte	0x42
+ 1017 0275 05       		.byte	0x5
+ 1018 0276 AA       		.byte	0xaa
+ 1019 0277 A0020000 		.4byte	0x2a0
+ 1020 027b 08       		.uleb128 0x8
+ 1021 027c F1010000 		.4byte	.LASF72
+ 1022 0280 00       		.byte	0
+ 1023 0281 08       		.uleb128 0x8
+ 1024 0282 0A020000 		.4byte	.LASF73
+ 1025 0286 01       		.byte	0x1
+ 1026 0287 08       		.uleb128 0x8
+ 1027 0288 23020000 		.4byte	.LASF74
+ 1028 028c 02       		.byte	0x2
+ 1029 028d 08       		.uleb128 0x8
+ 1030 028e 3C020000 		.4byte	.LASF75
+ 1031 0292 03       		.byte	0x3
+ 1032 0293 08       		.uleb128 0x8
+ 1033 0294 7C070000 		.4byte	.LASF76
+ 1034 0298 04       		.byte	0x4
+ 1035 0299 08       		.uleb128 0x8
+ 1036 029a 5C020000 		.4byte	.LASF77
+ 1037 029e 05       		.byte	0x5
+ 1038 029f 00       		.byte	0
+ 1039 02a0 07       		.uleb128 0x7
+ 1040 02a1 01       		.byte	0x1
+ 1041 02a2 42000000 		.4byte	0x42
+ 1042 02a6 05       		.byte	0x5
+ 1043 02a7 D1       		.byte	0xd1
+ 1044 02a8 B9020000 		.4byte	0x2b9
+ 1045 02ac 08       		.uleb128 0x8
+ 1046 02ad 95070000 		.4byte	.LASF78
+ 1047 02b1 00       		.byte	0
+ 1048 02b2 08       		.uleb128 0x8
+ 1049 02b3 AC070000 		.4byte	.LASF79
+ 1050 02b7 04       		.byte	0x4
+ 1051 02b8 00       		.byte	0
+ 1052 02b9 09       		.uleb128 0x9
+ 1053 02ba 01       		.byte	0x1
+ 1054 02bb 42000000 		.4byte	0x42
+ 1055 02bf 05       		.byte	0x5
+ 1056 02c0 4A01     		.2byte	0x14a
+ 1057 02c2 E5020000 		.4byte	0x2e5
+ 1058 02c6 08       		.uleb128 0x8
+ 1059 02c7 3C060000 		.4byte	.LASF80
+ 1060 02cb 00       		.byte	0
+ 1061 02cc 08       		.uleb128 0x8
+ 1062 02cd 2B000000 		.4byte	.LASF81
+ 1063 02d1 01       		.byte	0x1
+ 1064 02d2 08       		.uleb128 0x8
+ 1065 02d3 F3030000 		.4byte	.LASF82
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 23
+
+
+ 1066 02d7 04       		.byte	0x4
+ 1067 02d8 08       		.uleb128 0x8
+ 1068 02d9 D7030000 		.4byte	.LASF83
+ 1069 02dd 05       		.byte	0x5
+ 1070 02de 08       		.uleb128 0x8
+ 1071 02df 6F030000 		.4byte	.LASF84
+ 1072 02e3 06       		.byte	0x6
+ 1073 02e4 00       		.byte	0
+ 1074 02e5 09       		.uleb128 0x9
+ 1075 02e6 01       		.byte	0x1
+ 1076 02e7 42000000 		.4byte	0x42
+ 1077 02eb 05       		.byte	0x5
+ 1078 02ec 5B01     		.2byte	0x15b
+ 1079 02ee 17030000 		.4byte	0x317
+ 1080 02f2 08       		.uleb128 0x8
+ 1081 02f3 C3070000 		.4byte	.LASF85
+ 1082 02f7 00       		.byte	0
+ 1083 02f8 08       		.uleb128 0x8
+ 1084 02f9 20070000 		.4byte	.LASF86
+ 1085 02fd 01       		.byte	0x1
+ 1086 02fe 08       		.uleb128 0x8
+ 1087 02ff 35070000 		.4byte	.LASF87
+ 1088 0303 02       		.byte	0x2
+ 1089 0304 08       		.uleb128 0x8
+ 1090 0305 4A070000 		.4byte	.LASF88
+ 1091 0309 03       		.byte	0x3
+ 1092 030a 08       		.uleb128 0x8
+ 1093 030b D8070000 		.4byte	.LASF89
+ 1094 030f 04       		.byte	0x4
+ 1095 0310 08       		.uleb128 0x8
+ 1096 0311 67070000 		.4byte	.LASF90
+ 1097 0315 05       		.byte	0x5
+ 1098 0316 00       		.byte	0
+ 1099 0317 09       		.uleb128 0x9
+ 1100 0318 01       		.byte	0x1
+ 1101 0319 42000000 		.4byte	0x42
+ 1102 031d 05       		.byte	0x5
+ 1103 031e 7401     		.2byte	0x174
+ 1104 0320 37030000 		.4byte	0x337
+ 1105 0324 08       		.uleb128 0x8
+ 1106 0325 ED070000 		.4byte	.LASF91
+ 1107 0329 00       		.byte	0
+ 1108 032a 08       		.uleb128 0x8
+ 1109 032b 64060000 		.4byte	.LASF92
+ 1110 032f 01       		.byte	0x1
+ 1111 0330 08       		.uleb128 0x8
+ 1112 0331 1F060000 		.4byte	.LASF93
+ 1113 0335 02       		.byte	0x2
+ 1114 0336 00       		.byte	0
+ 1115 0337 0A       		.uleb128 0xa
+ 1116 0338 DF000000 		.4byte	.LASF94
+ 1117 033c 01       		.byte	0x1
+ 1118 033d 2C       		.byte	0x2c
+ 1119 033e 00000000 		.4byte	.LFB57
+ 1120 0342 10000000 		.4byte	.LFE57-.LFB57
+ 1121 0346 01       		.uleb128 0x1
+ 1122 0347 9C       		.byte	0x9c
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 24
+
+
+ 1123 0348 0A       		.uleb128 0xa
+ 1124 0349 F9000000 		.4byte	.LASF95
+ 1125 034d 01       		.byte	0x1
+ 1126 034e 32       		.byte	0x32
+ 1127 034f 00000000 		.4byte	.LFB58
+ 1128 0353 18000000 		.4byte	.LFE58-.LFB58
+ 1129 0357 01       		.uleb128 0x1
+ 1130 0358 9C       		.byte	0x9c
+ 1131 0359 0A       		.uleb128 0xa
+ 1132 035a D1010000 		.4byte	.LASF96
+ 1133 035e 01       		.byte	0x1
+ 1134 035f 38       		.byte	0x38
+ 1135 0360 00000000 		.4byte	.LFB59
+ 1136 0364 18000000 		.4byte	.LFE59-.LFB59
+ 1137 0368 01       		.uleb128 0x1
+ 1138 0369 9C       		.byte	0x9c
+ 1139 036a 0B       		.uleb128 0xb
+ 1140 036b 43030000 		.4byte	.LASF118
+ 1141 036f 01       		.byte	0x1
+ 1142 0370 3E       		.byte	0x3e
+ 1143 0371 00000000 		.4byte	.LFB60
+ 1144 0375 64000000 		.4byte	.LFE60-.LFB60
+ 1145 0379 01       		.uleb128 0x1
+ 1146 037a 9C       		.byte	0x9c
+ 1147 037b 9C030000 		.4byte	0x39c
+ 1148 037f 0C       		.uleb128 0xc
+ 1149 0380 FA050000 		.4byte	.LASF97
+ 1150 0384 01       		.byte	0x1
+ 1151 0385 44       		.byte	0x44
+ 1152 0386 FC010000 		.4byte	0x1fc
+ 1153 038a 02       		.uleb128 0x2
+ 1154 038b 91       		.byte	0x91
+ 1155 038c 77       		.sleb128 -9
+ 1156 038d 0C       		.uleb128 0xc
+ 1157 038e 2B030000 		.4byte	.LASF98
+ 1158 0392 01       		.byte	0x1
+ 1159 0393 47       		.byte	0x47
+ 1160 0394 B8000000 		.4byte	0xb8
+ 1161 0398 02       		.uleb128 0x2
+ 1162 0399 91       		.byte	0x91
+ 1163 039a 74       		.sleb128 -12
+ 1164 039b 00       		.byte	0
+ 1165 039c 0D       		.uleb128 0xd
+ 1166 039d 08080000 		.4byte	.LASF119
+ 1167 03a1 01       		.byte	0x1
+ 1168 03a2 52       		.byte	0x52
+ 1169 03a3 94000000 		.4byte	0x94
+ 1170 03a7 00000000 		.4byte	.LFB61
+ 1171 03ab 6C030000 		.4byte	.LFE61-.LFB61
+ 1172 03af 01       		.uleb128 0x1
+ 1173 03b0 9C       		.byte	0x9c
+ 1174 03b1 6D040000 		.4byte	0x46d
+ 1175 03b5 0C       		.uleb128 0xc
+ 1176 03b6 F1000000 		.4byte	.LASF99
+ 1177 03ba 01       		.byte	0x1
+ 1178 03bb 76       		.byte	0x76
+ 1179 03bc 82040000 		.4byte	0x482
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 25
+
+
+ 1180 03c0 05       		.uleb128 0x5
+ 1181 03c1 03       		.byte	0x3
+ 1182 03c2 04000000 		.4byte	RX_ADDR.7814
+ 1183 03c6 0E       		.uleb128 0xe
+ 1184 03c7 16010000 		.4byte	.LBB2
+ 1185 03cb F4010000 		.4byte	.LBE2-.LBB2
+ 1186 03cf 0F       		.uleb128 0xf
+ 1187 03d0 6100     		.ascii	"a\000"
+ 1188 03d2 01       		.byte	0x1
+ 1189 03d3 83       		.byte	0x83
+ 1190 03d4 B8000000 		.4byte	0xb8
+ 1191 03d8 02       		.uleb128 0x2
+ 1192 03d9 91       		.byte	0x91
+ 1193 03da 6E       		.sleb128 -18
+ 1194 03db 0F       		.uleb128 0xf
+ 1195 03dc 6200     		.ascii	"b\000"
+ 1196 03de 01       		.byte	0x1
+ 1197 03df 83       		.byte	0x83
+ 1198 03e0 B8000000 		.4byte	0xb8
+ 1199 03e4 02       		.uleb128 0x2
+ 1200 03e5 91       		.byte	0x91
+ 1201 03e6 6C       		.sleb128 -20
+ 1202 03e7 0F       		.uleb128 0xf
+ 1203 03e8 61693100 		.ascii	"ai1\000"
+ 1204 03ec 01       		.byte	0x1
+ 1205 03ed 87       		.byte	0x87
+ 1206 03ee B8000000 		.4byte	0xb8
+ 1207 03f2 02       		.uleb128 0x2
+ 1208 03f3 91       		.byte	0x91
+ 1209 03f4 6A       		.sleb128 -22
+ 1210 03f5 0F       		.uleb128 0xf
+ 1211 03f6 61693200 		.ascii	"ai2\000"
+ 1212 03fa 01       		.byte	0x1
+ 1213 03fb 87       		.byte	0x87
+ 1214 03fc B8000000 		.4byte	0xb8
+ 1215 0400 02       		.uleb128 0x2
+ 1216 0401 91       		.byte	0x91
+ 1217 0402 68       		.sleb128 -24
+ 1218 0403 0F       		.uleb128 0xf
+ 1219 0404 61693300 		.ascii	"ai3\000"
+ 1220 0408 01       		.byte	0x1
+ 1221 0409 87       		.byte	0x87
+ 1222 040a B8000000 		.4byte	0xb8
+ 1223 040e 02       		.uleb128 0x2
+ 1224 040f 91       		.byte	0x91
+ 1225 0410 66       		.sleb128 -26
+ 1226 0411 0F       		.uleb128 0xf
+ 1227 0412 62693100 		.ascii	"bi1\000"
+ 1228 0416 01       		.byte	0x1
+ 1229 0417 8B       		.byte	0x8b
+ 1230 0418 B8000000 		.4byte	0xb8
+ 1231 041c 02       		.uleb128 0x2
+ 1232 041d 91       		.byte	0x91
+ 1233 041e 64       		.sleb128 -28
+ 1234 041f 0F       		.uleb128 0xf
+ 1235 0420 62693200 		.ascii	"bi2\000"
+ 1236 0424 01       		.byte	0x1
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 26
+
+
+ 1237 0425 8B       		.byte	0x8b
+ 1238 0426 B8000000 		.4byte	0xb8
+ 1239 042a 02       		.uleb128 0x2
+ 1240 042b 91       		.byte	0x91
+ 1241 042c 62       		.sleb128 -30
+ 1242 042d 0F       		.uleb128 0xf
+ 1243 042e 62693300 		.ascii	"bi3\000"
+ 1244 0432 01       		.byte	0x1
+ 1245 0433 8B       		.byte	0x8b
+ 1246 0434 B8000000 		.4byte	0xb8
+ 1247 0438 02       		.uleb128 0x2
+ 1248 0439 91       		.byte	0x91
+ 1249 043a 60       		.sleb128 -32
+ 1250 043b 0F       		.uleb128 0xf
+ 1251 043c 616900   		.ascii	"ai\000"
+ 1252 043f 01       		.byte	0x1
+ 1253 0440 9F       		.byte	0x9f
+ 1254 0441 B8000000 		.4byte	0xb8
+ 1255 0445 02       		.uleb128 0x2
+ 1256 0446 91       		.byte	0x91
+ 1257 0447 5C       		.sleb128 -36
+ 1258 0448 0F       		.uleb128 0xf
+ 1259 0449 626900   		.ascii	"bi\000"
+ 1260 044c 01       		.byte	0x1
+ 1261 044d A0       		.byte	0xa0
+ 1262 044e B8000000 		.4byte	0xb8
+ 1263 0452 02       		.uleb128 0x2
+ 1264 0453 91       		.byte	0x91
+ 1265 0454 5A       		.sleb128 -38
+ 1266 0455 0E       		.uleb128 0xe
+ 1267 0456 38010000 		.4byte	.LBB3
+ 1268 045a 5E000000 		.4byte	.LBE3-.LBB3
+ 1269 045e 0F       		.uleb128 0xf
+ 1270 045f 6900     		.ascii	"i\000"
+ 1271 0461 01       		.byte	0x1
+ 1272 0462 8E       		.byte	0x8e
+ 1273 0463 B8000000 		.4byte	0xb8
+ 1274 0467 02       		.uleb128 0x2
+ 1275 0468 91       		.byte	0x91
+ 1276 0469 5E       		.sleb128 -34
+ 1277 046a 00       		.byte	0
+ 1278 046b 00       		.byte	0
+ 1279 046c 00       		.byte	0
+ 1280 046d 10       		.uleb128 0x10
+ 1281 046e 7D040000 		.4byte	0x47d
+ 1282 0472 7D040000 		.4byte	0x47d
+ 1283 0476 11       		.uleb128 0x11
+ 1284 0477 27010000 		.4byte	0x127
+ 1285 047b 04       		.byte	0x4
+ 1286 047c 00       		.byte	0
+ 1287 047d 12       		.uleb128 0x12
+ 1288 047e AD000000 		.4byte	0xad
+ 1289 0482 12       		.uleb128 0x12
+ 1290 0483 6D040000 		.4byte	0x46d
+ 1291 0487 13       		.uleb128 0x13
+ 1292 0488 56010000 		.4byte	.LASF100
+ 1293 048c 06       		.byte	0x6
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 27
+
+
+ 1294 048d 1606     		.2byte	0x616
+ 1295 048f 93040000 		.4byte	0x493
+ 1296 0493 06       		.uleb128 0x6
+ 1297 0494 C3000000 		.4byte	0xc3
+ 1298 0498 14       		.uleb128 0x14
+ 1299 0499 80020000 		.4byte	.LASF101
+ 1300 049d 01       		.byte	0x1
+ 1301 049e 06       		.byte	0x6
+ 1302 049f B0040000 		.4byte	0x4b0
+ 1303 04a3 05       		.uleb128 0x5
+ 1304 04a4 03       		.byte	0x3
+ 1305 04a5 00000000 		.4byte	irq_flag
+ 1306 04a9 03       		.uleb128 0x3
+ 1307 04aa 01       		.byte	0x1
+ 1308 04ab 02       		.byte	0x2
+ 1309 04ac A7050000 		.4byte	.LASF102
+ 1310 04b0 06       		.uleb128 0x6
+ 1311 04b1 A9040000 		.4byte	0x4a9
+ 1312 04b5 14       		.uleb128 0x14
+ 1313 04b6 2B030000 		.4byte	.LASF98
+ 1314 04ba 01       		.byte	0x1
+ 1315 04bb 09       		.byte	0x9
+ 1316 04bc 42000000 		.4byte	0x42
+ 1317 04c0 05       		.uleb128 0x5
+ 1318 04c1 03       		.byte	0x3
+ 1319 04c2 00000000 		.4byte	data
+ 1320 04c6 10       		.uleb128 0x10
+ 1321 04c7 B8000000 		.4byte	0xb8
+ 1322 04cb D7040000 		.4byte	0x4d7
+ 1323 04cf 15       		.uleb128 0x15
+ 1324 04d0 27010000 		.4byte	0x127
+ 1325 04d4 DB05     		.2byte	0x5db
+ 1326 04d6 00       		.byte	0
+ 1327 04d7 14       		.uleb128 0x14
+ 1328 04d8 36060000 		.4byte	.LASF103
+ 1329 04dc 01       		.byte	0x1
+ 1330 04dd 10       		.byte	0x10
+ 1331 04de C6040000 		.4byte	0x4c6
+ 1332 04e2 05       		.uleb128 0x5
+ 1333 04e3 03       		.byte	0x3
+ 1334 04e4 00000000 		.4byte	DataA
+ 1335 04e8 14       		.uleb128 0x14
+ 1336 04e9 56030000 		.4byte	.LASF104
+ 1337 04ed 01       		.byte	0x1
+ 1338 04ee 11       		.byte	0x11
+ 1339 04ef C6040000 		.4byte	0x4c6
+ 1340 04f3 05       		.uleb128 0x5
+ 1341 04f4 03       		.byte	0x3
+ 1342 04f5 00000000 		.4byte	DataB
+ 1343 04f9 14       		.uleb128 0x14
+ 1344 04fa 09030000 		.4byte	.LASF105
+ 1345 04fe 01       		.byte	0x1
+ 1346 04ff 1D       		.byte	0x1d
+ 1347 0500 D9000000 		.4byte	0xd9
+ 1348 0504 05       		.uleb128 0x5
+ 1349 0505 03       		.byte	0x3
+ 1350 0506 00000000 		.4byte	DMA_A_Chan
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 28
+
+
+ 1351 050a 10       		.uleb128 0x10
+ 1352 050b D9000000 		.4byte	0xd9
+ 1353 050f 1A050000 		.4byte	0x51a
+ 1354 0513 11       		.uleb128 0x11
+ 1355 0514 27010000 		.4byte	0x127
+ 1356 0518 00       		.byte	0
+ 1357 0519 00       		.byte	0
+ 1358 051a 14       		.uleb128 0x14
+ 1359 051b 2B050000 		.4byte	.LASF106
+ 1360 051f 01       		.byte	0x1
+ 1361 0520 1E       		.byte	0x1e
+ 1362 0521 0A050000 		.4byte	0x50a
+ 1363 0525 05       		.uleb128 0x5
+ 1364 0526 03       		.byte	0x3
+ 1365 0527 00000000 		.4byte	DMA_A_TD
+ 1366 052b 14       		.uleb128 0x14
+ 1367 052c 7F060000 		.4byte	.LASF107
+ 1368 0530 01       		.byte	0x1
+ 1369 0531 20       		.byte	0x20
+ 1370 0532 D9000000 		.4byte	0xd9
+ 1371 0536 05       		.uleb128 0x5
+ 1372 0537 03       		.byte	0x3
+ 1373 0538 00000000 		.4byte	DMA_B_Chan
+ 1374 053c 14       		.uleb128 0x14
+ 1375 053d 10040000 		.4byte	.LASF108
+ 1376 0541 01       		.byte	0x1
+ 1377 0542 21       		.byte	0x21
+ 1378 0543 0A050000 		.4byte	0x50a
+ 1379 0547 05       		.uleb128 0x5
+ 1380 0548 03       		.byte	0x3
+ 1381 0549 00000000 		.4byte	DMA_B_TD
+ 1382 054d 14       		.uleb128 0x14
+ 1383 054e 4C040000 		.4byte	.LASF109
+ 1384 0552 01       		.byte	0x1
+ 1385 0553 23       		.byte	0x23
+ 1386 0554 AD000000 		.4byte	0xad
+ 1387 0558 05       		.uleb128 0x5
+ 1388 0559 03       		.byte	0x3
+ 1389 055a 00000000 		.4byte	ISR_A_done
+ 1390 055e 14       		.uleb128 0x14
+ 1391 055f EF050000 		.4byte	.LASF110
+ 1392 0563 01       		.byte	0x1
+ 1393 0564 24       		.byte	0x24
+ 1394 0565 AD000000 		.4byte	0xad
+ 1395 0569 05       		.uleb128 0x5
+ 1396 056a 03       		.byte	0x3
+ 1397 056b 00000000 		.4byte	ISR_B_done
+ 1398 056f 14       		.uleb128 0x14
+ 1399 0570 22010000 		.4byte	.LASF111
+ 1400 0574 01       		.byte	0x1
+ 1401 0575 26       		.byte	0x26
+ 1402 0576 A2000000 		.4byte	0xa2
+ 1403 057a 05       		.uleb128 0x5
+ 1404 057b 03       		.byte	0x3
+ 1405 057c 00000000 		.4byte	angle
+ 1406 0580 14       		.uleb128 0x14
+ 1407 0581 94060000 		.4byte	.LASF112
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 29
+
+
+ 1408 0585 01       		.byte	0x1
+ 1409 0586 27       		.byte	0x27
+ 1410 0587 CE000000 		.4byte	0xce
+ 1411 058b 05       		.uleb128 0x5
+ 1412 058c 03       		.byte	0x3
+ 1413 058d 00000000 		.4byte	distance
+ 1414 0591 14       		.uleb128 0x14
+ 1415 0592 3A050000 		.4byte	.LASF113
+ 1416 0596 01       		.byte	0x1
+ 1417 0597 28       		.byte	0x28
+ 1418 0598 B8000000 		.4byte	0xb8
+ 1419 059c 05       		.uleb128 0x5
+ 1420 059d 03       		.byte	0x3
+ 1421 059e 00000000 		.4byte	velocity
+ 1422 05a2 10       		.uleb128 0x10
+ 1423 05a3 08010000 		.4byte	0x108
+ 1424 05a7 B2050000 		.4byte	0x5b2
+ 1425 05ab 11       		.uleb128 0x11
+ 1426 05ac 27010000 		.4byte	0x127
+ 1427 05b0 C7       		.byte	0xc7
+ 1428 05b1 00       		.byte	0
+ 1429 05b2 14       		.uleb128 0x14
+ 1430 05b3 EF020000 		.4byte	.LASF114
+ 1431 05b7 01       		.byte	0x1
+ 1432 05b8 2A       		.byte	0x2a
+ 1433 05b9 A2050000 		.4byte	0x5a2
+ 1434 05bd 05       		.uleb128 0x5
+ 1435 05be 03       		.byte	0x3
+ 1436 05bf 00000000 		.4byte	output
+ 1437 05c3 00       		.byte	0
+ 1438              		.section	.debug_abbrev,"",%progbits
+ 1439              	.Ldebug_abbrev0:
+ 1440 0000 01       		.uleb128 0x1
+ 1441 0001 11       		.uleb128 0x11
+ 1442 0002 01       		.byte	0x1
+ 1443 0003 25       		.uleb128 0x25
+ 1444 0004 0E       		.uleb128 0xe
+ 1445 0005 13       		.uleb128 0x13
+ 1446 0006 0B       		.uleb128 0xb
+ 1447 0007 03       		.uleb128 0x3
+ 1448 0008 0E       		.uleb128 0xe
+ 1449 0009 1B       		.uleb128 0x1b
+ 1450 000a 0E       		.uleb128 0xe
+ 1451 000b 55       		.uleb128 0x55
+ 1452 000c 17       		.uleb128 0x17
+ 1453 000d 11       		.uleb128 0x11
+ 1454 000e 01       		.uleb128 0x1
+ 1455 000f 10       		.uleb128 0x10
+ 1456 0010 17       		.uleb128 0x17
+ 1457 0011 00       		.byte	0
+ 1458 0012 00       		.byte	0
+ 1459 0013 02       		.uleb128 0x2
+ 1460 0014 16       		.uleb128 0x16
+ 1461 0015 00       		.byte	0
+ 1462 0016 03       		.uleb128 0x3
+ 1463 0017 0E       		.uleb128 0xe
+ 1464 0018 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 30
+
+
+ 1465 0019 0B       		.uleb128 0xb
+ 1466 001a 3B       		.uleb128 0x3b
+ 1467 001b 0B       		.uleb128 0xb
+ 1468 001c 49       		.uleb128 0x49
+ 1469 001d 13       		.uleb128 0x13
+ 1470 001e 00       		.byte	0
+ 1471 001f 00       		.byte	0
+ 1472 0020 03       		.uleb128 0x3
+ 1473 0021 24       		.uleb128 0x24
+ 1474 0022 00       		.byte	0
+ 1475 0023 0B       		.uleb128 0xb
+ 1476 0024 0B       		.uleb128 0xb
+ 1477 0025 3E       		.uleb128 0x3e
+ 1478 0026 0B       		.uleb128 0xb
+ 1479 0027 03       		.uleb128 0x3
+ 1480 0028 0E       		.uleb128 0xe
+ 1481 0029 00       		.byte	0
+ 1482 002a 00       		.byte	0
+ 1483 002b 04       		.uleb128 0x4
+ 1484 002c 24       		.uleb128 0x24
+ 1485 002d 00       		.byte	0
+ 1486 002e 0B       		.uleb128 0xb
+ 1487 002f 0B       		.uleb128 0xb
+ 1488 0030 3E       		.uleb128 0x3e
+ 1489 0031 0B       		.uleb128 0xb
+ 1490 0032 03       		.uleb128 0x3
+ 1491 0033 08       		.uleb128 0x8
+ 1492 0034 00       		.byte	0
+ 1493 0035 00       		.byte	0
+ 1494 0036 05       		.uleb128 0x5
+ 1495 0037 16       		.uleb128 0x16
+ 1496 0038 00       		.byte	0
+ 1497 0039 03       		.uleb128 0x3
+ 1498 003a 0E       		.uleb128 0xe
+ 1499 003b 3A       		.uleb128 0x3a
+ 1500 003c 0B       		.uleb128 0xb
+ 1501 003d 3B       		.uleb128 0x3b
+ 1502 003e 05       		.uleb128 0x5
+ 1503 003f 49       		.uleb128 0x49
+ 1504 0040 13       		.uleb128 0x13
+ 1505 0041 00       		.byte	0
+ 1506 0042 00       		.byte	0
+ 1507 0043 06       		.uleb128 0x6
+ 1508 0044 35       		.uleb128 0x35
+ 1509 0045 00       		.byte	0
+ 1510 0046 49       		.uleb128 0x49
+ 1511 0047 13       		.uleb128 0x13
+ 1512 0048 00       		.byte	0
+ 1513 0049 00       		.byte	0
+ 1514 004a 07       		.uleb128 0x7
+ 1515 004b 04       		.uleb128 0x4
+ 1516 004c 01       		.byte	0x1
+ 1517 004d 0B       		.uleb128 0xb
+ 1518 004e 0B       		.uleb128 0xb
+ 1519 004f 49       		.uleb128 0x49
+ 1520 0050 13       		.uleb128 0x13
+ 1521 0051 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 31
+
+
+ 1522 0052 0B       		.uleb128 0xb
+ 1523 0053 3B       		.uleb128 0x3b
+ 1524 0054 0B       		.uleb128 0xb
+ 1525 0055 01       		.uleb128 0x1
+ 1526 0056 13       		.uleb128 0x13
+ 1527 0057 00       		.byte	0
+ 1528 0058 00       		.byte	0
+ 1529 0059 08       		.uleb128 0x8
+ 1530 005a 28       		.uleb128 0x28
+ 1531 005b 00       		.byte	0
+ 1532 005c 03       		.uleb128 0x3
+ 1533 005d 0E       		.uleb128 0xe
+ 1534 005e 1C       		.uleb128 0x1c
+ 1535 005f 0B       		.uleb128 0xb
+ 1536 0060 00       		.byte	0
+ 1537 0061 00       		.byte	0
+ 1538 0062 09       		.uleb128 0x9
+ 1539 0063 04       		.uleb128 0x4
+ 1540 0064 01       		.byte	0x1
+ 1541 0065 0B       		.uleb128 0xb
+ 1542 0066 0B       		.uleb128 0xb
+ 1543 0067 49       		.uleb128 0x49
+ 1544 0068 13       		.uleb128 0x13
+ 1545 0069 3A       		.uleb128 0x3a
+ 1546 006a 0B       		.uleb128 0xb
+ 1547 006b 3B       		.uleb128 0x3b
+ 1548 006c 05       		.uleb128 0x5
+ 1549 006d 01       		.uleb128 0x1
+ 1550 006e 13       		.uleb128 0x13
+ 1551 006f 00       		.byte	0
+ 1552 0070 00       		.byte	0
+ 1553 0071 0A       		.uleb128 0xa
+ 1554 0072 2E       		.uleb128 0x2e
+ 1555 0073 00       		.byte	0
+ 1556 0074 3F       		.uleb128 0x3f
+ 1557 0075 19       		.uleb128 0x19
+ 1558 0076 03       		.uleb128 0x3
+ 1559 0077 0E       		.uleb128 0xe
+ 1560 0078 3A       		.uleb128 0x3a
+ 1561 0079 0B       		.uleb128 0xb
+ 1562 007a 3B       		.uleb128 0x3b
+ 1563 007b 0B       		.uleb128 0xb
+ 1564 007c 27       		.uleb128 0x27
+ 1565 007d 19       		.uleb128 0x19
+ 1566 007e 11       		.uleb128 0x11
+ 1567 007f 01       		.uleb128 0x1
+ 1568 0080 12       		.uleb128 0x12
+ 1569 0081 06       		.uleb128 0x6
+ 1570 0082 40       		.uleb128 0x40
+ 1571 0083 18       		.uleb128 0x18
+ 1572 0084 9642     		.uleb128 0x2116
+ 1573 0086 19       		.uleb128 0x19
+ 1574 0087 00       		.byte	0
+ 1575 0088 00       		.byte	0
+ 1576 0089 0B       		.uleb128 0xb
+ 1577 008a 2E       		.uleb128 0x2e
+ 1578 008b 01       		.byte	0x1
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 32
+
+
+ 1579 008c 3F       		.uleb128 0x3f
+ 1580 008d 19       		.uleb128 0x19
+ 1581 008e 03       		.uleb128 0x3
+ 1582 008f 0E       		.uleb128 0xe
+ 1583 0090 3A       		.uleb128 0x3a
+ 1584 0091 0B       		.uleb128 0xb
+ 1585 0092 3B       		.uleb128 0x3b
+ 1586 0093 0B       		.uleb128 0xb
+ 1587 0094 27       		.uleb128 0x27
+ 1588 0095 19       		.uleb128 0x19
+ 1589 0096 11       		.uleb128 0x11
+ 1590 0097 01       		.uleb128 0x1
+ 1591 0098 12       		.uleb128 0x12
+ 1592 0099 06       		.uleb128 0x6
+ 1593 009a 40       		.uleb128 0x40
+ 1594 009b 18       		.uleb128 0x18
+ 1595 009c 9642     		.uleb128 0x2116
+ 1596 009e 19       		.uleb128 0x19
+ 1597 009f 01       		.uleb128 0x1
+ 1598 00a0 13       		.uleb128 0x13
+ 1599 00a1 00       		.byte	0
+ 1600 00a2 00       		.byte	0
+ 1601 00a3 0C       		.uleb128 0xc
+ 1602 00a4 34       		.uleb128 0x34
+ 1603 00a5 00       		.byte	0
+ 1604 00a6 03       		.uleb128 0x3
+ 1605 00a7 0E       		.uleb128 0xe
+ 1606 00a8 3A       		.uleb128 0x3a
+ 1607 00a9 0B       		.uleb128 0xb
+ 1608 00aa 3B       		.uleb128 0x3b
+ 1609 00ab 0B       		.uleb128 0xb
+ 1610 00ac 49       		.uleb128 0x49
+ 1611 00ad 13       		.uleb128 0x13
+ 1612 00ae 02       		.uleb128 0x2
+ 1613 00af 18       		.uleb128 0x18
+ 1614 00b0 00       		.byte	0
+ 1615 00b1 00       		.byte	0
+ 1616 00b2 0D       		.uleb128 0xd
+ 1617 00b3 2E       		.uleb128 0x2e
+ 1618 00b4 01       		.byte	0x1
+ 1619 00b5 3F       		.uleb128 0x3f
+ 1620 00b6 19       		.uleb128 0x19
+ 1621 00b7 03       		.uleb128 0x3
+ 1622 00b8 0E       		.uleb128 0xe
+ 1623 00b9 3A       		.uleb128 0x3a
+ 1624 00ba 0B       		.uleb128 0xb
+ 1625 00bb 3B       		.uleb128 0x3b
+ 1626 00bc 0B       		.uleb128 0xb
+ 1627 00bd 27       		.uleb128 0x27
+ 1628 00be 19       		.uleb128 0x19
+ 1629 00bf 49       		.uleb128 0x49
+ 1630 00c0 13       		.uleb128 0x13
+ 1631 00c1 11       		.uleb128 0x11
+ 1632 00c2 01       		.uleb128 0x1
+ 1633 00c3 12       		.uleb128 0x12
+ 1634 00c4 06       		.uleb128 0x6
+ 1635 00c5 40       		.uleb128 0x40
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 33
+
+
+ 1636 00c6 18       		.uleb128 0x18
+ 1637 00c7 9642     		.uleb128 0x2116
+ 1638 00c9 19       		.uleb128 0x19
+ 1639 00ca 01       		.uleb128 0x1
+ 1640 00cb 13       		.uleb128 0x13
+ 1641 00cc 00       		.byte	0
+ 1642 00cd 00       		.byte	0
+ 1643 00ce 0E       		.uleb128 0xe
+ 1644 00cf 0B       		.uleb128 0xb
+ 1645 00d0 01       		.byte	0x1
+ 1646 00d1 11       		.uleb128 0x11
+ 1647 00d2 01       		.uleb128 0x1
+ 1648 00d3 12       		.uleb128 0x12
+ 1649 00d4 06       		.uleb128 0x6
+ 1650 00d5 00       		.byte	0
+ 1651 00d6 00       		.byte	0
+ 1652 00d7 0F       		.uleb128 0xf
+ 1653 00d8 34       		.uleb128 0x34
+ 1654 00d9 00       		.byte	0
+ 1655 00da 03       		.uleb128 0x3
+ 1656 00db 08       		.uleb128 0x8
+ 1657 00dc 3A       		.uleb128 0x3a
+ 1658 00dd 0B       		.uleb128 0xb
+ 1659 00de 3B       		.uleb128 0x3b
+ 1660 00df 0B       		.uleb128 0xb
+ 1661 00e0 49       		.uleb128 0x49
+ 1662 00e1 13       		.uleb128 0x13
+ 1663 00e2 02       		.uleb128 0x2
+ 1664 00e3 18       		.uleb128 0x18
+ 1665 00e4 00       		.byte	0
+ 1666 00e5 00       		.byte	0
+ 1667 00e6 10       		.uleb128 0x10
+ 1668 00e7 01       		.uleb128 0x1
+ 1669 00e8 01       		.byte	0x1
+ 1670 00e9 49       		.uleb128 0x49
+ 1671 00ea 13       		.uleb128 0x13
+ 1672 00eb 01       		.uleb128 0x1
+ 1673 00ec 13       		.uleb128 0x13
+ 1674 00ed 00       		.byte	0
+ 1675 00ee 00       		.byte	0
+ 1676 00ef 11       		.uleb128 0x11
+ 1677 00f0 21       		.uleb128 0x21
+ 1678 00f1 00       		.byte	0
+ 1679 00f2 49       		.uleb128 0x49
+ 1680 00f3 13       		.uleb128 0x13
+ 1681 00f4 2F       		.uleb128 0x2f
+ 1682 00f5 0B       		.uleb128 0xb
+ 1683 00f6 00       		.byte	0
+ 1684 00f7 00       		.byte	0
+ 1685 00f8 12       		.uleb128 0x12
+ 1686 00f9 26       		.uleb128 0x26
+ 1687 00fa 00       		.byte	0
+ 1688 00fb 49       		.uleb128 0x49
+ 1689 00fc 13       		.uleb128 0x13
+ 1690 00fd 00       		.byte	0
+ 1691 00fe 00       		.byte	0
+ 1692 00ff 13       		.uleb128 0x13
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 34
+
+
+ 1693 0100 34       		.uleb128 0x34
+ 1694 0101 00       		.byte	0
+ 1695 0102 03       		.uleb128 0x3
+ 1696 0103 0E       		.uleb128 0xe
+ 1697 0104 3A       		.uleb128 0x3a
+ 1698 0105 0B       		.uleb128 0xb
+ 1699 0106 3B       		.uleb128 0x3b
+ 1700 0107 05       		.uleb128 0x5
+ 1701 0108 49       		.uleb128 0x49
+ 1702 0109 13       		.uleb128 0x13
+ 1703 010a 3F       		.uleb128 0x3f
+ 1704 010b 19       		.uleb128 0x19
+ 1705 010c 3C       		.uleb128 0x3c
+ 1706 010d 19       		.uleb128 0x19
+ 1707 010e 00       		.byte	0
+ 1708 010f 00       		.byte	0
+ 1709 0110 14       		.uleb128 0x14
+ 1710 0111 34       		.uleb128 0x34
+ 1711 0112 00       		.byte	0
+ 1712 0113 03       		.uleb128 0x3
+ 1713 0114 0E       		.uleb128 0xe
+ 1714 0115 3A       		.uleb128 0x3a
+ 1715 0116 0B       		.uleb128 0xb
+ 1716 0117 3B       		.uleb128 0x3b
+ 1717 0118 0B       		.uleb128 0xb
+ 1718 0119 49       		.uleb128 0x49
+ 1719 011a 13       		.uleb128 0x13
+ 1720 011b 3F       		.uleb128 0x3f
+ 1721 011c 19       		.uleb128 0x19
+ 1722 011d 02       		.uleb128 0x2
+ 1723 011e 18       		.uleb128 0x18
+ 1724 011f 00       		.byte	0
+ 1725 0120 00       		.byte	0
+ 1726 0121 15       		.uleb128 0x15
+ 1727 0122 21       		.uleb128 0x21
+ 1728 0123 00       		.byte	0
+ 1729 0124 49       		.uleb128 0x49
+ 1730 0125 13       		.uleb128 0x13
+ 1731 0126 2F       		.uleb128 0x2f
+ 1732 0127 05       		.uleb128 0x5
+ 1733 0128 00       		.byte	0
+ 1734 0129 00       		.byte	0
+ 1735 012a 00       		.byte	0
+ 1736              		.section	.debug_aranges,"",%progbits
+ 1737 0000 3C000000 		.4byte	0x3c
+ 1738 0004 0200     		.2byte	0x2
+ 1739 0006 00000000 		.4byte	.Ldebug_info0
+ 1740 000a 04       		.byte	0x4
+ 1741 000b 00       		.byte	0
+ 1742 000c 0000     		.2byte	0
+ 1743 000e 0000     		.2byte	0
+ 1744 0010 00000000 		.4byte	.LFB57
+ 1745 0014 10000000 		.4byte	.LFE57-.LFB57
+ 1746 0018 00000000 		.4byte	.LFB58
+ 1747 001c 18000000 		.4byte	.LFE58-.LFB58
+ 1748 0020 00000000 		.4byte	.LFB59
+ 1749 0024 18000000 		.4byte	.LFE59-.LFB59
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 35
+
+
+ 1750 0028 00000000 		.4byte	.LFB60
+ 1751 002c 64000000 		.4byte	.LFE60-.LFB60
+ 1752 0030 00000000 		.4byte	.LFB61
+ 1753 0034 6C030000 		.4byte	.LFE61-.LFB61
+ 1754 0038 00000000 		.4byte	0
+ 1755 003c 00000000 		.4byte	0
+ 1756              		.section	.debug_ranges,"",%progbits
+ 1757              	.Ldebug_ranges0:
+ 1758 0000 00000000 		.4byte	.LFB57
+ 1759 0004 10000000 		.4byte	.LFE57
+ 1760 0008 00000000 		.4byte	.LFB58
+ 1761 000c 18000000 		.4byte	.LFE58
+ 1762 0010 00000000 		.4byte	.LFB59
+ 1763 0014 18000000 		.4byte	.LFE59
+ 1764 0018 00000000 		.4byte	.LFB60
+ 1765 001c 64000000 		.4byte	.LFE60
+ 1766 0020 00000000 		.4byte	.LFB61
+ 1767 0024 6C030000 		.4byte	.LFE61
+ 1768 0028 00000000 		.4byte	0
+ 1769 002c 00000000 		.4byte	0
+ 1770              		.section	.debug_line,"",%progbits
+ 1771              	.Ldebug_line0:
+ 1772 0000 16020000 		.section	.debug_str,"MS",%progbits,1
+ 1772      02005C01 
+ 1772      00000201 
+ 1772      FB0E0D00 
+ 1772      01010101 
+ 1773              	.LASF20:
+ 1774 0000 75696E74 		.ascii	"uint16\000"
+ 1774      313600
+ 1775              	.LASF61:
+ 1776 0007 4E52465F 		.ascii	"NRF_CONFIG_BIT_CRCO\000"
+ 1776      434F4E46 
+ 1776      49475F42 
+ 1776      49545F43 
+ 1776      52434F00 
+ 1777              	.LASF53:
+ 1778 001b 4E52465F 		.ascii	"NRF_REG_FEATURE\000"
+ 1778      5245475F 
+ 1778      46454154 
+ 1778      55524500 
+ 1779              	.LASF81:
+ 1780 002b 4E52465F 		.ascii	"NRF_FIFO_STATUS_BIT_RX_FULL\000"
+ 1780      4649464F 
+ 1780      5F535441 
+ 1780      5455535F 
+ 1780      4249545F 
+ 1781              	.LASF1:
+ 1782 0047 5F5F7569 		.ascii	"__uint8_t\000"
+ 1782      6E74385F 
+ 1782      7400
+ 1783              	.LASF115:
+ 1784 0051 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1784      43313120 
+ 1784      352E342E 
+ 1784      31203230 
+ 1784      31363036 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 36
+
+
+ 1785 0084 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1785      20726576 
+ 1785      6973696F 
+ 1785      6E203233 
+ 1785      37373135 
+ 1786 00b7 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 1786      66756E63 
+ 1786      74696F6E 
+ 1786      2D736563 
+ 1786      74696F6E 
+ 1787              	.LASF94:
+ 1788 00df 4953525F 		.ascii	"ISR_START_Handler\000"
+ 1788      53544152 
+ 1788      545F4861 
+ 1788      6E646C65 
+ 1788      7200
+ 1789              	.LASF99:
+ 1790 00f1 52585F41 		.ascii	"RX_ADDR\000"
+ 1790      44445200 
+ 1791              	.LASF95:
+ 1792 00f9 4953525F 		.ascii	"ISR_OUT_A_Handler\000"
+ 1792      4F55545F 
+ 1792      415F4861 
+ 1792      6E646C65 
+ 1792      7200
+ 1793              	.LASF12:
+ 1794 010b 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1794      206C6F6E 
+ 1794      6720756E 
+ 1794      7369676E 
+ 1794      65642069 
+ 1795              	.LASF111:
+ 1796 0122 616E676C 		.ascii	"angle\000"
+ 1796      6500
+ 1797              	.LASF59:
+ 1798 0128 4E52465F 		.ascii	"NRF_CONFIG_BIT_PRIM_RX\000"
+ 1798      434F4E46 
+ 1798      49475F42 
+ 1798      49545F50 
+ 1798      52494D5F 
+ 1799              	.LASF52:
+ 1800 013f 4E52465F 		.ascii	"NRF_REG_DYNPD\000"
+ 1800      5245475F 
+ 1800      44594E50 
+ 1800      4400
+ 1801              	.LASF0:
+ 1802 014d 5F5F696E 		.ascii	"__int8_t\000"
+ 1802      74385F74 
+ 1802      00
+ 1803              	.LASF100:
+ 1804 0156 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1804      52784275 
+ 1804      66666572 
+ 1804      00
+ 1805              	.LASF11:
+ 1806 0163 6C6F6E67 		.ascii	"long long int\000"
+ 1806      206C6F6E 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 37
+
+
+ 1806      6720696E 
+ 1806      7400
+ 1807              	.LASF2:
+ 1808 0171 7369676E 		.ascii	"signed char\000"
+ 1808      65642063 
+ 1808      68617200 
+ 1809              	.LASF56:
+ 1810 017d 4E52465F 		.ascii	"NRF_TX_DS_IRQ\000"
+ 1810      54585F44 
+ 1810      535F4952 
+ 1810      5100
+ 1811              	.LASF8:
+ 1812 018b 6C6F6E67 		.ascii	"long int\000"
+ 1812      20696E74 
+ 1812      00
+ 1813              	.LASF28:
+ 1814 0194 4E52465F 		.ascii	"NRF_REG_CONFIG\000"
+ 1814      5245475F 
+ 1814      434F4E46 
+ 1814      494700
+ 1815              	.LASF58:
+ 1816 01a3 6E72665F 		.ascii	"nrf_irq\000"
+ 1816      69727100 
+ 1817              	.LASF31:
+ 1818 01ab 4E52465F 		.ascii	"NRF_REG_SETUP_AW\000"
+ 1818      5245475F 
+ 1818      53455455 
+ 1818      505F4157 
+ 1818      00
+ 1819              	.LASF33:
+ 1820 01bc 4E52465F 		.ascii	"NRF_REG_RF_CH\000"
+ 1820      5245475F 
+ 1820      52465F43 
+ 1820      4800
+ 1821              	.LASF23:
+ 1822 01ca 646F7562 		.ascii	"double\000"
+ 1822      6C6500
+ 1823              	.LASF96:
+ 1824 01d1 4953525F 		.ascii	"ISR_OUT_B_Handler\000"
+ 1824      4F55545F 
+ 1824      425F4861 
+ 1824      6E646C65 
+ 1824      7200
+ 1825              	.LASF57:
+ 1826 01e3 4E52465F 		.ascii	"NRF_RX_DR_IRQ\000"
+ 1826      52585F44 
+ 1826      525F4952 
+ 1826      5100
+ 1827              	.LASF72:
+ 1828 01f1 4E52465F 		.ascii	"NRF_EN_RXADDR_BIT_ERX_P0\000"
+ 1828      454E5F52 
+ 1828      58414444 
+ 1828      525F4249 
+ 1828      545F4552 
+ 1829              	.LASF73:
+ 1830 020a 4E52465F 		.ascii	"NRF_EN_RXADDR_BIT_ERX_P1\000"
+ 1830      454E5F52 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 38
+
+
+ 1830      58414444 
+ 1830      525F4249 
+ 1830      545F4552 
+ 1831              	.LASF74:
+ 1832 0223 4E52465F 		.ascii	"NRF_EN_RXADDR_BIT_ERX_P2\000"
+ 1832      454E5F52 
+ 1832      58414444 
+ 1832      525F4249 
+ 1832      545F4552 
+ 1833              	.LASF75:
+ 1834 023c 4E52465F 		.ascii	"NRF_EN_RXADDR_BIT_ERX_P3\000"
+ 1834      454E5F52 
+ 1834      58414444 
+ 1834      525F4249 
+ 1834      545F4552 
+ 1835              	.LASF21:
+ 1836 0255 75696E74 		.ascii	"uint32\000"
+ 1836      333200
+ 1837              	.LASF77:
+ 1838 025c 4E52465F 		.ascii	"NRF_EN_RXADDR_BIT_ERX_P5\000"
+ 1838      454E5F52 
+ 1838      58414444 
+ 1838      525F4249 
+ 1838      545F4552 
+ 1839              	.LASF9:
+ 1840 0275 5F5F7569 		.ascii	"__uint32_t\000"
+ 1840      6E743332 
+ 1840      5F7400
+ 1841              	.LASF101:
+ 1842 0280 6972715F 		.ascii	"irq_flag\000"
+ 1842      666C6167 
+ 1842      00
+ 1843              	.LASF54:
+ 1844 0289 4E52465F 		.ascii	"NRF_NONE_IRQ\000"
+ 1844      4E4F4E45 
+ 1844      5F495251 
+ 1844      00
+ 1845              	.LASF35:
+ 1846 0296 4E52465F 		.ascii	"NRF_REG_STATUS\000"
+ 1846      5245475F 
+ 1846      53544154 
+ 1846      555300
+ 1847              	.LASF13:
+ 1848 02a5 756E7369 		.ascii	"unsigned int\000"
+ 1848      676E6564 
+ 1848      20696E74 
+ 1848      00
+ 1849              	.LASF55:
+ 1850 02b2 4E52465F 		.ascii	"NRF_MAX_RT_IRQ\000"
+ 1850      4D41585F 
+ 1850      52545F49 
+ 1850      525100
+ 1851              	.LASF63:
+ 1852 02c1 4E52465F 		.ascii	"NRF_CONFIG_BIT_MASK_MAX_RT\000"
+ 1852      434F4E46 
+ 1852      49475F42 
+ 1852      49545F4D 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 39
+
+
+ 1852      41534B5F 
+ 1853              	.LASF39:
+ 1854 02dc 4E52465F 		.ascii	"NRF_REG_RX_ADDR_P1\000"
+ 1854      5245475F 
+ 1854      52585F41 
+ 1854      4444525F 
+ 1854      503100
+ 1855              	.LASF114:
+ 1856 02ef 6F757470 		.ascii	"output\000"
+ 1856      757400
+ 1857              	.LASF32:
+ 1858 02f6 4E52465F 		.ascii	"NRF_REG_SETUP_RETR\000"
+ 1858      5245475F 
+ 1858      53455455 
+ 1858      505F5245 
+ 1858      545200
+ 1859              	.LASF105:
+ 1860 0309 444D415F 		.ascii	"DMA_A_Chan\000"
+ 1860      415F4368 
+ 1860      616E00
+ 1861              	.LASF34:
+ 1862 0314 4E52465F 		.ascii	"NRF_REG_RF_SETUP\000"
+ 1862      5245475F 
+ 1862      52465F53 
+ 1862      45545550 
+ 1862      00
+ 1863              	.LASF19:
+ 1864 0325 75696E74 		.ascii	"uint8\000"
+ 1864      3800
+ 1865              	.LASF98:
+ 1866 032b 64617461 		.ascii	"data\000"
+ 1866      00
+ 1867              	.LASF6:
+ 1868 0330 73686F72 		.ascii	"short unsigned int\000"
+ 1868      7420756E 
+ 1868      7369676E 
+ 1868      65642069 
+ 1868      6E7400
+ 1869              	.LASF118:
+ 1870 0343 4952515F 		.ascii	"IRQ_Handler\000"
+ 1870      48616E64 
+ 1870      6C657200 
+ 1871              	.LASF116:
+ 1872 034f 6D61696E 		.ascii	"main.c\000"
+ 1872      2E6300
+ 1873              	.LASF104:
+ 1874 0356 44617461 		.ascii	"DataB\000"
+ 1874      4200
+ 1875              	.LASF16:
+ 1876 035c 75696E74 		.ascii	"uint16_t\000"
+ 1876      31365F74 
+ 1876      00
+ 1877              	.LASF4:
+ 1878 0365 73686F72 		.ascii	"short int\000"
+ 1878      7420696E 
+ 1878      7400
+ 1879              	.LASF84:
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 40
+
+
+ 1880 036f 4E52465F 		.ascii	"NRF_FIFO_STATUS_BIT_TX_REUSE\000"
+ 1880      4649464F 
+ 1880      5F535441 
+ 1880      5455535F 
+ 1880      4249545F 
+ 1881              	.LASF117:
+ 1882 038c 433A5C55 		.ascii	"C:\\Users\\rens_\\Documents\\platooning\\PSoC\\Plat"
+ 1882      73657273 
+ 1882      5C72656E 
+ 1882      735F5C44 
+ 1882      6F63756D 
+ 1883 03b9 6F6F6E69 		.ascii	"ooning\\AngleMeasurement.cydsn\000"
+ 1883      6E675C41 
+ 1883      6E676C65 
+ 1883      4D656173 
+ 1883      7572656D 
+ 1884              	.LASF83:
+ 1885 03d7 4E52465F 		.ascii	"NRF_FIFO_STATUS_BIT_TX_FULL\000"
+ 1885      4649464F 
+ 1885      5F535441 
+ 1885      5455535F 
+ 1885      4249545F 
+ 1886              	.LASF82:
+ 1887 03f3 4E52465F 		.ascii	"NRF_FIFO_STATUS_BIT_TX_EMPTY\000"
+ 1887      4649464F 
+ 1887      5F535441 
+ 1887      5455535F 
+ 1887      4249545F 
+ 1888              	.LASF108:
+ 1889 0410 444D415F 		.ascii	"DMA_B_TD\000"
+ 1889      425F5444 
+ 1889      00
+ 1890              	.LASF37:
+ 1891 0419 4E52465F 		.ascii	"NRF_REG_RPD\000"
+ 1891      5245475F 
+ 1891      52504400 
+ 1892              	.LASF27:
+ 1893 0425 73697A65 		.ascii	"sizetype\000"
+ 1893      74797065 
+ 1893      00
+ 1894              	.LASF26:
+ 1895 042e 6C6F6E67 		.ascii	"long double\000"
+ 1895      20646F75 
+ 1895      626C6500 
+ 1896              	.LASF30:
+ 1897 043a 4E52465F 		.ascii	"NRF_REG_EN_RXADDR\000"
+ 1897      5245475F 
+ 1897      454E5F52 
+ 1897      58414444 
+ 1897      5200
+ 1898              	.LASF109:
+ 1899 044c 4953525F 		.ascii	"ISR_A_done\000"
+ 1899      415F646F 
+ 1899      6E6500
+ 1900              	.LASF66:
+ 1901 0457 4E52465F 		.ascii	"NRF_EN_AA_BIT_ENAA_P0\000"
+ 1901      454E5F41 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 41
+
+
+ 1901      415F4249 
+ 1901      545F454E 
+ 1901      41415F50 
+ 1902              	.LASF67:
+ 1903 046d 4E52465F 		.ascii	"NRF_EN_AA_BIT_ENAA_P1\000"
+ 1903      454E5F41 
+ 1903      415F4249 
+ 1903      545F454E 
+ 1903      41415F50 
+ 1904              	.LASF68:
+ 1905 0483 4E52465F 		.ascii	"NRF_EN_AA_BIT_ENAA_P2\000"
+ 1905      454E5F41 
+ 1905      415F4249 
+ 1905      545F454E 
+ 1905      41415F50 
+ 1906              	.LASF69:
+ 1907 0499 4E52465F 		.ascii	"NRF_EN_AA_BIT_ENAA_P3\000"
+ 1907      454E5F41 
+ 1907      415F4249 
+ 1907      545F454E 
+ 1907      41415F50 
+ 1908              	.LASF70:
+ 1909 04af 4E52465F 		.ascii	"NRF_EN_AA_BIT_ENAA_P4\000"
+ 1909      454E5F41 
+ 1909      415F4249 
+ 1909      545F454E 
+ 1909      41415F50 
+ 1910              	.LASF71:
+ 1911 04c5 4E52465F 		.ascii	"NRF_EN_AA_BIT_ENAA_P5\000"
+ 1911      454E5F41 
+ 1911      415F4249 
+ 1911      545F454E 
+ 1911      41415F50 
+ 1912              	.LASF46:
+ 1913 04db 4E52465F 		.ascii	"NRF_REG_RX_PW_P1\000"
+ 1913      5245475F 
+ 1913      52585F50 
+ 1913      575F5031 
+ 1913      00
+ 1914              	.LASF51:
+ 1915 04ec 4E52465F 		.ascii	"NRF_REG_FIFO_STATUS\000"
+ 1915      5245475F 
+ 1915      4649464F 
+ 1915      5F535441 
+ 1915      54555300 
+ 1916              	.LASF49:
+ 1917 0500 4E52465F 		.ascii	"NRF_REG_RX_PW_P4\000"
+ 1917      5245475F 
+ 1917      52585F50 
+ 1917      575F5034 
+ 1917      00
+ 1918              	.LASF65:
+ 1919 0511 4E52465F 		.ascii	"NRF_CONFIG_BIT_MASK_RX_DR\000"
+ 1919      434F4E46 
+ 1919      49475F42 
+ 1919      49545F4D 
+ 1919      41534B5F 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 42
+
+
+ 1920              	.LASF106:
+ 1921 052b 444D415F 		.ascii	"DMA_A_TD\000"
+ 1921      415F5444 
+ 1921      00
+ 1922              	.LASF22:
+ 1923 0534 666C6F61 		.ascii	"float\000"
+ 1923      7400
+ 1924              	.LASF113:
+ 1925 053a 76656C6F 		.ascii	"velocity\000"
+ 1925      63697479 
+ 1925      00
+ 1926              	.LASF38:
+ 1927 0543 4E52465F 		.ascii	"NRF_REG_RX_ADDR_P0\000"
+ 1927      5245475F 
+ 1927      52585F41 
+ 1927      4444525F 
+ 1927      503000
+ 1928              	.LASF25:
+ 1929 0556 72656738 		.ascii	"reg8\000"
+ 1929      00
+ 1930              	.LASF40:
+ 1931 055b 4E52465F 		.ascii	"NRF_REG_RX_ADDR_P2\000"
+ 1931      5245475F 
+ 1931      52585F41 
+ 1931      4444525F 
+ 1931      503200
+ 1932              	.LASF41:
+ 1933 056e 4E52465F 		.ascii	"NRF_REG_RX_ADDR_P3\000"
+ 1933      5245475F 
+ 1933      52585F41 
+ 1933      4444525F 
+ 1933      503300
+ 1934              	.LASF42:
+ 1935 0581 4E52465F 		.ascii	"NRF_REG_RX_ADDR_P4\000"
+ 1935      5245475F 
+ 1935      52585F41 
+ 1935      4444525F 
+ 1935      503400
+ 1936              	.LASF43:
+ 1937 0594 4E52465F 		.ascii	"NRF_REG_RX_ADDR_P5\000"
+ 1937      5245475F 
+ 1937      52585F41 
+ 1937      4444525F 
+ 1937      503500
+ 1938              	.LASF102:
+ 1939 05a7 5F426F6F 		.ascii	"_Bool\000"
+ 1939      6C00
+ 1940              	.LASF17:
+ 1941 05ad 696E7433 		.ascii	"int32_t\000"
+ 1941      325F7400 
+ 1942              	.LASF3:
+ 1943 05b5 756E7369 		.ascii	"unsigned char\000"
+ 1943      676E6564 
+ 1943      20636861 
+ 1943      7200
+ 1944              	.LASF60:
+ 1945 05c3 4E52465F 		.ascii	"NRF_CONFIG_BIT_PWR_UP\000"
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 43
+
+
+ 1945      434F4E46 
+ 1945      49475F42 
+ 1945      49545F50 
+ 1945      57525F55 
+ 1946              	.LASF62:
+ 1947 05d9 4E52465F 		.ascii	"NRF_CONFIG_BIT_EN_CRC\000"
+ 1947      434F4E46 
+ 1947      49475F42 
+ 1947      49545F45 
+ 1947      4E5F4352 
+ 1948              	.LASF110:
+ 1949 05ef 4953525F 		.ascii	"ISR_B_done\000"
+ 1949      425F646F 
+ 1949      6E6500
+ 1950              	.LASF97:
+ 1951 05fa 666C6167 		.ascii	"flag\000"
+ 1951      00
+ 1952              	.LASF18:
+ 1953 05ff 75696E74 		.ascii	"uint32_t\000"
+ 1953      33325F74 
+ 1953      00
+ 1954              	.LASF10:
+ 1955 0608 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1955      20756E73 
+ 1955      69676E65 
+ 1955      6420696E 
+ 1955      7400
+ 1956              	.LASF24:
+ 1957 061a 63686172 		.ascii	"char\000"
+ 1957      00
+ 1958              	.LASF93:
+ 1959 061f 4E52465F 		.ascii	"NRF_FEATURE_BIT_EN_DPL\000"
+ 1959      46454154 
+ 1959      5552455F 
+ 1959      4249545F 
+ 1959      454E5F44 
+ 1960              	.LASF103:
+ 1961 0636 44617461 		.ascii	"DataA\000"
+ 1961      4100
+ 1962              	.LASF80:
+ 1963 063c 4E52465F 		.ascii	"NRF_FIFO_STATUS_BIT_RX_EMPTY\000"
+ 1963      4649464F 
+ 1963      5F535441 
+ 1963      5455535F 
+ 1963      4249545F 
+ 1964              	.LASF5:
+ 1965 0659 5F5F7569 		.ascii	"__uint16_t\000"
+ 1965      6E743136 
+ 1965      5F7400
+ 1966              	.LASF92:
+ 1967 0664 4E52465F 		.ascii	"NRF_FEATURE_BIT_EN_ACK_PAY\000"
+ 1967      46454154 
+ 1967      5552455F 
+ 1967      4249545F 
+ 1967      454E5F41 
+ 1968              	.LASF107:
+ 1969 067f 444D415F 		.ascii	"DMA_B_Chan\000"
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 44
+
+
+ 1969      425F4368 
+ 1969      616E00
+ 1970              	.LASF7:
+ 1971 068a 5F5F696E 		.ascii	"__int32_t\000"
+ 1971      7433325F 
+ 1971      7400
+ 1972              	.LASF112:
+ 1973 0694 64697374 		.ascii	"distance\000"
+ 1973      616E6365 
+ 1973      00
+ 1974              	.LASF29:
+ 1975 069d 4E52465F 		.ascii	"NRF_REG_EN_AA\000"
+ 1975      5245475F 
+ 1975      454E5F41 
+ 1975      4100
+ 1976              	.LASF45:
+ 1977 06ab 4E52465F 		.ascii	"NRF_REG_RX_PW_P0\000"
+ 1977      5245475F 
+ 1977      52585F50 
+ 1977      575F5030 
+ 1977      00
+ 1978              	.LASF14:
+ 1979 06bc 696E7438 		.ascii	"int8_t\000"
+ 1979      5F7400
+ 1980              	.LASF47:
+ 1981 06c3 4E52465F 		.ascii	"NRF_REG_RX_PW_P2\000"
+ 1981      5245475F 
+ 1981      52585F50 
+ 1981      575F5032 
+ 1981      00
+ 1982              	.LASF48:
+ 1983 06d4 4E52465F 		.ascii	"NRF_REG_RX_PW_P3\000"
+ 1983      5245475F 
+ 1983      52585F50 
+ 1983      575F5033 
+ 1983      00
+ 1984              	.LASF64:
+ 1985 06e5 4E52465F 		.ascii	"NRF_CONFIG_BIT_MASK_TX_DS\000"
+ 1985      434F4E46 
+ 1985      49475F42 
+ 1985      49545F4D 
+ 1985      41534B5F 
+ 1986              	.LASF50:
+ 1987 06ff 4E52465F 		.ascii	"NRF_REG_RX_PW_P5\000"
+ 1987      5245475F 
+ 1987      52585F50 
+ 1987      575F5035 
+ 1987      00
+ 1988              	.LASF44:
+ 1989 0710 4E52465F 		.ascii	"NRF_REG_TX_ADDR\000"
+ 1989      5245475F 
+ 1989      54585F41 
+ 1989      44445200 
+ 1990              	.LASF86:
+ 1991 0720 4E52465F 		.ascii	"NRF_DYNPD_BIT_DPL_P1\000"
+ 1991      44594E50 
+ 1991      445F4249 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 45
+
+
+ 1991      545F4450 
+ 1991      4C5F5031 
+ 1992              	.LASF87:
+ 1993 0735 4E52465F 		.ascii	"NRF_DYNPD_BIT_DPL_P2\000"
+ 1993      44594E50 
+ 1993      445F4249 
+ 1993      545F4450 
+ 1993      4C5F5032 
+ 1994              	.LASF88:
+ 1995 074a 4E52465F 		.ascii	"NRF_DYNPD_BIT_DPL_P3\000"
+ 1995      44594E50 
+ 1995      445F4249 
+ 1995      545F4450 
+ 1995      4C5F5033 
+ 1996              	.LASF15:
+ 1997 075f 75696E74 		.ascii	"uint8_t\000"
+ 1997      385F7400 
+ 1998              	.LASF90:
+ 1999 0767 4E52465F 		.ascii	"NRF_DYNPD_BIT_DPL_P5\000"
+ 1999      44594E50 
+ 1999      445F4249 
+ 1999      545F4450 
+ 1999      4C5F5035 
+ 2000              	.LASF76:
+ 2001 077c 4E52465F 		.ascii	"NRF_EN_RXADDR_BIT_ERX_P4\000"
+ 2001      454E5F52 
+ 2001      58414444 
+ 2001      525F4249 
+ 2001      545F4552 
+ 2002              	.LASF78:
+ 2003 0795 4E52465F 		.ascii	"NRF_SETUP_RETR_BIT_ARC\000"
+ 2003      53455455 
+ 2003      505F5245 
+ 2003      54525F42 
+ 2003      49545F41 
+ 2004              	.LASF79:
+ 2005 07ac 4E52465F 		.ascii	"NRF_SETUP_RETR_BIT_ARD\000"
+ 2005      53455455 
+ 2005      505F5245 
+ 2005      54525F42 
+ 2005      49545F41 
+ 2006              	.LASF85:
+ 2007 07c3 4E52465F 		.ascii	"NRF_DYNPD_BIT_DPL_P0\000"
+ 2007      44594E50 
+ 2007      445F4249 
+ 2007      545F4450 
+ 2007      4C5F5030 
+ 2008              	.LASF89:
+ 2009 07d8 4E52465F 		.ascii	"NRF_DYNPD_BIT_DPL_P4\000"
+ 2009      44594E50 
+ 2009      445F4249 
+ 2009      545F4450 
+ 2009      4C5F5034 
+ 2010              	.LASF91:
+ 2011 07ed 4E52465F 		.ascii	"NRF_FEATURE_BIT_EN_DYN_ACK\000"
+ 2011      46454154 
+ 2011      5552455F 
+ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccwNmOas.s 			page 46
+
+
+ 2011      4249545F 
+ 2011      454E5F44 
+ 2012              	.LASF119:
+ 2013 0808 6D61696E 		.ascii	"main\000"
+ 2013      00
+ 2014              	.LASF36:
+ 2015 080d 4E52465F 		.ascii	"NRF_REG_OBSERVE_TX\000"
+ 2015      5245475F 
+ 2015      4F425345 
+ 2015      5256455F 
+ 2015      545800
+ 2016              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
