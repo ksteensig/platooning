@@ -1,0 +1,851 @@
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccjDvn39.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"Comp_PD_A_PM.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.Comp_PD_A_SaveConfig,"ax",%progbits
+  20              		.align	1
+  21              		.global	Comp_PD_A_SaveConfig
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	Comp_PD_A_SaveConfig, %function
+  25              	Comp_PD_A_SaveConfig:
+  26              	.LFB5:
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  31 0000 7047     		bx	lr
+  32              		.cfi_endproc
+  33              	.LFE5:
+  34              		.size	Comp_PD_A_SaveConfig, .-Comp_PD_A_SaveConfig
+  35              		.section	.text.Comp_PD_A_RestoreConfig,"ax",%progbits
+  36              		.align	1
+  37              		.global	Comp_PD_A_RestoreConfig
+  38              		.thumb
+  39              		.thumb_func
+  40              		.type	Comp_PD_A_RestoreConfig, %function
+  41              	Comp_PD_A_RestoreConfig:
+  42              	.LFB1:
+  43              		.file 1 "Generated_Source\\PSoC5\\Comp_PD_A_PM.c"
+   1:Generated_Source\PSoC5/Comp_PD_A_PM.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * File Name: Comp_PD_A.c
+   3:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * Version 2.0
+   4:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *
+   5:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * Description:
+   6:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *  This file provides the power management source code APIs for the
+   7:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *  Comparator.
+   8:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *
+   9:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * Note:
+  10:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *  None
+  11:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *
+  12:Generated_Source\PSoC5/Comp_PD_A_PM.c **** ********************************************************************************
+  13:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  14:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * You may use this file only in accordance with the license, terms, conditions, 
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccjDvn39.s 			page 2
+
+
+  15:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  16:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * the software package with which this file was provided.
+  17:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *******************************************************************************/
+  18:Generated_Source\PSoC5/Comp_PD_A_PM.c **** 
+  19:Generated_Source\PSoC5/Comp_PD_A_PM.c **** #include "Comp_PD_A.h"
+  20:Generated_Source\PSoC5/Comp_PD_A_PM.c **** 
+  21:Generated_Source\PSoC5/Comp_PD_A_PM.c **** static Comp_PD_A_backupStruct Comp_PD_A_backup;
+  22:Generated_Source\PSoC5/Comp_PD_A_PM.c **** 
+  23:Generated_Source\PSoC5/Comp_PD_A_PM.c **** 
+  24:Generated_Source\PSoC5/Comp_PD_A_PM.c **** /*******************************************************************************
+  25:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * Function Name: Comp_PD_A_SaveConfig
+  26:Generated_Source\PSoC5/Comp_PD_A_PM.c **** ********************************************************************************
+  27:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *
+  28:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * Summary:
+  29:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *  Save the current user configuration
+  30:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *
+  31:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * Parameters:
+  32:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *  void:
+  33:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *
+  34:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * Return:
+  35:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *  void
+  36:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *
+  37:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *******************************************************************************/
+  38:Generated_Source\PSoC5/Comp_PD_A_PM.c **** void Comp_PD_A_SaveConfig(void) 
+  39:Generated_Source\PSoC5/Comp_PD_A_PM.c **** {
+  40:Generated_Source\PSoC5/Comp_PD_A_PM.c ****     /* Empty since all are system reset for retention flops */
+  41:Generated_Source\PSoC5/Comp_PD_A_PM.c **** }
+  42:Generated_Source\PSoC5/Comp_PD_A_PM.c **** 
+  43:Generated_Source\PSoC5/Comp_PD_A_PM.c **** 
+  44:Generated_Source\PSoC5/Comp_PD_A_PM.c **** /*******************************************************************************
+  45:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * Function Name: Comp_PD_A_RestoreConfig
+  46:Generated_Source\PSoC5/Comp_PD_A_PM.c **** ********************************************************************************
+  47:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *
+  48:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * Summary:
+  49:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *  Restores the current user configuration.
+  50:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *
+  51:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * Parameters:
+  52:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *  void
+  53:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *
+  54:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * Return:
+  55:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *  void
+  56:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *
+  57:Generated_Source\PSoC5/Comp_PD_A_PM.c **** ********************************************************************************/
+  58:Generated_Source\PSoC5/Comp_PD_A_PM.c **** void Comp_PD_A_RestoreConfig(void) 
+  59:Generated_Source\PSoC5/Comp_PD_A_PM.c **** {
+  44              		.loc 1 59 0
+  45              		.cfi_startproc
+  46              		@ args = 0, pretend = 0, frame = 0
+  47              		@ frame_needed = 0, uses_anonymous_args = 0
+  48              		@ link register save eliminated.
+  49 0000 7047     		bx	lr
+  50              		.cfi_endproc
+  51              	.LFE1:
+  52              		.size	Comp_PD_A_RestoreConfig, .-Comp_PD_A_RestoreConfig
+  53              		.section	.text.Comp_PD_A_Sleep,"ax",%progbits
+  54              		.align	1
+  55              		.global	Comp_PD_A_Sleep
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccjDvn39.s 			page 3
+
+
+  56              		.thumb
+  57              		.thumb_func
+  58              		.type	Comp_PD_A_Sleep, %function
+  59              	Comp_PD_A_Sleep:
+  60              	.LFB2:
+  60:Generated_Source\PSoC5/Comp_PD_A_PM.c ****     /* Empty since all are system reset for retention flops */    
+  61:Generated_Source\PSoC5/Comp_PD_A_PM.c **** }
+  62:Generated_Source\PSoC5/Comp_PD_A_PM.c **** 
+  63:Generated_Source\PSoC5/Comp_PD_A_PM.c **** 
+  64:Generated_Source\PSoC5/Comp_PD_A_PM.c **** /*******************************************************************************
+  65:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * Function Name: Comp_PD_A_Sleep
+  66:Generated_Source\PSoC5/Comp_PD_A_PM.c **** ********************************************************************************
+  67:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *
+  68:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * Summary:
+  69:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *  Stop and Save the user configuration
+  70:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *
+  71:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * Parameters:
+  72:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *  void:
+  73:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *
+  74:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * Return:
+  75:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *  void
+  76:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *
+  77:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * Global variables:
+  78:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *  Comp_PD_A_backup.enableState:  Is modified depending on the enable 
+  79:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *   state of the block before entering sleep mode.
+  80:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *
+  81:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *******************************************************************************/
+  82:Generated_Source\PSoC5/Comp_PD_A_PM.c **** void Comp_PD_A_Sleep(void) 
+  83:Generated_Source\PSoC5/Comp_PD_A_PM.c **** {
+  61              		.loc 1 83 0
+  62              		.cfi_startproc
+  63              		@ args = 0, pretend = 0, frame = 0
+  64              		@ frame_needed = 0, uses_anonymous_args = 0
+  65              		@ link register save eliminated.
+  84:Generated_Source\PSoC5/Comp_PD_A_PM.c ****     /* Save Comp's enable state */    
+  85:Generated_Source\PSoC5/Comp_PD_A_PM.c ****     if(Comp_PD_A_ACT_PWR_EN == (Comp_PD_A_PWRMGR & Comp_PD_A_ACT_PWR_EN))
+  66              		.loc 1 85 0
+  67 0000 044B     		ldr	r3, .L6
+  68 0002 054A     		ldr	r2, .L6+4
+  69 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  70 0006 13F00103 		ands	r3, r3, #1
+  86:Generated_Source\PSoC5/Comp_PD_A_PM.c ****     {
+  87:Generated_Source\PSoC5/Comp_PD_A_PM.c ****         /* Comp is enabled */
+  88:Generated_Source\PSoC5/Comp_PD_A_PM.c ****         Comp_PD_A_backup.enableState = 1u;
+  71              		.loc 1 88 0
+  72 000a 18BF     		it	ne
+  73 000c 0123     		movne	r3, #1
+  89:Generated_Source\PSoC5/Comp_PD_A_PM.c ****     }
+  90:Generated_Source\PSoC5/Comp_PD_A_PM.c ****     else
+  91:Generated_Source\PSoC5/Comp_PD_A_PM.c ****     {
+  92:Generated_Source\PSoC5/Comp_PD_A_PM.c ****         /* Comp is disabled */
+  93:Generated_Source\PSoC5/Comp_PD_A_PM.c ****         Comp_PD_A_backup.enableState = 0u;
+  74              		.loc 1 93 0
+  75 000e 1370     		strb	r3, [r2]
+  94:Generated_Source\PSoC5/Comp_PD_A_PM.c ****     }    
+  95:Generated_Source\PSoC5/Comp_PD_A_PM.c ****     
+  96:Generated_Source\PSoC5/Comp_PD_A_PM.c ****     Comp_PD_A_Stop();
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccjDvn39.s 			page 4
+
+
+  76              		.loc 1 96 0
+  77 0010 FFF7FEBF 		b	Comp_PD_A_Stop
+  78              	.LVL0:
+  79              	.L7:
+  80              		.align	2
+  81              	.L6:
+  82 0014 A7430040 		.word	1073759143
+  83 0018 00000000 		.word	.LANCHOR0
+  84              		.cfi_endproc
+  85              	.LFE2:
+  86              		.size	Comp_PD_A_Sleep, .-Comp_PD_A_Sleep
+  87              		.section	.text.Comp_PD_A_Wakeup,"ax",%progbits
+  88              		.align	1
+  89              		.global	Comp_PD_A_Wakeup
+  90              		.thumb
+  91              		.thumb_func
+  92              		.type	Comp_PD_A_Wakeup, %function
+  93              	Comp_PD_A_Wakeup:
+  94              	.LFB3:
+  97:Generated_Source\PSoC5/Comp_PD_A_PM.c ****     Comp_PD_A_SaveConfig();
+  98:Generated_Source\PSoC5/Comp_PD_A_PM.c **** }
+  99:Generated_Source\PSoC5/Comp_PD_A_PM.c **** 
+ 100:Generated_Source\PSoC5/Comp_PD_A_PM.c **** 
+ 101:Generated_Source\PSoC5/Comp_PD_A_PM.c **** /*******************************************************************************
+ 102:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * Function Name: Comp_PD_A_Wakeup
+ 103:Generated_Source\PSoC5/Comp_PD_A_PM.c **** ********************************************************************************
+ 104:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *
+ 105:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * Summary:
+ 106:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *  Restores and enables the user configuration
+ 107:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *  
+ 108:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * Parameters:
+ 109:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *  void
+ 110:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *
+ 111:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * Return:
+ 112:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *  void
+ 113:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *
+ 114:Generated_Source\PSoC5/Comp_PD_A_PM.c **** * Global variables:
+ 115:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *  Comp_PD_A_backup.enableState:  Is used to restore the enable state of 
+ 116:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *  block on wakeup from sleep mode.
+ 117:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *
+ 118:Generated_Source\PSoC5/Comp_PD_A_PM.c **** *******************************************************************************/
+ 119:Generated_Source\PSoC5/Comp_PD_A_PM.c **** void Comp_PD_A_Wakeup(void) 
+ 120:Generated_Source\PSoC5/Comp_PD_A_PM.c **** {
+  95              		.loc 1 120 0
+  96              		.cfi_startproc
+  97              		@ args = 0, pretend = 0, frame = 0
+  98              		@ frame_needed = 0, uses_anonymous_args = 0
+  99              		@ link register save eliminated.
+ 121:Generated_Source\PSoC5/Comp_PD_A_PM.c ****     Comp_PD_A_RestoreConfig();
+ 122:Generated_Source\PSoC5/Comp_PD_A_PM.c ****     
+ 123:Generated_Source\PSoC5/Comp_PD_A_PM.c ****     if(Comp_PD_A_backup.enableState == 1u)
+ 100              		.loc 1 123 0
+ 101 0000 034B     		ldr	r3, .L11
+ 102 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 103 0004 012B     		cmp	r3, #1
+ 104 0006 01D1     		bne	.L8
+ 124:Generated_Source\PSoC5/Comp_PD_A_PM.c ****     {
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccjDvn39.s 			page 5
+
+
+ 125:Generated_Source\PSoC5/Comp_PD_A_PM.c ****         /* Enable Comp's operation */
+ 126:Generated_Source\PSoC5/Comp_PD_A_PM.c ****         Comp_PD_A_Enable();
+ 105              		.loc 1 126 0
+ 106 0008 FFF7FEBF 		b	Comp_PD_A_Enable
+ 107              	.LVL1:
+ 108              	.L8:
+ 109 000c 7047     		bx	lr
+ 110              	.L12:
+ 111 000e 00BF     		.align	2
+ 112              	.L11:
+ 113 0010 00000000 		.word	.LANCHOR0
+ 114              		.cfi_endproc
+ 115              	.LFE3:
+ 116              		.size	Comp_PD_A_Wakeup, .-Comp_PD_A_Wakeup
+ 117              		.bss
+ 118              		.set	.LANCHOR0,. + 0
+ 119              		.type	Comp_PD_A_backup, %object
+ 120              		.size	Comp_PD_A_backup, 1
+ 121              	Comp_PD_A_backup:
+ 122 0000 00       		.space	1
+ 123              		.text
+ 124              	.Letext0:
+ 125              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 126              		.file 3 "Generated_Source\\PSoC5\\Comp_PD_A.h"
+ 127              		.section	.debug_info,"",%progbits
+ 128              	.Ldebug_info0:
+ 129 0000 4C010000 		.4byte	0x14c
+ 130 0004 0400     		.2byte	0x4
+ 131 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 132 000a 04       		.byte	0x4
+ 133 000b 01       		.uleb128 0x1
+ 134 000c 6F010000 		.4byte	.LASF23
+ 135 0010 0C       		.byte	0xc
+ 136 0011 24010000 		.4byte	.LASF24
+ 137 0015 83000000 		.4byte	.LASF25
+ 138 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 139 001d 00000000 		.4byte	0
+ 140 0021 00000000 		.4byte	.Ldebug_line0
+ 141 0025 02       		.uleb128 0x2
+ 142 0026 01       		.byte	0x1
+ 143 0027 06       		.byte	0x6
+ 144 0028 10020000 		.4byte	.LASF0
+ 145 002c 02       		.uleb128 0x2
+ 146 002d 01       		.byte	0x1
+ 147 002e 08       		.byte	0x8
+ 148 002f 27000000 		.4byte	.LASF1
+ 149 0033 02       		.uleb128 0x2
+ 150 0034 02       		.byte	0x2
+ 151 0035 05       		.byte	0x5
+ 152 0036 4A020000 		.4byte	.LASF2
+ 153 003a 02       		.uleb128 0x2
+ 154 003b 02       		.byte	0x2
+ 155 003c 07       		.byte	0x7
+ 156 003d FD010000 		.4byte	.LASF3
+ 157 0041 02       		.uleb128 0x2
+ 158 0042 04       		.byte	0x4
+ 159 0043 05       		.byte	0x5
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccjDvn39.s 			page 6
+
+
+ 160 0044 4A010000 		.4byte	.LASF4
+ 161 0048 02       		.uleb128 0x2
+ 162 0049 04       		.byte	0x4
+ 163 004a 07       		.byte	0x7
+ 164 004b 71000000 		.4byte	.LASF5
+ 165 004f 02       		.uleb128 0x2
+ 166 0050 08       		.byte	0x8
+ 167 0051 05       		.byte	0x5
+ 168 0052 00000000 		.4byte	.LASF6
+ 169 0056 02       		.uleb128 0x2
+ 170 0057 08       		.byte	0x8
+ 171 0058 07       		.byte	0x7
+ 172 0059 D9000000 		.4byte	.LASF7
+ 173 005d 03       		.uleb128 0x3
+ 174 005e 04       		.byte	0x4
+ 175 005f 05       		.byte	0x5
+ 176 0060 696E7400 		.ascii	"int\000"
+ 177 0064 02       		.uleb128 0x2
+ 178 0065 04       		.byte	0x4
+ 179 0066 07       		.byte	0x7
+ 180 0067 1A000000 		.4byte	.LASF8
+ 181 006b 04       		.uleb128 0x4
+ 182 006c 6B000000 		.4byte	.LASF12
+ 183 0070 02       		.byte	0x2
+ 184 0071 9201     		.2byte	0x192
+ 185 0073 2C000000 		.4byte	0x2c
+ 186 0077 02       		.uleb128 0x2
+ 187 0078 04       		.byte	0x4
+ 188 0079 04       		.byte	0x4
+ 189 007a F0000000 		.4byte	.LASF9
+ 190 007e 02       		.uleb128 0x2
+ 191 007f 08       		.byte	0x8
+ 192 0080 04       		.byte	0x4
+ 193 0081 68010000 		.4byte	.LASF10
+ 194 0085 02       		.uleb128 0x2
+ 195 0086 01       		.byte	0x1
+ 196 0087 08       		.byte	0x8
+ 197 0088 1F010000 		.4byte	.LASF11
+ 198 008c 04       		.uleb128 0x4
+ 199 008d 54020000 		.4byte	.LASF13
+ 200 0091 02       		.byte	0x2
+ 201 0092 3C02     		.2byte	0x23c
+ 202 0094 98000000 		.4byte	0x98
+ 203 0098 05       		.uleb128 0x5
+ 204 0099 6B000000 		.4byte	0x6b
+ 205 009d 02       		.uleb128 0x2
+ 206 009e 08       		.byte	0x8
+ 207 009f 04       		.byte	0x4
+ 208 00a0 1C020000 		.4byte	.LASF14
+ 209 00a4 02       		.uleb128 0x2
+ 210 00a5 04       		.byte	0x4
+ 211 00a6 07       		.byte	0x7
+ 212 00a7 59020000 		.4byte	.LASF15
+ 213 00ab 06       		.uleb128 0x6
+ 214 00ac 01       		.byte	0x1
+ 215 00ad 03       		.byte	0x3
+ 216 00ae 29       		.byte	0x29
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccjDvn39.s 			page 7
+
+
+ 217 00af C0000000 		.4byte	0xc0
+ 218 00b3 07       		.uleb128 0x7
+ 219 00b4 0E000000 		.4byte	.LASF26
+ 220 00b8 03       		.byte	0x3
+ 221 00b9 2B       		.byte	0x2b
+ 222 00ba 6B000000 		.4byte	0x6b
+ 223 00be 00       		.byte	0
+ 224 00bf 00       		.byte	0
+ 225 00c0 08       		.uleb128 0x8
+ 226 00c1 54000000 		.4byte	.LASF16
+ 227 00c5 03       		.byte	0x3
+ 228 00c6 2D       		.byte	0x2d
+ 229 00c7 AB000000 		.4byte	0xab
+ 230 00cb 09       		.uleb128 0x9
+ 231 00cc 53010000 		.4byte	.LASF17
+ 232 00d0 01       		.byte	0x1
+ 233 00d1 26       		.byte	0x26
+ 234 00d2 01       		.byte	0x1
+ 235 00d3 09       		.uleb128 0x9
+ 236 00d4 F6000000 		.4byte	.LASF18
+ 237 00d8 01       		.byte	0x1
+ 238 00d9 3A       		.byte	0x3a
+ 239 00da 01       		.byte	0x1
+ 240 00db 0A       		.uleb128 0xa
+ 241 00dc D3000000 		.4byte	0xd3
+ 242 00e0 00000000 		.4byte	.LFB1
+ 243 00e4 02000000 		.4byte	.LFE1-.LFB1
+ 244 00e8 01       		.uleb128 0x1
+ 245 00e9 9C       		.byte	0x9c
+ 246 00ea 0B       		.uleb128 0xb
+ 247 00eb 35000000 		.4byte	.LASF19
+ 248 00ef 01       		.byte	0x1
+ 249 00f0 52       		.byte	0x52
+ 250 00f1 00000000 		.4byte	.LFB2
+ 251 00f5 1C000000 		.4byte	.LFE2-.LFB2
+ 252 00f9 01       		.uleb128 0x1
+ 253 00fa 9C       		.byte	0x9c
+ 254 00fb 09010000 		.4byte	0x109
+ 255 00ff 0C       		.uleb128 0xc
+ 256 0100 14000000 		.4byte	.LVL0
+ 257 0104 39010000 		.4byte	0x139
+ 258 0108 00       		.byte	0
+ 259 0109 0B       		.uleb128 0xb
+ 260 010a 28020000 		.4byte	.LASF20
+ 261 010e 01       		.byte	0x1
+ 262 010f 77       		.byte	0x77
+ 263 0110 00000000 		.4byte	.LFB3
+ 264 0114 14000000 		.4byte	.LFE3-.LFB3
+ 265 0118 01       		.uleb128 0x1
+ 266 0119 9C       		.byte	0x9c
+ 267 011a 28010000 		.4byte	0x128
+ 268 011e 0C       		.uleb128 0xc
+ 269 011f 0C000000 		.4byte	.LVL1
+ 270 0123 44010000 		.4byte	0x144
+ 271 0127 00       		.byte	0
+ 272 0128 0D       		.uleb128 0xd
+ 273 0129 0E010000 		.4byte	.LASF27
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccjDvn39.s 			page 8
+
+
+ 274 012d 01       		.byte	0x1
+ 275 012e 15       		.byte	0x15
+ 276 012f C0000000 		.4byte	0xc0
+ 277 0133 05       		.uleb128 0x5
+ 278 0134 03       		.byte	0x3
+ 279 0135 00000000 		.4byte	Comp_PD_A_backup
+ 280 0139 0E       		.uleb128 0xe
+ 281 013a 45000000 		.4byte	.LASF21
+ 282 013e 45000000 		.4byte	.LASF21
+ 283 0142 03       		.byte	0x3
+ 284 0143 40       		.byte	0x40
+ 285 0144 0E       		.uleb128 0xe
+ 286 0145 39020000 		.4byte	.LASF22
+ 287 0149 39020000 		.4byte	.LASF22
+ 288 014d 03       		.byte	0x3
+ 289 014e 46       		.byte	0x46
+ 290 014f 00       		.byte	0
+ 291              		.section	.debug_abbrev,"",%progbits
+ 292              	.Ldebug_abbrev0:
+ 293 0000 01       		.uleb128 0x1
+ 294 0001 11       		.uleb128 0x11
+ 295 0002 01       		.byte	0x1
+ 296 0003 25       		.uleb128 0x25
+ 297 0004 0E       		.uleb128 0xe
+ 298 0005 13       		.uleb128 0x13
+ 299 0006 0B       		.uleb128 0xb
+ 300 0007 03       		.uleb128 0x3
+ 301 0008 0E       		.uleb128 0xe
+ 302 0009 1B       		.uleb128 0x1b
+ 303 000a 0E       		.uleb128 0xe
+ 304 000b 55       		.uleb128 0x55
+ 305 000c 17       		.uleb128 0x17
+ 306 000d 11       		.uleb128 0x11
+ 307 000e 01       		.uleb128 0x1
+ 308 000f 10       		.uleb128 0x10
+ 309 0010 17       		.uleb128 0x17
+ 310 0011 00       		.byte	0
+ 311 0012 00       		.byte	0
+ 312 0013 02       		.uleb128 0x2
+ 313 0014 24       		.uleb128 0x24
+ 314 0015 00       		.byte	0
+ 315 0016 0B       		.uleb128 0xb
+ 316 0017 0B       		.uleb128 0xb
+ 317 0018 3E       		.uleb128 0x3e
+ 318 0019 0B       		.uleb128 0xb
+ 319 001a 03       		.uleb128 0x3
+ 320 001b 0E       		.uleb128 0xe
+ 321 001c 00       		.byte	0
+ 322 001d 00       		.byte	0
+ 323 001e 03       		.uleb128 0x3
+ 324 001f 24       		.uleb128 0x24
+ 325 0020 00       		.byte	0
+ 326 0021 0B       		.uleb128 0xb
+ 327 0022 0B       		.uleb128 0xb
+ 328 0023 3E       		.uleb128 0x3e
+ 329 0024 0B       		.uleb128 0xb
+ 330 0025 03       		.uleb128 0x3
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccjDvn39.s 			page 9
+
+
+ 331 0026 08       		.uleb128 0x8
+ 332 0027 00       		.byte	0
+ 333 0028 00       		.byte	0
+ 334 0029 04       		.uleb128 0x4
+ 335 002a 16       		.uleb128 0x16
+ 336 002b 00       		.byte	0
+ 337 002c 03       		.uleb128 0x3
+ 338 002d 0E       		.uleb128 0xe
+ 339 002e 3A       		.uleb128 0x3a
+ 340 002f 0B       		.uleb128 0xb
+ 341 0030 3B       		.uleb128 0x3b
+ 342 0031 05       		.uleb128 0x5
+ 343 0032 49       		.uleb128 0x49
+ 344 0033 13       		.uleb128 0x13
+ 345 0034 00       		.byte	0
+ 346 0035 00       		.byte	0
+ 347 0036 05       		.uleb128 0x5
+ 348 0037 35       		.uleb128 0x35
+ 349 0038 00       		.byte	0
+ 350 0039 49       		.uleb128 0x49
+ 351 003a 13       		.uleb128 0x13
+ 352 003b 00       		.byte	0
+ 353 003c 00       		.byte	0
+ 354 003d 06       		.uleb128 0x6
+ 355 003e 13       		.uleb128 0x13
+ 356 003f 01       		.byte	0x1
+ 357 0040 0B       		.uleb128 0xb
+ 358 0041 0B       		.uleb128 0xb
+ 359 0042 3A       		.uleb128 0x3a
+ 360 0043 0B       		.uleb128 0xb
+ 361 0044 3B       		.uleb128 0x3b
+ 362 0045 0B       		.uleb128 0xb
+ 363 0046 01       		.uleb128 0x1
+ 364 0047 13       		.uleb128 0x13
+ 365 0048 00       		.byte	0
+ 366 0049 00       		.byte	0
+ 367 004a 07       		.uleb128 0x7
+ 368 004b 0D       		.uleb128 0xd
+ 369 004c 00       		.byte	0
+ 370 004d 03       		.uleb128 0x3
+ 371 004e 0E       		.uleb128 0xe
+ 372 004f 3A       		.uleb128 0x3a
+ 373 0050 0B       		.uleb128 0xb
+ 374 0051 3B       		.uleb128 0x3b
+ 375 0052 0B       		.uleb128 0xb
+ 376 0053 49       		.uleb128 0x49
+ 377 0054 13       		.uleb128 0x13
+ 378 0055 38       		.uleb128 0x38
+ 379 0056 0B       		.uleb128 0xb
+ 380 0057 00       		.byte	0
+ 381 0058 00       		.byte	0
+ 382 0059 08       		.uleb128 0x8
+ 383 005a 16       		.uleb128 0x16
+ 384 005b 00       		.byte	0
+ 385 005c 03       		.uleb128 0x3
+ 386 005d 0E       		.uleb128 0xe
+ 387 005e 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccjDvn39.s 			page 10
+
+
+ 388 005f 0B       		.uleb128 0xb
+ 389 0060 3B       		.uleb128 0x3b
+ 390 0061 0B       		.uleb128 0xb
+ 391 0062 49       		.uleb128 0x49
+ 392 0063 13       		.uleb128 0x13
+ 393 0064 00       		.byte	0
+ 394 0065 00       		.byte	0
+ 395 0066 09       		.uleb128 0x9
+ 396 0067 2E       		.uleb128 0x2e
+ 397 0068 00       		.byte	0
+ 398 0069 3F       		.uleb128 0x3f
+ 399 006a 19       		.uleb128 0x19
+ 400 006b 03       		.uleb128 0x3
+ 401 006c 0E       		.uleb128 0xe
+ 402 006d 3A       		.uleb128 0x3a
+ 403 006e 0B       		.uleb128 0xb
+ 404 006f 3B       		.uleb128 0x3b
+ 405 0070 0B       		.uleb128 0xb
+ 406 0071 27       		.uleb128 0x27
+ 407 0072 19       		.uleb128 0x19
+ 408 0073 20       		.uleb128 0x20
+ 409 0074 0B       		.uleb128 0xb
+ 410 0075 00       		.byte	0
+ 411 0076 00       		.byte	0
+ 412 0077 0A       		.uleb128 0xa
+ 413 0078 2E       		.uleb128 0x2e
+ 414 0079 00       		.byte	0
+ 415 007a 31       		.uleb128 0x31
+ 416 007b 13       		.uleb128 0x13
+ 417 007c 11       		.uleb128 0x11
+ 418 007d 01       		.uleb128 0x1
+ 419 007e 12       		.uleb128 0x12
+ 420 007f 06       		.uleb128 0x6
+ 421 0080 40       		.uleb128 0x40
+ 422 0081 18       		.uleb128 0x18
+ 423 0082 9742     		.uleb128 0x2117
+ 424 0084 19       		.uleb128 0x19
+ 425 0085 00       		.byte	0
+ 426 0086 00       		.byte	0
+ 427 0087 0B       		.uleb128 0xb
+ 428 0088 2E       		.uleb128 0x2e
+ 429 0089 01       		.byte	0x1
+ 430 008a 3F       		.uleb128 0x3f
+ 431 008b 19       		.uleb128 0x19
+ 432 008c 03       		.uleb128 0x3
+ 433 008d 0E       		.uleb128 0xe
+ 434 008e 3A       		.uleb128 0x3a
+ 435 008f 0B       		.uleb128 0xb
+ 436 0090 3B       		.uleb128 0x3b
+ 437 0091 0B       		.uleb128 0xb
+ 438 0092 27       		.uleb128 0x27
+ 439 0093 19       		.uleb128 0x19
+ 440 0094 11       		.uleb128 0x11
+ 441 0095 01       		.uleb128 0x1
+ 442 0096 12       		.uleb128 0x12
+ 443 0097 06       		.uleb128 0x6
+ 444 0098 40       		.uleb128 0x40
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccjDvn39.s 			page 11
+
+
+ 445 0099 18       		.uleb128 0x18
+ 446 009a 9742     		.uleb128 0x2117
+ 447 009c 19       		.uleb128 0x19
+ 448 009d 01       		.uleb128 0x1
+ 449 009e 13       		.uleb128 0x13
+ 450 009f 00       		.byte	0
+ 451 00a0 00       		.byte	0
+ 452 00a1 0C       		.uleb128 0xc
+ 453 00a2 898201   		.uleb128 0x4109
+ 454 00a5 00       		.byte	0
+ 455 00a6 11       		.uleb128 0x11
+ 456 00a7 01       		.uleb128 0x1
+ 457 00a8 9542     		.uleb128 0x2115
+ 458 00aa 19       		.uleb128 0x19
+ 459 00ab 31       		.uleb128 0x31
+ 460 00ac 13       		.uleb128 0x13
+ 461 00ad 00       		.byte	0
+ 462 00ae 00       		.byte	0
+ 463 00af 0D       		.uleb128 0xd
+ 464 00b0 34       		.uleb128 0x34
+ 465 00b1 00       		.byte	0
+ 466 00b2 03       		.uleb128 0x3
+ 467 00b3 0E       		.uleb128 0xe
+ 468 00b4 3A       		.uleb128 0x3a
+ 469 00b5 0B       		.uleb128 0xb
+ 470 00b6 3B       		.uleb128 0x3b
+ 471 00b7 0B       		.uleb128 0xb
+ 472 00b8 49       		.uleb128 0x49
+ 473 00b9 13       		.uleb128 0x13
+ 474 00ba 02       		.uleb128 0x2
+ 475 00bb 18       		.uleb128 0x18
+ 476 00bc 00       		.byte	0
+ 477 00bd 00       		.byte	0
+ 478 00be 0E       		.uleb128 0xe
+ 479 00bf 2E       		.uleb128 0x2e
+ 480 00c0 00       		.byte	0
+ 481 00c1 3F       		.uleb128 0x3f
+ 482 00c2 19       		.uleb128 0x19
+ 483 00c3 3C       		.uleb128 0x3c
+ 484 00c4 19       		.uleb128 0x19
+ 485 00c5 6E       		.uleb128 0x6e
+ 486 00c6 0E       		.uleb128 0xe
+ 487 00c7 03       		.uleb128 0x3
+ 488 00c8 0E       		.uleb128 0xe
+ 489 00c9 3A       		.uleb128 0x3a
+ 490 00ca 0B       		.uleb128 0xb
+ 491 00cb 3B       		.uleb128 0x3b
+ 492 00cc 0B       		.uleb128 0xb
+ 493 00cd 00       		.byte	0
+ 494 00ce 00       		.byte	0
+ 495 00cf 00       		.byte	0
+ 496              		.section	.debug_aranges,"",%progbits
+ 497 0000 2C000000 		.4byte	0x2c
+ 498 0004 0200     		.2byte	0x2
+ 499 0006 00000000 		.4byte	.Ldebug_info0
+ 500 000a 04       		.byte	0x4
+ 501 000b 00       		.byte	0
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccjDvn39.s 			page 12
+
+
+ 502 000c 0000     		.2byte	0
+ 503 000e 0000     		.2byte	0
+ 504 0010 00000000 		.4byte	.LFB1
+ 505 0014 02000000 		.4byte	.LFE1-.LFB1
+ 506 0018 00000000 		.4byte	.LFB2
+ 507 001c 1C000000 		.4byte	.LFE2-.LFB2
+ 508 0020 00000000 		.4byte	.LFB3
+ 509 0024 14000000 		.4byte	.LFE3-.LFB3
+ 510 0028 00000000 		.4byte	0
+ 511 002c 00000000 		.4byte	0
+ 512              		.section	.debug_ranges,"",%progbits
+ 513              	.Ldebug_ranges0:
+ 514 0000 00000000 		.4byte	.LFB1
+ 515 0004 02000000 		.4byte	.LFE1
+ 516 0008 00000000 		.4byte	.LFB2
+ 517 000c 1C000000 		.4byte	.LFE2
+ 518 0010 00000000 		.4byte	.LFB3
+ 519 0014 14000000 		.4byte	.LFE3
+ 520 0018 00000000 		.4byte	0
+ 521 001c 00000000 		.4byte	0
+ 522              		.section	.debug_line,"",%progbits
+ 523              	.Ldebug_line0:
+ 524 0000 93000000 		.section	.debug_str,"MS",%progbits,1
+ 524      02005800 
+ 524      00000201 
+ 524      FB0E0D00 
+ 524      01010101 
+ 525              	.LASF6:
+ 526 0000 6C6F6E67 		.ascii	"long long int\000"
+ 526      206C6F6E 
+ 526      6720696E 
+ 526      7400
+ 527              	.LASF26:
+ 528 000e 656E6162 		.ascii	"enableState\000"
+ 528      6C655374 
+ 528      61746500 
+ 529              	.LASF8:
+ 530 001a 756E7369 		.ascii	"unsigned int\000"
+ 530      676E6564 
+ 530      20696E74 
+ 530      00
+ 531              	.LASF1:
+ 532 0027 756E7369 		.ascii	"unsigned char\000"
+ 532      676E6564 
+ 532      20636861 
+ 532      7200
+ 533              	.LASF19:
+ 534 0035 436F6D70 		.ascii	"Comp_PD_A_Sleep\000"
+ 534      5F50445F 
+ 534      415F536C 
+ 534      65657000 
+ 535              	.LASF21:
+ 536 0045 436F6D70 		.ascii	"Comp_PD_A_Stop\000"
+ 536      5F50445F 
+ 536      415F5374 
+ 536      6F7000
+ 537              	.LASF16:
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccjDvn39.s 			page 13
+
+
+ 538 0054 436F6D70 		.ascii	"Comp_PD_A_backupStruct\000"
+ 538      5F50445F 
+ 538      415F6261 
+ 538      636B7570 
+ 538      53747275 
+ 539              	.LASF12:
+ 540 006b 75696E74 		.ascii	"uint8\000"
+ 540      3800
+ 541              	.LASF5:
+ 542 0071 6C6F6E67 		.ascii	"long unsigned int\000"
+ 542      20756E73 
+ 542      69676E65 
+ 542      6420696E 
+ 542      7400
+ 543              	.LASF25:
+ 544 0083 433A5C55 		.ascii	"C:\\Users\\Krist\\OneDrive\\Dokumenter\\GitHub\\pla"
+ 544      73657273 
+ 544      5C4B7269 
+ 544      73745C4F 
+ 544      6E654472 
+ 545 00b0 746F6F6E 		.ascii	"tooning\\PSoC\\PeakDetector\\FirstTry.cydsn\000"
+ 545      696E675C 
+ 545      50536F43 
+ 545      5C506561 
+ 545      6B446574 
+ 546              	.LASF7:
+ 547 00d9 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 547      206C6F6E 
+ 547      6720756E 
+ 547      7369676E 
+ 547      65642069 
+ 548              	.LASF9:
+ 549 00f0 666C6F61 		.ascii	"float\000"
+ 549      7400
+ 550              	.LASF18:
+ 551 00f6 436F6D70 		.ascii	"Comp_PD_A_RestoreConfig\000"
+ 551      5F50445F 
+ 551      415F5265 
+ 551      73746F72 
+ 551      65436F6E 
+ 552              	.LASF27:
+ 553 010e 436F6D70 		.ascii	"Comp_PD_A_backup\000"
+ 553      5F50445F 
+ 553      415F6261 
+ 553      636B7570 
+ 553      00
+ 554              	.LASF11:
+ 555 011f 63686172 		.ascii	"char\000"
+ 555      00
+ 556              	.LASF24:
+ 557 0124 47656E65 		.ascii	"Generated_Source\\PSoC5\\Comp_PD_A_PM.c\000"
+ 557      72617465 
+ 557      645F536F 
+ 557      75726365 
+ 557      5C50536F 
+ 558              	.LASF4:
+ 559 014a 6C6F6E67 		.ascii	"long int\000"
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccjDvn39.s 			page 14
+
+
+ 559      20696E74 
+ 559      00
+ 560              	.LASF17:
+ 561 0153 436F6D70 		.ascii	"Comp_PD_A_SaveConfig\000"
+ 561      5F50445F 
+ 561      415F5361 
+ 561      7665436F 
+ 561      6E666967 
+ 562              	.LASF10:
+ 563 0168 646F7562 		.ascii	"double\000"
+ 563      6C6500
+ 564              	.LASF23:
+ 565 016f 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 565      43313120 
+ 565      352E342E 
+ 565      31203230 
+ 565      31363036 
+ 566 01a2 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 566      20726576 
+ 566      6973696F 
+ 566      6E203233 
+ 566      37373135 
+ 567 01d5 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 567      66756E63 
+ 567      74696F6E 
+ 567      2D736563 
+ 567      74696F6E 
+ 568              	.LASF3:
+ 569 01fd 73686F72 		.ascii	"short unsigned int\000"
+ 569      7420756E 
+ 569      7369676E 
+ 569      65642069 
+ 569      6E7400
+ 570              	.LASF0:
+ 571 0210 7369676E 		.ascii	"signed char\000"
+ 571      65642063 
+ 571      68617200 
+ 572              	.LASF14:
+ 573 021c 6C6F6E67 		.ascii	"long double\000"
+ 573      20646F75 
+ 573      626C6500 
+ 574              	.LASF20:
+ 575 0228 436F6D70 		.ascii	"Comp_PD_A_Wakeup\000"
+ 575      5F50445F 
+ 575      415F5761 
+ 575      6B657570 
+ 575      00
+ 576              	.LASF22:
+ 577 0239 436F6D70 		.ascii	"Comp_PD_A_Enable\000"
+ 577      5F50445F 
+ 577      415F456E 
+ 577      61626C65 
+ 577      00
+ 578              	.LASF2:
+ 579 024a 73686F72 		.ascii	"short int\000"
+ 579      7420696E 
+ 579      7400
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccjDvn39.s 			page 15
+
+
+ 580              	.LASF13:
+ 581 0254 72656738 		.ascii	"reg8\000"
+ 581      00
+ 582              	.LASF15:
+ 583 0259 73697A65 		.ascii	"sizetype\000"
+ 583      74797065 
+ 583      00
+ 584              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

@@ -97,7 +97,7 @@ void Mixer_PD_B_Enable(void)                  ;
 ***************************************/
 
 #define Mixer_PD_B_MIXER_TYPE                 (1u)
-#define Mixer_PD_B_INIT_POWER                 (2u)
+#define Mixer_PD_B_INIT_POWER                 (3u)
 #define Mixer_PD_B_LO_SOURCE                  (1u)
 #define Mixer_PD_B_EXTERNAL_LO_CLK_FREQ       ((float)1600)
 #define Mixer_PD_B_VddaVal                    (5u)

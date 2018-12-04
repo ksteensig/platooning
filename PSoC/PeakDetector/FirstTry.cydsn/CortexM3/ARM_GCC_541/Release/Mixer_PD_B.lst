@@ -1,0 +1,1229 @@
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccW9LGLf.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"Mixer_PD_B.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.Mixer_PD_B_Enable,"ax",%progbits
+  20              		.align	1
+  21              		.global	Mixer_PD_B_Enable
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	Mixer_PD_B_Enable, %function
+  25              	Mixer_PD_B_Enable:
+  26              	.LFB1:
+  27              		.file 1 "Generated_Source\\PSoC5\\Mixer_PD_B.c"
+   1:Generated_Source\PSoC5/Mixer_PD_B.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/Mixer_PD_B.c **** * File Name: Mixer_PD_B.c  
+   3:Generated_Source\PSoC5/Mixer_PD_B.c **** * Version 2.0
+   4:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+   5:Generated_Source\PSoC5/Mixer_PD_B.c **** * Description:
+   6:Generated_Source\PSoC5/Mixer_PD_B.c **** *  This file provides the source code to the API for the MIXER Component.
+   7:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+   8:Generated_Source\PSoC5/Mixer_PD_B.c **** * Note:
+   9:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+  10:Generated_Source\PSoC5/Mixer_PD_B.c **** *******************************************************************************
+  11:Generated_Source\PSoC5/Mixer_PD_B.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  12:Generated_Source\PSoC5/Mixer_PD_B.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  13:Generated_Source\PSoC5/Mixer_PD_B.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  14:Generated_Source\PSoC5/Mixer_PD_B.c **** * the software package with which this file was provided.
+  15:Generated_Source\PSoC5/Mixer_PD_B.c **** *******************************************************************************/
+  16:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+  17:Generated_Source\PSoC5/Mixer_PD_B.c **** #include "Mixer_PD_B.h"
+  18:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+  19:Generated_Source\PSoC5/Mixer_PD_B.c **** #if (!CY_PSOC5A)
+  20:Generated_Source\PSoC5/Mixer_PD_B.c ****     #if (CYDEV_VARIABLE_VDDA == 1u)
+  21:Generated_Source\PSoC5/Mixer_PD_B.c ****         #include "CyScBoostClk.h"
+  22:Generated_Source\PSoC5/Mixer_PD_B.c ****     #endif /* (CYDEV_VARIABLE_VDDA == 1u) */
+  23:Generated_Source\PSoC5/Mixer_PD_B.c **** #endif /* (!CY_PSOC5A) */
+  24:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+  25:Generated_Source\PSoC5/Mixer_PD_B.c **** #if (Mixer_PD_B_LO_SOURCE == Mixer_PD_B_LO_SOURCE_INTERNAL)
+  26:Generated_Source\PSoC5/Mixer_PD_B.c ****     #include "Mixer_PD_B_aclk.h"
+  27:Generated_Source\PSoC5/Mixer_PD_B.c **** #endif /* Mixer_PD_B_LO_SOURCE */
+  28:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+  29:Generated_Source\PSoC5/Mixer_PD_B.c **** /* Fixed configuration of SC Block only performed once */
+  30:Generated_Source\PSoC5/Mixer_PD_B.c **** uint8 Mixer_PD_B_initVar = 0u;
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccW9LGLf.s 			page 2
+
+
+  31:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+  32:Generated_Source\PSoC5/Mixer_PD_B.c **** /* Only for PSoC5A */
+  33:Generated_Source\PSoC5/Mixer_PD_B.c **** #if (CY_PSOC5A)
+  34:Generated_Source\PSoC5/Mixer_PD_B.c ****     static Mixer_PD_B_backupStruct Mixer_PD_B_P5backup;
+  35:Generated_Source\PSoC5/Mixer_PD_B.c **** #endif /* CY_PSOC5A */
+  36:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+  37:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+  38:Generated_Source\PSoC5/Mixer_PD_B.c **** /*******************************************************************************
+  39:Generated_Source\PSoC5/Mixer_PD_B.c **** * Function Name: Mixer_PD_B_Init
+  40:Generated_Source\PSoC5/Mixer_PD_B.c **** ********************************************************************************
+  41:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+  42:Generated_Source\PSoC5/Mixer_PD_B.c **** * Summary:
+  43:Generated_Source\PSoC5/Mixer_PD_B.c **** *  Initialize component's parameters to the parameters set by user in the 
+  44:Generated_Source\PSoC5/Mixer_PD_B.c **** *  customizer of the component placed onto schematic. Usually called in 
+  45:Generated_Source\PSoC5/Mixer_PD_B.c **** *  Mixer_PD_B_Start().
+  46:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+  47:Generated_Source\PSoC5/Mixer_PD_B.c **** * Parameters:  
+  48:Generated_Source\PSoC5/Mixer_PD_B.c **** *  void
+  49:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+  50:Generated_Source\PSoC5/Mixer_PD_B.c **** * Return: 
+  51:Generated_Source\PSoC5/Mixer_PD_B.c **** *  void
+  52:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+  53:Generated_Source\PSoC5/Mixer_PD_B.c **** *******************************************************************************/
+  54:Generated_Source\PSoC5/Mixer_PD_B.c **** void Mixer_PD_B_Init(void) 
+  55:Generated_Source\PSoC5/Mixer_PD_B.c **** {
+  56:Generated_Source\PSoC5/Mixer_PD_B.c ****     float LOf = Mixer_PD_B_LO_CLOCK_FREQ;
+  57:Generated_Source\PSoC5/Mixer_PD_B.c ****     
+  58:Generated_Source\PSoC5/Mixer_PD_B.c ****     /* Configure SC Block based on selected Mixer type */
+  59:Generated_Source\PSoC5/Mixer_PD_B.c ****     /* Continuous Time (up) mixer */
+  60:Generated_Source\PSoC5/Mixer_PD_B.c ****     #if (Mixer_PD_B_MIXER_TYPE == Mixer_PD_B_CTMIXER) 
+  61:Generated_Source\PSoC5/Mixer_PD_B.c ****         /* SC Block mode -  - SCxx_CR0[3:1] */
+  62:Generated_Source\PSoC5/Mixer_PD_B.c ****         Mixer_PD_B_CR0_REG = Mixer_PD_B_MODE_CTMIXER;   
+  63:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+  64:Generated_Source\PSoC5/Mixer_PD_B.c ****         /* SC Block CR1 */ 
+  65:Generated_Source\PSoC5/Mixer_PD_B.c ****         Mixer_PD_B_CR1_REG = (Mixer_PD_B_COMP_4P35PF  |
+  66:Generated_Source\PSoC5/Mixer_PD_B.c ****                                 Mixer_PD_B_DIV2_DISABLE |
+  67:Generated_Source\PSoC5/Mixer_PD_B.c ****                                 Mixer_PD_B_GAIN_0DB);                                 
+  68:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+  69:Generated_Source\PSoC5/Mixer_PD_B.c ****         /* 
+  70:Generated_Source\PSoC5/Mixer_PD_B.c ****             Set SC Block resistor values based on Local Oscillator being above 
+  71:Generated_Source\PSoC5/Mixer_PD_B.c ****             or below 100kHz - controled by r20_40 (Rmix) bit for CT mode mixer
+  72:Generated_Source\PSoC5/Mixer_PD_B.c ****             and SC Block
+  73:Generated_Source\PSoC5/Mixer_PD_B.c ****         */
+  74:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+  75:Generated_Source\PSoC5/Mixer_PD_B.c ****         if (LOf < Mixer_PD_B_LO_CLOCK_FREQ_100_KHz)
+  76:Generated_Source\PSoC5/Mixer_PD_B.c ****         {
+  77:Generated_Source\PSoC5/Mixer_PD_B.c ****             Mixer_PD_B_CR2_REG = (Mixer_PD_B_BIAS_LOW |
+  78:Generated_Source\PSoC5/Mixer_PD_B.c **** 										Mixer_PD_B_REDC_01 |
+  79:Generated_Source\PSoC5/Mixer_PD_B.c **** 										Mixer_PD_B_GNDVREF_DI |
+  80:Generated_Source\PSoC5/Mixer_PD_B.c **** 										Mixer_PD_B_R20_40B_40K);
+  81:Generated_Source\PSoC5/Mixer_PD_B.c ****         }
+  82:Generated_Source\PSoC5/Mixer_PD_B.c ****         else
+  83:Generated_Source\PSoC5/Mixer_PD_B.c ****         {
+  84:Generated_Source\PSoC5/Mixer_PD_B.c ****             Mixer_PD_B_CR2_REG = (Mixer_PD_B_BIAS_LOW |
+  85:Generated_Source\PSoC5/Mixer_PD_B.c **** 										Mixer_PD_B_REDC_01 |
+  86:Generated_Source\PSoC5/Mixer_PD_B.c **** 										Mixer_PD_B_GNDVREF_DI |
+  87:Generated_Source\PSoC5/Mixer_PD_B.c **** 										Mixer_PD_B_R20_40B_20K);
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccW9LGLf.s 			page 3
+
+
+  88:Generated_Source\PSoC5/Mixer_PD_B.c ****         }
+  89:Generated_Source\PSoC5/Mixer_PD_B.c ****     #else
+  90:Generated_Source\PSoC5/Mixer_PD_B.c ****         /* Discrete Time (down) mixer */
+  91:Generated_Source\PSoC5/Mixer_PD_B.c ****         /* SC Block mode -  - SCxx_CR0[3:1] */
+  92:Generated_Source\PSoC5/Mixer_PD_B.c ****         Mixer_PD_B_CR0_REG = Mixer_PD_B_MODE_DTMIXER;       
+  93:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+  94:Generated_Source\PSoC5/Mixer_PD_B.c ****         /* SC Block CR1 */ 
+  95:Generated_Source\PSoC5/Mixer_PD_B.c ****         Mixer_PD_B_CR1_REG = (Mixer_PD_B_COMP_4P35PF  |
+  96:Generated_Source\PSoC5/Mixer_PD_B.c ****                                 Mixer_PD_B_DIV2_ENABLE |
+  97:Generated_Source\PSoC5/Mixer_PD_B.c ****                                 Mixer_PD_B_GAIN_0DB);
+  98:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+  99:Generated_Source\PSoC5/Mixer_PD_B.c ****         /* 
+ 100:Generated_Source\PSoC5/Mixer_PD_B.c ****             Set SC Block resistor values based on Local Oscillator beign above 
+ 101:Generated_Source\PSoC5/Mixer_PD_B.c ****             or below 100kHz - set r20_40 (input resitance) and rval (feedback) 
+ 102:Generated_Source\PSoC5/Mixer_PD_B.c ****             resistor values seperately for DT mode and SC Block
+ 103:Generated_Source\PSoC5/Mixer_PD_B.c ****         */
+ 104:Generated_Source\PSoC5/Mixer_PD_B.c ****         if (LOf < Mixer_PD_B_LO_CLOCK_FREQ_100_KHz)
+ 105:Generated_Source\PSoC5/Mixer_PD_B.c ****         {
+ 106:Generated_Source\PSoC5/Mixer_PD_B.c ****             Mixer_PD_B_CR2_REG = (Mixer_PD_B_BIAS_LOW |
+ 107:Generated_Source\PSoC5/Mixer_PD_B.c **** 										Mixer_PD_B_GNDVREF_DI |
+ 108:Generated_Source\PSoC5/Mixer_PD_B.c **** 										Mixer_PD_B_R20_40B_40K |
+ 109:Generated_Source\PSoC5/Mixer_PD_B.c **** 										Mixer_PD_B_RVAL_40K); 
+ 110:Generated_Source\PSoC5/Mixer_PD_B.c ****         }
+ 111:Generated_Source\PSoC5/Mixer_PD_B.c ****         else
+ 112:Generated_Source\PSoC5/Mixer_PD_B.c ****         {
+ 113:Generated_Source\PSoC5/Mixer_PD_B.c ****             Mixer_PD_B_CR2_REG = (Mixer_PD_B_BIAS_LOW |
+ 114:Generated_Source\PSoC5/Mixer_PD_B.c **** 										Mixer_PD_B_GNDVREF_DI |
+ 115:Generated_Source\PSoC5/Mixer_PD_B.c **** 										Mixer_PD_B_R20_40B_20K |
+ 116:Generated_Source\PSoC5/Mixer_PD_B.c **** 										Mixer_PD_B_RVAL_20K);
+ 117:Generated_Source\PSoC5/Mixer_PD_B.c ****         }
+ 118:Generated_Source\PSoC5/Mixer_PD_B.c ****     #endif /* end if - Mixer Type */
+ 119:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+ 120:Generated_Source\PSoC5/Mixer_PD_B.c ****     /* Enable SC Block clocking */
+ 121:Generated_Source\PSoC5/Mixer_PD_B.c ****     Mixer_PD_B_CLK_REG |= Mixer_PD_B_CLK_EN;
+ 122:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+ 123:Generated_Source\PSoC5/Mixer_PD_B.c ****     /* Set default power */
+ 124:Generated_Source\PSoC5/Mixer_PD_B.c ****     Mixer_PD_B_SetPower(Mixer_PD_B_INIT_POWER);
+ 125:Generated_Source\PSoC5/Mixer_PD_B.c ****     
+ 126:Generated_Source\PSoC5/Mixer_PD_B.c ****     /* Set 50 % Duty cycle for LO clock if LO source is internal */
+ 127:Generated_Source\PSoC5/Mixer_PD_B.c ****     #if(Mixer_PD_B_LO_SOURCE == Mixer_PD_B_LO_SOURCE_INTERNAL)
+ 128:Generated_Source\PSoC5/Mixer_PD_B.c ****         Mixer_PD_B_aclk_SetMode(CYCLK_DUTY);
+ 129:Generated_Source\PSoC5/Mixer_PD_B.c ****     #endif /* Mixer_PD_B_LO_SOURCE == Mixer_PD_B_LO_SOURCE_INTERNAL */
+ 130:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+ 131:Generated_Source\PSoC5/Mixer_PD_B.c **** }
+ 132:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+ 133:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+ 134:Generated_Source\PSoC5/Mixer_PD_B.c **** /*******************************************************************************
+ 135:Generated_Source\PSoC5/Mixer_PD_B.c **** * Function Name: Mixer_PD_B_Enable
+ 136:Generated_Source\PSoC5/Mixer_PD_B.c **** ********************************************************************************
+ 137:Generated_Source\PSoC5/Mixer_PD_B.c **** *  
+ 138:Generated_Source\PSoC5/Mixer_PD_B.c **** * Summary: 
+ 139:Generated_Source\PSoC5/Mixer_PD_B.c **** *  Enables the Mixer block operation
+ 140:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+ 141:Generated_Source\PSoC5/Mixer_PD_B.c **** * Parameters:  
+ 142:Generated_Source\PSoC5/Mixer_PD_B.c **** *  void
+ 143:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+ 144:Generated_Source\PSoC5/Mixer_PD_B.c **** * Return: 
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccW9LGLf.s 			page 4
+
+
+ 145:Generated_Source\PSoC5/Mixer_PD_B.c **** *  void
+ 146:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+ 147:Generated_Source\PSoC5/Mixer_PD_B.c **** *******************************************************************************/
+ 148:Generated_Source\PSoC5/Mixer_PD_B.c **** void Mixer_PD_B_Enable(void) 
+ 149:Generated_Source\PSoC5/Mixer_PD_B.c **** {
+  28              		.loc 1 149 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+ 150:Generated_Source\PSoC5/Mixer_PD_B.c ****     /* This is to restore the value of register CR1 and CR2 which is saved 
+ 151:Generated_Source\PSoC5/Mixer_PD_B.c ****       in prior to the modifications in stop() API */
+ 152:Generated_Source\PSoC5/Mixer_PD_B.c ****     #if (CY_PSOC5A)
+ 153:Generated_Source\PSoC5/Mixer_PD_B.c ****         if(Mixer_PD_B_P5backup.enableState == 1u)
+ 154:Generated_Source\PSoC5/Mixer_PD_B.c ****         {
+ 155:Generated_Source\PSoC5/Mixer_PD_B.c ****             Mixer_PD_B_CR1_REG = Mixer_PD_B_P5backup.scCR1Reg;
+ 156:Generated_Source\PSoC5/Mixer_PD_B.c ****             Mixer_PD_B_CR2_REG = Mixer_PD_B_P5backup.scCR2Reg;
+ 157:Generated_Source\PSoC5/Mixer_PD_B.c ****             Mixer_PD_B_P5backup.enableState = 0u;
+ 158:Generated_Source\PSoC5/Mixer_PD_B.c ****         }
+ 159:Generated_Source\PSoC5/Mixer_PD_B.c ****     #endif /* CY_PSOC5A */
+ 160:Generated_Source\PSoC5/Mixer_PD_B.c ****     
+ 161:Generated_Source\PSoC5/Mixer_PD_B.c ****     /* Enable power to SC block in active mode */
+ 162:Generated_Source\PSoC5/Mixer_PD_B.c ****     Mixer_PD_B_PM_ACT_CFG_REG |= Mixer_PD_B_ACT_PWR_EN;
+  33              		.loc 1 162 0
+  34 0000 084A     		ldr	r2, .L2
+  35 0002 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  36 0004 43F00203 		orr	r3, r3, #2
+  37 0008 1370     		strb	r3, [r2]
+ 163:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+ 164:Generated_Source\PSoC5/Mixer_PD_B.c ****     /* Enable power to SC block in Alternative active mode */
+ 165:Generated_Source\PSoC5/Mixer_PD_B.c ****     Mixer_PD_B_PM_STBY_CFG_REG |= Mixer_PD_B_STBY_PWR_EN;
+  38              		.loc 1 165 0
+  39 000a 137C     		ldrb	r3, [r2, #16]	@ zero_extendqisi2
+  40 000c 43F00203 		orr	r3, r3, #2
+  41 0010 1374     		strb	r3, [r2, #16]
+ 166:Generated_Source\PSoC5/Mixer_PD_B.c ****     
+ 167:Generated_Source\PSoC5/Mixer_PD_B.c ****     /* Enable LO_Internal clock if LO source is choosen as internal */
+ 168:Generated_Source\PSoC5/Mixer_PD_B.c ****     #if(Mixer_PD_B_LO_SOURCE == Mixer_PD_B_LO_SOURCE_INTERNAL)
+ 169:Generated_Source\PSoC5/Mixer_PD_B.c ****         /* Enable power to the LO clock */
+ 170:Generated_Source\PSoC5/Mixer_PD_B.c ****         Mixer_PD_B_PWRMGR_ACLK_REG |= Mixer_PD_B_ACT_PWR_ACLK_EN;        
+ 171:Generated_Source\PSoC5/Mixer_PD_B.c ****         Mixer_PD_B_STBY_PWRMGR_ACLK_REG |= Mixer_PD_B_STBY_PWR_ACLK_EN;
+ 172:Generated_Source\PSoC5/Mixer_PD_B.c ****         /* Enable the clock */
+ 173:Generated_Source\PSoC5/Mixer_PD_B.c ****         Mixer_PD_B_aclk_Enable();        
+ 174:Generated_Source\PSoC5/Mixer_PD_B.c ****     #endif /* Mixer_PD_B_LO_SOURCE == Mixer_PD_B_LO_SOURCE_INTERNAL */
+ 175:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+ 176:Generated_Source\PSoC5/Mixer_PD_B.c ****     Mixer_PD_B_PUMP_CR1_REG |= Mixer_PD_B_PUMP_CR1_SC_CLKSEL;
+  42              		.loc 1 176 0
+  43 0012 02F5A652 		add	r2, r2, #5312
+  44 0016 0E32     		adds	r2, r2, #14
+  45 0018 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  46 001a 43F08003 		orr	r3, r3, #128
+  47 001e 1370     		strb	r3, [r2]
+  48 0020 7047     		bx	lr
+  49              	.L3:
+  50 0022 00BF     		.align	2
+  51              	.L2:
+  52 0024 A9430040 		.word	1073759145
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccW9LGLf.s 			page 5
+
+
+  53              		.cfi_endproc
+  54              	.LFE1:
+  55              		.size	Mixer_PD_B_Enable, .-Mixer_PD_B_Enable
+  56              		.section	.text.Mixer_PD_B_Stop,"ax",%progbits
+  57              		.align	1
+  58              		.global	Mixer_PD_B_Stop
+  59              		.thumb
+  60              		.thumb_func
+  61              		.type	Mixer_PD_B_Stop, %function
+  62              	Mixer_PD_B_Stop:
+  63              	.LFB3:
+ 177:Generated_Source\PSoC5/Mixer_PD_B.c ****     
+ 178:Generated_Source\PSoC5/Mixer_PD_B.c ****     #if (!CY_PSOC5A)
+ 179:Generated_Source\PSoC5/Mixer_PD_B.c ****         #if (CYDEV_VARIABLE_VDDA == 1u)
+ 180:Generated_Source\PSoC5/Mixer_PD_B.c ****             if(CyScPumpEnabled == 1u)
+ 181:Generated_Source\PSoC5/Mixer_PD_B.c ****             {
+ 182:Generated_Source\PSoC5/Mixer_PD_B.c ****                 Mixer_PD_B_BSTCLK_REG &= (uint8)(~Mixer_PD_B_BST_CLK_INDEX_MASK);
+ 183:Generated_Source\PSoC5/Mixer_PD_B.c ****                 Mixer_PD_B_BSTCLK_REG |= Mixer_PD_B_BST_CLK_EN | CyScBoostClk__INDEX;
+ 184:Generated_Source\PSoC5/Mixer_PD_B.c ****                 Mixer_PD_B_SC_MISC_REG |= Mixer_PD_B_PUMP_FORCE;
+ 185:Generated_Source\PSoC5/Mixer_PD_B.c ****                 CyScBoostClk_Start();
+ 186:Generated_Source\PSoC5/Mixer_PD_B.c ****             }
+ 187:Generated_Source\PSoC5/Mixer_PD_B.c ****             else
+ 188:Generated_Source\PSoC5/Mixer_PD_B.c ****             {
+ 189:Generated_Source\PSoC5/Mixer_PD_B.c ****                 Mixer_PD_B_BSTCLK_REG &= (uint8)(~Mixer_PD_B_BST_CLK_EN);
+ 190:Generated_Source\PSoC5/Mixer_PD_B.c ****                 Mixer_PD_B_SC_MISC_REG &= (uint8)(~Mixer_PD_B_PUMP_FORCE);
+ 191:Generated_Source\PSoC5/Mixer_PD_B.c ****             }
+ 192:Generated_Source\PSoC5/Mixer_PD_B.c ****         #endif /* (CYDEV_VARIABLE_VDDA == 1u) */
+ 193:Generated_Source\PSoC5/Mixer_PD_B.c ****     #endif /* (!CY_PSOC5A) */
+ 194:Generated_Source\PSoC5/Mixer_PD_B.c **** }
+ 195:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+ 196:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+ 197:Generated_Source\PSoC5/Mixer_PD_B.c **** /*******************************************************************************
+ 198:Generated_Source\PSoC5/Mixer_PD_B.c **** * Function Name: Mixer_PD_B_Start
+ 199:Generated_Source\PSoC5/Mixer_PD_B.c **** ********************************************************************************
+ 200:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+ 201:Generated_Source\PSoC5/Mixer_PD_B.c **** * Summary:
+ 202:Generated_Source\PSoC5/Mixer_PD_B.c **** *  The start function initializes the SC block control registers based on the
+ 203:Generated_Source\PSoC5/Mixer_PD_B.c **** *  Mixer type selected and and enables power to the SC block
+ 204:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+ 205:Generated_Source\PSoC5/Mixer_PD_B.c **** * Parameters:  
+ 206:Generated_Source\PSoC5/Mixer_PD_B.c **** *  void
+ 207:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+ 208:Generated_Source\PSoC5/Mixer_PD_B.c **** * Return: 
+ 209:Generated_Source\PSoC5/Mixer_PD_B.c **** *  void 
+ 210:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+ 211:Generated_Source\PSoC5/Mixer_PD_B.c **** * Global variables:
+ 212:Generated_Source\PSoC5/Mixer_PD_B.c **** *  Mixer_PD_B_initVar:  Used to check the initial configuration,
+ 213:Generated_Source\PSoC5/Mixer_PD_B.c **** *  modified when this function is called for the first time.
+ 214:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+ 215:Generated_Source\PSoC5/Mixer_PD_B.c **** * Theory: 
+ 216:Generated_Source\PSoC5/Mixer_PD_B.c **** *  Full initialization of the SC Block configuration registers is only perfomed 
+ 217:Generated_Source\PSoC5/Mixer_PD_B.c **** *  the first time the routine executes - global variable 
+ 218:Generated_Source\PSoC5/Mixer_PD_B.c **** *  Mixer_PD_B_initVar is used indicate that the static configuration has 
+ 219:Generated_Source\PSoC5/Mixer_PD_B.c **** *  been completed.
+ 220:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+ 221:Generated_Source\PSoC5/Mixer_PD_B.c **** *******************************************************************************/
+ 222:Generated_Source\PSoC5/Mixer_PD_B.c **** void Mixer_PD_B_Start(void) 
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccW9LGLf.s 			page 6
+
+
+ 223:Generated_Source\PSoC5/Mixer_PD_B.c **** {
+ 224:Generated_Source\PSoC5/Mixer_PD_B.c ****     /* If not Initialized then initialize all required hardware and software */
+ 225:Generated_Source\PSoC5/Mixer_PD_B.c ****     if(Mixer_PD_B_initVar == 0u)
+ 226:Generated_Source\PSoC5/Mixer_PD_B.c ****     {
+ 227:Generated_Source\PSoC5/Mixer_PD_B.c ****         Mixer_PD_B_Init();
+ 228:Generated_Source\PSoC5/Mixer_PD_B.c ****         Mixer_PD_B_initVar = 1u;
+ 229:Generated_Source\PSoC5/Mixer_PD_B.c ****     }
+ 230:Generated_Source\PSoC5/Mixer_PD_B.c ****     /* Enable the power to the block */
+ 231:Generated_Source\PSoC5/Mixer_PD_B.c ****     Mixer_PD_B_Enable();
+ 232:Generated_Source\PSoC5/Mixer_PD_B.c ****     
+ 233:Generated_Source\PSoC5/Mixer_PD_B.c **** }
+ 234:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+ 235:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+ 236:Generated_Source\PSoC5/Mixer_PD_B.c **** /*******************************************************************************
+ 237:Generated_Source\PSoC5/Mixer_PD_B.c **** * Function Name: Mixer_PD_B_Stop
+ 238:Generated_Source\PSoC5/Mixer_PD_B.c **** ********************************************************************************
+ 239:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+ 240:Generated_Source\PSoC5/Mixer_PD_B.c **** * Summary:
+ 241:Generated_Source\PSoC5/Mixer_PD_B.c **** *  Disables power to SC block.
+ 242:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+ 243:Generated_Source\PSoC5/Mixer_PD_B.c **** * Parameters:  
+ 244:Generated_Source\PSoC5/Mixer_PD_B.c **** *  void 
+ 245:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+ 246:Generated_Source\PSoC5/Mixer_PD_B.c **** * Return: 
+ 247:Generated_Source\PSoC5/Mixer_PD_B.c **** *  void 
+ 248:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+ 249:Generated_Source\PSoC5/Mixer_PD_B.c **** *******************************************************************************/
+ 250:Generated_Source\PSoC5/Mixer_PD_B.c **** void Mixer_PD_B_Stop(void) 
+ 251:Generated_Source\PSoC5/Mixer_PD_B.c **** {       
+  64              		.loc 1 251 0
+  65              		.cfi_startproc
+  66              		@ args = 0, pretend = 0, frame = 0
+  67              		@ frame_needed = 0, uses_anonymous_args = 0
+  68              		@ link register save eliminated.
+ 252:Generated_Source\PSoC5/Mixer_PD_B.c ****     /* Disble power to the Amp in Active mode template */
+ 253:Generated_Source\PSoC5/Mixer_PD_B.c ****     Mixer_PD_B_PM_ACT_CFG_REG &= (uint8)(~Mixer_PD_B_ACT_PWR_EN);
+  69              		.loc 1 253 0
+  70 0000 044A     		ldr	r2, .L5
+  71 0002 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  72 0004 03F0FD03 		and	r3, r3, #253
+  73 0008 1370     		strb	r3, [r2]
+ 254:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+ 255:Generated_Source\PSoC5/Mixer_PD_B.c ****     /* Disble power to the Amp in Alternative Active mode template */
+ 256:Generated_Source\PSoC5/Mixer_PD_B.c ****     Mixer_PD_B_PM_STBY_CFG_REG &= (uint8)(~Mixer_PD_B_STBY_PWR_EN);
+  74              		.loc 1 256 0
+  75 000a 137C     		ldrb	r3, [r2, #16]	@ zero_extendqisi2
+  76 000c 03F0FD03 		and	r3, r3, #253
+  77 0010 1374     		strb	r3, [r2, #16]
+  78 0012 7047     		bx	lr
+  79              	.L6:
+  80              		.align	2
+  81              	.L5:
+  82 0014 A9430040 		.word	1073759145
+  83              		.cfi_endproc
+  84              	.LFE3:
+  85              		.size	Mixer_PD_B_Stop, .-Mixer_PD_B_Stop
+  86              		.section	.text.Mixer_PD_B_SetPower,"ax",%progbits
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccW9LGLf.s 			page 7
+
+
+  87              		.align	1
+  88              		.global	Mixer_PD_B_SetPower
+  89              		.thumb
+  90              		.thumb_func
+  91              		.type	Mixer_PD_B_SetPower, %function
+  92              	Mixer_PD_B_SetPower:
+  93              	.LFB4:
+ 257:Generated_Source\PSoC5/Mixer_PD_B.c ****     
+ 258:Generated_Source\PSoC5/Mixer_PD_B.c ****     #if (!CY_PSOC5A)
+ 259:Generated_Source\PSoC5/Mixer_PD_B.c ****         #if (CYDEV_VARIABLE_VDDA == 1u)
+ 260:Generated_Source\PSoC5/Mixer_PD_B.c ****             Mixer_PD_B_BSTCLK_REG &= (uint8)(~Mixer_PD_B_BST_CLK_EN);
+ 261:Generated_Source\PSoC5/Mixer_PD_B.c ****             /* Disable pumps only if there aren't any SC block in use */
+ 262:Generated_Source\PSoC5/Mixer_PD_B.c ****             if ((Mixer_PD_B_PM_ACT_CFG_REG & Mixer_PD_B_PM_ACT_CFG_MASK) == 0u)
+ 263:Generated_Source\PSoC5/Mixer_PD_B.c ****             {
+ 264:Generated_Source\PSoC5/Mixer_PD_B.c ****                 Mixer_PD_B_SC_MISC_REG &= (uint8)(~Mixer_PD_B_PUMP_FORCE);
+ 265:Generated_Source\PSoC5/Mixer_PD_B.c ****                 Mixer_PD_B_PUMP_CR1_REG &= (uint8)(~Mixer_PD_B_PUMP_CR1_SC_CLKSEL);
+ 266:Generated_Source\PSoC5/Mixer_PD_B.c ****                 CyScBoostClk_Stop();
+ 267:Generated_Source\PSoC5/Mixer_PD_B.c ****             }
+ 268:Generated_Source\PSoC5/Mixer_PD_B.c ****         #endif /* CYDEV_VARIABLE_VDDA == 1u */
+ 269:Generated_Source\PSoC5/Mixer_PD_B.c ****     #endif /* (CY_PSOC3 || CY_PSOC5LP) */
+ 270:Generated_Source\PSoC5/Mixer_PD_B.c ****     
+ 271:Generated_Source\PSoC5/Mixer_PD_B.c ****     /* This sets Sample and hold in zero current mode and output routes are valid */
+ 272:Generated_Source\PSoC5/Mixer_PD_B.c ****     #if (CY_PSOC5A)
+ 273:Generated_Source\PSoC5/Mixer_PD_B.c ****         Mixer_PD_B_P5backup.scCR1Reg = Mixer_PD_B_CR1_REG;
+ 274:Generated_Source\PSoC5/Mixer_PD_B.c ****         Mixer_PD_B_P5backup.scCR2Reg = Mixer_PD_B_CR2_REG;
+ 275:Generated_Source\PSoC5/Mixer_PD_B.c ****         Mixer_PD_B_CR1_REG = 0x00u;
+ 276:Generated_Source\PSoC5/Mixer_PD_B.c ****         Mixer_PD_B_CR2_REG = 0x00u;
+ 277:Generated_Source\PSoC5/Mixer_PD_B.c ****         Mixer_PD_B_P5backup.enableState = 1u;
+ 278:Generated_Source\PSoC5/Mixer_PD_B.c ****     #endif /* CY_PSOC5A */  
+ 279:Generated_Source\PSoC5/Mixer_PD_B.c ****     
+ 280:Generated_Source\PSoC5/Mixer_PD_B.c ****     /* Disable aclk */
+ 281:Generated_Source\PSoC5/Mixer_PD_B.c ****     #if(Mixer_PD_B_LO_SOURCE == Mixer_PD_B_LO_SOURCE_INTERNAL)
+ 282:Generated_Source\PSoC5/Mixer_PD_B.c ****         /* Disable power to clock */
+ 283:Generated_Source\PSoC5/Mixer_PD_B.c ****         Mixer_PD_B_PWRMGR_ACLK_REG &= (uint8)(~Mixer_PD_B_ACT_PWR_ACLK_EN);
+ 284:Generated_Source\PSoC5/Mixer_PD_B.c ****         Mixer_PD_B_STBY_PWRMGR_ACLK_REG &= (uint8)(~Mixer_PD_B_STBY_PWR_ACLK_EN);
+ 285:Generated_Source\PSoC5/Mixer_PD_B.c ****         /* Disable the clock */
+ 286:Generated_Source\PSoC5/Mixer_PD_B.c ****         Mixer_PD_B_aclk_Disable();
+ 287:Generated_Source\PSoC5/Mixer_PD_B.c ****     #endif /* Mixer_PD_B_LO_SOURCE == Mixer_PD_B_LO_SOURCE_INTERNAL */
+ 288:Generated_Source\PSoC5/Mixer_PD_B.c **** }
+ 289:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+ 290:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+ 291:Generated_Source\PSoC5/Mixer_PD_B.c **** /*******************************************************************************
+ 292:Generated_Source\PSoC5/Mixer_PD_B.c **** * Function Name: Mixer_PD_B_SetPower
+ 293:Generated_Source\PSoC5/Mixer_PD_B.c **** ********************************************************************************
+ 294:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+ 295:Generated_Source\PSoC5/Mixer_PD_B.c **** * Summary:
+ 296:Generated_Source\PSoC5/Mixer_PD_B.c **** *  Set the drive power of the MIXER
+ 297:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+ 298:Generated_Source\PSoC5/Mixer_PD_B.c **** * Parameters:  
+ 299:Generated_Source\PSoC5/Mixer_PD_B.c **** *  power:  Sets power level between (0) and (3) high power
+ 300:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+ 301:Generated_Source\PSoC5/Mixer_PD_B.c **** * Return: 
+ 302:Generated_Source\PSoC5/Mixer_PD_B.c **** *  void 
+ 303:Generated_Source\PSoC5/Mixer_PD_B.c **** *
+ 304:Generated_Source\PSoC5/Mixer_PD_B.c **** *******************************************************************************/
+ 305:Generated_Source\PSoC5/Mixer_PD_B.c **** void Mixer_PD_B_SetPower(uint8 power) 
+ 306:Generated_Source\PSoC5/Mixer_PD_B.c **** {
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccW9LGLf.s 			page 8
+
+
+  94              		.loc 1 306 0
+  95              		.cfi_startproc
+  96              		@ args = 0, pretend = 0, frame = 0
+  97              		@ frame_needed = 0, uses_anonymous_args = 0
+  98              		@ link register save eliminated.
+  99              	.LVL0:
+ 307:Generated_Source\PSoC5/Mixer_PD_B.c ****     uint8 tmpCR;
+ 308:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+ 309:Generated_Source\PSoC5/Mixer_PD_B.c ****     /* Sets drive bits in SC Block Control Register 1:  SCxx_CR[1:0] */    
+ 310:Generated_Source\PSoC5/Mixer_PD_B.c ****     tmpCR = Mixer_PD_B_CR1_REG & (uint8)(~Mixer_PD_B_DRIVE_MASK);
+ 100              		.loc 1 310 0
+ 101 0000 044A     		ldr	r2, .L8
+ 311:Generated_Source\PSoC5/Mixer_PD_B.c ****     tmpCR |= (power & Mixer_PD_B_DRIVE_MASK);
+ 102              		.loc 1 311 0
+ 103 0002 00F00300 		and	r0, r0, #3
+ 104              	.LVL1:
+ 310:Generated_Source\PSoC5/Mixer_PD_B.c ****     tmpCR |= (power & Mixer_PD_B_DRIVE_MASK);
+ 105              		.loc 1 310 0
+ 106 0006 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 107 0008 03F0FC03 		and	r3, r3, #252
+ 108              	.LVL2:
+ 109              		.loc 1 311 0
+ 110 000c 1843     		orrs	r0, r0, r3
+ 111              	.LVL3:
+ 312:Generated_Source\PSoC5/Mixer_PD_B.c ****     Mixer_PD_B_CR1_REG = tmpCR;  
+ 112              		.loc 1 312 0
+ 113 000e 1070     		strb	r0, [r2]
+ 114 0010 7047     		bx	lr
+ 115              	.L9:
+ 116 0012 00BF     		.align	2
+ 117              	.L8:
+ 118 0014 05580040 		.word	1073764357
+ 119              		.cfi_endproc
+ 120              	.LFE4:
+ 121              		.size	Mixer_PD_B_SetPower, .-Mixer_PD_B_SetPower
+ 122              		.section	.text.Mixer_PD_B_Init,"ax",%progbits
+ 123              		.align	1
+ 124              		.global	Mixer_PD_B_Init
+ 125              		.thumb
+ 126              		.thumb_func
+ 127              		.type	Mixer_PD_B_Init, %function
+ 128              	Mixer_PD_B_Init:
+ 129              	.LFB0:
+  55:Generated_Source\PSoC5/Mixer_PD_B.c ****     float LOf = Mixer_PD_B_LO_CLOCK_FREQ;
+ 130              		.loc 1 55 0
+ 131              		.cfi_startproc
+ 132              		@ args = 0, pretend = 0, frame = 0
+ 133              		@ frame_needed = 0, uses_anonymous_args = 0
+ 134              		@ link register save eliminated.
+ 135              	.LVL4:
+  92:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+ 136              		.loc 1 92 0
+ 137 0000 064B     		ldr	r3, .L11
+ 138 0002 0622     		movs	r2, #6
+ 139 0004 1A70     		strb	r2, [r3]
+  95:Generated_Source\PSoC5/Mixer_PD_B.c ****                                 Mixer_PD_B_DIV2_ENABLE |
+ 140              		.loc 1 95 0
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccW9LGLf.s 			page 9
+
+
+ 141 0006 1822     		movs	r2, #24
+ 142 0008 5A70     		strb	r2, [r3, #1]
+ 113:Generated_Source\PSoC5/Mixer_PD_B.c **** 										Mixer_PD_B_GNDVREF_DI |
+ 143              		.loc 1 113 0
+ 144 000a 0320     		movs	r0, #3
+ 121:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+ 145              		.loc 1 121 0
+ 146 000c 044A     		ldr	r2, .L11+4
+ 113:Generated_Source\PSoC5/Mixer_PD_B.c **** 										Mixer_PD_B_GNDVREF_DI |
+ 147              		.loc 1 113 0
+ 148 000e 9870     		strb	r0, [r3, #2]
+ 121:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+ 149              		.loc 1 121 0
+ 150 0010 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+ 151 0012 43F00803 		orr	r3, r3, #8
+ 152 0016 1370     		strb	r3, [r2]
+ 124:Generated_Source\PSoC5/Mixer_PD_B.c ****     
+ 153              		.loc 1 124 0
+ 154 0018 FFF7FEBF 		b	Mixer_PD_B_SetPower
+ 155              	.LVL5:
+ 156              	.L12:
+ 157              		.align	2
+ 158              	.L11:
+ 159 001c 04580040 		.word	1073764356
+ 160 0020 1B5A0040 		.word	1073764891
+ 161              		.cfi_endproc
+ 162              	.LFE0:
+ 163              		.size	Mixer_PD_B_Init, .-Mixer_PD_B_Init
+ 164              		.section	.text.Mixer_PD_B_Start,"ax",%progbits
+ 165              		.align	1
+ 166              		.global	Mixer_PD_B_Start
+ 167              		.thumb
+ 168              		.thumb_func
+ 169              		.type	Mixer_PD_B_Start, %function
+ 170              	Mixer_PD_B_Start:
+ 171              	.LFB2:
+ 223:Generated_Source\PSoC5/Mixer_PD_B.c ****     /* If not Initialized then initialize all required hardware and software */
+ 172              		.loc 1 223 0
+ 173              		.cfi_startproc
+ 174              		@ args = 0, pretend = 0, frame = 0
+ 175              		@ frame_needed = 0, uses_anonymous_args = 0
+ 176 0000 08B5     		push	{r3, lr}
+ 177              		.cfi_def_cfa_offset 8
+ 178              		.cfi_offset 3, -8
+ 179              		.cfi_offset 14, -4
+ 225:Generated_Source\PSoC5/Mixer_PD_B.c ****     {
+ 180              		.loc 1 225 0
+ 181 0002 0549     		ldr	r1, .L16
+ 182 0004 0B78     		ldrb	r3, [r1]	@ zero_extendqisi2
+ 183 0006 1BB9     		cbnz	r3, .L14
+ 227:Generated_Source\PSoC5/Mixer_PD_B.c ****         Mixer_PD_B_initVar = 1u;
+ 184              		.loc 1 227 0
+ 185 0008 FFF7FEFF 		bl	Mixer_PD_B_Init
+ 186              	.LVL6:
+ 228:Generated_Source\PSoC5/Mixer_PD_B.c ****     }
+ 187              		.loc 1 228 0
+ 188 000c 0123     		movs	r3, #1
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccW9LGLf.s 			page 10
+
+
+ 189 000e 0B70     		strb	r3, [r1]
+ 190              	.L14:
+ 233:Generated_Source\PSoC5/Mixer_PD_B.c **** 
+ 191              		.loc 1 233 0
+ 192 0010 BDE80840 		pop	{r3, lr}
+ 193              		.cfi_restore 14
+ 194              		.cfi_restore 3
+ 195              		.cfi_def_cfa_offset 0
+ 231:Generated_Source\PSoC5/Mixer_PD_B.c ****     
+ 196              		.loc 1 231 0
+ 197 0014 FFF7FEBF 		b	Mixer_PD_B_Enable
+ 198              	.LVL7:
+ 199              	.L17:
+ 200              		.align	2
+ 201              	.L16:
+ 202 0018 00000000 		.word	.LANCHOR0
+ 203              		.cfi_endproc
+ 204              	.LFE2:
+ 205              		.size	Mixer_PD_B_Start, .-Mixer_PD_B_Start
+ 206              		.global	Mixer_PD_B_initVar
+ 207              		.bss
+ 208              		.set	.LANCHOR0,. + 0
+ 209              		.type	Mixer_PD_B_initVar, %object
+ 210              		.size	Mixer_PD_B_initVar, 1
+ 211              	Mixer_PD_B_initVar:
+ 212 0000 00       		.space	1
+ 213              		.text
+ 214              	.Letext0:
+ 215              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 216              		.section	.debug_info,"",%progbits
+ 217              	.Ldebug_info0:
+ 218 0000 6F010000 		.4byte	0x16f
+ 219 0004 0400     		.2byte	0x4
+ 220 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 221 000a 04       		.byte	0x4
+ 222 000b 01       		.uleb128 0x1
+ 223 000c FE000000 		.4byte	.LASF22
+ 224 0010 0C       		.byte	0xc
+ 225 0011 F5010000 		.4byte	.LASF23
+ 226 0015 64000000 		.4byte	.LASF24
+ 227 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 228 001d 00000000 		.4byte	0
+ 229 0021 00000000 		.4byte	.Ldebug_line0
+ 230 0025 02       		.uleb128 0x2
+ 231 0026 01       		.byte	0x1
+ 232 0027 06       		.byte	0x6
+ 233 0028 D4010000 		.4byte	.LASF0
+ 234 002c 02       		.uleb128 0x2
+ 235 002d 01       		.byte	0x1
+ 236 002e 08       		.byte	0x8
+ 237 002f EB000000 		.4byte	.LASF1
+ 238 0033 02       		.uleb128 0x2
+ 239 0034 02       		.byte	0x2
+ 240 0035 05       		.byte	0x5
+ 241 0036 19020000 		.4byte	.LASF2
+ 242 003a 02       		.uleb128 0x2
+ 243 003b 02       		.byte	0x2
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccW9LGLf.s 			page 11
+
+
+ 244 003c 07       		.byte	0x7
+ 245 003d C1010000 		.4byte	.LASF3
+ 246 0041 02       		.uleb128 0x2
+ 247 0042 04       		.byte	0x4
+ 248 0043 05       		.byte	0x5
+ 249 0044 8C010000 		.4byte	.LASF4
+ 250 0048 02       		.uleb128 0x2
+ 251 0049 04       		.byte	0x4
+ 252 004a 07       		.byte	0x7
+ 253 004b 52000000 		.4byte	.LASF5
+ 254 004f 02       		.uleb128 0x2
+ 255 0050 08       		.byte	0x8
+ 256 0051 05       		.byte	0x5
+ 257 0052 00000000 		.4byte	.LASF6
+ 258 0056 02       		.uleb128 0x2
+ 259 0057 08       		.byte	0x8
+ 260 0058 07       		.byte	0x7
+ 261 0059 BA000000 		.4byte	.LASF7
+ 262 005d 03       		.uleb128 0x3
+ 263 005e 04       		.byte	0x4
+ 264 005f 05       		.byte	0x5
+ 265 0060 696E7400 		.ascii	"int\000"
+ 266 0064 02       		.uleb128 0x2
+ 267 0065 04       		.byte	0x4
+ 268 0066 07       		.byte	0x7
+ 269 0067 1E000000 		.4byte	.LASF8
+ 270 006b 04       		.uleb128 0x4
+ 271 006c 4C000000 		.4byte	.LASF12
+ 272 0070 02       		.byte	0x2
+ 273 0071 9201     		.2byte	0x192
+ 274 0073 2C000000 		.4byte	0x2c
+ 275 0077 02       		.uleb128 0x2
+ 276 0078 04       		.byte	0x4
+ 277 0079 04       		.byte	0x4
+ 278 007a D1000000 		.4byte	.LASF9
+ 279 007e 02       		.uleb128 0x2
+ 280 007f 08       		.byte	0x8
+ 281 0080 04       		.byte	0x4
+ 282 0081 A7010000 		.4byte	.LASF10
+ 283 0085 02       		.uleb128 0x2
+ 284 0086 01       		.byte	0x1
+ 285 0087 08       		.byte	0x8
+ 286 0088 F9000000 		.4byte	.LASF11
+ 287 008c 04       		.uleb128 0x4
+ 288 008d 23020000 		.4byte	.LASF13
+ 289 0091 02       		.byte	0x2
+ 290 0092 3C02     		.2byte	0x23c
+ 291 0094 98000000 		.4byte	0x98
+ 292 0098 05       		.uleb128 0x5
+ 293 0099 6B000000 		.4byte	0x6b
+ 294 009d 02       		.uleb128 0x2
+ 295 009e 08       		.byte	0x8
+ 296 009f 04       		.byte	0x4
+ 297 00a0 E0010000 		.4byte	.LASF14
+ 298 00a4 02       		.uleb128 0x2
+ 299 00a5 04       		.byte	0x4
+ 300 00a6 07       		.byte	0x7
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccW9LGLf.s 			page 12
+
+
+ 301 00a7 EC010000 		.4byte	.LASF15
+ 302 00ab 06       		.uleb128 0x6
+ 303 00ac 95010000 		.4byte	.LASF16
+ 304 00b0 01       		.byte	0x1
+ 305 00b1 94       		.byte	0x94
+ 306 00b2 00000000 		.4byte	.LFB1
+ 307 00b6 28000000 		.4byte	.LFE1-.LFB1
+ 308 00ba 01       		.uleb128 0x1
+ 309 00bb 9C       		.byte	0x9c
+ 310 00bc 06       		.uleb128 0x6
+ 311 00bd 0E000000 		.4byte	.LASF17
+ 312 00c1 01       		.byte	0x1
+ 313 00c2 FA       		.byte	0xfa
+ 314 00c3 00000000 		.4byte	.LFB3
+ 315 00c7 18000000 		.4byte	.LFE3-.LFB3
+ 316 00cb 01       		.uleb128 0x1
+ 317 00cc 9C       		.byte	0x9c
+ 318 00cd 07       		.uleb128 0x7
+ 319 00ce D7000000 		.4byte	.LASF18
+ 320 00d2 01       		.byte	0x1
+ 321 00d3 3101     		.2byte	0x131
+ 322 00d5 00000000 		.4byte	.LFB4
+ 323 00d9 18000000 		.4byte	.LFE4-.LFB4
+ 324 00dd 01       		.uleb128 0x1
+ 325 00de 9C       		.byte	0x9c
+ 326 00df 04010000 		.4byte	0x104
+ 327 00e3 08       		.uleb128 0x8
+ 328 00e4 2E020000 		.4byte	.LASF25
+ 329 00e8 01       		.byte	0x1
+ 330 00e9 3101     		.2byte	0x131
+ 331 00eb 6B000000 		.4byte	0x6b
+ 332 00ef 00000000 		.4byte	.LLST0
+ 333 00f3 09       		.uleb128 0x9
+ 334 00f4 28020000 		.4byte	.LASF20
+ 335 00f8 01       		.byte	0x1
+ 336 00f9 3301     		.2byte	0x133
+ 337 00fb 6B000000 		.4byte	0x6b
+ 338 00ff 21000000 		.4byte	.LLST1
+ 339 0103 00       		.byte	0
+ 340 0104 0A       		.uleb128 0xa
+ 341 0105 2B000000 		.4byte	.LASF19
+ 342 0109 01       		.byte	0x1
+ 343 010a 36       		.byte	0x36
+ 344 010b 00000000 		.4byte	.LFB0
+ 345 010f 24000000 		.4byte	.LFE0-.LFB0
+ 346 0113 01       		.uleb128 0x1
+ 347 0114 9C       		.byte	0x9c
+ 348 0115 39010000 		.4byte	0x139
+ 349 0119 0B       		.uleb128 0xb
+ 350 011a 4C4F6600 		.ascii	"LOf\000"
+ 351 011e 01       		.byte	0x1
+ 352 011f 38       		.byte	0x38
+ 353 0120 77000000 		.4byte	0x77
+ 354 0124 04       		.byte	0x4
+ 355 0125 0000C844 		.4byte	0x44c80000
+ 356 0129 0C       		.uleb128 0xc
+ 357 012a 1C000000 		.4byte	.LVL5
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccW9LGLf.s 			page 13
+
+
+ 358 012e CD000000 		.4byte	0xcd
+ 359 0132 0D       		.uleb128 0xd
+ 360 0133 01       		.uleb128 0x1
+ 361 0134 50       		.byte	0x50
+ 362 0135 01       		.uleb128 0x1
+ 363 0136 33       		.byte	0x33
+ 364 0137 00       		.byte	0
+ 365 0138 00       		.byte	0
+ 366 0139 0A       		.uleb128 0xa
+ 367 013a 3B000000 		.4byte	.LASF21
+ 368 013e 01       		.byte	0x1
+ 369 013f DE       		.byte	0xde
+ 370 0140 00000000 		.4byte	.LFB2
+ 371 0144 1C000000 		.4byte	.LFE2-.LFB2
+ 372 0148 01       		.uleb128 0x1
+ 373 0149 9C       		.byte	0x9c
+ 374 014a 61010000 		.4byte	0x161
+ 375 014e 0E       		.uleb128 0xe
+ 376 014f 0C000000 		.4byte	.LVL6
+ 377 0153 04010000 		.4byte	0x104
+ 378 0157 0F       		.uleb128 0xf
+ 379 0158 18000000 		.4byte	.LVL7
+ 380 015c AB000000 		.4byte	0xab
+ 381 0160 00       		.byte	0
+ 382 0161 10       		.uleb128 0x10
+ 383 0162 AE010000 		.4byte	.LASF26
+ 384 0166 01       		.byte	0x1
+ 385 0167 1E       		.byte	0x1e
+ 386 0168 6B000000 		.4byte	0x6b
+ 387 016c 05       		.uleb128 0x5
+ 388 016d 03       		.byte	0x3
+ 389 016e 00000000 		.4byte	Mixer_PD_B_initVar
+ 390 0172 00       		.byte	0
+ 391              		.section	.debug_abbrev,"",%progbits
+ 392              	.Ldebug_abbrev0:
+ 393 0000 01       		.uleb128 0x1
+ 394 0001 11       		.uleb128 0x11
+ 395 0002 01       		.byte	0x1
+ 396 0003 25       		.uleb128 0x25
+ 397 0004 0E       		.uleb128 0xe
+ 398 0005 13       		.uleb128 0x13
+ 399 0006 0B       		.uleb128 0xb
+ 400 0007 03       		.uleb128 0x3
+ 401 0008 0E       		.uleb128 0xe
+ 402 0009 1B       		.uleb128 0x1b
+ 403 000a 0E       		.uleb128 0xe
+ 404 000b 55       		.uleb128 0x55
+ 405 000c 17       		.uleb128 0x17
+ 406 000d 11       		.uleb128 0x11
+ 407 000e 01       		.uleb128 0x1
+ 408 000f 10       		.uleb128 0x10
+ 409 0010 17       		.uleb128 0x17
+ 410 0011 00       		.byte	0
+ 411 0012 00       		.byte	0
+ 412 0013 02       		.uleb128 0x2
+ 413 0014 24       		.uleb128 0x24
+ 414 0015 00       		.byte	0
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccW9LGLf.s 			page 14
+
+
+ 415 0016 0B       		.uleb128 0xb
+ 416 0017 0B       		.uleb128 0xb
+ 417 0018 3E       		.uleb128 0x3e
+ 418 0019 0B       		.uleb128 0xb
+ 419 001a 03       		.uleb128 0x3
+ 420 001b 0E       		.uleb128 0xe
+ 421 001c 00       		.byte	0
+ 422 001d 00       		.byte	0
+ 423 001e 03       		.uleb128 0x3
+ 424 001f 24       		.uleb128 0x24
+ 425 0020 00       		.byte	0
+ 426 0021 0B       		.uleb128 0xb
+ 427 0022 0B       		.uleb128 0xb
+ 428 0023 3E       		.uleb128 0x3e
+ 429 0024 0B       		.uleb128 0xb
+ 430 0025 03       		.uleb128 0x3
+ 431 0026 08       		.uleb128 0x8
+ 432 0027 00       		.byte	0
+ 433 0028 00       		.byte	0
+ 434 0029 04       		.uleb128 0x4
+ 435 002a 16       		.uleb128 0x16
+ 436 002b 00       		.byte	0
+ 437 002c 03       		.uleb128 0x3
+ 438 002d 0E       		.uleb128 0xe
+ 439 002e 3A       		.uleb128 0x3a
+ 440 002f 0B       		.uleb128 0xb
+ 441 0030 3B       		.uleb128 0x3b
+ 442 0031 05       		.uleb128 0x5
+ 443 0032 49       		.uleb128 0x49
+ 444 0033 13       		.uleb128 0x13
+ 445 0034 00       		.byte	0
+ 446 0035 00       		.byte	0
+ 447 0036 05       		.uleb128 0x5
+ 448 0037 35       		.uleb128 0x35
+ 449 0038 00       		.byte	0
+ 450 0039 49       		.uleb128 0x49
+ 451 003a 13       		.uleb128 0x13
+ 452 003b 00       		.byte	0
+ 453 003c 00       		.byte	0
+ 454 003d 06       		.uleb128 0x6
+ 455 003e 2E       		.uleb128 0x2e
+ 456 003f 00       		.byte	0
+ 457 0040 3F       		.uleb128 0x3f
+ 458 0041 19       		.uleb128 0x19
+ 459 0042 03       		.uleb128 0x3
+ 460 0043 0E       		.uleb128 0xe
+ 461 0044 3A       		.uleb128 0x3a
+ 462 0045 0B       		.uleb128 0xb
+ 463 0046 3B       		.uleb128 0x3b
+ 464 0047 0B       		.uleb128 0xb
+ 465 0048 27       		.uleb128 0x27
+ 466 0049 19       		.uleb128 0x19
+ 467 004a 11       		.uleb128 0x11
+ 468 004b 01       		.uleb128 0x1
+ 469 004c 12       		.uleb128 0x12
+ 470 004d 06       		.uleb128 0x6
+ 471 004e 40       		.uleb128 0x40
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccW9LGLf.s 			page 15
+
+
+ 472 004f 18       		.uleb128 0x18
+ 473 0050 9742     		.uleb128 0x2117
+ 474 0052 19       		.uleb128 0x19
+ 475 0053 00       		.byte	0
+ 476 0054 00       		.byte	0
+ 477 0055 07       		.uleb128 0x7
+ 478 0056 2E       		.uleb128 0x2e
+ 479 0057 01       		.byte	0x1
+ 480 0058 3F       		.uleb128 0x3f
+ 481 0059 19       		.uleb128 0x19
+ 482 005a 03       		.uleb128 0x3
+ 483 005b 0E       		.uleb128 0xe
+ 484 005c 3A       		.uleb128 0x3a
+ 485 005d 0B       		.uleb128 0xb
+ 486 005e 3B       		.uleb128 0x3b
+ 487 005f 05       		.uleb128 0x5
+ 488 0060 27       		.uleb128 0x27
+ 489 0061 19       		.uleb128 0x19
+ 490 0062 11       		.uleb128 0x11
+ 491 0063 01       		.uleb128 0x1
+ 492 0064 12       		.uleb128 0x12
+ 493 0065 06       		.uleb128 0x6
+ 494 0066 40       		.uleb128 0x40
+ 495 0067 18       		.uleb128 0x18
+ 496 0068 9742     		.uleb128 0x2117
+ 497 006a 19       		.uleb128 0x19
+ 498 006b 01       		.uleb128 0x1
+ 499 006c 13       		.uleb128 0x13
+ 500 006d 00       		.byte	0
+ 501 006e 00       		.byte	0
+ 502 006f 08       		.uleb128 0x8
+ 503 0070 05       		.uleb128 0x5
+ 504 0071 00       		.byte	0
+ 505 0072 03       		.uleb128 0x3
+ 506 0073 0E       		.uleb128 0xe
+ 507 0074 3A       		.uleb128 0x3a
+ 508 0075 0B       		.uleb128 0xb
+ 509 0076 3B       		.uleb128 0x3b
+ 510 0077 05       		.uleb128 0x5
+ 511 0078 49       		.uleb128 0x49
+ 512 0079 13       		.uleb128 0x13
+ 513 007a 02       		.uleb128 0x2
+ 514 007b 17       		.uleb128 0x17
+ 515 007c 00       		.byte	0
+ 516 007d 00       		.byte	0
+ 517 007e 09       		.uleb128 0x9
+ 518 007f 34       		.uleb128 0x34
+ 519 0080 00       		.byte	0
+ 520 0081 03       		.uleb128 0x3
+ 521 0082 0E       		.uleb128 0xe
+ 522 0083 3A       		.uleb128 0x3a
+ 523 0084 0B       		.uleb128 0xb
+ 524 0085 3B       		.uleb128 0x3b
+ 525 0086 05       		.uleb128 0x5
+ 526 0087 49       		.uleb128 0x49
+ 527 0088 13       		.uleb128 0x13
+ 528 0089 02       		.uleb128 0x2
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccW9LGLf.s 			page 16
+
+
+ 529 008a 17       		.uleb128 0x17
+ 530 008b 00       		.byte	0
+ 531 008c 00       		.byte	0
+ 532 008d 0A       		.uleb128 0xa
+ 533 008e 2E       		.uleb128 0x2e
+ 534 008f 01       		.byte	0x1
+ 535 0090 3F       		.uleb128 0x3f
+ 536 0091 19       		.uleb128 0x19
+ 537 0092 03       		.uleb128 0x3
+ 538 0093 0E       		.uleb128 0xe
+ 539 0094 3A       		.uleb128 0x3a
+ 540 0095 0B       		.uleb128 0xb
+ 541 0096 3B       		.uleb128 0x3b
+ 542 0097 0B       		.uleb128 0xb
+ 543 0098 27       		.uleb128 0x27
+ 544 0099 19       		.uleb128 0x19
+ 545 009a 11       		.uleb128 0x11
+ 546 009b 01       		.uleb128 0x1
+ 547 009c 12       		.uleb128 0x12
+ 548 009d 06       		.uleb128 0x6
+ 549 009e 40       		.uleb128 0x40
+ 550 009f 18       		.uleb128 0x18
+ 551 00a0 9742     		.uleb128 0x2117
+ 552 00a2 19       		.uleb128 0x19
+ 553 00a3 01       		.uleb128 0x1
+ 554 00a4 13       		.uleb128 0x13
+ 555 00a5 00       		.byte	0
+ 556 00a6 00       		.byte	0
+ 557 00a7 0B       		.uleb128 0xb
+ 558 00a8 34       		.uleb128 0x34
+ 559 00a9 00       		.byte	0
+ 560 00aa 03       		.uleb128 0x3
+ 561 00ab 08       		.uleb128 0x8
+ 562 00ac 3A       		.uleb128 0x3a
+ 563 00ad 0B       		.uleb128 0xb
+ 564 00ae 3B       		.uleb128 0x3b
+ 565 00af 0B       		.uleb128 0xb
+ 566 00b0 49       		.uleb128 0x49
+ 567 00b1 13       		.uleb128 0x13
+ 568 00b2 1C       		.uleb128 0x1c
+ 569 00b3 0A       		.uleb128 0xa
+ 570 00b4 00       		.byte	0
+ 571 00b5 00       		.byte	0
+ 572 00b6 0C       		.uleb128 0xc
+ 573 00b7 898201   		.uleb128 0x4109
+ 574 00ba 01       		.byte	0x1
+ 575 00bb 11       		.uleb128 0x11
+ 576 00bc 01       		.uleb128 0x1
+ 577 00bd 9542     		.uleb128 0x2115
+ 578 00bf 19       		.uleb128 0x19
+ 579 00c0 31       		.uleb128 0x31
+ 580 00c1 13       		.uleb128 0x13
+ 581 00c2 00       		.byte	0
+ 582 00c3 00       		.byte	0
+ 583 00c4 0D       		.uleb128 0xd
+ 584 00c5 8A8201   		.uleb128 0x410a
+ 585 00c8 00       		.byte	0
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccW9LGLf.s 			page 17
+
+
+ 586 00c9 02       		.uleb128 0x2
+ 587 00ca 18       		.uleb128 0x18
+ 588 00cb 9142     		.uleb128 0x2111
+ 589 00cd 18       		.uleb128 0x18
+ 590 00ce 00       		.byte	0
+ 591 00cf 00       		.byte	0
+ 592 00d0 0E       		.uleb128 0xe
+ 593 00d1 898201   		.uleb128 0x4109
+ 594 00d4 00       		.byte	0
+ 595 00d5 11       		.uleb128 0x11
+ 596 00d6 01       		.uleb128 0x1
+ 597 00d7 31       		.uleb128 0x31
+ 598 00d8 13       		.uleb128 0x13
+ 599 00d9 00       		.byte	0
+ 600 00da 00       		.byte	0
+ 601 00db 0F       		.uleb128 0xf
+ 602 00dc 898201   		.uleb128 0x4109
+ 603 00df 00       		.byte	0
+ 604 00e0 11       		.uleb128 0x11
+ 605 00e1 01       		.uleb128 0x1
+ 606 00e2 9542     		.uleb128 0x2115
+ 607 00e4 19       		.uleb128 0x19
+ 608 00e5 31       		.uleb128 0x31
+ 609 00e6 13       		.uleb128 0x13
+ 610 00e7 00       		.byte	0
+ 611 00e8 00       		.byte	0
+ 612 00e9 10       		.uleb128 0x10
+ 613 00ea 34       		.uleb128 0x34
+ 614 00eb 00       		.byte	0
+ 615 00ec 03       		.uleb128 0x3
+ 616 00ed 0E       		.uleb128 0xe
+ 617 00ee 3A       		.uleb128 0x3a
+ 618 00ef 0B       		.uleb128 0xb
+ 619 00f0 3B       		.uleb128 0x3b
+ 620 00f1 0B       		.uleb128 0xb
+ 621 00f2 49       		.uleb128 0x49
+ 622 00f3 13       		.uleb128 0x13
+ 623 00f4 3F       		.uleb128 0x3f
+ 624 00f5 19       		.uleb128 0x19
+ 625 00f6 02       		.uleb128 0x2
+ 626 00f7 18       		.uleb128 0x18
+ 627 00f8 00       		.byte	0
+ 628 00f9 00       		.byte	0
+ 629 00fa 00       		.byte	0
+ 630              		.section	.debug_loc,"",%progbits
+ 631              	.Ldebug_loc0:
+ 632              	.LLST0:
+ 633 0000 00000000 		.4byte	.LVL0
+ 634 0004 06000000 		.4byte	.LVL1
+ 635 0008 0100     		.2byte	0x1
+ 636 000a 50       		.byte	0x50
+ 637 000b 06000000 		.4byte	.LVL1
+ 638 000f 18000000 		.4byte	.LFE4
+ 639 0013 0400     		.2byte	0x4
+ 640 0015 F3       		.byte	0xf3
+ 641 0016 01       		.uleb128 0x1
+ 642 0017 50       		.byte	0x50
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccW9LGLf.s 			page 18
+
+
+ 643 0018 9F       		.byte	0x9f
+ 644 0019 00000000 		.4byte	0
+ 645 001d 00000000 		.4byte	0
+ 646              	.LLST1:
+ 647 0021 0C000000 		.4byte	.LVL2
+ 648 0025 0E000000 		.4byte	.LVL3
+ 649 0029 0100     		.2byte	0x1
+ 650 002b 53       		.byte	0x53
+ 651 002c 0E000000 		.4byte	.LVL3
+ 652 0030 18000000 		.4byte	.LFE4
+ 653 0034 0100     		.2byte	0x1
+ 654 0036 50       		.byte	0x50
+ 655 0037 00000000 		.4byte	0
+ 656 003b 00000000 		.4byte	0
+ 657              		.section	.debug_aranges,"",%progbits
+ 658 0000 3C000000 		.4byte	0x3c
+ 659 0004 0200     		.2byte	0x2
+ 660 0006 00000000 		.4byte	.Ldebug_info0
+ 661 000a 04       		.byte	0x4
+ 662 000b 00       		.byte	0
+ 663 000c 0000     		.2byte	0
+ 664 000e 0000     		.2byte	0
+ 665 0010 00000000 		.4byte	.LFB1
+ 666 0014 28000000 		.4byte	.LFE1-.LFB1
+ 667 0018 00000000 		.4byte	.LFB3
+ 668 001c 18000000 		.4byte	.LFE3-.LFB3
+ 669 0020 00000000 		.4byte	.LFB4
+ 670 0024 18000000 		.4byte	.LFE4-.LFB4
+ 671 0028 00000000 		.4byte	.LFB0
+ 672 002c 24000000 		.4byte	.LFE0-.LFB0
+ 673 0030 00000000 		.4byte	.LFB2
+ 674 0034 1C000000 		.4byte	.LFE2-.LFB2
+ 675 0038 00000000 		.4byte	0
+ 676 003c 00000000 		.4byte	0
+ 677              		.section	.debug_ranges,"",%progbits
+ 678              	.Ldebug_ranges0:
+ 679 0000 00000000 		.4byte	.LFB1
+ 680 0004 28000000 		.4byte	.LFE1
+ 681 0008 00000000 		.4byte	.LFB3
+ 682 000c 18000000 		.4byte	.LFE3
+ 683 0010 00000000 		.4byte	.LFB4
+ 684 0014 18000000 		.4byte	.LFE4
+ 685 0018 00000000 		.4byte	.LFB0
+ 686 001c 24000000 		.4byte	.LFE0
+ 687 0020 00000000 		.4byte	.LFB2
+ 688 0024 1C000000 		.4byte	.LFE2
+ 689 0028 00000000 		.4byte	0
+ 690 002c 00000000 		.4byte	0
+ 691              		.section	.debug_line,"",%progbits
+ 692              	.Ldebug_line0:
+ 693 0000 BC000000 		.section	.debug_str,"MS",%progbits,1
+ 693      02004700 
+ 693      00000201 
+ 693      FB0E0D00 
+ 693      01010101 
+ 694              	.LASF6:
+ 695 0000 6C6F6E67 		.ascii	"long long int\000"
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccW9LGLf.s 			page 19
+
+
+ 695      206C6F6E 
+ 695      6720696E 
+ 695      7400
+ 696              	.LASF17:
+ 697 000e 4D697865 		.ascii	"Mixer_PD_B_Stop\000"
+ 697      725F5044 
+ 697      5F425F53 
+ 697      746F7000 
+ 698              	.LASF8:
+ 699 001e 756E7369 		.ascii	"unsigned int\000"
+ 699      676E6564 
+ 699      20696E74 
+ 699      00
+ 700              	.LASF19:
+ 701 002b 4D697865 		.ascii	"Mixer_PD_B_Init\000"
+ 701      725F5044 
+ 701      5F425F49 
+ 701      6E697400 
+ 702              	.LASF21:
+ 703 003b 4D697865 		.ascii	"Mixer_PD_B_Start\000"
+ 703      725F5044 
+ 703      5F425F53 
+ 703      74617274 
+ 703      00
+ 704              	.LASF12:
+ 705 004c 75696E74 		.ascii	"uint8\000"
+ 705      3800
+ 706              	.LASF5:
+ 707 0052 6C6F6E67 		.ascii	"long unsigned int\000"
+ 707      20756E73 
+ 707      69676E65 
+ 707      6420696E 
+ 707      7400
+ 708              	.LASF24:
+ 709 0064 433A5C55 		.ascii	"C:\\Users\\Krist\\OneDrive\\Dokumenter\\GitHub\\pla"
+ 709      73657273 
+ 709      5C4B7269 
+ 709      73745C4F 
+ 709      6E654472 
+ 710 0091 746F6F6E 		.ascii	"tooning\\PSoC\\PeakDetector\\FirstTry.cydsn\000"
+ 710      696E675C 
+ 710      50536F43 
+ 710      5C506561 
+ 710      6B446574 
+ 711              	.LASF7:
+ 712 00ba 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 712      206C6F6E 
+ 712      6720756E 
+ 712      7369676E 
+ 712      65642069 
+ 713              	.LASF9:
+ 714 00d1 666C6F61 		.ascii	"float\000"
+ 714      7400
+ 715              	.LASF18:
+ 716 00d7 4D697865 		.ascii	"Mixer_PD_B_SetPower\000"
+ 716      725F5044 
+ 716      5F425F53 
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccW9LGLf.s 			page 20
+
+
+ 716      6574506F 
+ 716      77657200 
+ 717              	.LASF1:
+ 718 00eb 756E7369 		.ascii	"unsigned char\000"
+ 718      676E6564 
+ 718      20636861 
+ 718      7200
+ 719              	.LASF11:
+ 720 00f9 63686172 		.ascii	"char\000"
+ 720      00
+ 721              	.LASF22:
+ 722 00fe 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 722      43313120 
+ 722      352E342E 
+ 722      31203230 
+ 722      31363036 
+ 723 0131 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 723      20726576 
+ 723      6973696F 
+ 723      6E203233 
+ 723      37373135 
+ 724 0164 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 724      66756E63 
+ 724      74696F6E 
+ 724      2D736563 
+ 724      74696F6E 
+ 725              	.LASF4:
+ 726 018c 6C6F6E67 		.ascii	"long int\000"
+ 726      20696E74 
+ 726      00
+ 727              	.LASF16:
+ 728 0195 4D697865 		.ascii	"Mixer_PD_B_Enable\000"
+ 728      725F5044 
+ 728      5F425F45 
+ 728      6E61626C 
+ 728      6500
+ 729              	.LASF10:
+ 730 01a7 646F7562 		.ascii	"double\000"
+ 730      6C6500
+ 731              	.LASF26:
+ 732 01ae 4D697865 		.ascii	"Mixer_PD_B_initVar\000"
+ 732      725F5044 
+ 732      5F425F69 
+ 732      6E697456 
+ 732      617200
+ 733              	.LASF3:
+ 734 01c1 73686F72 		.ascii	"short unsigned int\000"
+ 734      7420756E 
+ 734      7369676E 
+ 734      65642069 
+ 734      6E7400
+ 735              	.LASF0:
+ 736 01d4 7369676E 		.ascii	"signed char\000"
+ 736      65642063 
+ 736      68617200 
+ 737              	.LASF14:
+ 738 01e0 6C6F6E67 		.ascii	"long double\000"
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccW9LGLf.s 			page 21
+
+
+ 738      20646F75 
+ 738      626C6500 
+ 739              	.LASF15:
+ 740 01ec 73697A65 		.ascii	"sizetype\000"
+ 740      74797065 
+ 740      00
+ 741              	.LASF23:
+ 742 01f5 47656E65 		.ascii	"Generated_Source\\PSoC5\\Mixer_PD_B.c\000"
+ 742      72617465 
+ 742      645F536F 
+ 742      75726365 
+ 742      5C50536F 
+ 743              	.LASF2:
+ 744 0219 73686F72 		.ascii	"short int\000"
+ 744      7420696E 
+ 744      7400
+ 745              	.LASF13:
+ 746 0223 72656738 		.ascii	"reg8\000"
+ 746      00
+ 747              	.LASF20:
+ 748 0228 746D7043 		.ascii	"tmpCR\000"
+ 748      5200
+ 749              	.LASF25:
+ 750 022e 706F7765 		.ascii	"power\000"
+ 750      7200
+ 751              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

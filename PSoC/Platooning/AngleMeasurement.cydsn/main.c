@@ -39,21 +39,12 @@ uint8_t ISR_A_done = 0;
 uint8_t ISR_B_done = 0;
 
 int8_t angle = 0; // angle between front wheel of platoon follower compared to the platoon leader back wheels
-uint32_t distance = 0; // distance between follower and leader
-uint16_t velocity = 0; // platoon leader duty cycle
+int16_t distance = 0; // distance between follower and leader
+uint8_t velocity = 0; // platoon leader duty cycle
 
-// control system variables
-int16_t err = 0; // error
-int16_t reference = 0; // input
-int16_t result = 0; // output
+
 
 char output[200];
-
-CY_ISR(ISR_START_Handler)
-{
-    ADC_SAR_A_StartConvert();
-    ADC_SAR_B_StartConvert();
-}
 
 CY_ISR(ISR_OUT_A_Handler)
 {
@@ -79,15 +70,10 @@ CY_ISR(IRQ_Handler)
     nRF24_clear_irq_flag(flag);
 
     // temp value to hold velocity data
-    uint16_t data = 0;
+    // uint16_t data = 0;
     
     // get the data from the transmitter
-    nRF24_get_rx_payload((uint8_t *)&data, 2);
-    
-    // because the ARM device is little endian, the data is stored in the incorrect order
-    // so the data consists of the LSB|MSB of the velocity
-    velocity = data << 0x08;
-    velocity |= data >> 0x08;
+    nRF24_get_rx_payload(&velocity, 1);
 }
 
 int main(void)
@@ -101,10 +87,16 @@ int main(void)
     Maximum_Peak_Detector_B_Start();
     ADC_SAR_A_IRQ_Enable();
     ADC_SAR_B_IRQ_Enable();
-
+    PWM_H_BRIDGE_Start();
+    Clock_1_Start();
+    PWM_SERVO_Start();
+    Clock_2_Start();
     ISR_A_StartEx(ISR_OUT_A_Handler);
     ISR_B_StartEx(ISR_OUT_B_Handler);
-    NETWORK_PIN_StartEx(ISR_START_Handler); // test purpose: for simulating a network ping with a wire
+    killswitchP_Write(1);
+    N2_Write(0);
+    P1_Write(1);
+    P2_Write(0);
     
     /* configuration of DMA, this is black magic done by the DMA Wizard */
     DMA_A_Chan = DMA_A_DmaInitialize(DMA_A_BYTES_PER_BURST, DMA_A_REQUEST_PER_BURST, 
@@ -133,16 +125,36 @@ int main(void)
     nRF24_start();
     nRF24_set_rx_pipe_address(NRF_ADDR_PIPE0, RX_ADDR, 5);
     nRF24_start_listening();
-  
-    CyGlobalIntEnable;
     
-    const uint16_t K = 0; // control system value for P-controller
-    int32_t duty_cycle = 0;
+    // distance control system variables
+    int16_t err_dist = 0; // error
+    const int16_t reference_dist = 200; // input
+    const float Kp_dist = -0.5; // control system value for P-controller (spørg casper og bjørnefar)
+    int32_t duty_cycle_dist = 0;
+    
+    // angle control system variables
+    int16_t Kp_ang = -1;
+    //const float vel_ang = 2.5;
+    //const float width_car = 0.17;
+    int16_t servo_signal = 0;
+    const uint16_t t_right = 1035;
+    const uint16_t t_left = 1694;
+    const uint16_t t_center = (t_left + t_right)/2;
+    const uint8_t theta_tot = 60;
+    float angle_servo = 0;
+    float error_angle = 0;
+    uint8_t z_point_angle = 0;
+    int16_t servo_signal_RB[4] = {0,0,0,0};
+    int8_t servo_signal_counter = 0;
+    int16_t servo_signal_avg = 0;
+    
+    CyGlobalIntEnable;
     
     for(;;)
     {        
         if (ISR_A_done && ISR_B_done) {
             CyGlobalIntDisable;
+            // defining a and b for the highest amplitude of the signals
             uint16_t a = 0, b = 0;
             
             // ai1, ai2 and ai3 are the first, second and third highest amplitude time indices
@@ -184,29 +196,69 @@ int main(void)
             // use ai and bi depending on which has the closest peak to the network ping
             // The 500 value subtracted has been experimentally found
             if (ai < bi) {
-                distance = (ai * 2.25)/1000.0 * 343 - 500;
+                distance = ((ai * 2.25)/1000.0 * 343)-100;
+                sprintf(output, "%d - distance - %d\n", (int)ai, (int)distance);
+                UART_PutString(output); 
             } else {
-                distance = (bi * 2.25)/1000.0 * 343 - 500;
+                distance = (((bi * 2.25)/1000.0) * 343)-100;
+                    
+                sprintf(output, "%d - distance - %d\n", (int)bi, (int)distance);
+            UART_PutString(output); 
             }
             
             
             //for (uint16_t i = 0; i < DATA_SIZE; i++) {
-                sprintf(output, "%d\n", angle);
-                UART_PutString(output); 
+                
             //}
 
             ISR_A_done = ISR_B_done = 0;
                 
-            err = reference - result;
-            duty_cycle = K * err + velocity;
+        // CONTROL SYSTEM - DISTANCE:
+            
+            err_dist = reference_dist - distance;
+            duty_cycle_dist = Kp_dist * err_dist + velocity;
             
             // if duty_cycle ends up being negative, it needs to be capped at 0
-            if (duty_cycle < 0)
+            if (duty_cycle_dist < 0)
             {
-                duty_cycle = 0;
+                duty_cycle_dist = 0;
+            }else if(duty_cycle_dist > 150){
+                duty_cycle_dist = 150;
             }
+            
+            PWM_H_BRIDGE_WriteCompare(duty_cycle_dist*killswitchS_Read());
+            
+            
+        //CONTROL SYSTEM - ANGLE:
+            
+            error_angle = z_point_angle - angle;
+            angle_servo = Kp_ang * error_angle;
+            if(angle_servo > 30){
+                angle_servo = 30;
+            } else if(angle_servo < -30){
+                angle_servo = -30;
+            } else {
+                angle_servo = angle;
+            }
+            
+            servo_signal = angle_servo * ((t_right - t_left)/theta_tot) + t_center;
+            
+            if(servo_signal_counter == 3){
+                servo_signal_RB[servo_signal_counter] = servo_signal;
+                servo_signal_counter = 0;
+            }else{
+                servo_signal_RB[servo_signal_counter] = servo_signal;
+                servo_signal_counter++;
+            }
+            servo_signal_avg = (servo_signal_RB[0] + servo_signal_RB[1] + servo_signal_RB[2])/3;
+            
+            
+            PWM_SERVO_WriteCompare(servo_signal_avg);
+
             
             CyGlobalIntEnable;
         }
     }
 }
+
+

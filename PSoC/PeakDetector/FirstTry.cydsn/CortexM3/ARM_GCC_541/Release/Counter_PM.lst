@@ -1,0 +1,916 @@
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccGR1XIy.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"Counter_PM.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.Counter_SaveConfig,"ax",%progbits
+  20              		.align	1
+  21              		.global	Counter_SaveConfig
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	Counter_SaveConfig, %function
+  25              	Counter_SaveConfig:
+  26              	.LFB5:
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  31 0000 7047     		bx	lr
+  32              		.cfi_endproc
+  33              	.LFE5:
+  34              		.size	Counter_SaveConfig, .-Counter_SaveConfig
+  35              		.section	.text.Counter_RestoreConfig,"ax",%progbits
+  36              		.align	1
+  37              		.global	Counter_RestoreConfig
+  38              		.thumb
+  39              		.thumb_func
+  40              		.type	Counter_RestoreConfig, %function
+  41              	Counter_RestoreConfig:
+  42              	.LFB1:
+  43              		.file 1 "Generated_Source\\PSoC5\\Counter_PM.c"
+   1:Generated_Source\PSoC5/Counter_PM.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/Counter_PM.c **** * File Name: Counter_PM.c  
+   3:Generated_Source\PSoC5/Counter_PM.c **** * Version 3.0
+   4:Generated_Source\PSoC5/Counter_PM.c **** *
+   5:Generated_Source\PSoC5/Counter_PM.c **** *  Description:
+   6:Generated_Source\PSoC5/Counter_PM.c **** *    This file provides the power management source code to API for the
+   7:Generated_Source\PSoC5/Counter_PM.c **** *    Counter.  
+   8:Generated_Source\PSoC5/Counter_PM.c **** *
+   9:Generated_Source\PSoC5/Counter_PM.c **** *   Note:
+  10:Generated_Source\PSoC5/Counter_PM.c **** *     None
+  11:Generated_Source\PSoC5/Counter_PM.c **** *
+  12:Generated_Source\PSoC5/Counter_PM.c **** ********************************************************************************
+  13:Generated_Source\PSoC5/Counter_PM.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  14:Generated_Source\PSoC5/Counter_PM.c **** * You may use this file only in accordance with the license, terms, conditions, 
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccGR1XIy.s 			page 2
+
+
+  15:Generated_Source\PSoC5/Counter_PM.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  16:Generated_Source\PSoC5/Counter_PM.c **** * the software package with which this file was provided.
+  17:Generated_Source\PSoC5/Counter_PM.c **** *******************************************************************************/
+  18:Generated_Source\PSoC5/Counter_PM.c **** 
+  19:Generated_Source\PSoC5/Counter_PM.c **** #include "Counter.h"
+  20:Generated_Source\PSoC5/Counter_PM.c **** 
+  21:Generated_Source\PSoC5/Counter_PM.c **** static Counter_backupStruct Counter_backup;
+  22:Generated_Source\PSoC5/Counter_PM.c **** 
+  23:Generated_Source\PSoC5/Counter_PM.c **** 
+  24:Generated_Source\PSoC5/Counter_PM.c **** /*******************************************************************************
+  25:Generated_Source\PSoC5/Counter_PM.c **** * Function Name: Counter_SaveConfig
+  26:Generated_Source\PSoC5/Counter_PM.c **** ********************************************************************************
+  27:Generated_Source\PSoC5/Counter_PM.c **** * Summary:
+  28:Generated_Source\PSoC5/Counter_PM.c **** *     Save the current user configuration
+  29:Generated_Source\PSoC5/Counter_PM.c **** *
+  30:Generated_Source\PSoC5/Counter_PM.c **** * Parameters:  
+  31:Generated_Source\PSoC5/Counter_PM.c **** *  void
+  32:Generated_Source\PSoC5/Counter_PM.c **** *
+  33:Generated_Source\PSoC5/Counter_PM.c **** * Return: 
+  34:Generated_Source\PSoC5/Counter_PM.c **** *  void
+  35:Generated_Source\PSoC5/Counter_PM.c **** *
+  36:Generated_Source\PSoC5/Counter_PM.c **** * Global variables:
+  37:Generated_Source\PSoC5/Counter_PM.c **** *  Counter_backup:  Variables of this global structure are modified to 
+  38:Generated_Source\PSoC5/Counter_PM.c **** *  store the values of non retention configuration registers when Sleep() API is 
+  39:Generated_Source\PSoC5/Counter_PM.c **** *  called.
+  40:Generated_Source\PSoC5/Counter_PM.c **** *
+  41:Generated_Source\PSoC5/Counter_PM.c **** *******************************************************************************/
+  42:Generated_Source\PSoC5/Counter_PM.c **** void Counter_SaveConfig(void) 
+  43:Generated_Source\PSoC5/Counter_PM.c **** {
+  44:Generated_Source\PSoC5/Counter_PM.c ****     #if (!Counter_UsingFixedFunction)
+  45:Generated_Source\PSoC5/Counter_PM.c **** 
+  46:Generated_Source\PSoC5/Counter_PM.c ****         Counter_backup.CounterUdb = Counter_ReadCounter();
+  47:Generated_Source\PSoC5/Counter_PM.c **** 
+  48:Generated_Source\PSoC5/Counter_PM.c ****         #if(!Counter_ControlRegRemoved)
+  49:Generated_Source\PSoC5/Counter_PM.c ****             Counter_backup.CounterControlRegister = Counter_ReadControlRegister();
+  50:Generated_Source\PSoC5/Counter_PM.c ****         #endif /* (!Counter_ControlRegRemoved) */
+  51:Generated_Source\PSoC5/Counter_PM.c **** 
+  52:Generated_Source\PSoC5/Counter_PM.c ****     #endif /* (!Counter_UsingFixedFunction) */
+  53:Generated_Source\PSoC5/Counter_PM.c **** }
+  54:Generated_Source\PSoC5/Counter_PM.c **** 
+  55:Generated_Source\PSoC5/Counter_PM.c **** 
+  56:Generated_Source\PSoC5/Counter_PM.c **** /*******************************************************************************
+  57:Generated_Source\PSoC5/Counter_PM.c **** * Function Name: Counter_RestoreConfig
+  58:Generated_Source\PSoC5/Counter_PM.c **** ********************************************************************************
+  59:Generated_Source\PSoC5/Counter_PM.c **** *
+  60:Generated_Source\PSoC5/Counter_PM.c **** * Summary:
+  61:Generated_Source\PSoC5/Counter_PM.c **** *  Restores the current user configuration.
+  62:Generated_Source\PSoC5/Counter_PM.c **** *
+  63:Generated_Source\PSoC5/Counter_PM.c **** * Parameters:  
+  64:Generated_Source\PSoC5/Counter_PM.c **** *  void
+  65:Generated_Source\PSoC5/Counter_PM.c **** *
+  66:Generated_Source\PSoC5/Counter_PM.c **** * Return: 
+  67:Generated_Source\PSoC5/Counter_PM.c **** *  void
+  68:Generated_Source\PSoC5/Counter_PM.c **** *
+  69:Generated_Source\PSoC5/Counter_PM.c **** * Global variables:
+  70:Generated_Source\PSoC5/Counter_PM.c **** *  Counter_backup:  Variables of this global structure are used to 
+  71:Generated_Source\PSoC5/Counter_PM.c **** *  restore the values of non retention registers on wakeup from sleep mode.
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccGR1XIy.s 			page 3
+
+
+  72:Generated_Source\PSoC5/Counter_PM.c **** *
+  73:Generated_Source\PSoC5/Counter_PM.c **** *******************************************************************************/
+  74:Generated_Source\PSoC5/Counter_PM.c **** void Counter_RestoreConfig(void) 
+  75:Generated_Source\PSoC5/Counter_PM.c **** {      
+  44              		.loc 1 75 0
+  45              		.cfi_startproc
+  46              		@ args = 0, pretend = 0, frame = 0
+  47              		@ frame_needed = 0, uses_anonymous_args = 0
+  48              		@ link register save eliminated.
+  49 0000 7047     		bx	lr
+  50              		.cfi_endproc
+  51              	.LFE1:
+  52              		.size	Counter_RestoreConfig, .-Counter_RestoreConfig
+  53              		.section	.text.Counter_Sleep,"ax",%progbits
+  54              		.align	1
+  55              		.global	Counter_Sleep
+  56              		.thumb
+  57              		.thumb_func
+  58              		.type	Counter_Sleep, %function
+  59              	Counter_Sleep:
+  60              	.LFB2:
+  76:Generated_Source\PSoC5/Counter_PM.c ****     #if (!Counter_UsingFixedFunction)
+  77:Generated_Source\PSoC5/Counter_PM.c **** 
+  78:Generated_Source\PSoC5/Counter_PM.c ****        Counter_WriteCounter(Counter_backup.CounterUdb);
+  79:Generated_Source\PSoC5/Counter_PM.c **** 
+  80:Generated_Source\PSoC5/Counter_PM.c ****         #if(!Counter_ControlRegRemoved)
+  81:Generated_Source\PSoC5/Counter_PM.c ****             Counter_WriteControlRegister(Counter_backup.CounterControlRegister);
+  82:Generated_Source\PSoC5/Counter_PM.c ****         #endif /* (!Counter_ControlRegRemoved) */
+  83:Generated_Source\PSoC5/Counter_PM.c **** 
+  84:Generated_Source\PSoC5/Counter_PM.c ****     #endif /* (!Counter_UsingFixedFunction) */
+  85:Generated_Source\PSoC5/Counter_PM.c **** }
+  86:Generated_Source\PSoC5/Counter_PM.c **** 
+  87:Generated_Source\PSoC5/Counter_PM.c **** 
+  88:Generated_Source\PSoC5/Counter_PM.c **** /*******************************************************************************
+  89:Generated_Source\PSoC5/Counter_PM.c **** * Function Name: Counter_Sleep
+  90:Generated_Source\PSoC5/Counter_PM.c **** ********************************************************************************
+  91:Generated_Source\PSoC5/Counter_PM.c **** * Summary:
+  92:Generated_Source\PSoC5/Counter_PM.c **** *     Stop and Save the user configuration
+  93:Generated_Source\PSoC5/Counter_PM.c **** *
+  94:Generated_Source\PSoC5/Counter_PM.c **** * Parameters:  
+  95:Generated_Source\PSoC5/Counter_PM.c **** *  void
+  96:Generated_Source\PSoC5/Counter_PM.c **** *
+  97:Generated_Source\PSoC5/Counter_PM.c **** * Return: 
+  98:Generated_Source\PSoC5/Counter_PM.c **** *  void
+  99:Generated_Source\PSoC5/Counter_PM.c **** *
+ 100:Generated_Source\PSoC5/Counter_PM.c **** * Global variables:
+ 101:Generated_Source\PSoC5/Counter_PM.c **** *  Counter_backup.enableState:  Is modified depending on the enable 
+ 102:Generated_Source\PSoC5/Counter_PM.c **** *  state of the block before entering sleep mode.
+ 103:Generated_Source\PSoC5/Counter_PM.c **** *
+ 104:Generated_Source\PSoC5/Counter_PM.c **** *******************************************************************************/
+ 105:Generated_Source\PSoC5/Counter_PM.c **** void Counter_Sleep(void) 
+ 106:Generated_Source\PSoC5/Counter_PM.c **** {
+  61              		.loc 1 106 0
+  62              		.cfi_startproc
+  63              		@ args = 0, pretend = 0, frame = 0
+  64              		@ frame_needed = 0, uses_anonymous_args = 0
+  65              		@ link register save eliminated.
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccGR1XIy.s 			page 4
+
+
+ 107:Generated_Source\PSoC5/Counter_PM.c ****     #if(!Counter_ControlRegRemoved)
+ 108:Generated_Source\PSoC5/Counter_PM.c ****         /* Save Counter's enable state */
+ 109:Generated_Source\PSoC5/Counter_PM.c ****         if(Counter_CTRL_ENABLE == (Counter_CONTROL & Counter_CTRL_ENABLE))
+  66              		.loc 1 109 0
+  67 0000 044B     		ldr	r3, .L6
+  68 0002 054A     		ldr	r2, .L6+4
+  69 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  70 0006 13F00103 		ands	r3, r3, #1
+ 110:Generated_Source\PSoC5/Counter_PM.c ****         {
+ 111:Generated_Source\PSoC5/Counter_PM.c ****             /* Counter is enabled */
+ 112:Generated_Source\PSoC5/Counter_PM.c ****             Counter_backup.CounterEnableState = 1u;
+  71              		.loc 1 112 0
+  72 000a 18BF     		it	ne
+  73 000c 0123     		movne	r3, #1
+ 113:Generated_Source\PSoC5/Counter_PM.c ****         }
+ 114:Generated_Source\PSoC5/Counter_PM.c ****         else
+ 115:Generated_Source\PSoC5/Counter_PM.c ****         {
+ 116:Generated_Source\PSoC5/Counter_PM.c ****             /* Counter is disabled */
+ 117:Generated_Source\PSoC5/Counter_PM.c ****             Counter_backup.CounterEnableState = 0u;
+  74              		.loc 1 117 0
+  75 000e 1370     		strb	r3, [r2]
+ 118:Generated_Source\PSoC5/Counter_PM.c ****         }
+ 119:Generated_Source\PSoC5/Counter_PM.c ****     #else
+ 120:Generated_Source\PSoC5/Counter_PM.c ****         Counter_backup.CounterEnableState = 1u;
+ 121:Generated_Source\PSoC5/Counter_PM.c ****         if(Counter_backup.CounterEnableState != 0u)
+ 122:Generated_Source\PSoC5/Counter_PM.c ****         {
+ 123:Generated_Source\PSoC5/Counter_PM.c ****             Counter_backup.CounterEnableState = 0u;
+ 124:Generated_Source\PSoC5/Counter_PM.c ****         }
+ 125:Generated_Source\PSoC5/Counter_PM.c ****     #endif /* (!Counter_ControlRegRemoved) */
+ 126:Generated_Source\PSoC5/Counter_PM.c ****     
+ 127:Generated_Source\PSoC5/Counter_PM.c ****     Counter_Stop();
+  76              		.loc 1 127 0
+  77 0010 FFF7FEBF 		b	Counter_Stop
+  78              	.LVL0:
+  79              	.L7:
+  80              		.align	2
+  81              	.L6:
+  82 0014 004F0040 		.word	1073762048
+  83 0018 00000000 		.word	.LANCHOR0
+  84              		.cfi_endproc
+  85              	.LFE2:
+  86              		.size	Counter_Sleep, .-Counter_Sleep
+  87              		.section	.text.Counter_Wakeup,"ax",%progbits
+  88              		.align	1
+  89              		.global	Counter_Wakeup
+  90              		.thumb
+  91              		.thumb_func
+  92              		.type	Counter_Wakeup, %function
+  93              	Counter_Wakeup:
+  94              	.LFB3:
+ 128:Generated_Source\PSoC5/Counter_PM.c ****     Counter_SaveConfig();
+ 129:Generated_Source\PSoC5/Counter_PM.c **** }
+ 130:Generated_Source\PSoC5/Counter_PM.c **** 
+ 131:Generated_Source\PSoC5/Counter_PM.c **** 
+ 132:Generated_Source\PSoC5/Counter_PM.c **** /*******************************************************************************
+ 133:Generated_Source\PSoC5/Counter_PM.c **** * Function Name: Counter_Wakeup
+ 134:Generated_Source\PSoC5/Counter_PM.c **** ********************************************************************************
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccGR1XIy.s 			page 5
+
+
+ 135:Generated_Source\PSoC5/Counter_PM.c **** *
+ 136:Generated_Source\PSoC5/Counter_PM.c **** * Summary:
+ 137:Generated_Source\PSoC5/Counter_PM.c **** *  Restores and enables the user configuration
+ 138:Generated_Source\PSoC5/Counter_PM.c **** *  
+ 139:Generated_Source\PSoC5/Counter_PM.c **** * Parameters:  
+ 140:Generated_Source\PSoC5/Counter_PM.c **** *  void
+ 141:Generated_Source\PSoC5/Counter_PM.c **** *
+ 142:Generated_Source\PSoC5/Counter_PM.c **** * Return: 
+ 143:Generated_Source\PSoC5/Counter_PM.c **** *  void
+ 144:Generated_Source\PSoC5/Counter_PM.c **** *
+ 145:Generated_Source\PSoC5/Counter_PM.c **** * Global variables:
+ 146:Generated_Source\PSoC5/Counter_PM.c **** *  Counter_backup.enableState:  Is used to restore the enable state of 
+ 147:Generated_Source\PSoC5/Counter_PM.c **** *  block on wakeup from sleep mode.
+ 148:Generated_Source\PSoC5/Counter_PM.c **** *
+ 149:Generated_Source\PSoC5/Counter_PM.c **** *******************************************************************************/
+ 150:Generated_Source\PSoC5/Counter_PM.c **** void Counter_Wakeup(void) 
+ 151:Generated_Source\PSoC5/Counter_PM.c **** {
+  95              		.loc 1 151 0
+  96              		.cfi_startproc
+  97              		@ args = 0, pretend = 0, frame = 0
+  98              		@ frame_needed = 0, uses_anonymous_args = 0
+  99              		@ link register save eliminated.
+ 152:Generated_Source\PSoC5/Counter_PM.c ****     Counter_RestoreConfig();
+ 153:Generated_Source\PSoC5/Counter_PM.c ****     #if(!Counter_ControlRegRemoved)
+ 154:Generated_Source\PSoC5/Counter_PM.c ****         if(Counter_backup.CounterEnableState == 1u)
+ 100              		.loc 1 154 0
+ 101 0000 034B     		ldr	r3, .L11
+ 102 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 103 0004 012B     		cmp	r3, #1
+ 104 0006 01D1     		bne	.L8
+ 155:Generated_Source\PSoC5/Counter_PM.c ****         {
+ 156:Generated_Source\PSoC5/Counter_PM.c ****             /* Enable Counter's operation */
+ 157:Generated_Source\PSoC5/Counter_PM.c ****             Counter_Enable();
+ 105              		.loc 1 157 0
+ 106 0008 FFF7FEBF 		b	Counter_Enable
+ 107              	.LVL1:
+ 108              	.L8:
+ 109 000c 7047     		bx	lr
+ 110              	.L12:
+ 111 000e 00BF     		.align	2
+ 112              	.L11:
+ 113 0010 00000000 		.word	.LANCHOR0
+ 114              		.cfi_endproc
+ 115              	.LFE3:
+ 116              		.size	Counter_Wakeup, .-Counter_Wakeup
+ 117              		.bss
+ 118              		.align	1
+ 119              		.set	.LANCHOR0,. + 0
+ 120              		.type	Counter_backup, %object
+ 121              		.size	Counter_backup, 6
+ 122              	Counter_backup:
+ 123 0000 00000000 		.space	6
+ 123      0000
+ 124              		.text
+ 125              	.Letext0:
+ 126              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 127              		.file 3 "Generated_Source\\PSoC5\\Counter.h"
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccGR1XIy.s 			page 6
+
+
+ 128              		.section	.debug_info,"",%progbits
+ 129              	.Ldebug_info0:
+ 130 0000 70010000 		.4byte	0x170
+ 131 0004 0400     		.2byte	0x4
+ 132 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 133 000a 04       		.byte	0x4
+ 134 000b 01       		.uleb128 0x1
+ 135 000c D0000000 		.4byte	.LASF27
+ 136 0010 0C       		.byte	0xc
+ 137 0011 19020000 		.4byte	.LASF28
+ 138 0015 3F000000 		.4byte	.LASF29
+ 139 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 140 001d 00000000 		.4byte	0
+ 141 0021 00000000 		.4byte	.Ldebug_line0
+ 142 0025 02       		.uleb128 0x2
+ 143 0026 01       		.byte	0x1
+ 144 0027 06       		.byte	0x6
+ 145 0028 74020000 		.4byte	.LASF0
+ 146 002c 02       		.uleb128 0x2
+ 147 002d 01       		.byte	0x1
+ 148 002e 08       		.byte	0x8
+ 149 002f BD000000 		.4byte	.LASF1
+ 150 0033 02       		.uleb128 0x2
+ 151 0034 02       		.byte	0x2
+ 152 0035 05       		.byte	0x5
+ 153 0036 0F020000 		.4byte	.LASF2
+ 154 003a 02       		.uleb128 0x2
+ 155 003b 02       		.byte	0x2
+ 156 003c 07       		.byte	0x7
+ 157 003d 2C000000 		.4byte	.LASF3
+ 158 0041 02       		.uleb128 0x2
+ 159 0042 04       		.byte	0x4
+ 160 0043 05       		.byte	0x5
+ 161 0044 50020000 		.4byte	.LASF4
+ 162 0048 02       		.uleb128 0x2
+ 163 0049 04       		.byte	0x4
+ 164 004a 07       		.byte	0x7
+ 165 004b 94010000 		.4byte	.LASF5
+ 166 004f 02       		.uleb128 0x2
+ 167 0050 08       		.byte	0x8
+ 168 0051 05       		.byte	0x5
+ 169 0052 E6010000 		.4byte	.LASF6
+ 170 0056 02       		.uleb128 0x2
+ 171 0057 08       		.byte	0x8
+ 172 0058 07       		.byte	0x7
+ 173 0059 B3010000 		.4byte	.LASF7
+ 174 005d 03       		.uleb128 0x3
+ 175 005e 04       		.byte	0x4
+ 176 005f 05       		.byte	0x5
+ 177 0060 696E7400 		.ascii	"int\000"
+ 178 0064 02       		.uleb128 0x2
+ 179 0065 04       		.byte	0x4
+ 180 0066 07       		.byte	0x7
+ 181 0067 A6010000 		.4byte	.LASF8
+ 182 006b 04       		.uleb128 0x4
+ 183 006c 5E010000 		.4byte	.LASF9
+ 184 0070 02       		.byte	0x2
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccGR1XIy.s 			page 7
+
+
+ 185 0071 9201     		.2byte	0x192
+ 186 0073 2C000000 		.4byte	0x2c
+ 187 0077 04       		.uleb128 0x4
+ 188 0078 8D010000 		.4byte	.LASF10
+ 189 007c 02       		.byte	0x2
+ 190 007d 9301     		.2byte	0x193
+ 191 007f 3A000000 		.4byte	0x3a
+ 192 0083 02       		.uleb128 0x2
+ 193 0084 04       		.byte	0x4
+ 194 0085 04       		.byte	0x4
+ 195 0086 B7000000 		.4byte	.LASF11
+ 196 008a 02       		.uleb128 0x2
+ 197 008b 08       		.byte	0x8
+ 198 008c 04       		.byte	0x4
+ 199 008d 71010000 		.4byte	.LASF12
+ 200 0091 02       		.uleb128 0x2
+ 201 0092 01       		.byte	0x1
+ 202 0093 08       		.byte	0x8
+ 203 0094 0A020000 		.4byte	.LASF13
+ 204 0098 04       		.uleb128 0x4
+ 205 0099 CB000000 		.4byte	.LASF14
+ 206 009d 02       		.byte	0x2
+ 207 009e 3C02     		.2byte	0x23c
+ 208 00a0 A4000000 		.4byte	0xa4
+ 209 00a4 05       		.uleb128 0x5
+ 210 00a5 6B000000 		.4byte	0x6b
+ 211 00a9 02       		.uleb128 0x2
+ 212 00aa 08       		.byte	0x8
+ 213 00ab 04       		.byte	0x4
+ 214 00ac 59020000 		.4byte	.LASF15
+ 215 00b0 02       		.uleb128 0x2
+ 216 00b1 04       		.byte	0x4
+ 217 00b2 07       		.byte	0x7
+ 218 00b3 CA010000 		.4byte	.LASF16
+ 219 00b7 06       		.uleb128 0x6
+ 220 00b8 06       		.byte	0x6
+ 221 00b9 03       		.byte	0x3
+ 222 00ba 40       		.byte	0x40
+ 223 00bb E4000000 		.4byte	0xe4
+ 224 00bf 07       		.uleb128 0x7
+ 225 00c0 D3010000 		.4byte	.LASF17
+ 226 00c4 03       		.byte	0x3
+ 227 00c5 42       		.byte	0x42
+ 228 00c6 6B000000 		.4byte	0x6b
+ 229 00ca 00       		.byte	0
+ 230 00cb 07       		.uleb128 0x7
+ 231 00cc 95000000 		.4byte	.LASF18
+ 232 00d0 03       		.byte	0x3
+ 233 00d1 43       		.byte	0x43
+ 234 00d2 77000000 		.4byte	0x77
+ 235 00d6 02       		.byte	0x2
+ 236 00d7 07       		.uleb128 0x7
+ 237 00d8 A0000000 		.4byte	.LASF19
+ 238 00dc 03       		.byte	0x3
+ 239 00dd 46       		.byte	0x46
+ 240 00de 6B000000 		.4byte	0x6b
+ 241 00e2 04       		.byte	0x4
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccGR1XIy.s 			page 8
+
+
+ 242 00e3 00       		.byte	0
+ 243 00e4 08       		.uleb128 0x8
+ 244 00e5 78010000 		.4byte	.LASF20
+ 245 00e9 03       		.byte	0x3
+ 246 00ea 49       		.byte	0x49
+ 247 00eb B7000000 		.4byte	0xb7
+ 248 00ef 09       		.uleb128 0x9
+ 249 00f0 3D020000 		.4byte	.LASF21
+ 250 00f4 01       		.byte	0x1
+ 251 00f5 2A       		.byte	0x2a
+ 252 00f6 01       		.byte	0x1
+ 253 00f7 09       		.uleb128 0x9
+ 254 00f8 F4010000 		.4byte	.LASF22
+ 255 00fc 01       		.byte	0x1
+ 256 00fd 4A       		.byte	0x4a
+ 257 00fe 01       		.byte	0x1
+ 258 00ff 0A       		.uleb128 0xa
+ 259 0100 F7000000 		.4byte	0xf7
+ 260 0104 00000000 		.4byte	.LFB1
+ 261 0108 02000000 		.4byte	.LFE1-.LFB1
+ 262 010c 01       		.uleb128 0x1
+ 263 010d 9C       		.byte	0x9c
+ 264 010e 0B       		.uleb128 0xb
+ 265 010f 1E000000 		.4byte	.LASF23
+ 266 0113 01       		.byte	0x1
+ 267 0114 69       		.byte	0x69
+ 268 0115 00000000 		.4byte	.LFB2
+ 269 0119 1C000000 		.4byte	.LFE2-.LFB2
+ 270 011d 01       		.uleb128 0x1
+ 271 011e 9C       		.byte	0x9c
+ 272 011f 2D010000 		.4byte	0x12d
+ 273 0123 0C       		.uleb128 0xc
+ 274 0124 14000000 		.4byte	.LVL0
+ 275 0128 5D010000 		.4byte	0x15d
+ 276 012c 00       		.byte	0
+ 277 012d 0B       		.uleb128 0xb
+ 278 012e 0F000000 		.4byte	.LASF24
+ 279 0132 01       		.byte	0x1
+ 280 0133 96       		.byte	0x96
+ 281 0134 00000000 		.4byte	.LFB3
+ 282 0138 14000000 		.4byte	.LFE3-.LFB3
+ 283 013c 01       		.uleb128 0x1
+ 284 013d 9C       		.byte	0x9c
+ 285 013e 4C010000 		.4byte	0x14c
+ 286 0142 0C       		.uleb128 0xc
+ 287 0143 0C000000 		.4byte	.LVL1
+ 288 0147 68010000 		.4byte	0x168
+ 289 014b 00       		.byte	0
+ 290 014c 0D       		.uleb128 0xd
+ 291 014d 65020000 		.4byte	.LASF30
+ 292 0151 01       		.byte	0x1
+ 293 0152 15       		.byte	0x15
+ 294 0153 E4000000 		.4byte	0xe4
+ 295 0157 05       		.uleb128 0x5
+ 296 0158 03       		.byte	0x3
+ 297 0159 00000000 		.4byte	Counter_backup
+ 298 015d 0E       		.uleb128 0xe
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccGR1XIy.s 			page 9
+
+
+ 299 015e 64010000 		.4byte	.LASF25
+ 300 0162 64010000 		.4byte	.LASF25
+ 301 0166 03       		.byte	0x3
+ 302 0167 50       		.byte	0x50
+ 303 0168 0E       		.uleb128 0xe
+ 304 0169 00000000 		.4byte	.LASF26
+ 305 016d 00000000 		.4byte	.LASF26
+ 306 0171 03       		.byte	0x3
+ 307 0172 71       		.byte	0x71
+ 308 0173 00       		.byte	0
+ 309              		.section	.debug_abbrev,"",%progbits
+ 310              	.Ldebug_abbrev0:
+ 311 0000 01       		.uleb128 0x1
+ 312 0001 11       		.uleb128 0x11
+ 313 0002 01       		.byte	0x1
+ 314 0003 25       		.uleb128 0x25
+ 315 0004 0E       		.uleb128 0xe
+ 316 0005 13       		.uleb128 0x13
+ 317 0006 0B       		.uleb128 0xb
+ 318 0007 03       		.uleb128 0x3
+ 319 0008 0E       		.uleb128 0xe
+ 320 0009 1B       		.uleb128 0x1b
+ 321 000a 0E       		.uleb128 0xe
+ 322 000b 55       		.uleb128 0x55
+ 323 000c 17       		.uleb128 0x17
+ 324 000d 11       		.uleb128 0x11
+ 325 000e 01       		.uleb128 0x1
+ 326 000f 10       		.uleb128 0x10
+ 327 0010 17       		.uleb128 0x17
+ 328 0011 00       		.byte	0
+ 329 0012 00       		.byte	0
+ 330 0013 02       		.uleb128 0x2
+ 331 0014 24       		.uleb128 0x24
+ 332 0015 00       		.byte	0
+ 333 0016 0B       		.uleb128 0xb
+ 334 0017 0B       		.uleb128 0xb
+ 335 0018 3E       		.uleb128 0x3e
+ 336 0019 0B       		.uleb128 0xb
+ 337 001a 03       		.uleb128 0x3
+ 338 001b 0E       		.uleb128 0xe
+ 339 001c 00       		.byte	0
+ 340 001d 00       		.byte	0
+ 341 001e 03       		.uleb128 0x3
+ 342 001f 24       		.uleb128 0x24
+ 343 0020 00       		.byte	0
+ 344 0021 0B       		.uleb128 0xb
+ 345 0022 0B       		.uleb128 0xb
+ 346 0023 3E       		.uleb128 0x3e
+ 347 0024 0B       		.uleb128 0xb
+ 348 0025 03       		.uleb128 0x3
+ 349 0026 08       		.uleb128 0x8
+ 350 0027 00       		.byte	0
+ 351 0028 00       		.byte	0
+ 352 0029 04       		.uleb128 0x4
+ 353 002a 16       		.uleb128 0x16
+ 354 002b 00       		.byte	0
+ 355 002c 03       		.uleb128 0x3
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccGR1XIy.s 			page 10
+
+
+ 356 002d 0E       		.uleb128 0xe
+ 357 002e 3A       		.uleb128 0x3a
+ 358 002f 0B       		.uleb128 0xb
+ 359 0030 3B       		.uleb128 0x3b
+ 360 0031 05       		.uleb128 0x5
+ 361 0032 49       		.uleb128 0x49
+ 362 0033 13       		.uleb128 0x13
+ 363 0034 00       		.byte	0
+ 364 0035 00       		.byte	0
+ 365 0036 05       		.uleb128 0x5
+ 366 0037 35       		.uleb128 0x35
+ 367 0038 00       		.byte	0
+ 368 0039 49       		.uleb128 0x49
+ 369 003a 13       		.uleb128 0x13
+ 370 003b 00       		.byte	0
+ 371 003c 00       		.byte	0
+ 372 003d 06       		.uleb128 0x6
+ 373 003e 13       		.uleb128 0x13
+ 374 003f 01       		.byte	0x1
+ 375 0040 0B       		.uleb128 0xb
+ 376 0041 0B       		.uleb128 0xb
+ 377 0042 3A       		.uleb128 0x3a
+ 378 0043 0B       		.uleb128 0xb
+ 379 0044 3B       		.uleb128 0x3b
+ 380 0045 0B       		.uleb128 0xb
+ 381 0046 01       		.uleb128 0x1
+ 382 0047 13       		.uleb128 0x13
+ 383 0048 00       		.byte	0
+ 384 0049 00       		.byte	0
+ 385 004a 07       		.uleb128 0x7
+ 386 004b 0D       		.uleb128 0xd
+ 387 004c 00       		.byte	0
+ 388 004d 03       		.uleb128 0x3
+ 389 004e 0E       		.uleb128 0xe
+ 390 004f 3A       		.uleb128 0x3a
+ 391 0050 0B       		.uleb128 0xb
+ 392 0051 3B       		.uleb128 0x3b
+ 393 0052 0B       		.uleb128 0xb
+ 394 0053 49       		.uleb128 0x49
+ 395 0054 13       		.uleb128 0x13
+ 396 0055 38       		.uleb128 0x38
+ 397 0056 0B       		.uleb128 0xb
+ 398 0057 00       		.byte	0
+ 399 0058 00       		.byte	0
+ 400 0059 08       		.uleb128 0x8
+ 401 005a 16       		.uleb128 0x16
+ 402 005b 00       		.byte	0
+ 403 005c 03       		.uleb128 0x3
+ 404 005d 0E       		.uleb128 0xe
+ 405 005e 3A       		.uleb128 0x3a
+ 406 005f 0B       		.uleb128 0xb
+ 407 0060 3B       		.uleb128 0x3b
+ 408 0061 0B       		.uleb128 0xb
+ 409 0062 49       		.uleb128 0x49
+ 410 0063 13       		.uleb128 0x13
+ 411 0064 00       		.byte	0
+ 412 0065 00       		.byte	0
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccGR1XIy.s 			page 11
+
+
+ 413 0066 09       		.uleb128 0x9
+ 414 0067 2E       		.uleb128 0x2e
+ 415 0068 00       		.byte	0
+ 416 0069 3F       		.uleb128 0x3f
+ 417 006a 19       		.uleb128 0x19
+ 418 006b 03       		.uleb128 0x3
+ 419 006c 0E       		.uleb128 0xe
+ 420 006d 3A       		.uleb128 0x3a
+ 421 006e 0B       		.uleb128 0xb
+ 422 006f 3B       		.uleb128 0x3b
+ 423 0070 0B       		.uleb128 0xb
+ 424 0071 27       		.uleb128 0x27
+ 425 0072 19       		.uleb128 0x19
+ 426 0073 20       		.uleb128 0x20
+ 427 0074 0B       		.uleb128 0xb
+ 428 0075 00       		.byte	0
+ 429 0076 00       		.byte	0
+ 430 0077 0A       		.uleb128 0xa
+ 431 0078 2E       		.uleb128 0x2e
+ 432 0079 00       		.byte	0
+ 433 007a 31       		.uleb128 0x31
+ 434 007b 13       		.uleb128 0x13
+ 435 007c 11       		.uleb128 0x11
+ 436 007d 01       		.uleb128 0x1
+ 437 007e 12       		.uleb128 0x12
+ 438 007f 06       		.uleb128 0x6
+ 439 0080 40       		.uleb128 0x40
+ 440 0081 18       		.uleb128 0x18
+ 441 0082 9742     		.uleb128 0x2117
+ 442 0084 19       		.uleb128 0x19
+ 443 0085 00       		.byte	0
+ 444 0086 00       		.byte	0
+ 445 0087 0B       		.uleb128 0xb
+ 446 0088 2E       		.uleb128 0x2e
+ 447 0089 01       		.byte	0x1
+ 448 008a 3F       		.uleb128 0x3f
+ 449 008b 19       		.uleb128 0x19
+ 450 008c 03       		.uleb128 0x3
+ 451 008d 0E       		.uleb128 0xe
+ 452 008e 3A       		.uleb128 0x3a
+ 453 008f 0B       		.uleb128 0xb
+ 454 0090 3B       		.uleb128 0x3b
+ 455 0091 0B       		.uleb128 0xb
+ 456 0092 27       		.uleb128 0x27
+ 457 0093 19       		.uleb128 0x19
+ 458 0094 11       		.uleb128 0x11
+ 459 0095 01       		.uleb128 0x1
+ 460 0096 12       		.uleb128 0x12
+ 461 0097 06       		.uleb128 0x6
+ 462 0098 40       		.uleb128 0x40
+ 463 0099 18       		.uleb128 0x18
+ 464 009a 9742     		.uleb128 0x2117
+ 465 009c 19       		.uleb128 0x19
+ 466 009d 01       		.uleb128 0x1
+ 467 009e 13       		.uleb128 0x13
+ 468 009f 00       		.byte	0
+ 469 00a0 00       		.byte	0
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccGR1XIy.s 			page 12
+
+
+ 470 00a1 0C       		.uleb128 0xc
+ 471 00a2 898201   		.uleb128 0x4109
+ 472 00a5 00       		.byte	0
+ 473 00a6 11       		.uleb128 0x11
+ 474 00a7 01       		.uleb128 0x1
+ 475 00a8 9542     		.uleb128 0x2115
+ 476 00aa 19       		.uleb128 0x19
+ 477 00ab 31       		.uleb128 0x31
+ 478 00ac 13       		.uleb128 0x13
+ 479 00ad 00       		.byte	0
+ 480 00ae 00       		.byte	0
+ 481 00af 0D       		.uleb128 0xd
+ 482 00b0 34       		.uleb128 0x34
+ 483 00b1 00       		.byte	0
+ 484 00b2 03       		.uleb128 0x3
+ 485 00b3 0E       		.uleb128 0xe
+ 486 00b4 3A       		.uleb128 0x3a
+ 487 00b5 0B       		.uleb128 0xb
+ 488 00b6 3B       		.uleb128 0x3b
+ 489 00b7 0B       		.uleb128 0xb
+ 490 00b8 49       		.uleb128 0x49
+ 491 00b9 13       		.uleb128 0x13
+ 492 00ba 02       		.uleb128 0x2
+ 493 00bb 18       		.uleb128 0x18
+ 494 00bc 00       		.byte	0
+ 495 00bd 00       		.byte	0
+ 496 00be 0E       		.uleb128 0xe
+ 497 00bf 2E       		.uleb128 0x2e
+ 498 00c0 00       		.byte	0
+ 499 00c1 3F       		.uleb128 0x3f
+ 500 00c2 19       		.uleb128 0x19
+ 501 00c3 3C       		.uleb128 0x3c
+ 502 00c4 19       		.uleb128 0x19
+ 503 00c5 6E       		.uleb128 0x6e
+ 504 00c6 0E       		.uleb128 0xe
+ 505 00c7 03       		.uleb128 0x3
+ 506 00c8 0E       		.uleb128 0xe
+ 507 00c9 3A       		.uleb128 0x3a
+ 508 00ca 0B       		.uleb128 0xb
+ 509 00cb 3B       		.uleb128 0x3b
+ 510 00cc 0B       		.uleb128 0xb
+ 511 00cd 00       		.byte	0
+ 512 00ce 00       		.byte	0
+ 513 00cf 00       		.byte	0
+ 514              		.section	.debug_aranges,"",%progbits
+ 515 0000 2C000000 		.4byte	0x2c
+ 516 0004 0200     		.2byte	0x2
+ 517 0006 00000000 		.4byte	.Ldebug_info0
+ 518 000a 04       		.byte	0x4
+ 519 000b 00       		.byte	0
+ 520 000c 0000     		.2byte	0
+ 521 000e 0000     		.2byte	0
+ 522 0010 00000000 		.4byte	.LFB1
+ 523 0014 02000000 		.4byte	.LFE1-.LFB1
+ 524 0018 00000000 		.4byte	.LFB2
+ 525 001c 1C000000 		.4byte	.LFE2-.LFB2
+ 526 0020 00000000 		.4byte	.LFB3
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccGR1XIy.s 			page 13
+
+
+ 527 0024 14000000 		.4byte	.LFE3-.LFB3
+ 528 0028 00000000 		.4byte	0
+ 529 002c 00000000 		.4byte	0
+ 530              		.section	.debug_ranges,"",%progbits
+ 531              	.Ldebug_ranges0:
+ 532 0000 00000000 		.4byte	.LFB1
+ 533 0004 02000000 		.4byte	.LFE1
+ 534 0008 00000000 		.4byte	.LFB2
+ 535 000c 1C000000 		.4byte	.LFE2
+ 536 0010 00000000 		.4byte	.LFB3
+ 537 0014 14000000 		.4byte	.LFE3
+ 538 0018 00000000 		.4byte	0
+ 539 001c 00000000 		.4byte	0
+ 540              		.section	.debug_line,"",%progbits
+ 541              	.Ldebug_line0:
+ 542 0000 92000000 		.section	.debug_str,"MS",%progbits,1
+ 542      02005400 
+ 542      00000201 
+ 542      FB0E0D00 
+ 542      01010101 
+ 543              	.LASF26:
+ 544 0000 436F756E 		.ascii	"Counter_Enable\000"
+ 544      7465725F 
+ 544      456E6162 
+ 544      6C6500
+ 545              	.LASF24:
+ 546 000f 436F756E 		.ascii	"Counter_Wakeup\000"
+ 546      7465725F 
+ 546      57616B65 
+ 546      757000
+ 547              	.LASF23:
+ 548 001e 436F756E 		.ascii	"Counter_Sleep\000"
+ 548      7465725F 
+ 548      536C6565 
+ 548      7000
+ 549              	.LASF3:
+ 550 002c 73686F72 		.ascii	"short unsigned int\000"
+ 550      7420756E 
+ 550      7369676E 
+ 550      65642069 
+ 550      6E7400
+ 551              	.LASF29:
+ 552 003f 433A5C55 		.ascii	"C:\\Users\\Krist\\OneDrive\\Dokumenter\\GitHub\\pla"
+ 552      73657273 
+ 552      5C4B7269 
+ 552      73745C4F 
+ 552      6E654472 
+ 553 006c 746F6F6E 		.ascii	"tooning\\PSoC\\PeakDetector\\FirstTry.cydsn\000"
+ 553      696E675C 
+ 553      50536F43 
+ 553      5C506561 
+ 553      6B446574 
+ 554              	.LASF18:
+ 555 0095 436F756E 		.ascii	"CounterUdb\000"
+ 555      74657255 
+ 555      646200
+ 556              	.LASF19:
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccGR1XIy.s 			page 14
+
+
+ 557 00a0 436F756E 		.ascii	"CounterControlRegister\000"
+ 557      74657243 
+ 557      6F6E7472 
+ 557      6F6C5265 
+ 557      67697374 
+ 558              	.LASF11:
+ 559 00b7 666C6F61 		.ascii	"float\000"
+ 559      7400
+ 560              	.LASF1:
+ 561 00bd 756E7369 		.ascii	"unsigned char\000"
+ 561      676E6564 
+ 561      20636861 
+ 561      7200
+ 562              	.LASF14:
+ 563 00cb 72656738 		.ascii	"reg8\000"
+ 563      00
+ 564              	.LASF27:
+ 565 00d0 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 565      43313120 
+ 565      352E342E 
+ 565      31203230 
+ 565      31363036 
+ 566 0103 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 566      20726576 
+ 566      6973696F 
+ 566      6E203233 
+ 566      37373135 
+ 567 0136 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 567      66756E63 
+ 567      74696F6E 
+ 567      2D736563 
+ 567      74696F6E 
+ 568              	.LASF9:
+ 569 015e 75696E74 		.ascii	"uint8\000"
+ 569      3800
+ 570              	.LASF25:
+ 571 0164 436F756E 		.ascii	"Counter_Stop\000"
+ 571      7465725F 
+ 571      53746F70 
+ 571      00
+ 572              	.LASF12:
+ 573 0171 646F7562 		.ascii	"double\000"
+ 573      6C6500
+ 574              	.LASF20:
+ 575 0178 436F756E 		.ascii	"Counter_backupStruct\000"
+ 575      7465725F 
+ 575      6261636B 
+ 575      75705374 
+ 575      72756374 
+ 576              	.LASF10:
+ 577 018d 75696E74 		.ascii	"uint16\000"
+ 577      313600
+ 578              	.LASF5:
+ 579 0194 6C6F6E67 		.ascii	"long unsigned int\000"
+ 579      20756E73 
+ 579      69676E65 
+ 579      6420696E 
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccGR1XIy.s 			page 15
+
+
+ 579      7400
+ 580              	.LASF8:
+ 581 01a6 756E7369 		.ascii	"unsigned int\000"
+ 581      676E6564 
+ 581      20696E74 
+ 581      00
+ 582              	.LASF7:
+ 583 01b3 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 583      206C6F6E 
+ 583      6720756E 
+ 583      7369676E 
+ 583      65642069 
+ 584              	.LASF16:
+ 585 01ca 73697A65 		.ascii	"sizetype\000"
+ 585      74797065 
+ 585      00
+ 586              	.LASF17:
+ 587 01d3 436F756E 		.ascii	"CounterEnableState\000"
+ 587      74657245 
+ 587      6E61626C 
+ 587      65537461 
+ 587      746500
+ 588              	.LASF6:
+ 589 01e6 6C6F6E67 		.ascii	"long long int\000"
+ 589      206C6F6E 
+ 589      6720696E 
+ 589      7400
+ 590              	.LASF22:
+ 591 01f4 436F756E 		.ascii	"Counter_RestoreConfig\000"
+ 591      7465725F 
+ 591      52657374 
+ 591      6F726543 
+ 591      6F6E6669 
+ 592              	.LASF13:
+ 593 020a 63686172 		.ascii	"char\000"
+ 593      00
+ 594              	.LASF2:
+ 595 020f 73686F72 		.ascii	"short int\000"
+ 595      7420696E 
+ 595      7400
+ 596              	.LASF28:
+ 597 0219 47656E65 		.ascii	"Generated_Source\\PSoC5\\Counter_PM.c\000"
+ 597      72617465 
+ 597      645F536F 
+ 597      75726365 
+ 597      5C50536F 
+ 598              	.LASF21:
+ 599 023d 436F756E 		.ascii	"Counter_SaveConfig\000"
+ 599      7465725F 
+ 599      53617665 
+ 599      436F6E66 
+ 599      696700
+ 600              	.LASF4:
+ 601 0250 6C6F6E67 		.ascii	"long int\000"
+ 601      20696E74 
+ 601      00
+ 602              	.LASF15:
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccGR1XIy.s 			page 16
+
+
+ 603 0259 6C6F6E67 		.ascii	"long double\000"
+ 603      20646F75 
+ 603      626C6500 
+ 604              	.LASF30:
+ 605 0265 436F756E 		.ascii	"Counter_backup\000"
+ 605      7465725F 
+ 605      6261636B 
+ 605      757000
+ 606              	.LASF0:
+ 607 0274 7369676E 		.ascii	"signed char\000"
+ 607      65642063 
+ 607      68617200 
+ 608              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

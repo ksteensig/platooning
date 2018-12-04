@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 1
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccqniDig.s 			page 1
 
 
    1              		.syntax unified
@@ -30,7 +30,7 @@ ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 1
   27              		.file 1 "Generated_Source\\PSoC5\\Signal_A.c"
    1:Generated_Source\PSoC5/Signal_A.c **** /*******************************************************************************
    2:Generated_Source\PSoC5/Signal_A.c **** * File Name: Signal_A.c  
-   3:Generated_Source\PSoC5/Signal_A.c **** * Version 2.10
+   3:Generated_Source\PSoC5/Signal_A.c **** * Version 2.20
    4:Generated_Source\PSoC5/Signal_A.c **** *
    5:Generated_Source\PSoC5/Signal_A.c **** * Description:
    6:Generated_Source\PSoC5/Signal_A.c **** *  This file contains API to enable firmware control of a Pins component.
@@ -38,7 +38,7 @@ ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 1
    8:Generated_Source\PSoC5/Signal_A.c **** * Note:
    9:Generated_Source\PSoC5/Signal_A.c **** *
   10:Generated_Source\PSoC5/Signal_A.c **** ********************************************************************************
-  11:Generated_Source\PSoC5/Signal_A.c **** * Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+  11:Generated_Source\PSoC5/Signal_A.c **** * Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
   12:Generated_Source\PSoC5/Signal_A.c **** * You may use this file only in accordance with the license, terms, conditions, 
   13:Generated_Source\PSoC5/Signal_A.c **** * disclaimers, and limitations in the end user license agreement accompanying 
   14:Generated_Source\PSoC5/Signal_A.c **** * the software package with which this file was provided.
@@ -54,24 +54,42 @@ ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 1
   24:Generated_Source\PSoC5/Signal_A.c **** 
   25:Generated_Source\PSoC5/Signal_A.c **** /*******************************************************************************
   26:Generated_Source\PSoC5/Signal_A.c **** * Function Name: Signal_A_Write
-  27:Generated_Source\PSoC5/Signal_A.c **** ********************************************************************************
+  27:Generated_Source\PSoC5/Signal_A.c **** ****************************************************************************//**
   28:Generated_Source\PSoC5/Signal_A.c **** *
-  29:Generated_Source\PSoC5/Signal_A.c **** * Summary:
-  30:Generated_Source\PSoC5/Signal_A.c **** *  Assign a new value to the digital port's data output register.  
-ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 2
+  29:Generated_Source\PSoC5/Signal_A.c **** * \brief Writes the value to the physical port (data output register), masking
+  30:Generated_Source\PSoC5/Signal_A.c **** *  and shifting the bits appropriately. 
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccqniDig.s 			page 2
 
 
   31:Generated_Source\PSoC5/Signal_A.c **** *
-  32:Generated_Source\PSoC5/Signal_A.c **** * Parameters:  
-  33:Generated_Source\PSoC5/Signal_A.c **** *  prtValue:  The value to be assigned to the Digital Port. 
-  34:Generated_Source\PSoC5/Signal_A.c **** *
-  35:Generated_Source\PSoC5/Signal_A.c **** * Return: 
-  36:Generated_Source\PSoC5/Signal_A.c **** *  None
-  37:Generated_Source\PSoC5/Signal_A.c **** *  
-  38:Generated_Source\PSoC5/Signal_A.c **** *******************************************************************************/
-  39:Generated_Source\PSoC5/Signal_A.c **** void Signal_A_Write(uint8 value) 
-  40:Generated_Source\PSoC5/Signal_A.c **** {
-  28              		.loc 1 40 0
+  32:Generated_Source\PSoC5/Signal_A.c **** * The data output register controls the signal applied to the physical pin in 
+  33:Generated_Source\PSoC5/Signal_A.c **** * conjunction with the drive mode parameter. This function avoids changing 
+  34:Generated_Source\PSoC5/Signal_A.c **** * other bits in the port by using the appropriate method (read-modify-write or
+  35:Generated_Source\PSoC5/Signal_A.c **** * bit banding).
+  36:Generated_Source\PSoC5/Signal_A.c **** *
+  37:Generated_Source\PSoC5/Signal_A.c **** * <b>Note</b> This function should not be used on a hardware digital output pin 
+  38:Generated_Source\PSoC5/Signal_A.c **** * as it is driven by the hardware signal attached to it.
+  39:Generated_Source\PSoC5/Signal_A.c **** *
+  40:Generated_Source\PSoC5/Signal_A.c **** * \param value
+  41:Generated_Source\PSoC5/Signal_A.c **** *  Value to write to the component instance.
+  42:Generated_Source\PSoC5/Signal_A.c **** *
+  43:Generated_Source\PSoC5/Signal_A.c **** * \return 
+  44:Generated_Source\PSoC5/Signal_A.c **** *  None 
+  45:Generated_Source\PSoC5/Signal_A.c **** *
+  46:Generated_Source\PSoC5/Signal_A.c **** * \sideeffect
+  47:Generated_Source\PSoC5/Signal_A.c **** *  If you use read-modify-write operations that are not atomic; the Interrupt 
+  48:Generated_Source\PSoC5/Signal_A.c **** *  Service Routines (ISR) can cause corruption of this function. An ISR that 
+  49:Generated_Source\PSoC5/Signal_A.c **** *  interrupts this function and performs writes to the Pins component data 
+  50:Generated_Source\PSoC5/Signal_A.c **** *  register can cause corrupted port data. To avoid this issue, you should 
+  51:Generated_Source\PSoC5/Signal_A.c **** *  either use the Per-Pin APIs (primary method) or disable interrupts around 
+  52:Generated_Source\PSoC5/Signal_A.c **** *  this function.
+  53:Generated_Source\PSoC5/Signal_A.c **** *
+  54:Generated_Source\PSoC5/Signal_A.c **** * \funcusage
+  55:Generated_Source\PSoC5/Signal_A.c **** *  \snippet Signal_A_SUT.c usage_Signal_A_Write
+  56:Generated_Source\PSoC5/Signal_A.c **** *******************************************************************************/
+  57:Generated_Source\PSoC5/Signal_A.c **** void Signal_A_Write(uint8 value)
+  58:Generated_Source\PSoC5/Signal_A.c **** {
+  28              		.loc 1 58 0
   29              		.cfi_startproc
   30              		@ args = 0, pretend = 0, frame = 16
   31              		@ frame_needed = 1, uses_anonymous_args = 0
@@ -85,25 +103,28 @@ ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 1
   39              		.cfi_def_cfa_register 7
   40 0006 0346     		mov	r3, r0
   41 0008 FB71     		strb	r3, [r7, #7]
-  41:Generated_Source\PSoC5/Signal_A.c ****     uint8 staticBits = (Signal_A_DR & (uint8)(~Signal_A_MASK));
-  42              		.loc 1 41 0
+  59:Generated_Source\PSoC5/Signal_A.c ****     uint8 staticBits = (Signal_A_DR & (uint8)(~Signal_A_MASK));
+  42              		.loc 1 59 0
   43 000a 0A4B     		ldr	r3, .L2
   44 000c 1B78     		ldrb	r3, [r3]
   45 000e DBB2     		uxtb	r3, r3
   46 0010 23F00103 		bic	r3, r3, #1
   47 0014 FB73     		strb	r3, [r7, #15]
-  42:Generated_Source\PSoC5/Signal_A.c ****     Signal_A_DR = staticBits | ((uint8)(value << Signal_A_SHIFT) & Signal_A_MASK);
-  48              		.loc 1 42 0
+  60:Generated_Source\PSoC5/Signal_A.c ****     Signal_A_DR = staticBits | ((uint8)(value << Signal_A_SHIFT) & Signal_A_MASK);
+  48              		.loc 1 60 0
   49 0016 0749     		ldr	r1, .L2
   50 0018 FB79     		ldrb	r3, [r7, #7]
   51 001a 03F00103 		and	r3, r3, #1
   52 001e DAB2     		uxtb	r2, r3
   53 0020 FB7B     		ldrb	r3, [r7, #15]
   54 0022 1343     		orrs	r3, r3, r2
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccqniDig.s 			page 3
+
+
   55 0024 DBB2     		uxtb	r3, r3
   56 0026 0B70     		strb	r3, [r1]
-  43:Generated_Source\PSoC5/Signal_A.c **** }
-  57              		.loc 1 43 0
+  61:Generated_Source\PSoC5/Signal_A.c **** }
+  57              		.loc 1 61 0
   58 0028 00BF     		nop
   59 002a 1437     		adds	r7, r7, #20
   60              		.cfi_def_cfa_offset 4
@@ -118,9 +139,6 @@ ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 1
   69 0032 00BF     		.align	2
   70              	.L2:
   71 0034 00510040 		.word	1073762560
-ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 3
-
-
   72              		.cfi_endproc
   73              	.LFE0:
   74              		.size	Signal_A_Write, .-Signal_A_Write
@@ -132,34 +150,40 @@ ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 1
   80              		.type	Signal_A_SetDriveMode, %function
   81              	Signal_A_SetDriveMode:
   82              	.LFB1:
-  44:Generated_Source\PSoC5/Signal_A.c **** 
-  45:Generated_Source\PSoC5/Signal_A.c **** 
-  46:Generated_Source\PSoC5/Signal_A.c **** /*******************************************************************************
-  47:Generated_Source\PSoC5/Signal_A.c **** * Function Name: Signal_A_SetDriveMode
-  48:Generated_Source\PSoC5/Signal_A.c **** ********************************************************************************
-  49:Generated_Source\PSoC5/Signal_A.c **** *
-  50:Generated_Source\PSoC5/Signal_A.c **** * Summary:
-  51:Generated_Source\PSoC5/Signal_A.c **** *  Change the drive mode on the pins of the port.
-  52:Generated_Source\PSoC5/Signal_A.c **** * 
-  53:Generated_Source\PSoC5/Signal_A.c **** * Parameters:  
-  54:Generated_Source\PSoC5/Signal_A.c **** *  mode:  Change the pins to one of the following drive modes.
-  55:Generated_Source\PSoC5/Signal_A.c **** *
-  56:Generated_Source\PSoC5/Signal_A.c **** *  Signal_A_DM_STRONG     Strong Drive 
-  57:Generated_Source\PSoC5/Signal_A.c **** *  Signal_A_DM_OD_HI      Open Drain, Drives High 
-  58:Generated_Source\PSoC5/Signal_A.c **** *  Signal_A_DM_OD_LO      Open Drain, Drives Low 
-  59:Generated_Source\PSoC5/Signal_A.c **** *  Signal_A_DM_RES_UP     Resistive Pull Up 
-  60:Generated_Source\PSoC5/Signal_A.c **** *  Signal_A_DM_RES_DWN    Resistive Pull Down 
-  61:Generated_Source\PSoC5/Signal_A.c **** *  Signal_A_DM_RES_UPDWN  Resistive Pull Up/Down 
-  62:Generated_Source\PSoC5/Signal_A.c **** *  Signal_A_DM_DIG_HIZ    High Impedance Digital 
-  63:Generated_Source\PSoC5/Signal_A.c **** *  Signal_A_DM_ALG_HIZ    High Impedance Analog 
-  64:Generated_Source\PSoC5/Signal_A.c **** *
-  65:Generated_Source\PSoC5/Signal_A.c **** * Return: 
-  66:Generated_Source\PSoC5/Signal_A.c **** *  None
+  62:Generated_Source\PSoC5/Signal_A.c **** 
+  63:Generated_Source\PSoC5/Signal_A.c **** 
+  64:Generated_Source\PSoC5/Signal_A.c **** /*******************************************************************************
+  65:Generated_Source\PSoC5/Signal_A.c **** * Function Name: Signal_A_SetDriveMode
+  66:Generated_Source\PSoC5/Signal_A.c **** ****************************************************************************//**
   67:Generated_Source\PSoC5/Signal_A.c **** *
-  68:Generated_Source\PSoC5/Signal_A.c **** *******************************************************************************/
-  69:Generated_Source\PSoC5/Signal_A.c **** void Signal_A_SetDriveMode(uint8 mode) 
-  70:Generated_Source\PSoC5/Signal_A.c **** {
-  83              		.loc 1 70 0
+  68:Generated_Source\PSoC5/Signal_A.c **** * \brief Sets the drive mode for each of the Pins component's pins.
+  69:Generated_Source\PSoC5/Signal_A.c **** * 
+  70:Generated_Source\PSoC5/Signal_A.c **** * <b>Note</b> This affects all pins in the Pins component instance. Use the
+  71:Generated_Source\PSoC5/Signal_A.c **** * Per-Pin APIs if you wish to control individual pin's drive modes.
+  72:Generated_Source\PSoC5/Signal_A.c **** *
+  73:Generated_Source\PSoC5/Signal_A.c **** * \param mode
+  74:Generated_Source\PSoC5/Signal_A.c **** *  Mode for the selected signals. Valid options are documented in 
+  75:Generated_Source\PSoC5/Signal_A.c **** *  \ref driveMode.
+  76:Generated_Source\PSoC5/Signal_A.c **** *
+  77:Generated_Source\PSoC5/Signal_A.c **** * \return
+  78:Generated_Source\PSoC5/Signal_A.c **** *  None
+  79:Generated_Source\PSoC5/Signal_A.c **** *
+  80:Generated_Source\PSoC5/Signal_A.c **** * \sideeffect
+  81:Generated_Source\PSoC5/Signal_A.c **** *  If you use read-modify-write operations that are not atomic, the ISR can
+  82:Generated_Source\PSoC5/Signal_A.c **** *  cause corruption of this function. An ISR that interrupts this function 
+  83:Generated_Source\PSoC5/Signal_A.c **** *  and performs writes to the Pins component Drive Mode registers can cause 
+  84:Generated_Source\PSoC5/Signal_A.c **** *  corrupted port data. To avoid this issue, you should either use the Per-Pin
+  85:Generated_Source\PSoC5/Signal_A.c **** *  APIs (primary method) or disable interrupts around this function.
+  86:Generated_Source\PSoC5/Signal_A.c **** *
+  87:Generated_Source\PSoC5/Signal_A.c **** * \funcusage
+  88:Generated_Source\PSoC5/Signal_A.c **** *  \snippet Signal_A_SUT.c usage_Signal_A_SetDriveMode
+  89:Generated_Source\PSoC5/Signal_A.c **** *******************************************************************************/
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccqniDig.s 			page 4
+
+
+  90:Generated_Source\PSoC5/Signal_A.c **** void Signal_A_SetDriveMode(uint8 mode)
+  91:Generated_Source\PSoC5/Signal_A.c **** {
+  83              		.loc 1 91 0
   84              		.cfi_startproc
   85              		@ args = 0, pretend = 0, frame = 8
   86              		@ frame_needed = 1, uses_anonymous_args = 0
@@ -173,14 +197,11 @@ ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 1
   94              		.cfi_def_cfa_register 7
   95 0006 0346     		mov	r3, r0
   96 0008 FB71     		strb	r3, [r7, #7]
-  71:Generated_Source\PSoC5/Signal_A.c **** 	CyPins_SetPinDriveMode(Signal_A_0, mode);
-  97              		.loc 1 71 0
+  92:Generated_Source\PSoC5/Signal_A.c **** 	CyPins_SetPinDriveMode(Signal_A_0, mode);
+  97              		.loc 1 92 0
   98 000a 0B49     		ldr	r1, .L5
   99 000c 0A4B     		ldr	r3, .L5
  100 000e 1B78     		ldrb	r3, [r3]
-ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 4
-
-
  101 0010 DBB2     		uxtb	r3, r3
  102 0012 5BB2     		sxtb	r3, r3
  103 0014 23F00E03 		bic	r3, r3, #14
@@ -192,8 +213,8 @@ ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 1
  109 0026 5BB2     		sxtb	r3, r3
  110 0028 DBB2     		uxtb	r3, r3
  111 002a 0B70     		strb	r3, [r1]
-  72:Generated_Source\PSoC5/Signal_A.c **** }
- 112              		.loc 1 72 0
+  93:Generated_Source\PSoC5/Signal_A.c **** }
+ 112              		.loc 1 93 0
  113 002c 00BF     		nop
  114 002e 0C37     		adds	r7, r7, #12
  115              		.cfi_def_cfa_offset 4
@@ -217,34 +238,33 @@ ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 1
  133              		.thumb
  134              		.thumb_func
  135              		.type	Signal_A_Read, %function
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccqniDig.s 			page 5
+
+
  136              	Signal_A_Read:
  137              	.LFB2:
-  73:Generated_Source\PSoC5/Signal_A.c **** 
-  74:Generated_Source\PSoC5/Signal_A.c **** 
-  75:Generated_Source\PSoC5/Signal_A.c **** /*******************************************************************************
-  76:Generated_Source\PSoC5/Signal_A.c **** * Function Name: Signal_A_Read
-  77:Generated_Source\PSoC5/Signal_A.c **** ********************************************************************************
-  78:Generated_Source\PSoC5/Signal_A.c **** *
-  79:Generated_Source\PSoC5/Signal_A.c **** * Summary:
-  80:Generated_Source\PSoC5/Signal_A.c **** *  Read the current value on the pins of the Digital Port in right justified 
-  81:Generated_Source\PSoC5/Signal_A.c **** *  form.
-  82:Generated_Source\PSoC5/Signal_A.c **** *
-  83:Generated_Source\PSoC5/Signal_A.c **** * Parameters:  
-  84:Generated_Source\PSoC5/Signal_A.c **** *  None
-  85:Generated_Source\PSoC5/Signal_A.c **** *
-  86:Generated_Source\PSoC5/Signal_A.c **** * Return: 
-  87:Generated_Source\PSoC5/Signal_A.c **** *  Returns the current value of the Digital Port as a right justified number
-  88:Generated_Source\PSoC5/Signal_A.c **** *  
-  89:Generated_Source\PSoC5/Signal_A.c **** * Note:
-  90:Generated_Source\PSoC5/Signal_A.c **** *  Macro Signal_A_ReadPS calls this function. 
-  91:Generated_Source\PSoC5/Signal_A.c **** *  
-ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 5
-
-
-  92:Generated_Source\PSoC5/Signal_A.c **** *******************************************************************************/
-  93:Generated_Source\PSoC5/Signal_A.c **** uint8 Signal_A_Read(void) 
-  94:Generated_Source\PSoC5/Signal_A.c **** {
- 138              		.loc 1 94 0
+  94:Generated_Source\PSoC5/Signal_A.c **** 
+  95:Generated_Source\PSoC5/Signal_A.c **** 
+  96:Generated_Source\PSoC5/Signal_A.c **** /*******************************************************************************
+  97:Generated_Source\PSoC5/Signal_A.c **** * Function Name: Signal_A_Read
+  98:Generated_Source\PSoC5/Signal_A.c **** ****************************************************************************//**
+  99:Generated_Source\PSoC5/Signal_A.c **** *
+ 100:Generated_Source\PSoC5/Signal_A.c **** * \brief Reads the associated physical port (pin status register) and masks 
+ 101:Generated_Source\PSoC5/Signal_A.c **** *  the required bits according to the width and bit position of the component
+ 102:Generated_Source\PSoC5/Signal_A.c **** *  instance. 
+ 103:Generated_Source\PSoC5/Signal_A.c **** *
+ 104:Generated_Source\PSoC5/Signal_A.c **** * The pin's status register returns the current logic level present on the 
+ 105:Generated_Source\PSoC5/Signal_A.c **** * physical pin.
+ 106:Generated_Source\PSoC5/Signal_A.c **** *
+ 107:Generated_Source\PSoC5/Signal_A.c **** * \return 
+ 108:Generated_Source\PSoC5/Signal_A.c **** *  The current value for the pins in the component as a right justified number.
+ 109:Generated_Source\PSoC5/Signal_A.c **** *
+ 110:Generated_Source\PSoC5/Signal_A.c **** * \funcusage
+ 111:Generated_Source\PSoC5/Signal_A.c **** *  \snippet Signal_A_SUT.c usage_Signal_A_Read  
+ 112:Generated_Source\PSoC5/Signal_A.c **** *******************************************************************************/
+ 113:Generated_Source\PSoC5/Signal_A.c **** uint8 Signal_A_Read(void)
+ 114:Generated_Source\PSoC5/Signal_A.c **** {
+ 138              		.loc 1 114 0
  139              		.cfi_startproc
  140              		@ args = 0, pretend = 0, frame = 0
  141              		@ frame_needed = 1, uses_anonymous_args = 0
@@ -254,15 +274,15 @@ ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 1
  145              		.cfi_offset 7, -4
  146 0002 00AF     		add	r7, sp, #0
  147              		.cfi_def_cfa_register 7
-  95:Generated_Source\PSoC5/Signal_A.c ****     return (Signal_A_PS & Signal_A_MASK) >> Signal_A_SHIFT;
- 148              		.loc 1 95 0
+ 115:Generated_Source\PSoC5/Signal_A.c ****     return (Signal_A_PS & Signal_A_MASK) >> Signal_A_SHIFT;
+ 148              		.loc 1 115 0
  149 0004 044B     		ldr	r3, .L9
  150 0006 1B78     		ldrb	r3, [r3]
  151 0008 DBB2     		uxtb	r3, r3
  152 000a 03F00103 		and	r3, r3, #1
  153 000e DBB2     		uxtb	r3, r3
-  96:Generated_Source\PSoC5/Signal_A.c **** }
- 154              		.loc 1 96 0
+ 116:Generated_Source\PSoC5/Signal_A.c **** }
+ 154              		.loc 1 116 0
  155 0010 1846     		mov	r0, r3
  156 0012 BD46     		mov	sp, r7
  157              		.cfi_def_cfa_register 13
@@ -278,6 +298,9 @@ ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 1
  167              		.cfi_endproc
  168              	.LFE2:
  169              		.size	Signal_A_Read, .-Signal_A_Read
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccqniDig.s 			page 6
+
+
  170              		.section	.text.Signal_A_ReadDataReg,"ax",%progbits
  171              		.align	2
  172              		.global	Signal_A_ReadDataReg
@@ -286,28 +309,33 @@ ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 1
  175              		.type	Signal_A_ReadDataReg, %function
  176              	Signal_A_ReadDataReg:
  177              	.LFB3:
-  97:Generated_Source\PSoC5/Signal_A.c **** 
-  98:Generated_Source\PSoC5/Signal_A.c **** 
-  99:Generated_Source\PSoC5/Signal_A.c **** /*******************************************************************************
- 100:Generated_Source\PSoC5/Signal_A.c **** * Function Name: Signal_A_ReadDataReg
- 101:Generated_Source\PSoC5/Signal_A.c **** ********************************************************************************
- 102:Generated_Source\PSoC5/Signal_A.c **** *
- 103:Generated_Source\PSoC5/Signal_A.c **** * Summary:
- 104:Generated_Source\PSoC5/Signal_A.c **** *  Read the current value assigned to a Digital Port's data output register
- 105:Generated_Source\PSoC5/Signal_A.c **** *
- 106:Generated_Source\PSoC5/Signal_A.c **** * Parameters:  
- 107:Generated_Source\PSoC5/Signal_A.c **** *  None 
- 108:Generated_Source\PSoC5/Signal_A.c **** *
-ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 6
-
-
- 109:Generated_Source\PSoC5/Signal_A.c **** * Return: 
- 110:Generated_Source\PSoC5/Signal_A.c **** *  Returns the current value assigned to the Digital Port's data output register
- 111:Generated_Source\PSoC5/Signal_A.c **** *  
- 112:Generated_Source\PSoC5/Signal_A.c **** *******************************************************************************/
- 113:Generated_Source\PSoC5/Signal_A.c **** uint8 Signal_A_ReadDataReg(void) 
- 114:Generated_Source\PSoC5/Signal_A.c **** {
- 178              		.loc 1 114 0
+ 117:Generated_Source\PSoC5/Signal_A.c **** 
+ 118:Generated_Source\PSoC5/Signal_A.c **** 
+ 119:Generated_Source\PSoC5/Signal_A.c **** /*******************************************************************************
+ 120:Generated_Source\PSoC5/Signal_A.c **** * Function Name: Signal_A_ReadDataReg
+ 121:Generated_Source\PSoC5/Signal_A.c **** ****************************************************************************//**
+ 122:Generated_Source\PSoC5/Signal_A.c **** *
+ 123:Generated_Source\PSoC5/Signal_A.c **** * \brief Reads the associated physical port's data output register and masks 
+ 124:Generated_Source\PSoC5/Signal_A.c **** *  the correct bits according to the width and bit position of the component 
+ 125:Generated_Source\PSoC5/Signal_A.c **** *  instance. 
+ 126:Generated_Source\PSoC5/Signal_A.c **** *
+ 127:Generated_Source\PSoC5/Signal_A.c **** * The data output register controls the signal applied to the physical pin in 
+ 128:Generated_Source\PSoC5/Signal_A.c **** * conjunction with the drive mode parameter. This is not the same as the 
+ 129:Generated_Source\PSoC5/Signal_A.c **** * preferred Signal_A_Read() API because the 
+ 130:Generated_Source\PSoC5/Signal_A.c **** * Signal_A_ReadDataReg() reads the data register instead of the status 
+ 131:Generated_Source\PSoC5/Signal_A.c **** * register. For output pins this is a useful function to determine the value 
+ 132:Generated_Source\PSoC5/Signal_A.c **** * just written to the pin.
+ 133:Generated_Source\PSoC5/Signal_A.c **** *
+ 134:Generated_Source\PSoC5/Signal_A.c **** * \return 
+ 135:Generated_Source\PSoC5/Signal_A.c **** *  The current value of the data register masked and shifted into a right 
+ 136:Generated_Source\PSoC5/Signal_A.c **** *  justified number for the component instance.
+ 137:Generated_Source\PSoC5/Signal_A.c **** *
+ 138:Generated_Source\PSoC5/Signal_A.c **** * \funcusage
+ 139:Generated_Source\PSoC5/Signal_A.c **** *  \snippet Signal_A_SUT.c usage_Signal_A_ReadDataReg 
+ 140:Generated_Source\PSoC5/Signal_A.c **** *******************************************************************************/
+ 141:Generated_Source\PSoC5/Signal_A.c **** uint8 Signal_A_ReadDataReg(void)
+ 142:Generated_Source\PSoC5/Signal_A.c **** {
+ 178              		.loc 1 142 0
  179              		.cfi_startproc
  180              		@ args = 0, pretend = 0, frame = 0
  181              		@ frame_needed = 1, uses_anonymous_args = 0
@@ -317,19 +345,22 @@ ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 1
  185              		.cfi_offset 7, -4
  186 0002 00AF     		add	r7, sp, #0
  187              		.cfi_def_cfa_register 7
- 115:Generated_Source\PSoC5/Signal_A.c ****     return (Signal_A_DR & Signal_A_MASK) >> Signal_A_SHIFT;
- 188              		.loc 1 115 0
+ 143:Generated_Source\PSoC5/Signal_A.c ****     return (Signal_A_DR & Signal_A_MASK) >> Signal_A_SHIFT;
+ 188              		.loc 1 143 0
  189 0004 044B     		ldr	r3, .L13
  190 0006 1B78     		ldrb	r3, [r3]
  191 0008 DBB2     		uxtb	r3, r3
  192 000a 03F00103 		and	r3, r3, #1
  193 000e DBB2     		uxtb	r3, r3
- 116:Generated_Source\PSoC5/Signal_A.c **** }
- 194              		.loc 1 116 0
+ 144:Generated_Source\PSoC5/Signal_A.c **** }
+ 194              		.loc 1 144 0
  195 0010 1846     		mov	r0, r3
  196 0012 BD46     		mov	sp, r7
  197              		.cfi_def_cfa_register 13
  198              		@ sp needed
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccqniDig.s 			page 7
+
+
  199 0014 80BC     		pop	{r7}
  200              		.cfi_restore 7
  201              		.cfi_def_cfa_offset 0
@@ -346,53 +377,53 @@ ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 1
  212              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
  213              		.section	.debug_info,"",%progbits
  214              	.Ldebug_info0:
- 215 0000 19010000 		.4byte	0x119
+ 215 0000 1A010000 		.4byte	0x11a
  216 0004 0400     		.2byte	0x4
  217 0006 00000000 		.4byte	.Ldebug_abbrev0
  218 000a 04       		.byte	0x4
  219 000b 01       		.uleb128 0x1
- 220 000c 0E000000 		.4byte	.LASF20
+ 220 000c 5C000000 		.4byte	.LASF20
  221 0010 0C       		.byte	0xc
- 222 0011 AD000000 		.4byte	.LASF21
- 223 0015 CF000000 		.4byte	.LASF22
+ 222 0011 FB000000 		.4byte	.LASF21
+ 223 0015 00000000 		.4byte	.LASF22
  224 0019 00000000 		.4byte	.Ldebug_ranges0+0
  225 001d 00000000 		.4byte	0
  226 0021 00000000 		.4byte	.Ldebug_line0
-ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 7
-
-
  227 0025 02       		.uleb128 0x2
  228 0026 01       		.byte	0x1
  229 0027 06       		.byte	0x6
- 230 0028 EE010000 		.4byte	.LASF0
+ 230 0028 FF010000 		.4byte	.LASF0
  231 002c 02       		.uleb128 0x2
  232 002d 01       		.byte	0x1
  233 002e 08       		.byte	0x8
- 234 002f 20010000 		.4byte	.LASF1
+ 234 002f 23010000 		.4byte	.LASF1
  235 0033 02       		.uleb128 0x2
  236 0034 02       		.byte	0x2
  237 0035 05       		.byte	0x5
- 238 0036 BF010000 		.4byte	.LASF2
+ 238 0036 D0010000 		.4byte	.LASF2
  239 003a 02       		.uleb128 0x2
  240 003b 02       		.byte	0x2
  241 003c 07       		.byte	0x7
- 242 003d 45010000 		.4byte	.LASF3
+ 242 003d 56010000 		.4byte	.LASF3
  243 0041 02       		.uleb128 0x2
  244 0042 04       		.byte	0x4
  245 0043 05       		.byte	0x5
- 246 0044 E5010000 		.4byte	.LASF4
+ 246 0044 F6010000 		.4byte	.LASF4
  247 0048 02       		.uleb128 0x2
  248 0049 04       		.byte	0x4
  249 004a 07       		.byte	0x7
- 250 004b 33010000 		.4byte	.LASF5
+ 250 004b 44010000 		.4byte	.LASF5
  251 004f 02       		.uleb128 0x2
  252 0050 08       		.byte	0x8
  253 0051 05       		.byte	0x5
- 254 0052 AC010000 		.4byte	.LASF6
+ 254 0052 BD010000 		.4byte	.LASF6
  255 0056 02       		.uleb128 0x2
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccqniDig.s 			page 8
+
+
  256 0057 08       		.byte	0x8
  257 0058 07       		.byte	0x7
- 258 0059 90010000 		.4byte	.LASF7
+ 258 0059 A1010000 		.4byte	.LASF7
  259 005d 03       		.uleb128 0x3
  260 005e 04       		.byte	0x4
  261 005f 05       		.byte	0x5
@@ -400,100 +431,97 @@ ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 1
  263 0064 02       		.uleb128 0x2
  264 0065 04       		.byte	0x4
  265 0066 07       		.byte	0x7
- 266 0067 83010000 		.4byte	.LASF8
+ 266 0067 94010000 		.4byte	.LASF8
  267 006b 04       		.uleb128 0x4
- 268 006c DF010000 		.4byte	.LASF12
+ 268 006c F0010000 		.4byte	.LASF12
  269 0070 02       		.byte	0x2
- 270 0071 A1       		.byte	0xa1
- 271 0072 2C000000 		.4byte	0x2c
- 272 0076 02       		.uleb128 0x2
- 273 0077 04       		.byte	0x4
- 274 0078 04       		.byte	0x4
- 275 0079 1A010000 		.4byte	.LASF9
- 276 007d 02       		.uleb128 0x2
- 277 007e 08       		.byte	0x8
- 278 007f 04       		.byte	0x4
- 279 0080 6D010000 		.4byte	.LASF10
- 280 0084 02       		.uleb128 0x2
- 281 0085 01       		.byte	0x1
- 282 0086 08       		.byte	0x8
- 283 0087 BA010000 		.4byte	.LASF11
-ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 8
+ 270 0071 9201     		.2byte	0x192
+ 271 0073 2C000000 		.4byte	0x2c
+ 272 0077 02       		.uleb128 0x2
+ 273 0078 04       		.byte	0x4
+ 274 0079 04       		.byte	0x4
+ 275 007a 1D010000 		.4byte	.LASF9
+ 276 007e 02       		.uleb128 0x2
+ 277 007f 08       		.byte	0x8
+ 278 0080 04       		.byte	0x4
+ 279 0081 7E010000 		.4byte	.LASF10
+ 280 0085 02       		.uleb128 0x2
+ 281 0086 01       		.byte	0x1
+ 282 0087 08       		.byte	0x8
+ 283 0088 CB010000 		.4byte	.LASF11
+ 284 008c 04       		.uleb128 0x4
+ 285 008d 31010000 		.4byte	.LASF13
+ 286 0091 02       		.byte	0x2
+ 287 0092 3C02     		.2byte	0x23c
+ 288 0094 98000000 		.4byte	0x98
+ 289 0098 05       		.uleb128 0x5
+ 290 0099 6B000000 		.4byte	0x6b
+ 291 009d 06       		.uleb128 0x6
+ 292 009e 85010000 		.4byte	.LASF14
+ 293 00a2 01       		.byte	0x1
+ 294 00a3 39       		.byte	0x39
+ 295 00a4 00000000 		.4byte	.LFB0
+ 296 00a8 38000000 		.4byte	.LFE0-.LFB0
+ 297 00ac 01       		.uleb128 0x1
+ 298 00ad 9C       		.byte	0x9c
+ 299 00ae CF000000 		.4byte	0xcf
+ 300 00b2 07       		.uleb128 0x7
+ 301 00b3 EA000000 		.4byte	.LASF16
+ 302 00b7 01       		.byte	0x1
+ 303 00b8 39       		.byte	0x39
+ 304 00b9 6B000000 		.4byte	0x6b
+ 305 00bd 02       		.uleb128 0x2
+ 306 00be 91       		.byte	0x91
+ 307 00bf 6F       		.sleb128 -17
+ 308 00c0 08       		.uleb128 0x8
+ 309 00c1 F0000000 		.4byte	.LASF23
+ 310 00c5 01       		.byte	0x1
+ 311 00c6 3B       		.byte	0x3b
+ 312 00c7 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccqniDig.s 			page 9
 
 
- 284 008b 05       		.uleb128 0x5
- 285 008c 2E010000 		.4byte	.LASF13
- 286 0090 02       		.byte	0x2
- 287 0091 4B01     		.2byte	0x14b
- 288 0093 97000000 		.4byte	0x97
- 289 0097 06       		.uleb128 0x6
- 290 0098 6B000000 		.4byte	0x6b
- 291 009c 07       		.uleb128 0x7
- 292 009d 74010000 		.4byte	.LASF14
- 293 00a1 01       		.byte	0x1
- 294 00a2 27       		.byte	0x27
- 295 00a3 00000000 		.4byte	.LFB0
- 296 00a7 38000000 		.4byte	.LFE0-.LFB0
- 297 00ab 01       		.uleb128 0x1
- 298 00ac 9C       		.byte	0x9c
- 299 00ad CE000000 		.4byte	0xce
- 300 00b1 08       		.uleb128 0x8
- 301 00b2 9C000000 		.4byte	.LASF16
- 302 00b6 01       		.byte	0x1
- 303 00b7 27       		.byte	0x27
- 304 00b8 6B000000 		.4byte	0x6b
- 305 00bc 02       		.uleb128 0x2
- 306 00bd 91       		.byte	0x91
- 307 00be 6F       		.sleb128 -17
- 308 00bf 09       		.uleb128 0x9
- 309 00c0 A2000000 		.4byte	.LASF23
- 310 00c4 01       		.byte	0x1
- 311 00c5 29       		.byte	0x29
- 312 00c6 6B000000 		.4byte	0x6b
- 313 00ca 02       		.uleb128 0x2
- 314 00cb 91       		.byte	0x91
- 315 00cc 77       		.sleb128 -9
- 316 00cd 00       		.byte	0
- 317 00ce 07       		.uleb128 0x7
- 318 00cf C9010000 		.4byte	.LASF15
- 319 00d3 01       		.byte	0x1
- 320 00d4 45       		.byte	0x45
- 321 00d5 00000000 		.4byte	.LFB1
- 322 00d9 3C000000 		.4byte	.LFE1-.LFB1
- 323 00dd 01       		.uleb128 0x1
- 324 00de 9C       		.byte	0x9c
- 325 00df F2000000 		.4byte	0xf2
- 326 00e3 08       		.uleb128 0x8
- 327 00e4 A7010000 		.4byte	.LASF17
- 328 00e8 01       		.byte	0x1
- 329 00e9 45       		.byte	0x45
- 330 00ea 6B000000 		.4byte	0x6b
- 331 00ee 02       		.uleb128 0x2
- 332 00ef 91       		.byte	0x91
- 333 00f0 77       		.sleb128 -9
- 334 00f1 00       		.byte	0
- 335 00f2 0A       		.uleb128 0xa
- 336 00f3 00000000 		.4byte	.LASF18
- 337 00f7 01       		.byte	0x1
- 338 00f8 5D       		.byte	0x5d
- 339 00f9 6B000000 		.4byte	0x6b
- 340 00fd 00000000 		.4byte	.LFB2
-ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 9
-
-
- 341 0101 1C000000 		.4byte	.LFE2-.LFB2
- 342 0105 01       		.uleb128 0x1
- 343 0106 9C       		.byte	0x9c
- 344 0107 0A       		.uleb128 0xa
- 345 0108 58010000 		.4byte	.LASF19
- 346 010c 01       		.byte	0x1
- 347 010d 71       		.byte	0x71
- 348 010e 6B000000 		.4byte	0x6b
- 349 0112 00000000 		.4byte	.LFB3
- 350 0116 1C000000 		.4byte	.LFE3-.LFB3
- 351 011a 01       		.uleb128 0x1
- 352 011b 9C       		.byte	0x9c
- 353 011c 00       		.byte	0
+ 313 00cb 02       		.uleb128 0x2
+ 314 00cc 91       		.byte	0x91
+ 315 00cd 77       		.sleb128 -9
+ 316 00ce 00       		.byte	0
+ 317 00cf 06       		.uleb128 0x6
+ 318 00d0 DA010000 		.4byte	.LASF15
+ 319 00d4 01       		.byte	0x1
+ 320 00d5 5A       		.byte	0x5a
+ 321 00d6 00000000 		.4byte	.LFB1
+ 322 00da 3C000000 		.4byte	.LFE1-.LFB1
+ 323 00de 01       		.uleb128 0x1
+ 324 00df 9C       		.byte	0x9c
+ 325 00e0 F3000000 		.4byte	0xf3
+ 326 00e4 07       		.uleb128 0x7
+ 327 00e5 B8010000 		.4byte	.LASF17
+ 328 00e9 01       		.byte	0x1
+ 329 00ea 5A       		.byte	0x5a
+ 330 00eb 6B000000 		.4byte	0x6b
+ 331 00ef 02       		.uleb128 0x2
+ 332 00f0 91       		.byte	0x91
+ 333 00f1 77       		.sleb128 -9
+ 334 00f2 00       		.byte	0
+ 335 00f3 09       		.uleb128 0x9
+ 336 00f4 36010000 		.4byte	.LASF18
+ 337 00f8 01       		.byte	0x1
+ 338 00f9 71       		.byte	0x71
+ 339 00fa 6B000000 		.4byte	0x6b
+ 340 00fe 00000000 		.4byte	.LFB2
+ 341 0102 1C000000 		.4byte	.LFE2-.LFB2
+ 342 0106 01       		.uleb128 0x1
+ 343 0107 9C       		.byte	0x9c
+ 344 0108 09       		.uleb128 0x9
+ 345 0109 69010000 		.4byte	.LASF19
+ 346 010d 01       		.byte	0x1
+ 347 010e 8D       		.byte	0x8d
+ 348 010f 6B000000 		.4byte	0x6b
+ 349 0113 00000000 		.4byte	.LFB3
+ 350 0117 1C000000 		.4byte	.LFE3-.LFB3
+ 351 011b 01       		.uleb128 0x1
+ 352 011c 9C       		.byte	0x9c
+ 353 011d 00       		.byte	0
  354              		.section	.debug_abbrev,"",%progbits
  355              	.Ldebug_abbrev0:
  356 0000 01       		.uleb128 0x1
@@ -510,6 +538,9 @@ ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 1
  367 000b 55       		.uleb128 0x55
  368 000c 17       		.uleb128 0x17
  369 000d 11       		.uleb128 0x11
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccqniDig.s 			page 10
+
+
  370 000e 01       		.uleb128 0x1
  371 000f 10       		.uleb128 0x10
  372 0010 17       		.uleb128 0x17
@@ -538,9 +569,6 @@ ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 1
  395 0027 00       		.byte	0
  396 0028 00       		.byte	0
  397 0029 04       		.uleb128 0x4
-ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 10
-
-
  398 002a 16       		.uleb128 0x16
  399 002b 00       		.byte	0
  400 002c 03       		.uleb128 0x3
@@ -548,284 +576,274 @@ ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 1
  402 002e 3A       		.uleb128 0x3a
  403 002f 0B       		.uleb128 0xb
  404 0030 3B       		.uleb128 0x3b
- 405 0031 0B       		.uleb128 0xb
+ 405 0031 05       		.uleb128 0x5
  406 0032 49       		.uleb128 0x49
  407 0033 13       		.uleb128 0x13
  408 0034 00       		.byte	0
  409 0035 00       		.byte	0
  410 0036 05       		.uleb128 0x5
- 411 0037 16       		.uleb128 0x16
+ 411 0037 35       		.uleb128 0x35
  412 0038 00       		.byte	0
- 413 0039 03       		.uleb128 0x3
- 414 003a 0E       		.uleb128 0xe
- 415 003b 3A       		.uleb128 0x3a
- 416 003c 0B       		.uleb128 0xb
- 417 003d 3B       		.uleb128 0x3b
- 418 003e 05       		.uleb128 0x5
- 419 003f 49       		.uleb128 0x49
- 420 0040 13       		.uleb128 0x13
- 421 0041 00       		.byte	0
- 422 0042 00       		.byte	0
- 423 0043 06       		.uleb128 0x6
- 424 0044 35       		.uleb128 0x35
- 425 0045 00       		.byte	0
- 426 0046 49       		.uleb128 0x49
- 427 0047 13       		.uleb128 0x13
- 428 0048 00       		.byte	0
- 429 0049 00       		.byte	0
- 430 004a 07       		.uleb128 0x7
- 431 004b 2E       		.uleb128 0x2e
- 432 004c 01       		.byte	0x1
- 433 004d 3F       		.uleb128 0x3f
- 434 004e 19       		.uleb128 0x19
- 435 004f 03       		.uleb128 0x3
- 436 0050 0E       		.uleb128 0xe
- 437 0051 3A       		.uleb128 0x3a
- 438 0052 0B       		.uleb128 0xb
- 439 0053 3B       		.uleb128 0x3b
- 440 0054 0B       		.uleb128 0xb
- 441 0055 27       		.uleb128 0x27
- 442 0056 19       		.uleb128 0x19
- 443 0057 11       		.uleb128 0x11
- 444 0058 01       		.uleb128 0x1
- 445 0059 12       		.uleb128 0x12
- 446 005a 06       		.uleb128 0x6
- 447 005b 40       		.uleb128 0x40
- 448 005c 18       		.uleb128 0x18
- 449 005d 9742     		.uleb128 0x2117
- 450 005f 19       		.uleb128 0x19
- 451 0060 01       		.uleb128 0x1
+ 413 0039 49       		.uleb128 0x49
+ 414 003a 13       		.uleb128 0x13
+ 415 003b 00       		.byte	0
+ 416 003c 00       		.byte	0
+ 417 003d 06       		.uleb128 0x6
+ 418 003e 2E       		.uleb128 0x2e
+ 419 003f 01       		.byte	0x1
+ 420 0040 3F       		.uleb128 0x3f
+ 421 0041 19       		.uleb128 0x19
+ 422 0042 03       		.uleb128 0x3
+ 423 0043 0E       		.uleb128 0xe
+ 424 0044 3A       		.uleb128 0x3a
+ 425 0045 0B       		.uleb128 0xb
+ 426 0046 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccqniDig.s 			page 11
+
+
+ 427 0047 0B       		.uleb128 0xb
+ 428 0048 27       		.uleb128 0x27
+ 429 0049 19       		.uleb128 0x19
+ 430 004a 11       		.uleb128 0x11
+ 431 004b 01       		.uleb128 0x1
+ 432 004c 12       		.uleb128 0x12
+ 433 004d 06       		.uleb128 0x6
+ 434 004e 40       		.uleb128 0x40
+ 435 004f 18       		.uleb128 0x18
+ 436 0050 9742     		.uleb128 0x2117
+ 437 0052 19       		.uleb128 0x19
+ 438 0053 01       		.uleb128 0x1
+ 439 0054 13       		.uleb128 0x13
+ 440 0055 00       		.byte	0
+ 441 0056 00       		.byte	0
+ 442 0057 07       		.uleb128 0x7
+ 443 0058 05       		.uleb128 0x5
+ 444 0059 00       		.byte	0
+ 445 005a 03       		.uleb128 0x3
+ 446 005b 0E       		.uleb128 0xe
+ 447 005c 3A       		.uleb128 0x3a
+ 448 005d 0B       		.uleb128 0xb
+ 449 005e 3B       		.uleb128 0x3b
+ 450 005f 0B       		.uleb128 0xb
+ 451 0060 49       		.uleb128 0x49
  452 0061 13       		.uleb128 0x13
- 453 0062 00       		.byte	0
- 454 0063 00       		.byte	0
-ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 11
-
-
- 455 0064 08       		.uleb128 0x8
- 456 0065 05       		.uleb128 0x5
- 457 0066 00       		.byte	0
- 458 0067 03       		.uleb128 0x3
- 459 0068 0E       		.uleb128 0xe
- 460 0069 3A       		.uleb128 0x3a
- 461 006a 0B       		.uleb128 0xb
- 462 006b 3B       		.uleb128 0x3b
+ 453 0062 02       		.uleb128 0x2
+ 454 0063 18       		.uleb128 0x18
+ 455 0064 00       		.byte	0
+ 456 0065 00       		.byte	0
+ 457 0066 08       		.uleb128 0x8
+ 458 0067 34       		.uleb128 0x34
+ 459 0068 00       		.byte	0
+ 460 0069 03       		.uleb128 0x3
+ 461 006a 0E       		.uleb128 0xe
+ 462 006b 3A       		.uleb128 0x3a
  463 006c 0B       		.uleb128 0xb
- 464 006d 49       		.uleb128 0x49
- 465 006e 13       		.uleb128 0x13
- 466 006f 02       		.uleb128 0x2
- 467 0070 18       		.uleb128 0x18
- 468 0071 00       		.byte	0
- 469 0072 00       		.byte	0
- 470 0073 09       		.uleb128 0x9
- 471 0074 34       		.uleb128 0x34
- 472 0075 00       		.byte	0
- 473 0076 03       		.uleb128 0x3
- 474 0077 0E       		.uleb128 0xe
- 475 0078 3A       		.uleb128 0x3a
- 476 0079 0B       		.uleb128 0xb
- 477 007a 3B       		.uleb128 0x3b
- 478 007b 0B       		.uleb128 0xb
- 479 007c 49       		.uleb128 0x49
- 480 007d 13       		.uleb128 0x13
- 481 007e 02       		.uleb128 0x2
- 482 007f 18       		.uleb128 0x18
- 483 0080 00       		.byte	0
- 484 0081 00       		.byte	0
- 485 0082 0A       		.uleb128 0xa
- 486 0083 2E       		.uleb128 0x2e
- 487 0084 00       		.byte	0
- 488 0085 3F       		.uleb128 0x3f
- 489 0086 19       		.uleb128 0x19
- 490 0087 03       		.uleb128 0x3
- 491 0088 0E       		.uleb128 0xe
- 492 0089 3A       		.uleb128 0x3a
- 493 008a 0B       		.uleb128 0xb
- 494 008b 3B       		.uleb128 0x3b
- 495 008c 0B       		.uleb128 0xb
- 496 008d 27       		.uleb128 0x27
- 497 008e 19       		.uleb128 0x19
- 498 008f 49       		.uleb128 0x49
- 499 0090 13       		.uleb128 0x13
- 500 0091 11       		.uleb128 0x11
- 501 0092 01       		.uleb128 0x1
- 502 0093 12       		.uleb128 0x12
- 503 0094 06       		.uleb128 0x6
- 504 0095 40       		.uleb128 0x40
- 505 0096 18       		.uleb128 0x18
- 506 0097 9742     		.uleb128 0x2117
- 507 0099 19       		.uleb128 0x19
- 508 009a 00       		.byte	0
- 509 009b 00       		.byte	0
- 510 009c 00       		.byte	0
- 511              		.section	.debug_aranges,"",%progbits
-ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 12
+ 464 006d 3B       		.uleb128 0x3b
+ 465 006e 0B       		.uleb128 0xb
+ 466 006f 49       		.uleb128 0x49
+ 467 0070 13       		.uleb128 0x13
+ 468 0071 02       		.uleb128 0x2
+ 469 0072 18       		.uleb128 0x18
+ 470 0073 00       		.byte	0
+ 471 0074 00       		.byte	0
+ 472 0075 09       		.uleb128 0x9
+ 473 0076 2E       		.uleb128 0x2e
+ 474 0077 00       		.byte	0
+ 475 0078 3F       		.uleb128 0x3f
+ 476 0079 19       		.uleb128 0x19
+ 477 007a 03       		.uleb128 0x3
+ 478 007b 0E       		.uleb128 0xe
+ 479 007c 3A       		.uleb128 0x3a
+ 480 007d 0B       		.uleb128 0xb
+ 481 007e 3B       		.uleb128 0x3b
+ 482 007f 0B       		.uleb128 0xb
+ 483 0080 27       		.uleb128 0x27
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccqniDig.s 			page 12
 
 
- 512 0000 34000000 		.4byte	0x34
- 513 0004 0200     		.2byte	0x2
- 514 0006 00000000 		.4byte	.Ldebug_info0
- 515 000a 04       		.byte	0x4
- 516 000b 00       		.byte	0
- 517 000c 0000     		.2byte	0
- 518 000e 0000     		.2byte	0
- 519 0010 00000000 		.4byte	.LFB0
- 520 0014 38000000 		.4byte	.LFE0-.LFB0
- 521 0018 00000000 		.4byte	.LFB1
- 522 001c 3C000000 		.4byte	.LFE1-.LFB1
- 523 0020 00000000 		.4byte	.LFB2
- 524 0024 1C000000 		.4byte	.LFE2-.LFB2
- 525 0028 00000000 		.4byte	.LFB3
- 526 002c 1C000000 		.4byte	.LFE3-.LFB3
- 527 0030 00000000 		.4byte	0
- 528 0034 00000000 		.4byte	0
- 529              		.section	.debug_ranges,"",%progbits
- 530              	.Ldebug_ranges0:
- 531 0000 00000000 		.4byte	.LFB0
- 532 0004 38000000 		.4byte	.LFE0
- 533 0008 00000000 		.4byte	.LFB1
- 534 000c 3C000000 		.4byte	.LFE1
- 535 0010 00000000 		.4byte	.LFB2
- 536 0014 1C000000 		.4byte	.LFE2
- 537 0018 00000000 		.4byte	.LFB3
- 538 001c 1C000000 		.4byte	.LFE3
- 539 0020 00000000 		.4byte	0
- 540 0024 00000000 		.4byte	0
- 541              		.section	.debug_line,"",%progbits
- 542              	.Ldebug_line0:
- 543 0000 94000000 		.section	.debug_str,"MS",%progbits,1
- 543      02004500 
- 543      00000201 
- 543      FB0E0D00 
- 543      01010101 
- 544              	.LASF18:
- 545 0000 5369676E 		.ascii	"Signal_A_Read\000"
- 545      616C5F41 
- 545      5F526561 
- 545      6400
- 546              	.LASF20:
- 547 000e 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
- 547      43313120 
- 547      352E342E 
- 547      31203230 
- 547      31363036 
- 548 0041 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
- 548      20726576 
- 548      6973696F 
- 548      6E203233 
- 548      37373135 
- 549 0074 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
- 549      66756E63 
- 549      74696F6E 
- 549      2D736563 
- 549      74696F6E 
-ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 13
+ 484 0081 19       		.uleb128 0x19
+ 485 0082 49       		.uleb128 0x49
+ 486 0083 13       		.uleb128 0x13
+ 487 0084 11       		.uleb128 0x11
+ 488 0085 01       		.uleb128 0x1
+ 489 0086 12       		.uleb128 0x12
+ 490 0087 06       		.uleb128 0x6
+ 491 0088 40       		.uleb128 0x40
+ 492 0089 18       		.uleb128 0x18
+ 493 008a 9742     		.uleb128 0x2117
+ 494 008c 19       		.uleb128 0x19
+ 495 008d 00       		.byte	0
+ 496 008e 00       		.byte	0
+ 497 008f 00       		.byte	0
+ 498              		.section	.debug_aranges,"",%progbits
+ 499 0000 34000000 		.4byte	0x34
+ 500 0004 0200     		.2byte	0x2
+ 501 0006 00000000 		.4byte	.Ldebug_info0
+ 502 000a 04       		.byte	0x4
+ 503 000b 00       		.byte	0
+ 504 000c 0000     		.2byte	0
+ 505 000e 0000     		.2byte	0
+ 506 0010 00000000 		.4byte	.LFB0
+ 507 0014 38000000 		.4byte	.LFE0-.LFB0
+ 508 0018 00000000 		.4byte	.LFB1
+ 509 001c 3C000000 		.4byte	.LFE1-.LFB1
+ 510 0020 00000000 		.4byte	.LFB2
+ 511 0024 1C000000 		.4byte	.LFE2-.LFB2
+ 512 0028 00000000 		.4byte	.LFB3
+ 513 002c 1C000000 		.4byte	.LFE3-.LFB3
+ 514 0030 00000000 		.4byte	0
+ 515 0034 00000000 		.4byte	0
+ 516              		.section	.debug_ranges,"",%progbits
+ 517              	.Ldebug_ranges0:
+ 518 0000 00000000 		.4byte	.LFB0
+ 519 0004 38000000 		.4byte	.LFE0
+ 520 0008 00000000 		.4byte	.LFB1
+ 521 000c 3C000000 		.4byte	.LFE1
+ 522 0010 00000000 		.4byte	.LFB2
+ 523 0014 1C000000 		.4byte	.LFE2
+ 524 0018 00000000 		.4byte	.LFB3
+ 525 001c 1C000000 		.4byte	.LFE3
+ 526 0020 00000000 		.4byte	0
+ 527 0024 00000000 		.4byte	0
+ 528              		.section	.debug_line,"",%progbits
+ 529              	.Ldebug_line0:
+ 530 0000 94000000 		.section	.debug_str,"MS",%progbits,1
+ 530      02004500 
+ 530      00000201 
+ 530      FB0E0D00 
+ 530      01010101 
+ 531              	.LASF22:
+ 532 0000 433A5C55 		.ascii	"C:\\Users\\Krist\\OneDrive\\Dokumenter\\GitHub\\pla"
+ 532      73657273 
+ 532      5C4B7269 
+ 532      73745C4F 
+ 532      6E654472 
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccqniDig.s 			page 13
 
 
- 550              	.LASF16:
- 551 009c 76616C75 		.ascii	"value\000"
- 551      6500
- 552              	.LASF23:
- 553 00a2 73746174 		.ascii	"staticBits\000"
- 553      69634269 
- 553      747300
- 554              	.LASF21:
- 555 00ad 47656E65 		.ascii	"Generated_Source\\PSoC5\\Signal_A.c\000"
- 555      72617465 
- 555      645F536F 
- 555      75726365 
- 555      5C50536F 
- 556              	.LASF22:
- 557 00cf 433A5C55 		.ascii	"C:\\Users\\rens_\\Documents\\platooning\\PSoC\\Plat"
- 557      73657273 
- 557      5C72656E 
- 557      735F5C44 
- 557      6F63756D 
- 558 00fc 6F6F6E69 		.ascii	"ooning\\AngleMeasurement.cydsn\000"
- 558      6E675C41 
- 558      6E676C65 
- 558      4D656173 
- 558      7572656D 
- 559              	.LASF9:
- 560 011a 666C6F61 		.ascii	"float\000"
- 560      7400
- 561              	.LASF1:
- 562 0120 756E7369 		.ascii	"unsigned char\000"
- 562      676E6564 
- 562      20636861 
- 562      7200
- 563              	.LASF13:
- 564 012e 72656738 		.ascii	"reg8\000"
- 564      00
- 565              	.LASF5:
- 566 0133 6C6F6E67 		.ascii	"long unsigned int\000"
- 566      20756E73 
- 566      69676E65 
- 566      6420696E 
- 566      7400
- 567              	.LASF3:
- 568 0145 73686F72 		.ascii	"short unsigned int\000"
- 568      7420756E 
- 568      7369676E 
- 568      65642069 
- 568      6E7400
- 569              	.LASF19:
- 570 0158 5369676E 		.ascii	"Signal_A_ReadDataReg\000"
- 570      616C5F41 
- 570      5F526561 
- 570      64446174 
- 570      61526567 
- 571              	.LASF10:
- 572 016d 646F7562 		.ascii	"double\000"
- 572      6C6500
- 573              	.LASF14:
-ARM GAS  C:\Users\rens_\AppData\Local\Temp\ccTGTQFk.s 			page 14
+ 533 002d 746F6F6E 		.ascii	"tooning\\PSoC\\Platooning\\AngleMeasurement.cydsn\000"
+ 533      696E675C 
+ 533      50536F43 
+ 533      5C506C61 
+ 533      746F6F6E 
+ 534              	.LASF20:
+ 535 005c 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 535      43313120 
+ 535      352E342E 
+ 535      31203230 
+ 535      31363036 
+ 536 008f 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 536      20726576 
+ 536      6973696F 
+ 536      6E203233 
+ 536      37373135 
+ 537 00c2 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 537      66756E63 
+ 537      74696F6E 
+ 537      2D736563 
+ 537      74696F6E 
+ 538              	.LASF16:
+ 539 00ea 76616C75 		.ascii	"value\000"
+ 539      6500
+ 540              	.LASF23:
+ 541 00f0 73746174 		.ascii	"staticBits\000"
+ 541      69634269 
+ 541      747300
+ 542              	.LASF21:
+ 543 00fb 47656E65 		.ascii	"Generated_Source\\PSoC5\\Signal_A.c\000"
+ 543      72617465 
+ 543      645F536F 
+ 543      75726365 
+ 543      5C50536F 
+ 544              	.LASF9:
+ 545 011d 666C6F61 		.ascii	"float\000"
+ 545      7400
+ 546              	.LASF1:
+ 547 0123 756E7369 		.ascii	"unsigned char\000"
+ 547      676E6564 
+ 547      20636861 
+ 547      7200
+ 548              	.LASF13:
+ 549 0131 72656738 		.ascii	"reg8\000"
+ 549      00
+ 550              	.LASF18:
+ 551 0136 5369676E 		.ascii	"Signal_A_Read\000"
+ 551      616C5F41 
+ 551      5F526561 
+ 551      6400
+ 552              	.LASF5:
+ 553 0144 6C6F6E67 		.ascii	"long unsigned int\000"
+ 553      20756E73 
+ 553      69676E65 
+ 553      6420696E 
+ 553      7400
+ 554              	.LASF3:
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccqniDig.s 			page 14
 
 
- 574 0174 5369676E 		.ascii	"Signal_A_Write\000"
- 574      616C5F41 
- 574      5F577269 
- 574      746500
- 575              	.LASF8:
- 576 0183 756E7369 		.ascii	"unsigned int\000"
- 576      676E6564 
- 576      20696E74 
- 576      00
- 577              	.LASF7:
- 578 0190 6C6F6E67 		.ascii	"long long unsigned int\000"
- 578      206C6F6E 
- 578      6720756E 
- 578      7369676E 
- 578      65642069 
- 579              	.LASF17:
- 580 01a7 6D6F6465 		.ascii	"mode\000"
- 580      00
- 581              	.LASF6:
- 582 01ac 6C6F6E67 		.ascii	"long long int\000"
- 582      206C6F6E 
- 582      6720696E 
- 582      7400
- 583              	.LASF11:
- 584 01ba 63686172 		.ascii	"char\000"
- 584      00
- 585              	.LASF2:
- 586 01bf 73686F72 		.ascii	"short int\000"
- 586      7420696E 
- 586      7400
- 587              	.LASF15:
- 588 01c9 5369676E 		.ascii	"Signal_A_SetDriveMode\000"
- 588      616C5F41 
- 588      5F536574 
- 588      44726976 
- 588      654D6F64 
- 589              	.LASF12:
- 590 01df 75696E74 		.ascii	"uint8\000"
- 590      3800
- 591              	.LASF4:
- 592 01e5 6C6F6E67 		.ascii	"long int\000"
- 592      20696E74 
- 592      00
- 593              	.LASF0:
- 594 01ee 7369676E 		.ascii	"signed char\000"
- 594      65642063 
- 594      68617200 
- 595              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
+ 555 0156 73686F72 		.ascii	"short unsigned int\000"
+ 555      7420756E 
+ 555      7369676E 
+ 555      65642069 
+ 555      6E7400
+ 556              	.LASF19:
+ 557 0169 5369676E 		.ascii	"Signal_A_ReadDataReg\000"
+ 557      616C5F41 
+ 557      5F526561 
+ 557      64446174 
+ 557      61526567 
+ 558              	.LASF10:
+ 559 017e 646F7562 		.ascii	"double\000"
+ 559      6C6500
+ 560              	.LASF14:
+ 561 0185 5369676E 		.ascii	"Signal_A_Write\000"
+ 561      616C5F41 
+ 561      5F577269 
+ 561      746500
+ 562              	.LASF8:
+ 563 0194 756E7369 		.ascii	"unsigned int\000"
+ 563      676E6564 
+ 563      20696E74 
+ 563      00
+ 564              	.LASF7:
+ 565 01a1 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 565      206C6F6E 
+ 565      6720756E 
+ 565      7369676E 
+ 565      65642069 
+ 566              	.LASF17:
+ 567 01b8 6D6F6465 		.ascii	"mode\000"
+ 567      00
+ 568              	.LASF6:
+ 569 01bd 6C6F6E67 		.ascii	"long long int\000"
+ 569      206C6F6E 
+ 569      6720696E 
+ 569      7400
+ 570              	.LASF11:
+ 571 01cb 63686172 		.ascii	"char\000"
+ 571      00
+ 572              	.LASF2:
+ 573 01d0 73686F72 		.ascii	"short int\000"
+ 573      7420696E 
+ 573      7400
+ 574              	.LASF15:
+ 575 01da 5369676E 		.ascii	"Signal_A_SetDriveMode\000"
+ 575      616C5F41 
+ 575      5F536574 
+ 575      44726976 
+ 575      654D6F64 
+ 576              	.LASF12:
+ 577 01f0 75696E74 		.ascii	"uint8\000"
+ 577      3800
+ 578              	.LASF4:
+ 579 01f6 6C6F6E67 		.ascii	"long int\000"
+ 579      20696E74 
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\ccqniDig.s 			page 15
+
+
+ 579      00
+ 580              	.LASF0:
+ 581 01ff 7369676E 		.ascii	"signed char\000"
+ 581      65642063 
+ 581      68617200 
+ 582              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

@@ -1,0 +1,2473 @@
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"PWM_HBRIDGE.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.global	PWM_HBRIDGE_initVar
+  20              		.bss
+  21              		.type	PWM_HBRIDGE_initVar, %object
+  22              		.size	PWM_HBRIDGE_initVar, 1
+  23              	PWM_HBRIDGE_initVar:
+  24 0000 00       		.space	1
+  25              		.section	.text.PWM_HBRIDGE_Start,"ax",%progbits
+  26              		.align	2
+  27              		.global	PWM_HBRIDGE_Start
+  28              		.thumb
+  29              		.thumb_func
+  30              		.type	PWM_HBRIDGE_Start, %function
+  31              	PWM_HBRIDGE_Start:
+  32              	.LFB0:
+  33              		.file 1 "Generated_Source\\PSoC5\\PWM_HBRIDGE.c"
+   1:Generated_Source\PSoC5/PWM_HBRIDGE.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * File Name: PWM_HBRIDGE.c
+   3:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Version 3.30
+   4:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+   5:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Description:
+   6:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  The PWM User Module consist of an 8 or 16-bit counter with two 8 or 16-bit
+   7:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  comparitors. Each instance of this user module is capable of generating
+   8:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  two PWM outputs with the same period. The pulse width is selectable between
+   9:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  1 and 255/65535. The period is selectable between 2 and 255/65536 clocks.
+  10:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  The compare value output may be configured to be active when the present
+  11:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  counter is less than or less than/equal to the compare value.
+  12:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  A terminal count output is also provided. It generates a pulse one clock
+  13:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  width wide when the counter is equal to zero.
+  14:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+  15:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Note:
+  16:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+  17:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *******************************************************************************
+  18:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+  19:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * You may use this file only in accordance with the license, terms, conditions,
+  20:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  21:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * the software package with which this file was provided.
+  22:Generated_Source\PSoC5/PWM_HBRIDGE.c **** ********************************************************************************/
+  23:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+  24:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #include "PWM_HBRIDGE.h"
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 2
+
+
+  25:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+  26:Generated_Source\PSoC5/PWM_HBRIDGE.c **** /* Error message for removed <resource> through optimization */
+  27:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #ifdef PWM_HBRIDGE_PWMUDB_genblk1_ctrlreg__REMOVED
+  28:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #error PWM_v3_30 detected with a constant 0 for the enable or \
+  29:Generated_Source\PSoC5/PWM_HBRIDGE.c ****          constant 1 for reset. This will prevent the component from operating.
+  30:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #endif /* PWM_HBRIDGE_PWMUDB_genblk1_ctrlreg__REMOVED */
+  31:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+  32:Generated_Source\PSoC5/PWM_HBRIDGE.c **** uint8 PWM_HBRIDGE_initVar = 0u;
+  33:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+  34:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+  35:Generated_Source\PSoC5/PWM_HBRIDGE.c **** /*******************************************************************************
+  36:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Function Name: PWM_HBRIDGE_Start
+  37:Generated_Source\PSoC5/PWM_HBRIDGE.c **** ********************************************************************************
+  38:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+  39:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Summary:
+  40:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  The start function initializes the pwm with the default values, the
+  41:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  enables the counter to begin counting.  It does not enable interrupts,
+  42:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  the EnableInt command should be called if interrupt generation is required.
+  43:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+  44:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Parameters:
+  45:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  None
+  46:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+  47:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Return:
+  48:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  None
+  49:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+  50:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Global variables:
+  51:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  PWM_HBRIDGE_initVar: Is modified when this function is called for the
+  52:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *   first time. Is used to ensure that initialization happens only once.
+  53:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+  54:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *******************************************************************************/
+  55:Generated_Source\PSoC5/PWM_HBRIDGE.c **** void PWM_HBRIDGE_Start(void) 
+  56:Generated_Source\PSoC5/PWM_HBRIDGE.c **** {
+  34              		.loc 1 56 0
+  35              		.cfi_startproc
+  36              		@ args = 0, pretend = 0, frame = 0
+  37              		@ frame_needed = 1, uses_anonymous_args = 0
+  38 0000 80B5     		push	{r7, lr}
+  39              		.cfi_def_cfa_offset 8
+  40              		.cfi_offset 7, -8
+  41              		.cfi_offset 14, -4
+  42 0002 00AF     		add	r7, sp, #0
+  43              		.cfi_def_cfa_register 7
+  57:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     /* If not Initialized then initialize all required hardware and software */
+  58:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     if(PWM_HBRIDGE_initVar == 0u)
+  44              		.loc 1 58 0
+  45 0004 064B     		ldr	r3, .L3
+  46 0006 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  47 0008 002B     		cmp	r3, #0
+  48 000a 04D1     		bne	.L2
+  59:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     {
+  60:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         PWM_HBRIDGE_Init();
+  49              		.loc 1 60 0
+  50 000c FFF7FEFF 		bl	PWM_HBRIDGE_Init
+  61:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         PWM_HBRIDGE_initVar = 1u;
+  51              		.loc 1 61 0
+  52 0010 034B     		ldr	r3, .L3
+  53 0012 0122     		movs	r2, #1
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 3
+
+
+  54 0014 1A70     		strb	r2, [r3]
+  55              	.L2:
+  62:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     }
+  63:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     PWM_HBRIDGE_Enable();
+  56              		.loc 1 63 0
+  57 0016 FFF7FEFF 		bl	PWM_HBRIDGE_Enable
+  64:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+  65:Generated_Source\PSoC5/PWM_HBRIDGE.c **** }
+  58              		.loc 1 65 0
+  59 001a 00BF     		nop
+  60 001c 80BD     		pop	{r7, pc}
+  61              	.L4:
+  62 001e 00BF     		.align	2
+  63              	.L3:
+  64 0020 00000000 		.word	PWM_HBRIDGE_initVar
+  65              		.cfi_endproc
+  66              	.LFE0:
+  67              		.size	PWM_HBRIDGE_Start, .-PWM_HBRIDGE_Start
+  68              		.section	.text.PWM_HBRIDGE_Init,"ax",%progbits
+  69              		.align	2
+  70              		.global	PWM_HBRIDGE_Init
+  71              		.thumb
+  72              		.thumb_func
+  73              		.type	PWM_HBRIDGE_Init, %function
+  74              	PWM_HBRIDGE_Init:
+  75              	.LFB1:
+  66:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+  67:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+  68:Generated_Source\PSoC5/PWM_HBRIDGE.c **** /*******************************************************************************
+  69:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Function Name: PWM_HBRIDGE_Init
+  70:Generated_Source\PSoC5/PWM_HBRIDGE.c **** ********************************************************************************
+  71:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+  72:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Summary:
+  73:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  Initialize component's parameters to the parameters set by user in the
+  74:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  customizer of the component placed onto schematic. Usually called in
+  75:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  PWM_HBRIDGE_Start().
+  76:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+  77:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Parameters:
+  78:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  None
+  79:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+  80:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Return:
+  81:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  None
+  82:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+  83:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *******************************************************************************/
+  84:Generated_Source\PSoC5/PWM_HBRIDGE.c **** void PWM_HBRIDGE_Init(void) 
+  85:Generated_Source\PSoC5/PWM_HBRIDGE.c **** {
+  76              		.loc 1 85 0
+  77              		.cfi_startproc
+  78              		@ args = 0, pretend = 0, frame = 8
+  79              		@ frame_needed = 1, uses_anonymous_args = 0
+  80 0000 80B5     		push	{r7, lr}
+  81              		.cfi_def_cfa_offset 8
+  82              		.cfi_offset 7, -8
+  83              		.cfi_offset 14, -4
+  84 0002 82B0     		sub	sp, sp, #8
+  85              		.cfi_def_cfa_offset 16
+  86 0004 00AF     		add	r7, sp, #0
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 4
+
+
+  87              		.cfi_def_cfa_register 7
+  86:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #if (PWM_HBRIDGE_UsingFixedFunction || PWM_HBRIDGE_UseControl)
+  87:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         uint8 ctrl;
+  88:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #endif /* (PWM_HBRIDGE_UsingFixedFunction || PWM_HBRIDGE_UseControl) */
+  89:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+  90:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #if(!PWM_HBRIDGE_UsingFixedFunction)
+  91:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #if(PWM_HBRIDGE_UseStatus)
+  92:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             /* Interrupt State Backup for Critical Region*/
+  93:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             uint8 PWM_HBRIDGE_interruptState;
+  94:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #endif /* (PWM_HBRIDGE_UseStatus) */
+  95:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #endif /* (!PWM_HBRIDGE_UsingFixedFunction) */
+  96:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+  97:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #if (PWM_HBRIDGE_UsingFixedFunction)
+  98:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         /* You are allowed to write the compare value (FF only) */
+  99:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         PWM_HBRIDGE_CONTROL |= PWM_HBRIDGE_CFG0_MODE;
+  88              		.loc 1 99 0
+  89 0006 294A     		ldr	r2, .L6
+  90 0008 284B     		ldr	r3, .L6
+  91 000a 1B78     		ldrb	r3, [r3]
+  92 000c DBB2     		uxtb	r3, r3
+  93 000e 43F00203 		orr	r3, r3, #2
+  94 0012 DBB2     		uxtb	r3, r3
+  95 0014 1370     		strb	r3, [r2]
+ 100:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #if (PWM_HBRIDGE_DeadBand2_4)
+ 101:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             PWM_HBRIDGE_CONTROL |= PWM_HBRIDGE_CFG0_DB;
+ 102:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #endif /* (PWM_HBRIDGE_DeadBand2_4) */
+ 103:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 104:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         ctrl = PWM_HBRIDGE_CONTROL3 & ((uint8 )(~PWM_HBRIDGE_CTRL_CMPMODE1_MASK));
+  96              		.loc 1 104 0
+  97 0016 264B     		ldr	r3, .L6+4
+  98 0018 1B78     		ldrb	r3, [r3]
+  99 001a DBB2     		uxtb	r3, r3
+ 100 001c 23F07003 		bic	r3, r3, #112
+ 101 0020 FB71     		strb	r3, [r7, #7]
+ 105:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         PWM_HBRIDGE_CONTROL3 = ctrl | PWM_HBRIDGE_DEFAULT_COMPARE1_MODE;
+ 102              		.loc 1 105 0
+ 103 0022 234A     		ldr	r2, .L6+4
+ 104 0024 FB79     		ldrb	r3, [r7, #7]
+ 105 0026 43F01003 		orr	r3, r3, #16
+ 106 002a DBB2     		uxtb	r3, r3
+ 107 002c 1370     		strb	r3, [r2]
+ 106:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 107:Generated_Source\PSoC5/PWM_HBRIDGE.c ****          /* Clear and Set SYNCTC and SYNCCMP bits of RT1 register */
+ 108:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         PWM_HBRIDGE_RT1 &= ((uint8)(~PWM_HBRIDGE_RT1_MASK));
+ 108              		.loc 1 108 0
+ 109 002e 214A     		ldr	r2, .L6+8
+ 110 0030 204B     		ldr	r3, .L6+8
+ 111 0032 1B78     		ldrb	r3, [r3]
+ 112 0034 DBB2     		uxtb	r3, r3
+ 113 0036 23F03003 		bic	r3, r3, #48
+ 114 003a DBB2     		uxtb	r3, r3
+ 115 003c 1370     		strb	r3, [r2]
+ 109:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         PWM_HBRIDGE_RT1 |= PWM_HBRIDGE_SYNC;
+ 116              		.loc 1 109 0
+ 117 003e 1D4A     		ldr	r2, .L6+8
+ 118 0040 1C4B     		ldr	r3, .L6+8
+ 119 0042 1B78     		ldrb	r3, [r3]
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 5
+
+
+ 120 0044 DBB2     		uxtb	r3, r3
+ 121 0046 43F03003 		orr	r3, r3, #48
+ 122 004a DBB2     		uxtb	r3, r3
+ 123 004c 1370     		strb	r3, [r2]
+ 110:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 111:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         /*Enable DSI Sync all all inputs of the PWM*/
+ 112:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         PWM_HBRIDGE_RT1 &= ((uint8)(~PWM_HBRIDGE_SYNCDSI_MASK));
+ 124              		.loc 1 112 0
+ 125 004e 194A     		ldr	r2, .L6+8
+ 126 0050 184B     		ldr	r3, .L6+8
+ 127 0052 1B78     		ldrb	r3, [r3]
+ 128 0054 DBB2     		uxtb	r3, r3
+ 129 0056 23F00F03 		bic	r3, r3, #15
+ 130 005a DBB2     		uxtb	r3, r3
+ 131 005c 1370     		strb	r3, [r2]
+ 113:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         PWM_HBRIDGE_RT1 |= PWM_HBRIDGE_SYNCDSI_EN;
+ 132              		.loc 1 113 0
+ 133 005e 154A     		ldr	r2, .L6+8
+ 134 0060 144B     		ldr	r3, .L6+8
+ 135 0062 1B78     		ldrb	r3, [r3]
+ 136 0064 DBB2     		uxtb	r3, r3
+ 137 0066 43F00F03 		orr	r3, r3, #15
+ 138 006a DBB2     		uxtb	r3, r3
+ 139 006c 1370     		strb	r3, [r2]
+ 114:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 115:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #elif (PWM_HBRIDGE_UseControl)
+ 116:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         /* Set the default compare mode defined in the parameter */
+ 117:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         ctrl = PWM_HBRIDGE_CONTROL & ((uint8)(~PWM_HBRIDGE_CTRL_CMPMODE2_MASK)) &
+ 118:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 ((uint8)(~PWM_HBRIDGE_CTRL_CMPMODE1_MASK));
+ 119:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         PWM_HBRIDGE_CONTROL = ctrl | PWM_HBRIDGE_DEFAULT_COMPARE2_MODE |
+ 120:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                                    PWM_HBRIDGE_DEFAULT_COMPARE1_MODE;
+ 121:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #endif /* (PWM_HBRIDGE_UsingFixedFunction) */
+ 122:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 123:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #if (!PWM_HBRIDGE_UsingFixedFunction)
+ 124:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #if (PWM_HBRIDGE_Resolution == 8)
+ 125:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             /* Set FIFO 0 to 1 byte register for period*/
+ 126:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             PWM_HBRIDGE_AUX_CONTROLDP0 |= (PWM_HBRIDGE_AUX_CTRL_FIFO0_CLR);
+ 127:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #else /* (PWM_HBRIDGE_Resolution == 16)*/
+ 128:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             /* Set FIFO 0 to 1 byte register for period */
+ 129:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             PWM_HBRIDGE_AUX_CONTROLDP0 |= (PWM_HBRIDGE_AUX_CTRL_FIFO0_CLR);
+ 130:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             PWM_HBRIDGE_AUX_CONTROLDP1 |= (PWM_HBRIDGE_AUX_CTRL_FIFO0_CLR);
+ 131:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #endif /* (PWM_HBRIDGE_Resolution == 8) */
+ 132:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 133:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         PWM_HBRIDGE_WriteCounter(PWM_HBRIDGE_INIT_PERIOD_VALUE);
+ 134:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #endif /* (!PWM_HBRIDGE_UsingFixedFunction) */
+ 135:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 136:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     PWM_HBRIDGE_WritePeriod(PWM_HBRIDGE_INIT_PERIOD_VALUE);
+ 140              		.loc 1 136 0
+ 141 006e 4FF6FF70 		movw	r0, #65535
+ 142 0072 FFF7FEFF 		bl	PWM_HBRIDGE_WritePeriod
+ 137:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 138:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #if (PWM_HBRIDGE_UseOneCompareMode)
+ 139:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             PWM_HBRIDGE_WriteCompare(PWM_HBRIDGE_INIT_COMPARE_VALUE1);
+ 143              		.loc 1 139 0
+ 144 0076 0020     		movs	r0, #0
+ 145 0078 FFF7FEFF 		bl	PWM_HBRIDGE_WriteCompare
+ 140:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #else
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 6
+
+
+ 141:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             PWM_HBRIDGE_WriteCompare1(PWM_HBRIDGE_INIT_COMPARE_VALUE1);
+ 142:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             PWM_HBRIDGE_WriteCompare2(PWM_HBRIDGE_INIT_COMPARE_VALUE2);
+ 143:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #endif /* (PWM_HBRIDGE_UseOneCompareMode) */
+ 144:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 145:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #if (PWM_HBRIDGE_KillModeMinTime)
+ 146:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             PWM_HBRIDGE_WriteKillTime(PWM_HBRIDGE_MinimumKillTime);
+ 147:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #endif /* (PWM_HBRIDGE_KillModeMinTime) */
+ 148:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 149:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #if (PWM_HBRIDGE_DeadBandUsed)
+ 150:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             PWM_HBRIDGE_WriteDeadTime(PWM_HBRIDGE_INIT_DEAD_TIME);
+ 151:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #endif /* (PWM_HBRIDGE_DeadBandUsed) */
+ 152:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 153:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #if (PWM_HBRIDGE_UseStatus || PWM_HBRIDGE_UsingFixedFunction)
+ 154:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         PWM_HBRIDGE_SetInterruptMode(PWM_HBRIDGE_INIT_INTERRUPTS_MODE);
+ 146              		.loc 1 154 0
+ 147 007c 0020     		movs	r0, #0
+ 148 007e FFF7FEFF 		bl	PWM_HBRIDGE_SetInterruptMode
+ 155:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #endif /* (PWM_HBRIDGE_UseStatus || PWM_HBRIDGE_UsingFixedFunction) */
+ 156:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 157:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #if (PWM_HBRIDGE_UsingFixedFunction)
+ 158:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         /* Globally Enable the Fixed Function Block chosen */
+ 159:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         PWM_HBRIDGE_GLOBAL_ENABLE |= PWM_HBRIDGE_BLOCK_EN_MASK;
+ 149              		.loc 1 159 0
+ 150 0082 0D4A     		ldr	r2, .L6+12
+ 151 0084 0C4B     		ldr	r3, .L6+12
+ 152 0086 1B78     		ldrb	r3, [r3]
+ 153 0088 DBB2     		uxtb	r3, r3
+ 154 008a 43F00103 		orr	r3, r3, #1
+ 155 008e DBB2     		uxtb	r3, r3
+ 156 0090 1370     		strb	r3, [r2]
+ 160:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         /* Set the Interrupt source to come from the status register */
+ 161:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         PWM_HBRIDGE_CONTROL2 |= PWM_HBRIDGE_CTRL2_IRQ_SEL;
+ 157              		.loc 1 161 0
+ 158 0092 0A4A     		ldr	r2, .L6+16
+ 159 0094 094B     		ldr	r3, .L6+16
+ 160 0096 1B78     		ldrb	r3, [r3]
+ 161 0098 DBB2     		uxtb	r3, r3
+ 162 009a 43F00103 		orr	r3, r3, #1
+ 163 009e DBB2     		uxtb	r3, r3
+ 164 00a0 1370     		strb	r3, [r2]
+ 162:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #else
+ 163:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #if(PWM_HBRIDGE_UseStatus)
+ 164:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 165:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             /* CyEnterCriticalRegion and CyExitCriticalRegion are used to mark following region cri
+ 166:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             /* Enter Critical Region*/
+ 167:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             PWM_HBRIDGE_interruptState = CyEnterCriticalSection();
+ 168:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             /* Use the interrupt output of the status register for IRQ output */
+ 169:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             PWM_HBRIDGE_STATUS_AUX_CTRL |= PWM_HBRIDGE_STATUS_ACTL_INT_EN_MASK;
+ 170:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 171:Generated_Source\PSoC5/PWM_HBRIDGE.c ****              /* Exit Critical Region*/
+ 172:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             CyExitCriticalSection(PWM_HBRIDGE_interruptState);
+ 173:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 174:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             /* Clear the FIFO to enable the PWM_HBRIDGE_STATUS_FIFOFULL
+ 175:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                    bit to be set on FIFO full. */
+ 176:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             PWM_HBRIDGE_ClearFIFO();
+ 177:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #endif /* (PWM_HBRIDGE_UseStatus) */
+ 178:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #endif /* (PWM_HBRIDGE_UsingFixedFunction) */
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 7
+
+
+ 179:Generated_Source\PSoC5/PWM_HBRIDGE.c **** }
+ 165              		.loc 1 179 0
+ 166 00a2 00BF     		nop
+ 167 00a4 0837     		adds	r7, r7, #8
+ 168              		.cfi_def_cfa_offset 8
+ 169 00a6 BD46     		mov	sp, r7
+ 170              		.cfi_def_cfa_register 13
+ 171              		@ sp needed
+ 172 00a8 80BD     		pop	{r7, pc}
+ 173              	.L7:
+ 174 00aa 00BF     		.align	2
+ 175              	.L6:
+ 176 00ac 004F0040 		.word	1073762048
+ 177 00b0 024F0040 		.word	1073762050
+ 178 00b4 0B4F0040 		.word	1073762059
+ 179 00b8 A3430040 		.word	1073759139
+ 180 00bc 014F0040 		.word	1073762049
+ 181              		.cfi_endproc
+ 182              	.LFE1:
+ 183              		.size	PWM_HBRIDGE_Init, .-PWM_HBRIDGE_Init
+ 184              		.section	.text.PWM_HBRIDGE_Enable,"ax",%progbits
+ 185              		.align	2
+ 186              		.global	PWM_HBRIDGE_Enable
+ 187              		.thumb
+ 188              		.thumb_func
+ 189              		.type	PWM_HBRIDGE_Enable, %function
+ 190              	PWM_HBRIDGE_Enable:
+ 191              	.LFB2:
+ 180:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 181:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 182:Generated_Source\PSoC5/PWM_HBRIDGE.c **** /*******************************************************************************
+ 183:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Function Name: PWM_HBRIDGE_Enable
+ 184:Generated_Source\PSoC5/PWM_HBRIDGE.c **** ********************************************************************************
+ 185:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+ 186:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Summary:
+ 187:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  Enables the PWM block operation
+ 188:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+ 189:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Parameters:
+ 190:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  None
+ 191:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+ 192:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Return:
+ 193:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  None
+ 194:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+ 195:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Side Effects:
+ 196:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  This works only if software enable mode is chosen
+ 197:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+ 198:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *******************************************************************************/
+ 199:Generated_Source\PSoC5/PWM_HBRIDGE.c **** void PWM_HBRIDGE_Enable(void) 
+ 200:Generated_Source\PSoC5/PWM_HBRIDGE.c **** {
+ 192              		.loc 1 200 0
+ 193              		.cfi_startproc
+ 194              		@ args = 0, pretend = 0, frame = 0
+ 195              		@ frame_needed = 1, uses_anonymous_args = 0
+ 196              		@ link register save eliminated.
+ 197 0000 80B4     		push	{r7}
+ 198              		.cfi_def_cfa_offset 4
+ 199              		.cfi_offset 7, -4
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 8
+
+
+ 200 0002 00AF     		add	r7, sp, #0
+ 201              		.cfi_def_cfa_register 7
+ 201:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     /* Globally Enable the Fixed Function Block chosen */
+ 202:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #if (PWM_HBRIDGE_UsingFixedFunction)
+ 203:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         PWM_HBRIDGE_GLOBAL_ENABLE |= PWM_HBRIDGE_BLOCK_EN_MASK;
+ 202              		.loc 1 203 0
+ 203 0004 0D4A     		ldr	r2, .L9
+ 204 0006 0D4B     		ldr	r3, .L9
+ 205 0008 1B78     		ldrb	r3, [r3]
+ 206 000a DBB2     		uxtb	r3, r3
+ 207 000c 43F00103 		orr	r3, r3, #1
+ 208 0010 DBB2     		uxtb	r3, r3
+ 209 0012 1370     		strb	r3, [r2]
+ 204:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         PWM_HBRIDGE_GLOBAL_STBY_ENABLE |= PWM_HBRIDGE_BLOCK_STBY_EN_MASK;
+ 210              		.loc 1 204 0
+ 211 0014 0A4A     		ldr	r2, .L9+4
+ 212 0016 0A4B     		ldr	r3, .L9+4
+ 213 0018 1B78     		ldrb	r3, [r3]
+ 214 001a DBB2     		uxtb	r3, r3
+ 215 001c 43F00103 		orr	r3, r3, #1
+ 216 0020 DBB2     		uxtb	r3, r3
+ 217 0022 1370     		strb	r3, [r2]
+ 205:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #endif /* (PWM_HBRIDGE_UsingFixedFunction) */
+ 206:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 207:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     /* Enable the PWM from the control register  */
+ 208:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #if (PWM_HBRIDGE_UseControl || PWM_HBRIDGE_UsingFixedFunction)
+ 209:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         PWM_HBRIDGE_CONTROL |= PWM_HBRIDGE_CTRL_ENABLE;
+ 218              		.loc 1 209 0
+ 219 0024 074A     		ldr	r2, .L9+8
+ 220 0026 074B     		ldr	r3, .L9+8
+ 221 0028 1B78     		ldrb	r3, [r3]
+ 222 002a DBB2     		uxtb	r3, r3
+ 223 002c 43F00103 		orr	r3, r3, #1
+ 224 0030 DBB2     		uxtb	r3, r3
+ 225 0032 1370     		strb	r3, [r2]
+ 210:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #endif /* (PWM_HBRIDGE_UseControl || PWM_HBRIDGE_UsingFixedFunction) */
+ 211:Generated_Source\PSoC5/PWM_HBRIDGE.c **** }
+ 226              		.loc 1 211 0
+ 227 0034 00BF     		nop
+ 228 0036 BD46     		mov	sp, r7
+ 229              		.cfi_def_cfa_register 13
+ 230              		@ sp needed
+ 231 0038 80BC     		pop	{r7}
+ 232              		.cfi_restore 7
+ 233              		.cfi_def_cfa_offset 0
+ 234 003a 7047     		bx	lr
+ 235              	.L10:
+ 236              		.align	2
+ 237              	.L9:
+ 238 003c A3430040 		.word	1073759139
+ 239 0040 B3430040 		.word	1073759155
+ 240 0044 004F0040 		.word	1073762048
+ 241              		.cfi_endproc
+ 242              	.LFE2:
+ 243              		.size	PWM_HBRIDGE_Enable, .-PWM_HBRIDGE_Enable
+ 244              		.section	.text.PWM_HBRIDGE_Stop,"ax",%progbits
+ 245              		.align	2
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 9
+
+
+ 246              		.global	PWM_HBRIDGE_Stop
+ 247              		.thumb
+ 248              		.thumb_func
+ 249              		.type	PWM_HBRIDGE_Stop, %function
+ 250              	PWM_HBRIDGE_Stop:
+ 251              	.LFB3:
+ 212:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 213:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 214:Generated_Source\PSoC5/PWM_HBRIDGE.c **** /*******************************************************************************
+ 215:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Function Name: PWM_HBRIDGE_Stop
+ 216:Generated_Source\PSoC5/PWM_HBRIDGE.c **** ********************************************************************************
+ 217:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+ 218:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Summary:
+ 219:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  The stop function halts the PWM, but does not change any modes or disable
+ 220:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  interrupts.
+ 221:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+ 222:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Parameters:
+ 223:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  None
+ 224:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+ 225:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Return:
+ 226:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  None
+ 227:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+ 228:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Side Effects:
+ 229:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  If the Enable mode is set to Hardware only then this function
+ 230:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  has no effect on the operation of the PWM
+ 231:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+ 232:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *******************************************************************************/
+ 233:Generated_Source\PSoC5/PWM_HBRIDGE.c **** void PWM_HBRIDGE_Stop(void) 
+ 234:Generated_Source\PSoC5/PWM_HBRIDGE.c **** {
+ 252              		.loc 1 234 0
+ 253              		.cfi_startproc
+ 254              		@ args = 0, pretend = 0, frame = 0
+ 255              		@ frame_needed = 1, uses_anonymous_args = 0
+ 256              		@ link register save eliminated.
+ 257 0000 80B4     		push	{r7}
+ 258              		.cfi_def_cfa_offset 4
+ 259              		.cfi_offset 7, -4
+ 260 0002 00AF     		add	r7, sp, #0
+ 261              		.cfi_def_cfa_register 7
+ 235:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #if (PWM_HBRIDGE_UseControl || PWM_HBRIDGE_UsingFixedFunction)
+ 236:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         PWM_HBRIDGE_CONTROL &= ((uint8)(~PWM_HBRIDGE_CTRL_ENABLE));
+ 262              		.loc 1 236 0
+ 263 0004 0D4A     		ldr	r2, .L12
+ 264 0006 0D4B     		ldr	r3, .L12
+ 265 0008 1B78     		ldrb	r3, [r3]
+ 266 000a DBB2     		uxtb	r3, r3
+ 267 000c 23F00103 		bic	r3, r3, #1
+ 268 0010 DBB2     		uxtb	r3, r3
+ 269 0012 1370     		strb	r3, [r2]
+ 237:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #endif /* (PWM_HBRIDGE_UseControl || PWM_HBRIDGE_UsingFixedFunction) */
+ 238:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 239:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     /* Globally disable the Fixed Function Block chosen */
+ 240:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #if (PWM_HBRIDGE_UsingFixedFunction)
+ 241:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         PWM_HBRIDGE_GLOBAL_ENABLE &= ((uint8)(~PWM_HBRIDGE_BLOCK_EN_MASK));
+ 270              		.loc 1 241 0
+ 271 0014 0A4A     		ldr	r2, .L12+4
+ 272 0016 0A4B     		ldr	r3, .L12+4
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 10
+
+
+ 273 0018 1B78     		ldrb	r3, [r3]
+ 274 001a DBB2     		uxtb	r3, r3
+ 275 001c 23F00103 		bic	r3, r3, #1
+ 276 0020 DBB2     		uxtb	r3, r3
+ 277 0022 1370     		strb	r3, [r2]
+ 242:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         PWM_HBRIDGE_GLOBAL_STBY_ENABLE &= ((uint8)(~PWM_HBRIDGE_BLOCK_STBY_EN_MASK));
+ 278              		.loc 1 242 0
+ 279 0024 074A     		ldr	r2, .L12+8
+ 280 0026 074B     		ldr	r3, .L12+8
+ 281 0028 1B78     		ldrb	r3, [r3]
+ 282 002a DBB2     		uxtb	r3, r3
+ 283 002c 23F00103 		bic	r3, r3, #1
+ 284 0030 DBB2     		uxtb	r3, r3
+ 285 0032 1370     		strb	r3, [r2]
+ 243:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #endif /* (PWM_HBRIDGE_UsingFixedFunction) */
+ 244:Generated_Source\PSoC5/PWM_HBRIDGE.c **** }
+ 286              		.loc 1 244 0
+ 287 0034 00BF     		nop
+ 288 0036 BD46     		mov	sp, r7
+ 289              		.cfi_def_cfa_register 13
+ 290              		@ sp needed
+ 291 0038 80BC     		pop	{r7}
+ 292              		.cfi_restore 7
+ 293              		.cfi_def_cfa_offset 0
+ 294 003a 7047     		bx	lr
+ 295              	.L13:
+ 296              		.align	2
+ 297              	.L12:
+ 298 003c 004F0040 		.word	1073762048
+ 299 0040 A3430040 		.word	1073759139
+ 300 0044 B3430040 		.word	1073759155
+ 301              		.cfi_endproc
+ 302              	.LFE3:
+ 303              		.size	PWM_HBRIDGE_Stop, .-PWM_HBRIDGE_Stop
+ 304              		.section	.text.PWM_HBRIDGE_WritePeriod,"ax",%progbits
+ 305              		.align	2
+ 306              		.global	PWM_HBRIDGE_WritePeriod
+ 307              		.thumb
+ 308              		.thumb_func
+ 309              		.type	PWM_HBRIDGE_WritePeriod, %function
+ 310              	PWM_HBRIDGE_WritePeriod:
+ 311              	.LFB4:
+ 245:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 246:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #if (PWM_HBRIDGE_UseOneCompareMode)
+ 247:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #if (PWM_HBRIDGE_CompareMode1SW)
+ 248:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 249:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 250:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         /*******************************************************************************
+ 251:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         * Function Name: PWM_HBRIDGE_SetCompareMode
+ 252:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         ********************************************************************************
+ 253:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *
+ 254:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         * Summary:
+ 255:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *  This function writes the Compare Mode for the pwm output when in Dither mode,
+ 256:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *  Center Align Mode or One Output Mode.
+ 257:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *
+ 258:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         * Parameters:
+ 259:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *  comparemode:  The new compare mode for the PWM output. Use the compare types
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 11
+
+
+ 260:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *                defined in the H file as input arguments.
+ 261:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *
+ 262:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         * Return:
+ 263:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *  None
+ 264:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *
+ 265:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *******************************************************************************/
+ 266:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         void PWM_HBRIDGE_SetCompareMode(uint8 comparemode) 
+ 267:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         {
+ 268:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             #if(PWM_HBRIDGE_UsingFixedFunction)
+ 269:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 270:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 #if(0 != PWM_HBRIDGE_CTRL_CMPMODE1_SHIFT)
+ 271:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                     uint8 comparemodemasked = ((uint8)((uint8)comparemode << PWM_HBRIDGE_CTRL_CMPMO
+ 272:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 #else
+ 273:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                     uint8 comparemodemasked = comparemode;
+ 274:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 #endif /* (0 != PWM_HBRIDGE_CTRL_CMPMODE1_SHIFT) */
+ 275:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 276:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 PWM_HBRIDGE_CONTROL3 &= ((uint8)(~PWM_HBRIDGE_CTRL_CMPMODE1_MASK)); /*Clear Existin
+ 277:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 PWM_HBRIDGE_CONTROL3 |= comparemodemasked;
+ 278:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 279:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             #elif (PWM_HBRIDGE_UseControl)
+ 280:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 281:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 #if(0 != PWM_HBRIDGE_CTRL_CMPMODE1_SHIFT)
+ 282:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                     uint8 comparemode1masked = ((uint8)((uint8)comparemode << PWM_HBRIDGE_CTRL_CMPM
+ 283:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                                                 PWM_HBRIDGE_CTRL_CMPMODE1_MASK;
+ 284:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 #else
+ 285:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                     uint8 comparemode1masked = comparemode & PWM_HBRIDGE_CTRL_CMPMODE1_MASK;
+ 286:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 #endif /* (0 != PWM_HBRIDGE_CTRL_CMPMODE1_SHIFT) */
+ 287:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 288:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 #if(0 != PWM_HBRIDGE_CTRL_CMPMODE2_SHIFT)
+ 289:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                     uint8 comparemode2masked = ((uint8)((uint8)comparemode << PWM_HBRIDGE_CTRL_CMPM
+ 290:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                                                PWM_HBRIDGE_CTRL_CMPMODE2_MASK;
+ 291:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 #else
+ 292:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                     uint8 comparemode2masked = comparemode & PWM_HBRIDGE_CTRL_CMPMODE2_MASK;
+ 293:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 #endif /* (0 != PWM_HBRIDGE_CTRL_CMPMODE2_SHIFT) */
+ 294:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 295:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 /*Clear existing mode */
+ 296:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 PWM_HBRIDGE_CONTROL &= ((uint8)(~(PWM_HBRIDGE_CTRL_CMPMODE1_MASK |
+ 297:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                                             PWM_HBRIDGE_CTRL_CMPMODE2_MASK)));
+ 298:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 PWM_HBRIDGE_CONTROL |= (comparemode1masked | comparemode2masked);
+ 299:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 300:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             #else
+ 301:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 uint8 temp = comparemode;
+ 302:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             #endif /* (PWM_HBRIDGE_UsingFixedFunction) */
+ 303:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         }
+ 304:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #endif /* PWM_HBRIDGE_CompareMode1SW */
+ 305:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 306:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #else /* UseOneCompareMode */
+ 307:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 308:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #if (PWM_HBRIDGE_CompareMode1SW)
+ 309:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 310:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 311:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         /*******************************************************************************
+ 312:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         * Function Name: PWM_HBRIDGE_SetCompareMode1
+ 313:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         ********************************************************************************
+ 314:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *
+ 315:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         * Summary:
+ 316:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *  This function writes the Compare Mode for the pwm or pwm1 output
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 12
+
+
+ 317:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *
+ 318:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         * Parameters:
+ 319:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *  comparemode:  The new compare mode for the PWM output. Use the compare types
+ 320:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *                defined in the H file as input arguments.
+ 321:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *
+ 322:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         * Return:
+ 323:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *  None
+ 324:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *
+ 325:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *******************************************************************************/
+ 326:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         void PWM_HBRIDGE_SetCompareMode1(uint8 comparemode) 
+ 327:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         {
+ 328:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             #if(0 != PWM_HBRIDGE_CTRL_CMPMODE1_SHIFT)
+ 329:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 uint8 comparemodemasked = ((uint8)((uint8)comparemode << PWM_HBRIDGE_CTRL_CMPMODE1_
+ 330:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                                            PWM_HBRIDGE_CTRL_CMPMODE1_MASK;
+ 331:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             #else
+ 332:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 uint8 comparemodemasked = comparemode & PWM_HBRIDGE_CTRL_CMPMODE1_MASK;
+ 333:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             #endif /* (0 != PWM_HBRIDGE_CTRL_CMPMODE1_SHIFT) */
+ 334:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 335:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             #if (PWM_HBRIDGE_UseControl)
+ 336:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 PWM_HBRIDGE_CONTROL &= ((uint8)(~PWM_HBRIDGE_CTRL_CMPMODE1_MASK)); /*Clear existing
+ 337:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 PWM_HBRIDGE_CONTROL |= comparemodemasked;
+ 338:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             #endif /* (PWM_HBRIDGE_UseControl) */
+ 339:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         }
+ 340:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #endif /* PWM_HBRIDGE_CompareMode1SW */
+ 341:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 342:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #if (PWM_HBRIDGE_CompareMode2SW)
+ 343:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 344:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 345:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     /*******************************************************************************
+ 346:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Function Name: PWM_HBRIDGE_SetCompareMode2
+ 347:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     ********************************************************************************
+ 348:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 349:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Summary:
+ 350:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  This function writes the Compare Mode for the pwm or pwm2 output
+ 351:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 352:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Parameters:
+ 353:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  comparemode:  The new compare mode for the PWM output. Use the compare types
+ 354:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *                defined in the H file as input arguments.
+ 355:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 356:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Return:
+ 357:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  None
+ 358:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 359:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *******************************************************************************/
+ 360:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     void PWM_HBRIDGE_SetCompareMode2(uint8 comparemode) 
+ 361:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     {
+ 362:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 363:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #if(0 != PWM_HBRIDGE_CTRL_CMPMODE2_SHIFT)
+ 364:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             uint8 comparemodemasked = ((uint8)((uint8)comparemode << PWM_HBRIDGE_CTRL_CMPMODE2_SHIF
+ 365:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                                                  PWM_HBRIDGE_CTRL_CMPMODE2_MASK;
+ 366:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #else
+ 367:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             uint8 comparemodemasked = comparemode & PWM_HBRIDGE_CTRL_CMPMODE2_MASK;
+ 368:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #endif /* (0 != PWM_HBRIDGE_CTRL_CMPMODE2_SHIFT) */
+ 369:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 370:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #if (PWM_HBRIDGE_UseControl)
+ 371:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             PWM_HBRIDGE_CONTROL &= ((uint8)(~PWM_HBRIDGE_CTRL_CMPMODE2_MASK)); /*Clear existing mod
+ 372:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             PWM_HBRIDGE_CONTROL |= comparemodemasked;
+ 373:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #endif /* (PWM_HBRIDGE_UseControl) */
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 13
+
+
+ 374:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     }
+ 375:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #endif /*PWM_HBRIDGE_CompareMode2SW */
+ 376:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 377:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #endif /* UseOneCompareMode */
+ 378:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 379:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 380:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #if (!PWM_HBRIDGE_UsingFixedFunction)
+ 381:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 382:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 383:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     /*******************************************************************************
+ 384:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Function Name: PWM_HBRIDGE_WriteCounter
+ 385:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     ********************************************************************************
+ 386:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 387:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Summary:
+ 388:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  Writes a new counter value directly to the counter register. This will be
+ 389:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  implemented for that currently running period and only that period. This API
+ 390:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  is valid only for UDB implementation and not available for fixed function
+ 391:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  PWM implementation.
+ 392:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 393:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Parameters:
+ 394:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  counter:  The period new period counter value.
+ 395:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 396:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Return:
+ 397:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  None
+ 398:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 399:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Side Effects:
+ 400:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  The PWM Period will be reloaded when a counter value will be a zero
+ 401:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 402:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *******************************************************************************/
+ 403:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     void PWM_HBRIDGE_WriteCounter(uint16 counter) \
+ 404:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                                        
+ 405:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     {
+ 406:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         CY_SET_REG16(PWM_HBRIDGE_COUNTER_LSB_PTR, counter);
+ 407:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     }
+ 408:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 409:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 410:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     /*******************************************************************************
+ 411:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Function Name: PWM_HBRIDGE_ReadCounter
+ 412:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     ********************************************************************************
+ 413:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 414:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Summary:
+ 415:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  This function returns the current value of the counter.  It doesn't matter
+ 416:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  if the counter is enabled or running.
+ 417:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 418:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Parameters:
+ 419:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  None
+ 420:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 421:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Return:
+ 422:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  The current value of the counter.
+ 423:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 424:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *******************************************************************************/
+ 425:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     uint16 PWM_HBRIDGE_ReadCounter(void) 
+ 426:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     {
+ 427:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         /* Force capture by reading Accumulator */
+ 428:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         /* Must first do a software capture to be able to read the counter */
+ 429:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         /* It is up to the user code to make sure there isn't already captured data in the FIFO */
+ 430:Generated_Source\PSoC5/PWM_HBRIDGE.c ****           (void)CY_GET_REG8(PWM_HBRIDGE_COUNTERCAP_LSB_PTR_8BIT);
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 14
+
+
+ 431:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 432:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         /* Read the data from the FIFO */
+ 433:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         return (CY_GET_REG16(PWM_HBRIDGE_CAPTURE_LSB_PTR));
+ 434:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     }
+ 435:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 436:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #if (PWM_HBRIDGE_UseStatus)
+ 437:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 438:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 439:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         /*******************************************************************************
+ 440:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         * Function Name: PWM_HBRIDGE_ClearFIFO
+ 441:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         ********************************************************************************
+ 442:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *
+ 443:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         * Summary:
+ 444:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *  This function clears all capture data from the capture FIFO
+ 445:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *
+ 446:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         * Parameters:
+ 447:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *  None
+ 448:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *
+ 449:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         * Return:
+ 450:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *  None
+ 451:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *
+ 452:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         *******************************************************************************/
+ 453:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         void PWM_HBRIDGE_ClearFIFO(void) 
+ 454:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         {
+ 455:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             while(0u != (PWM_HBRIDGE_ReadStatusRegister() & PWM_HBRIDGE_STATUS_FIFONEMPTY))
+ 456:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             {
+ 457:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 (void)PWM_HBRIDGE_ReadCapture();
+ 458:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             }
+ 459:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         }
+ 460:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 461:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #endif /* PWM_HBRIDGE_UseStatus */
+ 462:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 463:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #endif /* !PWM_HBRIDGE_UsingFixedFunction */
+ 464:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 465:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 466:Generated_Source\PSoC5/PWM_HBRIDGE.c **** /*******************************************************************************
+ 467:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Function Name: PWM_HBRIDGE_WritePeriod
+ 468:Generated_Source\PSoC5/PWM_HBRIDGE.c **** ********************************************************************************
+ 469:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+ 470:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Summary:
+ 471:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  This function is used to change the period of the counter.  The new period
+ 472:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  will be loaded the next time terminal count is detected.
+ 473:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+ 474:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Parameters:
+ 475:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  period:  Period value. May be between 1 and (2^Resolution)-1.  A value of 0
+ 476:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *           will result in the counter remaining at zero.
+ 477:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+ 478:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Return:
+ 479:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  None
+ 480:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+ 481:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *******************************************************************************/
+ 482:Generated_Source\PSoC5/PWM_HBRIDGE.c **** void PWM_HBRIDGE_WritePeriod(uint16 period) 
+ 483:Generated_Source\PSoC5/PWM_HBRIDGE.c **** {
+ 312              		.loc 1 483 0
+ 313              		.cfi_startproc
+ 314              		@ args = 0, pretend = 0, frame = 8
+ 315              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 15
+
+
+ 316              		@ link register save eliminated.
+ 317 0000 80B4     		push	{r7}
+ 318              		.cfi_def_cfa_offset 4
+ 319              		.cfi_offset 7, -4
+ 320 0002 83B0     		sub	sp, sp, #12
+ 321              		.cfi_def_cfa_offset 16
+ 322 0004 00AF     		add	r7, sp, #0
+ 323              		.cfi_def_cfa_register 7
+ 324 0006 0346     		mov	r3, r0
+ 325 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 484:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #if(PWM_HBRIDGE_UsingFixedFunction)
+ 485:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         CY_SET_REG16(PWM_HBRIDGE_PERIOD_LSB_PTR, (uint16)period);
+ 326              		.loc 1 485 0
+ 327 000a 044A     		ldr	r2, .L15
+ 328 000c FB88     		ldrh	r3, [r7, #6]	@ movhi
+ 329 000e 1380     		strh	r3, [r2]	@ movhi
+ 486:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #else
+ 487:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         CY_SET_REG16(PWM_HBRIDGE_PERIOD_LSB_PTR, period);
+ 488:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #endif /* (PWM_HBRIDGE_UsingFixedFunction) */
+ 489:Generated_Source\PSoC5/PWM_HBRIDGE.c **** }
+ 330              		.loc 1 489 0
+ 331 0010 00BF     		nop
+ 332 0012 0C37     		adds	r7, r7, #12
+ 333              		.cfi_def_cfa_offset 4
+ 334 0014 BD46     		mov	sp, r7
+ 335              		.cfi_def_cfa_register 13
+ 336              		@ sp needed
+ 337 0016 80BC     		pop	{r7}
+ 338              		.cfi_restore 7
+ 339              		.cfi_def_cfa_offset 0
+ 340 0018 7047     		bx	lr
+ 341              	.L16:
+ 342 001a 00BF     		.align	2
+ 343              	.L15:
+ 344 001c 044F0040 		.word	1073762052
+ 345              		.cfi_endproc
+ 346              	.LFE4:
+ 347              		.size	PWM_HBRIDGE_WritePeriod, .-PWM_HBRIDGE_WritePeriod
+ 348              		.section	.text.PWM_HBRIDGE_WriteCompare,"ax",%progbits
+ 349              		.align	2
+ 350              		.global	PWM_HBRIDGE_WriteCompare
+ 351              		.thumb
+ 352              		.thumb_func
+ 353              		.type	PWM_HBRIDGE_WriteCompare, %function
+ 354              	PWM_HBRIDGE_WriteCompare:
+ 355              	.LFB5:
+ 490:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 491:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #if (PWM_HBRIDGE_UseOneCompareMode)
+ 492:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 493:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 494:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     /*******************************************************************************
+ 495:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Function Name: PWM_HBRIDGE_WriteCompare
+ 496:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     ********************************************************************************
+ 497:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 498:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Summary:
+ 499:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  This funtion is used to change the compare1 value when the PWM is in Dither
+ 500:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  mode. The compare output will reflect the new value on the next UDB clock.
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 16
+
+
+ 501:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  The compare output will be driven high when the present counter value is
+ 502:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  compared to the compare value based on the compare mode defined in
+ 503:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  Dither Mode.
+ 504:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 505:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Parameters:
+ 506:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  compare:  New compare value.
+ 507:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 508:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Return:
+ 509:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  None
+ 510:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 511:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Side Effects:
+ 512:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  This function is only available if the PWM mode parameter is set to
+ 513:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  Dither Mode, Center Aligned Mode or One Output Mode
+ 514:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 515:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *******************************************************************************/
+ 516:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     void PWM_HBRIDGE_WriteCompare(uint16 compare) \
+ 517:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                                        
+ 518:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     {
+ 356              		.loc 1 518 0
+ 357              		.cfi_startproc
+ 358              		@ args = 0, pretend = 0, frame = 8
+ 359              		@ frame_needed = 1, uses_anonymous_args = 0
+ 360              		@ link register save eliminated.
+ 361 0000 80B4     		push	{r7}
+ 362              		.cfi_def_cfa_offset 4
+ 363              		.cfi_offset 7, -4
+ 364 0002 83B0     		sub	sp, sp, #12
+ 365              		.cfi_def_cfa_offset 16
+ 366 0004 00AF     		add	r7, sp, #0
+ 367              		.cfi_def_cfa_register 7
+ 368 0006 0346     		mov	r3, r0
+ 369 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 519:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #if(PWM_HBRIDGE_UsingFixedFunction)
+ 520:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             CY_SET_REG16(PWM_HBRIDGE_COMPARE1_LSB_PTR, (uint16)compare);
+ 370              		.loc 1 520 0
+ 371 000a 044A     		ldr	r2, .L18
+ 372 000c FB88     		ldrh	r3, [r7, #6]	@ movhi
+ 373 000e 1380     		strh	r3, [r2]	@ movhi
+ 521:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #else
+ 522:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             CY_SET_REG16(PWM_HBRIDGE_COMPARE1_LSB_PTR, compare);
+ 523:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #endif /* (PWM_HBRIDGE_UsingFixedFunction) */
+ 524:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 525:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #if (PWM_HBRIDGE_PWMMode == PWM_HBRIDGE__B_PWM__DITHER)
+ 526:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             #if(PWM_HBRIDGE_UsingFixedFunction)
+ 527:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 CY_SET_REG16(PWM_HBRIDGE_COMPARE2_LSB_PTR, (uint16)(compare + 1u));
+ 528:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             #else
+ 529:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 CY_SET_REG16(PWM_HBRIDGE_COMPARE2_LSB_PTR, (compare + 1u));
+ 530:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             #endif /* (PWM_HBRIDGE_UsingFixedFunction) */
+ 531:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #endif /* (PWM_HBRIDGE_PWMMode == PWM_HBRIDGE__B_PWM__DITHER) */
+ 532:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     }
+ 374              		.loc 1 532 0
+ 375 0010 00BF     		nop
+ 376 0012 0C37     		adds	r7, r7, #12
+ 377              		.cfi_def_cfa_offset 4
+ 378 0014 BD46     		mov	sp, r7
+ 379              		.cfi_def_cfa_register 13
+ 380              		@ sp needed
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 17
+
+
+ 381 0016 80BC     		pop	{r7}
+ 382              		.cfi_restore 7
+ 383              		.cfi_def_cfa_offset 0
+ 384 0018 7047     		bx	lr
+ 385              	.L19:
+ 386 001a 00BF     		.align	2
+ 387              	.L18:
+ 388 001c 064F0040 		.word	1073762054
+ 389              		.cfi_endproc
+ 390              	.LFE5:
+ 391              		.size	PWM_HBRIDGE_WriteCompare, .-PWM_HBRIDGE_WriteCompare
+ 392              		.section	.text.PWM_HBRIDGE_SetInterruptMode,"ax",%progbits
+ 393              		.align	2
+ 394              		.global	PWM_HBRIDGE_SetInterruptMode
+ 395              		.thumb
+ 396              		.thumb_func
+ 397              		.type	PWM_HBRIDGE_SetInterruptMode, %function
+ 398              	PWM_HBRIDGE_SetInterruptMode:
+ 399              	.LFB6:
+ 533:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 534:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 535:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #else
+ 536:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 537:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 538:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     /*******************************************************************************
+ 539:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Function Name: PWM_HBRIDGE_WriteCompare1
+ 540:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     ********************************************************************************
+ 541:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 542:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Summary:
+ 543:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  This funtion is used to change the compare1 value.  The compare output will
+ 544:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  reflect the new value on the next UDB clock.  The compare output will be
+ 545:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  driven high when the present counter value is less than or less than or
+ 546:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  equal to the compare register, depending on the mode.
+ 547:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 548:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Parameters:
+ 549:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  compare:  New compare value.
+ 550:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 551:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Return:
+ 552:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  None
+ 553:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 554:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *******************************************************************************/
+ 555:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     void PWM_HBRIDGE_WriteCompare1(uint16 compare) \
+ 556:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                                         
+ 557:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     {
+ 558:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #if(PWM_HBRIDGE_UsingFixedFunction)
+ 559:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             CY_SET_REG16(PWM_HBRIDGE_COMPARE1_LSB_PTR, (uint16)compare);
+ 560:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #else
+ 561:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             CY_SET_REG16(PWM_HBRIDGE_COMPARE1_LSB_PTR, compare);
+ 562:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #endif /* (PWM_HBRIDGE_UsingFixedFunction) */
+ 563:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     }
+ 564:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 565:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 566:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     /*******************************************************************************
+ 567:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Function Name: PWM_HBRIDGE_WriteCompare2
+ 568:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     ********************************************************************************
+ 569:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 570:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Summary:
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 18
+
+
+ 571:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  This funtion is used to change the compare value, for compare1 output.
+ 572:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  The compare output will reflect the new value on the next UDB clock.
+ 573:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  The compare output will be driven high when the present counter value is
+ 574:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  less than or less than or equal to the compare register, depending on the
+ 575:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  mode.
+ 576:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 577:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Parameters:
+ 578:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  compare:  New compare value.
+ 579:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 580:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Return:
+ 581:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  None
+ 582:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 583:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *******************************************************************************/
+ 584:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     void PWM_HBRIDGE_WriteCompare2(uint16 compare) \
+ 585:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                                         
+ 586:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     {
+ 587:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #if(PWM_HBRIDGE_UsingFixedFunction)
+ 588:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             CY_SET_REG16(PWM_HBRIDGE_COMPARE2_LSB_PTR, compare);
+ 589:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #else
+ 590:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             CY_SET_REG16(PWM_HBRIDGE_COMPARE2_LSB_PTR, compare);
+ 591:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #endif /* (PWM_HBRIDGE_UsingFixedFunction) */
+ 592:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     }
+ 593:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #endif /* UseOneCompareMode */
+ 594:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 595:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #if (PWM_HBRIDGE_DeadBandUsed)
+ 596:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 597:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 598:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     /*******************************************************************************
+ 599:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Function Name: PWM_HBRIDGE_WriteDeadTime
+ 600:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     ********************************************************************************
+ 601:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 602:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Summary:
+ 603:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  This function writes the dead-band counts to the corresponding register
+ 604:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 605:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Parameters:
+ 606:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  deadtime:  Number of counts for dead time
+ 607:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 608:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Return:
+ 609:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  None
+ 610:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 611:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *******************************************************************************/
+ 612:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     void PWM_HBRIDGE_WriteDeadTime(uint8 deadtime) 
+ 613:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     {
+ 614:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         /* If using the Dead Band 1-255 mode then just write the register */
+ 615:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #if(!PWM_HBRIDGE_DeadBand2_4)
+ 616:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             CY_SET_REG8(PWM_HBRIDGE_DEADBAND_COUNT_PTR, deadtime);
+ 617:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #else
+ 618:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             /* Otherwise the data has to be masked and offset */
+ 619:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             /* Clear existing data */
+ 620:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             PWM_HBRIDGE_DEADBAND_COUNT &= ((uint8)(~PWM_HBRIDGE_DEADBAND_COUNT_MASK));
+ 621:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 622:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             /* Set new dead time */
+ 623:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             #if(PWM_HBRIDGE_DEADBAND_COUNT_SHIFT)
+ 624:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 PWM_HBRIDGE_DEADBAND_COUNT |= ((uint8)((uint8)deadtime << PWM_HBRIDGE_DEADBAND_COUN
+ 625:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                                                     PWM_HBRIDGE_DEADBAND_COUNT_MASK;
+ 626:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             #else
+ 627:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 PWM_HBRIDGE_DEADBAND_COUNT |= deadtime & PWM_HBRIDGE_DEADBAND_COUNT_MASK;
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 19
+
+
+ 628:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             #endif /* (PWM_HBRIDGE_DEADBAND_COUNT_SHIFT) */
+ 629:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 630:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #endif /* (!PWM_HBRIDGE_DeadBand2_4) */
+ 631:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     }
+ 632:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 633:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 634:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     /*******************************************************************************
+ 635:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Function Name: PWM_HBRIDGE_ReadDeadTime
+ 636:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     ********************************************************************************
+ 637:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 638:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Summary:
+ 639:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  This function reads the dead-band counts from the corresponding register
+ 640:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 641:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Parameters:
+ 642:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  None
+ 643:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 644:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Return:
+ 645:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  Dead Band Counts
+ 646:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 647:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *******************************************************************************/
+ 648:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     uint8 PWM_HBRIDGE_ReadDeadTime(void) 
+ 649:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     {
+ 650:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         /* If using the Dead Band 1-255 mode then just read the register */
+ 651:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #if(!PWM_HBRIDGE_DeadBand2_4)
+ 652:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             return (CY_GET_REG8(PWM_HBRIDGE_DEADBAND_COUNT_PTR));
+ 653:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #else
+ 654:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 655:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             /* Otherwise the data has to be masked and offset */
+ 656:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             #if(PWM_HBRIDGE_DEADBAND_COUNT_SHIFT)
+ 657:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 return ((uint8)(((uint8)(PWM_HBRIDGE_DEADBAND_COUNT & PWM_HBRIDGE_DEADBAND_COUNT_MA
+ 658:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                                                                            PWM_HBRIDGE_DEADBAND_COU
+ 659:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             #else
+ 660:Generated_Source\PSoC5/PWM_HBRIDGE.c ****                 return (PWM_HBRIDGE_DEADBAND_COUNT & PWM_HBRIDGE_DEADBAND_COUNT_MASK);
+ 661:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             #endif /* (PWM_HBRIDGE_DEADBAND_COUNT_SHIFT) */
+ 662:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #endif /* (!PWM_HBRIDGE_DeadBand2_4) */
+ 663:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     }
+ 664:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #endif /* DeadBandUsed */
+ 665:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 666:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #if (PWM_HBRIDGE_UseStatus || PWM_HBRIDGE_UsingFixedFunction)
+ 667:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 668:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 669:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     /*******************************************************************************
+ 670:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Function Name: PWM_HBRIDGE_SetInterruptMode
+ 671:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     ********************************************************************************
+ 672:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 673:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Summary:
+ 674:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  This function configures the interrupts mask control of theinterrupt
+ 675:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  source status register.
+ 676:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 677:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Parameters:
+ 678:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  uint8 interruptMode: Bit field containing the interrupt sources enabled
+ 679:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 680:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Return:
+ 681:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  None
+ 682:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 683:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *******************************************************************************/
+ 684:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     void PWM_HBRIDGE_SetInterruptMode(uint8 interruptMode) 
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 20
+
+
+ 685:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     {
+ 400              		.loc 1 685 0
+ 401              		.cfi_startproc
+ 402              		@ args = 0, pretend = 0, frame = 8
+ 403              		@ frame_needed = 1, uses_anonymous_args = 0
+ 404              		@ link register save eliminated.
+ 405 0000 80B4     		push	{r7}
+ 406              		.cfi_def_cfa_offset 4
+ 407              		.cfi_offset 7, -4
+ 408 0002 83B0     		sub	sp, sp, #12
+ 409              		.cfi_def_cfa_offset 16
+ 410 0004 00AF     		add	r7, sp, #0
+ 411              		.cfi_def_cfa_register 7
+ 412 0006 0346     		mov	r3, r0
+ 413 0008 FB71     		strb	r3, [r7, #7]
+ 686:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         CY_SET_REG8(PWM_HBRIDGE_STATUS_MASK_PTR, interruptMode);
+ 414              		.loc 1 686 0
+ 415 000a 044A     		ldr	r2, .L21
+ 416 000c FB79     		ldrb	r3, [r7, #7]
+ 417 000e 1370     		strb	r3, [r2]
+ 687:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     }
+ 418              		.loc 1 687 0
+ 419 0010 00BF     		nop
+ 420 0012 0C37     		adds	r7, r7, #12
+ 421              		.cfi_def_cfa_offset 4
+ 422 0014 BD46     		mov	sp, r7
+ 423              		.cfi_def_cfa_register 13
+ 424              		@ sp needed
+ 425 0016 80BC     		pop	{r7}
+ 426              		.cfi_restore 7
+ 427              		.cfi_def_cfa_offset 0
+ 428 0018 7047     		bx	lr
+ 429              	.L22:
+ 430 001a 00BF     		.align	2
+ 431              	.L21:
+ 432 001c 034F0040 		.word	1073762051
+ 433              		.cfi_endproc
+ 434              	.LFE6:
+ 435              		.size	PWM_HBRIDGE_SetInterruptMode, .-PWM_HBRIDGE_SetInterruptMode
+ 436              		.section	.text.PWM_HBRIDGE_ReadStatusRegister,"ax",%progbits
+ 437              		.align	2
+ 438              		.global	PWM_HBRIDGE_ReadStatusRegister
+ 439              		.thumb
+ 440              		.thumb_func
+ 441              		.type	PWM_HBRIDGE_ReadStatusRegister, %function
+ 442              	PWM_HBRIDGE_ReadStatusRegister:
+ 443              	.LFB7:
+ 688:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 689:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 690:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     /*******************************************************************************
+ 691:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Function Name: PWM_HBRIDGE_ReadStatusRegister
+ 692:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     ********************************************************************************
+ 693:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 694:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Summary:
+ 695:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  This function returns the current state of the status register.
+ 696:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 697:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Parameters:
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 21
+
+
+ 698:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  None
+ 699:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 700:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Return:
+ 701:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  uint8 : Current status register value. The status register bits are:
+ 702:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  [7:6] : Unused(0)
+ 703:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  [5]   : Kill event output
+ 704:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  [4]   : FIFO not empty
+ 705:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  [3]   : FIFO full
+ 706:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  [2]   : Terminal count
+ 707:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  [1]   : Compare output 2
+ 708:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  [0]   : Compare output 1
+ 709:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 710:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *******************************************************************************/
+ 711:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     uint8 PWM_HBRIDGE_ReadStatusRegister(void) 
+ 712:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     {
+ 444              		.loc 1 712 0
+ 445              		.cfi_startproc
+ 446              		@ args = 0, pretend = 0, frame = 0
+ 447              		@ frame_needed = 1, uses_anonymous_args = 0
+ 448              		@ link register save eliminated.
+ 449 0000 80B4     		push	{r7}
+ 450              		.cfi_def_cfa_offset 4
+ 451              		.cfi_offset 7, -4
+ 452 0002 00AF     		add	r7, sp, #0
+ 453              		.cfi_def_cfa_register 7
+ 713:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         return (CY_GET_REG8(PWM_HBRIDGE_STATUS_PTR));
+ 454              		.loc 1 713 0
+ 455 0004 034B     		ldr	r3, .L25
+ 456 0006 1B78     		ldrb	r3, [r3]
+ 457 0008 DBB2     		uxtb	r3, r3
+ 714:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     }
+ 458              		.loc 1 714 0
+ 459 000a 1846     		mov	r0, r3
+ 460 000c BD46     		mov	sp, r7
+ 461              		.cfi_def_cfa_register 13
+ 462              		@ sp needed
+ 463 000e 80BC     		pop	{r7}
+ 464              		.cfi_restore 7
+ 465              		.cfi_def_cfa_offset 0
+ 466 0010 7047     		bx	lr
+ 467              	.L26:
+ 468 0012 00BF     		.align	2
+ 469              	.L25:
+ 470 0014 034F0040 		.word	1073762051
+ 471              		.cfi_endproc
+ 472              	.LFE7:
+ 473              		.size	PWM_HBRIDGE_ReadStatusRegister, .-PWM_HBRIDGE_ReadStatusRegister
+ 474              		.section	.text.PWM_HBRIDGE_ReadControlRegister,"ax",%progbits
+ 475              		.align	2
+ 476              		.global	PWM_HBRIDGE_ReadControlRegister
+ 477              		.thumb
+ 478              		.thumb_func
+ 479              		.type	PWM_HBRIDGE_ReadControlRegister, %function
+ 480              	PWM_HBRIDGE_ReadControlRegister:
+ 481              	.LFB8:
+ 715:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 716:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #endif /* (PWM_HBRIDGE_UseStatus || PWM_HBRIDGE_UsingFixedFunction) */
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 22
+
+
+ 717:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 718:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 719:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #if (PWM_HBRIDGE_UseControl)
+ 720:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 721:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 722:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     /*******************************************************************************
+ 723:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Function Name: PWM_HBRIDGE_ReadControlRegister
+ 724:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     ********************************************************************************
+ 725:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 726:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Summary:
+ 727:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  Returns the current state of the control register. This API is available
+ 728:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  only if the control register is not removed.
+ 729:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 730:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Parameters:
+ 731:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  None
+ 732:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 733:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Return:
+ 734:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  uint8 : Current control register value
+ 735:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 736:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *******************************************************************************/
+ 737:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     uint8 PWM_HBRIDGE_ReadControlRegister(void) 
+ 738:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     {
+ 482              		.loc 1 738 0
+ 483              		.cfi_startproc
+ 484              		@ args = 0, pretend = 0, frame = 8
+ 485              		@ frame_needed = 1, uses_anonymous_args = 0
+ 486              		@ link register save eliminated.
+ 487 0000 80B4     		push	{r7}
+ 488              		.cfi_def_cfa_offset 4
+ 489              		.cfi_offset 7, -4
+ 490 0002 83B0     		sub	sp, sp, #12
+ 491              		.cfi_def_cfa_offset 16
+ 492 0004 00AF     		add	r7, sp, #0
+ 493              		.cfi_def_cfa_register 7
+ 739:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         uint8 result;
+ 740:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 741:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         result = CY_GET_REG8(PWM_HBRIDGE_CONTROL_PTR);
+ 494              		.loc 1 741 0
+ 495 0006 044B     		ldr	r3, .L29
+ 496 0008 1B78     		ldrb	r3, [r3]
+ 497 000a FB71     		strb	r3, [r7, #7]
+ 742:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         return (result);
+ 498              		.loc 1 742 0
+ 499 000c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 743:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     }
+ 500              		.loc 1 743 0
+ 501 000e 1846     		mov	r0, r3
+ 502 0010 0C37     		adds	r7, r7, #12
+ 503              		.cfi_def_cfa_offset 4
+ 504 0012 BD46     		mov	sp, r7
+ 505              		.cfi_def_cfa_register 13
+ 506              		@ sp needed
+ 507 0014 80BC     		pop	{r7}
+ 508              		.cfi_restore 7
+ 509              		.cfi_def_cfa_offset 0
+ 510 0016 7047     		bx	lr
+ 511              	.L30:
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 23
+
+
+ 512              		.align	2
+ 513              	.L29:
+ 514 0018 004F0040 		.word	1073762048
+ 515              		.cfi_endproc
+ 516              	.LFE8:
+ 517              		.size	PWM_HBRIDGE_ReadControlRegister, .-PWM_HBRIDGE_ReadControlRegister
+ 518              		.section	.text.PWM_HBRIDGE_WriteControlRegister,"ax",%progbits
+ 519              		.align	2
+ 520              		.global	PWM_HBRIDGE_WriteControlRegister
+ 521              		.thumb
+ 522              		.thumb_func
+ 523              		.type	PWM_HBRIDGE_WriteControlRegister, %function
+ 524              	PWM_HBRIDGE_WriteControlRegister:
+ 525              	.LFB9:
+ 744:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 745:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 746:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     /*******************************************************************************
+ 747:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Function Name: PWM_HBRIDGE_WriteControlRegister
+ 748:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     ********************************************************************************
+ 749:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 750:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Summary:
+ 751:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  Sets the bit field of the control register. This API is available only if
+ 752:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  the control register is not removed.
+ 753:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 754:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Parameters:
+ 755:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  uint8 control: Control register bit field, The status register bits are:
+ 756:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  [7]   : PWM Enable
+ 757:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  [6]   : Reset
+ 758:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  [5:3] : Compare Mode2
+ 759:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  [2:0] : Compare Mode2
+ 760:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 761:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Return:
+ 762:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  None
+ 763:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 764:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *******************************************************************************/
+ 765:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     void PWM_HBRIDGE_WriteControlRegister(uint8 control) 
+ 766:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     {
+ 526              		.loc 1 766 0
+ 527              		.cfi_startproc
+ 528              		@ args = 0, pretend = 0, frame = 8
+ 529              		@ frame_needed = 1, uses_anonymous_args = 0
+ 530              		@ link register save eliminated.
+ 531 0000 80B4     		push	{r7}
+ 532              		.cfi_def_cfa_offset 4
+ 533              		.cfi_offset 7, -4
+ 534 0002 83B0     		sub	sp, sp, #12
+ 535              		.cfi_def_cfa_offset 16
+ 536 0004 00AF     		add	r7, sp, #0
+ 537              		.cfi_def_cfa_register 7
+ 538 0006 0346     		mov	r3, r0
+ 539 0008 FB71     		strb	r3, [r7, #7]
+ 767:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         CY_SET_REG8(PWM_HBRIDGE_CONTROL_PTR, control);
+ 540              		.loc 1 767 0
+ 541 000a 044A     		ldr	r2, .L32
+ 542 000c FB79     		ldrb	r3, [r7, #7]
+ 543 000e 1370     		strb	r3, [r2]
+ 768:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     }
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 24
+
+
+ 544              		.loc 1 768 0
+ 545 0010 00BF     		nop
+ 546 0012 0C37     		adds	r7, r7, #12
+ 547              		.cfi_def_cfa_offset 4
+ 548 0014 BD46     		mov	sp, r7
+ 549              		.cfi_def_cfa_register 13
+ 550              		@ sp needed
+ 551 0016 80BC     		pop	{r7}
+ 552              		.cfi_restore 7
+ 553              		.cfi_def_cfa_offset 0
+ 554 0018 7047     		bx	lr
+ 555              	.L33:
+ 556 001a 00BF     		.align	2
+ 557              	.L32:
+ 558 001c 004F0040 		.word	1073762048
+ 559              		.cfi_endproc
+ 560              	.LFE9:
+ 561              		.size	PWM_HBRIDGE_WriteControlRegister, .-PWM_HBRIDGE_WriteControlRegister
+ 562              		.section	.text.PWM_HBRIDGE_ReadCompare,"ax",%progbits
+ 563              		.align	2
+ 564              		.global	PWM_HBRIDGE_ReadCompare
+ 565              		.thumb
+ 566              		.thumb_func
+ 567              		.type	PWM_HBRIDGE_ReadCompare, %function
+ 568              	PWM_HBRIDGE_ReadCompare:
+ 569              	.LFB10:
+ 769:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 770:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #endif /* (PWM_HBRIDGE_UseControl) */
+ 771:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 772:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 773:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #if (!PWM_HBRIDGE_UsingFixedFunction)
+ 774:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 775:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 776:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     /*******************************************************************************
+ 777:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Function Name: PWM_HBRIDGE_ReadCapture
+ 778:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     ********************************************************************************
+ 779:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 780:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Summary:
+ 781:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  Reads the capture value from the capture FIFO.
+ 782:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 783:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Parameters:
+ 784:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  None
+ 785:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 786:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Return:
+ 787:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  uint8/uint16: The current capture value
+ 788:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 789:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *******************************************************************************/
+ 790:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     uint16 PWM_HBRIDGE_ReadCapture(void) 
+ 791:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     {
+ 792:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         return (CY_GET_REG16(PWM_HBRIDGE_CAPTURE_LSB_PTR));
+ 793:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     }
+ 794:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 795:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #endif /* (!PWM_HBRIDGE_UsingFixedFunction) */
+ 796:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 797:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 798:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #if (PWM_HBRIDGE_UseOneCompareMode)
+ 799:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 25
+
+
+ 800:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 801:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     /*******************************************************************************
+ 802:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Function Name: PWM_HBRIDGE_ReadCompare
+ 803:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     ********************************************************************************
+ 804:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 805:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Summary:
+ 806:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  Reads the compare value for the compare output when the PWM Mode parameter is
+ 807:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  set to Dither mode, Center Aligned mode, or One Output mode.
+ 808:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 809:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Parameters:
+ 810:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  None
+ 811:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 812:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Return:
+ 813:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  uint8/uint16: Current compare value
+ 814:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 815:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *******************************************************************************/
+ 816:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     uint16 PWM_HBRIDGE_ReadCompare(void) 
+ 817:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     {
+ 570              		.loc 1 817 0
+ 571              		.cfi_startproc
+ 572              		@ args = 0, pretend = 0, frame = 0
+ 573              		@ frame_needed = 1, uses_anonymous_args = 0
+ 574              		@ link register save eliminated.
+ 575 0000 80B4     		push	{r7}
+ 576              		.cfi_def_cfa_offset 4
+ 577              		.cfi_offset 7, -4
+ 578 0002 00AF     		add	r7, sp, #0
+ 579              		.cfi_def_cfa_register 7
+ 818:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #if(PWM_HBRIDGE_UsingFixedFunction)
+ 819:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             return ((uint16)CY_GET_REG16(PWM_HBRIDGE_COMPARE1_LSB_PTR));
+ 580              		.loc 1 819 0
+ 581 0004 034B     		ldr	r3, .L36
+ 582 0006 1B88     		ldrh	r3, [r3]	@ movhi
+ 583 0008 9BB2     		uxth	r3, r3
+ 820:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #else
+ 821:Generated_Source\PSoC5/PWM_HBRIDGE.c ****             return (CY_GET_REG16(PWM_HBRIDGE_COMPARE1_LSB_PTR));
+ 822:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         #endif /* (PWM_HBRIDGE_UsingFixedFunction) */
+ 823:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     }
+ 584              		.loc 1 823 0
+ 585 000a 1846     		mov	r0, r3
+ 586 000c BD46     		mov	sp, r7
+ 587              		.cfi_def_cfa_register 13
+ 588              		@ sp needed
+ 589 000e 80BC     		pop	{r7}
+ 590              		.cfi_restore 7
+ 591              		.cfi_def_cfa_offset 0
+ 592 0010 7047     		bx	lr
+ 593              	.L37:
+ 594 0012 00BF     		.align	2
+ 595              	.L36:
+ 596 0014 064F0040 		.word	1073762054
+ 597              		.cfi_endproc
+ 598              	.LFE10:
+ 599              		.size	PWM_HBRIDGE_ReadCompare, .-PWM_HBRIDGE_ReadCompare
+ 600              		.section	.text.PWM_HBRIDGE_ReadPeriod,"ax",%progbits
+ 601              		.align	2
+ 602              		.global	PWM_HBRIDGE_ReadPeriod
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 26
+
+
+ 603              		.thumb
+ 604              		.thumb_func
+ 605              		.type	PWM_HBRIDGE_ReadPeriod, %function
+ 606              	PWM_HBRIDGE_ReadPeriod:
+ 607              	.LFB11:
+ 824:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 825:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #else
+ 826:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 827:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 828:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     /*******************************************************************************
+ 829:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Function Name: PWM_HBRIDGE_ReadCompare1
+ 830:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     ********************************************************************************
+ 831:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 832:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Summary:
+ 833:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  Reads the compare value for the compare1 output.
+ 834:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 835:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Parameters:
+ 836:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  None
+ 837:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 838:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Return:
+ 839:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  uint8/uint16: Current compare value.
+ 840:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 841:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *******************************************************************************/
+ 842:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     uint16 PWM_HBRIDGE_ReadCompare1(void) 
+ 843:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     {
+ 844:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         return (CY_GET_REG16(PWM_HBRIDGE_COMPARE1_LSB_PTR));
+ 845:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     }
+ 846:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 847:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 848:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     /*******************************************************************************
+ 849:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Function Name: PWM_HBRIDGE_ReadCompare2
+ 850:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     ********************************************************************************
+ 851:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 852:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Summary:
+ 853:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  Reads the compare value for the compare2 output.
+ 854:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 855:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Parameters:
+ 856:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  None
+ 857:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 858:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     * Return:
+ 859:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *  uint8/uint16: Current compare value.
+ 860:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *
+ 861:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     *******************************************************************************/
+ 862:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     uint16 PWM_HBRIDGE_ReadCompare2(void) 
+ 863:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     {
+ 864:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         return (CY_GET_REG16(PWM_HBRIDGE_COMPARE2_LSB_PTR));
+ 865:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     }
+ 866:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 867:Generated_Source\PSoC5/PWM_HBRIDGE.c **** #endif /* (PWM_HBRIDGE_UseOneCompareMode) */
+ 868:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 869:Generated_Source\PSoC5/PWM_HBRIDGE.c **** 
+ 870:Generated_Source\PSoC5/PWM_HBRIDGE.c **** /*******************************************************************************
+ 871:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Function Name: PWM_HBRIDGE_ReadPeriod
+ 872:Generated_Source\PSoC5/PWM_HBRIDGE.c **** ********************************************************************************
+ 873:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+ 874:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Summary:
+ 875:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  Reads the period value used by the PWM hardware.
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 27
+
+
+ 876:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+ 877:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Parameters:
+ 878:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  None
+ 879:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+ 880:Generated_Source\PSoC5/PWM_HBRIDGE.c **** * Return:
+ 881:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *  uint8/16: Period value
+ 882:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *
+ 883:Generated_Source\PSoC5/PWM_HBRIDGE.c **** *******************************************************************************/
+ 884:Generated_Source\PSoC5/PWM_HBRIDGE.c **** uint16 PWM_HBRIDGE_ReadPeriod(void) 
+ 885:Generated_Source\PSoC5/PWM_HBRIDGE.c **** {
+ 608              		.loc 1 885 0
+ 609              		.cfi_startproc
+ 610              		@ args = 0, pretend = 0, frame = 0
+ 611              		@ frame_needed = 1, uses_anonymous_args = 0
+ 612              		@ link register save eliminated.
+ 613 0000 80B4     		push	{r7}
+ 614              		.cfi_def_cfa_offset 4
+ 615              		.cfi_offset 7, -4
+ 616 0002 00AF     		add	r7, sp, #0
+ 617              		.cfi_def_cfa_register 7
+ 886:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #if(PWM_HBRIDGE_UsingFixedFunction)
+ 887:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         return ((uint16)CY_GET_REG16(PWM_HBRIDGE_PERIOD_LSB_PTR));
+ 618              		.loc 1 887 0
+ 619 0004 034B     		ldr	r3, .L40
+ 620 0006 1B88     		ldrh	r3, [r3]	@ movhi
+ 621 0008 9BB2     		uxth	r3, r3
+ 888:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #else
+ 889:Generated_Source\PSoC5/PWM_HBRIDGE.c ****         return (CY_GET_REG16(PWM_HBRIDGE_PERIOD_LSB_PTR));
+ 890:Generated_Source\PSoC5/PWM_HBRIDGE.c ****     #endif /* (PWM_HBRIDGE_UsingFixedFunction) */
+ 891:Generated_Source\PSoC5/PWM_HBRIDGE.c **** }
+ 622              		.loc 1 891 0
+ 623 000a 1846     		mov	r0, r3
+ 624 000c BD46     		mov	sp, r7
+ 625              		.cfi_def_cfa_register 13
+ 626              		@ sp needed
+ 627 000e 80BC     		pop	{r7}
+ 628              		.cfi_restore 7
+ 629              		.cfi_def_cfa_offset 0
+ 630 0010 7047     		bx	lr
+ 631              	.L41:
+ 632 0012 00BF     		.align	2
+ 633              	.L40:
+ 634 0014 044F0040 		.word	1073762052
+ 635              		.cfi_endproc
+ 636              	.LFE11:
+ 637              		.size	PWM_HBRIDGE_ReadPeriod, .-PWM_HBRIDGE_ReadPeriod
+ 638              		.text
+ 639              	.Letext0:
+ 640              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 641              		.section	.debug_info,"",%progbits
+ 642              	.Ldebug_info0:
+ 643 0000 31020000 		.4byte	0x231
+ 644 0004 0400     		.2byte	0x4
+ 645 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 646 000a 04       		.byte	0x4
+ 647 000b 01       		.uleb128 0x1
+ 648 000c 3C000000 		.4byte	.LASF35
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 28
+
+
+ 649 0010 0C       		.byte	0xc
+ 650 0011 06000000 		.4byte	.LASF36
+ 651 0015 49020000 		.4byte	.LASF37
+ 652 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 653 001d 00000000 		.4byte	0
+ 654 0021 00000000 		.4byte	.Ldebug_line0
+ 655 0025 02       		.uleb128 0x2
+ 656 0026 01       		.byte	0x1
+ 657 0027 06       		.byte	0x6
+ 658 0028 06030000 		.4byte	.LASF0
+ 659 002c 02       		.uleb128 0x2
+ 660 002d 01       		.byte	0x1
+ 661 002e 08       		.byte	0x8
+ 662 002f 31010000 		.4byte	.LASF1
+ 663 0033 02       		.uleb128 0x2
+ 664 0034 02       		.byte	0x2
+ 665 0035 05       		.byte	0x5
+ 666 0036 3F020000 		.4byte	.LASF2
+ 667 003a 02       		.uleb128 0x2
+ 668 003b 02       		.byte	0x2
+ 669 003c 07       		.byte	0x7
+ 670 003d 06010000 		.4byte	.LASF3
+ 671 0041 02       		.uleb128 0x2
+ 672 0042 04       		.byte	0x4
+ 673 0043 05       		.byte	0x5
+ 674 0044 CC020000 		.4byte	.LASF4
+ 675 0048 02       		.uleb128 0x2
+ 676 0049 04       		.byte	0x4
+ 677 004a 07       		.byte	0x7
+ 678 004b 44010000 		.4byte	.LASF5
+ 679 004f 02       		.uleb128 0x2
+ 680 0050 08       		.byte	0x8
+ 681 0051 05       		.byte	0x5
+ 682 0052 23020000 		.4byte	.LASF6
+ 683 0056 02       		.uleb128 0x2
+ 684 0057 08       		.byte	0x8
+ 685 0058 07       		.byte	0x7
+ 686 0059 CE010000 		.4byte	.LASF7
+ 687 005d 03       		.uleb128 0x3
+ 688 005e 04       		.byte	0x4
+ 689 005f 05       		.byte	0x5
+ 690 0060 696E7400 		.ascii	"int\000"
+ 691 0064 02       		.uleb128 0x2
+ 692 0065 04       		.byte	0x4
+ 693 0066 07       		.byte	0x7
+ 694 0067 C1010000 		.4byte	.LASF8
+ 695 006b 04       		.uleb128 0x4
+ 696 006c 56010000 		.4byte	.LASF9
+ 697 0070 02       		.byte	0x2
+ 698 0071 9201     		.2byte	0x192
+ 699 0073 2C000000 		.4byte	0x2c
+ 700 0077 04       		.uleb128 0x4
+ 701 0078 9B010000 		.4byte	.LASF10
+ 702 007c 02       		.byte	0x2
+ 703 007d 9301     		.2byte	0x193
+ 704 007f 3A000000 		.4byte	0x3a
+ 705 0083 02       		.uleb128 0x2
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 29
+
+
+ 706 0084 04       		.byte	0x4
+ 707 0085 04       		.byte	0x4
+ 708 0086 2B010000 		.4byte	.LASF11
+ 709 008a 02       		.uleb128 0x2
+ 710 008b 08       		.byte	0x8
+ 711 008c 04       		.byte	0x4
+ 712 008d 94010000 		.4byte	.LASF12
+ 713 0091 02       		.uleb128 0x2
+ 714 0092 01       		.byte	0x1
+ 715 0093 08       		.byte	0x8
+ 716 0094 D5020000 		.4byte	.LASF13
+ 717 0098 04       		.uleb128 0x4
+ 718 0099 3F010000 		.4byte	.LASF14
+ 719 009d 02       		.byte	0x2
+ 720 009e 3C02     		.2byte	0x23c
+ 721 00a0 A4000000 		.4byte	0xa4
+ 722 00a4 05       		.uleb128 0x5
+ 723 00a5 6B000000 		.4byte	0x6b
+ 724 00a9 04       		.uleb128 0x4
+ 725 00aa 00000000 		.4byte	.LASF15
+ 726 00ae 02       		.byte	0x2
+ 727 00af 3D02     		.2byte	0x23d
+ 728 00b1 B5000000 		.4byte	0xb5
+ 729 00b5 05       		.uleb128 0x5
+ 730 00b6 77000000 		.4byte	0x77
+ 731 00ba 02       		.uleb128 0x2
+ 732 00bb 08       		.byte	0x8
+ 733 00bc 04       		.byte	0x4
+ 734 00bd FA020000 		.4byte	.LASF16
+ 735 00c1 02       		.uleb128 0x2
+ 736 00c2 04       		.byte	0x4
+ 737 00c3 07       		.byte	0x7
+ 738 00c4 1A020000 		.4byte	.LASF17
+ 739 00c8 06       		.uleb128 0x6
+ 740 00c9 19010000 		.4byte	.LASF18
+ 741 00cd 01       		.byte	0x1
+ 742 00ce 37       		.byte	0x37
+ 743 00cf 00000000 		.4byte	.LFB0
+ 744 00d3 24000000 		.4byte	.LFE0-.LFB0
+ 745 00d7 01       		.uleb128 0x1
+ 746 00d8 9C       		.byte	0x9c
+ 747 00d9 07       		.uleb128 0x7
+ 748 00da 09020000 		.4byte	.LASF21
+ 749 00de 01       		.byte	0x1
+ 750 00df 54       		.byte	0x54
+ 751 00e0 00000000 		.4byte	.LFB1
+ 752 00e4 C0000000 		.4byte	.LFE1-.LFB1
+ 753 00e8 01       		.uleb128 0x1
+ 754 00e9 9C       		.byte	0x9c
+ 755 00ea FD000000 		.4byte	0xfd
+ 756 00ee 08       		.uleb128 0x8
+ 757 00ef EC010000 		.4byte	.LASF28
+ 758 00f3 01       		.byte	0x1
+ 759 00f4 57       		.byte	0x57
+ 760 00f5 6B000000 		.4byte	0x6b
+ 761 00f9 02       		.uleb128 0x2
+ 762 00fa 91       		.byte	0x91
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 30
+
+
+ 763 00fb 77       		.sleb128 -9
+ 764 00fc 00       		.byte	0
+ 765 00fd 09       		.uleb128 0x9
+ 766 00fe B9020000 		.4byte	.LASF19
+ 767 0102 01       		.byte	0x1
+ 768 0103 C7       		.byte	0xc7
+ 769 0104 00000000 		.4byte	.LFB2
+ 770 0108 48000000 		.4byte	.LFE2-.LFB2
+ 771 010c 01       		.uleb128 0x1
+ 772 010d 9C       		.byte	0x9c
+ 773 010e 09       		.uleb128 0x9
+ 774 010f 2B000000 		.4byte	.LASF20
+ 775 0113 01       		.byte	0x1
+ 776 0114 E9       		.byte	0xe9
+ 777 0115 00000000 		.4byte	.LFB3
+ 778 0119 48000000 		.4byte	.LFE3-.LFB3
+ 779 011d 01       		.uleb128 0x1
+ 780 011e 9C       		.byte	0x9c
+ 781 011f 0A       		.uleb128 0xa
+ 782 0120 F1010000 		.4byte	.LASF22
+ 783 0124 01       		.byte	0x1
+ 784 0125 E201     		.2byte	0x1e2
+ 785 0127 00000000 		.4byte	.LFB4
+ 786 012b 20000000 		.4byte	.LFE4-.LFB4
+ 787 012f 01       		.uleb128 0x1
+ 788 0130 9C       		.byte	0x9c
+ 789 0131 45010000 		.4byte	0x145
+ 790 0135 0B       		.uleb128 0xb
+ 791 0136 E7000000 		.4byte	.LASF24
+ 792 013a 01       		.byte	0x1
+ 793 013b E201     		.2byte	0x1e2
+ 794 013d 77000000 		.4byte	0x77
+ 795 0141 02       		.uleb128 0x2
+ 796 0142 91       		.byte	0x91
+ 797 0143 76       		.sleb128 -10
+ 798 0144 00       		.byte	0
+ 799 0145 0A       		.uleb128 0xa
+ 800 0146 64010000 		.4byte	.LASF23
+ 801 014a 01       		.byte	0x1
+ 802 014b 0402     		.2byte	0x204
+ 803 014d 00000000 		.4byte	.LFB5
+ 804 0151 20000000 		.4byte	.LFE5-.LFB5
+ 805 0155 01       		.uleb128 0x1
+ 806 0156 9C       		.byte	0x9c
+ 807 0157 6B010000 		.4byte	0x16b
+ 808 015b 0B       		.uleb128 0xb
+ 809 015c 12030000 		.4byte	.LASF25
+ 810 0160 01       		.byte	0x1
+ 811 0161 0402     		.2byte	0x204
+ 812 0163 77000000 		.4byte	0x77
+ 813 0167 02       		.uleb128 0x2
+ 814 0168 91       		.byte	0x91
+ 815 0169 76       		.sleb128 -10
+ 816 016a 00       		.byte	0
+ 817 016b 0A       		.uleb128 0xa
+ 818 016c CA000000 		.4byte	.LASF26
+ 819 0170 01       		.byte	0x1
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 31
+
+
+ 820 0171 AC02     		.2byte	0x2ac
+ 821 0173 00000000 		.4byte	.LFB6
+ 822 0177 20000000 		.4byte	.LFE6-.LFB6
+ 823 017b 01       		.uleb128 0x1
+ 824 017c 9C       		.byte	0x9c
+ 825 017d 91010000 		.4byte	0x191
+ 826 0181 0B       		.uleb128 0xb
+ 827 0182 31020000 		.4byte	.LASF27
+ 828 0186 01       		.byte	0x1
+ 829 0187 AC02     		.2byte	0x2ac
+ 830 0189 6B000000 		.4byte	0x6b
+ 831 018d 02       		.uleb128 0x2
+ 832 018e 91       		.byte	0x91
+ 833 018f 77       		.sleb128 -9
+ 834 0190 00       		.byte	0
+ 835 0191 0C       		.uleb128 0xc
+ 836 0192 A2010000 		.4byte	.LASF32
+ 837 0196 01       		.byte	0x1
+ 838 0197 C702     		.2byte	0x2c7
+ 839 0199 6B000000 		.4byte	0x6b
+ 840 019d 00000000 		.4byte	.LFB7
+ 841 01a1 18000000 		.4byte	.LFE7-.LFB7
+ 842 01a5 01       		.uleb128 0x1
+ 843 01a6 9C       		.byte	0x9c
+ 844 01a7 0D       		.uleb128 0xd
+ 845 01a8 DA020000 		.4byte	.LASF38
+ 846 01ac 01       		.byte	0x1
+ 847 01ad E102     		.2byte	0x2e1
+ 848 01af 6B000000 		.4byte	0x6b
+ 849 01b3 00000000 		.4byte	.LFB8
+ 850 01b7 1C000000 		.4byte	.LFE8-.LFB8
+ 851 01bb 01       		.uleb128 0x1
+ 852 01bc 9C       		.byte	0x9c
+ 853 01bd D1010000 		.4byte	0x1d1
+ 854 01c1 0E       		.uleb128 0xe
+ 855 01c2 E5010000 		.4byte	.LASF29
+ 856 01c6 01       		.byte	0x1
+ 857 01c7 E302     		.2byte	0x2e3
+ 858 01c9 6B000000 		.4byte	0x6b
+ 859 01cd 02       		.uleb128 0x2
+ 860 01ce 91       		.byte	0x91
+ 861 01cf 77       		.sleb128 -9
+ 862 01d0 00       		.byte	0
+ 863 01d1 0A       		.uleb128 0xa
+ 864 01d2 1A030000 		.4byte	.LASF30
+ 865 01d6 01       		.byte	0x1
+ 866 01d7 FD02     		.2byte	0x2fd
+ 867 01d9 00000000 		.4byte	.LFB9
+ 868 01dd 20000000 		.4byte	.LFE9-.LFB9
+ 869 01e1 01       		.uleb128 0x1
+ 870 01e2 9C       		.byte	0x9c
+ 871 01e3 F7010000 		.4byte	0x1f7
+ 872 01e7 0B       		.uleb128 0xb
+ 873 01e8 5C010000 		.4byte	.LASF31
+ 874 01ec 01       		.byte	0x1
+ 875 01ed FD02     		.2byte	0x2fd
+ 876 01ef 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 32
+
+
+ 877 01f3 02       		.uleb128 0x2
+ 878 01f4 91       		.byte	0x91
+ 879 01f5 77       		.sleb128 -9
+ 880 01f6 00       		.byte	0
+ 881 01f7 0C       		.uleb128 0xc
+ 882 01f8 EE000000 		.4byte	.LASF33
+ 883 01fc 01       		.byte	0x1
+ 884 01fd 3003     		.2byte	0x330
+ 885 01ff 77000000 		.4byte	0x77
+ 886 0203 00000000 		.4byte	.LFB10
+ 887 0207 18000000 		.4byte	.LFE10-.LFB10
+ 888 020b 01       		.uleb128 0x1
+ 889 020c 9C       		.byte	0x9c
+ 890 020d 0C       		.uleb128 0xc
+ 891 020e 7D010000 		.4byte	.LASF34
+ 892 0212 01       		.byte	0x1
+ 893 0213 7403     		.2byte	0x374
+ 894 0215 77000000 		.4byte	0x77
+ 895 0219 00000000 		.4byte	.LFB11
+ 896 021d 18000000 		.4byte	.LFE11-.LFB11
+ 897 0221 01       		.uleb128 0x1
+ 898 0222 9C       		.byte	0x9c
+ 899 0223 0F       		.uleb128 0xf
+ 900 0224 A5020000 		.4byte	.LASF39
+ 901 0228 01       		.byte	0x1
+ 902 0229 20       		.byte	0x20
+ 903 022a 6B000000 		.4byte	0x6b
+ 904 022e 05       		.uleb128 0x5
+ 905 022f 03       		.byte	0x3
+ 906 0230 00000000 		.4byte	PWM_HBRIDGE_initVar
+ 907 0234 00       		.byte	0
+ 908              		.section	.debug_abbrev,"",%progbits
+ 909              	.Ldebug_abbrev0:
+ 910 0000 01       		.uleb128 0x1
+ 911 0001 11       		.uleb128 0x11
+ 912 0002 01       		.byte	0x1
+ 913 0003 25       		.uleb128 0x25
+ 914 0004 0E       		.uleb128 0xe
+ 915 0005 13       		.uleb128 0x13
+ 916 0006 0B       		.uleb128 0xb
+ 917 0007 03       		.uleb128 0x3
+ 918 0008 0E       		.uleb128 0xe
+ 919 0009 1B       		.uleb128 0x1b
+ 920 000a 0E       		.uleb128 0xe
+ 921 000b 55       		.uleb128 0x55
+ 922 000c 17       		.uleb128 0x17
+ 923 000d 11       		.uleb128 0x11
+ 924 000e 01       		.uleb128 0x1
+ 925 000f 10       		.uleb128 0x10
+ 926 0010 17       		.uleb128 0x17
+ 927 0011 00       		.byte	0
+ 928 0012 00       		.byte	0
+ 929 0013 02       		.uleb128 0x2
+ 930 0014 24       		.uleb128 0x24
+ 931 0015 00       		.byte	0
+ 932 0016 0B       		.uleb128 0xb
+ 933 0017 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 33
+
+
+ 934 0018 3E       		.uleb128 0x3e
+ 935 0019 0B       		.uleb128 0xb
+ 936 001a 03       		.uleb128 0x3
+ 937 001b 0E       		.uleb128 0xe
+ 938 001c 00       		.byte	0
+ 939 001d 00       		.byte	0
+ 940 001e 03       		.uleb128 0x3
+ 941 001f 24       		.uleb128 0x24
+ 942 0020 00       		.byte	0
+ 943 0021 0B       		.uleb128 0xb
+ 944 0022 0B       		.uleb128 0xb
+ 945 0023 3E       		.uleb128 0x3e
+ 946 0024 0B       		.uleb128 0xb
+ 947 0025 03       		.uleb128 0x3
+ 948 0026 08       		.uleb128 0x8
+ 949 0027 00       		.byte	0
+ 950 0028 00       		.byte	0
+ 951 0029 04       		.uleb128 0x4
+ 952 002a 16       		.uleb128 0x16
+ 953 002b 00       		.byte	0
+ 954 002c 03       		.uleb128 0x3
+ 955 002d 0E       		.uleb128 0xe
+ 956 002e 3A       		.uleb128 0x3a
+ 957 002f 0B       		.uleb128 0xb
+ 958 0030 3B       		.uleb128 0x3b
+ 959 0031 05       		.uleb128 0x5
+ 960 0032 49       		.uleb128 0x49
+ 961 0033 13       		.uleb128 0x13
+ 962 0034 00       		.byte	0
+ 963 0035 00       		.byte	0
+ 964 0036 05       		.uleb128 0x5
+ 965 0037 35       		.uleb128 0x35
+ 966 0038 00       		.byte	0
+ 967 0039 49       		.uleb128 0x49
+ 968 003a 13       		.uleb128 0x13
+ 969 003b 00       		.byte	0
+ 970 003c 00       		.byte	0
+ 971 003d 06       		.uleb128 0x6
+ 972 003e 2E       		.uleb128 0x2e
+ 973 003f 00       		.byte	0
+ 974 0040 3F       		.uleb128 0x3f
+ 975 0041 19       		.uleb128 0x19
+ 976 0042 03       		.uleb128 0x3
+ 977 0043 0E       		.uleb128 0xe
+ 978 0044 3A       		.uleb128 0x3a
+ 979 0045 0B       		.uleb128 0xb
+ 980 0046 3B       		.uleb128 0x3b
+ 981 0047 0B       		.uleb128 0xb
+ 982 0048 27       		.uleb128 0x27
+ 983 0049 19       		.uleb128 0x19
+ 984 004a 11       		.uleb128 0x11
+ 985 004b 01       		.uleb128 0x1
+ 986 004c 12       		.uleb128 0x12
+ 987 004d 06       		.uleb128 0x6
+ 988 004e 40       		.uleb128 0x40
+ 989 004f 18       		.uleb128 0x18
+ 990 0050 9642     		.uleb128 0x2116
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 34
+
+
+ 991 0052 19       		.uleb128 0x19
+ 992 0053 00       		.byte	0
+ 993 0054 00       		.byte	0
+ 994 0055 07       		.uleb128 0x7
+ 995 0056 2E       		.uleb128 0x2e
+ 996 0057 01       		.byte	0x1
+ 997 0058 3F       		.uleb128 0x3f
+ 998 0059 19       		.uleb128 0x19
+ 999 005a 03       		.uleb128 0x3
+ 1000 005b 0E       		.uleb128 0xe
+ 1001 005c 3A       		.uleb128 0x3a
+ 1002 005d 0B       		.uleb128 0xb
+ 1003 005e 3B       		.uleb128 0x3b
+ 1004 005f 0B       		.uleb128 0xb
+ 1005 0060 27       		.uleb128 0x27
+ 1006 0061 19       		.uleb128 0x19
+ 1007 0062 11       		.uleb128 0x11
+ 1008 0063 01       		.uleb128 0x1
+ 1009 0064 12       		.uleb128 0x12
+ 1010 0065 06       		.uleb128 0x6
+ 1011 0066 40       		.uleb128 0x40
+ 1012 0067 18       		.uleb128 0x18
+ 1013 0068 9642     		.uleb128 0x2116
+ 1014 006a 19       		.uleb128 0x19
+ 1015 006b 01       		.uleb128 0x1
+ 1016 006c 13       		.uleb128 0x13
+ 1017 006d 00       		.byte	0
+ 1018 006e 00       		.byte	0
+ 1019 006f 08       		.uleb128 0x8
+ 1020 0070 34       		.uleb128 0x34
+ 1021 0071 00       		.byte	0
+ 1022 0072 03       		.uleb128 0x3
+ 1023 0073 0E       		.uleb128 0xe
+ 1024 0074 3A       		.uleb128 0x3a
+ 1025 0075 0B       		.uleb128 0xb
+ 1026 0076 3B       		.uleb128 0x3b
+ 1027 0077 0B       		.uleb128 0xb
+ 1028 0078 49       		.uleb128 0x49
+ 1029 0079 13       		.uleb128 0x13
+ 1030 007a 02       		.uleb128 0x2
+ 1031 007b 18       		.uleb128 0x18
+ 1032 007c 00       		.byte	0
+ 1033 007d 00       		.byte	0
+ 1034 007e 09       		.uleb128 0x9
+ 1035 007f 2E       		.uleb128 0x2e
+ 1036 0080 00       		.byte	0
+ 1037 0081 3F       		.uleb128 0x3f
+ 1038 0082 19       		.uleb128 0x19
+ 1039 0083 03       		.uleb128 0x3
+ 1040 0084 0E       		.uleb128 0xe
+ 1041 0085 3A       		.uleb128 0x3a
+ 1042 0086 0B       		.uleb128 0xb
+ 1043 0087 3B       		.uleb128 0x3b
+ 1044 0088 0B       		.uleb128 0xb
+ 1045 0089 27       		.uleb128 0x27
+ 1046 008a 19       		.uleb128 0x19
+ 1047 008b 11       		.uleb128 0x11
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 35
+
+
+ 1048 008c 01       		.uleb128 0x1
+ 1049 008d 12       		.uleb128 0x12
+ 1050 008e 06       		.uleb128 0x6
+ 1051 008f 40       		.uleb128 0x40
+ 1052 0090 18       		.uleb128 0x18
+ 1053 0091 9742     		.uleb128 0x2117
+ 1054 0093 19       		.uleb128 0x19
+ 1055 0094 00       		.byte	0
+ 1056 0095 00       		.byte	0
+ 1057 0096 0A       		.uleb128 0xa
+ 1058 0097 2E       		.uleb128 0x2e
+ 1059 0098 01       		.byte	0x1
+ 1060 0099 3F       		.uleb128 0x3f
+ 1061 009a 19       		.uleb128 0x19
+ 1062 009b 03       		.uleb128 0x3
+ 1063 009c 0E       		.uleb128 0xe
+ 1064 009d 3A       		.uleb128 0x3a
+ 1065 009e 0B       		.uleb128 0xb
+ 1066 009f 3B       		.uleb128 0x3b
+ 1067 00a0 05       		.uleb128 0x5
+ 1068 00a1 27       		.uleb128 0x27
+ 1069 00a2 19       		.uleb128 0x19
+ 1070 00a3 11       		.uleb128 0x11
+ 1071 00a4 01       		.uleb128 0x1
+ 1072 00a5 12       		.uleb128 0x12
+ 1073 00a6 06       		.uleb128 0x6
+ 1074 00a7 40       		.uleb128 0x40
+ 1075 00a8 18       		.uleb128 0x18
+ 1076 00a9 9742     		.uleb128 0x2117
+ 1077 00ab 19       		.uleb128 0x19
+ 1078 00ac 01       		.uleb128 0x1
+ 1079 00ad 13       		.uleb128 0x13
+ 1080 00ae 00       		.byte	0
+ 1081 00af 00       		.byte	0
+ 1082 00b0 0B       		.uleb128 0xb
+ 1083 00b1 05       		.uleb128 0x5
+ 1084 00b2 00       		.byte	0
+ 1085 00b3 03       		.uleb128 0x3
+ 1086 00b4 0E       		.uleb128 0xe
+ 1087 00b5 3A       		.uleb128 0x3a
+ 1088 00b6 0B       		.uleb128 0xb
+ 1089 00b7 3B       		.uleb128 0x3b
+ 1090 00b8 05       		.uleb128 0x5
+ 1091 00b9 49       		.uleb128 0x49
+ 1092 00ba 13       		.uleb128 0x13
+ 1093 00bb 02       		.uleb128 0x2
+ 1094 00bc 18       		.uleb128 0x18
+ 1095 00bd 00       		.byte	0
+ 1096 00be 00       		.byte	0
+ 1097 00bf 0C       		.uleb128 0xc
+ 1098 00c0 2E       		.uleb128 0x2e
+ 1099 00c1 00       		.byte	0
+ 1100 00c2 3F       		.uleb128 0x3f
+ 1101 00c3 19       		.uleb128 0x19
+ 1102 00c4 03       		.uleb128 0x3
+ 1103 00c5 0E       		.uleb128 0xe
+ 1104 00c6 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 36
+
+
+ 1105 00c7 0B       		.uleb128 0xb
+ 1106 00c8 3B       		.uleb128 0x3b
+ 1107 00c9 05       		.uleb128 0x5
+ 1108 00ca 27       		.uleb128 0x27
+ 1109 00cb 19       		.uleb128 0x19
+ 1110 00cc 49       		.uleb128 0x49
+ 1111 00cd 13       		.uleb128 0x13
+ 1112 00ce 11       		.uleb128 0x11
+ 1113 00cf 01       		.uleb128 0x1
+ 1114 00d0 12       		.uleb128 0x12
+ 1115 00d1 06       		.uleb128 0x6
+ 1116 00d2 40       		.uleb128 0x40
+ 1117 00d3 18       		.uleb128 0x18
+ 1118 00d4 9742     		.uleb128 0x2117
+ 1119 00d6 19       		.uleb128 0x19
+ 1120 00d7 00       		.byte	0
+ 1121 00d8 00       		.byte	0
+ 1122 00d9 0D       		.uleb128 0xd
+ 1123 00da 2E       		.uleb128 0x2e
+ 1124 00db 01       		.byte	0x1
+ 1125 00dc 3F       		.uleb128 0x3f
+ 1126 00dd 19       		.uleb128 0x19
+ 1127 00de 03       		.uleb128 0x3
+ 1128 00df 0E       		.uleb128 0xe
+ 1129 00e0 3A       		.uleb128 0x3a
+ 1130 00e1 0B       		.uleb128 0xb
+ 1131 00e2 3B       		.uleb128 0x3b
+ 1132 00e3 05       		.uleb128 0x5
+ 1133 00e4 27       		.uleb128 0x27
+ 1134 00e5 19       		.uleb128 0x19
+ 1135 00e6 49       		.uleb128 0x49
+ 1136 00e7 13       		.uleb128 0x13
+ 1137 00e8 11       		.uleb128 0x11
+ 1138 00e9 01       		.uleb128 0x1
+ 1139 00ea 12       		.uleb128 0x12
+ 1140 00eb 06       		.uleb128 0x6
+ 1141 00ec 40       		.uleb128 0x40
+ 1142 00ed 18       		.uleb128 0x18
+ 1143 00ee 9742     		.uleb128 0x2117
+ 1144 00f0 19       		.uleb128 0x19
+ 1145 00f1 01       		.uleb128 0x1
+ 1146 00f2 13       		.uleb128 0x13
+ 1147 00f3 00       		.byte	0
+ 1148 00f4 00       		.byte	0
+ 1149 00f5 0E       		.uleb128 0xe
+ 1150 00f6 34       		.uleb128 0x34
+ 1151 00f7 00       		.byte	0
+ 1152 00f8 03       		.uleb128 0x3
+ 1153 00f9 0E       		.uleb128 0xe
+ 1154 00fa 3A       		.uleb128 0x3a
+ 1155 00fb 0B       		.uleb128 0xb
+ 1156 00fc 3B       		.uleb128 0x3b
+ 1157 00fd 05       		.uleb128 0x5
+ 1158 00fe 49       		.uleb128 0x49
+ 1159 00ff 13       		.uleb128 0x13
+ 1160 0100 02       		.uleb128 0x2
+ 1161 0101 18       		.uleb128 0x18
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 37
+
+
+ 1162 0102 00       		.byte	0
+ 1163 0103 00       		.byte	0
+ 1164 0104 0F       		.uleb128 0xf
+ 1165 0105 34       		.uleb128 0x34
+ 1166 0106 00       		.byte	0
+ 1167 0107 03       		.uleb128 0x3
+ 1168 0108 0E       		.uleb128 0xe
+ 1169 0109 3A       		.uleb128 0x3a
+ 1170 010a 0B       		.uleb128 0xb
+ 1171 010b 3B       		.uleb128 0x3b
+ 1172 010c 0B       		.uleb128 0xb
+ 1173 010d 49       		.uleb128 0x49
+ 1174 010e 13       		.uleb128 0x13
+ 1175 010f 3F       		.uleb128 0x3f
+ 1176 0110 19       		.uleb128 0x19
+ 1177 0111 02       		.uleb128 0x2
+ 1178 0112 18       		.uleb128 0x18
+ 1179 0113 00       		.byte	0
+ 1180 0114 00       		.byte	0
+ 1181 0115 00       		.byte	0
+ 1182              		.section	.debug_aranges,"",%progbits
+ 1183 0000 74000000 		.4byte	0x74
+ 1184 0004 0200     		.2byte	0x2
+ 1185 0006 00000000 		.4byte	.Ldebug_info0
+ 1186 000a 04       		.byte	0x4
+ 1187 000b 00       		.byte	0
+ 1188 000c 0000     		.2byte	0
+ 1189 000e 0000     		.2byte	0
+ 1190 0010 00000000 		.4byte	.LFB0
+ 1191 0014 24000000 		.4byte	.LFE0-.LFB0
+ 1192 0018 00000000 		.4byte	.LFB1
+ 1193 001c C0000000 		.4byte	.LFE1-.LFB1
+ 1194 0020 00000000 		.4byte	.LFB2
+ 1195 0024 48000000 		.4byte	.LFE2-.LFB2
+ 1196 0028 00000000 		.4byte	.LFB3
+ 1197 002c 48000000 		.4byte	.LFE3-.LFB3
+ 1198 0030 00000000 		.4byte	.LFB4
+ 1199 0034 20000000 		.4byte	.LFE4-.LFB4
+ 1200 0038 00000000 		.4byte	.LFB5
+ 1201 003c 20000000 		.4byte	.LFE5-.LFB5
+ 1202 0040 00000000 		.4byte	.LFB6
+ 1203 0044 20000000 		.4byte	.LFE6-.LFB6
+ 1204 0048 00000000 		.4byte	.LFB7
+ 1205 004c 18000000 		.4byte	.LFE7-.LFB7
+ 1206 0050 00000000 		.4byte	.LFB8
+ 1207 0054 1C000000 		.4byte	.LFE8-.LFB8
+ 1208 0058 00000000 		.4byte	.LFB9
+ 1209 005c 20000000 		.4byte	.LFE9-.LFB9
+ 1210 0060 00000000 		.4byte	.LFB10
+ 1211 0064 18000000 		.4byte	.LFE10-.LFB10
+ 1212 0068 00000000 		.4byte	.LFB11
+ 1213 006c 18000000 		.4byte	.LFE11-.LFB11
+ 1214 0070 00000000 		.4byte	0
+ 1215 0074 00000000 		.4byte	0
+ 1216              		.section	.debug_ranges,"",%progbits
+ 1217              	.Ldebug_ranges0:
+ 1218 0000 00000000 		.4byte	.LFB0
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 38
+
+
+ 1219 0004 24000000 		.4byte	.LFE0
+ 1220 0008 00000000 		.4byte	.LFB1
+ 1221 000c C0000000 		.4byte	.LFE1
+ 1222 0010 00000000 		.4byte	.LFB2
+ 1223 0014 48000000 		.4byte	.LFE2
+ 1224 0018 00000000 		.4byte	.LFB3
+ 1225 001c 48000000 		.4byte	.LFE3
+ 1226 0020 00000000 		.4byte	.LFB4
+ 1227 0024 20000000 		.4byte	.LFE4
+ 1228 0028 00000000 		.4byte	.LFB5
+ 1229 002c 20000000 		.4byte	.LFE5
+ 1230 0030 00000000 		.4byte	.LFB6
+ 1231 0034 20000000 		.4byte	.LFE6
+ 1232 0038 00000000 		.4byte	.LFB7
+ 1233 003c 18000000 		.4byte	.LFE7
+ 1234 0040 00000000 		.4byte	.LFB8
+ 1235 0044 1C000000 		.4byte	.LFE8
+ 1236 0048 00000000 		.4byte	.LFB9
+ 1237 004c 20000000 		.4byte	.LFE9
+ 1238 0050 00000000 		.4byte	.LFB10
+ 1239 0054 18000000 		.4byte	.LFE10
+ 1240 0058 00000000 		.4byte	.LFB11
+ 1241 005c 18000000 		.4byte	.LFE11
+ 1242 0060 00000000 		.4byte	0
+ 1243 0064 00000000 		.4byte	0
+ 1244              		.section	.debug_line,"",%progbits
+ 1245              	.Ldebug_line0:
+ 1246 0000 42010000 		.section	.debug_str,"MS",%progbits,1
+ 1246      02004800 
+ 1246      00000201 
+ 1246      FB0E0D00 
+ 1246      01010101 
+ 1247              	.LASF15:
+ 1248 0000 72656731 		.ascii	"reg16\000"
+ 1248      3600
+ 1249              	.LASF36:
+ 1250 0006 47656E65 		.ascii	"Generated_Source\\PSoC5\\PWM_HBRIDGE.c\000"
+ 1250      72617465 
+ 1250      645F536F 
+ 1250      75726365 
+ 1250      5C50536F 
+ 1251              	.LASF20:
+ 1252 002b 50574D5F 		.ascii	"PWM_HBRIDGE_Stop\000"
+ 1252      48425249 
+ 1252      4447455F 
+ 1252      53746F70 
+ 1252      00
+ 1253              	.LASF35:
+ 1254 003c 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1254      43313120 
+ 1254      352E342E 
+ 1254      31203230 
+ 1254      31363036 
+ 1255 006f 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1255      20726576 
+ 1255      6973696F 
+ 1255      6E203233 
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 39
+
+
+ 1255      37373135 
+ 1256 00a2 30202D66 		.ascii	"0 -ffunction-sections -ffat-lto-objects\000"
+ 1256      66756E63 
+ 1256      74696F6E 
+ 1256      2D736563 
+ 1256      74696F6E 
+ 1257              	.LASF26:
+ 1258 00ca 50574D5F 		.ascii	"PWM_HBRIDGE_SetInterruptMode\000"
+ 1258      48425249 
+ 1258      4447455F 
+ 1258      53657449 
+ 1258      6E746572 
+ 1259              	.LASF24:
+ 1260 00e7 70657269 		.ascii	"period\000"
+ 1260      6F6400
+ 1261              	.LASF33:
+ 1262 00ee 50574D5F 		.ascii	"PWM_HBRIDGE_ReadCompare\000"
+ 1262      48425249 
+ 1262      4447455F 
+ 1262      52656164 
+ 1262      436F6D70 
+ 1263              	.LASF3:
+ 1264 0106 73686F72 		.ascii	"short unsigned int\000"
+ 1264      7420756E 
+ 1264      7369676E 
+ 1264      65642069 
+ 1264      6E7400
+ 1265              	.LASF18:
+ 1266 0119 50574D5F 		.ascii	"PWM_HBRIDGE_Start\000"
+ 1266      48425249 
+ 1266      4447455F 
+ 1266      53746172 
+ 1266      7400
+ 1267              	.LASF11:
+ 1268 012b 666C6F61 		.ascii	"float\000"
+ 1268      7400
+ 1269              	.LASF1:
+ 1270 0131 756E7369 		.ascii	"unsigned char\000"
+ 1270      676E6564 
+ 1270      20636861 
+ 1270      7200
+ 1271              	.LASF14:
+ 1272 013f 72656738 		.ascii	"reg8\000"
+ 1272      00
+ 1273              	.LASF5:
+ 1274 0144 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1274      20756E73 
+ 1274      69676E65 
+ 1274      6420696E 
+ 1274      7400
+ 1275              	.LASF9:
+ 1276 0156 75696E74 		.ascii	"uint8\000"
+ 1276      3800
+ 1277              	.LASF31:
+ 1278 015c 636F6E74 		.ascii	"control\000"
+ 1278      726F6C00 
+ 1279              	.LASF23:
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 40
+
+
+ 1280 0164 50574D5F 		.ascii	"PWM_HBRIDGE_WriteCompare\000"
+ 1280      48425249 
+ 1280      4447455F 
+ 1280      57726974 
+ 1280      65436F6D 
+ 1281              	.LASF34:
+ 1282 017d 50574D5F 		.ascii	"PWM_HBRIDGE_ReadPeriod\000"
+ 1282      48425249 
+ 1282      4447455F 
+ 1282      52656164 
+ 1282      50657269 
+ 1283              	.LASF12:
+ 1284 0194 646F7562 		.ascii	"double\000"
+ 1284      6C6500
+ 1285              	.LASF10:
+ 1286 019b 75696E74 		.ascii	"uint16\000"
+ 1286      313600
+ 1287              	.LASF32:
+ 1288 01a2 50574D5F 		.ascii	"PWM_HBRIDGE_ReadStatusRegister\000"
+ 1288      48425249 
+ 1288      4447455F 
+ 1288      52656164 
+ 1288      53746174 
+ 1289              	.LASF8:
+ 1290 01c1 756E7369 		.ascii	"unsigned int\000"
+ 1290      676E6564 
+ 1290      20696E74 
+ 1290      00
+ 1291              	.LASF7:
+ 1292 01ce 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1292      206C6F6E 
+ 1292      6720756E 
+ 1292      7369676E 
+ 1292      65642069 
+ 1293              	.LASF29:
+ 1294 01e5 72657375 		.ascii	"result\000"
+ 1294      6C7400
+ 1295              	.LASF28:
+ 1296 01ec 6374726C 		.ascii	"ctrl\000"
+ 1296      00
+ 1297              	.LASF22:
+ 1298 01f1 50574D5F 		.ascii	"PWM_HBRIDGE_WritePeriod\000"
+ 1298      48425249 
+ 1298      4447455F 
+ 1298      57726974 
+ 1298      65506572 
+ 1299              	.LASF21:
+ 1300 0209 50574D5F 		.ascii	"PWM_HBRIDGE_Init\000"
+ 1300      48425249 
+ 1300      4447455F 
+ 1300      496E6974 
+ 1300      00
+ 1301              	.LASF17:
+ 1302 021a 73697A65 		.ascii	"sizetype\000"
+ 1302      74797065 
+ 1302      00
+ 1303              	.LASF6:
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 41
+
+
+ 1304 0223 6C6F6E67 		.ascii	"long long int\000"
+ 1304      206C6F6E 
+ 1304      6720696E 
+ 1304      7400
+ 1305              	.LASF27:
+ 1306 0231 696E7465 		.ascii	"interruptMode\000"
+ 1306      72727570 
+ 1306      744D6F64 
+ 1306      6500
+ 1307              	.LASF2:
+ 1308 023f 73686F72 		.ascii	"short int\000"
+ 1308      7420696E 
+ 1308      7400
+ 1309              	.LASF37:
+ 1310 0249 433A5C55 		.ascii	"C:\\Users\\Krist\\OneDrive\\Dokumenter\\GitHub\\pla"
+ 1310      73657273 
+ 1310      5C4B7269 
+ 1310      73745C4F 
+ 1310      6E654472 
+ 1311 0276 746F6F6E 		.ascii	"tooning\\PSoC\\Platooning\\AngleMeasurement.cydsn\000"
+ 1311      696E675C 
+ 1311      50536F43 
+ 1311      5C506C61 
+ 1311      746F6F6E 
+ 1312              	.LASF39:
+ 1313 02a5 50574D5F 		.ascii	"PWM_HBRIDGE_initVar\000"
+ 1313      48425249 
+ 1313      4447455F 
+ 1313      696E6974 
+ 1313      56617200 
+ 1314              	.LASF19:
+ 1315 02b9 50574D5F 		.ascii	"PWM_HBRIDGE_Enable\000"
+ 1315      48425249 
+ 1315      4447455F 
+ 1315      456E6162 
+ 1315      6C6500
+ 1316              	.LASF4:
+ 1317 02cc 6C6F6E67 		.ascii	"long int\000"
+ 1317      20696E74 
+ 1317      00
+ 1318              	.LASF13:
+ 1319 02d5 63686172 		.ascii	"char\000"
+ 1319      00
+ 1320              	.LASF38:
+ 1321 02da 50574D5F 		.ascii	"PWM_HBRIDGE_ReadControlRegister\000"
+ 1321      48425249 
+ 1321      4447455F 
+ 1321      52656164 
+ 1321      436F6E74 
+ 1322              	.LASF16:
+ 1323 02fa 6C6F6E67 		.ascii	"long double\000"
+ 1323      20646F75 
+ 1323      626C6500 
+ 1324              	.LASF0:
+ 1325 0306 7369676E 		.ascii	"signed char\000"
+ 1325      65642063 
+ 1325      68617200 
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc9svAIZ.s 			page 42
+
+
+ 1326              	.LASF25:
+ 1327 0312 636F6D70 		.ascii	"compare\000"
+ 1327      61726500 
+ 1328              	.LASF30:
+ 1329 031a 50574D5F 		.ascii	"PWM_HBRIDGE_WriteControlRegister\000"
+ 1329      48425249 
+ 1329      4447455F 
+ 1329      57726974 
+ 1329      65436F6E 
+ 1330              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

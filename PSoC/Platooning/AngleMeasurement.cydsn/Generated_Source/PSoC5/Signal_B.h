@@ -1,14 +1,14 @@
 /*******************************************************************************
 * File Name: Signal_B.h  
-* Version 2.10
+* Version 2.20
 *
 * Description:
-*  This file containts Control Register function prototypes and register defines
+*  This file contains Pin function prototypes and register defines
 *
 * Note:
 *
 ********************************************************************************
-* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions, 
 * disclaimers, and limitations in the end user license agreement accompanying 
 * the software package with which this file was provided.
@@ -22,12 +22,6 @@
 #include "cypins.h"
 #include "Signal_B_aliases.h"
 
-/* Check to see if required defines such as CY_PSOC5A are available */
-/* They are defined starting with cy_boot v3.0 */
-#if !defined (CY_PSOC5A)
-    #error Component cy_pins_v2_10 requires cy_boot v3.0 or later
-#endif /* (CY_PSOC5A) */
-
 /* APIs are not generated for P15[7:6] */
 #if !(CY_PSOC5A &&\
 	 Signal_B__PORT == 15 && ((Signal_B__MASK & 0xC0) != 0))
@@ -37,31 +31,64 @@
 *        Function Prototypes             
 ***************************************/    
 
-void    Signal_B_Write(uint8 value) ;
-void    Signal_B_SetDriveMode(uint8 mode) ;
-uint8   Signal_B_ReadDataReg(void) ;
-uint8   Signal_B_Read(void) ;
-uint8   Signal_B_ClearInterrupt(void) ;
-
+/**
+* \addtogroup group_general
+* @{
+*/
+void    Signal_B_Write(uint8 value);
+void    Signal_B_SetDriveMode(uint8 mode);
+uint8   Signal_B_ReadDataReg(void);
+uint8   Signal_B_Read(void);
+void    Signal_B_SetInterruptMode(uint16 position, uint16 mode);
+uint8   Signal_B_ClearInterrupt(void);
+/** @} general */
 
 /***************************************
 *           API Constants        
 ***************************************/
-
-/* Drive Modes */
-#define Signal_B_DM_ALG_HIZ         PIN_DM_ALG_HIZ
-#define Signal_B_DM_DIG_HIZ         PIN_DM_DIG_HIZ
-#define Signal_B_DM_RES_UP          PIN_DM_RES_UP
-#define Signal_B_DM_RES_DWN         PIN_DM_RES_DWN
-#define Signal_B_DM_OD_LO           PIN_DM_OD_LO
-#define Signal_B_DM_OD_HI           PIN_DM_OD_HI
-#define Signal_B_DM_STRONG          PIN_DM_STRONG
-#define Signal_B_DM_RES_UPDWN       PIN_DM_RES_UPDWN
-
+/**
+* \addtogroup group_constants
+* @{
+*/
+    /** \addtogroup driveMode Drive mode constants
+     * \brief Constants to be passed as "mode" parameter in the Signal_B_SetDriveMode() function.
+     *  @{
+     */
+        #define Signal_B_DM_ALG_HIZ         PIN_DM_ALG_HIZ
+        #define Signal_B_DM_DIG_HIZ         PIN_DM_DIG_HIZ
+        #define Signal_B_DM_RES_UP          PIN_DM_RES_UP
+        #define Signal_B_DM_RES_DWN         PIN_DM_RES_DWN
+        #define Signal_B_DM_OD_LO           PIN_DM_OD_LO
+        #define Signal_B_DM_OD_HI           PIN_DM_OD_HI
+        #define Signal_B_DM_STRONG          PIN_DM_STRONG
+        #define Signal_B_DM_RES_UPDWN       PIN_DM_RES_UPDWN
+    /** @} driveMode */
+/** @} group_constants */
+    
 /* Digital Port Constants */
 #define Signal_B_MASK               Signal_B__MASK
 #define Signal_B_SHIFT              Signal_B__SHIFT
 #define Signal_B_WIDTH              1u
+
+/* Interrupt constants */
+#if defined(Signal_B__INTSTAT)
+/**
+* \addtogroup group_constants
+* @{
+*/
+    /** \addtogroup intrMode Interrupt constants
+     * \brief Constants to be passed as "mode" parameter in Signal_B_SetInterruptMode() function.
+     *  @{
+     */
+        #define Signal_B_INTR_NONE      (uint16)(0x0000u)
+        #define Signal_B_INTR_RISING    (uint16)(0x0001u)
+        #define Signal_B_INTR_FALLING   (uint16)(0x0002u)
+        #define Signal_B_INTR_BOTH      (uint16)(0x0003u) 
+    /** @} intrMode */
+/** @} group_constants */
+
+    #define Signal_B_INTR_MASK      (0x01u) 
+#endif /* (Signal_B__INTSTAT) */
 
 
 /***************************************
@@ -114,13 +141,21 @@ uint8   Signal_B_ClearInterrupt(void) ;
 /* Sync Output Enable Registers */
 #define Signal_B_PRTDSI__SYNC_OUT       (* (reg8 *) Signal_B__PRTDSI__SYNC_OUT) 
 
+/* SIO registers */
+#if defined(Signal_B__SIO_CFG)
+    #define Signal_B_SIO_HYST_EN        (* (reg8 *) Signal_B__SIO_HYST_EN)
+    #define Signal_B_SIO_REG_HIFREQ     (* (reg8 *) Signal_B__SIO_REG_HIFREQ)
+    #define Signal_B_SIO_CFG            (* (reg8 *) Signal_B__SIO_CFG)
+    #define Signal_B_SIO_DIFF           (* (reg8 *) Signal_B__SIO_DIFF)
+#endif /* (Signal_B__SIO_CFG) */
 
-#if defined(Signal_B__INTSTAT)  /* Interrupt Registers */
-
-    #define Signal_B_INTSTAT                (* (reg8 *) Signal_B__INTSTAT)
-    #define Signal_B_SNAP                   (* (reg8 *) Signal_B__SNAP)
-
-#endif /* Interrupt Registers */
+/* Interrupt Registers */
+#if defined(Signal_B__INTSTAT)
+    #define Signal_B_INTSTAT            (* (reg8 *) Signal_B__INTSTAT)
+    #define Signal_B_SNAP               (* (reg8 *) Signal_B__SNAP)
+    
+	#define Signal_B_0_INTTYPE_REG 		(* (reg8 *) Signal_B__0__INTTYPE)
+#endif /* (Signal_B__INTSTAT) */
 
 #endif /* CY_PSOC5A... */
 

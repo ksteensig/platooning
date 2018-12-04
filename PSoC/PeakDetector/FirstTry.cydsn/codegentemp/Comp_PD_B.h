@@ -93,9 +93,9 @@ void Comp_PD_B_Wakeup(void)                    ;
 *           Parameter Defaults        
 **************************************/
 
-#define Comp_PD_B_DEFAULT_SPEED       (0u) 
-#define Comp_PD_B_DEFAULT_HYSTERESIS  (0u)
-#define Comp_PD_B_DEFAULT_POLARITY    (0u)
+#define Comp_PD_B_DEFAULT_SPEED       (1u) 
+#define Comp_PD_B_DEFAULT_HYSTERESIS  (1u)
+#define Comp_PD_B_DEFAULT_POLARITY    (1u)
 #define Comp_PD_B_DEFAULT_BYPASS_SYNC (0u)
 #define Comp_PD_B_DEFAULT_PWRDWN_OVRD (0u)
 

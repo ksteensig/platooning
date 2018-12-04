@@ -1,0 +1,1008 @@
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc0b5sx5.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"VDAC_PM.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.VDAC_SaveConfig,"ax",%progbits
+  20              		.align	1
+  21              		.global	VDAC_SaveConfig
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	VDAC_SaveConfig, %function
+  25              	VDAC_SaveConfig:
+  26              	.LFB0:
+  27              		.file 1 "Generated_Source\\PSoC5\\VDAC_PM.c"
+   1:Generated_Source\PSoC5/VDAC_PM.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/VDAC_PM.c **** * File Name: VDAC_PM.c  
+   3:Generated_Source\PSoC5/VDAC_PM.c **** * Version 1.90
+   4:Generated_Source\PSoC5/VDAC_PM.c **** *
+   5:Generated_Source\PSoC5/VDAC_PM.c **** * Description:
+   6:Generated_Source\PSoC5/VDAC_PM.c **** *  This file provides the power management source code to API for the
+   7:Generated_Source\PSoC5/VDAC_PM.c **** *  VDAC8.  
+   8:Generated_Source\PSoC5/VDAC_PM.c **** *
+   9:Generated_Source\PSoC5/VDAC_PM.c **** * Note:
+  10:Generated_Source\PSoC5/VDAC_PM.c **** *  None
+  11:Generated_Source\PSoC5/VDAC_PM.c **** *
+  12:Generated_Source\PSoC5/VDAC_PM.c **** ********************************************************************************
+  13:Generated_Source\PSoC5/VDAC_PM.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  14:Generated_Source\PSoC5/VDAC_PM.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  15:Generated_Source\PSoC5/VDAC_PM.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  16:Generated_Source\PSoC5/VDAC_PM.c **** * the software package with which this file was provided.
+  17:Generated_Source\PSoC5/VDAC_PM.c **** *******************************************************************************/
+  18:Generated_Source\PSoC5/VDAC_PM.c **** 
+  19:Generated_Source\PSoC5/VDAC_PM.c **** #include "VDAC.h"
+  20:Generated_Source\PSoC5/VDAC_PM.c **** 
+  21:Generated_Source\PSoC5/VDAC_PM.c **** static VDAC_backupStruct VDAC_backup;
+  22:Generated_Source\PSoC5/VDAC_PM.c **** 
+  23:Generated_Source\PSoC5/VDAC_PM.c **** 
+  24:Generated_Source\PSoC5/VDAC_PM.c **** /*******************************************************************************
+  25:Generated_Source\PSoC5/VDAC_PM.c **** * Function Name: VDAC_SaveConfig
+  26:Generated_Source\PSoC5/VDAC_PM.c **** ********************************************************************************
+  27:Generated_Source\PSoC5/VDAC_PM.c **** * Summary:
+  28:Generated_Source\PSoC5/VDAC_PM.c **** *  Save the current user configuration
+  29:Generated_Source\PSoC5/VDAC_PM.c **** *
+  30:Generated_Source\PSoC5/VDAC_PM.c **** * Parameters:  
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc0b5sx5.s 			page 2
+
+
+  31:Generated_Source\PSoC5/VDAC_PM.c **** *  void  
+  32:Generated_Source\PSoC5/VDAC_PM.c **** *
+  33:Generated_Source\PSoC5/VDAC_PM.c **** * Return: 
+  34:Generated_Source\PSoC5/VDAC_PM.c **** *  void
+  35:Generated_Source\PSoC5/VDAC_PM.c **** *
+  36:Generated_Source\PSoC5/VDAC_PM.c **** *******************************************************************************/
+  37:Generated_Source\PSoC5/VDAC_PM.c **** void VDAC_SaveConfig(void) 
+  38:Generated_Source\PSoC5/VDAC_PM.c **** {
+  28              		.loc 1 38 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  39:Generated_Source\PSoC5/VDAC_PM.c ****     if (!((VDAC_CR1 & VDAC_SRC_MASK) == VDAC_SRC_UDB))
+  33              		.loc 1 39 0
+  34 0000 044B     		ldr	r3, .L3
+  35 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  36 0004 9B06     		lsls	r3, r3, #26
+  40:Generated_Source\PSoC5/VDAC_PM.c ****     {
+  41:Generated_Source\PSoC5/VDAC_PM.c ****         VDAC_backup.data_value = VDAC_Data;
+  37              		.loc 1 41 0
+  38 0006 5FBF     		itttt	pl
+  39 0008 034B     		ldrpl	r3, .L3+4
+  40 000a 1A78     		ldrbpl	r2, [r3]	@ zero_extendqisi2
+  41 000c 034B     		ldrpl	r3, .L3+8
+  42 000e 5A70     		strbpl	r2, [r3, #1]
+  43 0010 7047     		bx	lr
+  44              	.L4:
+  45 0012 00BF     		.align	2
+  46              	.L3:
+  47 0014 21580040 		.word	1073764385
+  48 0018 805B0040 		.word	1073765248
+  49 001c 00000000 		.word	.LANCHOR0
+  50              		.cfi_endproc
+  51              	.LFE0:
+  52              		.size	VDAC_SaveConfig, .-VDAC_SaveConfig
+  53              		.section	.text.VDAC_RestoreConfig,"ax",%progbits
+  54              		.align	1
+  55              		.global	VDAC_RestoreConfig
+  56              		.thumb
+  57              		.thumb_func
+  58              		.type	VDAC_RestoreConfig, %function
+  59              	VDAC_RestoreConfig:
+  60              	.LFB1:
+  42:Generated_Source\PSoC5/VDAC_PM.c ****     }
+  43:Generated_Source\PSoC5/VDAC_PM.c **** }
+  44:Generated_Source\PSoC5/VDAC_PM.c **** 
+  45:Generated_Source\PSoC5/VDAC_PM.c **** 
+  46:Generated_Source\PSoC5/VDAC_PM.c **** /*******************************************************************************
+  47:Generated_Source\PSoC5/VDAC_PM.c **** * Function Name: VDAC_RestoreConfig
+  48:Generated_Source\PSoC5/VDAC_PM.c **** ********************************************************************************
+  49:Generated_Source\PSoC5/VDAC_PM.c **** *
+  50:Generated_Source\PSoC5/VDAC_PM.c **** * Summary:
+  51:Generated_Source\PSoC5/VDAC_PM.c **** *  Restores the current user configuration.
+  52:Generated_Source\PSoC5/VDAC_PM.c **** *
+  53:Generated_Source\PSoC5/VDAC_PM.c **** * Parameters:  
+  54:Generated_Source\PSoC5/VDAC_PM.c **** *  void
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc0b5sx5.s 			page 3
+
+
+  55:Generated_Source\PSoC5/VDAC_PM.c **** *
+  56:Generated_Source\PSoC5/VDAC_PM.c **** * Return: 
+  57:Generated_Source\PSoC5/VDAC_PM.c **** *  void
+  58:Generated_Source\PSoC5/VDAC_PM.c **** *
+  59:Generated_Source\PSoC5/VDAC_PM.c **** *******************************************************************************/
+  60:Generated_Source\PSoC5/VDAC_PM.c **** void VDAC_RestoreConfig(void) 
+  61:Generated_Source\PSoC5/VDAC_PM.c **** {
+  61              		.loc 1 61 0
+  62              		.cfi_startproc
+  63              		@ args = 0, pretend = 0, frame = 0
+  64              		@ frame_needed = 0, uses_anonymous_args = 0
+  65              		@ link register save eliminated.
+  62:Generated_Source\PSoC5/VDAC_PM.c ****     if (!((VDAC_CR1 & VDAC_SRC_MASK) == VDAC_SRC_UDB))
+  66              		.loc 1 62 0
+  67 0000 0C4B     		ldr	r3, .L9
+  68 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  69 0004 9B06     		lsls	r3, r3, #26
+  70 0006 13D4     		bmi	.L5
+  63:Generated_Source\PSoC5/VDAC_PM.c ****     {
+  64:Generated_Source\PSoC5/VDAC_PM.c ****         if((VDAC_Strobe & VDAC_STRB_MASK) == VDAC_STRB_EN)
+  71              		.loc 1 64 0
+  72 0008 0B4B     		ldr	r3, .L9+4
+  73 000a 0C48     		ldr	r0, .L9+8
+  74 000c 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+  75 000e 0C49     		ldr	r1, .L9+12
+  76 0010 12F0080F 		tst	r2, #8
+  77 0014 0AD0     		beq	.L7
+  78              	.LBB4:
+  79              	.LBB5:
+  65:Generated_Source\PSoC5/VDAC_PM.c ****         {
+  66:Generated_Source\PSoC5/VDAC_PM.c ****             VDAC_Strobe &= (uint8)(~VDAC_STRB_MASK);
+  80              		.loc 1 66 0
+  81 0016 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+  82 0018 02F0F702 		and	r2, r2, #247
+  83 001c 1A70     		strb	r2, [r3]
+  67:Generated_Source\PSoC5/VDAC_PM.c ****             VDAC_Data = VDAC_backup.data_value;
+  84              		.loc 1 67 0
+  85 001e 4278     		ldrb	r2, [r0, #1]	@ zero_extendqisi2
+  86 0020 0A70     		strb	r2, [r1]
+  68:Generated_Source\PSoC5/VDAC_PM.c ****             VDAC_Strobe |= VDAC_STRB_EN;
+  87              		.loc 1 68 0
+  88 0022 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+  89 0024 42F00802 		orr	r2, r2, #8
+  90 0028 1A70     		strb	r2, [r3]
+  91 002a 7047     		bx	lr
+  92              	.L7:
+  93              	.LBE5:
+  94              	.LBE4:
+  69:Generated_Source\PSoC5/VDAC_PM.c ****         }
+  70:Generated_Source\PSoC5/VDAC_PM.c ****         else
+  71:Generated_Source\PSoC5/VDAC_PM.c ****         {
+  72:Generated_Source\PSoC5/VDAC_PM.c ****             VDAC_Data = VDAC_backup.data_value;
+  95              		.loc 1 72 0
+  96 002c 4378     		ldrb	r3, [r0, #1]	@ zero_extendqisi2
+  97 002e 0B70     		strb	r3, [r1]
+  98              	.L5:
+  99 0030 7047     		bx	lr
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc0b5sx5.s 			page 4
+
+
+ 100              	.L10:
+ 101 0032 00BF     		.align	2
+ 102              	.L9:
+ 103 0034 21580040 		.word	1073764385
+ 104 0038 875A0040 		.word	1073764999
+ 105 003c 00000000 		.word	.LANCHOR0
+ 106 0040 805B0040 		.word	1073765248
+ 107              		.cfi_endproc
+ 108              	.LFE1:
+ 109              		.size	VDAC_RestoreConfig, .-VDAC_RestoreConfig
+ 110              		.section	.text.VDAC_Sleep,"ax",%progbits
+ 111              		.align	1
+ 112              		.global	VDAC_Sleep
+ 113              		.thumb
+ 114              		.thumb_func
+ 115              		.type	VDAC_Sleep, %function
+ 116              	VDAC_Sleep:
+ 117              	.LFB2:
+  73:Generated_Source\PSoC5/VDAC_PM.c ****         }
+  74:Generated_Source\PSoC5/VDAC_PM.c ****     }
+  75:Generated_Source\PSoC5/VDAC_PM.c **** }
+  76:Generated_Source\PSoC5/VDAC_PM.c **** 
+  77:Generated_Source\PSoC5/VDAC_PM.c **** 
+  78:Generated_Source\PSoC5/VDAC_PM.c **** /*******************************************************************************
+  79:Generated_Source\PSoC5/VDAC_PM.c **** * Function Name: VDAC_Sleep
+  80:Generated_Source\PSoC5/VDAC_PM.c **** ********************************************************************************
+  81:Generated_Source\PSoC5/VDAC_PM.c **** * Summary:
+  82:Generated_Source\PSoC5/VDAC_PM.c **** *  Stop and Save the user configuration
+  83:Generated_Source\PSoC5/VDAC_PM.c **** *
+  84:Generated_Source\PSoC5/VDAC_PM.c **** * Parameters:  
+  85:Generated_Source\PSoC5/VDAC_PM.c **** *  void:  
+  86:Generated_Source\PSoC5/VDAC_PM.c **** *
+  87:Generated_Source\PSoC5/VDAC_PM.c **** * Return: 
+  88:Generated_Source\PSoC5/VDAC_PM.c **** *  void
+  89:Generated_Source\PSoC5/VDAC_PM.c **** *
+  90:Generated_Source\PSoC5/VDAC_PM.c **** * Global variables:
+  91:Generated_Source\PSoC5/VDAC_PM.c **** *  VDAC_backup.enableState:  Is modified depending on the enable 
+  92:Generated_Source\PSoC5/VDAC_PM.c **** *  state  of the block before entering sleep mode.
+  93:Generated_Source\PSoC5/VDAC_PM.c **** *
+  94:Generated_Source\PSoC5/VDAC_PM.c **** *******************************************************************************/
+  95:Generated_Source\PSoC5/VDAC_PM.c **** void VDAC_Sleep(void) 
+  96:Generated_Source\PSoC5/VDAC_PM.c **** {
+ 118              		.loc 1 96 0
+ 119              		.cfi_startproc
+ 120              		@ args = 0, pretend = 0, frame = 0
+ 121              		@ frame_needed = 0, uses_anonymous_args = 0
+ 122 0000 08B5     		push	{r3, lr}
+ 123              		.cfi_def_cfa_offset 8
+ 124              		.cfi_offset 3, -8
+ 125              		.cfi_offset 14, -4
+  97:Generated_Source\PSoC5/VDAC_PM.c ****     /* Save VDAC8's enable state */    
+  98:Generated_Source\PSoC5/VDAC_PM.c ****     if(VDAC_ACT_PWR_EN == (VDAC_PWRMGR & VDAC_ACT_PWR_EN))
+ 126              		.loc 1 98 0
+ 127 0002 074B     		ldr	r3, .L14
+ 128 0004 074A     		ldr	r2, .L14+4
+ 129 0006 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 130 0008 13F00103 		ands	r3, r3, #1
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc0b5sx5.s 			page 5
+
+
+  99:Generated_Source\PSoC5/VDAC_PM.c ****     {
+ 100:Generated_Source\PSoC5/VDAC_PM.c ****         /* VDAC8 is enabled */
+ 101:Generated_Source\PSoC5/VDAC_PM.c ****         VDAC_backup.enableState = 1u;
+ 131              		.loc 1 101 0
+ 132 000c 18BF     		it	ne
+ 133 000e 0123     		movne	r3, #1
+ 102:Generated_Source\PSoC5/VDAC_PM.c ****     }
+ 103:Generated_Source\PSoC5/VDAC_PM.c ****     else
+ 104:Generated_Source\PSoC5/VDAC_PM.c ****     {
+ 105:Generated_Source\PSoC5/VDAC_PM.c ****         /* VDAC8 is disabled */
+ 106:Generated_Source\PSoC5/VDAC_PM.c ****         VDAC_backup.enableState = 0u;
+ 134              		.loc 1 106 0
+ 135 0010 1370     		strb	r3, [r2]
+ 107:Generated_Source\PSoC5/VDAC_PM.c ****     }
+ 108:Generated_Source\PSoC5/VDAC_PM.c ****     
+ 109:Generated_Source\PSoC5/VDAC_PM.c ****     VDAC_Stop();
+ 136              		.loc 1 109 0
+ 137 0012 FFF7FEFF 		bl	VDAC_Stop
+ 138              	.LVL0:
+ 110:Generated_Source\PSoC5/VDAC_PM.c ****     VDAC_SaveConfig();
+ 111:Generated_Source\PSoC5/VDAC_PM.c **** }
+ 139              		.loc 1 111 0
+ 140 0016 BDE80840 		pop	{r3, lr}
+ 141              		.cfi_restore 14
+ 142              		.cfi_restore 3
+ 143              		.cfi_def_cfa_offset 0
+ 110:Generated_Source\PSoC5/VDAC_PM.c ****     VDAC_SaveConfig();
+ 144              		.loc 1 110 0
+ 145 001a FFF7FEBF 		b	VDAC_SaveConfig
+ 146              	.LVL1:
+ 147              	.L15:
+ 148 001e 00BF     		.align	2
+ 149              	.L14:
+ 150 0020 A8430040 		.word	1073759144
+ 151 0024 00000000 		.word	.LANCHOR0
+ 152              		.cfi_endproc
+ 153              	.LFE2:
+ 154              		.size	VDAC_Sleep, .-VDAC_Sleep
+ 155              		.section	.text.VDAC_Wakeup,"ax",%progbits
+ 156              		.align	1
+ 157              		.global	VDAC_Wakeup
+ 158              		.thumb
+ 159              		.thumb_func
+ 160              		.type	VDAC_Wakeup, %function
+ 161              	VDAC_Wakeup:
+ 162              	.LFB3:
+ 112:Generated_Source\PSoC5/VDAC_PM.c **** 
+ 113:Generated_Source\PSoC5/VDAC_PM.c **** 
+ 114:Generated_Source\PSoC5/VDAC_PM.c **** /*******************************************************************************
+ 115:Generated_Source\PSoC5/VDAC_PM.c **** * Function Name: VDAC_Wakeup
+ 116:Generated_Source\PSoC5/VDAC_PM.c **** ********************************************************************************
+ 117:Generated_Source\PSoC5/VDAC_PM.c **** *
+ 118:Generated_Source\PSoC5/VDAC_PM.c **** * Summary:
+ 119:Generated_Source\PSoC5/VDAC_PM.c **** *  Restores and enables the user configuration
+ 120:Generated_Source\PSoC5/VDAC_PM.c **** *  
+ 121:Generated_Source\PSoC5/VDAC_PM.c **** * Parameters:  
+ 122:Generated_Source\PSoC5/VDAC_PM.c **** *  void
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc0b5sx5.s 			page 6
+
+
+ 123:Generated_Source\PSoC5/VDAC_PM.c **** *
+ 124:Generated_Source\PSoC5/VDAC_PM.c **** * Return: 
+ 125:Generated_Source\PSoC5/VDAC_PM.c **** *  void
+ 126:Generated_Source\PSoC5/VDAC_PM.c **** *
+ 127:Generated_Source\PSoC5/VDAC_PM.c **** * Global variables:
+ 128:Generated_Source\PSoC5/VDAC_PM.c **** *  VDAC_backup.enableState:  Is used to restore the enable state of 
+ 129:Generated_Source\PSoC5/VDAC_PM.c **** *  block on wakeup from sleep mode.
+ 130:Generated_Source\PSoC5/VDAC_PM.c **** *
+ 131:Generated_Source\PSoC5/VDAC_PM.c **** *******************************************************************************/
+ 132:Generated_Source\PSoC5/VDAC_PM.c **** void VDAC_Wakeup(void) 
+ 133:Generated_Source\PSoC5/VDAC_PM.c **** {
+ 163              		.loc 1 133 0
+ 164              		.cfi_startproc
+ 165              		@ args = 0, pretend = 0, frame = 0
+ 166              		@ frame_needed = 0, uses_anonymous_args = 0
+ 167 0000 08B5     		push	{r3, lr}
+ 168              		.cfi_def_cfa_offset 8
+ 169              		.cfi_offset 3, -8
+ 170              		.cfi_offset 14, -4
+ 134:Generated_Source\PSoC5/VDAC_PM.c ****     VDAC_RestoreConfig();
+ 171              		.loc 1 134 0
+ 172 0002 FFF7FEFF 		bl	VDAC_RestoreConfig
+ 173              	.LVL2:
+ 135:Generated_Source\PSoC5/VDAC_PM.c ****     
+ 136:Generated_Source\PSoC5/VDAC_PM.c ****     if(VDAC_backup.enableState == 1u)
+ 174              		.loc 1 136 0
+ 175 0006 064B     		ldr	r3, .L18
+ 176 0008 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 177 000a 012B     		cmp	r3, #1
+ 178 000c 07D1     		bne	.L16
+ 137:Generated_Source\PSoC5/VDAC_PM.c ****     {
+ 138:Generated_Source\PSoC5/VDAC_PM.c ****         /* Enable VDAC8's operation */
+ 139:Generated_Source\PSoC5/VDAC_PM.c ****         VDAC_Enable();
+ 179              		.loc 1 139 0
+ 180 000e FFF7FEFF 		bl	VDAC_Enable
+ 181              	.LVL3:
+ 140:Generated_Source\PSoC5/VDAC_PM.c **** 
+ 141:Generated_Source\PSoC5/VDAC_PM.c ****         /* Restore the data register */
+ 142:Generated_Source\PSoC5/VDAC_PM.c ****         VDAC_SetValue(VDAC_Data);
+ 182              		.loc 1 142 0
+ 183 0012 044B     		ldr	r3, .L18+4
+ 184 0014 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 143:Generated_Source\PSoC5/VDAC_PM.c ****     } /* Do nothing if VDAC8 was disabled before */    
+ 144:Generated_Source\PSoC5/VDAC_PM.c **** }
+ 185              		.loc 1 144 0
+ 186 0016 BDE80840 		pop	{r3, lr}
+ 187              		.cfi_remember_state
+ 188              		.cfi_restore 14
+ 189              		.cfi_restore 3
+ 190              		.cfi_def_cfa_offset 0
+ 142:Generated_Source\PSoC5/VDAC_PM.c ****     } /* Do nothing if VDAC8 was disabled before */    
+ 191              		.loc 1 142 0
+ 192 001a FFF7FEBF 		b	VDAC_SetValue
+ 193              	.LVL4:
+ 194              	.L16:
+ 195              		.cfi_restore_state
+ 196 001e 08BD     		pop	{r3, pc}
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc0b5sx5.s 			page 7
+
+
+ 197              	.L19:
+ 198              		.align	2
+ 199              	.L18:
+ 200 0020 00000000 		.word	.LANCHOR0
+ 201 0024 805B0040 		.word	1073765248
+ 202              		.cfi_endproc
+ 203              	.LFE3:
+ 204              		.size	VDAC_Wakeup, .-VDAC_Wakeup
+ 205              		.bss
+ 206              		.set	.LANCHOR0,. + 0
+ 207              		.type	VDAC_backup, %object
+ 208              		.size	VDAC_backup, 2
+ 209              	VDAC_backup:
+ 210 0000 0000     		.space	2
+ 211              		.text
+ 212              	.Letext0:
+ 213              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 214              		.file 3 "Generated_Source\\PSoC5\\VDAC.h"
+ 215              		.section	.debug_info,"",%progbits
+ 216              	.Ldebug_info0:
+ 217 0000 79010000 		.4byte	0x179
+ 218 0004 0400     		.2byte	0x4
+ 219 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 220 000a 04       		.byte	0x4
+ 221 000b 01       		.uleb128 0x1
+ 222 000c 12010000 		.4byte	.LASF22
+ 223 0010 0C       		.byte	0xc
+ 224 0011 18020000 		.4byte	.LASF23
+ 225 0015 1D000000 		.4byte	.LASF24
+ 226 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 227 001d 00000000 		.4byte	0
+ 228 0021 00000000 		.4byte	.Ldebug_line0
+ 229 0025 02       		.uleb128 0x2
+ 230 0026 01       		.byte	0x1
+ 231 0027 06       		.byte	0x6
+ 232 0028 0C020000 		.4byte	.LASF0
+ 233 002c 02       		.uleb128 0x2
+ 234 002d 01       		.byte	0x1
+ 235 002e 08       		.byte	0x8
+ 236 002f A7000000 		.4byte	.LASF1
+ 237 0033 02       		.uleb128 0x2
+ 238 0034 02       		.byte	0x2
+ 239 0035 05       		.byte	0x5
+ 240 0036 E7010000 		.4byte	.LASF2
+ 241 003a 02       		.uleb128 0x2
+ 242 003b 02       		.byte	0x2
+ 243 003c 07       		.byte	0x7
+ 244 003d CC000000 		.4byte	.LASF3
+ 245 0041 02       		.uleb128 0x2
+ 246 0042 04       		.byte	0x4
+ 247 0043 05       		.byte	0x5
+ 248 0044 F7010000 		.4byte	.LASF4
+ 249 0048 02       		.uleb128 0x2
+ 250 0049 04       		.byte	0x4
+ 251 004a 07       		.byte	0x7
+ 252 004b BA000000 		.4byte	.LASF5
+ 253 004f 02       		.uleb128 0x2
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc0b5sx5.s 			page 8
+
+
+ 254 0050 08       		.byte	0x8
+ 255 0051 05       		.byte	0x5
+ 256 0052 BA010000 		.4byte	.LASF6
+ 257 0056 02       		.uleb128 0x2
+ 258 0057 08       		.byte	0x8
+ 259 0058 07       		.byte	0x7
+ 260 0059 90000000 		.4byte	.LASF7
+ 261 005d 03       		.uleb128 0x3
+ 262 005e 04       		.byte	0x4
+ 263 005f 05       		.byte	0x5
+ 264 0060 696E7400 		.ascii	"int\000"
+ 265 0064 02       		.uleb128 0x2
+ 266 0065 04       		.byte	0x4
+ 267 0066 07       		.byte	0x7
+ 268 0067 05010000 		.4byte	.LASF8
+ 269 006b 04       		.uleb128 0x4
+ 270 006c F1010000 		.4byte	.LASF12
+ 271 0070 02       		.byte	0x2
+ 272 0071 9201     		.2byte	0x192
+ 273 0073 2C000000 		.4byte	0x2c
+ 274 0077 02       		.uleb128 0x2
+ 275 0078 04       		.byte	0x4
+ 276 0079 04       		.byte	0x4
+ 277 007a 8A000000 		.4byte	.LASF9
+ 278 007e 02       		.uleb128 0x2
+ 279 007f 08       		.byte	0x8
+ 280 0080 04       		.byte	0x4
+ 281 0081 F2000000 		.4byte	.LASF10
+ 282 0085 02       		.uleb128 0x2
+ 283 0086 01       		.byte	0x1
+ 284 0087 08       		.byte	0x8
+ 285 0088 C8010000 		.4byte	.LASF11
+ 286 008c 04       		.uleb128 0x4
+ 287 008d B5000000 		.4byte	.LASF13
+ 288 0091 02       		.byte	0x2
+ 289 0092 3C02     		.2byte	0x23c
+ 290 0094 98000000 		.4byte	0x98
+ 291 0098 05       		.uleb128 0x5
+ 292 0099 6B000000 		.4byte	0x6b
+ 293 009d 06       		.uleb128 0x6
+ 294 009e 02       		.byte	0x2
+ 295 009f 03       		.byte	0x3
+ 296 00a0 25       		.byte	0x25
+ 297 00a1 BE000000 		.4byte	0xbe
+ 298 00a5 07       		.uleb128 0x7
+ 299 00a6 00020000 		.4byte	.LASF14
+ 300 00aa 03       		.byte	0x3
+ 301 00ab 27       		.byte	0x27
+ 302 00ac 6B000000 		.4byte	0x6b
+ 303 00b0 00       		.byte	0
+ 304 00b1 07       		.uleb128 0x7
+ 305 00b2 7F000000 		.4byte	.LASF15
+ 306 00b6 03       		.byte	0x3
+ 307 00b7 28       		.byte	0x28
+ 308 00b8 6B000000 		.4byte	0x6b
+ 309 00bc 01       		.byte	0x1
+ 310 00bd 00       		.byte	0
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc0b5sx5.s 			page 9
+
+
+ 311 00be 08       		.uleb128 0x8
+ 312 00bf 0B000000 		.4byte	.LASF16
+ 313 00c3 03       		.byte	0x3
+ 314 00c4 29       		.byte	0x29
+ 315 00c5 9D000000 		.4byte	0x9d
+ 316 00c9 09       		.uleb128 0x9
+ 317 00ca DF000000 		.4byte	.LASF25
+ 318 00ce 01       		.byte	0x1
+ 319 00cf 3C       		.byte	0x3c
+ 320 00d0 01       		.byte	0x1
+ 321 00d1 0A       		.uleb128 0xa
+ 322 00d2 A0010000 		.4byte	.LASF26
+ 323 00d6 01       		.byte	0x1
+ 324 00d7 25       		.byte	0x25
+ 325 00d8 00000000 		.4byte	.LFB0
+ 326 00dc 20000000 		.4byte	.LFE0-.LFB0
+ 327 00e0 01       		.uleb128 0x1
+ 328 00e1 9C       		.byte	0x9c
+ 329 00e2 0B       		.uleb128 0xb
+ 330 00e3 C9000000 		.4byte	0xc9
+ 331 00e7 00000000 		.4byte	.LFB1
+ 332 00eb 44000000 		.4byte	.LFE1-.LFB1
+ 333 00ef 01       		.uleb128 0x1
+ 334 00f0 9C       		.byte	0x9c
+ 335 00f1 0C       		.uleb128 0xc
+ 336 00f2 00000000 		.4byte	.LASF17
+ 337 00f6 01       		.byte	0x1
+ 338 00f7 5F       		.byte	0x5f
+ 339 00f8 00000000 		.4byte	.LFB2
+ 340 00fc 28000000 		.4byte	.LFE2-.LFB2
+ 341 0100 01       		.uleb128 0x1
+ 342 0101 9C       		.byte	0x9c
+ 343 0102 19010000 		.4byte	0x119
+ 344 0106 0D       		.uleb128 0xd
+ 345 0107 16000000 		.4byte	.LVL0
+ 346 010b 5B010000 		.4byte	0x15b
+ 347 010f 0E       		.uleb128 0xe
+ 348 0110 1E000000 		.4byte	.LVL1
+ 349 0114 D1000000 		.4byte	0xd1
+ 350 0118 00       		.byte	0
+ 351 0119 0C       		.uleb128 0xc
+ 352 011a DB010000 		.4byte	.LASF18
+ 353 011e 01       		.byte	0x1
+ 354 011f 84       		.byte	0x84
+ 355 0120 00000000 		.4byte	.LFB3
+ 356 0124 28000000 		.4byte	.LFE3-.LFB3
+ 357 0128 01       		.uleb128 0x1
+ 358 0129 9C       		.byte	0x9c
+ 359 012a 4A010000 		.4byte	0x14a
+ 360 012e 0D       		.uleb128 0xd
+ 361 012f 06000000 		.4byte	.LVL2
+ 362 0133 C9000000 		.4byte	0xc9
+ 363 0137 0D       		.uleb128 0xd
+ 364 0138 12000000 		.4byte	.LVL3
+ 365 013c 66010000 		.4byte	0x166
+ 366 0140 0E       		.uleb128 0xe
+ 367 0141 1E000000 		.4byte	.LVL4
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc0b5sx5.s 			page 10
+
+
+ 368 0145 71010000 		.4byte	0x171
+ 369 0149 00       		.byte	0
+ 370 014a 0F       		.uleb128 0xf
+ 371 014b F9000000 		.4byte	.LASF27
+ 372 014f 01       		.byte	0x1
+ 373 0150 15       		.byte	0x15
+ 374 0151 BE000000 		.4byte	0xbe
+ 375 0155 05       		.uleb128 0x5
+ 376 0156 03       		.byte	0x3
+ 377 0157 00000000 		.4byte	VDAC_backup
+ 378 015b 10       		.uleb128 0x10
+ 379 015c B0010000 		.4byte	.LASF19
+ 380 0160 B0010000 		.4byte	.LASF19
+ 381 0164 03       		.byte	0x3
+ 382 0165 34       		.byte	0x34
+ 383 0166 10       		.uleb128 0x10
+ 384 0167 73000000 		.4byte	.LASF20
+ 385 016b 73000000 		.4byte	.LASF20
+ 386 016f 03       		.byte	0x3
+ 387 0170 3A       		.byte	0x3a
+ 388 0171 10       		.uleb128 0x10
+ 389 0172 CD010000 		.4byte	.LASF21
+ 390 0176 CD010000 		.4byte	.LASF21
+ 391 017a 03       		.byte	0x3
+ 392 017b 37       		.byte	0x37
+ 393 017c 00       		.byte	0
+ 394              		.section	.debug_abbrev,"",%progbits
+ 395              	.Ldebug_abbrev0:
+ 396 0000 01       		.uleb128 0x1
+ 397 0001 11       		.uleb128 0x11
+ 398 0002 01       		.byte	0x1
+ 399 0003 25       		.uleb128 0x25
+ 400 0004 0E       		.uleb128 0xe
+ 401 0005 13       		.uleb128 0x13
+ 402 0006 0B       		.uleb128 0xb
+ 403 0007 03       		.uleb128 0x3
+ 404 0008 0E       		.uleb128 0xe
+ 405 0009 1B       		.uleb128 0x1b
+ 406 000a 0E       		.uleb128 0xe
+ 407 000b 55       		.uleb128 0x55
+ 408 000c 17       		.uleb128 0x17
+ 409 000d 11       		.uleb128 0x11
+ 410 000e 01       		.uleb128 0x1
+ 411 000f 10       		.uleb128 0x10
+ 412 0010 17       		.uleb128 0x17
+ 413 0011 00       		.byte	0
+ 414 0012 00       		.byte	0
+ 415 0013 02       		.uleb128 0x2
+ 416 0014 24       		.uleb128 0x24
+ 417 0015 00       		.byte	0
+ 418 0016 0B       		.uleb128 0xb
+ 419 0017 0B       		.uleb128 0xb
+ 420 0018 3E       		.uleb128 0x3e
+ 421 0019 0B       		.uleb128 0xb
+ 422 001a 03       		.uleb128 0x3
+ 423 001b 0E       		.uleb128 0xe
+ 424 001c 00       		.byte	0
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc0b5sx5.s 			page 11
+
+
+ 425 001d 00       		.byte	0
+ 426 001e 03       		.uleb128 0x3
+ 427 001f 24       		.uleb128 0x24
+ 428 0020 00       		.byte	0
+ 429 0021 0B       		.uleb128 0xb
+ 430 0022 0B       		.uleb128 0xb
+ 431 0023 3E       		.uleb128 0x3e
+ 432 0024 0B       		.uleb128 0xb
+ 433 0025 03       		.uleb128 0x3
+ 434 0026 08       		.uleb128 0x8
+ 435 0027 00       		.byte	0
+ 436 0028 00       		.byte	0
+ 437 0029 04       		.uleb128 0x4
+ 438 002a 16       		.uleb128 0x16
+ 439 002b 00       		.byte	0
+ 440 002c 03       		.uleb128 0x3
+ 441 002d 0E       		.uleb128 0xe
+ 442 002e 3A       		.uleb128 0x3a
+ 443 002f 0B       		.uleb128 0xb
+ 444 0030 3B       		.uleb128 0x3b
+ 445 0031 05       		.uleb128 0x5
+ 446 0032 49       		.uleb128 0x49
+ 447 0033 13       		.uleb128 0x13
+ 448 0034 00       		.byte	0
+ 449 0035 00       		.byte	0
+ 450 0036 05       		.uleb128 0x5
+ 451 0037 35       		.uleb128 0x35
+ 452 0038 00       		.byte	0
+ 453 0039 49       		.uleb128 0x49
+ 454 003a 13       		.uleb128 0x13
+ 455 003b 00       		.byte	0
+ 456 003c 00       		.byte	0
+ 457 003d 06       		.uleb128 0x6
+ 458 003e 13       		.uleb128 0x13
+ 459 003f 01       		.byte	0x1
+ 460 0040 0B       		.uleb128 0xb
+ 461 0041 0B       		.uleb128 0xb
+ 462 0042 3A       		.uleb128 0x3a
+ 463 0043 0B       		.uleb128 0xb
+ 464 0044 3B       		.uleb128 0x3b
+ 465 0045 0B       		.uleb128 0xb
+ 466 0046 01       		.uleb128 0x1
+ 467 0047 13       		.uleb128 0x13
+ 468 0048 00       		.byte	0
+ 469 0049 00       		.byte	0
+ 470 004a 07       		.uleb128 0x7
+ 471 004b 0D       		.uleb128 0xd
+ 472 004c 00       		.byte	0
+ 473 004d 03       		.uleb128 0x3
+ 474 004e 0E       		.uleb128 0xe
+ 475 004f 3A       		.uleb128 0x3a
+ 476 0050 0B       		.uleb128 0xb
+ 477 0051 3B       		.uleb128 0x3b
+ 478 0052 0B       		.uleb128 0xb
+ 479 0053 49       		.uleb128 0x49
+ 480 0054 13       		.uleb128 0x13
+ 481 0055 38       		.uleb128 0x38
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc0b5sx5.s 			page 12
+
+
+ 482 0056 0B       		.uleb128 0xb
+ 483 0057 00       		.byte	0
+ 484 0058 00       		.byte	0
+ 485 0059 08       		.uleb128 0x8
+ 486 005a 16       		.uleb128 0x16
+ 487 005b 00       		.byte	0
+ 488 005c 03       		.uleb128 0x3
+ 489 005d 0E       		.uleb128 0xe
+ 490 005e 3A       		.uleb128 0x3a
+ 491 005f 0B       		.uleb128 0xb
+ 492 0060 3B       		.uleb128 0x3b
+ 493 0061 0B       		.uleb128 0xb
+ 494 0062 49       		.uleb128 0x49
+ 495 0063 13       		.uleb128 0x13
+ 496 0064 00       		.byte	0
+ 497 0065 00       		.byte	0
+ 498 0066 09       		.uleb128 0x9
+ 499 0067 2E       		.uleb128 0x2e
+ 500 0068 00       		.byte	0
+ 501 0069 3F       		.uleb128 0x3f
+ 502 006a 19       		.uleb128 0x19
+ 503 006b 03       		.uleb128 0x3
+ 504 006c 0E       		.uleb128 0xe
+ 505 006d 3A       		.uleb128 0x3a
+ 506 006e 0B       		.uleb128 0xb
+ 507 006f 3B       		.uleb128 0x3b
+ 508 0070 0B       		.uleb128 0xb
+ 509 0071 27       		.uleb128 0x27
+ 510 0072 19       		.uleb128 0x19
+ 511 0073 20       		.uleb128 0x20
+ 512 0074 0B       		.uleb128 0xb
+ 513 0075 00       		.byte	0
+ 514 0076 00       		.byte	0
+ 515 0077 0A       		.uleb128 0xa
+ 516 0078 2E       		.uleb128 0x2e
+ 517 0079 00       		.byte	0
+ 518 007a 3F       		.uleb128 0x3f
+ 519 007b 19       		.uleb128 0x19
+ 520 007c 03       		.uleb128 0x3
+ 521 007d 0E       		.uleb128 0xe
+ 522 007e 3A       		.uleb128 0x3a
+ 523 007f 0B       		.uleb128 0xb
+ 524 0080 3B       		.uleb128 0x3b
+ 525 0081 0B       		.uleb128 0xb
+ 526 0082 27       		.uleb128 0x27
+ 527 0083 19       		.uleb128 0x19
+ 528 0084 11       		.uleb128 0x11
+ 529 0085 01       		.uleb128 0x1
+ 530 0086 12       		.uleb128 0x12
+ 531 0087 06       		.uleb128 0x6
+ 532 0088 40       		.uleb128 0x40
+ 533 0089 18       		.uleb128 0x18
+ 534 008a 9742     		.uleb128 0x2117
+ 535 008c 19       		.uleb128 0x19
+ 536 008d 00       		.byte	0
+ 537 008e 00       		.byte	0
+ 538 008f 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc0b5sx5.s 			page 13
+
+
+ 539 0090 2E       		.uleb128 0x2e
+ 540 0091 00       		.byte	0
+ 541 0092 31       		.uleb128 0x31
+ 542 0093 13       		.uleb128 0x13
+ 543 0094 11       		.uleb128 0x11
+ 544 0095 01       		.uleb128 0x1
+ 545 0096 12       		.uleb128 0x12
+ 546 0097 06       		.uleb128 0x6
+ 547 0098 40       		.uleb128 0x40
+ 548 0099 18       		.uleb128 0x18
+ 549 009a 9742     		.uleb128 0x2117
+ 550 009c 19       		.uleb128 0x19
+ 551 009d 00       		.byte	0
+ 552 009e 00       		.byte	0
+ 553 009f 0C       		.uleb128 0xc
+ 554 00a0 2E       		.uleb128 0x2e
+ 555 00a1 01       		.byte	0x1
+ 556 00a2 3F       		.uleb128 0x3f
+ 557 00a3 19       		.uleb128 0x19
+ 558 00a4 03       		.uleb128 0x3
+ 559 00a5 0E       		.uleb128 0xe
+ 560 00a6 3A       		.uleb128 0x3a
+ 561 00a7 0B       		.uleb128 0xb
+ 562 00a8 3B       		.uleb128 0x3b
+ 563 00a9 0B       		.uleb128 0xb
+ 564 00aa 27       		.uleb128 0x27
+ 565 00ab 19       		.uleb128 0x19
+ 566 00ac 11       		.uleb128 0x11
+ 567 00ad 01       		.uleb128 0x1
+ 568 00ae 12       		.uleb128 0x12
+ 569 00af 06       		.uleb128 0x6
+ 570 00b0 40       		.uleb128 0x40
+ 571 00b1 18       		.uleb128 0x18
+ 572 00b2 9742     		.uleb128 0x2117
+ 573 00b4 19       		.uleb128 0x19
+ 574 00b5 01       		.uleb128 0x1
+ 575 00b6 13       		.uleb128 0x13
+ 576 00b7 00       		.byte	0
+ 577 00b8 00       		.byte	0
+ 578 00b9 0D       		.uleb128 0xd
+ 579 00ba 898201   		.uleb128 0x4109
+ 580 00bd 00       		.byte	0
+ 581 00be 11       		.uleb128 0x11
+ 582 00bf 01       		.uleb128 0x1
+ 583 00c0 31       		.uleb128 0x31
+ 584 00c1 13       		.uleb128 0x13
+ 585 00c2 00       		.byte	0
+ 586 00c3 00       		.byte	0
+ 587 00c4 0E       		.uleb128 0xe
+ 588 00c5 898201   		.uleb128 0x4109
+ 589 00c8 00       		.byte	0
+ 590 00c9 11       		.uleb128 0x11
+ 591 00ca 01       		.uleb128 0x1
+ 592 00cb 9542     		.uleb128 0x2115
+ 593 00cd 19       		.uleb128 0x19
+ 594 00ce 31       		.uleb128 0x31
+ 595 00cf 13       		.uleb128 0x13
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc0b5sx5.s 			page 14
+
+
+ 596 00d0 00       		.byte	0
+ 597 00d1 00       		.byte	0
+ 598 00d2 0F       		.uleb128 0xf
+ 599 00d3 34       		.uleb128 0x34
+ 600 00d4 00       		.byte	0
+ 601 00d5 03       		.uleb128 0x3
+ 602 00d6 0E       		.uleb128 0xe
+ 603 00d7 3A       		.uleb128 0x3a
+ 604 00d8 0B       		.uleb128 0xb
+ 605 00d9 3B       		.uleb128 0x3b
+ 606 00da 0B       		.uleb128 0xb
+ 607 00db 49       		.uleb128 0x49
+ 608 00dc 13       		.uleb128 0x13
+ 609 00dd 02       		.uleb128 0x2
+ 610 00de 18       		.uleb128 0x18
+ 611 00df 00       		.byte	0
+ 612 00e0 00       		.byte	0
+ 613 00e1 10       		.uleb128 0x10
+ 614 00e2 2E       		.uleb128 0x2e
+ 615 00e3 00       		.byte	0
+ 616 00e4 3F       		.uleb128 0x3f
+ 617 00e5 19       		.uleb128 0x19
+ 618 00e6 3C       		.uleb128 0x3c
+ 619 00e7 19       		.uleb128 0x19
+ 620 00e8 6E       		.uleb128 0x6e
+ 621 00e9 0E       		.uleb128 0xe
+ 622 00ea 03       		.uleb128 0x3
+ 623 00eb 0E       		.uleb128 0xe
+ 624 00ec 3A       		.uleb128 0x3a
+ 625 00ed 0B       		.uleb128 0xb
+ 626 00ee 3B       		.uleb128 0x3b
+ 627 00ef 0B       		.uleb128 0xb
+ 628 00f0 00       		.byte	0
+ 629 00f1 00       		.byte	0
+ 630 00f2 00       		.byte	0
+ 631              		.section	.debug_aranges,"",%progbits
+ 632 0000 34000000 		.4byte	0x34
+ 633 0004 0200     		.2byte	0x2
+ 634 0006 00000000 		.4byte	.Ldebug_info0
+ 635 000a 04       		.byte	0x4
+ 636 000b 00       		.byte	0
+ 637 000c 0000     		.2byte	0
+ 638 000e 0000     		.2byte	0
+ 639 0010 00000000 		.4byte	.LFB0
+ 640 0014 20000000 		.4byte	.LFE0-.LFB0
+ 641 0018 00000000 		.4byte	.LFB1
+ 642 001c 44000000 		.4byte	.LFE1-.LFB1
+ 643 0020 00000000 		.4byte	.LFB2
+ 644 0024 28000000 		.4byte	.LFE2-.LFB2
+ 645 0028 00000000 		.4byte	.LFB3
+ 646 002c 28000000 		.4byte	.LFE3-.LFB3
+ 647 0030 00000000 		.4byte	0
+ 648 0034 00000000 		.4byte	0
+ 649              		.section	.debug_ranges,"",%progbits
+ 650              	.Ldebug_ranges0:
+ 651 0000 00000000 		.4byte	.LFB0
+ 652 0004 20000000 		.4byte	.LFE0
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc0b5sx5.s 			page 15
+
+
+ 653 0008 00000000 		.4byte	.LFB1
+ 654 000c 44000000 		.4byte	.LFE1
+ 655 0010 00000000 		.4byte	.LFB2
+ 656 0014 28000000 		.4byte	.LFE2
+ 657 0018 00000000 		.4byte	.LFB3
+ 658 001c 28000000 		.4byte	.LFE3
+ 659 0020 00000000 		.4byte	0
+ 660 0024 00000000 		.4byte	0
+ 661              		.section	.debug_line,"",%progbits
+ 662              	.Ldebug_line0:
+ 663 0000 A6000000 		.section	.debug_str,"MS",%progbits,1
+ 663      02004E00 
+ 663      00000201 
+ 663      FB0E0D00 
+ 663      01010101 
+ 664              	.LASF17:
+ 665 0000 56444143 		.ascii	"VDAC_Sleep\000"
+ 665      5F536C65 
+ 665      657000
+ 666              	.LASF16:
+ 667 000b 56444143 		.ascii	"VDAC_backupStruct\000"
+ 667      5F626163 
+ 667      6B757053 
+ 667      74727563 
+ 667      7400
+ 668              	.LASF24:
+ 669 001d 433A5C55 		.ascii	"C:\\Users\\Krist\\OneDrive\\Dokumenter\\GitHub\\pla"
+ 669      73657273 
+ 669      5C4B7269 
+ 669      73745C4F 
+ 669      6E654472 
+ 670 004a 746F6F6E 		.ascii	"tooning\\PSoC\\PeakDetector\\FirstTry.cydsn\000"
+ 670      696E675C 
+ 670      50536F43 
+ 670      5C506561 
+ 670      6B446574 
+ 671              	.LASF20:
+ 672 0073 56444143 		.ascii	"VDAC_Enable\000"
+ 672      5F456E61 
+ 672      626C6500 
+ 673              	.LASF15:
+ 674 007f 64617461 		.ascii	"data_value\000"
+ 674      5F76616C 
+ 674      756500
+ 675              	.LASF9:
+ 676 008a 666C6F61 		.ascii	"float\000"
+ 676      7400
+ 677              	.LASF7:
+ 678 0090 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 678      206C6F6E 
+ 678      6720756E 
+ 678      7369676E 
+ 678      65642069 
+ 679              	.LASF1:
+ 680 00a7 756E7369 		.ascii	"unsigned char\000"
+ 680      676E6564 
+ 680      20636861 
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc0b5sx5.s 			page 16
+
+
+ 680      7200
+ 681              	.LASF13:
+ 682 00b5 72656738 		.ascii	"reg8\000"
+ 682      00
+ 683              	.LASF5:
+ 684 00ba 6C6F6E67 		.ascii	"long unsigned int\000"
+ 684      20756E73 
+ 684      69676E65 
+ 684      6420696E 
+ 684      7400
+ 685              	.LASF3:
+ 686 00cc 73686F72 		.ascii	"short unsigned int\000"
+ 686      7420756E 
+ 686      7369676E 
+ 686      65642069 
+ 686      6E7400
+ 687              	.LASF25:
+ 688 00df 56444143 		.ascii	"VDAC_RestoreConfig\000"
+ 688      5F526573 
+ 688      746F7265 
+ 688      436F6E66 
+ 688      696700
+ 689              	.LASF10:
+ 690 00f2 646F7562 		.ascii	"double\000"
+ 690      6C6500
+ 691              	.LASF27:
+ 692 00f9 56444143 		.ascii	"VDAC_backup\000"
+ 692      5F626163 
+ 692      6B757000 
+ 693              	.LASF8:
+ 694 0105 756E7369 		.ascii	"unsigned int\000"
+ 694      676E6564 
+ 694      20696E74 
+ 694      00
+ 695              	.LASF22:
+ 696 0112 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 696      43313120 
+ 696      352E342E 
+ 696      31203230 
+ 696      31363036 
+ 697 0145 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 697      20726576 
+ 697      6973696F 
+ 697      6E203233 
+ 697      37373135 
+ 698 0178 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 698      66756E63 
+ 698      74696F6E 
+ 698      2D736563 
+ 698      74696F6E 
+ 699              	.LASF26:
+ 700 01a0 56444143 		.ascii	"VDAC_SaveConfig\000"
+ 700      5F536176 
+ 700      65436F6E 
+ 700      66696700 
+ 701              	.LASF19:
+ 702 01b0 56444143 		.ascii	"VDAC_Stop\000"
+ARM GAS  C:\Users\Krist\AppData\Local\Temp\cc0b5sx5.s 			page 17
+
+
+ 702      5F53746F 
+ 702      7000
+ 703              	.LASF6:
+ 704 01ba 6C6F6E67 		.ascii	"long long int\000"
+ 704      206C6F6E 
+ 704      6720696E 
+ 704      7400
+ 705              	.LASF11:
+ 706 01c8 63686172 		.ascii	"char\000"
+ 706      00
+ 707              	.LASF21:
+ 708 01cd 56444143 		.ascii	"VDAC_SetValue\000"
+ 708      5F536574 
+ 708      56616C75 
+ 708      6500
+ 709              	.LASF18:
+ 710 01db 56444143 		.ascii	"VDAC_Wakeup\000"
+ 710      5F57616B 
+ 710      65757000 
+ 711              	.LASF2:
+ 712 01e7 73686F72 		.ascii	"short int\000"
+ 712      7420696E 
+ 712      7400
+ 713              	.LASF12:
+ 714 01f1 75696E74 		.ascii	"uint8\000"
+ 714      3800
+ 715              	.LASF4:
+ 716 01f7 6C6F6E67 		.ascii	"long int\000"
+ 716      20696E74 
+ 716      00
+ 717              	.LASF14:
+ 718 0200 656E6162 		.ascii	"enableState\000"
+ 718      6C655374 
+ 718      61746500 
+ 719              	.LASF0:
+ 720 020c 7369676E 		.ascii	"signed char\000"
+ 720      65642063 
+ 720      68617200 
+ 721              	.LASF23:
+ 722 0218 47656E65 		.ascii	"Generated_Source\\PSoC5\\VDAC_PM.c\000"
+ 722      72617465 
+ 722      645F536F 
+ 722      75726365 
+ 722      5C50536F 
+ 723              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
