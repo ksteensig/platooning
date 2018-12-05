@@ -15,25 +15,43 @@ CY_ISR_PROTO(IRQ_Handler);
 uint16_t DataA[DATA_SIZE];
 uint16_t DataB[DATA_SIZE];
 
-/* used by the DMA */
+/* Defines for DMA_A */
 #define DMA_A_BYTES_PER_BURST 2
 #define DMA_A_REQUEST_PER_BURST 1
 #define DMA_A_SRC_BASE (CYDEV_PERIPH_BASE)
-#define DMA_A_DST_BASE (CYDEV_SRAM_BASE)
+#define DMA_A_DST_BASE (CYDEV_PERIPH_BASE)
 
-/* used by the DMA */
-#define DMA_B_BYTES_PER_BURST 2
-#define DMA_B_REQUEST_PER_BURST 1
-#define DMA_B_SRC_BASE (CYDEV_PERIPH_BASE)
-#define DMA_B_DST_BASE (CYDEV_SRAM_BASE)
-
-/* used by the DMA */
+/* Variable declarations for DMA_A */
 uint8 DMA_A_Chan;
 uint8 DMA_A_TD[1];
 
-/* used by the DMA */
+/* Defines for DMA_B */
+#define DMA_B_BYTES_PER_BURST 2
+#define DMA_B_REQUEST_PER_BURST 1
+#define DMA_B_SRC_BASE (CYDEV_PERIPH_BASE)
+#define DMA_B_DST_BASE (CYDEV_PERIPH_BASE)
+
+/* Variable declarations for DMA_B */
 uint8 DMA_B_Chan;
 uint8 DMA_B_TD[1];
+
+#define DMA_A_Filter_BYTES_PER_BURST 2
+#define DMA_A_Filter_REQUEST_PER_BURST 1
+#define DMA_A_Filter_SRC_BASE (CYDEV_PERIPH_BASE)
+#define DMA_A_Filter_DST_BASE (CYDEV_SRAM_BASE)
+
+/* Variable declarations for DMA_A_Filter */
+uint8 DMA_A_Filter_Chan;
+uint8 DMA_A_Filter_TD[1];
+
+#define DMA_B_Filter_BYTES_PER_BURST 2
+#define DMA_B_Filter_REQUEST_PER_BURST 1
+#define DMA_B_Filter_SRC_BASE (CYDEV_PERIPH_BASE)
+#define DMA_B_Filter_DST_BASE (CYDEV_SRAM_BASE)
+
+/* Variable declarations for DMA_B_Filter */
+uint8 DMA_B_Filter_Chan;
+uint8 DMA_B_Filter_TD[1];
 
 uint8_t ISR_A_done = 0;
 uint8_t ISR_B_done = 0;
@@ -42,7 +60,7 @@ int8_t angle = 0; // angle between front wheel of platoon follower compared to t
 int16_t distance = 0; // distance between follower and leader
 uint8_t velocity = 0; // platoon leader duty cycle
 
-
+int rec = 1;
 
 char output[200];
 
@@ -98,25 +116,43 @@ int main(void)
     P1_Write(1);
     P2_Write(0);
     
-    /* configuration of DMA, this is black magic done by the DMA Wizard */
+    Filter_Start();
+    Filter_SetCoherency(Filter_CHANNEL_A, Filter_KEY_MID);
+    Filter_SetCoherency(Filter_CHANNEL_B, Filter_KEY_MID);
+
+    /* DMA Configuration for DMA_A */
     DMA_A_Chan = DMA_A_DmaInitialize(DMA_A_BYTES_PER_BURST, DMA_A_REQUEST_PER_BURST, 
         HI16(DMA_A_SRC_BASE), HI16(DMA_A_DST_BASE));
     DMA_A_TD[0] = CyDmaTdAllocate();
-    CyDmaTdSetConfiguration(DMA_A_TD[0], DATA_SIZE * 2, DMA_A_TD[0], DMA_A__TD_TERMOUT_EN | CY_DMA_TD_INC_DST_ADR);
-    CyDmaTdSetAddress(DMA_A_TD[0], LO16((uint32)ADC_SAR_A_SAR_WRK0_PTR), LO16((uint32)DataA));
+    CyDmaTdSetConfiguration(DMA_A_TD[0], DATA_SIZE * 2, DMA_A_TD[0], DMA_A__TD_TERMOUT_EN);
+    CyDmaTdSetAddress(DMA_A_TD[0], LO16((uint32)ADC_SAR_A_SAR_WRK0_PTR), LO16((uint32)Filter_STAGEA_PTR));
     CyDmaChSetInitialTd(DMA_A_Chan, DMA_A_TD[0]);
+    CyDmaChEnable(DMA_A_Chan, 1);
     
-    /* configuration of DMA, this is black magic done by the DMA Wizard */
+    /* DMA Configuration for DMA_B */
     DMA_B_Chan = DMA_B_DmaInitialize(DMA_B_BYTES_PER_BURST, DMA_B_REQUEST_PER_BURST, 
         HI16(DMA_B_SRC_BASE), HI16(DMA_B_DST_BASE));
     DMA_B_TD[0] = CyDmaTdAllocate();
-    CyDmaTdSetConfiguration(DMA_B_TD[0], DATA_SIZE * 2, DMA_B_TD[0], DMA_B__TD_TERMOUT_EN | CY_DMA_TD_INC_DST_ADR);
-    CyDmaTdSetAddress(DMA_B_TD[0], LO16((uint32)ADC_SAR_B_SAR_WRK0_PTR), LO16((uint32)DataB));
+    CyDmaTdSetConfiguration(DMA_B_TD[0], DATA_SIZE * 2, DMA_B_TD[0], DMA_B__TD_TERMOUT_EN);
+    CyDmaTdSetAddress(DMA_B_TD[0], LO16((uint32)ADC_SAR_B_SAR_WRK0_PTR), LO16((uint32)Filter_STAGEB_PTR));
     CyDmaChSetInitialTd(DMA_B_Chan, DMA_B_TD[0]);
-    
-    /* enable DMA channels */
-    CyDmaChEnable(DMA_A_Chan, 1);
     CyDmaChEnable(DMA_B_Chan, 1);
+
+    DMA_A_Filter_Chan = DMA_A_Filter_DmaInitialize(DMA_A_Filter_BYTES_PER_BURST, DMA_A_Filter_REQUEST_PER_BURST, 
+        HI16(DMA_A_Filter_SRC_BASE), HI16(DMA_A_Filter_DST_BASE));
+    DMA_A_Filter_TD[0] = CyDmaTdAllocate();
+    CyDmaTdSetConfiguration(DMA_A_Filter_TD[0], DATA_SIZE, DMA_A_Filter_TD[0], DMA_A_Filter__TD_TERMOUT_EN | CY_DMA_TD_INC_DST_ADR);
+    CyDmaTdSetAddress(DMA_A_Filter_TD[0], LO16((uint32)Filter_HOLDA_PTR), LO16((uint32)DataA));
+    CyDmaChSetInitialTd(DMA_A_Filter_Chan, DMA_A_Filter_TD[0]);
+    CyDmaChEnable(DMA_A_Filter_Chan, 1);
+
+    DMA_B_Filter_Chan = DMA_B_Filter_DmaInitialize(DMA_B_Filter_BYTES_PER_BURST, DMA_B_Filter_REQUEST_PER_BURST, 
+        HI16(DMA_B_Filter_SRC_BASE), HI16(DMA_B_Filter_DST_BASE));
+    DMA_B_Filter_TD[0] = CyDmaTdAllocate();
+    CyDmaTdSetConfiguration(DMA_B_Filter_TD[0], DATA_SIZE * 2, DMA_B_Filter_TD[0], DMA_B_Filter__TD_TERMOUT_EN | CY_DMA_TD_INC_DST_ADR);
+    CyDmaTdSetAddress(DMA_B_Filter_TD[0], LO16((uint32)Filter_HOLDB_PTR), LO16((uint32)DataB));
+    CyDmaChSetInitialTd(DMA_B_Filter_Chan, DMA_B_Filter_TD[0]);
+    CyDmaChEnable(DMA_B_Filter_Chan, 1);
     
     const uint8_t RX_ADDR[5]= {0xBA, 0xAD, 0xC0, 0xFF, 0xEE};
     isr_IRQ_StartEx(IRQ_Handler); // enable real network ping interrupt
@@ -154,6 +190,7 @@ int main(void)
     {        
         if (ISR_A_done && ISR_B_done) {
             CyGlobalIntDisable;
+            rec = 0;
             // defining a and b for the highest amplitude of the signals
             uint16_t a = 0, b = 0;
             
@@ -169,41 +206,45 @@ int main(void)
             for (uint16_t i = 0; i < DATA_SIZE; i++) {
                 if (DataA[i] > a) {
                     a = DataA[i];
-                    ai3 = ai2;
-                    ai2 = ai1;
+                    //ai3 = ai2;
+                    //ai2 = ai1;
                     ai1 = i;
                 }
                 
                 if (DataB[i] > b) {
                     b = DataB[i];
-                    bi3 = bi2;
-                    bi2 = bi1;
+                    //bi3 = bi2;
+                    //bi2 = bi1;
                     bi1 = i;
                 }
+                //sprintf(output, "%d, %d, %d\n", i, DataA[i], DataB[i]);
+                //UART_PutString(output);
             }
             
             // calculate the average ai and bi
-            uint16_t ai = (ai1 + ai2 + ai3)/3.0;
-            uint16_t bi = (bi1 + bi2 + bi3)/3.0;
+            uint16_t ai = ai1;//(ai1 + ai2 + ai3)/3.0;
+            uint16_t bi = bi1; //(bi1 + bi2 + bi3)/3.0;
             
             // angle from -60 to 60
             // 2.25 us per sample
             // 1 us = 0.2 degrees
             angle = (ai - bi) * 2.25 * 0.2;
             
+            //sprintf(output, "%d\n", angle);
+            //UART_PutString(output);
             // distance in mm, where speed of sound is 343 mm/ms
             // first convert the time difference from us to ms, and then multiply by the speed of sound
             // use ai and bi depending on which has the closest peak to the network ping
             // The 500 value subtracted has been experimentally found
             if (ai < bi) {
                 distance = ((ai * 2.25)/1000.0 * 343)-100;
-                sprintf(output, "%d - distance - %d\n", (int)ai, (int)distance);
-                UART_PutString(output); 
+              //  sprintf(output, "%d - distance - %d\n", (int)ai, (int)distance);
+              //  UART_PutString(output); 
             } else {
                 distance = (((bi * 2.25)/1000.0) * 343)-100;
                     
-                sprintf(output, "%d - distance - %d\n", (int)bi, (int)distance);
-            UART_PutString(output); 
+                //sprintf(output, "%d - distance - %d\n", (int)bi, (int)distance);
+            //UART_PutString(output); 
             }
             
             

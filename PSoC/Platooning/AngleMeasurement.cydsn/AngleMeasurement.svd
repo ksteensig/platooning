@@ -7,230 +7,6 @@
   <width>32</width>
   <peripherals>
     <peripheral>
-      <name>PWM_H_BRIDGE</name>
-      <description>No description available</description>
-      <baseAddress>0x0</baseAddress>
-      <addressBlock>
-        <offset>0</offset>
-        <size>0x0</size>
-        <usage>registers</usage>
-      </addressBlock>
-      <registers>
-        <register>
-          <name>PWM_H_BRIDGE_COMPARE_Reg_</name>
-          <description>UDB.D0 - Assigned Compare Value</description>
-          <addressOffset>0x40006529</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>PWM_H_BRIDGE_Control_Reg</name>
-          <description>UDB Control Register - Assigned Control Register Value</description>
-          <addressOffset>0x4000657A</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>CTRL_ENABLE</name>
-              <description>Enable the PWM</description>
-              <lsb>7</lsb>
-              <msb>7</msb>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>CTRL_CMPMODE2</name>
-              <description>Compare mode 2</description>
-              <lsb>3</lsb>
-              <msb>5</msb>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>CTRL_CMPMODE1</name>
-              <description>Compare mode 1</description>
-              <lsb>0</lsb>
-              <msb>2</msb>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>PWM_H_BRIDGE_STATUS_MASK</name>
-          <description>UDB Status bits Interrupt Mask Enable Register</description>
-          <addressOffset>0x4000658A</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>PWM_STS_CMP1</name>
-              <description>Enables the Interrupt on Compare 1</description>
-              <lsb>0</lsb>
-              <msb>0</msb>
-              <access>read-only</access>
-            </field>
-            <field>
-              <name>PWM_STS_CMP2</name>
-              <description>Enables the Interrupt on Compare 2</description>
-              <lsb>1</lsb>
-              <msb>1</msb>
-              <access>read-only</access>
-            </field>
-            <field>
-              <name>PWM_STS_TC</name>
-              <description>Enables the Interrupt on Terminal Count</description>
-              <lsb>2</lsb>
-              <msb>2</msb>
-              <access>read-only</access>
-            </field>
-            <field>
-              <name>PWM_STS_FIFO_FULL</name>
-              <description>FIFO Full Status Mask </description>
-              <lsb>3</lsb>
-              <msb>3</msb>
-              <access>read-only</access>
-            </field>
-            <field>
-              <name>PWM_STS_KILL</name>
-              <description>Enables the Interrupt on Kill</description>
-              <lsb>5</lsb>
-              <msb>5</msb>
-              <access>read-only</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>PWM_H_BRIDGE_STATUS_AUX_CTRL</name>
-          <description>UDB Auxilliary Control Register</description>
-          <addressOffset>0x40006599</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>FIFO0_CLR</name>
-              <description>FIFO0 clear</description>
-              <lsb>0</lsb>
-              <msb>0</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>E_FIFO_CLR_0</name>
-                  <description>Normal FIFO operation</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>E_FIFO_CLR_1</name>
-                  <description>Clear FIFO state</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>FIFO1_CLR</name>
-              <description>FIFO1 clear</description>
-              <lsb>1</lsb>
-              <msb>1</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>E_FIFO_CLR_0</name>
-                  <description>Normal FIFO operation</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>E_FIFO_CLR_1</name>
-                  <description>Clear FIFO state</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>FIFO0_LVL</name>
-              <description>FIFO level</description>
-              <lsb>2</lsb>
-              <msb>2</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>E_FIFO_LVL_0</name>
-                  <description>FIFO LVL: input mode: FIFO not full; output mode: FIFO not empty</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>E_FIFO_LVL_1</name>
-                  <description>FIFO LVL: input mode: FIFO at least 1/2 empty; output mode: FIFO at least 1/2 full</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>FIFO1_LVL</name>
-              <description>FIFO level</description>
-              <lsb>3</lsb>
-              <msb>3</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>E_FIFO_LVL_0</name>
-                  <description>FIFO LVL: input mode: FIFO not full; output mode: FIFO not empty</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>E_FIFO_LVL_1</name>
-                  <description>FIFO LVL: input mode: FIFO at least 1/2 empty; output mode: FIFO at least 1/2 full</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>INT_EN</name>
-              <description>No description available</description>
-              <lsb>4</lsb>
-              <msb>4</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>E_INT_EN0</name>
-                  <description>Interrupt disabled</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>E_INT_EN1</name>
-                  <description>Interrupt enabled</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-            <field>
-              <name>CNT_START</name>
-              <description>FIFO0 clear</description>
-              <lsb>5</lsb>
-              <msb>5</msb>
-              <access>read-write</access>
-              <enumeratedValues>
-                <enumeratedValue>
-                  <name>E_CNT_START0</name>
-                  <description>Disable counter</description>
-                  <value>0</value>
-                </enumeratedValue>
-                <enumeratedValue>
-                  <name>E_CNT_START1</name>
-                  <description>Enable counter</description>
-                  <value>1</value>
-                </enumeratedValue>
-              </enumeratedValues>
-            </field>
-          </fields>
-        </register>
-      </registers>
-    </peripheral>
-    <peripheral>
       <name>PWM_SERVO</name>
       <description>No description available</description>
       <baseAddress>0x0</baseAddress>
@@ -523,6 +299,1510 @@
       </registers>
     </peripheral>
     <peripheral>
+      <name>PWM_H_BRIDGE</name>
+      <description>No description available</description>
+      <baseAddress>0x0</baseAddress>
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x0</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>PWM_H_BRIDGE_STATUS_MASK</name>
+          <description>UDB Status bits Interrupt Mask Enable Register</description>
+          <addressOffset>0x40006488</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>PWM_STS_CMP1</name>
+              <description>Enables the Interrupt on Compare 1</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>PWM_STS_CMP2</name>
+              <description>Enables the Interrupt on Compare 2</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>PWM_STS_TC</name>
+              <description>Enables the Interrupt on Terminal Count</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>PWM_STS_FIFO_FULL</name>
+              <description>FIFO Full Status Mask </description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>PWM_STS_KILL</name>
+              <description>Enables the Interrupt on Kill</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>PWM_H_BRIDGE_COMPARE_Reg_</name>
+          <description>UDB.D0 - Assigned Compare Value</description>
+          <addressOffset>0x40006529</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>PWM_H_BRIDGE_Control_Reg</name>
+          <description>UDB Control Register - Assigned Control Register Value</description>
+          <addressOffset>0x4000657A</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>CTRL_ENABLE</name>
+              <description>Enable the PWM</description>
+              <lsb>7</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CTRL_CMPMODE2</name>
+              <description>Compare mode 2</description>
+              <lsb>3</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CTRL_CMPMODE1</name>
+              <description>Compare mode 1</description>
+              <lsb>0</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>PWM_H_BRIDGE_STATUS_AUX_CTRL</name>
+          <description>UDB Auxilliary Control Register</description>
+          <addressOffset>0x40006599</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>FIFO0_CLR</name>
+              <description>FIFO0 clear</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_FIFO_CLR_0</name>
+                  <description>Normal FIFO operation</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_FIFO_CLR_1</name>
+                  <description>Clear FIFO state</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>FIFO1_CLR</name>
+              <description>FIFO1 clear</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_FIFO_CLR_0</name>
+                  <description>Normal FIFO operation</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_FIFO_CLR_1</name>
+                  <description>Clear FIFO state</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>FIFO0_LVL</name>
+              <description>FIFO level</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_FIFO_LVL_0</name>
+                  <description>FIFO LVL: input mode: FIFO not full; output mode: FIFO not empty</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_FIFO_LVL_1</name>
+                  <description>FIFO LVL: input mode: FIFO at least 1/2 empty; output mode: FIFO at least 1/2 full</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>FIFO1_LVL</name>
+              <description>FIFO level</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_FIFO_LVL_0</name>
+                  <description>FIFO LVL: input mode: FIFO not full; output mode: FIFO not empty</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_FIFO_LVL_1</name>
+                  <description>FIFO LVL: input mode: FIFO at least 1/2 empty; output mode: FIFO at least 1/2 full</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>INT_EN</name>
+              <description>No description available</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_INT_EN0</name>
+                  <description>Interrupt disabled</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_INT_EN1</name>
+                  <description>Interrupt enabled</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>CNT_START</name>
+              <description>FIFO0 clear</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>E_CNT_START0</name>
+                  <description>Disable counter</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>E_CNT_START1</name>
+                  <description>Enable counter</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
+      <name>Filter</name>
+      <description>No description available</description>
+      <baseAddress>0x0</baseAddress>
+      <addressBlock>
+        <offset>0</offset>
+        <size>0x0</size>
+        <usage>registers</usage>
+      </addressBlock>
+      <registers>
+        <register>
+          <name>Filter_DFB_PM_ACT_CFG_Register</name>
+          <description>Active Mode Power Control Register</description>
+          <addressOffset>0x400043A6</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>en_dfb</name>
+              <description>Enable DFB(s). Populated subsystems are counted from the LSB.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>Enable_dfb</name>
+                  <description>Enable Power to DFB</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Disable_dfb</name>
+                  <description>Disable Power to DFB</description>
+                  <value>0</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_DFB_PM_STBY_CFG_Register</name>
+          <description>Alternate Active Mode Power Control Register</description>
+          <addressOffset>0x400043B6</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>en_dfb</name>
+              <description>Enable DFB(s). Populated subsystems are counted from the LSB.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>Enable_dfb</name>
+                  <description>Enable Power to DFB during standby power mode</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>Disable_dfb</name>
+                  <description>Disable Power to DFB</description>
+                  <value>0</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_Control_Register</name>
+          <description>DFB Control Register</description>
+          <addressOffset>0x4000C780</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>CORECLK_DISABLE</name>
+              <description>This bit when set high disables (gates off) the clock to the entire core of the block. This includes all FFs except those used for the AHB interface and CSRs and all 6 RAMs. When disabled (set high) the AHB interface to the CSR is still fully functional. This bit is ANDed with the primary input signal dfb_clk_en to control the clock gate. dfb_clk_en must be high and CoreCLK_Disable must be low for the clock to run.</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>CORECLK_DISABLE_LOW</name>
+                  <description>Core Clock is Enabled</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>CORECLK_DISABLE_HIGH</name>
+                  <description>Core Clock is Disabled (gated)</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>ADD6</name>
+              <description>This bit is literally address bit 5 (6th bit) of the FSM RAM when addressed by the DFB Controller. It has no affect on the FSM RAM when addressed on the AHB interface. It controls the Banking feature of the FSM.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>ADDR6_LOW</name>
+                  <description>ADDR6 is Low</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ADDR6_HIGH</name>
+                  <description>ADDR6 is HIGH</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>RUN</name>
+              <description>Setting this bit to 1 enables the DFB to run. Setting it to 0 forces the next state address of the FSM to zero of the active Bank, reinitializes the ACU's and PC's and clears the round flag, saturation flag, saturation detect flag and all 6 extended Enables in the Controller.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>RUN_DIS</name>
+                  <description>DFB operation is halted</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RUN_EN</name>
+                  <description>DFB is enabled to operate.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_Status_Register</name>
+          <description>DFB Status Register</description>
+          <addressOffset>0x4000C784</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>INTR_SEM2</name>
+              <description>If this bit is high, semaphore register bit 2 is a source of the current interrupt. Write a '1' to this bit to clear it.</description>
+              <lsb>7</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>SEM2_OFF</name>
+                  <description>Indicates no pending Semaphore 2 Interrupt.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SEM2_ON</name>
+                  <description>Indicates a pending Semaphore 2 Interrupt.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>INTR_SEM1</name>
+              <description>If this bit is high, semaphore register bit 1 is a source of the current interrupt. Write a '1' to this bit to clear it.</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>SEM1_OFF</name>
+                  <description>Indicates no pending Semaphore 1 Interrupt.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SEM1_ON</name>
+                  <description>Indicates a pending Semaphore 1 Interrupt.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>INTR_SEM0</name>
+              <description>If this bit is high, semaphore register bit 0 is a source of the current interrupt. Write a '1' to this bit to clear it.</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>SEM0_OFF</name>
+                  <description>Indicates no pending Semaphore 0 Interrupt.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SEM0_ON</name>
+                  <description>Indicates a pending Semaphore 0 Interrupt.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>INTR_HOLDB</name>
+              <description>If this bit is high, Holding register B is a source of the current interrupt. Write a '1' to this bit to clear it. Reading the Holding register B also clears this bit.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>HOLDB_OFF</name>
+                  <description>Indicates no pending Holding B Register Interrupt.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>HOLDB_ON</name>
+                  <description>Indicates a pending Holding B Register Interrupt.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>INTR_HOLDA</name>
+              <description>If this bit is high, Holding register A is a source of the current interrupt. Write a '1' to this bit to clear it. Reading the Holding register A also clears this bit.</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>HOLDA_OFF</name>
+                  <description>Indicates no pending Holding A Register Interrupt.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>HOLDA_ON</name>
+                  <description>Indicates a pending Holding A Register Interrupt.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>RND_MODE</name>
+              <description>Indicates that the DP is in Round mode - meaning that any result passing out of the DP unit is being rounded to a 16-bit value.</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-only</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>RND_OFF</name>
+                  <description>Indicates Round Mode is off.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RND_ON</name>
+                  <description>Indicates Round Mode is on.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>SAT_MODE</name>
+              <description>Indicates that the DP unit is in Saturation mode.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-only</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>SAT_OFF</name>
+                  <description>Indicates Saturation mode is off.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SAT_ON</name>
+                  <description>Indicates Saturation mode is on.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>RAM_SEL</name>
+              <description>This bit indicates which Control Store memory is in use, RAM A or RAM B.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-only</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>RAMSEL_LOW</name>
+                  <description>Control Store memory A is in use.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RAMSEL_HIGH</name>
+                  <description>Control Store memory B is in use.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_DFB_RAM_EN_Register</name>
+          <description>DFB Ram Enable Register</description>
+          <addressOffset>0x4000C788</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>RAMWR_ADDRING</name>
+              <description>These two bits control the write addressing of the 4 largest RAMs embedded in the DFB (CS-A, CS-B, Data-A, Data-B). The setting of these bits allows overlaid writes to occur to these memories when it is desired to fill them with like data.</description>
+              <lsb>6</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>NO_OVERLAY</name>
+                  <description>No overlay mapping.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>OVERLAY_CS_A_CS_B</name>
+                  <description>Overlay CS A with CS B.</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>OVERLAY_DATA_A_DATA_B</name>
+                  <description>Overlay Data A with Data B.</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>OVERLAY_CS_AB_DATA_AB</name>
+                  <description>Overlay CS A/B with Data A with DATA B.</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>DPB_EN</name>
+              <description>Datapath RAM B RAM enable / disable.</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>RAM_DIS</name>
+                  <description>RAM is disabled.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RAM_EN</name>
+                  <description>RAM is enabled.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>DPA_EN</name>
+              <description>Datapath RAM A RAM enable / disable.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>RAM_DIS</name>
+                  <description>RAM is disabled.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RAM_EN</name>
+                  <description>RAM is enabled.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>ACU_EN</name>
+              <description>ACU RAM RAM enable / disable.</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>RAM_DIS</name>
+                  <description>RAM is disabled.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RAM_EN</name>
+                  <description>RAM is enabled.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>CSB_EN</name>
+              <description>Control Store RAM B RAM enable / disable.</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>RAM_DIS</name>
+                  <description>RAM is disabled.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RAM_EN</name>
+                  <description>RAM is enabled.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>CSA_EN</name>
+              <description>Control Store RAM A RAM enable / disable.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>RAM_DIS</name>
+                  <description>RAM is disabled.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RAM_EN</name>
+                  <description>RAM is enabled.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>FSM_EN</name>
+              <description>FSM RAM RAM enable / disable.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>RAM_DIS</name>
+                  <description>RAM is disabled.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RAM_EN</name>
+                  <description>RAM is enabled.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_RAM_DIR_Register</name>
+          <description>DFB RAM Direction Register. This register controls the DFB memory direction. These bits control if each RAM of this block is embedded to the DFB function or mapped in the system address space on the AHB bus. </description>
+          <addressOffset>0x4000C78C</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>SNP_DABLE</name>
+              <description>The CS and DP RAMs (optionally the FSM) have address snooping logic that watches for redundant back-to-back RD cycles and disables the RAM to conserve power. Writing a 1 to this bit disables this logic for all RAMs.</description>
+              <lsb>6</lsb>
+              <msb>6</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>SNP_ENABLE</name>
+                  <description>Enabled</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SNP_DISABLE</name>
+                  <description>Disabled</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>DPB_DIR</name>
+              <description>Datapath RAM B RAM Direction.</description>
+              <lsb>5</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>RAM_DFB</name>
+                  <description>DFB</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RAM_AHB</name>
+                  <description>System Bus</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>DPA_DIR</name>
+              <description>Datapath RAM A RAM Direction.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>RAM_DFB</name>
+                  <description>DFB</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RAM_AHB</name>
+                  <description>System Bus</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>ACU_DIR</name>
+              <description>ACU RAM RAM Direction.</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>RAM_DFB</name>
+                  <description>DFB</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RAM_AHB</name>
+                  <description>System Bus</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>CSB_DIR</name>
+              <description>Control Store RAM B RAM Direction.</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>RAM_DFB</name>
+                  <description>DFB</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RAM_AHB</name>
+                  <description>System Bus</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>CSA_DIR</name>
+              <description>Control Store RAM B RAM Direction.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>RAM_DFB</name>
+                  <description>DFB</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RAM_AHB</name>
+                  <description>System Bus</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>FSM_DIR</name>
+              <description>FSM RAM RAM Direction.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>RAM_DFB</name>
+                  <description>DFB</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>RAM_AHB</name>
+                  <description>System Bus</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_DFB_SEMA_Register</name>
+          <description>DFB Semaphore Register</description>
+          <addressOffset>0x4000C790</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>SEMA_MASK</name>
+              <description>These bits are used to mask writes to bits 2-0. They are write-only. If bit 4 is a 1 then the value on bit 0 will be written to SEM0, otherwise SEM0 will not be altered. Likewise for MASK1 and SEM1, and MASK2 and SEM2.</description>
+              <lsb>4</lsb>
+              <msb>6</msb>
+              <access>write-only</access>
+            </field>
+            <field>
+              <name>SEMA</name>
+              <description>These bits are used to pass semaphores between the DFB Controller and the System SW. Their definition is user defined. There is no HW implementing an arbitration methodology should both the System and Control access the same SEM bit at the same time.</description>
+              <lsb>0</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_DSI_Control_Register</name>
+          <description>DFB Global Cotrol Register</description>
+          <addressOffset>0x4000C794</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>GBL2_OUT</name>
+              <description>These bits are used to control what internal signals are mapped to the primary output signal dfb_globalo2.</description>
+              <lsb>2</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>SEM2</name>
+                  <description>Semaphore Bit 2. This is the same signal described in the DFB0_SEMA CSR.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>DPSIGN</name>
+                  <description>Datapath Sign. This signal asserts anytime the output of the ALU in the Datapath unit is negative. It will remain high for each cycle this condition is true.</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>DPTHREASH</name>
+                  <description>Datapath Threashold Crossed. This signal asserts anytime the threashold of 0 is crossed in the ALU when one of the following instructions is executing: TDECA, TSUBA, TSUBB, TADDABSA, TADDABSB. It will remain high for each cycle this condition is true.</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>DPEQ</name>
+                  <description>Datapath ALU=0. This signal asserts high when the output of the ALU in the Datapath unit equals 0 and one of the following ALU commands is executing: TDECA, TSUBA, TSUBB, TADDABSA, TADDABSB. It will remain high for each cycle this condition is true.</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>GBL1_OUT</name>
+              <description>These bits are used to control what internal signals are mapped to the primary output signal dfb_globalo1.</description>
+              <lsb>0</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>DFB_RUN</name>
+                  <description>DFB RUN Bit. This is the same bit as the RUN bit in the DFB0_CR register.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SEM0</name>
+                  <description>Semaphore Bit 0. This is the same signal described in the DFB0_SEMA CSR.</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>SEM1</name>
+                  <description>Semaphore Bit 1. This is the same signal described in the DFB0_SEMA CSR.</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>DFB_INTR</name>
+                  <description>DFB Interrupt. This is the same signal as the primary dfb_intr output signal.</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_Interrupt_Control_Register</name>
+          <description>DFB Interrupt Control Register</description>
+          <addressOffset>0x4000C798</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>SEMA2_EN</name>
+              <description>If this bit is set high, an interrupt is generated each time a 1 is written into the semaphore register bit 2.</description>
+              <lsb>4</lsb>
+              <msb>4</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>ENABLE_SEMAPHORE_2_IRQ_DIS</name>
+                  <description>Semaphore register interrupt masked.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ENABLE_SEMAPHORE_2_IRQ_EN</name>
+                  <description>Interrupt is generated each time a 1 is written to the semaphore register.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>SEMA1_EN</name>
+              <description>If this bit is set high, an interrupt is generated each time a 1 is written into the semaphore register bit 1.</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>ENABLE_SEMAPHORE_1_IRQ_DIS</name>
+                  <description>Semaphore register interrupt masked.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ENABLE_SEMAPHORE_1_IRQ_EN</name>
+                  <description>Interrupt is generated each time a 1 is written to the semaphore register.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>SEMA0_EN</name>
+              <description>If this bit is set high, an interrupt is generated each time a 1 is written into the semaphore register bit 0.</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>ENABLE_SEMAPHORE_0_IRQ_DIS</name>
+                  <description>Semaphore register interrupt masked.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ENABLE_SEMAPHORE_0_IRQ_EN</name>
+                  <description>Interrupt is generated each time a 1 is written to the semaphore register.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>HOLDB_EN</name>
+              <description>If this bit is set high, an interrupt is generated each time new valid data is written into the output Holding register B.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>ENABLE_HOLDING_B_IRQ_DIS</name>
+                  <description>Holding register interrupt masked.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ENABLE_HOLDING_B_IRQ_EN</name>
+                  <description>Interrupt is generated each time new valid data is written inot the output Holding B register.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>HOLDA_EN</name>
+              <description>If this bit is set high, an interrupt is generated each time new valid data is written into the output Holding register A.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>ENABLE_HOLDING_A_IRQ_DIS</name>
+                  <description>Holding register interrupt masked.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>ENABLE_HOLDING_A_IRQ_EN</name>
+                  <description>Interrupt is generated each time new valid data is written inot the output Holding A register.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_DMA_Control_Register</name>
+          <description>DFB DMAREQ Control Register</description>
+          <addressOffset>0x4000C79C</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>DMAREQ2</name>
+              <description>The value in these two bits selects which event drives dma_req2.</description>
+              <lsb>2</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>DMAREQ2_DISABLED</name>
+                  <description>Disabled</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>DMAREQ2_HOLDING_REG_B</name>
+                  <description>New data in Holding Register B.</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>DMAREQ2_SEMAPHORE_0</name>
+                  <description>Semaphore 0.</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>DMAREQ2_SEMAPHORE_1</name>
+                  <description>Semaphore 1.</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>DMAREQ1</name>
+              <description>The value in these two bits selects which event drives dma_req1.</description>
+              <lsb>0</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>DMAREQ1_DISABLED</name>
+                  <description>Disabled</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>DMAREQ1_HOLDING_REG_A</name>
+                  <description>New data in Holding Register A.</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>DMAREQ1_SEMAPHORE_0</name>
+                  <description>Semaphore 0.</description>
+                  <value>2</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>DMAREQ1_SEMAPHORE_1</name>
+                  <description>Semaphore 1.</description>
+                  <value>3</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_STAGEA_Register</name>
+          <description>DFB_STAGEA (Input Low Byte) Register</description>
+          <addressOffset>0x4000C7A0</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>STGA_LOW</name>
+              <description>This is the low byte of the Streaming input Staging Register - Port A.</description>
+              <lsb>0</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_STAGEAM_Register</name>
+          <description>DFB_STAGEAM (Input Middle Byte) Register</description>
+          <addressOffset>0x4000C7A1</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>STGA_MID</name>
+              <description>This is the middle byte of the Streaming input Staging Register - Port A.</description>
+              <lsb>0</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_STAGEAH_Register</name>
+          <description>DFB_STAGEAH (Input High Byte) Register</description>
+          <addressOffset>0x4000C7A2</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>STGA_HIGH</name>
+              <description>This is the high byte of the Streaming input Staging Register - Port A.</description>
+              <lsb>0</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_STAGEB_Register</name>
+          <description>DFB_STAGEB (Input Low Byte) Register</description>
+          <addressOffset>0x4000C7A4</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>STGB_LOW</name>
+              <description>This is the low byte of the Streaming input Staging Register - Port B.</description>
+              <lsb>0</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_STAGEBM_Register</name>
+          <description>DFB_STAGEBM (Input Middle Byte) Register</description>
+          <addressOffset>0x4000C7A5</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>STGB_MID</name>
+              <description>This is the middle byte of the Streaming input Staging Register - Port B.</description>
+              <lsb>0</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_STAGEBH_Register</name>
+          <description>DFB_STAGEBH (Input High Byte) Register</description>
+          <addressOffset>0x4000C7A6</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>STGB_HIGH</name>
+              <description>This is the high byte of the Streaming input Staging Register - Port B.</description>
+              <lsb>0</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_HOLDA_Register</name>
+          <description>DFB_HOLDA (Output Low Byte) Register</description>
+          <addressOffset>0x4000C7A8</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>HOLDA_LOW</name>
+              <description>This is the low byte of the output Holding Register - Port A.</description>
+              <lsb>0</lsb>
+              <msb>7</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_HOLDAM_Register</name>
+          <description>DFB_HOLDAM (Output Middle Byte) Register</description>
+          <addressOffset>0x4000C7A9</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>HOLDA_MID</name>
+              <description>This is the middle byte of the output Holding Register - Port A.</description>
+              <lsb>0</lsb>
+              <msb>7</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_HOLDAH_Register</name>
+          <description>DFB_HOLDAH (Output High Byte) Register</description>
+          <addressOffset>0x4000C7AA</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>HOLDA_HIGH</name>
+              <description>This is the high byte of the output Holding Register - Port A.</description>
+              <lsb>0</lsb>
+              <msb>7</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_HOLDB_Register</name>
+          <description>DFB_HOLDB (Output Low Byte) Register</description>
+          <addressOffset>0x4000C7AC</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>HOLDB_LOW</name>
+              <description>This is the low byte of the output Holding Register - Port B.</description>
+              <lsb>0</lsb>
+              <msb>7</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_HOLDBM_Register</name>
+          <description>DFB_HOLDBM (Output Middle Byte) Register</description>
+          <addressOffset>0x4000C7AD</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>HOLDB_MID</name>
+              <description>This is the middle byte of the output Holding Register - Port B.</description>
+              <lsb>0</lsb>
+              <msb>7</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_HOLDBH_Register</name>
+          <description>DFB_HOLDBH (Output High Byte) Register</description>
+          <addressOffset>0x4000C7AE</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>HOLDB_HIGH</name>
+              <description>This is the high byte of the output Holding Register - Port B.</description>
+              <lsb>0</lsb>
+              <msb>7</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_DFB_COHER_Register</name>
+          <description>DFB Coherency Register</description>
+          <addressOffset>0x4000C7B0</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>holdb_key</name>
+              <description>Sets the Key Coherency Byte of the Holding B register</description>
+              <lsb>6</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>HOLDB_KEY_LOW</name>
+                  <description>Key Byte is low byte.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>HOLDB_KEY_MID</name>
+                  <description>Key Byte is middle byte.</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>HOLDB_KEY_HIGH</name>
+                  <description>Key Byte is high byte.</description>
+                  <value>2</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>holda_key</name>
+              <description>Sets the Key Coherency Byte of the Holding A register</description>
+              <lsb>4</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>HOLDA_KEY_LOW</name>
+                  <description>Key Byte is low byte.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>HOLDA_KEY_MID</name>
+                  <description>Key Byte is middle byte.</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>HOLDA_KEY_HIGH</name>
+                  <description>Key Byte is high byte.</description>
+                  <value>2</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>stgb_key</name>
+              <description>Sets the Key Coherency Byte of the Staging B register.</description>
+              <lsb>2</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>STGB_KEY_LOW</name>
+                  <description>Key Byte is low byte.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>STGB_KEY_MID</name>
+                  <description>Key Byte is middle byte.</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>STGB_KEY_HIGH</name>
+                  <description>Key Byte is high byte.</description>
+                  <value>2</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>stga_key</name>
+              <description>Sets the Key Coherency Byte of the Staging A register.</description>
+              <lsb>0</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>STGA_KEY_LOW</name>
+                  <description>Key Byte is low byte.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>STGA_KEY_MID</name>
+                  <description>Key Byte is middle byte.</description>
+                  <value>1</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>STGA_KEY_HIGH</name>
+                  <description>Key Byte is high byte.</description>
+                  <value>2</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>Filter_DFB_DALIGN_Register</name>
+          <description>DFB Data Align Register</description>
+          <addressOffset>0x4000C7B4</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>holdb_dalign</name>
+              <description>Shifts the read right by a byte.</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>HOLDB_DALIGN_LOW</name>
+                  <description>Reads normally.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>HOLDB_DALIGN_HIGH</name>
+                  <description>Reads shifted right by 8-bits.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>holda_dalign</name>
+              <description>Shifts the read right by a byte.</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>HOLDA_DALIGN_LOW</name>
+                  <description>Reads normally.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>HOLDA_DALIGN_HIGH</name>
+                  <description>Reads shifted right by 8-bits.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>stgb_dalign</name>
+              <description>Shifts the write left by a byte.</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>STGB_DALIGN_LOW</name>
+                  <description>Writes normally.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>STGB_DALIGN_HIGH</name>
+                  <description>Writes shifted left by 8-bits.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+            <field>
+              <name>stga_dalign</name>
+              <description>Shifts the write left by a byte.</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-write</access>
+              <enumeratedValues>
+                <enumeratedValue>
+                  <name>STGA_DALIGN_LOW</name>
+                  <description>Writes normally.</description>
+                  <value>0</value>
+                </enumeratedValue>
+                <enumeratedValue>
+                  <name>STGA_DALIGN_HIGH</name>
+                  <description>Writes shifted left by 8-bits.</description>
+                  <value>1</value>
+                </enumeratedValue>
+              </enumeratedValues>
+            </field>
+          </fields>
+        </register>
+      </registers>
+    </peripheral>
+    <peripheral>
       <name>ADC_SAR_B</name>
       <description>SAR ADC</description>
       <baseAddress>0x0</baseAddress>
@@ -718,7 +1998,7 @@
         <register>
           <name>Maximum_Peak_Detector_B_Sample_Hold_Control_Register0</name>
           <description>SC_CR0 Register</description>
-          <addressOffset>0x40005800</addressOffset>
+          <addressOffset>0x40005808</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -807,7 +2087,7 @@
         <register>
           <name>Maximum_Peak_Detector_B_Sample_Hold_Control_Register1</name>
           <description>SC_CR1 Register</description>
-          <addressOffset>0x40005801</addressOffset>
+          <addressOffset>0x40005809</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -914,7 +2194,7 @@
         <register>
           <name>Maximum_Peak_Detector_B_Sample_Hold_Control_Register2</name>
           <description>SC_CR2 Register</description>
-          <addressOffset>0x40005802</addressOffset>
+          <addressOffset>0x4000580A</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -1060,7 +2340,7 @@
         <register>
           <name>Maximum_Peak_Detector_B_Sample_Hold_Clock_Register</name>
           <description>SC_CLK Register</description>
-          <addressOffset>0x40005A0B</addressOffset>
+          <addressOffset>0x40005A2B</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -1177,7 +2457,7 @@
         <register>
           <name>Maximum_Peak_Detector_B_Sample_Hold_Boost_Register</name>
           <description>SC__BST Register</description>
-          <addressOffset>0x40005A0C</addressOffset>
+          <addressOffset>0x40005A2C</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -1391,7 +2671,7 @@
         <register>
           <name>Maximum_Peak_Detector_B_Comp_1_Comp_TR0</name>
           <description>Comparator Trim Register_TR0</description>
-          <addressOffset>0x40004634</addressOffset>
+          <addressOffset>0x40004630</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -1501,7 +2781,7 @@
         <register>
           <name>Maximum_Peak_Detector_B_Comp_1_Comp_TR1</name>
           <description>Comparator Trim Register_TR1</description>
-          <addressOffset>0x40004635</addressOffset>
+          <addressOffset>0x40004631</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -1611,7 +2891,7 @@
         <register>
           <name>Maximum_Peak_Detector_B_Comp_1_Comp_CR</name>
           <description>Comparator Control Register</description>
-          <addressOffset>0x40005842</addressOffset>
+          <addressOffset>0x40005840</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -1746,7 +3026,7 @@
         <register>
           <name>Maximum_Peak_Detector_B_Comp_1_Comp_SW0</name>
           <description>Comparator Analog Routing Register 0</description>
-          <addressOffset>0x40005AD0</addressOffset>
+          <addressOffset>0x40005AC0</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -1909,7 +3189,7 @@
         <register>
           <name>Maximum_Peak_Detector_B_Comp_1_Comp_SW2</name>
           <description>Comparator Analog Routing Register 2</description>
-          <addressOffset>0x40005AD2</addressOffset>
+          <addressOffset>0x40005AC2</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -1958,7 +3238,7 @@
         <register>
           <name>Maximum_Peak_Detector_B_Comp_1_Comp_SW3</name>
           <description>Comparator Analog Routing Register 3</description>
-          <addressOffset>0x40005AD3</addressOffset>
+          <addressOffset>0x40005AC3</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2064,7 +3344,7 @@
         <register>
           <name>Maximum_Peak_Detector_B_Comp_1_Comp_SW4</name>
           <description>Comparator Analog Routing Register 4</description>
-          <addressOffset>0x40005AD4</addressOffset>
+          <addressOffset>0x40005AC4</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2151,7 +3431,7 @@
         <register>
           <name>Maximum_Peak_Detector_B_Comp_1_Comp_SW6</name>
           <description>Comparator Analog Routing Register 6</description>
-          <addressOffset>0x40005AD6</addressOffset>
+          <addressOffset>0x40005AC6</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2200,7 +3480,7 @@
         <register>
           <name>Maximum_Peak_Detector_B_Comp_1_Comp_CLK</name>
           <description>Comparator Clock Control Register</description>
-          <addressOffset>0x40005AD7</addressOffset>
+          <addressOffset>0x40005AC7</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2385,7 +3665,7 @@
         <register>
           <name>Maximum_Peak_Detector_A_Sample_Hold_Control_Register0</name>
           <description>SC_CR0 Register</description>
-          <addressOffset>0x4000580C</addressOffset>
+          <addressOffset>0x40005804</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2474,7 +3754,7 @@
         <register>
           <name>Maximum_Peak_Detector_A_Sample_Hold_Control_Register1</name>
           <description>SC_CR1 Register</description>
-          <addressOffset>0x4000580D</addressOffset>
+          <addressOffset>0x40005805</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2581,7 +3861,7 @@
         <register>
           <name>Maximum_Peak_Detector_A_Sample_Hold_Control_Register2</name>
           <description>SC_CR2 Register</description>
-          <addressOffset>0x4000580E</addressOffset>
+          <addressOffset>0x40005806</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2727,7 +4007,7 @@
         <register>
           <name>Maximum_Peak_Detector_A_Sample_Hold_Clock_Register</name>
           <description>SC_CLK Register</description>
-          <addressOffset>0x40005A3B</addressOffset>
+          <addressOffset>0x40005A1B</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2844,7 +4124,7 @@
         <register>
           <name>Maximum_Peak_Detector_A_Sample_Hold_Boost_Register</name>
           <description>SC__BST Register</description>
-          <addressOffset>0x40005A3C</addressOffset>
+          <addressOffset>0x40005A1C</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -4161,84 +5441,9 @@
       </addressBlock>
       <registers>
         <register>
-          <name>TX_UART_TX_DATA</name>
-          <description>TX Data Register</description>
-          <addressOffset>0x40006449</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>TX_UART_TX_STATUS</name>
-          <description>TX status register</description>
-          <addressOffset>0x40006469</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>UART_TX_STS_COMPLETE</name>
-              <description>No description available</description>
-              <lsb>0</lsb>
-              <msb>0</msb>
-              <access>read-only</access>
-            </field>
-            <field>
-              <name>UART_TX_STS_FIFO_EMPTY</name>
-              <description>No description available</description>
-              <lsb>1</lsb>
-              <msb>1</msb>
-              <access>read-only</access>
-            </field>
-            <field>
-              <name>UART_TX_STS_FIFO_FULL</name>
-              <description>No description available</description>
-              <lsb>2</lsb>
-              <msb>2</msb>
-              <access>read-only</access>
-            </field>
-            <field>
-              <name>UART_TX_STS_FIFO_NOT_FULL</name>
-              <description>No description available</description>
-              <lsb>3</lsb>
-              <msb>3</msb>
-              <access>read-only</access>
-            </field>
-          </fields>
-        </register>
-        <register>
-          <name>RX_UART_RX_ADDRESS1</name>
-          <description>RX Address1 Register</description>
-          <addressOffset>0x4000652B</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>RX_UART_RX_ADDRESS2</name>
-          <description>RX Address2 Register</description>
-          <addressOffset>0x4000653B</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>RX_UART_RX_DATA</name>
-          <description>RX Data Register</description>
-          <addressOffset>0x4000654B</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
           <name>RX_UART_RX_STATUS</name>
           <description>RX status register</description>
-          <addressOffset>0x4000656B</addressOffset>
+          <addressOffset>0x40006469</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -4291,6 +5496,81 @@
               <description>No description available</description>
               <lsb>6</lsb>
               <msb>6</msb>
+              <access>read-only</access>
+            </field>
+          </fields>
+        </register>
+        <register>
+          <name>RX_UART_RX_ADDRESS1</name>
+          <description>RX Address1 Register</description>
+          <addressOffset>0x4000652A</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>RX_UART_RX_ADDRESS2</name>
+          <description>RX Address2 Register</description>
+          <addressOffset>0x4000653A</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>RX_UART_RX_DATA</name>
+          <description>RX Data Register</description>
+          <addressOffset>0x4000654A</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>TX_UART_TX_DATA</name>
+          <description>TX Data Register</description>
+          <addressOffset>0x4000654B</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>TX_UART_TX_STATUS</name>
+          <description>TX status register</description>
+          <addressOffset>0x4000656B</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>UART_TX_STS_COMPLETE</name>
+              <description>No description available</description>
+              <lsb>0</lsb>
+              <msb>0</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>UART_TX_STS_FIFO_EMPTY</name>
+              <description>No description available</description>
+              <lsb>1</lsb>
+              <msb>1</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>UART_TX_STS_FIFO_FULL</name>
+              <description>No description available</description>
+              <lsb>2</lsb>
+              <msb>2</msb>
+              <access>read-only</access>
+            </field>
+            <field>
+              <name>UART_TX_STS_FIFO_NOT_FULL</name>
+              <description>No description available</description>
+              <lsb>3</lsb>
+              <msb>3</msb>
               <access>read-only</access>
             </field>
           </fields>
