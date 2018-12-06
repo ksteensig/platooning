@@ -82,6 +82,8 @@
 #include "Filter_PVT.h"
 #include "DMA_A_Filter_dma.h"
 #include "DMA_B_Filter_dma.h"
+#include "Pin_3_aliases.h"
+#include "Pin_3.h"
 #include "Maximum_Peak_Detector_A_Sample_Hold.h"
 #include "Maximum_Peak_Detector_A_Comp_1.h"
 #include "ADC_SAR_A_IRQ.h"

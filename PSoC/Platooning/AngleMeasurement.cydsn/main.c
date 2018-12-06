@@ -53,14 +53,12 @@ uint8 DMA_A_Filter_TD[1];
 uint8 DMA_B_Filter_Chan;
 uint8 DMA_B_Filter_TD[1];
 
-uint8_t ISR_A_done = 0;
-uint8_t ISR_B_done = 0;
+volatile uint8_t ISR_A_done = 0;
+volatile uint8_t ISR_B_done = 0;
 
-int8_t angle = 0; // angle between front wheel of platoon follower compared to the platoon leader back wheels
+float angle = 0; // angle between front wheel of platoon follower compared to the platoon leader back wheels
 int16_t distance = 0; // distance between follower and leader
-uint8_t velocity = 0; // platoon leader duty cycle
-
-int rec = 1;
+volatile uint8_t velocity = 0; // platoon leader duty cycle
 
 char output[200];
 
@@ -76,9 +74,12 @@ CY_ISR(ISR_OUT_B_Handler)
     ISR_B_done = 1;
 }
 
+int rec = 1;
+
 // network ping interrupt
 CY_ISR(IRQ_Handler)
 {
+    Pin_3_Write(1);
     // start ADC A and B when network ping has been received
     ADC_SAR_A_StartConvert();
     ADC_SAR_B_StartConvert();
@@ -169,7 +170,9 @@ int main(void)
     int32_t duty_cycle_dist = 0;
     
     // angle control system variables
-    int16_t Kp_ang = -1;
+    float Kp_ang = -1.2;
+    float Kd_ang = -0.01;
+    float Ki_ang = -0.1;
     //const float vel_ang = 2.5;
     //const float width_car = 0.17;
     int16_t servo_signal = 0;
@@ -178,57 +181,54 @@ int main(void)
     const uint16_t t_center = (t_left + t_right)/2;
     const uint8_t theta_tot = 60;
     float angle_servo = 0;
+    float prev_error_angle = 0;
     float error_angle = 0;
     uint8_t z_point_angle = 0;
     int16_t servo_signal_RB[4] = {0,0,0,0};
     int8_t servo_signal_counter = 0;
     int16_t servo_signal_avg = 0;
     
+    int integrations = 0;
+    
+    float previous_angle2 = 0;
+    float previous_angle1 = 0;
+    
+    float derivative = 0;
+    float integral = 0;
+    
     CyGlobalIntEnable;
     
     for(;;)
-    {        
+    {
         if (ISR_A_done && ISR_B_done) {
             CyGlobalIntDisable;
             rec = 0;
+            
             // defining a and b for the highest amplitude of the signals
             uint16_t a = 0, b = 0;
-            
-            // ai1, ai2 and ai3 are the first, second and third highest amplitude time indices
-            // this means DataA[ai1] > DataA[ai2] > DataA[ai3]
-            uint16_t ai1 = 0, ai2 = 0, ai3 = 0;
-            
-            // bi1, bi2 and bi3 are the first, second and third highest amplitude time indices
-            // this means DataB[bi1] > DataB[bi2] > DataB[bi3]
-            uint16_t bi1 = 0, bi2 = 0, bi3 = 0;
+            uint16_t ai = 0, bi = 0;
             
             // find the 3 biggest time indices of DataA and DataB
             for (uint16_t i = 0; i < DATA_SIZE; i++) {
                 if (DataA[i] > a) {
                     a = DataA[i];
-                    //ai3 = ai2;
-                    //ai2 = ai1;
-                    ai1 = i;
+                    ai = i;
                 }
                 
                 if (DataB[i] > b) {
                     b = DataB[i];
-                    //bi3 = bi2;
-                    //bi2 = bi1;
-                    bi1 = i;
+                    bi = i;
                 }
-                //sprintf(output, "%d, %d, %d\n", i, DataA[i], DataB[i]);
-                //UART_PutString(output);
             }
             
-            // calculate the average ai and bi
-            uint16_t ai = ai1;//(ai1 + ai2 + ai3)/3.0;
-            uint16_t bi = bi1; //(bi1 + bi2 + bi3)/3.0;
+            previous_angle2 = previous_angle1;
+            previous_angle1 = angle;
             
             // angle from -60 to 60
             // 2.25 us per sample
             // 1 us = 0.2 degrees
-            angle = (ai - bi) * 2.25 * 0.2;
+            // 0.45 = 2.25 * 0.2
+            angle = (ai - bi) * 0.45;
             
             //sprintf(output, "%d\n", angle);
             //UART_PutString(output);
@@ -236,25 +236,16 @@ int main(void)
             // first convert the time difference from us to ms, and then multiply by the speed of sound
             // use ai and bi depending on which has the closest peak to the network ping
             // The 500 value subtracted has been experimentally found
+            // 0.77 = 2.25/1000.0 * 343
             if (ai < bi) {
-                distance = ((ai * 2.25)/1000.0 * 343)-100;
-              //  sprintf(output, "%d - distance - %d\n", (int)ai, (int)distance);
-              //  UART_PutString(output); 
+                distance = ai*0.77 - 100;
             } else {
-                distance = (((bi * 2.25)/1000.0) * 343)-100;
-                    
-                //sprintf(output, "%d - distance - %d\n", (int)bi, (int)distance);
-            //UART_PutString(output); 
+                distance = bi * 0.77 -100;
             }
-            
-            
-            //for (uint16_t i = 0; i < DATA_SIZE; i++) {
-                
-            //}
 
             ISR_A_done = ISR_B_done = 0;
                 
-        // CONTROL SYSTEM - DISTANCE:
+            // CONTROL SYSTEM - DISTANCE:
             
             err_dist = reference_dist - distance;
             duty_cycle_dist = Kp_dist * err_dist + velocity;
@@ -272,17 +263,33 @@ int main(void)
             
         //CONTROL SYSTEM - ANGLE:
             
-            error_angle = z_point_angle - angle;
-            angle_servo = Kp_ang * error_angle;
+            float weighted_Kp_angle;
+            
+            weighted_Kp_angle = Kp_ang;
+            
+            if (velocity) {
+                if (!(Kp_ang/(velocity*0.031*0.58) < Kp_ang)) {
+                    weighted_Kp_angle = Kp_ang/(velocity*0.031*0.58);
+                }
+            }
+            
+            if (integrations > 500) {
+                integral = 0;
+            }
+            
+            error_angle = z_point_angle - (angle + previous_angle1 + previous_angle2)/3.0;
+            derivative = (error_angle - prev_error_angle) / 0.01; // 0.01 deltatime
+            integral = integral + error_angle * 0.01;
+            angle_servo = weighted_Kp_angle * error_angle + derivative*Kd_ang;
+            prev_error_angle = error_angle;
             if(angle_servo > 30){
                 angle_servo = 30;
             } else if(angle_servo < -30){
                 angle_servo = -30;
-            } else {
-                angle_servo = angle;
             }
             
-            servo_signal = angle_servo * ((t_right - t_left)/theta_tot) + t_center;
+            // ((t_right - t_left)/theta_tot) approx -11
+            servo_signal = angle_servo * -11 + t_center - 100;
             
             if(servo_signal_counter == 3){
                 servo_signal_RB[servo_signal_counter] = servo_signal;
@@ -292,14 +299,13 @@ int main(void)
                 servo_signal_counter++;
             }
             servo_signal_avg = (servo_signal_RB[0] + servo_signal_RB[1] + servo_signal_RB[2])/3;
-            
-            
+                        
             PWM_SERVO_WriteCompare(servo_signal_avg);
-
             
+            Pin_3_Write(0);
+
             CyGlobalIntEnable;
         }
     }
 }
-
 
