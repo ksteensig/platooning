@@ -278,8 +278,8 @@ int main(void)
             }
             
             error_angle = z_point_angle - (angle + previous_angle1 + previous_angle2)/3.0;
-            derivative = (error_angle - prev_error_angle) / 0.01; // 0.01 deltatime
-            integral = integral + error_angle * 0.01;
+            derivative = (error_angle - prev_error_angle) / 0.0067; // 0.01 deltatime
+            integral = integral + error_angle * 0.0067;
             angle_servo = weighted_Kp_angle * error_angle + derivative*Kd_ang;
             prev_error_angle = error_angle;
             if(angle_servo > 30){
