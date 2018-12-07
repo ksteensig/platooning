@@ -178,7 +178,7 @@ int main(void)
     int32_t duty_cycle_dist = 0;
     
     // angle control system variables
-    float Kp_ang = -0.6;
+    float Kp_ang = -0.3;
     float Kd_ang = -0.01;
     float Ki_ang = -0.1;
     //const float vel_ang = 2.5;
@@ -288,7 +288,7 @@ int main(void)
             
             
             error_angle = z_point_angle - (angle + previous_angle1 + previous_angle2)/3.0;
-            //derivative = (error_angle - prev_error_angle) / 0.0067; // 0.01 deltatime
+            derivative = (error_angle - prev_error_angle) / 0.0067; // 0.01 deltatime
             //integral = integral + error_angle * 0.0067;
             angle_servo = weighted_Kp_angle * error_angle /*+ derivative*Kd_ang*/;
             prev_error_angle = error_angle;
@@ -299,7 +299,7 @@ int main(void)
             }
             
             // ((t_right - t_left)/theta_tot) approx -11
-            servo_signal = (angle_servo + old_old_leader_angle/2.0) * -11 + t_center - 100;
+            servo_signal = (angle_servo + old_old_leader_angle) * -11 + t_center - 65;
             
             if(servo_signal_counter == 3){
                 servo_signal_RB[servo_signal_counter] = servo_signal;
