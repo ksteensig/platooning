@@ -59,6 +59,9 @@ volatile uint8_t ISR_B_done = 0;
 float angle = 0; // angle between front wheel of platoon follower compared to the platoon leader back wheels
 int16_t distance = 0; // distance between follower and leader
 volatile uint8_t velocity = 0; // platoon leader duty cycle
+volatile int8_t leader_angle = 0;
+volatile int8_t old_leader_angle = 0;
+volatile int8_t old_old_leader_angle = 0;
 
 char output[200];
 
@@ -79,6 +82,7 @@ int rec = 1;
 // network ping interrupt
 CY_ISR(IRQ_Handler)
 {
+    CyWdtClear();
     Pin_3_Write(1);
     // start ADC A and B when network ping has been received
     ADC_SAR_A_StartConvert();
@@ -89,10 +93,14 @@ CY_ISR(IRQ_Handler)
     nRF24_clear_irq_flag(flag);
 
     // temp value to hold velocity data
-    // uint16_t data = 0;
+    uint8_t data[2];
     
     // get the data from the transmitter
-    nRF24_get_rx_payload(&velocity, 1);
+    nRF24_get_rx_payload(data, 2);
+    velocity = data[0];
+    old_old_leader_angle = old_leader_angle;
+    old_leader_angle = leader_angle;
+    leader_angle = data[1];
 }
 
 int main(void)
@@ -170,7 +178,7 @@ int main(void)
     int32_t duty_cycle_dist = 0;
     
     // angle control system variables
-    float Kp_ang = -1.2;
+    float Kp_ang = -0.6;
     float Kd_ang = -0.01;
     float Ki_ang = -0.1;
     //const float vel_ang = 2.5;
@@ -196,6 +204,7 @@ int main(void)
     float derivative = 0;
     float integral = 0;
     
+    CyWdtStart(CYWDT_16_TICKS, CYWDT_LPMODE_NOCHANGE);
     CyGlobalIntEnable;
     
     for(;;)
@@ -229,6 +238,10 @@ int main(void)
             // 1 us = 0.2 degrees
             // 0.45 = 2.25 * 0.2
             angle = (ai - bi) * 0.45;
+
+            if (angle > 60 || angle < -60) {
+                angle = previous_angle1;
+            }
             
             //sprintf(output, "%d\n", angle);
             //UART_PutString(output);
@@ -258,7 +271,7 @@ int main(void)
                 duty_cycle_dist = 150;
             }
             
-            PWM_H_BRIDGE_WriteCompare(duty_cycle_dist*killswitchS_Read());
+            PWM_H_BRIDGE_WriteCompare(duty_cycle_dist);
             
             
         //CONTROL SYSTEM - ANGLE:
@@ -273,14 +286,11 @@ int main(void)
                 }
             }
             
-            if (integrations > 500) {
-                integral = 0;
-            }
             
             error_angle = z_point_angle - (angle + previous_angle1 + previous_angle2)/3.0;
-            derivative = (error_angle - prev_error_angle) / 0.0067; // 0.01 deltatime
-            integral = integral + error_angle * 0.0067;
-            angle_servo = weighted_Kp_angle * error_angle + derivative*Kd_ang;
+            //derivative = (error_angle - prev_error_angle) / 0.0067; // 0.01 deltatime
+            //integral = integral + error_angle * 0.0067;
+            angle_servo = weighted_Kp_angle * error_angle /*+ derivative*Kd_ang*/;
             prev_error_angle = error_angle;
             if(angle_servo > 30){
                 angle_servo = 30;
@@ -289,7 +299,7 @@ int main(void)
             }
             
             // ((t_right - t_left)/theta_tot) approx -11
-            servo_signal = angle_servo * -11 + t_center - 100;
+            servo_signal = (angle_servo + old_old_leader_angle/2.0) * -11 + t_center - 100;
             
             if(servo_signal_counter == 3){
                 servo_signal_RB[servo_signal_counter] = servo_signal;

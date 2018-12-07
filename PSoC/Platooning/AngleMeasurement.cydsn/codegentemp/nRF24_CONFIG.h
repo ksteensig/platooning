@@ -68,7 +68,7 @@
 #define CUSTOMIZER_CONFIG       ((0 << NRF_CONFIG_BIT_MASK_RX_DR) | (1 << NRF_CONFIG_BIT_MASK_TX_DS) | \
                                 (1 << NRF_CONFIG_BIT_MASK_MAX_RT) | (1 << NRF_CONFIG_BIT_EN_CRC) | \
                                 (0 << NRF_CONFIG_BIT_CRCO) | (1<< NRF_CONFIG_BIT_PWR_UP) | (1 << NRF_CONFIG_BIT_PRIM_RX))
-#define CUSTOMIZER_RX_PW_P0     (1)
+#define CUSTOMIZER_RX_PW_P0     (2)
 #define CUSTOMIZER_RX_PW_P1     (0)
 #define CUSTOMIZER_RX_PW_P2     (0)
 #define CUSTOMIZER_RX_ADDR_P2   (195)
