@@ -173,12 +173,12 @@ int main(void)
     
     // distance control system variables
     int16_t err_dist = 0; // error
-    const int16_t reference_dist = 200; // input
+    const int16_t reference_dist = 300; // input
     const float Kp_dist = -0.5; // control system value for P-controller (spørg casper og bjørnefar)
     int32_t duty_cycle_dist = 0;
     
     // angle control system variables
-    float Kp_ang = -0.3;
+    float Kp_ang = -0.6;
     float Kd_ang = -0.01;
     float Ki_ang = -0.1;
     //const float vel_ang = 2.5;
@@ -299,7 +299,7 @@ int main(void)
             }
             
             // ((t_right - t_left)/theta_tot) approx -11
-            servo_signal = (angle_servo + old_old_leader_angle) * -11 + t_center - 65;
+            servo_signal = (angle_servo + old_old_leader_angle/2.0) * -11 + t_center - 65;
             
             if(servo_signal_counter == 3){
                 servo_signal_RB[servo_signal_counter] = servo_signal;
@@ -313,7 +313,11 @@ int main(void)
             PWM_SERVO_WriteCompare(servo_signal_avg);
             
             Pin_3_Write(0);
-
+            
+            //sprintf(output, "%d %d\n", distance, velocity);
+            //UART_PutString(output);
+            
+            
             CyGlobalIntEnable;
         }
     }
