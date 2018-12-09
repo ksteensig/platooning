@@ -1,3 +1,3 @@
-# Component constraints for C:\Users\mikke\Desktop\nRF24_Example_Projects-master\00_Basic_Tx.cydsn\TopDesign\TopDesign.cysch
-# Project: C:\Users\mikke\Desktop\nRF24_Example_Projects-master\00_Basic_Tx.cydsn\00_Basic_Tx.cyprj
-# Date: Wed, 28 Nov 2018 13:45:48 GMT
+# Component constraints for C:\Users\rens_\Downloads\00_Basic_Tx.cydsn\TopDesign\TopDesign.cysch
+# Project: C:\Users\rens_\Downloads\00_Basic_Tx.cydsn\00_Basic_Tx.cyprj
+# Date: Sun, 09 Dec 2018 09:13:27 GMT

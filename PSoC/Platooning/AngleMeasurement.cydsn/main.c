@@ -82,6 +82,7 @@ int rec = 1;
 // network ping interrupt
 CY_ISR(IRQ_Handler)
 {
+    //UART_PutString("Enter IRQ\n");
     //CyWdtClear();
     Pin_3_Write(1);
     // start ADC A and B when network ping has been received
@@ -102,6 +103,7 @@ CY_ISR(IRQ_Handler)
     old_old_leader_angle = old_leader_angle;
     old_leader_angle = leader_angle;
     leader_angle = data[1];
+    //UART_PutString("Exit IRQ\n");
 }
 
 int main(void)
@@ -212,6 +214,7 @@ int main(void)
     {
         if (ISR_A_done && ISR_B_done) {
             CyGlobalIntDisable;
+            //UART_PutString("Enter handler\n");
             rec = 0;
             
             // defining a and b for the highest amplitude of the signals
@@ -300,7 +303,7 @@ int main(void)
             }
             
             // ((t_right - t_left)/theta_tot) approx -11
-            servo_signal = (angle_servo + old_old_leader_angle/2.0) * -11 + t_center - 65;
+            servo_signal = (angle_servo + old_old_leader_angle/2.0) * -11 + t_center - 40;
             
             if(servo_signal_counter == 3){
                 servo_signal_RB[servo_signal_counter] = servo_signal;
@@ -315,10 +318,12 @@ int main(void)
             
             Pin_3_Write(0);
             
-            //sprintf(output, "%d %d\n", distance, velocity);
+            //sprintf(output, "%d\n", velocity);
             //UART_PutString(output);
             
             //nRF24_start_listening();
+            
+            //UART_PutString("Exit Handler\n");
             
             CyGlobalIntEnable;
         }
