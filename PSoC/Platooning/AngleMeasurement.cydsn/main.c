@@ -82,7 +82,7 @@ int rec = 1;
 // network ping interrupt
 CY_ISR(IRQ_Handler)
 {
-    CyWdtClear();
+    //CyWdtClear();
     Pin_3_Write(1);
     // start ADC A and B when network ping has been received
     ADC_SAR_A_StartConvert();
@@ -97,6 +97,7 @@ CY_ISR(IRQ_Handler)
     
     // get the data from the transmitter
     nRF24_get_rx_payload(data, 2);
+    //nRF24_stop_listening();
     velocity = data[0];
     old_old_leader_angle = old_leader_angle;
     old_leader_angle = leader_angle;
@@ -178,7 +179,7 @@ int main(void)
     int32_t duty_cycle_dist = 0;
     
     // angle control system variables
-    float Kp_ang = -0.6;
+    float Kp_ang = -0.7;
     float Kd_ang = -0.01;
     float Ki_ang = -0.1;
     //const float vel_ang = 2.5;
@@ -204,7 +205,7 @@ int main(void)
     float derivative = 0;
     float integral = 0;
     
-    CyWdtStart(CYWDT_16_TICKS, CYWDT_LPMODE_NOCHANGE);
+    //CyWdtStart(CYWDT_16_TICKS, CYWDT_LPMODE_NOCHANGE);
     CyGlobalIntEnable;
     
     for(;;)
@@ -317,6 +318,7 @@ int main(void)
             //sprintf(output, "%d %d\n", distance, velocity);
             //UART_PutString(output);
             
+            //nRF24_start_listening();
             
             CyGlobalIntEnable;
         }
