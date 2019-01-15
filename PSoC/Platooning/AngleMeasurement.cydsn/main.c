@@ -83,7 +83,7 @@ int rec = 1;
 CY_ISR(IRQ_Handler)
 {
     //UART_PutString("Enter IRQ\n");
-    //CyWdtClear();
+    CyWdtClear();
     Pin_3_Write(1);
     // start ADC A and B when network ping has been received
     ADC_SAR_A_StartConvert();
@@ -153,7 +153,7 @@ int main(void)
     DMA_A_Filter_Chan = DMA_A_Filter_DmaInitialize(DMA_A_Filter_BYTES_PER_BURST, DMA_A_Filter_REQUEST_PER_BURST, 
         HI16(DMA_A_Filter_SRC_BASE), HI16(DMA_A_Filter_DST_BASE));
     DMA_A_Filter_TD[0] = CyDmaTdAllocate();
-    CyDmaTdSetConfiguration(DMA_A_Filter_TD[0], DATA_SIZE, DMA_A_Filter_TD[0], DMA_A_Filter__TD_TERMOUT_EN | CY_DMA_TD_INC_DST_ADR);
+    CyDmaTdSetConfiguration(DMA_A_Filter_TD[0], DATA_SIZE * 2, DMA_A_Filter_TD[0], DMA_A_Filter__TD_TERMOUT_EN | CY_DMA_TD_INC_DST_ADR);
     CyDmaTdSetAddress(DMA_A_Filter_TD[0], LO16((uint32)Filter_HOLDA_PTR), LO16((uint32)DataA));
     CyDmaChSetInitialTd(DMA_A_Filter_Chan, DMA_A_Filter_TD[0]);
     CyDmaChEnable(DMA_A_Filter_Chan, 1);
@@ -207,11 +207,12 @@ int main(void)
     float derivative = 0;
     float integral = 0;
     
-    //CyWdtStart(CYWDT_16_TICKS, CYWDT_LPMODE_NOCHANGE);
+    CyWdtStart(CYWDT_16_TICKS, CYWDT_LPMODE_NOCHANGE);
     CyGlobalIntEnable;
     
     for(;;)
     {
+        
         if (ISR_A_done && ISR_B_done) {
             CyGlobalIntDisable;
             //UART_PutString("Enter handler\n");
@@ -259,7 +260,8 @@ int main(void)
             } else {
                 distance = bi * 0.77 -100;
             }
-
+            //sprintf(output, "ai: %d\r\t\t bi: %d\n\r", ai, bi,distance);
+            //UART_PutString(output);
             ISR_A_done = ISR_B_done = 0;
                 
             // CONTROL SYSTEM - DISTANCE:
