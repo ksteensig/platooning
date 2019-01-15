@@ -1,3 +1,3 @@
-# Component constraints for C:\Users\rens_\Downloads\00_Basic_Tx.cydsn\TopDesign\TopDesign.cysch
-# Project: C:\Users\rens_\Downloads\00_Basic_Tx.cydsn\00_Basic_Tx.cyprj
-# Date: Sun, 09 Dec 2018 09:13:27 GMT
+# Component constraints for C:\Users\Krist\OneDrive\Dokumenter\GitHub\platooning\PSoC\00_Basic_Tx.cydsn\TopDesign\TopDesign.cysch
+# Project: C:\Users\Krist\OneDrive\Dokumenter\GitHub\platooning\PSoC\00_Basic_Tx.cydsn\00_Basic_Tx.cyprj
+# Date: Tue, 15 Jan 2019 10:56:04 GMT

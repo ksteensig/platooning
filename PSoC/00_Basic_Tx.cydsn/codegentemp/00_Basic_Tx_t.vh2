@@ -1,6 +1,6 @@
--- Project:   C:\Users\rens_\Downloads\00_Basic_Tx.cydsn\00_Basic_Tx.cyprj
--- Generated: 12/09/2018 10:13:38
--- PSoC Creator  4.2
+-- Project:   C:\Users\Krist\OneDrive\Dokumenter\GitHub\platooning\PSoC\00_Basic_Tx.cydsn\00_Basic_Tx.cyprj
+-- Generated: 01/15/2019 11:57:36
+-- PSoC Creator  4.1 Update 1
 
 ENTITY \00_Basic_Tx\ IS
     PORT(
@@ -161,7 +161,7 @@ ARCHITECTURE __DEFAULT__ OF \00_Basic_Tx\ IS
     ATTRIBUTE placement_force OF \PWMServo:PWMUDB:prevCompare1\ : SIGNAL IS "U(1,5,A)3";
     SIGNAL \PWMServo:PWMUDB:runmode_enable\ : bit;
     ATTRIBUTE placement_force OF \PWMServo:PWMUDB:runmode_enable\ : SIGNAL IS "U(1,5,A)0";
-    SIGNAL \SteeringTimer:TimerUDB:sT16:timerdp:u0.ce0__sig\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:sT16:timerdp:u0.ce0__sig\ : bit;
     SIGNAL \PWMServo:PWMUDB:status_0\ : bit;
     ATTRIBUTE placement_force OF \PWMServo:PWMUDB:status_0\ : SIGNAL IS "U(1,5,B)0";
     SIGNAL \PWMServo:PWMUDB:status_2\ : bit;
@@ -205,53 +205,6 @@ ARCHITECTURE __DEFAULT__ OF \00_Basic_Tx\ IS
     ATTRIBUTE udbclken_assigned OF \SPI:Net_276\ : SIGNAL IS "True";
     ATTRIBUTE global_signal OF \SPI:Net_276\ : SIGNAL IS true;
     SIGNAL \SPI:Net_276_local\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:capt_fifo_load\ : bit;
-    ATTRIBUTE placement_force OF \SteeringTimer:TimerUDB:capt_fifo_load\ : SIGNAL IS "U(2,3,A)1";
-    SIGNAL \SteeringTimer:TimerUDB:capture_last\ : bit;
-    ATTRIBUTE placement_force OF \SteeringTimer:TimerUDB:capture_last\ : SIGNAL IS "U(3,3,A)0";
-    SIGNAL \SteeringTimer:TimerUDB:control_0\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:control_1\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:control_2\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:control_3\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:control_4\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:control_5\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:control_6\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:control_7\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:per_zero\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:status_2\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:status_3\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:status_tc\ : bit;
-    ATTRIBUTE placement_force OF \SteeringTimer:TimerUDB:status_tc\ : SIGNAL IS "U(3,3,B)0";
-    SIGNAL \SteeringTimer:TimerUDB:trig_fall_detected\ : bit;
-    ATTRIBUTE placement_force OF \SteeringTimer:TimerUDB:trig_fall_detected\ : SIGNAL IS "U(3,2,A)1";
-    SIGNAL \SteeringTimer:TimerUDB:trig_reg\ : bit;
-    ATTRIBUTE placement_force OF \SteeringTimer:TimerUDB:trig_reg\ : SIGNAL IS "U(3,3,A)2";
-    SIGNAL \SteeringTimer:TimerUDB:trig_rise_detected\ : bit;
-    ATTRIBUTE placement_force OF \SteeringTimer:TimerUDB:trig_rise_detected\ : SIGNAL IS "U(2,3,B)3";
-    SIGNAL \Timer:TimerUDB:capt_fifo_load\ : bit;
-    ATTRIBUTE placement_force OF \Timer:TimerUDB:capt_fifo_load\ : SIGNAL IS "U(1,0,A)2";
-    SIGNAL \Timer:TimerUDB:capture_last\ : bit;
-    ATTRIBUTE placement_force OF \Timer:TimerUDB:capture_last\ : SIGNAL IS "U(1,2,A)0";
-    SIGNAL \Timer:TimerUDB:control_0\ : bit;
-    SIGNAL \Timer:TimerUDB:control_1\ : bit;
-    SIGNAL \Timer:TimerUDB:control_2\ : bit;
-    SIGNAL \Timer:TimerUDB:control_3\ : bit;
-    SIGNAL \Timer:TimerUDB:control_4\ : bit;
-    SIGNAL \Timer:TimerUDB:control_5\ : bit;
-    SIGNAL \Timer:TimerUDB:control_6\ : bit;
-    SIGNAL \Timer:TimerUDB:control_7\ : bit;
-    SIGNAL \Timer:TimerUDB:per_zero\ : bit;
-    SIGNAL \PWMSend:PWMUDB:sP16:pwmdp:u0.ce0__sig\ : bit;
-    SIGNAL \Timer:TimerUDB:status_2\ : bit;
-    SIGNAL \Timer:TimerUDB:status_3\ : bit;
-    SIGNAL \Timer:TimerUDB:status_tc\ : bit;
-    ATTRIBUTE placement_force OF \Timer:TimerUDB:status_tc\ : SIGNAL IS "U(0,0,A)3";
-    SIGNAL \Timer:TimerUDB:trig_fall_detected\ : bit;
-    ATTRIBUTE placement_force OF \Timer:TimerUDB:trig_fall_detected\ : SIGNAL IS "U(1,0,B)1";
-    SIGNAL \Timer:TimerUDB:trig_reg\ : bit;
-    ATTRIBUTE placement_force OF \Timer:TimerUDB:trig_reg\ : SIGNAL IS "U(1,3,B)3";
-    SIGNAL \Timer:TimerUDB:trig_rise_detected\ : bit;
-    ATTRIBUTE placement_force OF \Timer:TimerUDB:trig_rise_detected\ : SIGNAL IS "U(1,0,A)1";
     SIGNAL \UART:BUART:counter_load_not\ : bit;
     ATTRIBUTE placement_force OF \UART:BUART:counter_load_not\ : SIGNAL IS "U(1,4,B)1";
     SIGNAL \UART:BUART:rx_bitclk_enable\ : bit;
@@ -311,6 +264,53 @@ ARCHITECTURE __DEFAULT__ OF \00_Basic_Tx\ IS
     ATTRIBUTE udbclken_assigned OF \UART:Net_9\ : SIGNAL IS "True";
     ATTRIBUTE global_signal OF \UART:Net_9\ : SIGNAL IS true;
     SIGNAL \UART:Net_9_local\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:capt_fifo_load\ : bit;
+    ATTRIBUTE placement_force OF \steeringTimer:TimerUDB:capt_fifo_load\ : SIGNAL IS "U(2,3,A)1";
+    SIGNAL \steeringTimer:TimerUDB:capture_last\ : bit;
+    ATTRIBUTE placement_force OF \steeringTimer:TimerUDB:capture_last\ : SIGNAL IS "U(3,3,A)0";
+    SIGNAL \steeringTimer:TimerUDB:control_0\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:control_1\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:control_2\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:control_3\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:control_4\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:control_5\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:control_6\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:control_7\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:per_zero\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:status_2\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:status_3\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:status_tc\ : bit;
+    ATTRIBUTE placement_force OF \steeringTimer:TimerUDB:status_tc\ : SIGNAL IS "U(3,3,B)0";
+    SIGNAL \steeringTimer:TimerUDB:trig_fall_detected\ : bit;
+    ATTRIBUTE placement_force OF \steeringTimer:TimerUDB:trig_fall_detected\ : SIGNAL IS "U(3,2,A)1";
+    SIGNAL \steeringTimer:TimerUDB:trig_reg\ : bit;
+    ATTRIBUTE placement_force OF \steeringTimer:TimerUDB:trig_reg\ : SIGNAL IS "U(3,3,A)2";
+    SIGNAL \steeringTimer:TimerUDB:trig_rise_detected\ : bit;
+    ATTRIBUTE placement_force OF \steeringTimer:TimerUDB:trig_rise_detected\ : SIGNAL IS "U(2,3,B)3";
+    SIGNAL \throttleTimer:TimerUDB:capt_fifo_load\ : bit;
+    ATTRIBUTE placement_force OF \throttleTimer:TimerUDB:capt_fifo_load\ : SIGNAL IS "U(1,0,A)2";
+    SIGNAL \throttleTimer:TimerUDB:capture_last\ : bit;
+    ATTRIBUTE placement_force OF \throttleTimer:TimerUDB:capture_last\ : SIGNAL IS "U(1,2,A)0";
+    SIGNAL \throttleTimer:TimerUDB:control_0\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:control_1\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:control_2\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:control_3\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:control_4\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:control_5\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:control_6\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:control_7\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:per_zero\ : bit;
+    SIGNAL \PWMSend:PWMUDB:sP16:pwmdp:u0.ce0__sig\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:status_2\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:status_3\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:status_tc\ : bit;
+    ATTRIBUTE placement_force OF \throttleTimer:TimerUDB:status_tc\ : SIGNAL IS "U(0,0,A)3";
+    SIGNAL \throttleTimer:TimerUDB:trig_fall_detected\ : bit;
+    ATTRIBUTE placement_force OF \throttleTimer:TimerUDB:trig_fall_detected\ : SIGNAL IS "U(1,0,B)1";
+    SIGNAL \throttleTimer:TimerUDB:trig_reg\ : bit;
+    ATTRIBUTE placement_force OF \throttleTimer:TimerUDB:trig_reg\ : SIGNAL IS "U(1,3,B)3";
+    SIGNAL \throttleTimer:TimerUDB:trig_rise_detected\ : bit;
+    ATTRIBUTE placement_force OF \throttleTimer:TimerUDB:trig_rise_detected\ : SIGNAL IS "U(1,0,A)1";
     SIGNAL __ONE__ : bit;
     ATTRIBUTE POWER OF __ONE__ : SIGNAL IS true;
     SIGNAL __ZERO__ : bit;
@@ -320,19 +320,19 @@ ARCHITECTURE __DEFAULT__ OF \00_Basic_Tx\ IS
     ATTRIBUTE POWER OF tmpOE__MISO_net_0 : SIGNAL IS true;
     SIGNAL zero : bit;
     ATTRIBUTE GROUND OF zero : SIGNAL IS true;
-    SIGNAL \Timer:TimerUDB:sT16:timerdp:u0.ce0__sig\ : bit;
-    SIGNAL \Timer:TimerUDB:sT16:timerdp:u0.cl0__sig\ : bit;
-    SIGNAL \Timer:TimerUDB:sT16:timerdp:u0.z0__sig\ : bit;
-    SIGNAL \Timer:TimerUDB:sT16:timerdp:u0.ff0__sig\ : bit;
-    SIGNAL \Timer:TimerUDB:sT16:timerdp:u0.ce1__sig\ : bit;
-    SIGNAL \Timer:TimerUDB:sT16:timerdp:u0.cl1__sig\ : bit;
-    SIGNAL \Timer:TimerUDB:sT16:timerdp:u0.z1__sig\ : bit;
-    SIGNAL \Timer:TimerUDB:sT16:timerdp:u0.ff1__sig\ : bit;
-    SIGNAL \Timer:TimerUDB:sT16:timerdp:u0.co_msb__sig\ : bit;
-    SIGNAL \Timer:TimerUDB:sT16:timerdp:u0.sol_msb__sig\ : bit;
-    SIGNAL \Timer:TimerUDB:sT16:timerdp:u0.cfbo__sig\ : bit;
-    SIGNAL \Timer:TimerUDB:sT16:timerdp:u1.sor__sig\ : bit;
-    SIGNAL \Timer:TimerUDB:sT16:timerdp:u1.cmsbo__sig\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:sT16:timerdp:u0.ce0__sig\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:sT16:timerdp:u0.cl0__sig\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:sT16:timerdp:u0.z0__sig\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:sT16:timerdp:u0.ff0__sig\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:sT16:timerdp:u0.ce1__sig\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:sT16:timerdp:u0.cl1__sig\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:sT16:timerdp:u0.z1__sig\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:sT16:timerdp:u0.ff1__sig\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:sT16:timerdp:u0.co_msb__sig\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:sT16:timerdp:u0.sol_msb__sig\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:sT16:timerdp:u0.cfbo__sig\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:sT16:timerdp:u1.sor__sig\ : bit;
+    SIGNAL \throttleTimer:TimerUDB:sT16:timerdp:u1.cmsbo__sig\ : bit;
     SIGNAL \PWMSend:PWMUDB:sP16:pwmdp:u0.cl0__sig\ : bit;
     SIGNAL \PWMSend:PWMUDB:sP16:pwmdp:u0.z0__sig\ : bit;
     SIGNAL \PWMSend:PWMUDB:sP16:pwmdp:u0.ff0__sig\ : bit;
@@ -357,18 +357,18 @@ ARCHITECTURE __DEFAULT__ OF \00_Basic_Tx\ IS
     SIGNAL \PWMServo:PWMUDB:sP16:pwmdp:u0.cfbo__sig\ : bit;
     SIGNAL \PWMServo:PWMUDB:sP16:pwmdp:u1.sor__sig\ : bit;
     SIGNAL \PWMServo:PWMUDB:sP16:pwmdp:u1.cmsbo__sig\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:sT16:timerdp:u0.cl0__sig\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:sT16:timerdp:u0.z0__sig\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:sT16:timerdp:u0.ff0__sig\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:sT16:timerdp:u0.ce1__sig\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:sT16:timerdp:u0.cl1__sig\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:sT16:timerdp:u0.z1__sig\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:sT16:timerdp:u0.ff1__sig\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:sT16:timerdp:u0.co_msb__sig\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:sT16:timerdp:u0.sol_msb__sig\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:sT16:timerdp:u0.cfbo__sig\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:sT16:timerdp:u1.sor__sig\ : bit;
-    SIGNAL \SteeringTimer:TimerUDB:sT16:timerdp:u1.cmsbo__sig\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:sT16:timerdp:u0.cl0__sig\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:sT16:timerdp:u0.z0__sig\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:sT16:timerdp:u0.ff0__sig\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:sT16:timerdp:u0.ce1__sig\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:sT16:timerdp:u0.cl1__sig\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:sT16:timerdp:u0.z1__sig\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:sT16:timerdp:u0.ff1__sig\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:sT16:timerdp:u0.co_msb__sig\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:sT16:timerdp:u0.sol_msb__sig\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:sT16:timerdp:u0.cfbo__sig\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:sT16:timerdp:u1.sor__sig\ : bit;
+    SIGNAL \steeringTimer:TimerUDB:sT16:timerdp:u1.cmsbo__sig\ : bit;
     ATTRIBUTE Location OF ClockBlock : LABEL IS "F(Clock,0)";
     ATTRIBUTE lib_model OF MISO(0) : LABEL IS "iocell1";
     ATTRIBUTE Location OF MISO(0) : LABEL IS "P12[2]";
@@ -427,12 +427,12 @@ ARCHITECTURE __DEFAULT__ OF \00_Basic_Tx\ IS
     ATTRIBUTE Location OF \SPI:BSPIM:tx_status_4\ : LABEL IS "U(2,2)";
     ATTRIBUTE lib_model OF \SPI:BSPIM:rx_status_6\ : LABEL IS "macrocell11";
     ATTRIBUTE Location OF \SPI:BSPIM:rx_status_6\ : LABEL IS "U(1,2)";
-    ATTRIBUTE lib_model OF \Timer:TimerUDB:capt_fifo_load\ : LABEL IS "macrocell12";
-    ATTRIBUTE Location OF \Timer:TimerUDB:capt_fifo_load\ : LABEL IS "U(1,0)";
-    ATTRIBUTE lib_model OF \Timer:TimerUDB:status_tc\ : LABEL IS "macrocell13";
-    ATTRIBUTE Location OF \Timer:TimerUDB:status_tc\ : LABEL IS "U(0,0)";
-    ATTRIBUTE lib_model OF \Timer:TimerUDB:trig_reg\ : LABEL IS "macrocell14";
-    ATTRIBUTE Location OF \Timer:TimerUDB:trig_reg\ : LABEL IS "U(1,3)";
+    ATTRIBUTE lib_model OF \throttleTimer:TimerUDB:capt_fifo_load\ : LABEL IS "macrocell12";
+    ATTRIBUTE Location OF \throttleTimer:TimerUDB:capt_fifo_load\ : LABEL IS "U(1,0)";
+    ATTRIBUTE lib_model OF \throttleTimer:TimerUDB:status_tc\ : LABEL IS "macrocell13";
+    ATTRIBUTE Location OF \throttleTimer:TimerUDB:status_tc\ : LABEL IS "U(0,0)";
+    ATTRIBUTE lib_model OF \throttleTimer:TimerUDB:trig_reg\ : LABEL IS "macrocell14";
+    ATTRIBUTE Location OF \throttleTimer:TimerUDB:trig_reg\ : LABEL IS "U(1,3)";
     ATTRIBUTE lib_model OF Net_706 : LABEL IS "macrocell15";
     ATTRIBUTE Location OF Net_706 : LABEL IS "U(1,1)";
     ATTRIBUTE lib_model OF \PWMHBro:PWMUDB:status_2\ : LABEL IS "macrocell16";
@@ -443,12 +443,12 @@ ARCHITECTURE __DEFAULT__ OF \00_Basic_Tx\ IS
     ATTRIBUTE Location OF Net_1530 : LABEL IS "U(3,3)";
     ATTRIBUTE lib_model OF \PWMServo:PWMUDB:status_2\ : LABEL IS "macrocell19";
     ATTRIBUTE Location OF \PWMServo:PWMUDB:status_2\ : LABEL IS "U(1,5)";
-    ATTRIBUTE lib_model OF \SteeringTimer:TimerUDB:capt_fifo_load\ : LABEL IS "macrocell20";
-    ATTRIBUTE Location OF \SteeringTimer:TimerUDB:capt_fifo_load\ : LABEL IS "U(2,3)";
-    ATTRIBUTE lib_model OF \SteeringTimer:TimerUDB:status_tc\ : LABEL IS "macrocell21";
-    ATTRIBUTE Location OF \SteeringTimer:TimerUDB:status_tc\ : LABEL IS "U(3,3)";
-    ATTRIBUTE lib_model OF \SteeringTimer:TimerUDB:trig_reg\ : LABEL IS "macrocell22";
-    ATTRIBUTE Location OF \SteeringTimer:TimerUDB:trig_reg\ : LABEL IS "U(3,3)";
+    ATTRIBUTE lib_model OF \steeringTimer:TimerUDB:capt_fifo_load\ : LABEL IS "macrocell20";
+    ATTRIBUTE Location OF \steeringTimer:TimerUDB:capt_fifo_load\ : LABEL IS "U(2,3)";
+    ATTRIBUTE lib_model OF \steeringTimer:TimerUDB:status_tc\ : LABEL IS "macrocell21";
+    ATTRIBUTE Location OF \steeringTimer:TimerUDB:status_tc\ : LABEL IS "U(3,3)";
+    ATTRIBUTE lib_model OF \steeringTimer:TimerUDB:trig_reg\ : LABEL IS "macrocell22";
+    ATTRIBUTE Location OF \steeringTimer:TimerUDB:trig_reg\ : LABEL IS "U(3,3)";
     ATTRIBUTE Location OF isr_IRQ : LABEL IS "[IntrContainer=(0)][IntrId=(11)]";
     ATTRIBUTE Location OF \UART:TXInternalInterrupt\ : LABEL IS "[IntrContainer=(0)][IntrId=(1)]";
     ATTRIBUTE Location OF \UART:RXInternalInterrupt\ : LABEL IS "[IntrContainer=(0)][IntrId=(0)]";
@@ -471,14 +471,14 @@ ARCHITECTURE __DEFAULT__ OF \00_Basic_Tx\ IS
     ATTRIBUTE lib_model OF \SPI:BSPIM:sR8:Dp:u0\ : LABEL IS "datapathcell4";
     ATTRIBUTE Location OF \SPI:BSPIM:sR8:Dp:u0\ : LABEL IS "U(2,2)";
     ATTRIBUTE Location OF isr_send : LABEL IS "[IntrContainer=(0)][IntrId=(2)]";
-    ATTRIBUTE lib_model OF \Timer:TimerUDB:sCTRLReg:SyncCtl:ctrlreg\ : LABEL IS "controlcell1";
-    ATTRIBUTE Location OF \Timer:TimerUDB:sCTRLReg:SyncCtl:ctrlreg\ : LABEL IS "U(1,0)";
-    ATTRIBUTE lib_model OF \Timer:TimerUDB:rstSts:stsreg\ : LABEL IS "statusicell5";
-    ATTRIBUTE Location OF \Timer:TimerUDB:rstSts:stsreg\ : LABEL IS "U(0,2)";
-    ATTRIBUTE lib_model OF \Timer:TimerUDB:sT16:timerdp:u0\ : LABEL IS "datapathcell5";
-    ATTRIBUTE Location OF \Timer:TimerUDB:sT16:timerdp:u0\ : LABEL IS "U(1,1)";
-    ATTRIBUTE lib_model OF \Timer:TimerUDB:sT16:timerdp:u1\ : LABEL IS "datapathcell6";
-    ATTRIBUTE Location OF \Timer:TimerUDB:sT16:timerdp:u1\ : LABEL IS "U(0,1)";
+    ATTRIBUTE lib_model OF \throttleTimer:TimerUDB:sCTRLReg:SyncCtl:ctrlreg\ : LABEL IS "controlcell1";
+    ATTRIBUTE Location OF \throttleTimer:TimerUDB:sCTRLReg:SyncCtl:ctrlreg\ : LABEL IS "U(1,0)";
+    ATTRIBUTE lib_model OF \throttleTimer:TimerUDB:rstSts:stsreg\ : LABEL IS "statusicell5";
+    ATTRIBUTE Location OF \throttleTimer:TimerUDB:rstSts:stsreg\ : LABEL IS "U(0,2)";
+    ATTRIBUTE lib_model OF \throttleTimer:TimerUDB:sT16:timerdp:u0\ : LABEL IS "datapathcell5";
+    ATTRIBUTE Location OF \throttleTimer:TimerUDB:sT16:timerdp:u0\ : LABEL IS "U(1,1)";
+    ATTRIBUTE lib_model OF \throttleTimer:TimerUDB:sT16:timerdp:u1\ : LABEL IS "datapathcell6";
+    ATTRIBUTE Location OF \throttleTimer:TimerUDB:sT16:timerdp:u1\ : LABEL IS "U(0,1)";
     ATTRIBUTE Location OF isr_throttle_Fall : LABEL IS "[IntrContainer=(0)][IntrId=(4)]";
     ATTRIBUTE lib_model OF \PWMHBro:PWMUDB:genblk1:ctrlreg\ : LABEL IS "controlcell2";
     ATTRIBUTE Location OF \PWMHBro:PWMUDB:genblk1:ctrlreg\ : LABEL IS "U(1,4)";
@@ -503,14 +503,14 @@ ARCHITECTURE __DEFAULT__ OF \00_Basic_Tx\ IS
     ATTRIBUTE Location OF \PWMServo:PWMUDB:sP16:pwmdp:u0\ : LABEL IS "U(0,5)";
     ATTRIBUTE lib_model OF \PWMServo:PWMUDB:sP16:pwmdp:u1\ : LABEL IS "datapathcell11";
     ATTRIBUTE Location OF \PWMServo:PWMUDB:sP16:pwmdp:u1\ : LABEL IS "U(1,5)";
-    ATTRIBUTE lib_model OF \SteeringTimer:TimerUDB:sCTRLReg:SyncCtl:ctrlreg\ : LABEL IS "controlcell5";
-    ATTRIBUTE Location OF \SteeringTimer:TimerUDB:sCTRLReg:SyncCtl:ctrlreg\ : LABEL IS "U(3,3)";
-    ATTRIBUTE lib_model OF \SteeringTimer:TimerUDB:rstSts:stsreg\ : LABEL IS "statusicell9";
-    ATTRIBUTE Location OF \SteeringTimer:TimerUDB:rstSts:stsreg\ : LABEL IS "U(3,3)";
-    ATTRIBUTE lib_model OF \SteeringTimer:TimerUDB:sT16:timerdp:u0\ : LABEL IS "datapathcell12";
-    ATTRIBUTE Location OF \SteeringTimer:TimerUDB:sT16:timerdp:u0\ : LABEL IS "U(2,3)";
-    ATTRIBUTE lib_model OF \SteeringTimer:TimerUDB:sT16:timerdp:u1\ : LABEL IS "datapathcell13";
-    ATTRIBUTE Location OF \SteeringTimer:TimerUDB:sT16:timerdp:u1\ : LABEL IS "U(3,3)";
+    ATTRIBUTE lib_model OF \steeringTimer:TimerUDB:sCTRLReg:SyncCtl:ctrlreg\ : LABEL IS "controlcell5";
+    ATTRIBUTE Location OF \steeringTimer:TimerUDB:sCTRLReg:SyncCtl:ctrlreg\ : LABEL IS "U(3,3)";
+    ATTRIBUTE lib_model OF \steeringTimer:TimerUDB:rstSts:stsreg\ : LABEL IS "statusicell9";
+    ATTRIBUTE Location OF \steeringTimer:TimerUDB:rstSts:stsreg\ : LABEL IS "U(3,3)";
+    ATTRIBUTE lib_model OF \steeringTimer:TimerUDB:sT16:timerdp:u0\ : LABEL IS "datapathcell12";
+    ATTRIBUTE Location OF \steeringTimer:TimerUDB:sT16:timerdp:u0\ : LABEL IS "U(2,3)";
+    ATTRIBUTE lib_model OF \steeringTimer:TimerUDB:sT16:timerdp:u1\ : LABEL IS "datapathcell13";
+    ATTRIBUTE Location OF \steeringTimer:TimerUDB:sT16:timerdp:u1\ : LABEL IS "U(3,3)";
     ATTRIBUTE lib_model OF \UART:BUART:txn\ : LABEL IS "macrocell23";
     ATTRIBUTE Location OF \UART:BUART:txn\ : LABEL IS "U(0,3)";
     ATTRIBUTE lib_model OF \UART:BUART:tx_state_1\ : LABEL IS "macrocell24";
@@ -557,12 +557,12 @@ ARCHITECTURE __DEFAULT__ OF \00_Basic_Tx\ IS
     ATTRIBUTE Location OF \SPI:BSPIM:ld_ident\ : LABEL IS "U(1,2)";
     ATTRIBUTE lib_model OF \SPI:BSPIM:cnt_enable\ : LABEL IS "macrocell45";
     ATTRIBUTE Location OF \SPI:BSPIM:cnt_enable\ : LABEL IS "U(1,1)";
-    ATTRIBUTE lib_model OF \Timer:TimerUDB:capture_last\ : LABEL IS "macrocell46";
-    ATTRIBUTE Location OF \Timer:TimerUDB:capture_last\ : LABEL IS "U(1,2)";
-    ATTRIBUTE lib_model OF \Timer:TimerUDB:trig_rise_detected\ : LABEL IS "macrocell47";
-    ATTRIBUTE Location OF \Timer:TimerUDB:trig_rise_detected\ : LABEL IS "U(1,0)";
-    ATTRIBUTE lib_model OF \Timer:TimerUDB:trig_fall_detected\ : LABEL IS "macrocell48";
-    ATTRIBUTE Location OF \Timer:TimerUDB:trig_fall_detected\ : LABEL IS "U(1,0)";
+    ATTRIBUTE lib_model OF \throttleTimer:TimerUDB:capture_last\ : LABEL IS "macrocell46";
+    ATTRIBUTE Location OF \throttleTimer:TimerUDB:capture_last\ : LABEL IS "U(1,2)";
+    ATTRIBUTE lib_model OF \throttleTimer:TimerUDB:trig_rise_detected\ : LABEL IS "macrocell47";
+    ATTRIBUTE Location OF \throttleTimer:TimerUDB:trig_rise_detected\ : LABEL IS "U(1,0)";
+    ATTRIBUTE lib_model OF \throttleTimer:TimerUDB:trig_fall_detected\ : LABEL IS "macrocell48";
+    ATTRIBUTE Location OF \throttleTimer:TimerUDB:trig_fall_detected\ : LABEL IS "U(1,0)";
     ATTRIBUTE lib_model OF \PWMHBro:PWMUDB:runmode_enable\ : LABEL IS "macrocell49";
     ATTRIBUTE Location OF \PWMHBro:PWMUDB:runmode_enable\ : LABEL IS "U(1,4)";
     ATTRIBUTE lib_model OF \PWMHBro:PWMUDB:prevCompare1\ : LABEL IS "macrocell50";
@@ -593,12 +593,12 @@ ARCHITECTURE __DEFAULT__ OF \00_Basic_Tx\ IS
     ATTRIBUTE Location OF \PWMServo:PWMUDB:status_0\ : LABEL IS "U(1,5)";
     ATTRIBUTE lib_model OF Net_1401 : LABEL IS "macrocell63";
     ATTRIBUTE Location OF Net_1401 : LABEL IS "U(1,5)";
-    ATTRIBUTE lib_model OF \SteeringTimer:TimerUDB:capture_last\ : LABEL IS "macrocell64";
-    ATTRIBUTE Location OF \SteeringTimer:TimerUDB:capture_last\ : LABEL IS "U(3,3)";
-    ATTRIBUTE lib_model OF \SteeringTimer:TimerUDB:trig_rise_detected\ : LABEL IS "macrocell65";
-    ATTRIBUTE Location OF \SteeringTimer:TimerUDB:trig_rise_detected\ : LABEL IS "U(2,3)";
-    ATTRIBUTE lib_model OF \SteeringTimer:TimerUDB:trig_fall_detected\ : LABEL IS "macrocell66";
-    ATTRIBUTE Location OF \SteeringTimer:TimerUDB:trig_fall_detected\ : LABEL IS "U(3,2)";
+    ATTRIBUTE lib_model OF \steeringTimer:TimerUDB:capture_last\ : LABEL IS "macrocell64";
+    ATTRIBUTE Location OF \steeringTimer:TimerUDB:capture_last\ : LABEL IS "U(3,3)";
+    ATTRIBUTE lib_model OF \steeringTimer:TimerUDB:trig_rise_detected\ : LABEL IS "macrocell65";
+    ATTRIBUTE Location OF \steeringTimer:TimerUDB:trig_rise_detected\ : LABEL IS "U(2,3)";
+    ATTRIBUTE lib_model OF \steeringTimer:TimerUDB:trig_fall_detected\ : LABEL IS "macrocell66";
+    ATTRIBUTE Location OF \steeringTimer:TimerUDB:trig_fall_detected\ : LABEL IS "U(3,2)";
     COMPONENT clockblockcell
         PORT (
             dclk_0 : OUT std_ulogic;
@@ -759,6 +759,8 @@ ARCHITECTURE __DEFAULT__ OF \00_Basic_Tx\ IS
             f0_blk_stat_comb : OUT std_ulogic;
             f1_bus_stat_comb : OUT std_ulogic;
             f1_blk_stat_comb : OUT std_ulogic;
+            ce0 : OUT std_ulogic;
+            ce0i : IN std_ulogic;
             p_in_0 : IN std_ulogic;
             p_in_1 : IN std_ulogic;
             p_in_2 : IN std_ulogic;
@@ -775,8 +777,6 @@ ARCHITECTURE __DEFAULT__ OF \00_Basic_Tx\ IS
             p_out_5 : OUT std_ulogic;
             p_out_6 : OUT std_ulogic;
             p_out_7 : OUT std_ulogic;
-            ce0i : IN std_ulogic;
-            ce0 : OUT std_ulogic;
             cl0i : IN std_ulogic;
             cl0 : OUT std_ulogic;
             z0i : IN std_ulogic;
@@ -814,11 +814,11 @@ ARCHITECTURE __DEFAULT__ OF \00_Basic_Tx\ IS
     END COMPONENT;
     COMPONENT iocell
         PORT (
+            pin_input : IN std_ulogic;
             oe : IN std_ulogic;
             fb : OUT std_ulogic;
-            pa_out : OUT std_ulogic;
-            pin_input : IN std_ulogic;
             pad_in : IN std_ulogic;
+            pa_out : OUT std_ulogic;
             pad_out : OUT std_ulogic;
             oe_reg : OUT std_ulogic;
             oe_internal : IN std_ulogic;
@@ -2605,41 +2605,41 @@ BEGIN
             main_4 => \SPI:BSPIM:count_0\,
             main_5 => \SPI:BSPIM:rx_status_4\);
 
-    \Timer:TimerUDB:capt_fifo_load\:macrocell
+    \throttleTimer:TimerUDB:capt_fifo_load\:macrocell
         GENERIC MAP(
             eqn_main => "(!main_0 * main_1 * main_2 * main_3 * main_4)",
             regmode => 0,
             clken_mode => 1)
         PORT MAP(
-            q => \Timer:TimerUDB:capt_fifo_load\,
+            q => \throttleTimer:TimerUDB:capt_fifo_load\,
             main_0 => Net_444,
-            main_1 => \Timer:TimerUDB:control_7\,
-            main_2 => \Timer:TimerUDB:control_4\,
-            main_3 => \Timer:TimerUDB:capture_last\,
-            main_4 => \Timer:TimerUDB:trig_rise_detected\);
+            main_1 => \throttleTimer:TimerUDB:control_7\,
+            main_2 => \throttleTimer:TimerUDB:control_4\,
+            main_3 => \throttleTimer:TimerUDB:capture_last\,
+            main_4 => \throttleTimer:TimerUDB:trig_rise_detected\);
 
-    \Timer:TimerUDB:status_tc\:macrocell
+    \throttleTimer:TimerUDB:status_tc\:macrocell
         GENERIC MAP(
             eqn_main => "(main_0 * main_1 * main_2 * main_3)",
             regmode => 0,
             clken_mode => 1)
         PORT MAP(
-            q => \Timer:TimerUDB:status_tc\,
-            main_0 => \Timer:TimerUDB:control_7\,
-            main_1 => \Timer:TimerUDB:control_4\,
-            main_2 => \Timer:TimerUDB:per_zero\,
-            main_3 => \Timer:TimerUDB:trig_rise_detected\);
+            q => \throttleTimer:TimerUDB:status_tc\,
+            main_0 => \throttleTimer:TimerUDB:control_7\,
+            main_1 => \throttleTimer:TimerUDB:control_4\,
+            main_2 => \throttleTimer:TimerUDB:per_zero\,
+            main_3 => \throttleTimer:TimerUDB:trig_rise_detected\);
 
-    \Timer:TimerUDB:trig_reg\:macrocell
+    \throttleTimer:TimerUDB:trig_reg\:macrocell
         GENERIC MAP(
             eqn_main => "(main_0 * main_1 * main_2)",
             regmode => 0,
             clken_mode => 1)
         PORT MAP(
-            q => \Timer:TimerUDB:trig_reg\,
-            main_0 => \Timer:TimerUDB:control_7\,
-            main_1 => \Timer:TimerUDB:control_4\,
-            main_2 => \Timer:TimerUDB:trig_rise_detected\);
+            q => \throttleTimer:TimerUDB:trig_reg\,
+            main_0 => \throttleTimer:TimerUDB:control_7\,
+            main_1 => \throttleTimer:TimerUDB:control_4\,
+            main_2 => \throttleTimer:TimerUDB:trig_rise_detected\);
 
     Net_706:macrocell
         GENERIC MAP(
@@ -2689,41 +2689,41 @@ BEGIN
             main_0 => \PWMServo:PWMUDB:runmode_enable\,
             main_1 => \PWMServo:PWMUDB:tc_i\);
 
-    \SteeringTimer:TimerUDB:capt_fifo_load\:macrocell
+    \steeringTimer:TimerUDB:capt_fifo_load\:macrocell
         GENERIC MAP(
             eqn_main => "(!main_0 * main_1 * main_2 * main_3 * main_4)",
             regmode => 0,
             clken_mode => 1)
         PORT MAP(
-            q => \SteeringTimer:TimerUDB:capt_fifo_load\,
+            q => \steeringTimer:TimerUDB:capt_fifo_load\,
             main_0 => Net_1529,
-            main_1 => \SteeringTimer:TimerUDB:control_7\,
-            main_2 => \SteeringTimer:TimerUDB:control_4\,
-            main_3 => \SteeringTimer:TimerUDB:capture_last\,
-            main_4 => \SteeringTimer:TimerUDB:trig_rise_detected\);
+            main_1 => \steeringTimer:TimerUDB:control_7\,
+            main_2 => \steeringTimer:TimerUDB:control_4\,
+            main_3 => \steeringTimer:TimerUDB:capture_last\,
+            main_4 => \steeringTimer:TimerUDB:trig_rise_detected\);
 
-    \SteeringTimer:TimerUDB:status_tc\:macrocell
+    \steeringTimer:TimerUDB:status_tc\:macrocell
         GENERIC MAP(
             eqn_main => "(main_0 * main_1 * main_2 * main_3)",
             regmode => 0,
             clken_mode => 1)
         PORT MAP(
-            q => \SteeringTimer:TimerUDB:status_tc\,
-            main_0 => \SteeringTimer:TimerUDB:control_7\,
-            main_1 => \SteeringTimer:TimerUDB:control_4\,
-            main_2 => \SteeringTimer:TimerUDB:per_zero\,
-            main_3 => \SteeringTimer:TimerUDB:trig_rise_detected\);
+            q => \steeringTimer:TimerUDB:status_tc\,
+            main_0 => \steeringTimer:TimerUDB:control_7\,
+            main_1 => \steeringTimer:TimerUDB:control_4\,
+            main_2 => \steeringTimer:TimerUDB:per_zero\,
+            main_3 => \steeringTimer:TimerUDB:trig_rise_detected\);
 
-    \SteeringTimer:TimerUDB:trig_reg\:macrocell
+    \steeringTimer:TimerUDB:trig_reg\:macrocell
         GENERIC MAP(
             eqn_main => "(main_0 * main_1 * main_2)",
             regmode => 0,
             clken_mode => 1)
         PORT MAP(
-            q => \SteeringTimer:TimerUDB:trig_reg\,
-            main_0 => \SteeringTimer:TimerUDB:control_7\,
-            main_1 => \SteeringTimer:TimerUDB:control_4\,
-            main_2 => \SteeringTimer:TimerUDB:trig_rise_detected\);
+            q => \steeringTimer:TimerUDB:trig_reg\,
+            main_0 => \steeringTimer:TimerUDB:control_7\,
+            main_1 => \steeringTimer:TimerUDB:control_4\,
+            main_2 => \steeringTimer:TimerUDB:trig_rise_detected\);
 
     isr_IRQ:interrupt
         GENERIC MAP(
@@ -3027,7 +3027,7 @@ BEGIN
             interrupt => Net_932,
             clock => ClockBlock_BUS_CLK);
 
-    \Timer:TimerUDB:sCTRLReg:SyncCtl:ctrlreg\:controlcell
+    \throttleTimer:TimerUDB:sCTRLReg:SyncCtl:ctrlreg\:controlcell
         GENERIC MAP(
             cy_ctrl_mode_0 => "11111111",
             cy_ctrl_mode_1 => "00000000",
@@ -3038,17 +3038,17 @@ BEGIN
             clken_mode => 1)
         PORT MAP(
             clock => Net_757,
-            control_7 => \Timer:TimerUDB:control_7\,
-            control_6 => \Timer:TimerUDB:control_6\,
-            control_5 => \Timer:TimerUDB:control_5\,
-            control_4 => \Timer:TimerUDB:control_4\,
-            control_3 => \Timer:TimerUDB:control_3\,
-            control_2 => \Timer:TimerUDB:control_2\,
-            control_1 => \Timer:TimerUDB:control_1\,
-            control_0 => \Timer:TimerUDB:control_0\,
+            control_7 => \throttleTimer:TimerUDB:control_7\,
+            control_6 => \throttleTimer:TimerUDB:control_6\,
+            control_5 => \throttleTimer:TimerUDB:control_5\,
+            control_4 => \throttleTimer:TimerUDB:control_4\,
+            control_3 => \throttleTimer:TimerUDB:control_3\,
+            control_2 => \throttleTimer:TimerUDB:control_2\,
+            control_1 => \throttleTimer:TimerUDB:control_1\,
+            control_0 => \throttleTimer:TimerUDB:control_0\,
             busclk => ClockBlock_BUS_CLK);
 
-    \Timer:TimerUDB:rstSts:stsreg\:statusicell
+    \throttleTimer:TimerUDB:rstSts:stsreg\:statusicell
         GENERIC MAP(
             cy_force_order => 1,
             cy_int_mask => "1111111",
@@ -3062,12 +3062,12 @@ BEGIN
             status_6 => open,
             status_5 => open,
             status_4 => open,
-            status_3 => \Timer:TimerUDB:status_3\,
-            status_2 => \Timer:TimerUDB:status_2\,
-            status_1 => \Timer:TimerUDB:capt_fifo_load\,
-            status_0 => \Timer:TimerUDB:status_tc\);
+            status_3 => \throttleTimer:TimerUDB:status_3\,
+            status_2 => \throttleTimer:TimerUDB:status_2\,
+            status_1 => \throttleTimer:TimerUDB:capt_fifo_load\,
+            status_0 => \throttleTimer:TimerUDB:status_tc\);
 
-    \Timer:TimerUDB:sT16:timerdp:u0\:datapathcell
+    \throttleTimer:TimerUDB:sT16:timerdp:u0\:datapathcell
         GENERIC MAP(
             a0_init => "00000000",
             a1_init => "00000000",
@@ -3097,25 +3097,25 @@ BEGIN
         PORT MAP(
             clock => Net_757,
             cs_addr_2 => Net_706,
-            cs_addr_1 => \Timer:TimerUDB:trig_reg\,
-            cs_addr_0 => \Timer:TimerUDB:per_zero\,
-            f0_load => \Timer:TimerUDB:capt_fifo_load\,
+            cs_addr_1 => \throttleTimer:TimerUDB:trig_reg\,
+            cs_addr_0 => \throttleTimer:TimerUDB:per_zero\,
+            f0_load => \throttleTimer:TimerUDB:capt_fifo_load\,
             busclk => ClockBlock_BUS_CLK,
-            ce0 => \Timer:TimerUDB:sT16:timerdp:u0.ce0__sig\,
-            cl0 => \Timer:TimerUDB:sT16:timerdp:u0.cl0__sig\,
-            z0 => \Timer:TimerUDB:sT16:timerdp:u0.z0__sig\,
-            ff0 => \Timer:TimerUDB:sT16:timerdp:u0.ff0__sig\,
-            ce1 => \Timer:TimerUDB:sT16:timerdp:u0.ce1__sig\,
-            cl1 => \Timer:TimerUDB:sT16:timerdp:u0.cl1__sig\,
-            z1 => \Timer:TimerUDB:sT16:timerdp:u0.z1__sig\,
-            ff1 => \Timer:TimerUDB:sT16:timerdp:u0.ff1__sig\,
-            co_msb => \Timer:TimerUDB:sT16:timerdp:u0.co_msb__sig\,
-            sol_msb => \Timer:TimerUDB:sT16:timerdp:u0.sol_msb__sig\,
-            cfbo => \Timer:TimerUDB:sT16:timerdp:u0.cfbo__sig\,
-            sil => \Timer:TimerUDB:sT16:timerdp:u1.sor__sig\,
-            cmsbi => \Timer:TimerUDB:sT16:timerdp:u1.cmsbo__sig\);
+            ce0 => \throttleTimer:TimerUDB:sT16:timerdp:u0.ce0__sig\,
+            cl0 => \throttleTimer:TimerUDB:sT16:timerdp:u0.cl0__sig\,
+            z0 => \throttleTimer:TimerUDB:sT16:timerdp:u0.z0__sig\,
+            ff0 => \throttleTimer:TimerUDB:sT16:timerdp:u0.ff0__sig\,
+            ce1 => \throttleTimer:TimerUDB:sT16:timerdp:u0.ce1__sig\,
+            cl1 => \throttleTimer:TimerUDB:sT16:timerdp:u0.cl1__sig\,
+            z1 => \throttleTimer:TimerUDB:sT16:timerdp:u0.z1__sig\,
+            ff1 => \throttleTimer:TimerUDB:sT16:timerdp:u0.ff1__sig\,
+            co_msb => \throttleTimer:TimerUDB:sT16:timerdp:u0.co_msb__sig\,
+            sol_msb => \throttleTimer:TimerUDB:sT16:timerdp:u0.sol_msb__sig\,
+            cfbo => \throttleTimer:TimerUDB:sT16:timerdp:u0.cfbo__sig\,
+            sil => \throttleTimer:TimerUDB:sT16:timerdp:u1.sor__sig\,
+            cmsbi => \throttleTimer:TimerUDB:sT16:timerdp:u1.cmsbo__sig\);
 
-    \Timer:TimerUDB:sT16:timerdp:u1\:datapathcell
+    \throttleTimer:TimerUDB:sT16:timerdp:u1\:datapathcell
         GENERIC MAP(
             a0_init => "00000000",
             a1_init => "00000000",
@@ -3145,26 +3145,26 @@ BEGIN
         PORT MAP(
             clock => Net_757,
             cs_addr_2 => Net_706,
-            cs_addr_1 => \Timer:TimerUDB:trig_reg\,
-            cs_addr_0 => \Timer:TimerUDB:per_zero\,
-            f0_load => \Timer:TimerUDB:capt_fifo_load\,
-            z0_comb => \Timer:TimerUDB:per_zero\,
-            f0_bus_stat_comb => \Timer:TimerUDB:status_3\,
-            f0_blk_stat_comb => \Timer:TimerUDB:status_2\,
+            cs_addr_1 => \throttleTimer:TimerUDB:trig_reg\,
+            cs_addr_0 => \throttleTimer:TimerUDB:per_zero\,
+            f0_load => \throttleTimer:TimerUDB:capt_fifo_load\,
+            z0_comb => \throttleTimer:TimerUDB:per_zero\,
+            f0_bus_stat_comb => \throttleTimer:TimerUDB:status_3\,
+            f0_blk_stat_comb => \throttleTimer:TimerUDB:status_2\,
             busclk => ClockBlock_BUS_CLK,
-            ce0i => \Timer:TimerUDB:sT16:timerdp:u0.ce0__sig\,
-            cl0i => \Timer:TimerUDB:sT16:timerdp:u0.cl0__sig\,
-            z0i => \Timer:TimerUDB:sT16:timerdp:u0.z0__sig\,
-            ff0i => \Timer:TimerUDB:sT16:timerdp:u0.ff0__sig\,
-            ce1i => \Timer:TimerUDB:sT16:timerdp:u0.ce1__sig\,
-            cl1i => \Timer:TimerUDB:sT16:timerdp:u0.cl1__sig\,
-            z1i => \Timer:TimerUDB:sT16:timerdp:u0.z1__sig\,
-            ff1i => \Timer:TimerUDB:sT16:timerdp:u0.ff1__sig\,
-            ci => \Timer:TimerUDB:sT16:timerdp:u0.co_msb__sig\,
-            sir => \Timer:TimerUDB:sT16:timerdp:u0.sol_msb__sig\,
-            cfbi => \Timer:TimerUDB:sT16:timerdp:u0.cfbo__sig\,
-            sor => \Timer:TimerUDB:sT16:timerdp:u1.sor__sig\,
-            cmsbo => \Timer:TimerUDB:sT16:timerdp:u1.cmsbo__sig\);
+            ce0i => \throttleTimer:TimerUDB:sT16:timerdp:u0.ce0__sig\,
+            cl0i => \throttleTimer:TimerUDB:sT16:timerdp:u0.cl0__sig\,
+            z0i => \throttleTimer:TimerUDB:sT16:timerdp:u0.z0__sig\,
+            ff0i => \throttleTimer:TimerUDB:sT16:timerdp:u0.ff0__sig\,
+            ce1i => \throttleTimer:TimerUDB:sT16:timerdp:u0.ce1__sig\,
+            cl1i => \throttleTimer:TimerUDB:sT16:timerdp:u0.cl1__sig\,
+            z1i => \throttleTimer:TimerUDB:sT16:timerdp:u0.z1__sig\,
+            ff1i => \throttleTimer:TimerUDB:sT16:timerdp:u0.ff1__sig\,
+            ci => \throttleTimer:TimerUDB:sT16:timerdp:u0.co_msb__sig\,
+            sir => \throttleTimer:TimerUDB:sT16:timerdp:u0.sol_msb__sig\,
+            cfbi => \throttleTimer:TimerUDB:sT16:timerdp:u0.cfbo__sig\,
+            sor => \throttleTimer:TimerUDB:sT16:timerdp:u1.sor__sig\,
+            cmsbo => \throttleTimer:TimerUDB:sT16:timerdp:u1.cmsbo__sig\);
 
     isr_throttle_Fall:interrupt
         GENERIC MAP(
@@ -3523,7 +3523,7 @@ BEGIN
             sor => \PWMServo:PWMUDB:sP16:pwmdp:u1.sor__sig\,
             cmsbo => \PWMServo:PWMUDB:sP16:pwmdp:u1.cmsbo__sig\);
 
-    \SteeringTimer:TimerUDB:sCTRLReg:SyncCtl:ctrlreg\:controlcell
+    \steeringTimer:TimerUDB:sCTRLReg:SyncCtl:ctrlreg\:controlcell
         GENERIC MAP(
             cy_ctrl_mode_0 => "11111111",
             cy_ctrl_mode_1 => "00000000",
@@ -3534,17 +3534,17 @@ BEGIN
             clken_mode => 1)
         PORT MAP(
             clock => Net_757,
-            control_7 => \SteeringTimer:TimerUDB:control_7\,
-            control_6 => \SteeringTimer:TimerUDB:control_6\,
-            control_5 => \SteeringTimer:TimerUDB:control_5\,
-            control_4 => \SteeringTimer:TimerUDB:control_4\,
-            control_3 => \SteeringTimer:TimerUDB:control_3\,
-            control_2 => \SteeringTimer:TimerUDB:control_2\,
-            control_1 => \SteeringTimer:TimerUDB:control_1\,
-            control_0 => \SteeringTimer:TimerUDB:control_0\,
+            control_7 => \steeringTimer:TimerUDB:control_7\,
+            control_6 => \steeringTimer:TimerUDB:control_6\,
+            control_5 => \steeringTimer:TimerUDB:control_5\,
+            control_4 => \steeringTimer:TimerUDB:control_4\,
+            control_3 => \steeringTimer:TimerUDB:control_3\,
+            control_2 => \steeringTimer:TimerUDB:control_2\,
+            control_1 => \steeringTimer:TimerUDB:control_1\,
+            control_0 => \steeringTimer:TimerUDB:control_0\,
             busclk => ClockBlock_BUS_CLK);
 
-    \SteeringTimer:TimerUDB:rstSts:stsreg\:statusicell
+    \steeringTimer:TimerUDB:rstSts:stsreg\:statusicell
         GENERIC MAP(
             cy_force_order => 1,
             cy_int_mask => "1111111",
@@ -3558,12 +3558,12 @@ BEGIN
             status_6 => open,
             status_5 => open,
             status_4 => open,
-            status_3 => \SteeringTimer:TimerUDB:status_3\,
-            status_2 => \SteeringTimer:TimerUDB:status_2\,
-            status_1 => \SteeringTimer:TimerUDB:capt_fifo_load\,
-            status_0 => \SteeringTimer:TimerUDB:status_tc\);
+            status_3 => \steeringTimer:TimerUDB:status_3\,
+            status_2 => \steeringTimer:TimerUDB:status_2\,
+            status_1 => \steeringTimer:TimerUDB:capt_fifo_load\,
+            status_0 => \steeringTimer:TimerUDB:status_tc\);
 
-    \SteeringTimer:TimerUDB:sT16:timerdp:u0\:datapathcell
+    \steeringTimer:TimerUDB:sT16:timerdp:u0\:datapathcell
         GENERIC MAP(
             a0_init => "00000000",
             a1_init => "00000000",
@@ -3593,25 +3593,25 @@ BEGIN
         PORT MAP(
             clock => Net_757,
             cs_addr_2 => Net_1530,
-            cs_addr_1 => \SteeringTimer:TimerUDB:trig_reg\,
-            cs_addr_0 => \SteeringTimer:TimerUDB:per_zero\,
-            f0_load => \SteeringTimer:TimerUDB:capt_fifo_load\,
+            cs_addr_1 => \steeringTimer:TimerUDB:trig_reg\,
+            cs_addr_0 => \steeringTimer:TimerUDB:per_zero\,
+            f0_load => \steeringTimer:TimerUDB:capt_fifo_load\,
             busclk => ClockBlock_BUS_CLK,
-            ce0 => \SteeringTimer:TimerUDB:sT16:timerdp:u0.ce0__sig\,
-            cl0 => \SteeringTimer:TimerUDB:sT16:timerdp:u0.cl0__sig\,
-            z0 => \SteeringTimer:TimerUDB:sT16:timerdp:u0.z0__sig\,
-            ff0 => \SteeringTimer:TimerUDB:sT16:timerdp:u0.ff0__sig\,
-            ce1 => \SteeringTimer:TimerUDB:sT16:timerdp:u0.ce1__sig\,
-            cl1 => \SteeringTimer:TimerUDB:sT16:timerdp:u0.cl1__sig\,
-            z1 => \SteeringTimer:TimerUDB:sT16:timerdp:u0.z1__sig\,
-            ff1 => \SteeringTimer:TimerUDB:sT16:timerdp:u0.ff1__sig\,
-            co_msb => \SteeringTimer:TimerUDB:sT16:timerdp:u0.co_msb__sig\,
-            sol_msb => \SteeringTimer:TimerUDB:sT16:timerdp:u0.sol_msb__sig\,
-            cfbo => \SteeringTimer:TimerUDB:sT16:timerdp:u0.cfbo__sig\,
-            sil => \SteeringTimer:TimerUDB:sT16:timerdp:u1.sor__sig\,
-            cmsbi => \SteeringTimer:TimerUDB:sT16:timerdp:u1.cmsbo__sig\);
+            ce0 => \steeringTimer:TimerUDB:sT16:timerdp:u0.ce0__sig\,
+            cl0 => \steeringTimer:TimerUDB:sT16:timerdp:u0.cl0__sig\,
+            z0 => \steeringTimer:TimerUDB:sT16:timerdp:u0.z0__sig\,
+            ff0 => \steeringTimer:TimerUDB:sT16:timerdp:u0.ff0__sig\,
+            ce1 => \steeringTimer:TimerUDB:sT16:timerdp:u0.ce1__sig\,
+            cl1 => \steeringTimer:TimerUDB:sT16:timerdp:u0.cl1__sig\,
+            z1 => \steeringTimer:TimerUDB:sT16:timerdp:u0.z1__sig\,
+            ff1 => \steeringTimer:TimerUDB:sT16:timerdp:u0.ff1__sig\,
+            co_msb => \steeringTimer:TimerUDB:sT16:timerdp:u0.co_msb__sig\,
+            sol_msb => \steeringTimer:TimerUDB:sT16:timerdp:u0.sol_msb__sig\,
+            cfbo => \steeringTimer:TimerUDB:sT16:timerdp:u0.cfbo__sig\,
+            sil => \steeringTimer:TimerUDB:sT16:timerdp:u1.sor__sig\,
+            cmsbi => \steeringTimer:TimerUDB:sT16:timerdp:u1.cmsbo__sig\);
 
-    \SteeringTimer:TimerUDB:sT16:timerdp:u1\:datapathcell
+    \steeringTimer:TimerUDB:sT16:timerdp:u1\:datapathcell
         GENERIC MAP(
             a0_init => "00000000",
             a1_init => "00000000",
@@ -3641,26 +3641,26 @@ BEGIN
         PORT MAP(
             clock => Net_757,
             cs_addr_2 => Net_1530,
-            cs_addr_1 => \SteeringTimer:TimerUDB:trig_reg\,
-            cs_addr_0 => \SteeringTimer:TimerUDB:per_zero\,
-            f0_load => \SteeringTimer:TimerUDB:capt_fifo_load\,
-            z0_comb => \SteeringTimer:TimerUDB:per_zero\,
-            f0_bus_stat_comb => \SteeringTimer:TimerUDB:status_3\,
-            f0_blk_stat_comb => \SteeringTimer:TimerUDB:status_2\,
+            cs_addr_1 => \steeringTimer:TimerUDB:trig_reg\,
+            cs_addr_0 => \steeringTimer:TimerUDB:per_zero\,
+            f0_load => \steeringTimer:TimerUDB:capt_fifo_load\,
+            z0_comb => \steeringTimer:TimerUDB:per_zero\,
+            f0_bus_stat_comb => \steeringTimer:TimerUDB:status_3\,
+            f0_blk_stat_comb => \steeringTimer:TimerUDB:status_2\,
             busclk => ClockBlock_BUS_CLK,
-            ce0i => \SteeringTimer:TimerUDB:sT16:timerdp:u0.ce0__sig\,
-            cl0i => \SteeringTimer:TimerUDB:sT16:timerdp:u0.cl0__sig\,
-            z0i => \SteeringTimer:TimerUDB:sT16:timerdp:u0.z0__sig\,
-            ff0i => \SteeringTimer:TimerUDB:sT16:timerdp:u0.ff0__sig\,
-            ce1i => \SteeringTimer:TimerUDB:sT16:timerdp:u0.ce1__sig\,
-            cl1i => \SteeringTimer:TimerUDB:sT16:timerdp:u0.cl1__sig\,
-            z1i => \SteeringTimer:TimerUDB:sT16:timerdp:u0.z1__sig\,
-            ff1i => \SteeringTimer:TimerUDB:sT16:timerdp:u0.ff1__sig\,
-            ci => \SteeringTimer:TimerUDB:sT16:timerdp:u0.co_msb__sig\,
-            sir => \SteeringTimer:TimerUDB:sT16:timerdp:u0.sol_msb__sig\,
-            cfbi => \SteeringTimer:TimerUDB:sT16:timerdp:u0.cfbo__sig\,
-            sor => \SteeringTimer:TimerUDB:sT16:timerdp:u1.sor__sig\,
-            cmsbo => \SteeringTimer:TimerUDB:sT16:timerdp:u1.cmsbo__sig\);
+            ce0i => \steeringTimer:TimerUDB:sT16:timerdp:u0.ce0__sig\,
+            cl0i => \steeringTimer:TimerUDB:sT16:timerdp:u0.cl0__sig\,
+            z0i => \steeringTimer:TimerUDB:sT16:timerdp:u0.z0__sig\,
+            ff0i => \steeringTimer:TimerUDB:sT16:timerdp:u0.ff0__sig\,
+            ce1i => \steeringTimer:TimerUDB:sT16:timerdp:u0.ce1__sig\,
+            cl1i => \steeringTimer:TimerUDB:sT16:timerdp:u0.cl1__sig\,
+            z1i => \steeringTimer:TimerUDB:sT16:timerdp:u0.z1__sig\,
+            ff1i => \steeringTimer:TimerUDB:sT16:timerdp:u0.ff1__sig\,
+            ci => \steeringTimer:TimerUDB:sT16:timerdp:u0.co_msb__sig\,
+            sir => \steeringTimer:TimerUDB:sT16:timerdp:u0.sol_msb__sig\,
+            cfbi => \steeringTimer:TimerUDB:sT16:timerdp:u0.cfbo__sig\,
+            sor => \steeringTimer:TimerUDB:sT16:timerdp:u1.sor__sig\,
+            cmsbo => \steeringTimer:TimerUDB:sT16:timerdp:u1.cmsbo__sig\);
 
     \UART:BUART:txn\:macrocell
         GENERIC MAP(
@@ -4035,45 +4035,45 @@ BEGIN
             main_2 => \SPI:BSPIM:state_0\,
             main_3 => \SPI:BSPIM:cnt_enable\);
 
-    \Timer:TimerUDB:capture_last\:macrocell
+    \throttleTimer:TimerUDB:capture_last\:macrocell
         GENERIC MAP(
             eqn_main => "(main_0)",
             regmode => 1,
             clk_inv => '0',
             clken_mode => 1)
         PORT MAP(
-            q => \Timer:TimerUDB:capture_last\,
+            q => \throttleTimer:TimerUDB:capture_last\,
             clock_0 => Net_757,
             main_0 => Net_444);
 
-    \Timer:TimerUDB:trig_rise_detected\:macrocell
+    \throttleTimer:TimerUDB:trig_rise_detected\:macrocell
         GENERIC MAP(
             eqn_main => "(main_0 * main_1 * main_2 * !main_3) + (main_0 * main_1 * main_2 * main_4)",
             regmode => 1,
             clk_inv => '0',
             clken_mode => 1)
         PORT MAP(
-            q => \Timer:TimerUDB:trig_rise_detected\,
+            q => \throttleTimer:TimerUDB:trig_rise_detected\,
             clock_0 => Net_757,
             main_0 => Net_444,
-            main_1 => \Timer:TimerUDB:control_7\,
-            main_2 => \Timer:TimerUDB:control_4\,
-            main_3 => \Timer:TimerUDB:capture_last\,
-            main_4 => \Timer:TimerUDB:trig_rise_detected\);
+            main_1 => \throttleTimer:TimerUDB:control_7\,
+            main_2 => \throttleTimer:TimerUDB:control_4\,
+            main_3 => \throttleTimer:TimerUDB:capture_last\,
+            main_4 => \throttleTimer:TimerUDB:trig_rise_detected\);
 
-    \Timer:TimerUDB:trig_fall_detected\:macrocell
+    \throttleTimer:TimerUDB:trig_fall_detected\:macrocell
         GENERIC MAP(
             eqn_main => "(main_0 * main_1 * main_2 * main_3)",
             regmode => 1,
             clk_inv => '0',
             clken_mode => 1)
         PORT MAP(
-            q => \Timer:TimerUDB:trig_fall_detected\,
+            q => \throttleTimer:TimerUDB:trig_fall_detected\,
             clock_0 => Net_757,
             main_0 => Net_444,
-            main_1 => \Timer:TimerUDB:control_7\,
-            main_2 => \Timer:TimerUDB:control_4\,
-            main_3 => \Timer:TimerUDB:trig_fall_detected\);
+            main_1 => \throttleTimer:TimerUDB:control_7\,
+            main_2 => \throttleTimer:TimerUDB:control_4\,
+            main_3 => \throttleTimer:TimerUDB:trig_fall_detected\);
 
     \PWMHBro:PWMUDB:runmode_enable\:macrocell
         GENERIC MAP(
@@ -4248,44 +4248,44 @@ BEGIN
             main_0 => \PWMServo:PWMUDB:runmode_enable\,
             main_1 => \PWMServo:PWMUDB:cmp1_less\);
 
-    \SteeringTimer:TimerUDB:capture_last\:macrocell
+    \steeringTimer:TimerUDB:capture_last\:macrocell
         GENERIC MAP(
             eqn_main => "(main_0)",
             regmode => 1,
             clk_inv => '0',
             clken_mode => 1)
         PORT MAP(
-            q => \SteeringTimer:TimerUDB:capture_last\,
+            q => \steeringTimer:TimerUDB:capture_last\,
             clock_0 => Net_757,
             main_0 => Net_1529);
 
-    \SteeringTimer:TimerUDB:trig_rise_detected\:macrocell
+    \steeringTimer:TimerUDB:trig_rise_detected\:macrocell
         GENERIC MAP(
             eqn_main => "(main_0 * main_1 * main_2 * !main_3) + (main_0 * main_1 * main_2 * main_4)",
             regmode => 1,
             clk_inv => '0',
             clken_mode => 1)
         PORT MAP(
-            q => \SteeringTimer:TimerUDB:trig_rise_detected\,
+            q => \steeringTimer:TimerUDB:trig_rise_detected\,
             clock_0 => Net_757,
             main_0 => Net_1529,
-            main_1 => \SteeringTimer:TimerUDB:control_7\,
-            main_2 => \SteeringTimer:TimerUDB:control_4\,
-            main_3 => \SteeringTimer:TimerUDB:capture_last\,
-            main_4 => \SteeringTimer:TimerUDB:trig_rise_detected\);
+            main_1 => \steeringTimer:TimerUDB:control_7\,
+            main_2 => \steeringTimer:TimerUDB:control_4\,
+            main_3 => \steeringTimer:TimerUDB:capture_last\,
+            main_4 => \steeringTimer:TimerUDB:trig_rise_detected\);
 
-    \SteeringTimer:TimerUDB:trig_fall_detected\:macrocell
+    \steeringTimer:TimerUDB:trig_fall_detected\:macrocell
         GENERIC MAP(
             eqn_main => "(main_0 * main_1 * main_2 * main_3)",
             regmode => 1,
             clk_inv => '0',
             clken_mode => 1)
         PORT MAP(
-            q => \SteeringTimer:TimerUDB:trig_fall_detected\,
+            q => \steeringTimer:TimerUDB:trig_fall_detected\,
             clock_0 => Net_757,
             main_0 => Net_1529,
-            main_1 => \SteeringTimer:TimerUDB:control_7\,
-            main_2 => \SteeringTimer:TimerUDB:control_4\,
-            main_3 => \SteeringTimer:TimerUDB:trig_fall_detected\);
+            main_1 => \steeringTimer:TimerUDB:control_7\,
+            main_2 => \steeringTimer:TimerUDB:control_4\,
+            main_3 => \steeringTimer:TimerUDB:trig_fall_detected\);
 
 END __DEFAULT__;

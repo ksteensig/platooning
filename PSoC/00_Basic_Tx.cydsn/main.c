@@ -1,7 +1,8 @@
 /*
- * 01_Basic_Tx
- * 
- * The nrf24 radio is configured to transmit 1 byte payload.
+ * Leader code
+ *      Updates 15/01-19 include:
+ *      -   restructuring of code (Kristoffer/Alexander)
+ * The nrf24 radio is configured to transmit 2 byte payload.
  */
 
 #include "project.h"
@@ -9,239 +10,249 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-volatile uint16 SteeringVal = 1500;
-volatile uint16 ThrottleVal = 1550;
+// Debugging
+#define DEBUGSPEED true
+#define DEBUGTXDATA true
+#define DEBUGALL false
+char txBuffer[100];
 
-    const unsigned char PWMBufferSize = 5;
-    long PWMSum=5*1500;
-    uint16 PWMFiltered = 1550;
-    uint16 PWMBuffer[5]={1550,1550,1550,1550,1550};
-    bool newThrottleVal = 1;
-    bool newSteeringVal = 1;
-    bool newSendVal = 1;
-    uint8 bufIndex = 0;
-    unsigned char txData[2] = {0,0};
-    
-    
-    const uint16 t_left  = 1750;
-    const uint16 t_right = 1100;
- //   uint16 t_center=(t_left+t_right)/2;
-    
-    
-    
-CY_ISR(isr_SEND)
+// Measured values from TF-3 controller
+volatile uint16 steeringVal = 1500; // Initial value is to avoid speeding at startup
+volatile uint16 throttleVal = 1550; // Initial value is to avoid speeding at startup
+
+// Ring buffer variables
+const unsigned char throttleBufferSize = 5;
+long throttleSum=5*1500;
+uint16 throttleFiltered = 1550;
+uint16 throttleBuffer[5]={1550,1550,1550,1550,1550};
+uint8 throttleBufferIndex = 0;
+
+// NRF data to transmit.
+unsigned char txData[2] = {0,0};
+
+// Left and Right timings of servo motor.
+const uint16 t_left  = 1750;
+const uint16 t_right = 1100;
+
+// Flags for loop
+bool throttleFlag = 1;
+bool steeringFlag = 1;
+bool sendFlag = 1;
+
+// Other variables
+uint8_t MAX_SPEED = 255;
+
+CY_ISR(isr_SEND) //Activated from a timer in topdesign, every 10 ms.
 {
-  //  LED_Write(1);
-newSendVal=1;
+    // Just set flag for the main loop
+    sendFlag=1;
 
 }
 
-// saves timer value and calculate the throttleValue 
+
+// saves timer value and calculate the throttleValue
 CY_ISR(isr_THROTTLE_FALL)
 {
-    ThrottleVal = (10000-Timer_ReadCapture());
-    
-    uint16_t PWMVal = -ThrottleVal/4+375;
-    
-    if (PWMVal > 60 && PWMVal < 90) {
-        PWMVal = 60;
-    } else if (PWMVal > 90) {
-        PWMVal = 130;
+    // Timer_ReadCapture is counting from 10000 down to microseconds of HIGH time on throttle signal.
+    throttleVal = (10000-throttleTimer_ReadCapture());
+
+    // Failsafe, If outside range 900 - 2100, reset throttleval to neutral position.
+    if(throttleVal > 2100 || throttleVal < 900)
+    {
+        throttleVal = 1550;
     }
-    
-    ThrottleVal = -(PWMVal - 375) * 4;
-    
-    newThrottleVal = 1;
+
+    // Capping to specific values, used for mapping and maths in SetMotorPWM().
+    if (throttleVal < 1000)
+    {
+        throttleVal = 1000;
+    }
+    else if (throttleVal > 2000)
+    {
+        throttleVal = 2000;
+    }
+    throttleFlag = 1; // Also set flag
 
 }
+
 
 CY_ISR(isr_STEERING_FALL)
 {
-    SteeringVal = (10000-SteeringTimer_ReadCapture());
-    newSteeringVal = 1;
+    // SteeringTimer_ReadCapture is counting from 10000 down to microseconds of HIGH time on steering signal.
+    steeringVal = (10000-steeringTimer_ReadCapture());
+    steeringFlag = 1; // Also set flag
+
+    // Failsafe
+    if(steeringVal > (t_left + 200) || steeringVal < (t_right - 200))
+    {
+        steeringVal = (t_left + t_right) / 2;
+    }
+
+    // Capping for use in flag function
+    if(steeringVal > t_left)
+    {
+        steeringVal = t_left;
+    }
+    else if(steeringVal < t_right)
+    {
+        steeringVal = t_right;
+    }
 
 }
+
+// Function used to map a value from one range to another. Stolen from https://forum.arduino.cc/index.php?topic=280819.0
+int16_t map(int16_t x, int16_t in_min, int16_t in_max, int16_t out_min, int16_t out_max)
+{
+  return (x - in_min) * (out_max - out_min + 1) / (in_max - in_min + 1) + out_min;
+
+}
+
 
 // remove old measurement from PWMSum add new and return average of sum.
-uint16 PWMFilter(uint16 Measurement)
+uint16 throttleFilter(uint16 Measurement)
 {
-    //if value out of limits set failsafe value 1550
-    if(Measurement>2100)
+    // Remove old data from throttleSum
+    throttleSum -= throttleBuffer[throttleBufferIndex];
+
+    // Save new data in ringbuffer and add to throttleSum.
+    throttleBuffer[throttleBufferIndex] = Measurement;
+    throttleSum += throttleBuffer[throttleBufferIndex];
+
+    // Increment index and check for wrap-arround.
+    throttleBufferIndex++;
+    if(throttleBufferIndex >= throttleBufferSize)
     {
-        Measurement=1550;
+        throttleBufferIndex=0;
     }
-    if(Measurement<900)
-    {
-        Measurement=1550;
-    }
-    
-    PWMSum -= PWMBuffer[bufIndex];
-    PWMBuffer[bufIndex] = Measurement;
-    PWMSum+=PWMBuffer[bufIndex];
-    bufIndex++;
-    
-    if(bufIndex>=PWMBufferSize)
-    {
-        bufIndex=0;
-    }
-    return PWMSum/PWMBufferSize;
+
+    //return average
+    return throttleSum / throttleBufferSize;
 }
 
-void SetPWM(uint16 Speed)
+void SetMotorPWM(uint16 Speed) // Speed should range 1000-2000
 {
-    //set forward speed (0-250)
-    if(Speed<1500)
-    {        
-    //limit lower value used for forward speed        
-        if(Speed < 1000)
-        {
-            Speed=1000;
-        }
-        
-        P1_Write(1);
-        P2_Write(0);
-        PWMHBro_WriteCompare1((-Speed/4)+375);
+    if(Speed<1500) // set forward speed
+    {
+        if(Speed < 1000){ Speed = 1000;} // Limit lower value
+
+        P1_Write(1); // Enables forward driving
+        P2_Write(0); // Disables backwards driving
+        PWMHBro_WriteCompare1(map(Speed, 1499, 1000, 0, MAX_SPEED));
         PWMHBro_WriteCompare2(0);
     }
-    // pasive PWM brake (0-250)
-    else if(Speed > 1600)
+    else if(Speed > 1600) // short PWM brake
     {
-        P1_Write(0);
-        P2_Write(0);
-        PWMHBro_WriteCompare1(255);
-        PWMHBro_WriteCompare2(255);
+        /*  Short the motors wires through ground. Meaning we close the upper
+        *   FETS and open the lower FETS. See Schematic for H-bridge */
+
+        P1_Write(0);                // Close the High-Side MOSFET
+        P2_Write(0);                // Close the other High-Side MOSFET
+        PWMHBro_WriteCompare1(255); // Open the Low-Side MOSFET
+        PWMHBro_WriteCompare2(255); // Open the other Low-Side MOSFET
         // PWM_WriteCompare1((Speed-1600)/1.6);
     }
-    // coast mode (disabled by setting pwm to 255)
-    else
+    else // coast mode
     {
         P1_Write(0);
         P2_Write(0);
         PWMHBro_WriteCompare1(0);
         PWMHBro_WriteCompare2(0);
     }
+
+    if(DEBUGSPEED || DEBUGALL)
+    {
+        sprintf(txBuffer, "Speed = %d, mapped to: %d\n\r", Speed, map(Speed, 1499, 1000, 0, MAX_SPEED));
+        UART_PutString(txBuffer);
+    }
+
 }
 
-    
+
 int main(void)
 {
-      
 
-
-
-    // interrupt setup for throttle and send 
+    // interrupt setup for throttle, steering and send
     CyGlobalIntEnable;
-       
     isr_send_StartEx(isr_SEND);
     isr_throttle_Fall_StartEx(isr_THROTTLE_FALL);
     isr_steering_Fall_StartEx(isr_STEERING_FALL);
-    
+
     // Throttle component init
-    Timer_Start();
-    Clock_Start();  
-    
+    throttleTimer_Start();
+    Clock_Start();
+
     // Send component init
     PWMSend_Start();
-    
+
     // H-bridge component init
     PWMHBro_Start();
     HBroClock_Start();
-    
+
     // Servo component init
     PWMServo_Start();
     ServoClock_Start();
-    SteeringTimer_Start();
+    steeringTimer_Start();
 
-    
     // uart init
     UART_Start();
-    UART_PutChar(0x0C);
-    UART_PutString("Basic project: Tx\r\n");
-    
+
     // nrf24L01+ init
-    const uint8_t TX_ADDR[5]= {0xBA, 0xAD, 0xC0, 0xFF, 0xEE};
+    const uint8_t TX_ADDR[5]= {0xBA, 0xAD, 0xC0, 0xFF, 0xEE}; // This might be the MAC adress on the receiver... Need someone to confirm.
     nRF24_start();
-    nRF24_set_rx_pipe_address(NRF_ADDR_PIPE0, TX_ADDR, 5);      // set tx pipe address to match the receiver address
+    nRF24_set_rx_pipe_address(NRF_ADDR_PIPE0, TX_ADDR, 5);    // set tx pipe address to match the receiver address
     nRF24_set_tx_address(TX_ADDR, 5);
-    nRF24_set_tx_address(TX_ADDR, 5);       
-        
-    
+    nRF24_set_tx_address(TX_ADDR, 5);
+
     while (1)
     {
-                   
-        if(newThrottleVal)
+
+        if(throttleFlag) // throttleFlag is set in CY_ISR(isr_THROTTLE_FALL)
         {
-            newThrottleVal=0;
-            PWMFiltered=PWMFilter(ThrottleVal);
-            SetPWM(PWMFiltered); 
+            throttleFlag = 0;
+            throttleFiltered = throttleFilter(throttleVal);
+            SetMotorPWM(throttleFiltered);
         }
-        
-        if(newSteeringVal)
+
+        if(steeringFlag)
         {
-            // if steeringVal is out of range center servo
-          /*  if(SteeringVal>1900)
+            // set servo PWM time and reset steeringFlag
+            PWMServo_WriteCompare(steeringVal);
+            steeringFlag = 0;
+        }
+
+        if(sendFlag)
+        {
+
+            // sets Throttle value sendt to PF car
+            if(throttleFiltered<1500) // If throttle is pressed throttleFiltered will be under 1500.
             {
-                SteeringVal=(1900+1000)/2;
+                txData[0] = map(throttleFiltered, 1499, 1000, 0, MAX_SPEED);
             }
-            if(SteeringVal<1000)
+            else
             {
-                SteeringVal=(1900+1000)/2;
-            }*/
-            // set servoval and reset steeringVal flag
-            PWMServo_WriteCompare(SteeringVal);
-            newSteeringVal=0;
-        }
-        
-        
-        if(newSendVal)
-        {
- 
-        // sets Throttle value sendt to PF car
-        if(PWMFiltered<1500)
-        {    
-            txData[0] =( -PWMFiltered/4 )+375;
-        }
-        else
-        {
-            txData[0] = 0;
-        }
-        
+                txData[0] = 0;
+            }
 
-        
-        //txData[1]=SteeringVal/(((t_right-t_left)/60)+((t_left+t_right)/2));
-        
-         txData[1]=-(SteeringVal-((t_left+t_right)/2))/11;
-               
-     
-            char txBuffer[100];
-            
-            //sprintf(txBuffer,"ThFilt:%d\t txData: %d\t steerPwm %d\t ServoPwm: %d\n",PWMFiltered,txData[0],SteeringVal,txData[1]);
-            //UART_PutString(txBuffer);
-              
-            nRF24_set_tx_address(TX_ADDR, 5);    
-     
-    
-      //UART_PutChar(0x0C);
-       // UART_PutString("Type a letter...");
-        // wait until we get a letter to send
-        //while(0 == UART_GetRxBufferSize());
-        // get the letter
-        //data = UART_GetChar();
-        
+            txData[1]=-(steeringVal-((t_left+t_right)/2))/11;
 
-        nRF24_transmit(txData, 2);
-        speaker_Write(1);
-        CyDelayUs(200);
-        speaker_Write(0);
-        
-        //UART_ClearRxBuffer();
-        //UART_ClearTxBuffer();  
-        LED_Write(!LED_Read()); 
-        newSendVal=0;
+            if(DEBUGTXDATA || DEBUGALL)
+            {
+                sprintf(txBuffer,"ThrotFilt :%d\t txData: %d\t txData[1]: %d\t steeringVal: %d\t \n\r", throttleFiltered, txData[0], txData[1], steeringVal);
+                UART_PutString(txBuffer);
+            }
+
+            //nRF24_set_tx_address(TX_ADDR, 5);
+
+            nRF24_transmit(txData, 2);
+
+            speaker_Write(1);
+            CyDelayUs(200);
+            speaker_Write(0);
+
+            LED_Write(!LED_Read());
+            sendFlag=0;
         }
     }
 }
-
-
 
 /* [] END OF FILE */
