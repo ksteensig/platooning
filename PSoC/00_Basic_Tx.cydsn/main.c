@@ -11,8 +11,8 @@
 #include <stdio.h>
 
 // Debugging
-#define DEBUGSPEED true
-#define DEBUGTXDATA true
+#define DEBUGSPEED false
+#define DEBUGTXDATA false
 #define DEBUGALL false
 char txBuffer[100];
 
@@ -237,7 +237,7 @@ int main(void)
 
             if(DEBUGTXDATA || DEBUGALL)
             {
-                sprintf(txBuffer,"ThrotFilt :%d\t txData: %d\t txData[1]: %d\t steeringVal: %d\t \n\r", throttleFiltered, txData[0], txData[1], steeringVal);
+                sprintf(txBuffer,"ThrotFilt: %d\t txData: %d\t txData[1]: %d\t steeringVal: %d\t \n\r", throttleFiltered, txData[0], txData[1], steeringVal);
                 UART_PutString(txBuffer);
             }
 
