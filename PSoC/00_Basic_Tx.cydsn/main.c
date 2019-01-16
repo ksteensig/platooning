@@ -40,7 +40,7 @@ bool steeringFlag = 1;
 bool sendFlag = 1;
 
 // Other variables
-uint8_t MAX_SPEED = 255;
+uint8_t MAX_SPEED = 125;
 
 CY_ISR(isr_SEND) //Activated from a timer in topdesign, every 10 ms.
 {
@@ -231,7 +231,7 @@ int main(void)
             }
             else if(throttleFiltered>1600)
             {
-            txData[0] = map(throttleFiltered,1601,2000,0,MAX_SPEED);
+            txData[0] = 255-map(throttleFiltered,1601,2000,0,MAX_SPEED);
             }
             else
             {
