@@ -383,7 +383,7 @@
   </block>
   <block name="DMA_B_Filter" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="cy_boot" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="Pin_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Em_EEPROM_Dynamic" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="Pin_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="P1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="killswitchP" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
@@ -799,7 +799,7 @@
       <register name="Maximum_Peak_Detector_A_Sample_Hold_Standby_Power_Manager_Register" address="0x400043B9" bitWidth="8" desc="SC StandBy power Manager Register" hidden="false">
         <field name="en_swcap" from="3" to="0" access="RW" resetVal="" desc="Enable switchcap block(s) during the standby Power mode. Populated subsystems are counted from the LSB, for example bit 0 corresponds to switchcap block 0." hidden="false" />
       </register>
-      <register name="Maximum_Peak_Detector_A_Sample_Hold_Control_Register0" address="0x40005800" bitWidth="8" desc="SC_CR0 Register" hidden="false">
+      <register name="Maximum_Peak_Detector_A_Sample_Hold_Control_Register0" address="0x40005804" bitWidth="8" desc="SC_CR0 Register" hidden="false">
         <field name="mode" from="3" to="1" access="R" resetVal="" desc="Configuration selection for SC block" hidden="false">
           <value name="SC_MODE_NAKED_OPAMP" value="0" desc="Naked Op-Amp" />
           <value name="SC_MODE_TIA" value="001" desc="Transimpedance Amplifier (TIA)" />
@@ -817,7 +817,7 @@
           <value name="SC_DFT_RESET" value="11" desc="DFT Rreset" />
         </field>
       </register>
-      <register name="Maximum_Peak_Detector_A_Sample_Hold_Control_Register1" address="0x40005801" bitWidth="8" desc="SC_CR1 Register" hidden="false">
+      <register name="Maximum_Peak_Detector_A_Sample_Hold_Control_Register1" address="0x40005805" bitWidth="8" desc="SC_CR1 Register" hidden="false">
         <field name="gain" from="5" to="5" access="RW" resetVal="" desc="Controls the ratio of the feedback cap for S/H Mixer mode and PGA mode" hidden="false">
           <value name="GAIN_0DB" value="0" desc="0 dB" />
           <value name="GAIN_6DB" value="1" desc="6 dB" />
@@ -839,7 +839,7 @@
           <value name="I_LOAD_400UA" value="11" desc="400 uA" />
         </field>
       </register>
-      <register name="Maximum_Peak_Detector_A_Sample_Hold_Control_Register2" address="0x40005802" bitWidth="8" desc="SC_CR2 Register" hidden="false">
+      <register name="Maximum_Peak_Detector_A_Sample_Hold_Control_Register2" address="0x40005806" bitWidth="8" desc="SC_CR2 Register" hidden="false">
         <field name="pga_gndvref" from="7" to="7" access="RW" resetVal="" desc="Programmable Gain Amplifier Application - Ground VREF" hidden="false">
           <value name="SC_PGA_GNDVREF_DIS" value="0" desc="VREF not grounded" />
           <value name="SC_PGA_GNDVREF_EN" value="1" desc="VREF grounded" />
@@ -869,7 +869,7 @@
           <value name="BIAS_2X" value="1" desc="normal operation - 2x current reference to increase bandwidth" />
         </field>
       </register>
-      <register name="Maximum_Peak_Detector_A_Sample_Hold_Clock_Register" address="0x40005A0B" bitWidth="8" desc="SC_CLK Register" hidden="false">
+      <register name="Maximum_Peak_Detector_A_Sample_Hold_Clock_Register" address="0x40005A1B" bitWidth="8" desc="SC_CLK Register" hidden="false">
         <field name="dyn_cntl_en" from="5" to="5" access="RW" resetVal="" desc="Enable Dynamic Control (UDB generated clock source drives dynamic control)" hidden="false">
           <value name="DYN_CNTL_DIS" value="0" desc="Dynamic Control Disabled" />
           <value name="DYN_CNTL_EN" value="1" desc="Dynamic Control Enabled" />
@@ -893,7 +893,7 @@
           <value name="MX_CLK_7" value="111" desc="Reserved" />
         </field>
       </register>
-      <register name="Maximum_Peak_Detector_A_Sample_Hold_Boost_Register" address="0x40005A0C" bitWidth="8" desc="SC__BST Register" hidden="false">
+      <register name="Maximum_Peak_Detector_A_Sample_Hold_Boost_Register" address="0x40005A1C" bitWidth="8" desc="SC__BST Register" hidden="false">
         <field name="bst_clk_en" from="3" to="3" access="RW" resetVal="" desc="Clock gating control" hidden="false">
           <value name="CLK_EN_0" value="0" desc="disable clock" />
           <value name="CLK_EN_1" value="1" desc="enable clock" />
@@ -939,7 +939,7 @@
       <register name="Maximum_Peak_Detector_A_Comp_1_Comp_PM_STBY_CFG" address="0x400043B7" bitWidth="8" desc="Standby Power Mode Configuration Register 7" hidden="false">
         <field name="en_cmp" from="3" to="0" access="RW" resetVal="" desc="Enable comparator. Populated subsystems are counted from the LSB, for example bit 0 corresponds to comparator 0" hidden="false" />
       </register>
-      <register name="Maximum_Peak_Detector_A_Comp_1_Comp_TR0" address="0x40004634" bitWidth="8" desc="Comparator Trim Register_TR0" hidden="false">
+      <register name="Maximum_Peak_Detector_A_Comp_1_Comp_TR0" address="0x40004636" bitWidth="8" desc="Comparator Trim Register_TR0" hidden="false">
         <field name="trimA[4:0]" from="4" to="0" access="RW" resetVal="" desc="Sets the trim value to be added to the P-type load for offset calibration" hidden="false">
           <value name="TRIMA_0" value="00000" desc="Does not add any offset" />
           <value name="TRIMA_POS_SIDE_1" value="00001" desc="Adds offset of ~1mV to the positive side" />
@@ -961,7 +961,7 @@
           <value name="TRIMA_NEG_SIDE_9" value="10010" desc="Adds offset of ~8mV to the negative side" />
         </field>
       </register>
-      <register name="Maximum_Peak_Detector_A_Comp_1_Comp_TR1" address="0x40004635" bitWidth="8" desc="Comparator Trim Register_TR1" hidden="false">
+      <register name="Maximum_Peak_Detector_A_Comp_1_Comp_TR1" address="0x40004637" bitWidth="8" desc="Comparator Trim Register_TR1" hidden="false">
         <field name="trimB[4:0]" from="4" to="0" access="RW" resetVal="" desc="Sets the trim value to be added to the N-type load for offset calibration" hidden="false">
           <value name="TRIMB_0" value="00000" desc="Does not add any offset" />
           <value name="TRIMB_NEG_SIDE_1" value="00001" desc="Adds offset of ~1mV to the negative side" />
@@ -983,7 +983,7 @@
           <value name="TRIMB_POS_SIDE_8" value="10010" desc="Adds offset of ~8mV to the positive side" />
         </field>
       </register>
-      <register name="Maximum_Peak_Detector_A_Comp_1_Comp_CR" address="0x40005842" bitWidth="8" desc="Comparator Control Register" hidden="false">
+      <register name="Maximum_Peak_Detector_A_Comp_1_Comp_CR" address="0x40005843" bitWidth="8" desc="Comparator Control Register" hidden="false">
         <field name="filt" from="6" to="6" access="RW" resetVal="" desc="enables a glitch filter at the output of the comparator" hidden="false">
           <value name="FILT_DISABLE" value="0" desc="Disable glitch filter" />
           <value name="FILT_ENABLE" value="1" desc="Enable glitch filter" />
@@ -1011,7 +1011,7 @@
           <value name="SEL_ILLEGAL" value="11" desc="Illegal Mode" />
         </field>
       </register>
-      <register name="Maximum_Peak_Detector_A_Comp_1_Comp_SW0" address="0x40005AD0" bitWidth="8" desc="Comparator Analog Routing Register 0" hidden="false">
+      <register name="Maximum_Peak_Detector_A_Comp_1_Comp_SW0" address="0x40005AD8" bitWidth="8" desc="Comparator Analog Routing Register 0" hidden="false">
         <field name="vp_ag7" from="7" to="7" access="RW" resetVal="" desc="Connect positive voltage input to analog global of same side " hidden="false">
           <value name="AG_NC" value="0" desc="not connected" />
           <value name="AG_CONNECTED" value="1" desc="Connect to Analog Global" />
@@ -1045,7 +1045,7 @@
           <value name="AG_CONNECTED" value="1" desc="Connect to Analog Global" />
         </field>
       </register>
-      <register name="Maximum_Peak_Detector_A_Comp_1_Comp_SW2" address="0x40005AD2" bitWidth="8" desc="Comparator Analog Routing Register 2" hidden="false">
+      <register name="Maximum_Peak_Detector_A_Comp_1_Comp_SW2" address="0x40005ADA" bitWidth="8" desc="Comparator Analog Routing Register 2" hidden="false">
         <field name="vp_abus1" from="1" to="1" access="RW" resetVal="" desc="Connect positive voltage input to analog (local) bus of the same side" hidden="false">
           <value name="ABUS_NC" value="0" desc="not connected" />
           <value name="ABUS_CONNECTED" value="1" desc="Connect to Analog (local) Bus" />
@@ -1055,7 +1055,7 @@
           <value name="ABUS_CONNECTED" value="1" desc="Connect to Analog (local) Bus" />
         </field>
       </register>
-      <register name="Maximum_Peak_Detector_A_Comp_1_Comp_SW3" address="0x40005AD3" bitWidth="8" desc="Comparator Analog Routing Register 3" hidden="false">
+      <register name="Maximum_Peak_Detector_A_Comp_1_Comp_SW3" address="0x40005ADB" bitWidth="8" desc="Comparator Analog Routing Register 3" hidden="false">
         <field name="vn_vref1" from="6" to="6" access="RW" resetVal="" desc="Connect negative voltage input to Voltage Reference 1" hidden="false">
           <value name="VREF_NC" value="0" desc="not connected" />
           <value name="VREF_CONNECTED" value="1" desc="Connect to Voltage Reference" />
@@ -1077,7 +1077,7 @@
           <value name="AMX_CONNECTED" value="1" desc="Connect to AMUXBUS" />
         </field>
       </register>
-      <register name="Maximum_Peak_Detector_A_Comp_1_Comp_SW4" address="0x40005AD4" bitWidth="8" desc="Comparator Analog Routing Register 4" hidden="false">
+      <register name="Maximum_Peak_Detector_A_Comp_1_Comp_SW4" address="0x40005ADC" bitWidth="8" desc="Comparator Analog Routing Register 4" hidden="false">
         <field name="vn_ag6" from="6" to="6" access="RW" resetVal="" desc="Connect negative voltage input to analog global of same side" hidden="false">
           <value name="AG_NC" value="0" desc="not connected" />
           <value name="AG_CONNECTED" value="1" desc="Connect to Analog Global" />
@@ -1095,7 +1095,7 @@
           <value name="AG_CONNECTED" value="1" desc="Connect to Analog Global" />
         </field>
       </register>
-      <register name="Maximum_Peak_Detector_A_Comp_1_Comp_SW6" address="0x40005AD6" bitWidth="8" desc="Comparator Analog Routing Register 6" hidden="false">
+      <register name="Maximum_Peak_Detector_A_Comp_1_Comp_SW6" address="0x40005ADE" bitWidth="8" desc="Comparator Analog Routing Register 6" hidden="false">
         <field name="vn_abus3" from="3" to="3" access="RW" resetVal="" desc="Connect negative voltage input to analog (local) bus of the same side" hidden="false">
           <value name="ABUS_NC" value="0" desc="not connected" />
           <value name="ABUS_CONNECTED" value="1" desc="Connect to Analog (local) Bus" />
@@ -1105,7 +1105,7 @@
           <value name="ABUS_CONNECTED" value="1" desc="Connect to Analog (local) Bus" />
         </field>
       </register>
-      <register name="Maximum_Peak_Detector_A_Comp_1_Comp_CLK" address="0x40005AD7" bitWidth="8" desc="Comparator Clock Control Register" hidden="false">
+      <register name="Maximum_Peak_Detector_A_Comp_1_Comp_CLK" address="0x40005ADF" bitWidth="8" desc="Comparator Clock Control Register" hidden="false">
         <field name="bypass_sync" from="4" to="4" access="RW" resetVal="" desc="Bypass Synchronization" hidden="false">
           <value name="BYPASS_SYNC_0" value="0" desc="Synchronization not bypassed (Synchronization enabled)" />
           <value name="BYPASS_SYNC_1" value="1" desc="Synchronization bypassed (Synchronization disabled)" />
