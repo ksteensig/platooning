@@ -12,7 +12,7 @@
 
 // Debugging
 #define DEBUGSPEED false
-#define DEBUGTXDATA false
+#define DEBUGTXDATA true
 #define DEBUGALL false
 char txBuffer[100];
 
@@ -148,7 +148,8 @@ void SetMotorPWM(uint16 Speed) // Speed should range 1000-2000
         P1_Write(0);                // Close the High-Side MOSFET
         P2_Write(0);                // Close the other High-Side MOSFET
         PWMHBro_WriteCompare1(255); // Open the Low-Side MOSFET
-        PWMHBro_WriteCompare2(255); // Open the other Low-Side MOSFET
+        PWMHBro_WriteCompare2(map(Speed,1601,2000,0,MAX_SPEED)); // Open the other Low-Side MOSFET
+        
         // PWM_WriteCompare1((Speed-1600)/1.6);
     }
     else // coast mode
@@ -227,6 +228,10 @@ int main(void)
             if(throttleFiltered<1500) // If throttle is pressed throttleFiltered will be under 1500.
             {
                 txData[0] = map(throttleFiltered, 1499, 1000, 0, MAX_SPEED);
+            }
+            else if(throttleFiltered>1600)
+            {
+            txData[0] = map(throttleFiltered,1601,2000,0,MAX_SPEED);
             }
             else
             {
