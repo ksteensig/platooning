@@ -8,7 +8,7 @@ typedef struct {
     float angle;       // angle between platoon follower and platoon leader
     
     /* feedforward parameters */
-    uint16_t velocity;   // platoon leader velocity
+    int16_t velocity;   // platoon leader velocity
     int8_t leader_angle; // angle of platoon leader's wheels
 } sensor_t;
 
@@ -16,7 +16,7 @@ sensor_t sensor_init() {
     return (sensor_t){0, 0, 0, 0};
 }
 
-void sensor_update_feedforward_params(sensor_t *s, uint16_t velocity, int8_t leader_angle) {
+void sensor_update_feedforward_params(sensor_t *s, int16_t velocity, int8_t leader_angle) {
     s->velocity = velocity;
     s->leader_angle = leader_angle;
 }

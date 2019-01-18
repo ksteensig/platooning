@@ -14,7 +14,7 @@ CY_ISR_PROTO(IRQ_Handler);
 /* NRF address */
 const uint8_t RX_ADDR[5]= {0xBA, 0xAD, 0xC0, 0xFF, 0xEE};
 
-#define DATA_SIZE 2500
+#define DATA_SIZE 1500
 
 // signal data for signal A and B
 uint16_t DataA[DATA_SIZE];
@@ -58,7 +58,7 @@ CY_ISR(IRQ_Handler)
     nRF24_get_rx_payload(data, 2);
     
     // data[0] = velocity, data[1] = leader_angle
-    sensor_update_feedforward_params(&sensor_data, data[0], data[1]);
+    sensor_update_feedforward_params(&sensor_data, (int8_t)data[0], data[1]);
 }
 
 int main(void)

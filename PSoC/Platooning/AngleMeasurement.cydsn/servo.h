@@ -27,7 +27,7 @@ servo_t servo_init(float reference_angle, float Kp) {
  * leader_angle: platoon leader's angle
  * velocity: current pwm for the velocity
  */
-void servo_update(servo_t *s, float angle, int leader_angle, uint16_t velocity) {    
+void servo_update(servo_t *s, float angle, int leader_angle, int16_t velocity) {    
     float weighted_Kp = s->Kp;
     
     s->leader_angles[2] = s->leader_angles[1];
@@ -40,7 +40,7 @@ void servo_update(servo_t *s, float angle, int leader_angle, uint16_t velocity) 
        s->previous_angles[0] = angle;
     }
     
-    if (velocity) {
+    if (velocity > 0) {
         if (!(s->Kp/(velocity*0.031*0.58) < s->Kp)) {
             weighted_Kp = s->Kp/(velocity*0.031*0.58);
         }
