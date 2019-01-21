@@ -1,0 +1,970 @@
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrRv49a.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"DMA_A_dma.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.DMA_A_DmaInitialize,"ax",%progbits
+  20              		.align	1
+  21              		.global	DMA_A_DmaInitialize
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	DMA_A_DmaInitialize, %function
+  25              	DMA_A_DmaInitialize:
+  26              	.LFB0:
+  27              		.file 1 "Generated_Source\\PSoC5\\DMA_A_dma.c"
+   1:Generated_Source\PSoC5/DMA_A_dma.c **** /***************************************************************************
+   2:Generated_Source\PSoC5/DMA_A_dma.c **** * File Name: DMA_A_dma.c  
+   3:Generated_Source\PSoC5/DMA_A_dma.c **** * Version 1.70
+   4:Generated_Source\PSoC5/DMA_A_dma.c **** *
+   5:Generated_Source\PSoC5/DMA_A_dma.c **** *  Description:
+   6:Generated_Source\PSoC5/DMA_A_dma.c **** *   Provides an API for the DMAC component. The API includes functions
+   7:Generated_Source\PSoC5/DMA_A_dma.c **** *   for the DMA controller, DMA channels and Transfer Descriptors.
+   8:Generated_Source\PSoC5/DMA_A_dma.c **** *
+   9:Generated_Source\PSoC5/DMA_A_dma.c **** *
+  10:Generated_Source\PSoC5/DMA_A_dma.c **** *   Note:
+  11:Generated_Source\PSoC5/DMA_A_dma.c **** *     This module requires the developer to finish or fill in the auto
+  12:Generated_Source\PSoC5/DMA_A_dma.c **** *     generated funcions and setup the dma channel and TD's.
+  13:Generated_Source\PSoC5/DMA_A_dma.c **** *
+  14:Generated_Source\PSoC5/DMA_A_dma.c **** ********************************************************************************
+  15:Generated_Source\PSoC5/DMA_A_dma.c **** * Copyright 2008-2010, Cypress Semiconductor Corporation.  All rights reserved.
+  16:Generated_Source\PSoC5/DMA_A_dma.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  17:Generated_Source\PSoC5/DMA_A_dma.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  18:Generated_Source\PSoC5/DMA_A_dma.c **** * the software package with which this file was provided.
+  19:Generated_Source\PSoC5/DMA_A_dma.c **** ********************************************************************************/
+  20:Generated_Source\PSoC5/DMA_A_dma.c **** #include <CYLIB.H>
+  21:Generated_Source\PSoC5/DMA_A_dma.c **** #include <CYDMAC.H>
+  22:Generated_Source\PSoC5/DMA_A_dma.c **** #include <DMA_A_dma.H>
+  23:Generated_Source\PSoC5/DMA_A_dma.c **** 
+  24:Generated_Source\PSoC5/DMA_A_dma.c **** 
+  25:Generated_Source\PSoC5/DMA_A_dma.c **** 
+  26:Generated_Source\PSoC5/DMA_A_dma.c **** /****************************************************************************
+  27:Generated_Source\PSoC5/DMA_A_dma.c **** * 
+  28:Generated_Source\PSoC5/DMA_A_dma.c **** * The following defines are available in Cyfitter.h
+  29:Generated_Source\PSoC5/DMA_A_dma.c **** * 
+  30:Generated_Source\PSoC5/DMA_A_dma.c **** * 
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrRv49a.s 			page 2
+
+
+  31:Generated_Source\PSoC5/DMA_A_dma.c **** * 
+  32:Generated_Source\PSoC5/DMA_A_dma.c **** * DMA_A__DRQ_CTL_REG
+  33:Generated_Source\PSoC5/DMA_A_dma.c **** * 
+  34:Generated_Source\PSoC5/DMA_A_dma.c **** * 
+  35:Generated_Source\PSoC5/DMA_A_dma.c **** * DMA_A__DRQ_NUMBER
+  36:Generated_Source\PSoC5/DMA_A_dma.c **** * 
+  37:Generated_Source\PSoC5/DMA_A_dma.c **** * Number of TD's used by this channel.
+  38:Generated_Source\PSoC5/DMA_A_dma.c **** * DMA_A__NUMBEROF_TDS
+  39:Generated_Source\PSoC5/DMA_A_dma.c **** * 
+  40:Generated_Source\PSoC5/DMA_A_dma.c **** * Priority of this channel.
+  41:Generated_Source\PSoC5/DMA_A_dma.c **** * DMA_A__PRIORITY
+  42:Generated_Source\PSoC5/DMA_A_dma.c **** * 
+  43:Generated_Source\PSoC5/DMA_A_dma.c **** * True if DMA_A_TERMIN_SEL is used.
+  44:Generated_Source\PSoC5/DMA_A_dma.c **** * DMA_A__TERMIN_EN
+  45:Generated_Source\PSoC5/DMA_A_dma.c **** * 
+  46:Generated_Source\PSoC5/DMA_A_dma.c **** * TERMIN interrupt line to signal terminate.
+  47:Generated_Source\PSoC5/DMA_A_dma.c **** * DMA_A__TERMIN_SEL
+  48:Generated_Source\PSoC5/DMA_A_dma.c **** * 
+  49:Generated_Source\PSoC5/DMA_A_dma.c **** * 
+  50:Generated_Source\PSoC5/DMA_A_dma.c **** * True if DMA_A_TERMOUT0_SEL is used.
+  51:Generated_Source\PSoC5/DMA_A_dma.c **** * DMA_A__TERMOUT0_EN
+  52:Generated_Source\PSoC5/DMA_A_dma.c **** * 
+  53:Generated_Source\PSoC5/DMA_A_dma.c **** * 
+  54:Generated_Source\PSoC5/DMA_A_dma.c **** * TERMOUT0 interrupt line to signal completion.
+  55:Generated_Source\PSoC5/DMA_A_dma.c **** * DMA_A__TERMOUT0_SEL
+  56:Generated_Source\PSoC5/DMA_A_dma.c **** * 
+  57:Generated_Source\PSoC5/DMA_A_dma.c **** * 
+  58:Generated_Source\PSoC5/DMA_A_dma.c **** * True if DMA_A_TERMOUT1_SEL is used.
+  59:Generated_Source\PSoC5/DMA_A_dma.c **** * DMA_A__TERMOUT1_EN
+  60:Generated_Source\PSoC5/DMA_A_dma.c **** * 
+  61:Generated_Source\PSoC5/DMA_A_dma.c **** * 
+  62:Generated_Source\PSoC5/DMA_A_dma.c **** * TERMOUT1 interrupt line to signal completion.
+  63:Generated_Source\PSoC5/DMA_A_dma.c **** * DMA_A__TERMOUT1_SEL
+  64:Generated_Source\PSoC5/DMA_A_dma.c **** * 
+  65:Generated_Source\PSoC5/DMA_A_dma.c **** ****************************************************************************/
+  66:Generated_Source\PSoC5/DMA_A_dma.c **** 
+  67:Generated_Source\PSoC5/DMA_A_dma.c **** 
+  68:Generated_Source\PSoC5/DMA_A_dma.c **** /* Zero based index of DMA_A dma channel */
+  69:Generated_Source\PSoC5/DMA_A_dma.c **** uint8 DMA_A_DmaHandle = DMA_INVALID_CHANNEL;
+  70:Generated_Source\PSoC5/DMA_A_dma.c **** 
+  71:Generated_Source\PSoC5/DMA_A_dma.c **** /*********************************************************************
+  72:Generated_Source\PSoC5/DMA_A_dma.c **** * Function Name: uint8 DMA_A_DmaInitalize
+  73:Generated_Source\PSoC5/DMA_A_dma.c **** **********************************************************************
+  74:Generated_Source\PSoC5/DMA_A_dma.c **** * Summary:
+  75:Generated_Source\PSoC5/DMA_A_dma.c **** *   Allocates and initialises a channel of the DMAC to be used by the
+  76:Generated_Source\PSoC5/DMA_A_dma.c **** *   caller.
+  77:Generated_Source\PSoC5/DMA_A_dma.c **** *
+  78:Generated_Source\PSoC5/DMA_A_dma.c **** * Parameters:
+  79:Generated_Source\PSoC5/DMA_A_dma.c **** *   BurstCount.
+  80:Generated_Source\PSoC5/DMA_A_dma.c **** *       
+  81:Generated_Source\PSoC5/DMA_A_dma.c **** *       
+  82:Generated_Source\PSoC5/DMA_A_dma.c **** *   ReqestPerBurst.
+  83:Generated_Source\PSoC5/DMA_A_dma.c **** *       
+  84:Generated_Source\PSoC5/DMA_A_dma.c **** *       
+  85:Generated_Source\PSoC5/DMA_A_dma.c **** *   UpperSrcAddress.
+  86:Generated_Source\PSoC5/DMA_A_dma.c **** *       
+  87:Generated_Source\PSoC5/DMA_A_dma.c **** *       
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrRv49a.s 			page 3
+
+
+  88:Generated_Source\PSoC5/DMA_A_dma.c **** *   UpperDestAddress.
+  89:Generated_Source\PSoC5/DMA_A_dma.c **** *       
+  90:Generated_Source\PSoC5/DMA_A_dma.c **** *
+  91:Generated_Source\PSoC5/DMA_A_dma.c **** * Return:
+  92:Generated_Source\PSoC5/DMA_A_dma.c **** *   The channel that can be used by the caller for DMA activity.
+  93:Generated_Source\PSoC5/DMA_A_dma.c **** *   DMA_INVALID_CHANNEL (0xFF) if there are no channels left. 
+  94:Generated_Source\PSoC5/DMA_A_dma.c **** *
+  95:Generated_Source\PSoC5/DMA_A_dma.c **** *
+  96:Generated_Source\PSoC5/DMA_A_dma.c **** *******************************************************************/
+  97:Generated_Source\PSoC5/DMA_A_dma.c **** uint8 DMA_A_DmaInitialize(uint8 BurstCount, uint8 ReqestPerBurst, uint16 UpperSrcAddress, uint16 Up
+  98:Generated_Source\PSoC5/DMA_A_dma.c **** {
+  28              		.loc 1 98 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 73B5     		push	{r0, r1, r4, r5, r6, lr}
+  34              		.cfi_def_cfa_offset 24
+  35              		.cfi_offset 4, -16
+  36              		.cfi_offset 5, -12
+  37              		.cfi_offset 6, -8
+  38              		.cfi_offset 14, -4
+  39              		.loc 1 98 0
+  40 0002 1546     		mov	r5, r2
+  41 0004 1E46     		mov	r6, r3
+  99:Generated_Source\PSoC5/DMA_A_dma.c **** 
+ 100:Generated_Source\PSoC5/DMA_A_dma.c ****     /* Allocate a DMA channel. */
+ 101:Generated_Source\PSoC5/DMA_A_dma.c ****     DMA_A_DmaHandle = (uint8)DMA_A__DRQ_NUMBER;
+  42              		.loc 1 101 0
+  43 0006 0B4C     		ldr	r4, .L2
+  44 0008 0023     		movs	r3, #0
+  45              	.LVL1:
+ 102:Generated_Source\PSoC5/DMA_A_dma.c **** 
+ 103:Generated_Source\PSoC5/DMA_A_dma.c ****     /* Configure the channel. */
+ 104:Generated_Source\PSoC5/DMA_A_dma.c ****     (void)CyDmaChSetConfiguration(DMA_A_DmaHandle,
+  46              		.loc 1 104 0
+  47 000a 0193     		str	r3, [sp, #4]
+  48 000c 0093     		str	r3, [sp]
+  49 000e 0A46     		mov	r2, r1
+  50              	.LVL2:
+  51 0010 0146     		mov	r1, r0
+  52              	.LVL3:
+  53 0012 1846     		mov	r0, r3
+  54              	.LVL4:
+ 101:Generated_Source\PSoC5/DMA_A_dma.c **** 
+  55              		.loc 1 101 0
+  56 0014 2370     		strb	r3, [r4]
+  57              		.loc 1 104 0
+  58 0016 FFF7FEFF 		bl	CyDmaChSetConfiguration
+  59              	.LVL5:
+ 105:Generated_Source\PSoC5/DMA_A_dma.c ****                                   BurstCount,
+ 106:Generated_Source\PSoC5/DMA_A_dma.c ****                                   ReqestPerBurst,
+ 107:Generated_Source\PSoC5/DMA_A_dma.c ****                                   (uint8)DMA_A__TERMOUT0_SEL,
+ 108:Generated_Source\PSoC5/DMA_A_dma.c ****                                   (uint8)DMA_A__TERMOUT1_SEL,
+ 109:Generated_Source\PSoC5/DMA_A_dma.c ****                                   (uint8)DMA_A__TERMIN_SEL);
+ 110:Generated_Source\PSoC5/DMA_A_dma.c **** 
+ 111:Generated_Source\PSoC5/DMA_A_dma.c ****     /* Set the extended address for the transfers */
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrRv49a.s 			page 4
+
+
+ 112:Generated_Source\PSoC5/DMA_A_dma.c ****     (void)CyDmaChSetExtendedAddress(DMA_A_DmaHandle, UpperSrcAddress, UpperDestAddress);
+  60              		.loc 1 112 0
+  61 001a 3246     		mov	r2, r6
+  62 001c 2946     		mov	r1, r5
+  63 001e 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+  64 0020 FFF7FEFF 		bl	CyDmaChSetExtendedAddress
+  65              	.LVL6:
+ 113:Generated_Source\PSoC5/DMA_A_dma.c **** 
+ 114:Generated_Source\PSoC5/DMA_A_dma.c ****     /* Set the priority for this channel */
+ 115:Generated_Source\PSoC5/DMA_A_dma.c ****     (void)CyDmaChPriority(DMA_A_DmaHandle, (uint8)DMA_A__PRIORITY);
+  66              		.loc 1 115 0
+  67 0024 0221     		movs	r1, #2
+  68 0026 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+  69 0028 FFF7FEFF 		bl	CyDmaChPriority
+  70              	.LVL7:
+ 116:Generated_Source\PSoC5/DMA_A_dma.c ****     
+ 117:Generated_Source\PSoC5/DMA_A_dma.c ****     return DMA_A_DmaHandle;
+ 118:Generated_Source\PSoC5/DMA_A_dma.c **** }
+  71              		.loc 1 118 0
+  72 002c 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+  73 002e 02B0     		add	sp, sp, #8
+  74              		.cfi_def_cfa_offset 16
+  75              		@ sp needed
+  76 0030 70BD     		pop	{r4, r5, r6, pc}
+  77              	.L3:
+  78 0032 00BF     		.align	2
+  79              	.L2:
+  80 0034 00000000 		.word	.LANCHOR0
+  81              		.cfi_endproc
+  82              	.LFE0:
+  83              		.size	DMA_A_DmaInitialize, .-DMA_A_DmaInitialize
+  84              		.section	.text.DMA_A_DmaRelease,"ax",%progbits
+  85              		.align	1
+  86              		.global	DMA_A_DmaRelease
+  87              		.thumb
+  88              		.thumb_func
+  89              		.type	DMA_A_DmaRelease, %function
+  90              	DMA_A_DmaRelease:
+  91              	.LFB1:
+ 119:Generated_Source\PSoC5/DMA_A_dma.c **** 
+ 120:Generated_Source\PSoC5/DMA_A_dma.c **** /*********************************************************************
+ 121:Generated_Source\PSoC5/DMA_A_dma.c **** * Function Name: void DMA_A_DmaRelease
+ 122:Generated_Source\PSoC5/DMA_A_dma.c **** **********************************************************************
+ 123:Generated_Source\PSoC5/DMA_A_dma.c **** * Summary:
+ 124:Generated_Source\PSoC5/DMA_A_dma.c **** *   Frees the channel associated with DMA_A.
+ 125:Generated_Source\PSoC5/DMA_A_dma.c **** *
+ 126:Generated_Source\PSoC5/DMA_A_dma.c **** *
+ 127:Generated_Source\PSoC5/DMA_A_dma.c **** * Parameters:
+ 128:Generated_Source\PSoC5/DMA_A_dma.c **** *   void.
+ 129:Generated_Source\PSoC5/DMA_A_dma.c **** *
+ 130:Generated_Source\PSoC5/DMA_A_dma.c **** *
+ 131:Generated_Source\PSoC5/DMA_A_dma.c **** *
+ 132:Generated_Source\PSoC5/DMA_A_dma.c **** * Return:
+ 133:Generated_Source\PSoC5/DMA_A_dma.c **** *   void.
+ 134:Generated_Source\PSoC5/DMA_A_dma.c **** *
+ 135:Generated_Source\PSoC5/DMA_A_dma.c **** *******************************************************************/
+ 136:Generated_Source\PSoC5/DMA_A_dma.c **** void DMA_A_DmaRelease(void) 
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrRv49a.s 			page 5
+
+
+ 137:Generated_Source\PSoC5/DMA_A_dma.c **** {
+  92              		.loc 1 137 0
+  93              		.cfi_startproc
+  94              		@ args = 0, pretend = 0, frame = 0
+  95              		@ frame_needed = 0, uses_anonymous_args = 0
+  96              		@ link register save eliminated.
+ 138:Generated_Source\PSoC5/DMA_A_dma.c ****     /* Disable the channel */
+ 139:Generated_Source\PSoC5/DMA_A_dma.c ****     (void)CyDmaChDisable(DMA_A_DmaHandle);
+  97              		.loc 1 139 0
+  98 0000 014B     		ldr	r3, .L5
+  99 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 100 0004 FFF7FEBF 		b	CyDmaChDisable
+ 101              	.LVL8:
+ 102              	.L6:
+ 103              		.align	2
+ 104              	.L5:
+ 105 0008 00000000 		.word	.LANCHOR0
+ 106              		.cfi_endproc
+ 107              	.LFE1:
+ 108              		.size	DMA_A_DmaRelease, .-DMA_A_DmaRelease
+ 109              		.global	DMA_A_DmaHandle
+ 110              		.data
+ 111              		.set	.LANCHOR0,. + 0
+ 112              		.type	DMA_A_DmaHandle, %object
+ 113              		.size	DMA_A_DmaHandle, 1
+ 114              	DMA_A_DmaHandle:
+ 115 0000 FF       		.byte	-1
+ 116              		.text
+ 117              	.Letext0:
+ 118              		.file 2 "Generated_Source\\PSoC5/cytypes.h"
+ 119              		.file 3 "Generated_Source\\PSoC5/CYDMAC.H"
+ 120              		.section	.debug_info,"",%progbits
+ 121              	.Ldebug_info0:
+ 122 0000 A2010000 		.4byte	0x1a2
+ 123 0004 0400     		.2byte	0x4
+ 124 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 125 000a 04       		.byte	0x4
+ 126 000b 01       		.uleb128 0x1
+ 127 000c C7000000 		.4byte	.LASF24
+ 128 0010 0C       		.byte	0xc
+ 129 0011 35020000 		.4byte	.LASF25
+ 130 0015 53000000 		.4byte	.LASF26
+ 131 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 132 001d 00000000 		.4byte	0
+ 133 0021 00000000 		.4byte	.Ldebug_line0
+ 134 0025 02       		.uleb128 0x2
+ 135 0026 04       		.byte	0x4
+ 136 0027 05       		.byte	0x5
+ 137 0028 696E7400 		.ascii	"int\000"
+ 138 002c 03       		.uleb128 0x3
+ 139 002d 04       		.byte	0x4
+ 140 002e 07       		.byte	0x7
+ 141 002f 9F010000 		.4byte	.LASF0
+ 142 0033 03       		.uleb128 0x3
+ 143 0034 08       		.byte	0x8
+ 144 0035 05       		.byte	0x5
+ 145 0036 DD010000 		.4byte	.LASF1
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrRv49a.s 			page 6
+
+
+ 146 003a 03       		.uleb128 0x3
+ 147 003b 08       		.byte	0x8
+ 148 003c 04       		.byte	0x4
+ 149 003d 1D020000 		.4byte	.LASF2
+ 150 0041 03       		.uleb128 0x3
+ 151 0042 01       		.byte	0x1
+ 152 0043 06       		.byte	0x6
+ 153 0044 29020000 		.4byte	.LASF3
+ 154 0048 03       		.uleb128 0x3
+ 155 0049 01       		.byte	0x1
+ 156 004a 08       		.byte	0x8
+ 157 004b AE000000 		.4byte	.LASF4
+ 158 004f 03       		.uleb128 0x3
+ 159 0050 02       		.byte	0x2
+ 160 0051 05       		.byte	0x5
+ 161 0052 0A020000 		.4byte	.LASF5
+ 162 0056 03       		.uleb128 0x3
+ 163 0057 02       		.byte	0x2
+ 164 0058 07       		.byte	0x7
+ 165 0059 2F000000 		.4byte	.LASF6
+ 166 005d 03       		.uleb128 0x3
+ 167 005e 04       		.byte	0x4
+ 168 005f 05       		.byte	0x5
+ 169 0060 14020000 		.4byte	.LASF7
+ 170 0064 03       		.uleb128 0x3
+ 171 0065 04       		.byte	0x4
+ 172 0066 07       		.byte	0x7
+ 173 0067 8D010000 		.4byte	.LASF8
+ 174 006b 03       		.uleb128 0x3
+ 175 006c 08       		.byte	0x8
+ 176 006d 07       		.byte	0x7
+ 177 006e AC010000 		.4byte	.LASF9
+ 178 0072 03       		.uleb128 0x3
+ 179 0073 04       		.byte	0x4
+ 180 0074 07       		.byte	0x7
+ 181 0075 D4010000 		.4byte	.LASF10
+ 182 0079 03       		.uleb128 0x3
+ 183 007a 01       		.byte	0x1
+ 184 007b 08       		.byte	0x8
+ 185 007c 05020000 		.4byte	.LASF11
+ 186 0080 04       		.uleb128 0x4
+ 187 0081 55010000 		.4byte	.LASF12
+ 188 0085 02       		.byte	0x2
+ 189 0086 9201     		.2byte	0x192
+ 190 0088 48000000 		.4byte	0x48
+ 191 008c 04       		.uleb128 0x4
+ 192 008d 76010000 		.4byte	.LASF13
+ 193 0091 02       		.byte	0x2
+ 194 0092 9301     		.2byte	0x193
+ 195 0094 56000000 		.4byte	0x56
+ 196 0098 03       		.uleb128 0x3
+ 197 0099 04       		.byte	0x4
+ 198 009a 04       		.byte	0x4
+ 199 009b A8000000 		.4byte	.LASF14
+ 200 009f 03       		.uleb128 0x3
+ 201 00a0 08       		.byte	0x8
+ 202 00a1 04       		.byte	0x4
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrRv49a.s 			page 7
+
+
+ 203 00a2 6F010000 		.4byte	.LASF15
+ 204 00a6 05       		.uleb128 0x5
+ 205 00a7 5B010000 		.4byte	.LASF27
+ 206 00ab 01       		.byte	0x1
+ 207 00ac 61       		.byte	0x61
+ 208 00ad 80000000 		.4byte	0x80
+ 209 00b1 00000000 		.4byte	.LFB0
+ 210 00b5 38000000 		.4byte	.LFE0-.LFB0
+ 211 00b9 01       		.uleb128 0x1
+ 212 00ba 9C       		.byte	0x9c
+ 213 00bb 49010000 		.4byte	0x149
+ 214 00bf 06       		.uleb128 0x6
+ 215 00c0 BC000000 		.4byte	.LASF16
+ 216 00c4 01       		.byte	0x1
+ 217 00c5 61       		.byte	0x61
+ 218 00c6 80000000 		.4byte	0x80
+ 219 00ca 00000000 		.4byte	.LLST0
+ 220 00ce 06       		.uleb128 0x6
+ 221 00cf 20000000 		.4byte	.LASF17
+ 222 00d3 01       		.byte	0x1
+ 223 00d4 61       		.byte	0x61
+ 224 00d5 80000000 		.4byte	0x80
+ 225 00d9 21000000 		.4byte	.LLST1
+ 226 00dd 06       		.uleb128 0x6
+ 227 00de 00000000 		.4byte	.LASF18
+ 228 00e2 01       		.byte	0x1
+ 229 00e3 61       		.byte	0x61
+ 230 00e4 8C000000 		.4byte	0x8c
+ 231 00e8 42000000 		.4byte	.LLST2
+ 232 00ec 06       		.uleb128 0x6
+ 233 00ed C3010000 		.4byte	.LASF19
+ 234 00f1 01       		.byte	0x1
+ 235 00f2 61       		.byte	0x61
+ 236 00f3 8C000000 		.4byte	0x8c
+ 237 00f7 63000000 		.4byte	.LLST3
+ 238 00fb 07       		.uleb128 0x7
+ 239 00fc 1A000000 		.4byte	.LVL5
+ 240 0100 79010000 		.4byte	0x179
+ 241 0104 1F010000 		.4byte	0x11f
+ 242 0108 08       		.uleb128 0x8
+ 243 0109 01       		.uleb128 0x1
+ 244 010a 50       		.byte	0x50
+ 245 010b 01       		.uleb128 0x1
+ 246 010c 30       		.byte	0x30
+ 247 010d 08       		.uleb128 0x8
+ 248 010e 01       		.uleb128 0x1
+ 249 010f 53       		.byte	0x53
+ 250 0110 01       		.uleb128 0x1
+ 251 0111 30       		.byte	0x30
+ 252 0112 08       		.uleb128 0x8
+ 253 0113 02       		.uleb128 0x2
+ 254 0114 7D       		.byte	0x7d
+ 255 0115 00       		.sleb128 0
+ 256 0116 01       		.uleb128 0x1
+ 257 0117 30       		.byte	0x30
+ 258 0118 08       		.uleb128 0x8
+ 259 0119 02       		.uleb128 0x2
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrRv49a.s 			page 8
+
+
+ 260 011a 7D       		.byte	0x7d
+ 261 011b 04       		.sleb128 4
+ 262 011c 01       		.uleb128 0x1
+ 263 011d 30       		.byte	0x30
+ 264 011e 00       		.byte	0
+ 265 011f 07       		.uleb128 0x7
+ 266 0120 24000000 		.4byte	.LVL6
+ 267 0124 84010000 		.4byte	0x184
+ 268 0128 39010000 		.4byte	0x139
+ 269 012c 08       		.uleb128 0x8
+ 270 012d 01       		.uleb128 0x1
+ 271 012e 51       		.byte	0x51
+ 272 012f 02       		.uleb128 0x2
+ 273 0130 75       		.byte	0x75
+ 274 0131 00       		.sleb128 0
+ 275 0132 08       		.uleb128 0x8
+ 276 0133 01       		.uleb128 0x1
+ 277 0134 52       		.byte	0x52
+ 278 0135 02       		.uleb128 0x2
+ 279 0136 76       		.byte	0x76
+ 280 0137 00       		.sleb128 0
+ 281 0138 00       		.byte	0
+ 282 0139 09       		.uleb128 0x9
+ 283 013a 2C000000 		.4byte	.LVL7
+ 284 013e 8F010000 		.4byte	0x18f
+ 285 0142 08       		.uleb128 0x8
+ 286 0143 01       		.uleb128 0x1
+ 287 0144 51       		.byte	0x51
+ 288 0145 01       		.uleb128 0x1
+ 289 0146 32       		.byte	0x32
+ 290 0147 00       		.byte	0
+ 291 0148 00       		.byte	0
+ 292 0149 0A       		.uleb128 0xa
+ 293 014a 42000000 		.4byte	.LASF28
+ 294 014e 01       		.byte	0x1
+ 295 014f 88       		.byte	0x88
+ 296 0150 00000000 		.4byte	.LFB1
+ 297 0154 0C000000 		.4byte	.LFE1-.LFB1
+ 298 0158 01       		.uleb128 0x1
+ 299 0159 9C       		.byte	0x9c
+ 300 015a 68010000 		.4byte	0x168
+ 301 015e 0B       		.uleb128 0xb
+ 302 015f 08000000 		.4byte	.LVL8
+ 303 0163 9A010000 		.4byte	0x19a
+ 304 0167 00       		.byte	0
+ 305 0168 0C       		.uleb128 0xc
+ 306 0169 7D010000 		.4byte	.LASF29
+ 307 016d 01       		.byte	0x1
+ 308 016e 45       		.byte	0x45
+ 309 016f 80000000 		.4byte	0x80
+ 310 0173 05       		.uleb128 0x5
+ 311 0174 03       		.byte	0x3
+ 312 0175 00000000 		.4byte	DMA_A_DmaHandle
+ 313 0179 0D       		.uleb128 0xd
+ 314 017a 67020000 		.4byte	.LASF20
+ 315 017e 67020000 		.4byte	.LASF20
+ 316 0182 03       		.byte	0x3
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrRv49a.s 			page 9
+
+
+ 317 0183 33       		.byte	0x33
+ 318 0184 0D       		.uleb128 0xd
+ 319 0185 EB010000 		.4byte	.LASF21
+ 320 0189 EB010000 		.4byte	.LASF21
+ 321 018d 03       		.byte	0x3
+ 322 018e 2D       		.byte	0x2d
+ 323 018f 0D       		.uleb128 0xd
+ 324 0190 10000000 		.4byte	.LASF22
+ 325 0194 10000000 		.4byte	.LASF22
+ 326 0198 03       		.byte	0x3
+ 327 0199 2C       		.byte	0x2c
+ 328 019a 0D       		.uleb128 0xd
+ 329 019b 58020000 		.4byte	.LASF23
+ 330 019f 58020000 		.4byte	.LASF23
+ 331 01a3 03       		.byte	0x3
+ 332 01a4 2A       		.byte	0x2a
+ 333 01a5 00       		.byte	0
+ 334              		.section	.debug_abbrev,"",%progbits
+ 335              	.Ldebug_abbrev0:
+ 336 0000 01       		.uleb128 0x1
+ 337 0001 11       		.uleb128 0x11
+ 338 0002 01       		.byte	0x1
+ 339 0003 25       		.uleb128 0x25
+ 340 0004 0E       		.uleb128 0xe
+ 341 0005 13       		.uleb128 0x13
+ 342 0006 0B       		.uleb128 0xb
+ 343 0007 03       		.uleb128 0x3
+ 344 0008 0E       		.uleb128 0xe
+ 345 0009 1B       		.uleb128 0x1b
+ 346 000a 0E       		.uleb128 0xe
+ 347 000b 55       		.uleb128 0x55
+ 348 000c 17       		.uleb128 0x17
+ 349 000d 11       		.uleb128 0x11
+ 350 000e 01       		.uleb128 0x1
+ 351 000f 10       		.uleb128 0x10
+ 352 0010 17       		.uleb128 0x17
+ 353 0011 00       		.byte	0
+ 354 0012 00       		.byte	0
+ 355 0013 02       		.uleb128 0x2
+ 356 0014 24       		.uleb128 0x24
+ 357 0015 00       		.byte	0
+ 358 0016 0B       		.uleb128 0xb
+ 359 0017 0B       		.uleb128 0xb
+ 360 0018 3E       		.uleb128 0x3e
+ 361 0019 0B       		.uleb128 0xb
+ 362 001a 03       		.uleb128 0x3
+ 363 001b 08       		.uleb128 0x8
+ 364 001c 00       		.byte	0
+ 365 001d 00       		.byte	0
+ 366 001e 03       		.uleb128 0x3
+ 367 001f 24       		.uleb128 0x24
+ 368 0020 00       		.byte	0
+ 369 0021 0B       		.uleb128 0xb
+ 370 0022 0B       		.uleb128 0xb
+ 371 0023 3E       		.uleb128 0x3e
+ 372 0024 0B       		.uleb128 0xb
+ 373 0025 03       		.uleb128 0x3
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrRv49a.s 			page 10
+
+
+ 374 0026 0E       		.uleb128 0xe
+ 375 0027 00       		.byte	0
+ 376 0028 00       		.byte	0
+ 377 0029 04       		.uleb128 0x4
+ 378 002a 16       		.uleb128 0x16
+ 379 002b 00       		.byte	0
+ 380 002c 03       		.uleb128 0x3
+ 381 002d 0E       		.uleb128 0xe
+ 382 002e 3A       		.uleb128 0x3a
+ 383 002f 0B       		.uleb128 0xb
+ 384 0030 3B       		.uleb128 0x3b
+ 385 0031 05       		.uleb128 0x5
+ 386 0032 49       		.uleb128 0x49
+ 387 0033 13       		.uleb128 0x13
+ 388 0034 00       		.byte	0
+ 389 0035 00       		.byte	0
+ 390 0036 05       		.uleb128 0x5
+ 391 0037 2E       		.uleb128 0x2e
+ 392 0038 01       		.byte	0x1
+ 393 0039 3F       		.uleb128 0x3f
+ 394 003a 19       		.uleb128 0x19
+ 395 003b 03       		.uleb128 0x3
+ 396 003c 0E       		.uleb128 0xe
+ 397 003d 3A       		.uleb128 0x3a
+ 398 003e 0B       		.uleb128 0xb
+ 399 003f 3B       		.uleb128 0x3b
+ 400 0040 0B       		.uleb128 0xb
+ 401 0041 27       		.uleb128 0x27
+ 402 0042 19       		.uleb128 0x19
+ 403 0043 49       		.uleb128 0x49
+ 404 0044 13       		.uleb128 0x13
+ 405 0045 11       		.uleb128 0x11
+ 406 0046 01       		.uleb128 0x1
+ 407 0047 12       		.uleb128 0x12
+ 408 0048 06       		.uleb128 0x6
+ 409 0049 40       		.uleb128 0x40
+ 410 004a 18       		.uleb128 0x18
+ 411 004b 9742     		.uleb128 0x2117
+ 412 004d 19       		.uleb128 0x19
+ 413 004e 01       		.uleb128 0x1
+ 414 004f 13       		.uleb128 0x13
+ 415 0050 00       		.byte	0
+ 416 0051 00       		.byte	0
+ 417 0052 06       		.uleb128 0x6
+ 418 0053 05       		.uleb128 0x5
+ 419 0054 00       		.byte	0
+ 420 0055 03       		.uleb128 0x3
+ 421 0056 0E       		.uleb128 0xe
+ 422 0057 3A       		.uleb128 0x3a
+ 423 0058 0B       		.uleb128 0xb
+ 424 0059 3B       		.uleb128 0x3b
+ 425 005a 0B       		.uleb128 0xb
+ 426 005b 49       		.uleb128 0x49
+ 427 005c 13       		.uleb128 0x13
+ 428 005d 02       		.uleb128 0x2
+ 429 005e 17       		.uleb128 0x17
+ 430 005f 00       		.byte	0
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrRv49a.s 			page 11
+
+
+ 431 0060 00       		.byte	0
+ 432 0061 07       		.uleb128 0x7
+ 433 0062 898201   		.uleb128 0x4109
+ 434 0065 01       		.byte	0x1
+ 435 0066 11       		.uleb128 0x11
+ 436 0067 01       		.uleb128 0x1
+ 437 0068 31       		.uleb128 0x31
+ 438 0069 13       		.uleb128 0x13
+ 439 006a 01       		.uleb128 0x1
+ 440 006b 13       		.uleb128 0x13
+ 441 006c 00       		.byte	0
+ 442 006d 00       		.byte	0
+ 443 006e 08       		.uleb128 0x8
+ 444 006f 8A8201   		.uleb128 0x410a
+ 445 0072 00       		.byte	0
+ 446 0073 02       		.uleb128 0x2
+ 447 0074 18       		.uleb128 0x18
+ 448 0075 9142     		.uleb128 0x2111
+ 449 0077 18       		.uleb128 0x18
+ 450 0078 00       		.byte	0
+ 451 0079 00       		.byte	0
+ 452 007a 09       		.uleb128 0x9
+ 453 007b 898201   		.uleb128 0x4109
+ 454 007e 01       		.byte	0x1
+ 455 007f 11       		.uleb128 0x11
+ 456 0080 01       		.uleb128 0x1
+ 457 0081 31       		.uleb128 0x31
+ 458 0082 13       		.uleb128 0x13
+ 459 0083 00       		.byte	0
+ 460 0084 00       		.byte	0
+ 461 0085 0A       		.uleb128 0xa
+ 462 0086 2E       		.uleb128 0x2e
+ 463 0087 01       		.byte	0x1
+ 464 0088 3F       		.uleb128 0x3f
+ 465 0089 19       		.uleb128 0x19
+ 466 008a 03       		.uleb128 0x3
+ 467 008b 0E       		.uleb128 0xe
+ 468 008c 3A       		.uleb128 0x3a
+ 469 008d 0B       		.uleb128 0xb
+ 470 008e 3B       		.uleb128 0x3b
+ 471 008f 0B       		.uleb128 0xb
+ 472 0090 27       		.uleb128 0x27
+ 473 0091 19       		.uleb128 0x19
+ 474 0092 11       		.uleb128 0x11
+ 475 0093 01       		.uleb128 0x1
+ 476 0094 12       		.uleb128 0x12
+ 477 0095 06       		.uleb128 0x6
+ 478 0096 40       		.uleb128 0x40
+ 479 0097 18       		.uleb128 0x18
+ 480 0098 9742     		.uleb128 0x2117
+ 481 009a 19       		.uleb128 0x19
+ 482 009b 01       		.uleb128 0x1
+ 483 009c 13       		.uleb128 0x13
+ 484 009d 00       		.byte	0
+ 485 009e 00       		.byte	0
+ 486 009f 0B       		.uleb128 0xb
+ 487 00a0 898201   		.uleb128 0x4109
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrRv49a.s 			page 12
+
+
+ 488 00a3 00       		.byte	0
+ 489 00a4 11       		.uleb128 0x11
+ 490 00a5 01       		.uleb128 0x1
+ 491 00a6 9542     		.uleb128 0x2115
+ 492 00a8 19       		.uleb128 0x19
+ 493 00a9 31       		.uleb128 0x31
+ 494 00aa 13       		.uleb128 0x13
+ 495 00ab 00       		.byte	0
+ 496 00ac 00       		.byte	0
+ 497 00ad 0C       		.uleb128 0xc
+ 498 00ae 34       		.uleb128 0x34
+ 499 00af 00       		.byte	0
+ 500 00b0 03       		.uleb128 0x3
+ 501 00b1 0E       		.uleb128 0xe
+ 502 00b2 3A       		.uleb128 0x3a
+ 503 00b3 0B       		.uleb128 0xb
+ 504 00b4 3B       		.uleb128 0x3b
+ 505 00b5 0B       		.uleb128 0xb
+ 506 00b6 49       		.uleb128 0x49
+ 507 00b7 13       		.uleb128 0x13
+ 508 00b8 3F       		.uleb128 0x3f
+ 509 00b9 19       		.uleb128 0x19
+ 510 00ba 02       		.uleb128 0x2
+ 511 00bb 18       		.uleb128 0x18
+ 512 00bc 00       		.byte	0
+ 513 00bd 00       		.byte	0
+ 514 00be 0D       		.uleb128 0xd
+ 515 00bf 2E       		.uleb128 0x2e
+ 516 00c0 00       		.byte	0
+ 517 00c1 3F       		.uleb128 0x3f
+ 518 00c2 19       		.uleb128 0x19
+ 519 00c3 3C       		.uleb128 0x3c
+ 520 00c4 19       		.uleb128 0x19
+ 521 00c5 6E       		.uleb128 0x6e
+ 522 00c6 0E       		.uleb128 0xe
+ 523 00c7 03       		.uleb128 0x3
+ 524 00c8 0E       		.uleb128 0xe
+ 525 00c9 3A       		.uleb128 0x3a
+ 526 00ca 0B       		.uleb128 0xb
+ 527 00cb 3B       		.uleb128 0x3b
+ 528 00cc 0B       		.uleb128 0xb
+ 529 00cd 00       		.byte	0
+ 530 00ce 00       		.byte	0
+ 531 00cf 00       		.byte	0
+ 532              		.section	.debug_loc,"",%progbits
+ 533              	.Ldebug_loc0:
+ 534              	.LLST0:
+ 535 0000 00000000 		.4byte	.LVL0
+ 536 0004 14000000 		.4byte	.LVL4
+ 537 0008 0100     		.2byte	0x1
+ 538 000a 50       		.byte	0x50
+ 539 000b 14000000 		.4byte	.LVL4
+ 540 000f 38000000 		.4byte	.LFE0
+ 541 0013 0400     		.2byte	0x4
+ 542 0015 F3       		.byte	0xf3
+ 543 0016 01       		.uleb128 0x1
+ 544 0017 50       		.byte	0x50
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrRv49a.s 			page 13
+
+
+ 545 0018 9F       		.byte	0x9f
+ 546 0019 00000000 		.4byte	0
+ 547 001d 00000000 		.4byte	0
+ 548              	.LLST1:
+ 549 0021 00000000 		.4byte	.LVL0
+ 550 0025 12000000 		.4byte	.LVL3
+ 551 0029 0100     		.2byte	0x1
+ 552 002b 51       		.byte	0x51
+ 553 002c 12000000 		.4byte	.LVL3
+ 554 0030 38000000 		.4byte	.LFE0
+ 555 0034 0400     		.2byte	0x4
+ 556 0036 F3       		.byte	0xf3
+ 557 0037 01       		.uleb128 0x1
+ 558 0038 51       		.byte	0x51
+ 559 0039 9F       		.byte	0x9f
+ 560 003a 00000000 		.4byte	0
+ 561 003e 00000000 		.4byte	0
+ 562              	.LLST2:
+ 563 0042 00000000 		.4byte	.LVL0
+ 564 0046 10000000 		.4byte	.LVL2
+ 565 004a 0100     		.2byte	0x1
+ 566 004c 52       		.byte	0x52
+ 567 004d 10000000 		.4byte	.LVL2
+ 568 0051 38000000 		.4byte	.LFE0
+ 569 0055 0400     		.2byte	0x4
+ 570 0057 F3       		.byte	0xf3
+ 571 0058 01       		.uleb128 0x1
+ 572 0059 52       		.byte	0x52
+ 573 005a 9F       		.byte	0x9f
+ 574 005b 00000000 		.4byte	0
+ 575 005f 00000000 		.4byte	0
+ 576              	.LLST3:
+ 577 0063 00000000 		.4byte	.LVL0
+ 578 0067 0A000000 		.4byte	.LVL1
+ 579 006b 0100     		.2byte	0x1
+ 580 006d 53       		.byte	0x53
+ 581 006e 0A000000 		.4byte	.LVL1
+ 582 0072 38000000 		.4byte	.LFE0
+ 583 0076 0400     		.2byte	0x4
+ 584 0078 F3       		.byte	0xf3
+ 585 0079 01       		.uleb128 0x1
+ 586 007a 53       		.byte	0x53
+ 587 007b 9F       		.byte	0x9f
+ 588 007c 00000000 		.4byte	0
+ 589 0080 00000000 		.4byte	0
+ 590              		.section	.debug_aranges,"",%progbits
+ 591 0000 24000000 		.4byte	0x24
+ 592 0004 0200     		.2byte	0x2
+ 593 0006 00000000 		.4byte	.Ldebug_info0
+ 594 000a 04       		.byte	0x4
+ 595 000b 00       		.byte	0
+ 596 000c 0000     		.2byte	0
+ 597 000e 0000     		.2byte	0
+ 598 0010 00000000 		.4byte	.LFB0
+ 599 0014 38000000 		.4byte	.LFE0-.LFB0
+ 600 0018 00000000 		.4byte	.LFB1
+ 601 001c 0C000000 		.4byte	.LFE1-.LFB1
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrRv49a.s 			page 14
+
+
+ 602 0020 00000000 		.4byte	0
+ 603 0024 00000000 		.4byte	0
+ 604              		.section	.debug_ranges,"",%progbits
+ 605              	.Ldebug_ranges0:
+ 606 0000 00000000 		.4byte	.LFB0
+ 607 0004 38000000 		.4byte	.LFE0
+ 608 0008 00000000 		.4byte	.LFB1
+ 609 000c 0C000000 		.4byte	.LFE1
+ 610 0010 00000000 		.4byte	0
+ 611 0014 00000000 		.4byte	0
+ 612              		.section	.debug_line,"",%progbits
+ 613              	.Ldebug_line0:
+ 614 0000 81000000 		.section	.debug_str,"MS",%progbits,1
+ 614      02005200 
+ 614      00000201 
+ 614      FB0E0D00 
+ 614      01010101 
+ 615              	.LASF18:
+ 616 0000 55707065 		.ascii	"UpperSrcAddress\000"
+ 616      72537263 
+ 616      41646472 
+ 616      65737300 
+ 617              	.LASF22:
+ 618 0010 4379446D 		.ascii	"CyDmaChPriority\000"
+ 618      61436850 
+ 618      72696F72 
+ 618      69747900 
+ 619              	.LASF17:
+ 620 0020 52657165 		.ascii	"ReqestPerBurst\000"
+ 620      73745065 
+ 620      72427572 
+ 620      737400
+ 621              	.LASF6:
+ 622 002f 73686F72 		.ascii	"short unsigned int\000"
+ 622      7420756E 
+ 622      7369676E 
+ 622      65642069 
+ 622      6E7400
+ 623              	.LASF28:
+ 624 0042 444D415F 		.ascii	"DMA_A_DmaRelease\000"
+ 624      415F446D 
+ 624      6152656C 
+ 624      65617365 
+ 624      00
+ 625              	.LASF26:
+ 626 0053 433A5C55 		.ascii	"C:\\Users\\Alexander Nielsen\\Desktop\\platooning\\"
+ 626      73657273 
+ 626      5C416C65 
+ 626      78616E64 
+ 626      6572204E 
+ 627 0081 50536F43 		.ascii	"PSoC\\Platooning\\AngleMeasurement.cydsn\000"
+ 627      5C506C61 
+ 627      746F6F6E 
+ 627      696E675C 
+ 627      416E676C 
+ 628              	.LASF14:
+ 629 00a8 666C6F61 		.ascii	"float\000"
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrRv49a.s 			page 15
+
+
+ 629      7400
+ 630              	.LASF4:
+ 631 00ae 756E7369 		.ascii	"unsigned char\000"
+ 631      676E6564 
+ 631      20636861 
+ 631      7200
+ 632              	.LASF16:
+ 633 00bc 42757273 		.ascii	"BurstCount\000"
+ 633      74436F75 
+ 633      6E7400
+ 634              	.LASF24:
+ 635 00c7 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 635      43313120 
+ 635      352E342E 
+ 635      31203230 
+ 635      31363036 
+ 636 00fa 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 636      20726576 
+ 636      6973696F 
+ 636      6E203233 
+ 636      37373135 
+ 637 012d 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 637      66756E63 
+ 637      74696F6E 
+ 637      2D736563 
+ 637      74696F6E 
+ 638              	.LASF12:
+ 639 0155 75696E74 		.ascii	"uint8\000"
+ 639      3800
+ 640              	.LASF27:
+ 641 015b 444D415F 		.ascii	"DMA_A_DmaInitialize\000"
+ 641      415F446D 
+ 641      61496E69 
+ 641      7469616C 
+ 641      697A6500 
+ 642              	.LASF15:
+ 643 016f 646F7562 		.ascii	"double\000"
+ 643      6C6500
+ 644              	.LASF13:
+ 645 0176 75696E74 		.ascii	"uint16\000"
+ 645      313600
+ 646              	.LASF29:
+ 647 017d 444D415F 		.ascii	"DMA_A_DmaHandle\000"
+ 647      415F446D 
+ 647      6148616E 
+ 647      646C6500 
+ 648              	.LASF8:
+ 649 018d 6C6F6E67 		.ascii	"long unsigned int\000"
+ 649      20756E73 
+ 649      69676E65 
+ 649      6420696E 
+ 649      7400
+ 650              	.LASF0:
+ 651 019f 756E7369 		.ascii	"unsigned int\000"
+ 651      676E6564 
+ 651      20696E74 
+ 651      00
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrRv49a.s 			page 16
+
+
+ 652              	.LASF9:
+ 653 01ac 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 653      206C6F6E 
+ 653      6720756E 
+ 653      7369676E 
+ 653      65642069 
+ 654              	.LASF19:
+ 655 01c3 55707065 		.ascii	"UpperDestAddress\000"
+ 655      72446573 
+ 655      74416464 
+ 655      72657373 
+ 655      00
+ 656              	.LASF10:
+ 657 01d4 73697A65 		.ascii	"sizetype\000"
+ 657      74797065 
+ 657      00
+ 658              	.LASF1:
+ 659 01dd 6C6F6E67 		.ascii	"long long int\000"
+ 659      206C6F6E 
+ 659      6720696E 
+ 659      7400
+ 660              	.LASF21:
+ 661 01eb 4379446D 		.ascii	"CyDmaChSetExtendedAddress\000"
+ 661      61436853 
+ 661      65744578 
+ 661      74656E64 
+ 661      65644164 
+ 662              	.LASF11:
+ 663 0205 63686172 		.ascii	"char\000"
+ 663      00
+ 664              	.LASF5:
+ 665 020a 73686F72 		.ascii	"short int\000"
+ 665      7420696E 
+ 665      7400
+ 666              	.LASF7:
+ 667 0214 6C6F6E67 		.ascii	"long int\000"
+ 667      20696E74 
+ 667      00
+ 668              	.LASF2:
+ 669 021d 6C6F6E67 		.ascii	"long double\000"
+ 669      20646F75 
+ 669      626C6500 
+ 670              	.LASF3:
+ 671 0229 7369676E 		.ascii	"signed char\000"
+ 671      65642063 
+ 671      68617200 
+ 672              	.LASF25:
+ 673 0235 47656E65 		.ascii	"Generated_Source\\PSoC5\\DMA_A_dma.c\000"
+ 673      72617465 
+ 673      645F536F 
+ 673      75726365 
+ 673      5C50536F 
+ 674              	.LASF23:
+ 675 0258 4379446D 		.ascii	"CyDmaChDisable\000"
+ 675      61436844 
+ 675      69736162 
+ 675      6C6500
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrRv49a.s 			page 17
+
+
+ 676              	.LASF20:
+ 677 0267 4379446D 		.ascii	"CyDmaChSetConfiguration\000"
+ 677      61436853 
+ 677      6574436F 
+ 677      6E666967 
+ 677      75726174 
+ 678              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

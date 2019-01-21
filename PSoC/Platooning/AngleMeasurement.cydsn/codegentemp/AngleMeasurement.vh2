@@ -2,7 +2,7 @@
 --	Conversion of AngleMeasurement.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Wed Jan 16 09:27:34 2019
+--	Mon Jan 21 11:07:29 2019
 --
 
 USE cypress.cypress.all;
@@ -717,8 +717,9 @@ SIGNAL \PWM_H_BRIDGE:Net_55\ : bit;
 SIGNAL \PWM_H_BRIDGE:PWMUDB:prevCompare1\ : bit;
 SIGNAL \PWM_H_BRIDGE:PWMUDB:cmp1\ : bit;
 SIGNAL \PWM_H_BRIDGE:PWMUDB:cmp1_status\ : bit;
-SIGNAL \PWM_H_BRIDGE:PWMUDB:cmp2_status\ : bit;
+SIGNAL \PWM_H_BRIDGE:PWMUDB:prevCompare2\ : bit;
 SIGNAL \PWM_H_BRIDGE:PWMUDB:cmp2\ : bit;
+SIGNAL \PWM_H_BRIDGE:PWMUDB:cmp2_status\ : bit;
 SIGNAL \PWM_H_BRIDGE:PWMUDB:cmp1_status_reg\ : bit;
 SIGNAL \PWM_H_BRIDGE:PWMUDB:cmp2_status_reg\ : bit;
 SIGNAL \PWM_H_BRIDGE:PWMUDB:final_kill_reg\ : bit;
@@ -1117,6 +1118,7 @@ SIGNAL \PWM_H_BRIDGE:PWMUDB:ltch_kill_reg\\D\ : bit;
 SIGNAL \PWM_H_BRIDGE:PWMUDB:dith_count_1\\D\ : bit;
 SIGNAL \PWM_H_BRIDGE:PWMUDB:dith_count_0\\D\ : bit;
 SIGNAL \PWM_H_BRIDGE:PWMUDB:prevCompare1\\D\ : bit;
+SIGNAL \PWM_H_BRIDGE:PWMUDB:prevCompare2\\D\ : bit;
 SIGNAL \PWM_H_BRIDGE:PWMUDB:cmp1_status_reg\\D\ : bit;
 SIGNAL \PWM_H_BRIDGE:PWMUDB:cmp2_status_reg\\D\ : bit;
 SIGNAL \PWM_H_BRIDGE:PWMUDB:final_kill_reg\\D\ : bit;
@@ -1324,9 +1326,13 @@ Net_38D <= ((not \SPI:BSPIM:state_2\ and \SPI:BSPIM:state_1\ and \SPI:BSPIM:stat
 
 \PWM_H_BRIDGE:PWMUDB:cmp1_status\ <= ((not \PWM_H_BRIDGE:PWMUDB:prevCompare1\ and \PWM_H_BRIDGE:PWMUDB:cmp1_less\));
 
+\PWM_H_BRIDGE:PWMUDB:cmp2_status\ <= ((not \PWM_H_BRIDGE:PWMUDB:prevCompare2\ and \PWM_H_BRIDGE:PWMUDB:cmp2_less\));
+
 \PWM_H_BRIDGE:PWMUDB:status_2\ <= ((\PWM_H_BRIDGE:PWMUDB:runmode_enable\ and \PWM_H_BRIDGE:PWMUDB:tc_i\));
 
-\PWM_H_BRIDGE:PWMUDB:pwm_i\ <= ((\PWM_H_BRIDGE:PWMUDB:runmode_enable\ and \PWM_H_BRIDGE:PWMUDB:cmp1_less\));
+\PWM_H_BRIDGE:PWMUDB:pwm1_i\ <= ((\PWM_H_BRIDGE:PWMUDB:runmode_enable\ and \PWM_H_BRIDGE:PWMUDB:cmp1_less\));
+
+\PWM_H_BRIDGE:PWMUDB:pwm2_i\ <= ((\PWM_H_BRIDGE:PWMUDB:runmode_enable\ and \PWM_H_BRIDGE:PWMUDB:cmp2_less\));
 
 \Maximum_Peak_Detector_A:Sample_Hold:SC\:cy_psoc3_scblock_v1_0
 	GENERIC MAP(cy_registers=>"")
@@ -3053,7 +3059,7 @@ N2:cy_psoc3_pins_v1_10
 		invert_out_reset=>'0',
 		io_voltage=>"",
 		layout_mode=>"CONTIGUOUS",
-		output_conn=>"0",
+		output_conn=>"1",
 		output_sync=>"0",
 		output_clk_en=>'0',
 		output_mode=>"0",
@@ -3093,7 +3099,7 @@ N2:cy_psoc3_pins_v1_10
 		ovt_hyst_trim=>"0",
 		input_buffer_sel=>"00")
 	PORT MAP(oe=>(tmpOE__Signal_A_net_0),
-		y=>(zero),
+		y=>Net_730,
 		fb=>(tmpFB_0__N2_net_0),
 		analog=>(open),
 		io=>(tmpIO_0__N2_net_0),
@@ -3163,7 +3169,7 @@ N1:cy_psoc3_pins_v1_10
 		ovt_hyst_trim=>"0",
 		input_buffer_sel=>"00")
 	PORT MAP(oe=>(tmpOE__Signal_A_net_0),
-		y=>Net_737,
+		y=>Net_729,
 		fb=>(tmpFB_0__N1_net_0),
 		analog=>(open),
 		io=>(tmpIO_0__N1_net_0),
@@ -3932,6 +3938,10 @@ Net_466:cy_dff
 	PORT MAP(d=>\PWM_H_BRIDGE:PWMUDB:cmp1_less\,
 		clk=>\PWM_H_BRIDGE:PWMUDB:ClockOutFromEnBlock\,
 		q=>\PWM_H_BRIDGE:PWMUDB:prevCompare1\);
+\PWM_H_BRIDGE:PWMUDB:prevCompare2\:cy_dff
+	PORT MAP(d=>\PWM_H_BRIDGE:PWMUDB:cmp2_less\,
+		clk=>\PWM_H_BRIDGE:PWMUDB:ClockOutFromEnBlock\,
+		q=>\PWM_H_BRIDGE:PWMUDB:prevCompare2\);
 \PWM_H_BRIDGE:PWMUDB:cmp1_status_reg\:cy_dsrff
 	PORT MAP(d=>\PWM_H_BRIDGE:PWMUDB:cmp1_status\,
 		s=>zero,
@@ -3939,7 +3949,7 @@ Net_466:cy_dff
 		clk=>\PWM_H_BRIDGE:PWMUDB:ClockOutFromEnBlock\,
 		q=>\PWM_H_BRIDGE:PWMUDB:status_0\);
 \PWM_H_BRIDGE:PWMUDB:cmp2_status_reg\:cy_dsrff
-	PORT MAP(d=>zero,
+	PORT MAP(d=>\PWM_H_BRIDGE:PWMUDB:cmp2_status\,
 		s=>zero,
 		r=>zero,
 		clk=>\PWM_H_BRIDGE:PWMUDB:ClockOutFromEnBlock\,
@@ -3951,17 +3961,17 @@ Net_466:cy_dff
 		clk=>\PWM_H_BRIDGE:PWMUDB:ClockOutFromEnBlock\,
 		q=>\PWM_H_BRIDGE:PWMUDB:status_5\);
 \PWM_H_BRIDGE:PWMUDB:pwm_i_reg\:cy_dff
-	PORT MAP(d=>\PWM_H_BRIDGE:PWMUDB:pwm_i\,
+	PORT MAP(d=>zero,
 		clk=>\PWM_H_BRIDGE:PWMUDB:ClockOutFromEnBlock\,
-		q=>Net_737);
+		q=>\PWM_H_BRIDGE:PWMUDB:pwm_i_reg\);
 \PWM_H_BRIDGE:PWMUDB:pwm1_i_reg\:cy_dff
-	PORT MAP(d=>zero,
+	PORT MAP(d=>\PWM_H_BRIDGE:PWMUDB:pwm1_i\,
 		clk=>\PWM_H_BRIDGE:PWMUDB:ClockOutFromEnBlock\,
-		q=>\PWM_H_BRIDGE:PWMUDB:pwm1_i_reg\);
+		q=>Net_729);
 \PWM_H_BRIDGE:PWMUDB:pwm2_i_reg\:cy_dff
-	PORT MAP(d=>zero,
+	PORT MAP(d=>\PWM_H_BRIDGE:PWMUDB:pwm2_i\,
 		clk=>\PWM_H_BRIDGE:PWMUDB:ClockOutFromEnBlock\,
-		q=>\PWM_H_BRIDGE:PWMUDB:pwm2_i_reg\);
+		q=>Net_730);
 \PWM_H_BRIDGE:PWMUDB:tc_i_reg\:cy_dff
 	PORT MAP(d=>\PWM_H_BRIDGE:PWMUDB:status_2\,
 		clk=>\PWM_H_BRIDGE:PWMUDB:ClockOutFromEnBlock\,

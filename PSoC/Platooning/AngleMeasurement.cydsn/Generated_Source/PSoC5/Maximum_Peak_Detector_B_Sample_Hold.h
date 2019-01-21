@@ -104,11 +104,11 @@ void Maximum_Peak_Detector_B_Sample_Hold_Enable(void)                  ;
 
 #if (Maximum_Peak_Detector_B_Sample_Hold_LO_SOURCE == Maximum_Peak_Detector_B_Sample_Hold_LO_SOURCE_INTERNAL)
     /* Internal LO clock frequency */
-    #define Maximum_Peak_Detector_B_Sample_Hold_LO_CLOCK_FREQ          ((float)41)
+    #define Maximum_Peak_Detector_B_Sample_Hold_LO_CLOCK_FREQ          ((float)5)
 #else
     #define Maximum_Peak_Detector_B_Sample_Hold_LO_CLOCK_FREQ          (((float)-1 == \
                                                       Maximum_Peak_Detector_B_Sample_Hold_UNKNOWN_EXTERNAL_LO) ? \
-                                                      ((float)41) : ((float)-1))
+                                                      ((float)5) : ((float)-1))
 #endif /* Maximum_Peak_Detector_B_Sample_Hold_LO_SOURCE == Maximum_Peak_Detector_B_Sample_Hold_LO_SOURCE_INTERNAL */
 
 

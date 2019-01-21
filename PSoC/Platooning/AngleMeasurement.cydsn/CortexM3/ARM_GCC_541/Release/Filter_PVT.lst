@@ -1,0 +1,618 @@
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccQcqKuE.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"Filter_PVT.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.Filter_SetInterruptMode,"ax",%progbits
+  20              		.align	1
+  21              		.global	Filter_SetInterruptMode
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	Filter_SetInterruptMode, %function
+  25              	Filter_SetInterruptMode:
+  26              	.LFB0:
+  27              		.file 1 "Generated_Source\\PSoC5\\Filter_PVT.c"
+   1:Generated_Source\PSoC5/Filter_PVT.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/Filter_PVT.c **** * File Name: Filter_PVT.c
+   3:Generated_Source\PSoC5/Filter_PVT.c **** * Version 2.30
+   4:Generated_Source\PSoC5/Filter_PVT.c **** *
+   5:Generated_Source\PSoC5/Filter_PVT.c **** * Description:
+   6:Generated_Source\PSoC5/Filter_PVT.c **** *  This file provides source code for FILT component internal functions.
+   7:Generated_Source\PSoC5/Filter_PVT.c **** *
+   8:Generated_Source\PSoC5/Filter_PVT.c **** * Note:
+   9:Generated_Source\PSoC5/Filter_PVT.c **** *  
+  10:Generated_Source\PSoC5/Filter_PVT.c **** *******************************************************************************
+  11:Generated_Source\PSoC5/Filter_PVT.c **** * Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+  12:Generated_Source\PSoC5/Filter_PVT.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  13:Generated_Source\PSoC5/Filter_PVT.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  14:Generated_Source\PSoC5/Filter_PVT.c **** * the software package with which this file was provided.
+  15:Generated_Source\PSoC5/Filter_PVT.c **** ********************************************************************************/
+  16:Generated_Source\PSoC5/Filter_PVT.c **** 
+  17:Generated_Source\PSoC5/Filter_PVT.c **** #include "Filter_PVT.h"
+  18:Generated_Source\PSoC5/Filter_PVT.c **** 
+  19:Generated_Source\PSoC5/Filter_PVT.c **** 
+  20:Generated_Source\PSoC5/Filter_PVT.c **** /*******************************************************************************
+  21:Generated_Source\PSoC5/Filter_PVT.c **** * Function Name: Filter_SetInterruptMode
+  22:Generated_Source\PSoC5/Filter_PVT.c **** ********************************************************************************
+  23:Generated_Source\PSoC5/Filter_PVT.c **** *
+  24:Generated_Source\PSoC5/Filter_PVT.c **** * Summary:
+  25:Generated_Source\PSoC5/Filter_PVT.c **** *  Assign the events which will trigger a DFB interrupt to be triggered. 
+  26:Generated_Source\PSoC5/Filter_PVT.c **** *
+  27:Generated_Source\PSoC5/Filter_PVT.c **** * Parameters:  
+  28:Generated_Source\PSoC5/Filter_PVT.c **** *  events:  Bits [0:5] of events represent the events which will trigger DFB
+  29:Generated_Source\PSoC5/Filter_PVT.c **** *           interrupts.
+  30:Generated_Source\PSoC5/Filter_PVT.c **** *            Bit 0 - Output value ready in the holding register on channel A
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccQcqKuE.s 			page 2
+
+
+  31:Generated_Source\PSoC5/Filter_PVT.c **** *            Bit 1 - Output value ready in the holding register on channel B
+  32:Generated_Source\PSoC5/Filter_PVT.c **** *            Bit 2 - '1' written to Semaphore 0  - See Note
+  33:Generated_Source\PSoC5/Filter_PVT.c **** *            Bit 3 - '1' written to Semaphore 1  - See Note
+  34:Generated_Source\PSoC5/Filter_PVT.c **** *            Bit 4 - '1' written to Semaphore 2
+  35:Generated_Source\PSoC5/Filter_PVT.c **** *
+  36:Generated_Source\PSoC5/Filter_PVT.c **** * Return: 
+  37:Generated_Source\PSoC5/Filter_PVT.c **** *  void
+  38:Generated_Source\PSoC5/Filter_PVT.c **** *
+  39:Generated_Source\PSoC5/Filter_PVT.c **** * Note:
+  40:Generated_Source\PSoC5/Filter_PVT.c **** *  Semaphore 0 and Semaphore 1 should not be configured as both a DMA request 
+  41:Generated_Source\PSoC5/Filter_PVT.c **** *  and an interrupt event, because, after one clock cycle, the system 
+  42:Generated_Source\PSoC5/Filter_PVT.c **** *  automatically clears any semaphore which triggered a DMA request.
+  43:Generated_Source\PSoC5/Filter_PVT.c **** *
+  44:Generated_Source\PSoC5/Filter_PVT.c **** *******************************************************************************/
+  45:Generated_Source\PSoC5/Filter_PVT.c **** void Filter_SetInterruptMode(uint8 events) 
+  46:Generated_Source\PSoC5/Filter_PVT.c **** {
+  28              		.loc 1 46 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  47:Generated_Source\PSoC5/Filter_PVT.c ****     events &= Filter_EVENT_MASK;
+  48:Generated_Source\PSoC5/Filter_PVT.c ****     Filter_INT_CTRL_REG = events;
+  34              		.loc 1 48 0
+  35 0000 024B     		ldr	r3, .L2
+  47:Generated_Source\PSoC5/Filter_PVT.c ****     events &= Filter_EVENT_MASK;
+  36              		.loc 1 47 0
+  37 0002 00F01F00 		and	r0, r0, #31
+  38              	.LVL1:
+  39              		.loc 1 48 0
+  40 0006 1870     		strb	r0, [r3]
+  41 0008 7047     		bx	lr
+  42              	.L3:
+  43 000a 00BF     		.align	2
+  44              	.L2:
+  45 000c 98C70040 		.word	1073792920
+  46              		.cfi_endproc
+  47              	.LFE0:
+  48              		.size	Filter_SetInterruptMode, .-Filter_SetInterruptMode
+  49              		.section	.text.Filter_SetDMAMode,"ax",%progbits
+  50              		.align	1
+  51              		.global	Filter_SetDMAMode
+  52              		.thumb
+  53              		.thumb_func
+  54              		.type	Filter_SetDMAMode, %function
+  55              	Filter_SetDMAMode:
+  56              	.LFB1:
+  49:Generated_Source\PSoC5/Filter_PVT.c **** }
+  50:Generated_Source\PSoC5/Filter_PVT.c **** 
+  51:Generated_Source\PSoC5/Filter_PVT.c **** 
+  52:Generated_Source\PSoC5/Filter_PVT.c **** /*******************************************************************************
+  53:Generated_Source\PSoC5/Filter_PVT.c **** * Function Name: Filter_SetDMAMode
+  54:Generated_Source\PSoC5/Filter_PVT.c **** ********************************************************************************
+  55:Generated_Source\PSoC5/Filter_PVT.c **** *
+  56:Generated_Source\PSoC5/Filter_PVT.c **** * Summary:
+  57:Generated_Source\PSoC5/Filter_PVT.c **** *  Assign the events which will trigger a DMA request for the DFB.  There are 
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccQcqKuE.s 			page 3
+
+
+  58:Generated_Source\PSoC5/Filter_PVT.c **** *  two different DMA requests that can be triggered.
+  59:Generated_Source\PSoC5/Filter_PVT.c **** *
+  60:Generated_Source\PSoC5/Filter_PVT.c **** * Parameters:  
+  61:Generated_Source\PSoC5/Filter_PVT.c **** *  events:  A set of 4 bits which configure what event, if any, triggers a DMA 
+  62:Generated_Source\PSoC5/Filter_PVT.c **** *           request for the DFB.  
+  63:Generated_Source\PSoC5/Filter_PVT.c **** *           Bits [0:1] configure the trigger for DMA Request 1
+  64:Generated_Source\PSoC5/Filter_PVT.c **** *           Bits [2:3] configure the trigger for DMA Request 2
+  65:Generated_Source\PSoC5/Filter_PVT.c **** *            DMA Request 1: 
+  66:Generated_Source\PSoC5/Filter_PVT.c **** *               0 - no request will be generated
+  67:Generated_Source\PSoC5/Filter_PVT.c **** *               1 - Output value ready in the holding register on channel A
+  68:Generated_Source\PSoC5/Filter_PVT.c **** *               2 - Semaphore 0
+  69:Generated_Source\PSoC5/Filter_PVT.c **** *               3 - Sempahore 1
+  70:Generated_Source\PSoC5/Filter_PVT.c **** *            DMA Request 2: 
+  71:Generated_Source\PSoC5/Filter_PVT.c **** *               0 - no request will be generated
+  72:Generated_Source\PSoC5/Filter_PVT.c **** *               1 - Output value ready in the holding register on channel B
+  73:Generated_Source\PSoC5/Filter_PVT.c **** *               2 - Semaphore 0
+  74:Generated_Source\PSoC5/Filter_PVT.c **** *               3 - Sempahore 1
+  75:Generated_Source\PSoC5/Filter_PVT.c **** *
+  76:Generated_Source\PSoC5/Filter_PVT.c **** * Return: 
+  77:Generated_Source\PSoC5/Filter_PVT.c **** *  void
+  78:Generated_Source\PSoC5/Filter_PVT.c **** *
+  79:Generated_Source\PSoC5/Filter_PVT.c **** * Note:
+  80:Generated_Source\PSoC5/Filter_PVT.c **** *  Semaphore 0 and Semaphore 1 should not be configured as both a DMA request 
+  81:Generated_Source\PSoC5/Filter_PVT.c **** *  and an interrupt event, because, after one clock cycle, the system 
+  82:Generated_Source\PSoC5/Filter_PVT.c **** *  automatically clears any semaphore which triggered a DMA request.
+  83:Generated_Source\PSoC5/Filter_PVT.c **** *
+  84:Generated_Source\PSoC5/Filter_PVT.c **** *******************************************************************************/
+  85:Generated_Source\PSoC5/Filter_PVT.c **** void Filter_SetDMAMode(uint8 events) 
+  86:Generated_Source\PSoC5/Filter_PVT.c **** {
+  57              		.loc 1 86 0
+  58              		.cfi_startproc
+  59              		@ args = 0, pretend = 0, frame = 0
+  60              		@ frame_needed = 0, uses_anonymous_args = 0
+  61              		@ link register save eliminated.
+  62              	.LVL2:
+  87:Generated_Source\PSoC5/Filter_PVT.c ****     events &= Filter_DMA_CTRL_MASK;
+  88:Generated_Source\PSoC5/Filter_PVT.c ****     Filter_DMA_CTRL_REG = events;
+  63              		.loc 1 88 0
+  64 0000 024B     		ldr	r3, .L5
+  87:Generated_Source\PSoC5/Filter_PVT.c ****     events &= Filter_DMA_CTRL_MASK;
+  65              		.loc 1 87 0
+  66 0002 00F00F00 		and	r0, r0, #15
+  67              	.LVL3:
+  68              		.loc 1 88 0
+  69 0006 1870     		strb	r0, [r3]
+  70 0008 7047     		bx	lr
+  71              	.L6:
+  72 000a 00BF     		.align	2
+  73              	.L5:
+  74 000c 9CC70040 		.word	1073792924
+  75              		.cfi_endproc
+  76              	.LFE1:
+  77              		.size	Filter_SetDMAMode, .-Filter_SetDMAMode
+  78              		.text
+  79              	.Letext0:
+  80              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+  81              		.section	.debug_info,"",%progbits
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccQcqKuE.s 			page 4
+
+
+  82              	.Ldebug_info0:
+  83 0000 EE000000 		.4byte	0xee
+  84 0004 0400     		.2byte	0x4
+  85 0006 00000000 		.4byte	.Ldebug_abbrev0
+  86 000a 04       		.byte	0x4
+  87 000b 01       		.uleb128 0x1
+  88 000c 05010000 		.4byte	.LASF17
+  89 0010 0C       		.byte	0xc
+  90 0011 2D000000 		.4byte	.LASF18
+  91 0015 9B000000 		.4byte	.LASF19
+  92 0019 00000000 		.4byte	.Ldebug_ranges0+0
+  93 001d 00000000 		.4byte	0
+  94 0021 00000000 		.4byte	.Ldebug_line0
+  95 0025 02       		.uleb128 0x2
+  96 0026 04       		.byte	0x4
+  97 0027 05       		.byte	0x5
+  98 0028 696E7400 		.ascii	"int\000"
+  99 002c 03       		.uleb128 0x3
+ 100 002d 04       		.byte	0x4
+ 101 002e 07       		.byte	0x7
+ 102 002f 0E000000 		.4byte	.LASF0
+ 103 0033 03       		.uleb128 0x3
+ 104 0034 08       		.byte	0x8
+ 105 0035 05       		.byte	0x5
+ 106 0036 00000000 		.4byte	.LASF1
+ 107 003a 03       		.uleb128 0x3
+ 108 003b 08       		.byte	0x8
+ 109 003c 04       		.byte	0x4
+ 110 003d B2010000 		.4byte	.LASF2
+ 111 0041 03       		.uleb128 0x3
+ 112 0042 01       		.byte	0x1
+ 113 0043 06       		.byte	0x6
+ 114 0044 A6010000 		.4byte	.LASF3
+ 115 0048 03       		.uleb128 0x3
+ 116 0049 01       		.byte	0x1
+ 117 004a 08       		.byte	0x8
+ 118 004b 8D000000 		.4byte	.LASF4
+ 119 004f 03       		.uleb128 0x3
+ 120 0050 02       		.byte	0x2
+ 121 0051 05       		.byte	0x5
+ 122 0052 D6010000 		.4byte	.LASF5
+ 123 0056 03       		.uleb128 0x3
+ 124 0057 02       		.byte	0x2
+ 125 0058 07       		.byte	0x7
+ 126 0059 93010000 		.4byte	.LASF6
+ 127 005d 03       		.uleb128 0x3
+ 128 005e 04       		.byte	0x4
+ 129 005f 05       		.byte	0x5
+ 130 0060 F5000000 		.4byte	.LASF7
+ 131 0064 03       		.uleb128 0x3
+ 132 0065 04       		.byte	0x4
+ 133 0066 07       		.byte	0x7
+ 134 0067 57000000 		.4byte	.LASF8
+ 135 006b 03       		.uleb128 0x3
+ 136 006c 08       		.byte	0x8
+ 137 006d 07       		.byte	0x7
+ 138 006e 69000000 		.4byte	.LASF9
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccQcqKuE.s 			page 5
+
+
+ 139 0072 03       		.uleb128 0x3
+ 140 0073 04       		.byte	0x4
+ 141 0074 07       		.byte	0x7
+ 142 0075 E5010000 		.4byte	.LASF10
+ 143 0079 03       		.uleb128 0x3
+ 144 007a 01       		.byte	0x1
+ 145 007b 08       		.byte	0x8
+ 146 007c F0000000 		.4byte	.LASF11
+ 147 0080 04       		.uleb128 0x4
+ 148 0081 51000000 		.4byte	.LASF14
+ 149 0085 02       		.byte	0x2
+ 150 0086 9201     		.2byte	0x192
+ 151 0088 48000000 		.4byte	0x48
+ 152 008c 03       		.uleb128 0x3
+ 153 008d 04       		.byte	0x4
+ 154 008e 04       		.byte	0x4
+ 155 008f 87000000 		.4byte	.LASF12
+ 156 0093 03       		.uleb128 0x3
+ 157 0094 08       		.byte	0x8
+ 158 0095 04       		.byte	0x4
+ 159 0096 FE000000 		.4byte	.LASF13
+ 160 009a 04       		.uleb128 0x4
+ 161 009b E0010000 		.4byte	.LASF15
+ 162 009f 02       		.byte	0x2
+ 163 00a0 3C02     		.2byte	0x23c
+ 164 00a2 A6000000 		.4byte	0xa6
+ 165 00a6 05       		.uleb128 0x5
+ 166 00a7 80000000 		.4byte	0x80
+ 167 00ab 06       		.uleb128 0x6
+ 168 00ac BE010000 		.4byte	.LASF20
+ 169 00b0 01       		.byte	0x1
+ 170 00b1 2D       		.byte	0x2d
+ 171 00b2 00000000 		.4byte	.LFB0
+ 172 00b6 10000000 		.4byte	.LFE0-.LFB0
+ 173 00ba 01       		.uleb128 0x1
+ 174 00bb 9C       		.byte	0x9c
+ 175 00bc D0000000 		.4byte	0xd0
+ 176 00c0 07       		.uleb128 0x7
+ 177 00c1 80000000 		.4byte	.LASF16
+ 178 00c5 01       		.byte	0x1
+ 179 00c6 2D       		.byte	0x2d
+ 180 00c7 80000000 		.4byte	0x80
+ 181 00cb 00000000 		.4byte	.LLST0
+ 182 00cf 00       		.byte	0
+ 183 00d0 08       		.uleb128 0x8
+ 184 00d1 1B000000 		.4byte	.LASF21
+ 185 00d5 01       		.byte	0x1
+ 186 00d6 55       		.byte	0x55
+ 187 00d7 00000000 		.4byte	.LFB1
+ 188 00db 10000000 		.4byte	.LFE1-.LFB1
+ 189 00df 01       		.uleb128 0x1
+ 190 00e0 9C       		.byte	0x9c
+ 191 00e1 07       		.uleb128 0x7
+ 192 00e2 80000000 		.4byte	.LASF16
+ 193 00e6 01       		.byte	0x1
+ 194 00e7 55       		.byte	0x55
+ 195 00e8 80000000 		.4byte	0x80
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccQcqKuE.s 			page 6
+
+
+ 196 00ec 1E000000 		.4byte	.LLST1
+ 197 00f0 00       		.byte	0
+ 198 00f1 00       		.byte	0
+ 199              		.section	.debug_abbrev,"",%progbits
+ 200              	.Ldebug_abbrev0:
+ 201 0000 01       		.uleb128 0x1
+ 202 0001 11       		.uleb128 0x11
+ 203 0002 01       		.byte	0x1
+ 204 0003 25       		.uleb128 0x25
+ 205 0004 0E       		.uleb128 0xe
+ 206 0005 13       		.uleb128 0x13
+ 207 0006 0B       		.uleb128 0xb
+ 208 0007 03       		.uleb128 0x3
+ 209 0008 0E       		.uleb128 0xe
+ 210 0009 1B       		.uleb128 0x1b
+ 211 000a 0E       		.uleb128 0xe
+ 212 000b 55       		.uleb128 0x55
+ 213 000c 17       		.uleb128 0x17
+ 214 000d 11       		.uleb128 0x11
+ 215 000e 01       		.uleb128 0x1
+ 216 000f 10       		.uleb128 0x10
+ 217 0010 17       		.uleb128 0x17
+ 218 0011 00       		.byte	0
+ 219 0012 00       		.byte	0
+ 220 0013 02       		.uleb128 0x2
+ 221 0014 24       		.uleb128 0x24
+ 222 0015 00       		.byte	0
+ 223 0016 0B       		.uleb128 0xb
+ 224 0017 0B       		.uleb128 0xb
+ 225 0018 3E       		.uleb128 0x3e
+ 226 0019 0B       		.uleb128 0xb
+ 227 001a 03       		.uleb128 0x3
+ 228 001b 08       		.uleb128 0x8
+ 229 001c 00       		.byte	0
+ 230 001d 00       		.byte	0
+ 231 001e 03       		.uleb128 0x3
+ 232 001f 24       		.uleb128 0x24
+ 233 0020 00       		.byte	0
+ 234 0021 0B       		.uleb128 0xb
+ 235 0022 0B       		.uleb128 0xb
+ 236 0023 3E       		.uleb128 0x3e
+ 237 0024 0B       		.uleb128 0xb
+ 238 0025 03       		.uleb128 0x3
+ 239 0026 0E       		.uleb128 0xe
+ 240 0027 00       		.byte	0
+ 241 0028 00       		.byte	0
+ 242 0029 04       		.uleb128 0x4
+ 243 002a 16       		.uleb128 0x16
+ 244 002b 00       		.byte	0
+ 245 002c 03       		.uleb128 0x3
+ 246 002d 0E       		.uleb128 0xe
+ 247 002e 3A       		.uleb128 0x3a
+ 248 002f 0B       		.uleb128 0xb
+ 249 0030 3B       		.uleb128 0x3b
+ 250 0031 05       		.uleb128 0x5
+ 251 0032 49       		.uleb128 0x49
+ 252 0033 13       		.uleb128 0x13
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccQcqKuE.s 			page 7
+
+
+ 253 0034 00       		.byte	0
+ 254 0035 00       		.byte	0
+ 255 0036 05       		.uleb128 0x5
+ 256 0037 35       		.uleb128 0x35
+ 257 0038 00       		.byte	0
+ 258 0039 49       		.uleb128 0x49
+ 259 003a 13       		.uleb128 0x13
+ 260 003b 00       		.byte	0
+ 261 003c 00       		.byte	0
+ 262 003d 06       		.uleb128 0x6
+ 263 003e 2E       		.uleb128 0x2e
+ 264 003f 01       		.byte	0x1
+ 265 0040 3F       		.uleb128 0x3f
+ 266 0041 19       		.uleb128 0x19
+ 267 0042 03       		.uleb128 0x3
+ 268 0043 0E       		.uleb128 0xe
+ 269 0044 3A       		.uleb128 0x3a
+ 270 0045 0B       		.uleb128 0xb
+ 271 0046 3B       		.uleb128 0x3b
+ 272 0047 0B       		.uleb128 0xb
+ 273 0048 27       		.uleb128 0x27
+ 274 0049 19       		.uleb128 0x19
+ 275 004a 11       		.uleb128 0x11
+ 276 004b 01       		.uleb128 0x1
+ 277 004c 12       		.uleb128 0x12
+ 278 004d 06       		.uleb128 0x6
+ 279 004e 40       		.uleb128 0x40
+ 280 004f 18       		.uleb128 0x18
+ 281 0050 9742     		.uleb128 0x2117
+ 282 0052 19       		.uleb128 0x19
+ 283 0053 01       		.uleb128 0x1
+ 284 0054 13       		.uleb128 0x13
+ 285 0055 00       		.byte	0
+ 286 0056 00       		.byte	0
+ 287 0057 07       		.uleb128 0x7
+ 288 0058 05       		.uleb128 0x5
+ 289 0059 00       		.byte	0
+ 290 005a 03       		.uleb128 0x3
+ 291 005b 0E       		.uleb128 0xe
+ 292 005c 3A       		.uleb128 0x3a
+ 293 005d 0B       		.uleb128 0xb
+ 294 005e 3B       		.uleb128 0x3b
+ 295 005f 0B       		.uleb128 0xb
+ 296 0060 49       		.uleb128 0x49
+ 297 0061 13       		.uleb128 0x13
+ 298 0062 02       		.uleb128 0x2
+ 299 0063 17       		.uleb128 0x17
+ 300 0064 00       		.byte	0
+ 301 0065 00       		.byte	0
+ 302 0066 08       		.uleb128 0x8
+ 303 0067 2E       		.uleb128 0x2e
+ 304 0068 01       		.byte	0x1
+ 305 0069 3F       		.uleb128 0x3f
+ 306 006a 19       		.uleb128 0x19
+ 307 006b 03       		.uleb128 0x3
+ 308 006c 0E       		.uleb128 0xe
+ 309 006d 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccQcqKuE.s 			page 8
+
+
+ 310 006e 0B       		.uleb128 0xb
+ 311 006f 3B       		.uleb128 0x3b
+ 312 0070 0B       		.uleb128 0xb
+ 313 0071 27       		.uleb128 0x27
+ 314 0072 19       		.uleb128 0x19
+ 315 0073 11       		.uleb128 0x11
+ 316 0074 01       		.uleb128 0x1
+ 317 0075 12       		.uleb128 0x12
+ 318 0076 06       		.uleb128 0x6
+ 319 0077 40       		.uleb128 0x40
+ 320 0078 18       		.uleb128 0x18
+ 321 0079 9742     		.uleb128 0x2117
+ 322 007b 19       		.uleb128 0x19
+ 323 007c 00       		.byte	0
+ 324 007d 00       		.byte	0
+ 325 007e 00       		.byte	0
+ 326              		.section	.debug_loc,"",%progbits
+ 327              	.Ldebug_loc0:
+ 328              	.LLST0:
+ 329 0000 00000000 		.4byte	.LVL0
+ 330 0004 06000000 		.4byte	.LVL1
+ 331 0008 0100     		.2byte	0x1
+ 332 000a 50       		.byte	0x50
+ 333 000b 06000000 		.4byte	.LVL1
+ 334 000f 10000000 		.4byte	.LFE0
+ 335 0013 0100     		.2byte	0x1
+ 336 0015 50       		.byte	0x50
+ 337 0016 00000000 		.4byte	0
+ 338 001a 00000000 		.4byte	0
+ 339              	.LLST1:
+ 340 001e 00000000 		.4byte	.LVL2
+ 341 0022 06000000 		.4byte	.LVL3
+ 342 0026 0100     		.2byte	0x1
+ 343 0028 50       		.byte	0x50
+ 344 0029 06000000 		.4byte	.LVL3
+ 345 002d 10000000 		.4byte	.LFE1
+ 346 0031 0100     		.2byte	0x1
+ 347 0033 50       		.byte	0x50
+ 348 0034 00000000 		.4byte	0
+ 349 0038 00000000 		.4byte	0
+ 350              		.section	.debug_aranges,"",%progbits
+ 351 0000 24000000 		.4byte	0x24
+ 352 0004 0200     		.2byte	0x2
+ 353 0006 00000000 		.4byte	.Ldebug_info0
+ 354 000a 04       		.byte	0x4
+ 355 000b 00       		.byte	0
+ 356 000c 0000     		.2byte	0
+ 357 000e 0000     		.2byte	0
+ 358 0010 00000000 		.4byte	.LFB0
+ 359 0014 10000000 		.4byte	.LFE0-.LFB0
+ 360 0018 00000000 		.4byte	.LFB1
+ 361 001c 10000000 		.4byte	.LFE1-.LFB1
+ 362 0020 00000000 		.4byte	0
+ 363 0024 00000000 		.4byte	0
+ 364              		.section	.debug_ranges,"",%progbits
+ 365              	.Ldebug_ranges0:
+ 366 0000 00000000 		.4byte	.LFB0
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccQcqKuE.s 			page 9
+
+
+ 367 0004 10000000 		.4byte	.LFE0
+ 368 0008 00000000 		.4byte	.LFB1
+ 369 000c 10000000 		.4byte	.LFE1
+ 370 0010 00000000 		.4byte	0
+ 371 0014 00000000 		.4byte	0
+ 372              		.section	.debug_line,"",%progbits
+ 373              	.Ldebug_line0:
+ 374 0000 72000000 		.section	.debug_str,"MS",%progbits,1
+ 374      02004700 
+ 374      00000201 
+ 374      FB0E0D00 
+ 374      01010101 
+ 375              	.LASF1:
+ 376 0000 6C6F6E67 		.ascii	"long long int\000"
+ 376      206C6F6E 
+ 376      6720696E 
+ 376      7400
+ 377              	.LASF0:
+ 378 000e 756E7369 		.ascii	"unsigned int\000"
+ 378      676E6564 
+ 378      20696E74 
+ 378      00
+ 379              	.LASF21:
+ 380 001b 46696C74 		.ascii	"Filter_SetDMAMode\000"
+ 380      65725F53 
+ 380      6574444D 
+ 380      414D6F64 
+ 380      6500
+ 381              	.LASF18:
+ 382 002d 47656E65 		.ascii	"Generated_Source\\PSoC5\\Filter_PVT.c\000"
+ 382      72617465 
+ 382      645F536F 
+ 382      75726365 
+ 382      5C50536F 
+ 383              	.LASF14:
+ 384 0051 75696E74 		.ascii	"uint8\000"
+ 384      3800
+ 385              	.LASF8:
+ 386 0057 6C6F6E67 		.ascii	"long unsigned int\000"
+ 386      20756E73 
+ 386      69676E65 
+ 386      6420696E 
+ 386      7400
+ 387              	.LASF9:
+ 388 0069 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 388      206C6F6E 
+ 388      6720756E 
+ 388      7369676E 
+ 388      65642069 
+ 389              	.LASF16:
+ 390 0080 6576656E 		.ascii	"events\000"
+ 390      747300
+ 391              	.LASF12:
+ 392 0087 666C6F61 		.ascii	"float\000"
+ 392      7400
+ 393              	.LASF4:
+ 394 008d 756E7369 		.ascii	"unsigned char\000"
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccQcqKuE.s 			page 10
+
+
+ 394      676E6564 
+ 394      20636861 
+ 394      7200
+ 395              	.LASF19:
+ 396 009b 433A5C55 		.ascii	"C:\\Users\\Alexander Nielsen\\Desktop\\platooning\\"
+ 396      73657273 
+ 396      5C416C65 
+ 396      78616E64 
+ 396      6572204E 
+ 397 00c9 50536F43 		.ascii	"PSoC\\Platooning\\AngleMeasurement.cydsn\000"
+ 397      5C506C61 
+ 397      746F6F6E 
+ 397      696E675C 
+ 397      416E676C 
+ 398              	.LASF11:
+ 399 00f0 63686172 		.ascii	"char\000"
+ 399      00
+ 400              	.LASF7:
+ 401 00f5 6C6F6E67 		.ascii	"long int\000"
+ 401      20696E74 
+ 401      00
+ 402              	.LASF13:
+ 403 00fe 646F7562 		.ascii	"double\000"
+ 403      6C6500
+ 404              	.LASF17:
+ 405 0105 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 405      43313120 
+ 405      352E342E 
+ 405      31203230 
+ 405      31363036 
+ 406 0138 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 406      20726576 
+ 406      6973696F 
+ 406      6E203233 
+ 406      37373135 
+ 407 016b 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 407      66756E63 
+ 407      74696F6E 
+ 407      2D736563 
+ 407      74696F6E 
+ 408              	.LASF6:
+ 409 0193 73686F72 		.ascii	"short unsigned int\000"
+ 409      7420756E 
+ 409      7369676E 
+ 409      65642069 
+ 409      6E7400
+ 410              	.LASF3:
+ 411 01a6 7369676E 		.ascii	"signed char\000"
+ 411      65642063 
+ 411      68617200 
+ 412              	.LASF2:
+ 413 01b2 6C6F6E67 		.ascii	"long double\000"
+ 413      20646F75 
+ 413      626C6500 
+ 414              	.LASF20:
+ 415 01be 46696C74 		.ascii	"Filter_SetInterruptMode\000"
+ 415      65725F53 
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccQcqKuE.s 			page 11
+
+
+ 415      6574496E 
+ 415      74657272 
+ 415      7570744D 
+ 416              	.LASF5:
+ 417 01d6 73686F72 		.ascii	"short int\000"
+ 417      7420696E 
+ 417      7400
+ 418              	.LASF15:
+ 419 01e0 72656738 		.ascii	"reg8\000"
+ 419      00
+ 420              	.LASF10:
+ 421 01e5 73697A65 		.ascii	"sizetype\000"
+ 421      74797065 
+ 421      00
+ 422              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

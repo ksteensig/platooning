@@ -1,0 +1,914 @@
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccIrOQzw.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"PWM_SERVO_PM.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.PWM_SERVO_SaveConfig,"ax",%progbits
+  20              		.align	1
+  21              		.global	PWM_SERVO_SaveConfig
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	PWM_SERVO_SaveConfig, %function
+  25              	PWM_SERVO_SaveConfig:
+  26              	.LFB5:
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  31 0000 7047     		bx	lr
+  32              		.cfi_endproc
+  33              	.LFE5:
+  34              		.size	PWM_SERVO_SaveConfig, .-PWM_SERVO_SaveConfig
+  35              		.section	.text.PWM_SERVO_RestoreConfig,"ax",%progbits
+  36              		.align	1
+  37              		.global	PWM_SERVO_RestoreConfig
+  38              		.thumb
+  39              		.thumb_func
+  40              		.type	PWM_SERVO_RestoreConfig, %function
+  41              	PWM_SERVO_RestoreConfig:
+  42              	.LFB1:
+  43              		.file 1 "Generated_Source\\PSoC5\\PWM_SERVO_PM.c"
+   1:Generated_Source\PSoC5/PWM_SERVO_PM.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * File Name: PWM_SERVO_PM.c
+   3:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Version 3.30
+   4:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+   5:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Description:
+   6:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  This file provides the power management source code to API for the
+   7:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  PWM.
+   8:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+   9:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Note:
+  10:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+  11:Generated_Source\PSoC5/PWM_SERVO_PM.c **** ********************************************************************************
+  12:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
+  13:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * You may use this file only in accordance with the license, terms, conditions,
+  14:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * disclaimers, and limitations in the end user license agreement accompanying
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccIrOQzw.s 			page 2
+
+
+  15:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * the software package with which this file was provided.
+  16:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *******************************************************************************/
+  17:Generated_Source\PSoC5/PWM_SERVO_PM.c **** 
+  18:Generated_Source\PSoC5/PWM_SERVO_PM.c **** #include "PWM_SERVO.h"
+  19:Generated_Source\PSoC5/PWM_SERVO_PM.c **** 
+  20:Generated_Source\PSoC5/PWM_SERVO_PM.c **** static PWM_SERVO_backupStruct PWM_SERVO_backup;
+  21:Generated_Source\PSoC5/PWM_SERVO_PM.c **** 
+  22:Generated_Source\PSoC5/PWM_SERVO_PM.c **** 
+  23:Generated_Source\PSoC5/PWM_SERVO_PM.c **** /*******************************************************************************
+  24:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Function Name: PWM_SERVO_SaveConfig
+  25:Generated_Source\PSoC5/PWM_SERVO_PM.c **** ********************************************************************************
+  26:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+  27:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Summary:
+  28:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  Saves the current user configuration of the component.
+  29:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+  30:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Parameters:
+  31:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  None
+  32:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+  33:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Return:
+  34:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  None
+  35:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+  36:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Global variables:
+  37:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  PWM_SERVO_backup:  Variables of this global structure are modified to
+  38:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  store the values of non retention configuration registers when Sleep() API is
+  39:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  called.
+  40:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+  41:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *******************************************************************************/
+  42:Generated_Source\PSoC5/PWM_SERVO_PM.c **** void PWM_SERVO_SaveConfig(void) 
+  43:Generated_Source\PSoC5/PWM_SERVO_PM.c **** {
+  44:Generated_Source\PSoC5/PWM_SERVO_PM.c **** 
+  45:Generated_Source\PSoC5/PWM_SERVO_PM.c ****     #if(!PWM_SERVO_UsingFixedFunction)
+  46:Generated_Source\PSoC5/PWM_SERVO_PM.c ****         #if(!PWM_SERVO_PWMModeIsCenterAligned)
+  47:Generated_Source\PSoC5/PWM_SERVO_PM.c ****             PWM_SERVO_backup.PWMPeriod = PWM_SERVO_ReadPeriod();
+  48:Generated_Source\PSoC5/PWM_SERVO_PM.c ****         #endif /* (!PWM_SERVO_PWMModeIsCenterAligned) */
+  49:Generated_Source\PSoC5/PWM_SERVO_PM.c ****         PWM_SERVO_backup.PWMUdb = PWM_SERVO_ReadCounter();
+  50:Generated_Source\PSoC5/PWM_SERVO_PM.c ****         #if (PWM_SERVO_UseStatus)
+  51:Generated_Source\PSoC5/PWM_SERVO_PM.c ****             PWM_SERVO_backup.InterruptMaskValue = PWM_SERVO_STATUS_MASK;
+  52:Generated_Source\PSoC5/PWM_SERVO_PM.c ****         #endif /* (PWM_SERVO_UseStatus) */
+  53:Generated_Source\PSoC5/PWM_SERVO_PM.c **** 
+  54:Generated_Source\PSoC5/PWM_SERVO_PM.c ****         #if(PWM_SERVO_DeadBandMode == PWM_SERVO__B_PWM__DBM_256_CLOCKS || \
+  55:Generated_Source\PSoC5/PWM_SERVO_PM.c ****             PWM_SERVO_DeadBandMode == PWM_SERVO__B_PWM__DBM_2_4_CLOCKS)
+  56:Generated_Source\PSoC5/PWM_SERVO_PM.c ****             PWM_SERVO_backup.PWMdeadBandValue = PWM_SERVO_ReadDeadTime();
+  57:Generated_Source\PSoC5/PWM_SERVO_PM.c ****         #endif /*  deadband count is either 2-4 clocks or 256 clocks */
+  58:Generated_Source\PSoC5/PWM_SERVO_PM.c **** 
+  59:Generated_Source\PSoC5/PWM_SERVO_PM.c ****         #if(PWM_SERVO_KillModeMinTime)
+  60:Generated_Source\PSoC5/PWM_SERVO_PM.c ****              PWM_SERVO_backup.PWMKillCounterPeriod = PWM_SERVO_ReadKillTime();
+  61:Generated_Source\PSoC5/PWM_SERVO_PM.c ****         #endif /* (PWM_SERVO_KillModeMinTime) */
+  62:Generated_Source\PSoC5/PWM_SERVO_PM.c **** 
+  63:Generated_Source\PSoC5/PWM_SERVO_PM.c ****         #if(PWM_SERVO_UseControl)
+  64:Generated_Source\PSoC5/PWM_SERVO_PM.c ****             PWM_SERVO_backup.PWMControlRegister = PWM_SERVO_ReadControlRegister();
+  65:Generated_Source\PSoC5/PWM_SERVO_PM.c ****         #endif /* (PWM_SERVO_UseControl) */
+  66:Generated_Source\PSoC5/PWM_SERVO_PM.c ****     #endif  /* (!PWM_SERVO_UsingFixedFunction) */
+  67:Generated_Source\PSoC5/PWM_SERVO_PM.c **** }
+  68:Generated_Source\PSoC5/PWM_SERVO_PM.c **** 
+  69:Generated_Source\PSoC5/PWM_SERVO_PM.c **** 
+  70:Generated_Source\PSoC5/PWM_SERVO_PM.c **** /*******************************************************************************
+  71:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Function Name: PWM_SERVO_RestoreConfig
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccIrOQzw.s 			page 3
+
+
+  72:Generated_Source\PSoC5/PWM_SERVO_PM.c **** ********************************************************************************
+  73:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+  74:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Summary:
+  75:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  Restores the current user configuration of the component.
+  76:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+  77:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Parameters:
+  78:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  None
+  79:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+  80:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Return:
+  81:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  None
+  82:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+  83:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Global variables:
+  84:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  PWM_SERVO_backup:  Variables of this global structure are used to
+  85:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  restore the values of non retention registers on wakeup from sleep mode.
+  86:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+  87:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *******************************************************************************/
+  88:Generated_Source\PSoC5/PWM_SERVO_PM.c **** void PWM_SERVO_RestoreConfig(void) 
+  89:Generated_Source\PSoC5/PWM_SERVO_PM.c **** {
+  44              		.loc 1 89 0
+  45              		.cfi_startproc
+  46              		@ args = 0, pretend = 0, frame = 0
+  47              		@ frame_needed = 0, uses_anonymous_args = 0
+  48              		@ link register save eliminated.
+  49 0000 7047     		bx	lr
+  50              		.cfi_endproc
+  51              	.LFE1:
+  52              		.size	PWM_SERVO_RestoreConfig, .-PWM_SERVO_RestoreConfig
+  53              		.section	.text.PWM_SERVO_Sleep,"ax",%progbits
+  54              		.align	1
+  55              		.global	PWM_SERVO_Sleep
+  56              		.thumb
+  57              		.thumb_func
+  58              		.type	PWM_SERVO_Sleep, %function
+  59              	PWM_SERVO_Sleep:
+  60              	.LFB2:
+  90:Generated_Source\PSoC5/PWM_SERVO_PM.c ****         #if(!PWM_SERVO_UsingFixedFunction)
+  91:Generated_Source\PSoC5/PWM_SERVO_PM.c ****             #if(!PWM_SERVO_PWMModeIsCenterAligned)
+  92:Generated_Source\PSoC5/PWM_SERVO_PM.c ****                 PWM_SERVO_WritePeriod(PWM_SERVO_backup.PWMPeriod);
+  93:Generated_Source\PSoC5/PWM_SERVO_PM.c ****             #endif /* (!PWM_SERVO_PWMModeIsCenterAligned) */
+  94:Generated_Source\PSoC5/PWM_SERVO_PM.c **** 
+  95:Generated_Source\PSoC5/PWM_SERVO_PM.c ****             PWM_SERVO_WriteCounter(PWM_SERVO_backup.PWMUdb);
+  96:Generated_Source\PSoC5/PWM_SERVO_PM.c **** 
+  97:Generated_Source\PSoC5/PWM_SERVO_PM.c ****             #if (PWM_SERVO_UseStatus)
+  98:Generated_Source\PSoC5/PWM_SERVO_PM.c ****                 PWM_SERVO_STATUS_MASK = PWM_SERVO_backup.InterruptMaskValue;
+  99:Generated_Source\PSoC5/PWM_SERVO_PM.c ****             #endif /* (PWM_SERVO_UseStatus) */
+ 100:Generated_Source\PSoC5/PWM_SERVO_PM.c **** 
+ 101:Generated_Source\PSoC5/PWM_SERVO_PM.c ****             #if(PWM_SERVO_DeadBandMode == PWM_SERVO__B_PWM__DBM_256_CLOCKS || \
+ 102:Generated_Source\PSoC5/PWM_SERVO_PM.c ****                 PWM_SERVO_DeadBandMode == PWM_SERVO__B_PWM__DBM_2_4_CLOCKS)
+ 103:Generated_Source\PSoC5/PWM_SERVO_PM.c ****                 PWM_SERVO_WriteDeadTime(PWM_SERVO_backup.PWMdeadBandValue);
+ 104:Generated_Source\PSoC5/PWM_SERVO_PM.c ****             #endif /* deadband count is either 2-4 clocks or 256 clocks */
+ 105:Generated_Source\PSoC5/PWM_SERVO_PM.c **** 
+ 106:Generated_Source\PSoC5/PWM_SERVO_PM.c ****             #if(PWM_SERVO_KillModeMinTime)
+ 107:Generated_Source\PSoC5/PWM_SERVO_PM.c ****                 PWM_SERVO_WriteKillTime(PWM_SERVO_backup.PWMKillCounterPeriod);
+ 108:Generated_Source\PSoC5/PWM_SERVO_PM.c ****             #endif /* (PWM_SERVO_KillModeMinTime) */
+ 109:Generated_Source\PSoC5/PWM_SERVO_PM.c **** 
+ 110:Generated_Source\PSoC5/PWM_SERVO_PM.c ****             #if(PWM_SERVO_UseControl)
+ 111:Generated_Source\PSoC5/PWM_SERVO_PM.c ****                 PWM_SERVO_WriteControlRegister(PWM_SERVO_backup.PWMControlRegister);
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccIrOQzw.s 			page 4
+
+
+ 112:Generated_Source\PSoC5/PWM_SERVO_PM.c ****             #endif /* (PWM_SERVO_UseControl) */
+ 113:Generated_Source\PSoC5/PWM_SERVO_PM.c ****         #endif  /* (!PWM_SERVO_UsingFixedFunction) */
+ 114:Generated_Source\PSoC5/PWM_SERVO_PM.c ****     }
+ 115:Generated_Source\PSoC5/PWM_SERVO_PM.c **** 
+ 116:Generated_Source\PSoC5/PWM_SERVO_PM.c **** 
+ 117:Generated_Source\PSoC5/PWM_SERVO_PM.c **** /*******************************************************************************
+ 118:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Function Name: PWM_SERVO_Sleep
+ 119:Generated_Source\PSoC5/PWM_SERVO_PM.c **** ********************************************************************************
+ 120:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+ 121:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Summary:
+ 122:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  Disables block's operation and saves the user configuration. Should be called
+ 123:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  just prior to entering sleep.
+ 124:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+ 125:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Parameters:
+ 126:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  None
+ 127:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+ 128:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Return:
+ 129:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  None
+ 130:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+ 131:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Global variables:
+ 132:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  PWM_SERVO_backup.PWMEnableState:  Is modified depending on the enable
+ 133:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  state of the block before entering sleep mode.
+ 134:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+ 135:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *******************************************************************************/
+ 136:Generated_Source\PSoC5/PWM_SERVO_PM.c **** void PWM_SERVO_Sleep(void) 
+ 137:Generated_Source\PSoC5/PWM_SERVO_PM.c **** {
+  61              		.loc 1 137 0
+  62              		.cfi_startproc
+  63              		@ args = 0, pretend = 0, frame = 0
+  64              		@ frame_needed = 0, uses_anonymous_args = 0
+  65              		@ link register save eliminated.
+ 138:Generated_Source\PSoC5/PWM_SERVO_PM.c ****     #if(PWM_SERVO_UseControl)
+ 139:Generated_Source\PSoC5/PWM_SERVO_PM.c ****         if(PWM_SERVO_CTRL_ENABLE == (PWM_SERVO_CONTROL & PWM_SERVO_CTRL_ENABLE))
+  66              		.loc 1 139 0
+  67 0000 044B     		ldr	r3, .L6
+  68 0002 054A     		ldr	r2, .L6+4
+  69 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  70 0006 13F00103 		ands	r3, r3, #1
+ 140:Generated_Source\PSoC5/PWM_SERVO_PM.c ****         {
+ 141:Generated_Source\PSoC5/PWM_SERVO_PM.c ****             /*Component is enabled */
+ 142:Generated_Source\PSoC5/PWM_SERVO_PM.c ****             PWM_SERVO_backup.PWMEnableState = 1u;
+  71              		.loc 1 142 0
+  72 000a 18BF     		it	ne
+  73 000c 0123     		movne	r3, #1
+ 143:Generated_Source\PSoC5/PWM_SERVO_PM.c ****         }
+ 144:Generated_Source\PSoC5/PWM_SERVO_PM.c ****         else
+ 145:Generated_Source\PSoC5/PWM_SERVO_PM.c ****         {
+ 146:Generated_Source\PSoC5/PWM_SERVO_PM.c ****             /* Component is disabled */
+ 147:Generated_Source\PSoC5/PWM_SERVO_PM.c ****             PWM_SERVO_backup.PWMEnableState = 0u;
+  74              		.loc 1 147 0
+  75 000e 1370     		strb	r3, [r2]
+ 148:Generated_Source\PSoC5/PWM_SERVO_PM.c ****         }
+ 149:Generated_Source\PSoC5/PWM_SERVO_PM.c ****     #endif /* (PWM_SERVO_UseControl) */
+ 150:Generated_Source\PSoC5/PWM_SERVO_PM.c **** 
+ 151:Generated_Source\PSoC5/PWM_SERVO_PM.c ****     /* Stop component */
+ 152:Generated_Source\PSoC5/PWM_SERVO_PM.c ****     PWM_SERVO_Stop();
+  76              		.loc 1 152 0
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccIrOQzw.s 			page 5
+
+
+  77 0010 FFF7FEBF 		b	PWM_SERVO_Stop
+  78              	.LVL0:
+  79              	.L7:
+  80              		.align	2
+  81              	.L6:
+  82 0014 004F0040 		.word	1073762048
+  83 0018 00000000 		.word	.LANCHOR0
+  84              		.cfi_endproc
+  85              	.LFE2:
+  86              		.size	PWM_SERVO_Sleep, .-PWM_SERVO_Sleep
+  87              		.section	.text.PWM_SERVO_Wakeup,"ax",%progbits
+  88              		.align	1
+  89              		.global	PWM_SERVO_Wakeup
+  90              		.thumb
+  91              		.thumb_func
+  92              		.type	PWM_SERVO_Wakeup, %function
+  93              	PWM_SERVO_Wakeup:
+  94              	.LFB3:
+ 153:Generated_Source\PSoC5/PWM_SERVO_PM.c **** 
+ 154:Generated_Source\PSoC5/PWM_SERVO_PM.c ****     /* Save registers configuration */
+ 155:Generated_Source\PSoC5/PWM_SERVO_PM.c ****     PWM_SERVO_SaveConfig();
+ 156:Generated_Source\PSoC5/PWM_SERVO_PM.c **** }
+ 157:Generated_Source\PSoC5/PWM_SERVO_PM.c **** 
+ 158:Generated_Source\PSoC5/PWM_SERVO_PM.c **** 
+ 159:Generated_Source\PSoC5/PWM_SERVO_PM.c **** /*******************************************************************************
+ 160:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Function Name: PWM_SERVO_Wakeup
+ 161:Generated_Source\PSoC5/PWM_SERVO_PM.c **** ********************************************************************************
+ 162:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+ 163:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Summary:
+ 164:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  Restores and enables the user configuration. Should be called just after
+ 165:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  awaking from sleep.
+ 166:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+ 167:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Parameters:
+ 168:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  None
+ 169:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+ 170:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Return:
+ 171:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  None
+ 172:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+ 173:Generated_Source\PSoC5/PWM_SERVO_PM.c **** * Global variables:
+ 174:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  PWM_SERVO_backup.pwmEnable:  Is used to restore the enable state of
+ 175:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *  block on wakeup from sleep mode.
+ 176:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *
+ 177:Generated_Source\PSoC5/PWM_SERVO_PM.c **** *******************************************************************************/
+ 178:Generated_Source\PSoC5/PWM_SERVO_PM.c **** void PWM_SERVO_Wakeup(void) 
+ 179:Generated_Source\PSoC5/PWM_SERVO_PM.c **** {
+  95              		.loc 1 179 0
+  96              		.cfi_startproc
+  97              		@ args = 0, pretend = 0, frame = 0
+  98              		@ frame_needed = 0, uses_anonymous_args = 0
+  99              		@ link register save eliminated.
+ 180:Generated_Source\PSoC5/PWM_SERVO_PM.c ****      /* Restore registers values */
+ 181:Generated_Source\PSoC5/PWM_SERVO_PM.c ****     PWM_SERVO_RestoreConfig();
+ 182:Generated_Source\PSoC5/PWM_SERVO_PM.c **** 
+ 183:Generated_Source\PSoC5/PWM_SERVO_PM.c ****     if(PWM_SERVO_backup.PWMEnableState != 0u)
+ 100              		.loc 1 183 0
+ 101 0000 024B     		ldr	r3, .L11
+ 102 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccIrOQzw.s 			page 6
+
+
+ 103 0004 0BB1     		cbz	r3, .L8
+ 184:Generated_Source\PSoC5/PWM_SERVO_PM.c ****     {
+ 185:Generated_Source\PSoC5/PWM_SERVO_PM.c ****         /* Enable component's operation */
+ 186:Generated_Source\PSoC5/PWM_SERVO_PM.c ****         PWM_SERVO_Enable();
+ 104              		.loc 1 186 0
+ 105 0006 FFF7FEBF 		b	PWM_SERVO_Enable
+ 106              	.LVL1:
+ 107              	.L8:
+ 108 000a 7047     		bx	lr
+ 109              	.L12:
+ 110              		.align	2
+ 111              	.L11:
+ 112 000c 00000000 		.word	.LANCHOR0
+ 113              		.cfi_endproc
+ 114              	.LFE3:
+ 115              		.size	PWM_SERVO_Wakeup, .-PWM_SERVO_Wakeup
+ 116              		.bss
+ 117              		.set	.LANCHOR0,. + 0
+ 118              		.type	PWM_SERVO_backup, %object
+ 119              		.size	PWM_SERVO_backup, 1
+ 120              	PWM_SERVO_backup:
+ 121 0000 00       		.space	1
+ 122              		.text
+ 123              	.Letext0:
+ 124              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 125              		.file 3 "Generated_Source\\PSoC5\\PWM_SERVO.h"
+ 126              		.section	.debug_info,"",%progbits
+ 127              	.Ldebug_info0:
+ 128 0000 4C010000 		.4byte	0x14c
+ 129 0004 0400     		.2byte	0x4
+ 130 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 131 000a 04       		.byte	0x4
+ 132 000b 01       		.uleb128 0x1
+ 133 000c 49010000 		.4byte	.LASF23
+ 134 0010 0C       		.byte	0xc
+ 135 0011 02020000 		.4byte	.LASF24
+ 136 0015 AC000000 		.4byte	.LASF25
+ 137 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 138 001d 00000000 		.4byte	0
+ 139 0021 00000000 		.4byte	.Ldebug_line0
+ 140 0025 02       		.uleb128 0x2
+ 141 0026 01       		.byte	0x1
+ 142 0027 06       		.byte	0x6
+ 143 0028 EA010000 		.4byte	.LASF0
+ 144 002c 02       		.uleb128 0x2
+ 145 002d 01       		.byte	0x1
+ 146 002e 08       		.byte	0x8
+ 147 002f 9E000000 		.4byte	.LASF1
+ 148 0033 02       		.uleb128 0x2
+ 149 0034 02       		.byte	0x2
+ 150 0035 05       		.byte	0x5
+ 151 0036 27010000 		.4byte	.LASF2
+ 152 003a 02       		.uleb128 0x2
+ 153 003b 02       		.byte	0x2
+ 154 003c 07       		.byte	0x7
+ 155 003d D7010000 		.4byte	.LASF3
+ 156 0041 02       		.uleb128 0x2
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccIrOQzw.s 			page 7
+
+
+ 157 0042 04       		.byte	0x4
+ 158 0043 05       		.byte	0x5
+ 159 0044 1E010000 		.4byte	.LASF4
+ 160 0048 02       		.uleb128 0x2
+ 161 0049 04       		.byte	0x4
+ 162 004a 07       		.byte	0x7
+ 163 004b 54000000 		.4byte	.LASF5
+ 164 004f 02       		.uleb128 0x2
+ 165 0050 08       		.byte	0x8
+ 166 0051 05       		.byte	0x5
+ 167 0052 00000000 		.4byte	.LASF6
+ 168 0056 02       		.uleb128 0x2
+ 169 0057 08       		.byte	0x8
+ 170 0058 07       		.byte	0x7
+ 171 0059 66000000 		.4byte	.LASF7
+ 172 005d 03       		.uleb128 0x3
+ 173 005e 04       		.byte	0x4
+ 174 005f 05       		.byte	0x5
+ 175 0060 696E7400 		.ascii	"int\000"
+ 176 0064 02       		.uleb128 0x2
+ 177 0065 04       		.byte	0x4
+ 178 0066 07       		.byte	0x7
+ 179 0067 0E000000 		.4byte	.LASF8
+ 180 006b 04       		.uleb128 0x4
+ 181 006c 4E000000 		.4byte	.LASF12
+ 182 0070 02       		.byte	0x2
+ 183 0071 9201     		.2byte	0x192
+ 184 0073 2C000000 		.4byte	0x2c
+ 185 0077 02       		.uleb128 0x2
+ 186 0078 04       		.byte	0x4
+ 187 0079 04       		.byte	0x4
+ 188 007a 28020000 		.4byte	.LASF9
+ 189 007e 02       		.uleb128 0x2
+ 190 007f 08       		.byte	0x8
+ 191 0080 04       		.byte	0x4
+ 192 0081 42010000 		.4byte	.LASF10
+ 193 0085 02       		.uleb128 0x2
+ 194 0086 01       		.byte	0x1
+ 195 0087 08       		.byte	0x8
+ 196 0088 01010000 		.4byte	.LASF11
+ 197 008c 04       		.uleb128 0x4
+ 198 008d 2E020000 		.4byte	.LASF13
+ 199 0091 02       		.byte	0x2
+ 200 0092 3C02     		.2byte	0x23c
+ 201 0094 98000000 		.4byte	0x98
+ 202 0098 05       		.uleb128 0x5
+ 203 0099 6B000000 		.4byte	0x6b
+ 204 009d 02       		.uleb128 0x2
+ 205 009e 08       		.byte	0x8
+ 206 009f 04       		.byte	0x4
+ 207 00a0 F6010000 		.4byte	.LASF14
+ 208 00a4 02       		.uleb128 0x2
+ 209 00a5 04       		.byte	0x4
+ 210 00a6 07       		.byte	0x7
+ 211 00a7 4A020000 		.4byte	.LASF15
+ 212 00ab 06       		.uleb128 0x6
+ 213 00ac 01       		.byte	0x1
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccIrOQzw.s 			page 8
+
+
+ 214 00ad 03       		.byte	0x3
+ 215 00ae 6B       		.byte	0x6b
+ 216 00af C0000000 		.4byte	0xc0
+ 217 00b3 07       		.uleb128 0x7
+ 218 00b4 1B000000 		.4byte	.LASF26
+ 219 00b8 03       		.byte	0x3
+ 220 00b9 6E       		.byte	0x6e
+ 221 00ba 6B000000 		.4byte	0x6b
+ 222 00be 00       		.byte	0
+ 223 00bf 00       		.byte	0
+ 224 00c0 08       		.uleb128 0x8
+ 225 00c1 33020000 		.4byte	.LASF16
+ 226 00c5 03       		.byte	0x3
+ 227 00c6 8B       		.byte	0x8b
+ 228 00c7 AB000000 		.4byte	0xab
+ 229 00cb 09       		.uleb128 0x9
+ 230 00cc 39000000 		.4byte	.LASF17
+ 231 00d0 01       		.byte	0x1
+ 232 00d1 2A       		.byte	0x2a
+ 233 00d2 01       		.byte	0x1
+ 234 00d3 09       		.uleb128 0x9
+ 235 00d4 06010000 		.4byte	.LASF18
+ 236 00d8 01       		.byte	0x1
+ 237 00d9 58       		.byte	0x58
+ 238 00da 01       		.byte	0x1
+ 239 00db 0A       		.uleb128 0xa
+ 240 00dc D3000000 		.4byte	0xd3
+ 241 00e0 00000000 		.4byte	.LFB1
+ 242 00e4 02000000 		.4byte	.LFE1-.LFB1
+ 243 00e8 01       		.uleb128 0x1
+ 244 00e9 9C       		.byte	0x9c
+ 245 00ea 0B       		.uleb128 0xb
+ 246 00eb 8E000000 		.4byte	.LASF19
+ 247 00ef 01       		.byte	0x1
+ 248 00f0 88       		.byte	0x88
+ 249 00f1 00000000 		.4byte	.LFB2
+ 250 00f5 1C000000 		.4byte	.LFE2-.LFB2
+ 251 00f9 01       		.uleb128 0x1
+ 252 00fa 9C       		.byte	0x9c
+ 253 00fb 09010000 		.4byte	0x109
+ 254 00ff 0C       		.uleb128 0xc
+ 255 0100 14000000 		.4byte	.LVL0
+ 256 0104 39010000 		.4byte	0x139
+ 257 0108 00       		.byte	0
+ 258 0109 0B       		.uleb128 0xb
+ 259 010a 7D000000 		.4byte	.LASF20
+ 260 010e 01       		.byte	0x1
+ 261 010f B2       		.byte	0xb2
+ 262 0110 00000000 		.4byte	.LFB3
+ 263 0114 10000000 		.4byte	.LFE3-.LFB3
+ 264 0118 01       		.uleb128 0x1
+ 265 0119 9C       		.byte	0x9c
+ 266 011a 28010000 		.4byte	0x128
+ 267 011e 0C       		.uleb128 0xc
+ 268 011f 0A000000 		.4byte	.LVL1
+ 269 0123 44010000 		.4byte	0x144
+ 270 0127 00       		.byte	0
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccIrOQzw.s 			page 9
+
+
+ 271 0128 0D       		.uleb128 0xd
+ 272 0129 31010000 		.4byte	.LASF27
+ 273 012d 01       		.byte	0x1
+ 274 012e 14       		.byte	0x14
+ 275 012f C0000000 		.4byte	0xc0
+ 276 0133 05       		.uleb128 0x5
+ 277 0134 03       		.byte	0x3
+ 278 0135 00000000 		.4byte	PWM_SERVO_backup
+ 279 0139 0E       		.uleb128 0xe
+ 280 013a 2A000000 		.4byte	.LASF21
+ 281 013e 2A000000 		.4byte	.LASF21
+ 282 0142 03       		.byte	0x3
+ 283 0143 93       		.byte	0x93
+ 284 0144 0E       		.uleb128 0xe
+ 285 0145 53020000 		.4byte	.LASF22
+ 286 0149 53020000 		.4byte	.LASF22
+ 287 014d 03       		.byte	0x3
+ 288 014e DB       		.byte	0xdb
+ 289 014f 00       		.byte	0
+ 290              		.section	.debug_abbrev,"",%progbits
+ 291              	.Ldebug_abbrev0:
+ 292 0000 01       		.uleb128 0x1
+ 293 0001 11       		.uleb128 0x11
+ 294 0002 01       		.byte	0x1
+ 295 0003 25       		.uleb128 0x25
+ 296 0004 0E       		.uleb128 0xe
+ 297 0005 13       		.uleb128 0x13
+ 298 0006 0B       		.uleb128 0xb
+ 299 0007 03       		.uleb128 0x3
+ 300 0008 0E       		.uleb128 0xe
+ 301 0009 1B       		.uleb128 0x1b
+ 302 000a 0E       		.uleb128 0xe
+ 303 000b 55       		.uleb128 0x55
+ 304 000c 17       		.uleb128 0x17
+ 305 000d 11       		.uleb128 0x11
+ 306 000e 01       		.uleb128 0x1
+ 307 000f 10       		.uleb128 0x10
+ 308 0010 17       		.uleb128 0x17
+ 309 0011 00       		.byte	0
+ 310 0012 00       		.byte	0
+ 311 0013 02       		.uleb128 0x2
+ 312 0014 24       		.uleb128 0x24
+ 313 0015 00       		.byte	0
+ 314 0016 0B       		.uleb128 0xb
+ 315 0017 0B       		.uleb128 0xb
+ 316 0018 3E       		.uleb128 0x3e
+ 317 0019 0B       		.uleb128 0xb
+ 318 001a 03       		.uleb128 0x3
+ 319 001b 0E       		.uleb128 0xe
+ 320 001c 00       		.byte	0
+ 321 001d 00       		.byte	0
+ 322 001e 03       		.uleb128 0x3
+ 323 001f 24       		.uleb128 0x24
+ 324 0020 00       		.byte	0
+ 325 0021 0B       		.uleb128 0xb
+ 326 0022 0B       		.uleb128 0xb
+ 327 0023 3E       		.uleb128 0x3e
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccIrOQzw.s 			page 10
+
+
+ 328 0024 0B       		.uleb128 0xb
+ 329 0025 03       		.uleb128 0x3
+ 330 0026 08       		.uleb128 0x8
+ 331 0027 00       		.byte	0
+ 332 0028 00       		.byte	0
+ 333 0029 04       		.uleb128 0x4
+ 334 002a 16       		.uleb128 0x16
+ 335 002b 00       		.byte	0
+ 336 002c 03       		.uleb128 0x3
+ 337 002d 0E       		.uleb128 0xe
+ 338 002e 3A       		.uleb128 0x3a
+ 339 002f 0B       		.uleb128 0xb
+ 340 0030 3B       		.uleb128 0x3b
+ 341 0031 05       		.uleb128 0x5
+ 342 0032 49       		.uleb128 0x49
+ 343 0033 13       		.uleb128 0x13
+ 344 0034 00       		.byte	0
+ 345 0035 00       		.byte	0
+ 346 0036 05       		.uleb128 0x5
+ 347 0037 35       		.uleb128 0x35
+ 348 0038 00       		.byte	0
+ 349 0039 49       		.uleb128 0x49
+ 350 003a 13       		.uleb128 0x13
+ 351 003b 00       		.byte	0
+ 352 003c 00       		.byte	0
+ 353 003d 06       		.uleb128 0x6
+ 354 003e 13       		.uleb128 0x13
+ 355 003f 01       		.byte	0x1
+ 356 0040 0B       		.uleb128 0xb
+ 357 0041 0B       		.uleb128 0xb
+ 358 0042 3A       		.uleb128 0x3a
+ 359 0043 0B       		.uleb128 0xb
+ 360 0044 3B       		.uleb128 0x3b
+ 361 0045 0B       		.uleb128 0xb
+ 362 0046 01       		.uleb128 0x1
+ 363 0047 13       		.uleb128 0x13
+ 364 0048 00       		.byte	0
+ 365 0049 00       		.byte	0
+ 366 004a 07       		.uleb128 0x7
+ 367 004b 0D       		.uleb128 0xd
+ 368 004c 00       		.byte	0
+ 369 004d 03       		.uleb128 0x3
+ 370 004e 0E       		.uleb128 0xe
+ 371 004f 3A       		.uleb128 0x3a
+ 372 0050 0B       		.uleb128 0xb
+ 373 0051 3B       		.uleb128 0x3b
+ 374 0052 0B       		.uleb128 0xb
+ 375 0053 49       		.uleb128 0x49
+ 376 0054 13       		.uleb128 0x13
+ 377 0055 38       		.uleb128 0x38
+ 378 0056 0B       		.uleb128 0xb
+ 379 0057 00       		.byte	0
+ 380 0058 00       		.byte	0
+ 381 0059 08       		.uleb128 0x8
+ 382 005a 16       		.uleb128 0x16
+ 383 005b 00       		.byte	0
+ 384 005c 03       		.uleb128 0x3
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccIrOQzw.s 			page 11
+
+
+ 385 005d 0E       		.uleb128 0xe
+ 386 005e 3A       		.uleb128 0x3a
+ 387 005f 0B       		.uleb128 0xb
+ 388 0060 3B       		.uleb128 0x3b
+ 389 0061 0B       		.uleb128 0xb
+ 390 0062 49       		.uleb128 0x49
+ 391 0063 13       		.uleb128 0x13
+ 392 0064 00       		.byte	0
+ 393 0065 00       		.byte	0
+ 394 0066 09       		.uleb128 0x9
+ 395 0067 2E       		.uleb128 0x2e
+ 396 0068 00       		.byte	0
+ 397 0069 3F       		.uleb128 0x3f
+ 398 006a 19       		.uleb128 0x19
+ 399 006b 03       		.uleb128 0x3
+ 400 006c 0E       		.uleb128 0xe
+ 401 006d 3A       		.uleb128 0x3a
+ 402 006e 0B       		.uleb128 0xb
+ 403 006f 3B       		.uleb128 0x3b
+ 404 0070 0B       		.uleb128 0xb
+ 405 0071 27       		.uleb128 0x27
+ 406 0072 19       		.uleb128 0x19
+ 407 0073 20       		.uleb128 0x20
+ 408 0074 0B       		.uleb128 0xb
+ 409 0075 00       		.byte	0
+ 410 0076 00       		.byte	0
+ 411 0077 0A       		.uleb128 0xa
+ 412 0078 2E       		.uleb128 0x2e
+ 413 0079 00       		.byte	0
+ 414 007a 31       		.uleb128 0x31
+ 415 007b 13       		.uleb128 0x13
+ 416 007c 11       		.uleb128 0x11
+ 417 007d 01       		.uleb128 0x1
+ 418 007e 12       		.uleb128 0x12
+ 419 007f 06       		.uleb128 0x6
+ 420 0080 40       		.uleb128 0x40
+ 421 0081 18       		.uleb128 0x18
+ 422 0082 9742     		.uleb128 0x2117
+ 423 0084 19       		.uleb128 0x19
+ 424 0085 00       		.byte	0
+ 425 0086 00       		.byte	0
+ 426 0087 0B       		.uleb128 0xb
+ 427 0088 2E       		.uleb128 0x2e
+ 428 0089 01       		.byte	0x1
+ 429 008a 3F       		.uleb128 0x3f
+ 430 008b 19       		.uleb128 0x19
+ 431 008c 03       		.uleb128 0x3
+ 432 008d 0E       		.uleb128 0xe
+ 433 008e 3A       		.uleb128 0x3a
+ 434 008f 0B       		.uleb128 0xb
+ 435 0090 3B       		.uleb128 0x3b
+ 436 0091 0B       		.uleb128 0xb
+ 437 0092 27       		.uleb128 0x27
+ 438 0093 19       		.uleb128 0x19
+ 439 0094 11       		.uleb128 0x11
+ 440 0095 01       		.uleb128 0x1
+ 441 0096 12       		.uleb128 0x12
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccIrOQzw.s 			page 12
+
+
+ 442 0097 06       		.uleb128 0x6
+ 443 0098 40       		.uleb128 0x40
+ 444 0099 18       		.uleb128 0x18
+ 445 009a 9742     		.uleb128 0x2117
+ 446 009c 19       		.uleb128 0x19
+ 447 009d 01       		.uleb128 0x1
+ 448 009e 13       		.uleb128 0x13
+ 449 009f 00       		.byte	0
+ 450 00a0 00       		.byte	0
+ 451 00a1 0C       		.uleb128 0xc
+ 452 00a2 898201   		.uleb128 0x4109
+ 453 00a5 00       		.byte	0
+ 454 00a6 11       		.uleb128 0x11
+ 455 00a7 01       		.uleb128 0x1
+ 456 00a8 9542     		.uleb128 0x2115
+ 457 00aa 19       		.uleb128 0x19
+ 458 00ab 31       		.uleb128 0x31
+ 459 00ac 13       		.uleb128 0x13
+ 460 00ad 00       		.byte	0
+ 461 00ae 00       		.byte	0
+ 462 00af 0D       		.uleb128 0xd
+ 463 00b0 34       		.uleb128 0x34
+ 464 00b1 00       		.byte	0
+ 465 00b2 03       		.uleb128 0x3
+ 466 00b3 0E       		.uleb128 0xe
+ 467 00b4 3A       		.uleb128 0x3a
+ 468 00b5 0B       		.uleb128 0xb
+ 469 00b6 3B       		.uleb128 0x3b
+ 470 00b7 0B       		.uleb128 0xb
+ 471 00b8 49       		.uleb128 0x49
+ 472 00b9 13       		.uleb128 0x13
+ 473 00ba 02       		.uleb128 0x2
+ 474 00bb 18       		.uleb128 0x18
+ 475 00bc 00       		.byte	0
+ 476 00bd 00       		.byte	0
+ 477 00be 0E       		.uleb128 0xe
+ 478 00bf 2E       		.uleb128 0x2e
+ 479 00c0 00       		.byte	0
+ 480 00c1 3F       		.uleb128 0x3f
+ 481 00c2 19       		.uleb128 0x19
+ 482 00c3 3C       		.uleb128 0x3c
+ 483 00c4 19       		.uleb128 0x19
+ 484 00c5 6E       		.uleb128 0x6e
+ 485 00c6 0E       		.uleb128 0xe
+ 486 00c7 03       		.uleb128 0x3
+ 487 00c8 0E       		.uleb128 0xe
+ 488 00c9 3A       		.uleb128 0x3a
+ 489 00ca 0B       		.uleb128 0xb
+ 490 00cb 3B       		.uleb128 0x3b
+ 491 00cc 0B       		.uleb128 0xb
+ 492 00cd 00       		.byte	0
+ 493 00ce 00       		.byte	0
+ 494 00cf 00       		.byte	0
+ 495              		.section	.debug_aranges,"",%progbits
+ 496 0000 2C000000 		.4byte	0x2c
+ 497 0004 0200     		.2byte	0x2
+ 498 0006 00000000 		.4byte	.Ldebug_info0
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccIrOQzw.s 			page 13
+
+
+ 499 000a 04       		.byte	0x4
+ 500 000b 00       		.byte	0
+ 501 000c 0000     		.2byte	0
+ 502 000e 0000     		.2byte	0
+ 503 0010 00000000 		.4byte	.LFB1
+ 504 0014 02000000 		.4byte	.LFE1-.LFB1
+ 505 0018 00000000 		.4byte	.LFB2
+ 506 001c 1C000000 		.4byte	.LFE2-.LFB2
+ 507 0020 00000000 		.4byte	.LFB3
+ 508 0024 10000000 		.4byte	.LFE3-.LFB3
+ 509 0028 00000000 		.4byte	0
+ 510 002c 00000000 		.4byte	0
+ 511              		.section	.debug_ranges,"",%progbits
+ 512              	.Ldebug_ranges0:
+ 513 0000 00000000 		.4byte	.LFB1
+ 514 0004 02000000 		.4byte	.LFE1
+ 515 0008 00000000 		.4byte	.LFB2
+ 516 000c 1C000000 		.4byte	.LFE2
+ 517 0010 00000000 		.4byte	.LFB3
+ 518 0014 10000000 		.4byte	.LFE3
+ 519 0018 00000000 		.4byte	0
+ 520 001c 00000000 		.4byte	0
+ 521              		.section	.debug_line,"",%progbits
+ 522              	.Ldebug_line0:
+ 523 0000 94000000 		.section	.debug_str,"MS",%progbits,1
+ 523      02005800 
+ 523      00000201 
+ 523      FB0E0D00 
+ 523      01010101 
+ 524              	.LASF6:
+ 525 0000 6C6F6E67 		.ascii	"long long int\000"
+ 525      206C6F6E 
+ 525      6720696E 
+ 525      7400
+ 526              	.LASF8:
+ 527 000e 756E7369 		.ascii	"unsigned int\000"
+ 527      676E6564 
+ 527      20696E74 
+ 527      00
+ 528              	.LASF26:
+ 529 001b 50574D45 		.ascii	"PWMEnableState\000"
+ 529      6E61626C 
+ 529      65537461 
+ 529      746500
+ 530              	.LASF21:
+ 531 002a 50574D5F 		.ascii	"PWM_SERVO_Stop\000"
+ 531      53455256 
+ 531      4F5F5374 
+ 531      6F7000
+ 532              	.LASF17:
+ 533 0039 50574D5F 		.ascii	"PWM_SERVO_SaveConfig\000"
+ 533      53455256 
+ 533      4F5F5361 
+ 533      7665436F 
+ 533      6E666967 
+ 534              	.LASF12:
+ 535 004e 75696E74 		.ascii	"uint8\000"
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccIrOQzw.s 			page 14
+
+
+ 535      3800
+ 536              	.LASF5:
+ 537 0054 6C6F6E67 		.ascii	"long unsigned int\000"
+ 537      20756E73 
+ 537      69676E65 
+ 537      6420696E 
+ 537      7400
+ 538              	.LASF7:
+ 539 0066 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 539      206C6F6E 
+ 539      6720756E 
+ 539      7369676E 
+ 539      65642069 
+ 540              	.LASF20:
+ 541 007d 50574D5F 		.ascii	"PWM_SERVO_Wakeup\000"
+ 541      53455256 
+ 541      4F5F5761 
+ 541      6B657570 
+ 541      00
+ 542              	.LASF19:
+ 543 008e 50574D5F 		.ascii	"PWM_SERVO_Sleep\000"
+ 543      53455256 
+ 543      4F5F536C 
+ 543      65657000 
+ 544              	.LASF1:
+ 545 009e 756E7369 		.ascii	"unsigned char\000"
+ 545      676E6564 
+ 545      20636861 
+ 545      7200
+ 546              	.LASF25:
+ 547 00ac 433A5C55 		.ascii	"C:\\Users\\Alexander Nielsen\\Desktop\\platooning\\"
+ 547      73657273 
+ 547      5C416C65 
+ 547      78616E64 
+ 547      6572204E 
+ 548 00da 50536F43 		.ascii	"PSoC\\Platooning\\AngleMeasurement.cydsn\000"
+ 548      5C506C61 
+ 548      746F6F6E 
+ 548      696E675C 
+ 548      416E676C 
+ 549              	.LASF11:
+ 550 0101 63686172 		.ascii	"char\000"
+ 550      00
+ 551              	.LASF18:
+ 552 0106 50574D5F 		.ascii	"PWM_SERVO_RestoreConfig\000"
+ 552      53455256 
+ 552      4F5F5265 
+ 552      73746F72 
+ 552      65436F6E 
+ 553              	.LASF4:
+ 554 011e 6C6F6E67 		.ascii	"long int\000"
+ 554      20696E74 
+ 554      00
+ 555              	.LASF2:
+ 556 0127 73686F72 		.ascii	"short int\000"
+ 556      7420696E 
+ 556      7400
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccIrOQzw.s 			page 15
+
+
+ 557              	.LASF27:
+ 558 0131 50574D5F 		.ascii	"PWM_SERVO_backup\000"
+ 558      53455256 
+ 558      4F5F6261 
+ 558      636B7570 
+ 558      00
+ 559              	.LASF10:
+ 560 0142 646F7562 		.ascii	"double\000"
+ 560      6C6500
+ 561              	.LASF23:
+ 562 0149 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 562      43313120 
+ 562      352E342E 
+ 562      31203230 
+ 562      31363036 
+ 563 017c 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 563      20726576 
+ 563      6973696F 
+ 563      6E203233 
+ 563      37373135 
+ 564 01af 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 564      66756E63 
+ 564      74696F6E 
+ 564      2D736563 
+ 564      74696F6E 
+ 565              	.LASF3:
+ 566 01d7 73686F72 		.ascii	"short unsigned int\000"
+ 566      7420756E 
+ 566      7369676E 
+ 566      65642069 
+ 566      6E7400
+ 567              	.LASF0:
+ 568 01ea 7369676E 		.ascii	"signed char\000"
+ 568      65642063 
+ 568      68617200 
+ 569              	.LASF14:
+ 570 01f6 6C6F6E67 		.ascii	"long double\000"
+ 570      20646F75 
+ 570      626C6500 
+ 571              	.LASF24:
+ 572 0202 47656E65 		.ascii	"Generated_Source\\PSoC5\\PWM_SERVO_PM.c\000"
+ 572      72617465 
+ 572      645F536F 
+ 572      75726365 
+ 572      5C50536F 
+ 573              	.LASF9:
+ 574 0228 666C6F61 		.ascii	"float\000"
+ 574      7400
+ 575              	.LASF13:
+ 576 022e 72656738 		.ascii	"reg8\000"
+ 576      00
+ 577              	.LASF16:
+ 578 0233 50574D5F 		.ascii	"PWM_SERVO_backupStruct\000"
+ 578      53455256 
+ 578      4F5F6261 
+ 578      636B7570 
+ 578      53747275 
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccIrOQzw.s 			page 16
+
+
+ 579              	.LASF15:
+ 580 024a 73697A65 		.ascii	"sizetype\000"
+ 580      74797065 
+ 580      00
+ 581              	.LASF22:
+ 582 0253 50574D5F 		.ascii	"PWM_SERVO_Enable\000"
+ 582      53455256 
+ 582      4F5F456E 
+ 582      61626C65 
+ 582      00
+ 583              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

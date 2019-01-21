@@ -1,5 +1,5 @@
 -- Project:   AngleMeasurement
--- Generated: 01/16/2019 09:27:41
+-- Generated: 01/21/2019 11:07:41
 -- PSoC Creator  4.2
 
 ENTITY AngleMeasurement IS
@@ -71,7 +71,8 @@ ARCHITECTURE __DEFAULT__ OF AngleMeasurement IS
     ATTRIBUTE udbclken_assigned OF Net_727 : SIGNAL IS "True";
     ATTRIBUTE global_signal OF Net_727 : SIGNAL IS true;
     SIGNAL Net_727_local : bit;
-    SIGNAL Net_737 : bit;
+    SIGNAL Net_729 : bit;
+    SIGNAL Net_730 : bit;
     SIGNAL Net_757 : bit;
     ATTRIBUTE global_signal OF Net_757 : SIGNAL IS true;
     SIGNAL Net_757_local : bit;
@@ -142,6 +143,7 @@ ARCHITECTURE __DEFAULT__ OF AngleMeasurement IS
     SIGNAL \Maximum_Peak_Detector_B:Net_145\ : bit;
     SIGNAL \Maximum_Peak_Detector_B:Sample_Hold:Net_144\ : bit;
     SIGNAL \PWM_H_BRIDGE:PWMUDB:cmp1_less\ : bit;
+    SIGNAL \PWM_H_BRIDGE:PWMUDB:cmp2_less\ : bit;
     SIGNAL \PWM_H_BRIDGE:PWMUDB:control_0\ : bit;
     SIGNAL \PWM_H_BRIDGE:PWMUDB:control_1\ : bit;
     SIGNAL \PWM_H_BRIDGE:PWMUDB:control_2\ : bit;
@@ -151,8 +153,10 @@ ARCHITECTURE __DEFAULT__ OF AngleMeasurement IS
     SIGNAL \PWM_H_BRIDGE:PWMUDB:control_6\ : bit;
     SIGNAL \PWM_H_BRIDGE:PWMUDB:control_7\ : bit;
     SIGNAL \PWM_H_BRIDGE:PWMUDB:prevCompare1\ : bit;
+    SIGNAL \PWM_H_BRIDGE:PWMUDB:prevCompare2\ : bit;
     SIGNAL \PWM_H_BRIDGE:PWMUDB:runmode_enable\ : bit;
     SIGNAL \PWM_H_BRIDGE:PWMUDB:status_0\ : bit;
+    SIGNAL \PWM_H_BRIDGE:PWMUDB:status_1\ : bit;
     SIGNAL \PWM_H_BRIDGE:PWMUDB:status_2\ : bit;
     SIGNAL \PWM_H_BRIDGE:PWMUDB:status_3\ : bit;
     SIGNAL \PWM_H_BRIDGE:PWMUDB:tc_i\ : bit;
@@ -300,9 +304,9 @@ ARCHITECTURE __DEFAULT__ OF AngleMeasurement IS
     ATTRIBUTE lib_model OF \SPI:BSPIM:rx_status_6\ : LABEL IS "macrocell14";
     ATTRIBUTE lib_model OF \PWM_H_BRIDGE:PWMUDB:status_2\ : LABEL IS "macrocell15";
     ATTRIBUTE Location OF \Maximum_Peak_Detector_A:Sample_Hold:SC\ : LABEL IS "F(SC,1)";
-    ATTRIBUTE Location OF \Maximum_Peak_Detector_A:Comp_1:ctComp\ : LABEL IS "F(Comparator,3)";
+    ATTRIBUTE Location OF \Maximum_Peak_Detector_A:Comp_1:ctComp\ : LABEL IS "F(Comparator,2)";
     ATTRIBUTE Location OF \ADC_SAR_A:ADC_SAR\ : LABEL IS "F(SAR,1)";
-    ATTRIBUTE Location OF \Maximum_Peak_Detector_B:Sample_Hold:SC\ : LABEL IS "F(SC,2)";
+    ATTRIBUTE Location OF \Maximum_Peak_Detector_B:Sample_Hold:SC\ : LABEL IS "F(SC,0)";
     ATTRIBUTE Location OF \Maximum_Peak_Detector_B:Comp_1:ctComp\ : LABEL IS "F(Comparator,0)";
     ATTRIBUTE Location OF \ADC_SAR_B:ADC_SAR\ : LABEL IS "F(SAR,0)";
     ATTRIBUTE lib_model OF DMA_A : LABEL IS "drqcell1";
@@ -348,8 +352,11 @@ ARCHITECTURE __DEFAULT__ OF AngleMeasurement IS
     ATTRIBUTE lib_model OF \SPI:BSPIM:cnt_enable\ : LABEL IS "macrocell41";
     ATTRIBUTE lib_model OF \PWM_H_BRIDGE:PWMUDB:runmode_enable\ : LABEL IS "macrocell42";
     ATTRIBUTE lib_model OF \PWM_H_BRIDGE:PWMUDB:prevCompare1\ : LABEL IS "macrocell43";
-    ATTRIBUTE lib_model OF \PWM_H_BRIDGE:PWMUDB:status_0\ : LABEL IS "macrocell44";
-    ATTRIBUTE lib_model OF Net_737 : LABEL IS "macrocell45";
+    ATTRIBUTE lib_model OF \PWM_H_BRIDGE:PWMUDB:prevCompare2\ : LABEL IS "macrocell44";
+    ATTRIBUTE lib_model OF \PWM_H_BRIDGE:PWMUDB:status_0\ : LABEL IS "macrocell45";
+    ATTRIBUTE lib_model OF \PWM_H_BRIDGE:PWMUDB:status_1\ : LABEL IS "macrocell46";
+    ATTRIBUTE lib_model OF Net_729 : LABEL IS "macrocell47";
+    ATTRIBUTE lib_model OF Net_730 : LABEL IS "macrocell48";
     COMPONENT clockblockcell
         PORT (
             dclk_0 : OUT std_ulogic;
@@ -1991,7 +1998,7 @@ BEGIN
             oe_sync => "0",
             output_clk_en => 0,
             output_clock_mode => "0",
-            output_conn => "0",
+            output_conn => "1",
             output_mode => "0",
             output_reset => 0,
             output_sync => "0",
@@ -2045,10 +2052,12 @@ BEGIN
             oe_sync_mode => 0,
             logicalport => "N2",
             logicalport_pin_id => 0,
-            io_capabilities => "0000000000000000000000000000000000000000000000000000000000000001")
+            io_capabilities => "0000000000000000000000000000000000000000000000000000000000000101")
         PORT MAP(
             pa_out => N2(0)__PA,
             oe => open,
+            pin_input => Net_730,
+            pad_out => N2(0)_PAD,
             pad_in => N2(0)_PAD,
             in_clock => open,
             in_clock_en => '1',
@@ -2139,7 +2148,7 @@ BEGIN
         PORT MAP(
             pa_out => N1(0)__PA,
             oe => open,
-            pin_input => Net_737,
+            pin_input => Net_729,
             pad_out => N1(0)_PAD,
             pad_in => N1(0)_PAD,
             in_clock => open,
@@ -3408,7 +3417,7 @@ BEGIN
             status_4 => open,
             status_3 => \PWM_H_BRIDGE:PWMUDB:status_3\,
             status_2 => \PWM_H_BRIDGE:PWMUDB:status_2\,
-            status_1 => open,
+            status_1 => \PWM_H_BRIDGE:PWMUDB:status_1\,
             status_0 => \PWM_H_BRIDGE:PWMUDB:status_0\);
 
     \PWM_H_BRIDGE:PWMUDB:sP8:pwmdp:u0\:datapathcell
@@ -3444,6 +3453,7 @@ BEGIN
             cs_addr_1 => \PWM_H_BRIDGE:PWMUDB:runmode_enable\,
             cl0_comb => \PWM_H_BRIDGE:PWMUDB:cmp1_less\,
             z0_comb => \PWM_H_BRIDGE:PWMUDB:tc_i\,
+            cl1_comb => \PWM_H_BRIDGE:PWMUDB:cmp2_less\,
             f1_blk_stat_comb => \PWM_H_BRIDGE:PWMUDB:status_3\,
             busclk => ClockBlock_BUS_CLK);
 
@@ -3920,6 +3930,17 @@ BEGIN
             clock_0 => Net_727,
             main_0 => \PWM_H_BRIDGE:PWMUDB:cmp1_less\);
 
+    \PWM_H_BRIDGE:PWMUDB:prevCompare2\:macrocell
+        GENERIC MAP(
+            eqn_main => "(main_0)",
+            regmode => 1,
+            clk_inv => '0',
+            clken_mode => 1)
+        PORT MAP(
+            q => \PWM_H_BRIDGE:PWMUDB:prevCompare2\,
+            clock_0 => Net_727,
+            main_0 => \PWM_H_BRIDGE:PWMUDB:cmp2_less\);
+
     \PWM_H_BRIDGE:PWMUDB:status_0\:macrocell
         GENERIC MAP(
             eqn_main => "(!main_0 * main_1)",
@@ -3932,16 +3953,40 @@ BEGIN
             main_0 => \PWM_H_BRIDGE:PWMUDB:prevCompare1\,
             main_1 => \PWM_H_BRIDGE:PWMUDB:cmp1_less\);
 
-    Net_737:macrocell
+    \PWM_H_BRIDGE:PWMUDB:status_1\:macrocell
+        GENERIC MAP(
+            eqn_main => "(!main_0 * main_1)",
+            regmode => 1,
+            clk_inv => '0',
+            clken_mode => 1)
+        PORT MAP(
+            q => \PWM_H_BRIDGE:PWMUDB:status_1\,
+            clock_0 => Net_727,
+            main_0 => \PWM_H_BRIDGE:PWMUDB:prevCompare2\,
+            main_1 => \PWM_H_BRIDGE:PWMUDB:cmp2_less\);
+
+    Net_729:macrocell
         GENERIC MAP(
             eqn_main => "(main_0 * main_1)",
             regmode => 1,
             clk_inv => '0',
             clken_mode => 1)
         PORT MAP(
-            q => Net_737,
+            q => Net_729,
             clock_0 => Net_727,
             main_0 => \PWM_H_BRIDGE:PWMUDB:runmode_enable\,
             main_1 => \PWM_H_BRIDGE:PWMUDB:cmp1_less\);
+
+    Net_730:macrocell
+        GENERIC MAP(
+            eqn_main => "(main_0 * main_1)",
+            regmode => 1,
+            clk_inv => '0',
+            clken_mode => 1)
+        PORT MAP(
+            q => Net_730,
+            clock_0 => Net_727,
+            main_0 => \PWM_H_BRIDGE:PWMUDB:runmode_enable\,
+            main_1 => \PWM_H_BRIDGE:PWMUDB:cmp2_less\);
 
 END __DEFAULT__;

@@ -1,0 +1,1044 @@
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccXX1lHz.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"IRQ.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.IRQ_Write,"ax",%progbits
+  20              		.align	1
+  21              		.global	IRQ_Write
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	IRQ_Write, %function
+  25              	IRQ_Write:
+  26              	.LFB0:
+  27              		.file 1 "Generated_Source\\PSoC5\\IRQ.c"
+   1:Generated_Source\PSoC5/IRQ.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/IRQ.c **** * File Name: IRQ.c  
+   3:Generated_Source\PSoC5/IRQ.c **** * Version 2.20
+   4:Generated_Source\PSoC5/IRQ.c **** *
+   5:Generated_Source\PSoC5/IRQ.c **** * Description:
+   6:Generated_Source\PSoC5/IRQ.c **** *  This file contains API to enable firmware control of a Pins component.
+   7:Generated_Source\PSoC5/IRQ.c **** *
+   8:Generated_Source\PSoC5/IRQ.c **** * Note:
+   9:Generated_Source\PSoC5/IRQ.c **** *
+  10:Generated_Source\PSoC5/IRQ.c **** ********************************************************************************
+  11:Generated_Source\PSoC5/IRQ.c **** * Copyright 2008-2015, Cypress Semiconductor Corporation.  All rights reserved.
+  12:Generated_Source\PSoC5/IRQ.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  13:Generated_Source\PSoC5/IRQ.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  14:Generated_Source\PSoC5/IRQ.c **** * the software package with which this file was provided.
+  15:Generated_Source\PSoC5/IRQ.c **** *******************************************************************************/
+  16:Generated_Source\PSoC5/IRQ.c **** 
+  17:Generated_Source\PSoC5/IRQ.c **** #include "cytypes.h"
+  18:Generated_Source\PSoC5/IRQ.c **** #include "IRQ.h"
+  19:Generated_Source\PSoC5/IRQ.c **** 
+  20:Generated_Source\PSoC5/IRQ.c **** /* APIs are not generated for P15[7:6] on PSoC 5 */
+  21:Generated_Source\PSoC5/IRQ.c **** #if !(CY_PSOC5A &&\
+  22:Generated_Source\PSoC5/IRQ.c **** 	 IRQ__PORT == 15 && ((IRQ__MASK & 0xC0) != 0))
+  23:Generated_Source\PSoC5/IRQ.c **** 
+  24:Generated_Source\PSoC5/IRQ.c **** 
+  25:Generated_Source\PSoC5/IRQ.c **** /*******************************************************************************
+  26:Generated_Source\PSoC5/IRQ.c **** * Function Name: IRQ_Write
+  27:Generated_Source\PSoC5/IRQ.c **** ****************************************************************************//**
+  28:Generated_Source\PSoC5/IRQ.c **** *
+  29:Generated_Source\PSoC5/IRQ.c **** * \brief Writes the value to the physical port (data output register), masking
+  30:Generated_Source\PSoC5/IRQ.c **** *  and shifting the bits appropriately. 
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccXX1lHz.s 			page 2
+
+
+  31:Generated_Source\PSoC5/IRQ.c **** *
+  32:Generated_Source\PSoC5/IRQ.c **** * The data output register controls the signal applied to the physical pin in 
+  33:Generated_Source\PSoC5/IRQ.c **** * conjunction with the drive mode parameter. This function avoids changing 
+  34:Generated_Source\PSoC5/IRQ.c **** * other bits in the port by using the appropriate method (read-modify-write or
+  35:Generated_Source\PSoC5/IRQ.c **** * bit banding).
+  36:Generated_Source\PSoC5/IRQ.c **** *
+  37:Generated_Source\PSoC5/IRQ.c **** * <b>Note</b> This function should not be used on a hardware digital output pin 
+  38:Generated_Source\PSoC5/IRQ.c **** * as it is driven by the hardware signal attached to it.
+  39:Generated_Source\PSoC5/IRQ.c **** *
+  40:Generated_Source\PSoC5/IRQ.c **** * \param value
+  41:Generated_Source\PSoC5/IRQ.c **** *  Value to write to the component instance.
+  42:Generated_Source\PSoC5/IRQ.c **** *
+  43:Generated_Source\PSoC5/IRQ.c **** * \return 
+  44:Generated_Source\PSoC5/IRQ.c **** *  None 
+  45:Generated_Source\PSoC5/IRQ.c **** *
+  46:Generated_Source\PSoC5/IRQ.c **** * \sideeffect
+  47:Generated_Source\PSoC5/IRQ.c **** *  If you use read-modify-write operations that are not atomic; the Interrupt 
+  48:Generated_Source\PSoC5/IRQ.c **** *  Service Routines (ISR) can cause corruption of this function. An ISR that 
+  49:Generated_Source\PSoC5/IRQ.c **** *  interrupts this function and performs writes to the Pins component data 
+  50:Generated_Source\PSoC5/IRQ.c **** *  register can cause corrupted port data. To avoid this issue, you should 
+  51:Generated_Source\PSoC5/IRQ.c **** *  either use the Per-Pin APIs (primary method) or disable interrupts around 
+  52:Generated_Source\PSoC5/IRQ.c **** *  this function.
+  53:Generated_Source\PSoC5/IRQ.c **** *
+  54:Generated_Source\PSoC5/IRQ.c **** * \funcusage
+  55:Generated_Source\PSoC5/IRQ.c **** *  \snippet IRQ_SUT.c usage_IRQ_Write
+  56:Generated_Source\PSoC5/IRQ.c **** *******************************************************************************/
+  57:Generated_Source\PSoC5/IRQ.c **** void IRQ_Write(uint8 value)
+  58:Generated_Source\PSoC5/IRQ.c **** {
+  28              		.loc 1 58 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+  59:Generated_Source\PSoC5/IRQ.c ****     uint8 staticBits = (IRQ_DR & (uint8)(~IRQ_MASK));
+  34              		.loc 1 59 0
+  35 0000 044A     		ldr	r2, .L2
+  60:Generated_Source\PSoC5/IRQ.c ****     IRQ_DR = staticBits | ((uint8)(value << IRQ_SHIFT) & IRQ_MASK);
+  36              		.loc 1 60 0
+  37 0002 4000     		lsls	r0, r0, #1
+  38              	.LVL1:
+  59:Generated_Source\PSoC5/IRQ.c ****     uint8 staticBits = (IRQ_DR & (uint8)(~IRQ_MASK));
+  39              		.loc 1 59 0
+  40 0004 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  41              	.LVL2:
+  42              		.loc 1 60 0
+  43 0006 00F00200 		and	r0, r0, #2
+  44 000a 03F0FD03 		and	r3, r3, #253
+  45              	.LVL3:
+  46 000e 0343     		orrs	r3, r3, r0
+  47 0010 1370     		strb	r3, [r2]
+  48 0012 7047     		bx	lr
+  49              	.L3:
+  50              		.align	2
+  51              	.L2:
+  52 0014 C0510040 		.word	1073762752
+  53              		.cfi_endproc
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccXX1lHz.s 			page 3
+
+
+  54              	.LFE0:
+  55              		.size	IRQ_Write, .-IRQ_Write
+  56              		.section	.text.IRQ_SetDriveMode,"ax",%progbits
+  57              		.align	1
+  58              		.global	IRQ_SetDriveMode
+  59              		.thumb
+  60              		.thumb_func
+  61              		.type	IRQ_SetDriveMode, %function
+  62              	IRQ_SetDriveMode:
+  63              	.LFB1:
+  61:Generated_Source\PSoC5/IRQ.c **** }
+  62:Generated_Source\PSoC5/IRQ.c **** 
+  63:Generated_Source\PSoC5/IRQ.c **** 
+  64:Generated_Source\PSoC5/IRQ.c **** /*******************************************************************************
+  65:Generated_Source\PSoC5/IRQ.c **** * Function Name: IRQ_SetDriveMode
+  66:Generated_Source\PSoC5/IRQ.c **** ****************************************************************************//**
+  67:Generated_Source\PSoC5/IRQ.c **** *
+  68:Generated_Source\PSoC5/IRQ.c **** * \brief Sets the drive mode for each of the Pins component's pins.
+  69:Generated_Source\PSoC5/IRQ.c **** * 
+  70:Generated_Source\PSoC5/IRQ.c **** * <b>Note</b> This affects all pins in the Pins component instance. Use the
+  71:Generated_Source\PSoC5/IRQ.c **** * Per-Pin APIs if you wish to control individual pin's drive modes.
+  72:Generated_Source\PSoC5/IRQ.c **** *
+  73:Generated_Source\PSoC5/IRQ.c **** * \param mode
+  74:Generated_Source\PSoC5/IRQ.c **** *  Mode for the selected signals. Valid options are documented in 
+  75:Generated_Source\PSoC5/IRQ.c **** *  \ref driveMode.
+  76:Generated_Source\PSoC5/IRQ.c **** *
+  77:Generated_Source\PSoC5/IRQ.c **** * \return
+  78:Generated_Source\PSoC5/IRQ.c **** *  None
+  79:Generated_Source\PSoC5/IRQ.c **** *
+  80:Generated_Source\PSoC5/IRQ.c **** * \sideeffect
+  81:Generated_Source\PSoC5/IRQ.c **** *  If you use read-modify-write operations that are not atomic, the ISR can
+  82:Generated_Source\PSoC5/IRQ.c **** *  cause corruption of this function. An ISR that interrupts this function 
+  83:Generated_Source\PSoC5/IRQ.c **** *  and performs writes to the Pins component Drive Mode registers can cause 
+  84:Generated_Source\PSoC5/IRQ.c **** *  corrupted port data. To avoid this issue, you should either use the Per-Pin
+  85:Generated_Source\PSoC5/IRQ.c **** *  APIs (primary method) or disable interrupts around this function.
+  86:Generated_Source\PSoC5/IRQ.c **** *
+  87:Generated_Source\PSoC5/IRQ.c **** * \funcusage
+  88:Generated_Source\PSoC5/IRQ.c **** *  \snippet IRQ_SUT.c usage_IRQ_SetDriveMode
+  89:Generated_Source\PSoC5/IRQ.c **** *******************************************************************************/
+  90:Generated_Source\PSoC5/IRQ.c **** void IRQ_SetDriveMode(uint8 mode)
+  91:Generated_Source\PSoC5/IRQ.c **** {
+  64              		.loc 1 91 0
+  65              		.cfi_startproc
+  66              		@ args = 0, pretend = 0, frame = 0
+  67              		@ frame_needed = 0, uses_anonymous_args = 0
+  68              		@ link register save eliminated.
+  69              	.LVL4:
+  92:Generated_Source\PSoC5/IRQ.c **** 	CyPins_SetPinDriveMode(IRQ_0, mode);
+  70              		.loc 1 92 0
+  71 0000 044A     		ldr	r2, .L5
+  72 0002 00F00E00 		and	r0, r0, #14
+  73              	.LVL5:
+  74 0006 1378     		ldrb	r3, [r2]	@ zero_extendqisi2
+  75 0008 03F0F103 		and	r3, r3, #241
+  76 000c 1843     		orrs	r0, r0, r3
+  77 000e 1070     		strb	r0, [r2]
+  78 0010 7047     		bx	lr
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccXX1lHz.s 			page 4
+
+
+  79              	.L6:
+  80 0012 00BF     		.align	2
+  81              	.L5:
+  82 0014 61500040 		.word	1073762401
+  83              		.cfi_endproc
+  84              	.LFE1:
+  85              		.size	IRQ_SetDriveMode, .-IRQ_SetDriveMode
+  86              		.section	.text.IRQ_Read,"ax",%progbits
+  87              		.align	1
+  88              		.global	IRQ_Read
+  89              		.thumb
+  90              		.thumb_func
+  91              		.type	IRQ_Read, %function
+  92              	IRQ_Read:
+  93              	.LFB2:
+  93:Generated_Source\PSoC5/IRQ.c **** }
+  94:Generated_Source\PSoC5/IRQ.c **** 
+  95:Generated_Source\PSoC5/IRQ.c **** 
+  96:Generated_Source\PSoC5/IRQ.c **** /*******************************************************************************
+  97:Generated_Source\PSoC5/IRQ.c **** * Function Name: IRQ_Read
+  98:Generated_Source\PSoC5/IRQ.c **** ****************************************************************************//**
+  99:Generated_Source\PSoC5/IRQ.c **** *
+ 100:Generated_Source\PSoC5/IRQ.c **** * \brief Reads the associated physical port (pin status register) and masks 
+ 101:Generated_Source\PSoC5/IRQ.c **** *  the required bits according to the width and bit position of the component
+ 102:Generated_Source\PSoC5/IRQ.c **** *  instance. 
+ 103:Generated_Source\PSoC5/IRQ.c **** *
+ 104:Generated_Source\PSoC5/IRQ.c **** * The pin's status register returns the current logic level present on the 
+ 105:Generated_Source\PSoC5/IRQ.c **** * physical pin.
+ 106:Generated_Source\PSoC5/IRQ.c **** *
+ 107:Generated_Source\PSoC5/IRQ.c **** * \return 
+ 108:Generated_Source\PSoC5/IRQ.c **** *  The current value for the pins in the component as a right justified number.
+ 109:Generated_Source\PSoC5/IRQ.c **** *
+ 110:Generated_Source\PSoC5/IRQ.c **** * \funcusage
+ 111:Generated_Source\PSoC5/IRQ.c **** *  \snippet IRQ_SUT.c usage_IRQ_Read  
+ 112:Generated_Source\PSoC5/IRQ.c **** *******************************************************************************/
+ 113:Generated_Source\PSoC5/IRQ.c **** uint8 IRQ_Read(void)
+ 114:Generated_Source\PSoC5/IRQ.c **** {
+  94              		.loc 1 114 0
+  95              		.cfi_startproc
+  96              		@ args = 0, pretend = 0, frame = 0
+  97              		@ frame_needed = 0, uses_anonymous_args = 0
+  98              		@ link register save eliminated.
+ 115:Generated_Source\PSoC5/IRQ.c ****     return (IRQ_PS & IRQ_MASK) >> IRQ_SHIFT;
+  99              		.loc 1 115 0
+ 100 0000 024B     		ldr	r3, .L8
+ 101 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 116:Generated_Source\PSoC5/IRQ.c **** }
+ 102              		.loc 1 116 0
+ 103 0004 C0F34000 		ubfx	r0, r0, #1, #1
+ 104 0008 7047     		bx	lr
+ 105              	.L9:
+ 106 000a 00BF     		.align	2
+ 107              	.L8:
+ 108 000c C1510040 		.word	1073762753
+ 109              		.cfi_endproc
+ 110              	.LFE2:
+ 111              		.size	IRQ_Read, .-IRQ_Read
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccXX1lHz.s 			page 5
+
+
+ 112              		.section	.text.IRQ_ReadDataReg,"ax",%progbits
+ 113              		.align	1
+ 114              		.global	IRQ_ReadDataReg
+ 115              		.thumb
+ 116              		.thumb_func
+ 117              		.type	IRQ_ReadDataReg, %function
+ 118              	IRQ_ReadDataReg:
+ 119              	.LFB3:
+ 117:Generated_Source\PSoC5/IRQ.c **** 
+ 118:Generated_Source\PSoC5/IRQ.c **** 
+ 119:Generated_Source\PSoC5/IRQ.c **** /*******************************************************************************
+ 120:Generated_Source\PSoC5/IRQ.c **** * Function Name: IRQ_ReadDataReg
+ 121:Generated_Source\PSoC5/IRQ.c **** ****************************************************************************//**
+ 122:Generated_Source\PSoC5/IRQ.c **** *
+ 123:Generated_Source\PSoC5/IRQ.c **** * \brief Reads the associated physical port's data output register and masks 
+ 124:Generated_Source\PSoC5/IRQ.c **** *  the correct bits according to the width and bit position of the component 
+ 125:Generated_Source\PSoC5/IRQ.c **** *  instance. 
+ 126:Generated_Source\PSoC5/IRQ.c **** *
+ 127:Generated_Source\PSoC5/IRQ.c **** * The data output register controls the signal applied to the physical pin in 
+ 128:Generated_Source\PSoC5/IRQ.c **** * conjunction with the drive mode parameter. This is not the same as the 
+ 129:Generated_Source\PSoC5/IRQ.c **** * preferred IRQ_Read() API because the 
+ 130:Generated_Source\PSoC5/IRQ.c **** * IRQ_ReadDataReg() reads the data register instead of the status 
+ 131:Generated_Source\PSoC5/IRQ.c **** * register. For output pins this is a useful function to determine the value 
+ 132:Generated_Source\PSoC5/IRQ.c **** * just written to the pin.
+ 133:Generated_Source\PSoC5/IRQ.c **** *
+ 134:Generated_Source\PSoC5/IRQ.c **** * \return 
+ 135:Generated_Source\PSoC5/IRQ.c **** *  The current value of the data register masked and shifted into a right 
+ 136:Generated_Source\PSoC5/IRQ.c **** *  justified number for the component instance.
+ 137:Generated_Source\PSoC5/IRQ.c **** *
+ 138:Generated_Source\PSoC5/IRQ.c **** * \funcusage
+ 139:Generated_Source\PSoC5/IRQ.c **** *  \snippet IRQ_SUT.c usage_IRQ_ReadDataReg 
+ 140:Generated_Source\PSoC5/IRQ.c **** *******************************************************************************/
+ 141:Generated_Source\PSoC5/IRQ.c **** uint8 IRQ_ReadDataReg(void)
+ 142:Generated_Source\PSoC5/IRQ.c **** {
+ 120              		.loc 1 142 0
+ 121              		.cfi_startproc
+ 122              		@ args = 0, pretend = 0, frame = 0
+ 123              		@ frame_needed = 0, uses_anonymous_args = 0
+ 124              		@ link register save eliminated.
+ 143:Generated_Source\PSoC5/IRQ.c ****     return (IRQ_DR & IRQ_MASK) >> IRQ_SHIFT;
+ 125              		.loc 1 143 0
+ 126 0000 024B     		ldr	r3, .L11
+ 127 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 144:Generated_Source\PSoC5/IRQ.c **** }
+ 128              		.loc 1 144 0
+ 129 0004 C0F34000 		ubfx	r0, r0, #1, #1
+ 130 0008 7047     		bx	lr
+ 131              	.L12:
+ 132 000a 00BF     		.align	2
+ 133              	.L11:
+ 134 000c C0510040 		.word	1073762752
+ 135              		.cfi_endproc
+ 136              	.LFE3:
+ 137              		.size	IRQ_ReadDataReg, .-IRQ_ReadDataReg
+ 138              		.section	.text.IRQ_SetInterruptMode,"ax",%progbits
+ 139              		.align	1
+ 140              		.global	IRQ_SetInterruptMode
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccXX1lHz.s 			page 6
+
+
+ 141              		.thumb
+ 142              		.thumb_func
+ 143              		.type	IRQ_SetInterruptMode, %function
+ 144              	IRQ_SetInterruptMode:
+ 145              	.LFB4:
+ 145:Generated_Source\PSoC5/IRQ.c **** 
+ 146:Generated_Source\PSoC5/IRQ.c **** 
+ 147:Generated_Source\PSoC5/IRQ.c **** /* If interrupt is connected for this Pins component */ 
+ 148:Generated_Source\PSoC5/IRQ.c **** #if defined(IRQ_INTSTAT) 
+ 149:Generated_Source\PSoC5/IRQ.c **** 
+ 150:Generated_Source\PSoC5/IRQ.c ****     /*******************************************************************************
+ 151:Generated_Source\PSoC5/IRQ.c ****     * Function Name: IRQ_SetInterruptMode
+ 152:Generated_Source\PSoC5/IRQ.c ****     ****************************************************************************//**
+ 153:Generated_Source\PSoC5/IRQ.c ****     *
+ 154:Generated_Source\PSoC5/IRQ.c ****     * \brief Configures the interrupt mode for each of the Pins component's
+ 155:Generated_Source\PSoC5/IRQ.c ****     *  pins. Alternatively you may set the interrupt mode for all the pins
+ 156:Generated_Source\PSoC5/IRQ.c ****     *  specified in the Pins component.
+ 157:Generated_Source\PSoC5/IRQ.c ****     *
+ 158:Generated_Source\PSoC5/IRQ.c ****     *  <b>Note</b> The interrupt is port-wide and therefore any enabled pin
+ 159:Generated_Source\PSoC5/IRQ.c ****     *  interrupt may trigger it.
+ 160:Generated_Source\PSoC5/IRQ.c ****     *
+ 161:Generated_Source\PSoC5/IRQ.c ****     * \param position
+ 162:Generated_Source\PSoC5/IRQ.c ****     *  The pin position as listed in the Pins component. You may OR these to be 
+ 163:Generated_Source\PSoC5/IRQ.c ****     *  able to configure the interrupt mode of multiple pins within a Pins 
+ 164:Generated_Source\PSoC5/IRQ.c ****     *  component. Or you may use IRQ_INTR_ALL to configure the
+ 165:Generated_Source\PSoC5/IRQ.c ****     *  interrupt mode of all the pins in the Pins component.       
+ 166:Generated_Source\PSoC5/IRQ.c ****     *  - IRQ_0_INTR       (First pin in the list)
+ 167:Generated_Source\PSoC5/IRQ.c ****     *  - IRQ_1_INTR       (Second pin in the list)
+ 168:Generated_Source\PSoC5/IRQ.c ****     *  - ...
+ 169:Generated_Source\PSoC5/IRQ.c ****     *  - IRQ_INTR_ALL     (All pins in Pins component)
+ 170:Generated_Source\PSoC5/IRQ.c ****     *
+ 171:Generated_Source\PSoC5/IRQ.c ****     * \param mode
+ 172:Generated_Source\PSoC5/IRQ.c ****     *  Interrupt mode for the selected pins. Valid options are documented in
+ 173:Generated_Source\PSoC5/IRQ.c ****     *  \ref intrMode.
+ 174:Generated_Source\PSoC5/IRQ.c ****     *
+ 175:Generated_Source\PSoC5/IRQ.c ****     * \return 
+ 176:Generated_Source\PSoC5/IRQ.c ****     *  None
+ 177:Generated_Source\PSoC5/IRQ.c ****     *  
+ 178:Generated_Source\PSoC5/IRQ.c ****     * \sideeffect
+ 179:Generated_Source\PSoC5/IRQ.c ****     *  It is recommended that the interrupt be disabled before calling this 
+ 180:Generated_Source\PSoC5/IRQ.c ****     *  function to avoid unintended interrupt requests. Note that the interrupt
+ 181:Generated_Source\PSoC5/IRQ.c ****     *  type is port wide, and therefore will trigger for any enabled pin on the 
+ 182:Generated_Source\PSoC5/IRQ.c ****     *  port.
+ 183:Generated_Source\PSoC5/IRQ.c ****     *
+ 184:Generated_Source\PSoC5/IRQ.c ****     * \funcusage
+ 185:Generated_Source\PSoC5/IRQ.c ****     *  \snippet IRQ_SUT.c usage_IRQ_SetInterruptMode
+ 186:Generated_Source\PSoC5/IRQ.c ****     *******************************************************************************/
+ 187:Generated_Source\PSoC5/IRQ.c ****     void IRQ_SetInterruptMode(uint16 position, uint16 mode)
+ 188:Generated_Source\PSoC5/IRQ.c ****     {
+ 146              		.loc 1 188 0
+ 147              		.cfi_startproc
+ 148              		@ args = 0, pretend = 0, frame = 0
+ 149              		@ frame_needed = 0, uses_anonymous_args = 0
+ 150              		@ link register save eliminated.
+ 151              	.LVL6:
+ 189:Generated_Source\PSoC5/IRQ.c **** 		if((position & IRQ_0_INTR) != 0u) 
+ 152              		.loc 1 189 0
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccXX1lHz.s 			page 7
+
+
+ 153 0000 8307     		lsls	r3, r0, #30
+ 190:Generated_Source\PSoC5/IRQ.c **** 		{ 
+ 191:Generated_Source\PSoC5/IRQ.c **** 			 IRQ_0_INTTYPE_REG = (uint8)mode; 
+ 154              		.loc 1 191 0
+ 155 0002 42BF     		ittt	mi
+ 156 0004 014B     		ldrmi	r3, .L18
+ 157 0006 C9B2     		uxtbmi	r1, r1
+ 158              	.LVL7:
+ 159 0008 1970     		strbmi	r1, [r3]
+ 160 000a 7047     		bx	lr
+ 161              	.L19:
+ 162              		.align	2
+ 163              	.L18:
+ 164 000c 61450040 		.word	1073759585
+ 165              		.cfi_endproc
+ 166              	.LFE4:
+ 167              		.size	IRQ_SetInterruptMode, .-IRQ_SetInterruptMode
+ 168              		.section	.text.IRQ_ClearInterrupt,"ax",%progbits
+ 169              		.align	1
+ 170              		.global	IRQ_ClearInterrupt
+ 171              		.thumb
+ 172              		.thumb_func
+ 173              		.type	IRQ_ClearInterrupt, %function
+ 174              	IRQ_ClearInterrupt:
+ 175              	.LFB5:
+ 192:Generated_Source\PSoC5/IRQ.c **** 		}
+ 193:Generated_Source\PSoC5/IRQ.c ****     }
+ 194:Generated_Source\PSoC5/IRQ.c ****     
+ 195:Generated_Source\PSoC5/IRQ.c ****     
+ 196:Generated_Source\PSoC5/IRQ.c ****     /*******************************************************************************
+ 197:Generated_Source\PSoC5/IRQ.c ****     * Function Name: IRQ_ClearInterrupt
+ 198:Generated_Source\PSoC5/IRQ.c ****     ****************************************************************************//**
+ 199:Generated_Source\PSoC5/IRQ.c ****     *
+ 200:Generated_Source\PSoC5/IRQ.c ****     * \brief Clears any active interrupts attached with the component and returns 
+ 201:Generated_Source\PSoC5/IRQ.c ****     *  the value of the interrupt status register allowing determination of which
+ 202:Generated_Source\PSoC5/IRQ.c ****     *  pins generated an interrupt event.
+ 203:Generated_Source\PSoC5/IRQ.c ****     *
+ 204:Generated_Source\PSoC5/IRQ.c ****     * \return 
+ 205:Generated_Source\PSoC5/IRQ.c ****     *  The right-shifted current value of the interrupt status register. Each pin 
+ 206:Generated_Source\PSoC5/IRQ.c ****     *  has one bit set if it generated an interrupt event. For example, bit 0 is 
+ 207:Generated_Source\PSoC5/IRQ.c ****     *  for pin 0 and bit 1 is for pin 1 of the Pins component.
+ 208:Generated_Source\PSoC5/IRQ.c ****     *  
+ 209:Generated_Source\PSoC5/IRQ.c ****     * \sideeffect
+ 210:Generated_Source\PSoC5/IRQ.c ****     *  Clears all bits of the physical port's interrupt status register, not just
+ 211:Generated_Source\PSoC5/IRQ.c ****     *  those associated with the Pins component.
+ 212:Generated_Source\PSoC5/IRQ.c ****     *
+ 213:Generated_Source\PSoC5/IRQ.c ****     * \funcusage
+ 214:Generated_Source\PSoC5/IRQ.c ****     *  \snippet IRQ_SUT.c usage_IRQ_ClearInterrupt
+ 215:Generated_Source\PSoC5/IRQ.c ****     *******************************************************************************/
+ 216:Generated_Source\PSoC5/IRQ.c ****     uint8 IRQ_ClearInterrupt(void)
+ 217:Generated_Source\PSoC5/IRQ.c ****     {
+ 176              		.loc 1 217 0
+ 177              		.cfi_startproc
+ 178              		@ args = 0, pretend = 0, frame = 0
+ 179              		@ frame_needed = 0, uses_anonymous_args = 0
+ 180              		@ link register save eliminated.
+ 218:Generated_Source\PSoC5/IRQ.c ****         return (IRQ_INTSTAT & IRQ_MASK) >> IRQ_SHIFT;
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccXX1lHz.s 			page 8
+
+
+ 181              		.loc 1 218 0
+ 182 0000 024B     		ldr	r3, .L21
+ 183 0002 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 219:Generated_Source\PSoC5/IRQ.c ****     }
+ 184              		.loc 1 219 0
+ 185 0004 C0F34000 		ubfx	r0, r0, #1, #1
+ 186 0008 7047     		bx	lr
+ 187              	.L22:
+ 188 000a 00BF     		.align	2
+ 189              	.L21:
+ 190 000c 8C450040 		.word	1073759628
+ 191              		.cfi_endproc
+ 192              	.LFE5:
+ 193              		.size	IRQ_ClearInterrupt, .-IRQ_ClearInterrupt
+ 194              		.text
+ 195              	.Letext0:
+ 196              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 197              		.section	.debug_info,"",%progbits
+ 198              	.Ldebug_info0:
+ 199 0000 70010000 		.4byte	0x170
+ 200 0004 0400     		.2byte	0x4
+ 201 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 202 000a 04       		.byte	0x4
+ 203 000b 01       		.uleb128 0x1
+ 204 000c 18010000 		.4byte	.LASF24
+ 205 0010 0C       		.byte	0xc
+ 206 0011 C3010000 		.4byte	.LASF25
+ 207 0015 00000000 		.4byte	.LASF26
+ 208 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 209 001d 00000000 		.4byte	0
+ 210 0021 00000000 		.4byte	.Ldebug_line0
+ 211 0025 02       		.uleb128 0x2
+ 212 0026 01       		.byte	0x1
+ 213 0027 06       		.byte	0x6
+ 214 0028 04020000 		.4byte	.LASF0
+ 215 002c 02       		.uleb128 0x2
+ 216 002d 01       		.byte	0x1
+ 217 002e 08       		.byte	0x8
+ 218 002f A7000000 		.4byte	.LASF1
+ 219 0033 02       		.uleb128 0x2
+ 220 0034 02       		.byte	0x2
+ 221 0035 05       		.byte	0x5
+ 222 0036 E6010000 		.4byte	.LASF2
+ 223 003a 02       		.uleb128 0x2
+ 224 003b 02       		.byte	0x2
+ 225 003c 07       		.byte	0x7
+ 226 003d CC000000 		.4byte	.LASF3
+ 227 0041 02       		.uleb128 0x2
+ 228 0042 04       		.byte	0x4
+ 229 0043 05       		.byte	0x5
+ 230 0044 F6010000 		.4byte	.LASF4
+ 231 0048 02       		.uleb128 0x2
+ 232 0049 04       		.byte	0x4
+ 233 004a 07       		.byte	0x7
+ 234 004b BA000000 		.4byte	.LASF5
+ 235 004f 02       		.uleb128 0x2
+ 236 0050 08       		.byte	0x8
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccXX1lHz.s 			page 9
+
+
+ 237 0051 05       		.byte	0x5
+ 238 0052 B5010000 		.4byte	.LASF6
+ 239 0056 02       		.uleb128 0x2
+ 240 0057 08       		.byte	0x8
+ 241 0058 07       		.byte	0x7
+ 242 0059 90000000 		.4byte	.LASF7
+ 243 005d 03       		.uleb128 0x3
+ 244 005e 04       		.byte	0x4
+ 245 005f 05       		.byte	0x5
+ 246 0060 696E7400 		.ascii	"int\000"
+ 247 0064 02       		.uleb128 0x2
+ 248 0065 04       		.byte	0x4
+ 249 0066 07       		.byte	0x7
+ 250 0067 0B010000 		.4byte	.LASF8
+ 251 006b 04       		.uleb128 0x4
+ 252 006c F0010000 		.4byte	.LASF9
+ 253 0070 02       		.byte	0x2
+ 254 0071 9201     		.2byte	0x192
+ 255 0073 2C000000 		.4byte	0x2c
+ 256 0077 04       		.uleb128 0x4
+ 257 0078 FB000000 		.4byte	.LASF10
+ 258 007c 02       		.byte	0x2
+ 259 007d 9301     		.2byte	0x193
+ 260 007f 3A000000 		.4byte	0x3a
+ 261 0083 02       		.uleb128 0x2
+ 262 0084 04       		.byte	0x4
+ 263 0085 04       		.byte	0x4
+ 264 0086 8A000000 		.4byte	.LASF11
+ 265 008a 02       		.uleb128 0x2
+ 266 008b 08       		.byte	0x8
+ 267 008c 04       		.byte	0x4
+ 268 008d F4000000 		.4byte	.LASF12
+ 269 0091 02       		.uleb128 0x2
+ 270 0092 01       		.byte	0x1
+ 271 0093 08       		.byte	0x8
+ 272 0094 FF010000 		.4byte	.LASF13
+ 273 0098 04       		.uleb128 0x4
+ 274 0099 B5000000 		.4byte	.LASF14
+ 275 009d 02       		.byte	0x2
+ 276 009e 3C02     		.2byte	0x23c
+ 277 00a0 A4000000 		.4byte	0xa4
+ 278 00a4 05       		.uleb128 0x5
+ 279 00a5 6B000000 		.4byte	0x6b
+ 280 00a9 06       		.uleb128 0x6
+ 281 00aa A6010000 		.4byte	.LASF15
+ 282 00ae 01       		.byte	0x1
+ 283 00af 39       		.byte	0x39
+ 284 00b0 00000000 		.4byte	.LFB0
+ 285 00b4 18000000 		.4byte	.LFE0-.LFB0
+ 286 00b8 01       		.uleb128 0x1
+ 287 00b9 9C       		.byte	0x9c
+ 288 00ba DD000000 		.4byte	0xdd
+ 289 00be 07       		.uleb128 0x7
+ 290 00bf E0010000 		.4byte	.LASF17
+ 291 00c3 01       		.byte	0x1
+ 292 00c4 39       		.byte	0x39
+ 293 00c5 6B000000 		.4byte	0x6b
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccXX1lHz.s 			page 10
+
+
+ 294 00c9 00000000 		.4byte	.LLST0
+ 295 00cd 08       		.uleb128 0x8
+ 296 00ce 5E000000 		.4byte	.LASF27
+ 297 00d2 01       		.byte	0x1
+ 298 00d3 3B       		.byte	0x3b
+ 299 00d4 6B000000 		.4byte	0x6b
+ 300 00d8 21000000 		.4byte	.LLST1
+ 301 00dc 00       		.byte	0
+ 302 00dd 06       		.uleb128 0x6
+ 303 00de 79000000 		.4byte	.LASF16
+ 304 00e2 01       		.byte	0x1
+ 305 00e3 5A       		.byte	0x5a
+ 306 00e4 00000000 		.4byte	.LFB1
+ 307 00e8 18000000 		.4byte	.LFE1-.LFB1
+ 308 00ec 01       		.uleb128 0x1
+ 309 00ed 9C       		.byte	0x9c
+ 310 00ee 02010000 		.4byte	0x102
+ 311 00f2 07       		.uleb128 0x7
+ 312 00f3 B0010000 		.4byte	.LASF18
+ 313 00f7 01       		.byte	0x1
+ 314 00f8 5A       		.byte	0x5a
+ 315 00f9 6B000000 		.4byte	0x6b
+ 316 00fd 39000000 		.4byte	.LLST2
+ 317 0101 00       		.byte	0
+ 318 0102 09       		.uleb128 0x9
+ 319 0103 55000000 		.4byte	.LASF19
+ 320 0107 01       		.byte	0x1
+ 321 0108 71       		.byte	0x71
+ 322 0109 6B000000 		.4byte	0x6b
+ 323 010d 00000000 		.4byte	.LFB2
+ 324 0111 10000000 		.4byte	.LFE2-.LFB2
+ 325 0115 01       		.uleb128 0x1
+ 326 0116 9C       		.byte	0x9c
+ 327 0117 09       		.uleb128 0x9
+ 328 0118 69000000 		.4byte	.LASF20
+ 329 011c 01       		.byte	0x1
+ 330 011d 8D       		.byte	0x8d
+ 331 011e 6B000000 		.4byte	0x6b
+ 332 0122 00000000 		.4byte	.LFB3
+ 333 0126 10000000 		.4byte	.LFE3-.LFB3
+ 334 012a 01       		.uleb128 0x1
+ 335 012b 9C       		.byte	0x9c
+ 336 012c 06       		.uleb128 0x6
+ 337 012d DF000000 		.4byte	.LASF21
+ 338 0131 01       		.byte	0x1
+ 339 0132 BB       		.byte	0xbb
+ 340 0133 00000000 		.4byte	.LFB4
+ 341 0137 10000000 		.4byte	.LFE4-.LFB4
+ 342 013b 01       		.uleb128 0x1
+ 343 013c 9C       		.byte	0x9c
+ 344 013d 5E010000 		.4byte	0x15e
+ 345 0141 0A       		.uleb128 0xa
+ 346 0142 02010000 		.4byte	.LASF22
+ 347 0146 01       		.byte	0x1
+ 348 0147 BB       		.byte	0xbb
+ 349 0148 77000000 		.4byte	0x77
+ 350 014c 01       		.uleb128 0x1
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccXX1lHz.s 			page 11
+
+
+ 351 014d 50       		.byte	0x50
+ 352 014e 07       		.uleb128 0x7
+ 353 014f B0010000 		.4byte	.LASF18
+ 354 0153 01       		.byte	0x1
+ 355 0154 BB       		.byte	0xbb
+ 356 0155 77000000 		.4byte	0x77
+ 357 0159 5A000000 		.4byte	.LLST3
+ 358 015d 00       		.byte	0
+ 359 015e 09       		.uleb128 0x9
+ 360 015f 10020000 		.4byte	.LASF23
+ 361 0163 01       		.byte	0x1
+ 362 0164 D8       		.byte	0xd8
+ 363 0165 6B000000 		.4byte	0x6b
+ 364 0169 00000000 		.4byte	.LFB5
+ 365 016d 10000000 		.4byte	.LFE5-.LFB5
+ 366 0171 01       		.uleb128 0x1
+ 367 0172 9C       		.byte	0x9c
+ 368 0173 00       		.byte	0
+ 369              		.section	.debug_abbrev,"",%progbits
+ 370              	.Ldebug_abbrev0:
+ 371 0000 01       		.uleb128 0x1
+ 372 0001 11       		.uleb128 0x11
+ 373 0002 01       		.byte	0x1
+ 374 0003 25       		.uleb128 0x25
+ 375 0004 0E       		.uleb128 0xe
+ 376 0005 13       		.uleb128 0x13
+ 377 0006 0B       		.uleb128 0xb
+ 378 0007 03       		.uleb128 0x3
+ 379 0008 0E       		.uleb128 0xe
+ 380 0009 1B       		.uleb128 0x1b
+ 381 000a 0E       		.uleb128 0xe
+ 382 000b 55       		.uleb128 0x55
+ 383 000c 17       		.uleb128 0x17
+ 384 000d 11       		.uleb128 0x11
+ 385 000e 01       		.uleb128 0x1
+ 386 000f 10       		.uleb128 0x10
+ 387 0010 17       		.uleb128 0x17
+ 388 0011 00       		.byte	0
+ 389 0012 00       		.byte	0
+ 390 0013 02       		.uleb128 0x2
+ 391 0014 24       		.uleb128 0x24
+ 392 0015 00       		.byte	0
+ 393 0016 0B       		.uleb128 0xb
+ 394 0017 0B       		.uleb128 0xb
+ 395 0018 3E       		.uleb128 0x3e
+ 396 0019 0B       		.uleb128 0xb
+ 397 001a 03       		.uleb128 0x3
+ 398 001b 0E       		.uleb128 0xe
+ 399 001c 00       		.byte	0
+ 400 001d 00       		.byte	0
+ 401 001e 03       		.uleb128 0x3
+ 402 001f 24       		.uleb128 0x24
+ 403 0020 00       		.byte	0
+ 404 0021 0B       		.uleb128 0xb
+ 405 0022 0B       		.uleb128 0xb
+ 406 0023 3E       		.uleb128 0x3e
+ 407 0024 0B       		.uleb128 0xb
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccXX1lHz.s 			page 12
+
+
+ 408 0025 03       		.uleb128 0x3
+ 409 0026 08       		.uleb128 0x8
+ 410 0027 00       		.byte	0
+ 411 0028 00       		.byte	0
+ 412 0029 04       		.uleb128 0x4
+ 413 002a 16       		.uleb128 0x16
+ 414 002b 00       		.byte	0
+ 415 002c 03       		.uleb128 0x3
+ 416 002d 0E       		.uleb128 0xe
+ 417 002e 3A       		.uleb128 0x3a
+ 418 002f 0B       		.uleb128 0xb
+ 419 0030 3B       		.uleb128 0x3b
+ 420 0031 05       		.uleb128 0x5
+ 421 0032 49       		.uleb128 0x49
+ 422 0033 13       		.uleb128 0x13
+ 423 0034 00       		.byte	0
+ 424 0035 00       		.byte	0
+ 425 0036 05       		.uleb128 0x5
+ 426 0037 35       		.uleb128 0x35
+ 427 0038 00       		.byte	0
+ 428 0039 49       		.uleb128 0x49
+ 429 003a 13       		.uleb128 0x13
+ 430 003b 00       		.byte	0
+ 431 003c 00       		.byte	0
+ 432 003d 06       		.uleb128 0x6
+ 433 003e 2E       		.uleb128 0x2e
+ 434 003f 01       		.byte	0x1
+ 435 0040 3F       		.uleb128 0x3f
+ 436 0041 19       		.uleb128 0x19
+ 437 0042 03       		.uleb128 0x3
+ 438 0043 0E       		.uleb128 0xe
+ 439 0044 3A       		.uleb128 0x3a
+ 440 0045 0B       		.uleb128 0xb
+ 441 0046 3B       		.uleb128 0x3b
+ 442 0047 0B       		.uleb128 0xb
+ 443 0048 27       		.uleb128 0x27
+ 444 0049 19       		.uleb128 0x19
+ 445 004a 11       		.uleb128 0x11
+ 446 004b 01       		.uleb128 0x1
+ 447 004c 12       		.uleb128 0x12
+ 448 004d 06       		.uleb128 0x6
+ 449 004e 40       		.uleb128 0x40
+ 450 004f 18       		.uleb128 0x18
+ 451 0050 9742     		.uleb128 0x2117
+ 452 0052 19       		.uleb128 0x19
+ 453 0053 01       		.uleb128 0x1
+ 454 0054 13       		.uleb128 0x13
+ 455 0055 00       		.byte	0
+ 456 0056 00       		.byte	0
+ 457 0057 07       		.uleb128 0x7
+ 458 0058 05       		.uleb128 0x5
+ 459 0059 00       		.byte	0
+ 460 005a 03       		.uleb128 0x3
+ 461 005b 0E       		.uleb128 0xe
+ 462 005c 3A       		.uleb128 0x3a
+ 463 005d 0B       		.uleb128 0xb
+ 464 005e 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccXX1lHz.s 			page 13
+
+
+ 465 005f 0B       		.uleb128 0xb
+ 466 0060 49       		.uleb128 0x49
+ 467 0061 13       		.uleb128 0x13
+ 468 0062 02       		.uleb128 0x2
+ 469 0063 17       		.uleb128 0x17
+ 470 0064 00       		.byte	0
+ 471 0065 00       		.byte	0
+ 472 0066 08       		.uleb128 0x8
+ 473 0067 34       		.uleb128 0x34
+ 474 0068 00       		.byte	0
+ 475 0069 03       		.uleb128 0x3
+ 476 006a 0E       		.uleb128 0xe
+ 477 006b 3A       		.uleb128 0x3a
+ 478 006c 0B       		.uleb128 0xb
+ 479 006d 3B       		.uleb128 0x3b
+ 480 006e 0B       		.uleb128 0xb
+ 481 006f 49       		.uleb128 0x49
+ 482 0070 13       		.uleb128 0x13
+ 483 0071 02       		.uleb128 0x2
+ 484 0072 17       		.uleb128 0x17
+ 485 0073 00       		.byte	0
+ 486 0074 00       		.byte	0
+ 487 0075 09       		.uleb128 0x9
+ 488 0076 2E       		.uleb128 0x2e
+ 489 0077 00       		.byte	0
+ 490 0078 3F       		.uleb128 0x3f
+ 491 0079 19       		.uleb128 0x19
+ 492 007a 03       		.uleb128 0x3
+ 493 007b 0E       		.uleb128 0xe
+ 494 007c 3A       		.uleb128 0x3a
+ 495 007d 0B       		.uleb128 0xb
+ 496 007e 3B       		.uleb128 0x3b
+ 497 007f 0B       		.uleb128 0xb
+ 498 0080 27       		.uleb128 0x27
+ 499 0081 19       		.uleb128 0x19
+ 500 0082 49       		.uleb128 0x49
+ 501 0083 13       		.uleb128 0x13
+ 502 0084 11       		.uleb128 0x11
+ 503 0085 01       		.uleb128 0x1
+ 504 0086 12       		.uleb128 0x12
+ 505 0087 06       		.uleb128 0x6
+ 506 0088 40       		.uleb128 0x40
+ 507 0089 18       		.uleb128 0x18
+ 508 008a 9742     		.uleb128 0x2117
+ 509 008c 19       		.uleb128 0x19
+ 510 008d 00       		.byte	0
+ 511 008e 00       		.byte	0
+ 512 008f 0A       		.uleb128 0xa
+ 513 0090 05       		.uleb128 0x5
+ 514 0091 00       		.byte	0
+ 515 0092 03       		.uleb128 0x3
+ 516 0093 0E       		.uleb128 0xe
+ 517 0094 3A       		.uleb128 0x3a
+ 518 0095 0B       		.uleb128 0xb
+ 519 0096 3B       		.uleb128 0x3b
+ 520 0097 0B       		.uleb128 0xb
+ 521 0098 49       		.uleb128 0x49
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccXX1lHz.s 			page 14
+
+
+ 522 0099 13       		.uleb128 0x13
+ 523 009a 02       		.uleb128 0x2
+ 524 009b 18       		.uleb128 0x18
+ 525 009c 00       		.byte	0
+ 526 009d 00       		.byte	0
+ 527 009e 00       		.byte	0
+ 528              		.section	.debug_loc,"",%progbits
+ 529              	.Ldebug_loc0:
+ 530              	.LLST0:
+ 531 0000 00000000 		.4byte	.LVL0
+ 532 0004 04000000 		.4byte	.LVL1
+ 533 0008 0100     		.2byte	0x1
+ 534 000a 50       		.byte	0x50
+ 535 000b 04000000 		.4byte	.LVL1
+ 536 000f 18000000 		.4byte	.LFE0
+ 537 0013 0400     		.2byte	0x4
+ 538 0015 F3       		.byte	0xf3
+ 539 0016 01       		.uleb128 0x1
+ 540 0017 50       		.byte	0x50
+ 541 0018 9F       		.byte	0x9f
+ 542 0019 00000000 		.4byte	0
+ 543 001d 00000000 		.4byte	0
+ 544              	.LLST1:
+ 545 0021 06000000 		.4byte	.LVL2
+ 546 0025 0E000000 		.4byte	.LVL3
+ 547 0029 0600     		.2byte	0x6
+ 548 002b 73       		.byte	0x73
+ 549 002c 00       		.sleb128 0
+ 550 002d 09       		.byte	0x9
+ 551 002e FD       		.byte	0xfd
+ 552 002f 1A       		.byte	0x1a
+ 553 0030 9F       		.byte	0x9f
+ 554 0031 00000000 		.4byte	0
+ 555 0035 00000000 		.4byte	0
+ 556              	.LLST2:
+ 557 0039 00000000 		.4byte	.LVL4
+ 558 003d 06000000 		.4byte	.LVL5
+ 559 0041 0100     		.2byte	0x1
+ 560 0043 50       		.byte	0x50
+ 561 0044 06000000 		.4byte	.LVL5
+ 562 0048 18000000 		.4byte	.LFE1
+ 563 004c 0400     		.2byte	0x4
+ 564 004e F3       		.byte	0xf3
+ 565 004f 01       		.uleb128 0x1
+ 566 0050 50       		.byte	0x50
+ 567 0051 9F       		.byte	0x9f
+ 568 0052 00000000 		.4byte	0
+ 569 0056 00000000 		.4byte	0
+ 570              	.LLST3:
+ 571 005a 00000000 		.4byte	.LVL6
+ 572 005e 08000000 		.4byte	.LVL7
+ 573 0062 0100     		.2byte	0x1
+ 574 0064 51       		.byte	0x51
+ 575 0065 08000000 		.4byte	.LVL7
+ 576 0069 10000000 		.4byte	.LFE4
+ 577 006d 0400     		.2byte	0x4
+ 578 006f F3       		.byte	0xf3
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccXX1lHz.s 			page 15
+
+
+ 579 0070 01       		.uleb128 0x1
+ 580 0071 51       		.byte	0x51
+ 581 0072 9F       		.byte	0x9f
+ 582 0073 00000000 		.4byte	0
+ 583 0077 00000000 		.4byte	0
+ 584              		.section	.debug_aranges,"",%progbits
+ 585 0000 44000000 		.4byte	0x44
+ 586 0004 0200     		.2byte	0x2
+ 587 0006 00000000 		.4byte	.Ldebug_info0
+ 588 000a 04       		.byte	0x4
+ 589 000b 00       		.byte	0
+ 590 000c 0000     		.2byte	0
+ 591 000e 0000     		.2byte	0
+ 592 0010 00000000 		.4byte	.LFB0
+ 593 0014 18000000 		.4byte	.LFE0-.LFB0
+ 594 0018 00000000 		.4byte	.LFB1
+ 595 001c 18000000 		.4byte	.LFE1-.LFB1
+ 596 0020 00000000 		.4byte	.LFB2
+ 597 0024 10000000 		.4byte	.LFE2-.LFB2
+ 598 0028 00000000 		.4byte	.LFB3
+ 599 002c 10000000 		.4byte	.LFE3-.LFB3
+ 600 0030 00000000 		.4byte	.LFB4
+ 601 0034 10000000 		.4byte	.LFE4-.LFB4
+ 602 0038 00000000 		.4byte	.LFB5
+ 603 003c 10000000 		.4byte	.LFE5-.LFB5
+ 604 0040 00000000 		.4byte	0
+ 605 0044 00000000 		.4byte	0
+ 606              		.section	.debug_ranges,"",%progbits
+ 607              	.Ldebug_ranges0:
+ 608 0000 00000000 		.4byte	.LFB0
+ 609 0004 18000000 		.4byte	.LFE0
+ 610 0008 00000000 		.4byte	.LFB1
+ 611 000c 18000000 		.4byte	.LFE1
+ 612 0010 00000000 		.4byte	.LFB2
+ 613 0014 10000000 		.4byte	.LFE2
+ 614 0018 00000000 		.4byte	.LFB3
+ 615 001c 10000000 		.4byte	.LFE3
+ 616 0020 00000000 		.4byte	.LFB4
+ 617 0024 10000000 		.4byte	.LFE4
+ 618 0028 00000000 		.4byte	.LFB5
+ 619 002c 10000000 		.4byte	.LFE5
+ 620 0030 00000000 		.4byte	0
+ 621 0034 00000000 		.4byte	0
+ 622              		.section	.debug_line,"",%progbits
+ 623              	.Ldebug_line0:
+ 624 0000 B2000000 		.section	.debug_str,"MS",%progbits,1
+ 624      02004000 
+ 624      00000201 
+ 624      FB0E0D00 
+ 624      01010101 
+ 625              	.LASF26:
+ 626 0000 433A5C55 		.ascii	"C:\\Users\\Alexander Nielsen\\Desktop\\platooning\\"
+ 626      73657273 
+ 626      5C416C65 
+ 626      78616E64 
+ 626      6572204E 
+ 627 002e 50536F43 		.ascii	"PSoC\\Platooning\\AngleMeasurement.cydsn\000"
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccXX1lHz.s 			page 16
+
+
+ 627      5C506C61 
+ 627      746F6F6E 
+ 627      696E675C 
+ 627      416E676C 
+ 628              	.LASF19:
+ 629 0055 4952515F 		.ascii	"IRQ_Read\000"
+ 629      52656164 
+ 629      00
+ 630              	.LASF27:
+ 631 005e 73746174 		.ascii	"staticBits\000"
+ 631      69634269 
+ 631      747300
+ 632              	.LASF20:
+ 633 0069 4952515F 		.ascii	"IRQ_ReadDataReg\000"
+ 633      52656164 
+ 633      44617461 
+ 633      52656700 
+ 634              	.LASF16:
+ 635 0079 4952515F 		.ascii	"IRQ_SetDriveMode\000"
+ 635      53657444 
+ 635      72697665 
+ 635      4D6F6465 
+ 635      00
+ 636              	.LASF11:
+ 637 008a 666C6F61 		.ascii	"float\000"
+ 637      7400
+ 638              	.LASF7:
+ 639 0090 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 639      206C6F6E 
+ 639      6720756E 
+ 639      7369676E 
+ 639      65642069 
+ 640              	.LASF1:
+ 641 00a7 756E7369 		.ascii	"unsigned char\000"
+ 641      676E6564 
+ 641      20636861 
+ 641      7200
+ 642              	.LASF14:
+ 643 00b5 72656738 		.ascii	"reg8\000"
+ 643      00
+ 644              	.LASF5:
+ 645 00ba 6C6F6E67 		.ascii	"long unsigned int\000"
+ 645      20756E73 
+ 645      69676E65 
+ 645      6420696E 
+ 645      7400
+ 646              	.LASF3:
+ 647 00cc 73686F72 		.ascii	"short unsigned int\000"
+ 647      7420756E 
+ 647      7369676E 
+ 647      65642069 
+ 647      6E7400
+ 648              	.LASF21:
+ 649 00df 4952515F 		.ascii	"IRQ_SetInterruptMode\000"
+ 649      53657449 
+ 649      6E746572 
+ 649      72757074 
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccXX1lHz.s 			page 17
+
+
+ 649      4D6F6465 
+ 650              	.LASF12:
+ 651 00f4 646F7562 		.ascii	"double\000"
+ 651      6C6500
+ 652              	.LASF10:
+ 653 00fb 75696E74 		.ascii	"uint16\000"
+ 653      313600
+ 654              	.LASF22:
+ 655 0102 706F7369 		.ascii	"position\000"
+ 655      74696F6E 
+ 655      00
+ 656              	.LASF8:
+ 657 010b 756E7369 		.ascii	"unsigned int\000"
+ 657      676E6564 
+ 657      20696E74 
+ 657      00
+ 658              	.LASF24:
+ 659 0118 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 659      43313120 
+ 659      352E342E 
+ 659      31203230 
+ 659      31363036 
+ 660 014b 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 660      20726576 
+ 660      6973696F 
+ 660      6E203233 
+ 660      37373135 
+ 661 017e 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 661      66756E63 
+ 661      74696F6E 
+ 661      2D736563 
+ 661      74696F6E 
+ 662              	.LASF15:
+ 663 01a6 4952515F 		.ascii	"IRQ_Write\000"
+ 663      57726974 
+ 663      6500
+ 664              	.LASF18:
+ 665 01b0 6D6F6465 		.ascii	"mode\000"
+ 665      00
+ 666              	.LASF6:
+ 667 01b5 6C6F6E67 		.ascii	"long long int\000"
+ 667      206C6F6E 
+ 667      6720696E 
+ 667      7400
+ 668              	.LASF25:
+ 669 01c3 47656E65 		.ascii	"Generated_Source\\PSoC5\\IRQ.c\000"
+ 669      72617465 
+ 669      645F536F 
+ 669      75726365 
+ 669      5C50536F 
+ 670              	.LASF17:
+ 671 01e0 76616C75 		.ascii	"value\000"
+ 671      6500
+ 672              	.LASF2:
+ 673 01e6 73686F72 		.ascii	"short int\000"
+ 673      7420696E 
+ 673      7400
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccXX1lHz.s 			page 18
+
+
+ 674              	.LASF9:
+ 675 01f0 75696E74 		.ascii	"uint8\000"
+ 675      3800
+ 676              	.LASF4:
+ 677 01f6 6C6F6E67 		.ascii	"long int\000"
+ 677      20696E74 
+ 677      00
+ 678              	.LASF13:
+ 679 01ff 63686172 		.ascii	"char\000"
+ 679      00
+ 680              	.LASF0:
+ 681 0204 7369676E 		.ascii	"signed char\000"
+ 681      65642063 
+ 681      68617200 
+ 682              	.LASF23:
+ 683 0210 4952515F 		.ascii	"IRQ_ClearInterrupt\000"
+ 683      436C6561 
+ 683      72496E74 
+ 683      65727275 
+ 683      707400
+ 684              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

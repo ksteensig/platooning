@@ -309,9 +309,59 @@
       </addressBlock>
       <registers>
         <register>
+          <name>PWM_H_BRIDGE__COMPARE1</name>
+          <description>UDB.D0 - Assigned Compare1 Value</description>
+          <addressOffset>0x40006429</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>PWM_H_BRIDGE__COMPARE2</name>
+          <description>UDB.D1 - Assigned Compare2 Value</description>
+          <addressOffset>0x40006439</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>PWM_H_BRIDGE_Control_Reg</name>
+          <description>UDB Control Register - Assigned Control Register Value</description>
+          <addressOffset>0x4000647A</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+          <fields>
+            <field>
+              <name>CTRL_ENABLE</name>
+              <description>Enable the PWM</description>
+              <lsb>7</lsb>
+              <msb>7</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CTRL_CMPMODE2</name>
+              <description>Compare mode 2</description>
+              <lsb>3</lsb>
+              <msb>5</msb>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>CTRL_CMPMODE1</name>
+              <description>Compare mode 1</description>
+              <lsb>0</lsb>
+              <msb>2</msb>
+              <access>read-write</access>
+            </field>
+          </fields>
+        </register>
+        <register>
           <name>PWM_H_BRIDGE_STATUS_MASK</name>
           <description>UDB Status bits Interrupt Mask Enable Register</description>
-          <addressOffset>0x40006488</addressOffset>
+          <addressOffset>0x4000648A</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -355,50 +405,9 @@
           </fields>
         </register>
         <register>
-          <name>PWM_H_BRIDGE_COMPARE_Reg_</name>
-          <description>UDB.D0 - Assigned Compare Value</description>
-          <addressOffset>0x40006529</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>PWM_H_BRIDGE_Control_Reg</name>
-          <description>UDB Control Register - Assigned Control Register Value</description>
-          <addressOffset>0x4000657A</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-          <fields>
-            <field>
-              <name>CTRL_ENABLE</name>
-              <description>Enable the PWM</description>
-              <lsb>7</lsb>
-              <msb>7</msb>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>CTRL_CMPMODE2</name>
-              <description>Compare mode 2</description>
-              <lsb>3</lsb>
-              <msb>5</msb>
-              <access>read-write</access>
-            </field>
-            <field>
-              <name>CTRL_CMPMODE1</name>
-              <description>Compare mode 1</description>
-              <lsb>0</lsb>
-              <msb>2</msb>
-              <access>read-write</access>
-            </field>
-          </fields>
-        </register>
-        <register>
           <name>PWM_H_BRIDGE_STATUS_AUX_CTRL</name>
           <description>UDB Auxilliary Control Register</description>
-          <addressOffset>0x40006599</addressOffset>
+          <addressOffset>0x40006499</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -1998,7 +2007,7 @@
         <register>
           <name>Maximum_Peak_Detector_B_Sample_Hold_Control_Register0</name>
           <description>SC_CR0 Register</description>
-          <addressOffset>0x40005808</addressOffset>
+          <addressOffset>0x40005800</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2087,7 +2096,7 @@
         <register>
           <name>Maximum_Peak_Detector_B_Sample_Hold_Control_Register1</name>
           <description>SC_CR1 Register</description>
-          <addressOffset>0x40005809</addressOffset>
+          <addressOffset>0x40005801</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2194,7 +2203,7 @@
         <register>
           <name>Maximum_Peak_Detector_B_Sample_Hold_Control_Register2</name>
           <description>SC_CR2 Register</description>
-          <addressOffset>0x4000580A</addressOffset>
+          <addressOffset>0x40005802</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2340,7 +2349,7 @@
         <register>
           <name>Maximum_Peak_Detector_B_Sample_Hold_Clock_Register</name>
           <description>SC_CLK Register</description>
-          <addressOffset>0x40005A2B</addressOffset>
+          <addressOffset>0x40005A0B</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -2457,7 +2466,7 @@
         <register>
           <name>Maximum_Peak_Detector_B_Sample_Hold_Boost_Register</name>
           <description>SC__BST Register</description>
-          <addressOffset>0x40005A2C</addressOffset>
+          <addressOffset>0x40005A0C</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -4338,7 +4347,7 @@
         <register>
           <name>Maximum_Peak_Detector_A_Comp_1_Comp_TR0</name>
           <description>Comparator Trim Register_TR0</description>
-          <addressOffset>0x40004636</addressOffset>
+          <addressOffset>0x40004634</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -4448,7 +4457,7 @@
         <register>
           <name>Maximum_Peak_Detector_A_Comp_1_Comp_TR1</name>
           <description>Comparator Trim Register_TR1</description>
-          <addressOffset>0x40004637</addressOffset>
+          <addressOffset>0x40004635</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -4558,7 +4567,7 @@
         <register>
           <name>Maximum_Peak_Detector_A_Comp_1_Comp_CR</name>
           <description>Comparator Control Register</description>
-          <addressOffset>0x40005843</addressOffset>
+          <addressOffset>0x40005842</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -4693,7 +4702,7 @@
         <register>
           <name>Maximum_Peak_Detector_A_Comp_1_Comp_SW0</name>
           <description>Comparator Analog Routing Register 0</description>
-          <addressOffset>0x40005AD8</addressOffset>
+          <addressOffset>0x40005AD0</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -4856,7 +4865,7 @@
         <register>
           <name>Maximum_Peak_Detector_A_Comp_1_Comp_SW2</name>
           <description>Comparator Analog Routing Register 2</description>
-          <addressOffset>0x40005ADA</addressOffset>
+          <addressOffset>0x40005AD2</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -4905,7 +4914,7 @@
         <register>
           <name>Maximum_Peak_Detector_A_Comp_1_Comp_SW3</name>
           <description>Comparator Analog Routing Register 3</description>
-          <addressOffset>0x40005ADB</addressOffset>
+          <addressOffset>0x40005AD3</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -5011,7 +5020,7 @@
         <register>
           <name>Maximum_Peak_Detector_A_Comp_1_Comp_SW4</name>
           <description>Comparator Analog Routing Register 4</description>
-          <addressOffset>0x40005ADC</addressOffset>
+          <addressOffset>0x40005AD4</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -5098,7 +5107,7 @@
         <register>
           <name>Maximum_Peak_Detector_A_Comp_1_Comp_SW6</name>
           <description>Comparator Analog Routing Register 6</description>
-          <addressOffset>0x40005ADE</addressOffset>
+          <addressOffset>0x40005AD6</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -5147,7 +5156,7 @@
         <register>
           <name>Maximum_Peak_Detector_A_Comp_1_Comp_CLK</name>
           <description>Comparator Clock Control Register</description>
-          <addressOffset>0x40005ADF</addressOffset>
+          <addressOffset>0x40005AD7</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -5441,9 +5450,45 @@
       </addressBlock>
       <registers>
         <register>
+          <name>RX_UART_RX_ADDRESS1</name>
+          <description>RX Address1 Register</description>
+          <addressOffset>0x4000652A</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>RX_UART_RX_ADDRESS2</name>
+          <description>RX Address2 Register</description>
+          <addressOffset>0x4000653A</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>TX_UART_TX_DATA</name>
+          <description>TX Data Register</description>
+          <addressOffset>0x40006548</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
+          <name>RX_UART_RX_DATA</name>
+          <description>RX Data Register</description>
+          <addressOffset>0x4000654A</addressOffset>
+          <size>8</size>
+          <access>read-write</access>
+          <resetValue>0</resetValue>
+          <resetMask>0</resetMask>
+        </register>
+        <register>
           <name>RX_UART_RX_STATUS</name>
           <description>RX status register</description>
-          <addressOffset>0x40006469</addressOffset>
+          <addressOffset>0x4000656A</addressOffset>
           <size>8</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -5499,42 +5544,6 @@
               <access>read-only</access>
             </field>
           </fields>
-        </register>
-        <register>
-          <name>RX_UART_RX_ADDRESS1</name>
-          <description>RX Address1 Register</description>
-          <addressOffset>0x4000652A</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>RX_UART_RX_ADDRESS2</name>
-          <description>RX Address2 Register</description>
-          <addressOffset>0x4000653A</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>RX_UART_RX_DATA</name>
-          <description>RX Data Register</description>
-          <addressOffset>0x4000654A</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
-        </register>
-        <register>
-          <name>TX_UART_TX_DATA</name>
-          <description>TX Data Register</description>
-          <addressOffset>0x4000654B</addressOffset>
-          <size>8</size>
-          <access>read-write</access>
-          <resetValue>0</resetValue>
-          <resetMask>0</resetMask>
         </register>
         <register>
           <name>TX_UART_TX_STATUS</name>

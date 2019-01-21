@@ -80,9 +80,9 @@ int main(void)
     ISR_A_StartEx(ISR_OUT_A_Handler);
     ISR_B_StartEx(ISR_OUT_B_Handler);
     killswitchP_Write(1);
-    N2_Write(0);
-    P1_Write(1);
-    P2_Write(0);
+    //N2_Write(0);
+  //  P1_Write(1);
+  //  P2_Write(0);
     
     DMA_A_CHAN_INIT(DATA_SIZE);
     DMA_B_CHAN_INIT(DATA_SIZE);

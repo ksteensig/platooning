@@ -1,0 +1,1145 @@
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrkHDpg.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"Filter_PM.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.Filter_SaveConfig,"ax",%progbits
+  20              		.align	1
+  21              		.global	Filter_SaveConfig
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	Filter_SaveConfig, %function
+  25              	Filter_SaveConfig:
+  26              	.LFB0:
+  27              		.file 1 "Generated_Source\\PSoC5\\Filter_PM.c"
+   1:Generated_Source\PSoC5/Filter_PM.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/Filter_PM.c **** * File Name: Filter_PM.c
+   3:Generated_Source\PSoC5/Filter_PM.c **** * Version 2.30
+   4:Generated_Source\PSoC5/Filter_PM.c **** *
+   5:Generated_Source\PSoC5/Filter_PM.c **** * Description:
+   6:Generated_Source\PSoC5/Filter_PM.c **** *  This file provides the power managaer API source code for the FILT component.
+   7:Generated_Source\PSoC5/Filter_PM.c **** *
+   8:Generated_Source\PSoC5/Filter_PM.c **** * Note:
+   9:Generated_Source\PSoC5/Filter_PM.c **** *  
+  10:Generated_Source\PSoC5/Filter_PM.c **** *******************************************************************************
+  11:Generated_Source\PSoC5/Filter_PM.c **** * Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+  12:Generated_Source\PSoC5/Filter_PM.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  13:Generated_Source\PSoC5/Filter_PM.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  14:Generated_Source\PSoC5/Filter_PM.c **** * the software package with which this file was provided.
+  15:Generated_Source\PSoC5/Filter_PM.c **** ********************************************************************************/
+  16:Generated_Source\PSoC5/Filter_PM.c **** 
+  17:Generated_Source\PSoC5/Filter_PM.c **** #include "Filter_PVT.h"
+  18:Generated_Source\PSoC5/Filter_PM.c **** 
+  19:Generated_Source\PSoC5/Filter_PM.c **** static Filter_backupStruct  Filter_backup = 
+  20:Generated_Source\PSoC5/Filter_PM.c **** {
+  21:Generated_Source\PSoC5/Filter_PM.c ****     Filter_DISABLED,
+  22:Generated_Source\PSoC5/Filter_PM.c ****     Filter_RUN_MASK,
+  23:Generated_Source\PSoC5/Filter_PM.c ****     
+  24:Generated_Source\PSoC5/Filter_PM.c **** };
+  25:Generated_Source\PSoC5/Filter_PM.c **** 
+  26:Generated_Source\PSoC5/Filter_PM.c **** 
+  27:Generated_Source\PSoC5/Filter_PM.c **** /*******************************************************************************
+  28:Generated_Source\PSoC5/Filter_PM.c **** * Function Name: Filter_SaveConfig
+  29:Generated_Source\PSoC5/Filter_PM.c **** ********************************************************************************
+  30:Generated_Source\PSoC5/Filter_PM.c **** *
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrkHDpg.s 			page 2
+
+
+  31:Generated_Source\PSoC5/Filter_PM.c **** * Summary:
+  32:Generated_Source\PSoC5/Filter_PM.c **** *  Saves the current user configuration.
+  33:Generated_Source\PSoC5/Filter_PM.c **** *  
+  34:Generated_Source\PSoC5/Filter_PM.c **** * Parameters:  
+  35:Generated_Source\PSoC5/Filter_PM.c **** *  void
+  36:Generated_Source\PSoC5/Filter_PM.c **** *
+  37:Generated_Source\PSoC5/Filter_PM.c **** * Return: 
+  38:Generated_Source\PSoC5/Filter_PM.c **** *  void
+  39:Generated_Source\PSoC5/Filter_PM.c **** *
+  40:Generated_Source\PSoC5/Filter_PM.c **** * Global variables:
+  41:Generated_Source\PSoC5/Filter_PM.c **** *  Filter_backup:  This global structure variable is used to store 
+  42:Generated_Source\PSoC5/Filter_PM.c **** *  configuration registers which are non retention whenever user wants to go 
+  43:Generated_Source\PSoC5/Filter_PM.c **** *  sleep mode by calling Sleep() API.
+  44:Generated_Source\PSoC5/Filter_PM.c **** *
+  45:Generated_Source\PSoC5/Filter_PM.c **** *******************************************************************************/
+  46:Generated_Source\PSoC5/Filter_PM.c **** void Filter_SaveConfig(void) 
+  47:Generated_Source\PSoC5/Filter_PM.c **** {
+  28              		.loc 1 47 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 70B5     		push	{r4, r5, r6, lr}
+  33              		.cfi_def_cfa_offset 16
+  34              		.cfi_offset 4, -16
+  35              		.cfi_offset 5, -12
+  36              		.cfi_offset 6, -8
+  37              		.cfi_offset 14, -4
+  48:Generated_Source\PSoC5/Filter_PM.c ****     Filter_backup.sr = Filter_SR_REG;
+  38              		.loc 1 48 0
+  39 0002 0D4B     		ldr	r3, .L5
+  49:Generated_Source\PSoC5/Filter_PM.c ****     Filter_backup.sema = Filter_SEMA_REG;
+  50:Generated_Source\PSoC5/Filter_PM.c **** 
+  51:Generated_Source\PSoC5/Filter_PM.c ****     /* Put DFB RAM on the bus */
+  52:Generated_Source\PSoC5/Filter_PM.c ****     Filter_RAM_DIR_REG = Filter_RAM_DIR_BUS;
+  40              		.loc 1 52 0
+  41 0004 3F21     		movs	r1, #63
+  48:Generated_Source\PSoC5/Filter_PM.c ****     Filter_backup.sr = Filter_SR_REG;
+  42              		.loc 1 48 0
+  43 0006 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+  44 0008 0C4B     		ldr	r3, .L5+4
+  53:Generated_Source\PSoC5/Filter_PM.c **** 
+  54:Generated_Source\PSoC5/Filter_PM.c ****     /* Save the ACU RAM as this is not retension */
+  55:Generated_Source\PSoC5/Filter_PM.c ****     (void)memcpy(Filter_backup.saveAcu,
+  45              		.loc 1 55 0
+  46 000a 0D4D     		ldr	r5, .L5+8
+  48:Generated_Source\PSoC5/Filter_PM.c ****     Filter_backup.sema = Filter_SEMA_REG;
+  47              		.loc 1 48 0
+  48 000c 9A70     		strb	r2, [r3, #2]
+  49:Generated_Source\PSoC5/Filter_PM.c ****     Filter_backup.sema = Filter_SEMA_REG;
+  49              		.loc 1 49 0
+  50 000e 0D4A     		ldr	r2, .L5+12
+  51              		.loc 1 55 0
+  52 0010 0D4E     		ldr	r6, .L5+16
+  49:Generated_Source\PSoC5/Filter_PM.c ****     Filter_backup.sema = Filter_SEMA_REG;
+  53              		.loc 1 49 0
+  54 0012 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+  55              		.loc 1 55 0
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrkHDpg.s 			page 3
+
+
+  56 0014 0433     		adds	r3, r3, #4
+  49:Generated_Source\PSoC5/Filter_PM.c ****     Filter_backup.sema = Filter_SEMA_REG;
+  57              		.loc 1 49 0
+  58 0016 03F8012C 		strb	r2, [r3, #-1]
+  52:Generated_Source\PSoC5/Filter_PM.c **** 
+  59              		.loc 1 52 0
+  60 001a 0C4A     		ldr	r2, .L5+20
+  61 001c 1446     		mov	r4, r2
+  62 001e 1170     		strb	r1, [r2]
+  63              	.L2:
+  64              		.loc 1 55 0
+  65 0020 2A46     		mov	r2, r5
+  66 0022 03CA     		ldmia	r2!, {r0, r1}
+  67 0024 B242     		cmp	r2, r6
+  68 0026 1860     		str	r0, [r3]	@ unaligned
+  69 0028 5960     		str	r1, [r3, #4]	@ unaligned
+  70 002a 1546     		mov	r5, r2
+  71 002c 03F10803 		add	r3, r3, #8
+  72 0030 F6D1     		bne	.L2
+  56:Generated_Source\PSoC5/Filter_PM.c ****         Filter_ACU_RAM, Filter_ACU_RAM_SIZE); 
+  57:Generated_Source\PSoC5/Filter_PM.c **** 
+  58:Generated_Source\PSoC5/Filter_PM.c ****     /* Take DFB RAM off the bus */
+  59:Generated_Source\PSoC5/Filter_PM.c ****     Filter_RAM_DIR_REG = Filter_RAM_DIR_DFB;
+  73              		.loc 1 59 0
+  74 0032 0023     		movs	r3, #0
+  75 0034 2370     		strb	r3, [r4]
+  76 0036 70BD     		pop	{r4, r5, r6, pc}
+  77              	.L6:
+  78              		.align	2
+  79              	.L5:
+  80 0038 84C70040 		.word	1073792900
+  81 003c 00000000 		.word	.LANCHOR0
+  82 0040 00C70040 		.word	1073792768
+  83 0044 90C70040 		.word	1073792912
+  84 0048 40C70040 		.word	1073792832
+  85 004c 8CC70040 		.word	1073792908
+  86              		.cfi_endproc
+  87              	.LFE0:
+  88              		.size	Filter_SaveConfig, .-Filter_SaveConfig
+  89              		.section	.text.Filter_RestoreConfig,"ax",%progbits
+  90              		.align	1
+  91              		.global	Filter_RestoreConfig
+  92              		.thumb
+  93              		.thumb_func
+  94              		.type	Filter_RestoreConfig, %function
+  95              	Filter_RestoreConfig:
+  96              	.LFB1:
+  60:Generated_Source\PSoC5/Filter_PM.c **** }
+  61:Generated_Source\PSoC5/Filter_PM.c **** 
+  62:Generated_Source\PSoC5/Filter_PM.c **** 
+  63:Generated_Source\PSoC5/Filter_PM.c **** /*******************************************************************************
+  64:Generated_Source\PSoC5/Filter_PM.c **** * Function Name: Filter_RestoreConfig
+  65:Generated_Source\PSoC5/Filter_PM.c **** ********************************************************************************
+  66:Generated_Source\PSoC5/Filter_PM.c **** *
+  67:Generated_Source\PSoC5/Filter_PM.c **** * Summary:
+  68:Generated_Source\PSoC5/Filter_PM.c **** *  Restores the current user configuration.
+  69:Generated_Source\PSoC5/Filter_PM.c **** *
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrkHDpg.s 			page 4
+
+
+  70:Generated_Source\PSoC5/Filter_PM.c **** * Parameters:  
+  71:Generated_Source\PSoC5/Filter_PM.c **** *  void
+  72:Generated_Source\PSoC5/Filter_PM.c **** *
+  73:Generated_Source\PSoC5/Filter_PM.c **** * Return: 
+  74:Generated_Source\PSoC5/Filter_PM.c **** *  void
+  75:Generated_Source\PSoC5/Filter_PM.c **** *
+  76:Generated_Source\PSoC5/Filter_PM.c **** * Global variables:
+  77:Generated_Source\PSoC5/Filter_PM.c **** *  Filter_backup:  This global structure variable is used to restore 
+  78:Generated_Source\PSoC5/Filter_PM.c **** *  configuration registers which are non retention whenever user wants to switch 
+  79:Generated_Source\PSoC5/Filter_PM.c **** *  to active power mode by calling Wakeup() API.
+  80:Generated_Source\PSoC5/Filter_PM.c **** *
+  81:Generated_Source\PSoC5/Filter_PM.c **** *******************************************************************************/
+  82:Generated_Source\PSoC5/Filter_PM.c **** void Filter_RestoreConfig(void) 
+  83:Generated_Source\PSoC5/Filter_PM.c **** {
+  97              		.loc 1 83 0
+  98              		.cfi_startproc
+  99              		@ args = 0, pretend = 0, frame = 0
+ 100              		@ frame_needed = 0, uses_anonymous_args = 0
+ 101 0000 70B5     		push	{r4, r5, r6, lr}
+ 102              		.cfi_def_cfa_offset 16
+ 103              		.cfi_offset 4, -16
+ 104              		.cfi_offset 5, -12
+ 105              		.cfi_offset 6, -8
+ 106              		.cfi_offset 14, -4
+  84:Generated_Source\PSoC5/Filter_PM.c ****     Filter_SR_REG = Filter_backup.sr;
+ 107              		.loc 1 84 0
+ 108 0002 0F4B     		ldr	r3, .L10
+ 109 0004 0F4A     		ldr	r2, .L10+4
+ 110 0006 9978     		ldrb	r1, [r3, #2]	@ zero_extendqisi2
+  85:Generated_Source\PSoC5/Filter_PM.c ****     Filter_SEMA_REG = Filter_backup.sema;
+  86:Generated_Source\PSoC5/Filter_PM.c ****     
+  87:Generated_Source\PSoC5/Filter_PM.c ****     /* Power on DFB before initializing the RAMs */
+  88:Generated_Source\PSoC5/Filter_PM.c ****     Filter_PM_ACT_CFG_REG |= Filter_PM_ACT_MSK;
+  89:Generated_Source\PSoC5/Filter_PM.c **** 
+  90:Generated_Source\PSoC5/Filter_PM.c ****     /* Put DFB RAM on the bus */
+  91:Generated_Source\PSoC5/Filter_PM.c ****     Filter_RAM_DIR_REG = Filter_RAM_DIR_BUS;
+  92:Generated_Source\PSoC5/Filter_PM.c **** 
+  93:Generated_Source\PSoC5/Filter_PM.c ****     /* Restore ACU RAM as this is not retension */
+  94:Generated_Source\PSoC5/Filter_PM.c ****     (void)memcpy(Filter_ACU_RAM,
+ 111              		.loc 1 94 0
+ 112 0008 0F4E     		ldr	r6, .L10+8
+  84:Generated_Source\PSoC5/Filter_PM.c ****     Filter_SR_REG = Filter_backup.sr;
+ 113              		.loc 1 84 0
+ 114 000a 1170     		strb	r1, [r2]
+  85:Generated_Source\PSoC5/Filter_PM.c ****     Filter_SEMA_REG = Filter_backup.sema;
+ 115              		.loc 1 85 0
+ 116 000c D978     		ldrb	r1, [r3, #3]	@ zero_extendqisi2
+ 117 000e 1173     		strb	r1, [r2, #12]
+  88:Generated_Source\PSoC5/Filter_PM.c **** 
+ 118              		.loc 1 88 0
+ 119 0010 0E49     		ldr	r1, .L10+12
+ 120 0012 0A78     		ldrb	r2, [r1]	@ zero_extendqisi2
+ 121 0014 42F01002 		orr	r2, r2, #16
+ 122 0018 0A70     		strb	r2, [r1]
+  91:Generated_Source\PSoC5/Filter_PM.c **** 
+ 123              		.loc 1 91 0
+ 124 001a 01F50341 		add	r1, r1, #33536
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrkHDpg.s 			page 5
+
+
+ 125 001e E631     		adds	r1, r1, #230
+ 126 0020 0C46     		mov	r4, r1
+ 127 0022 3F22     		movs	r2, #63
+ 128 0024 0A70     		strb	r2, [r1]
+ 129              		.loc 1 94 0
+ 130 0026 1A1D     		adds	r2, r3, #4
+ 131 0028 4433     		adds	r3, r3, #68
+ 132              	.L8:
+ 133 002a 3546     		mov	r5, r6
+ 134 002c 1068     		ldr	r0, [r2]	@ unaligned
+ 135 002e 5168     		ldr	r1, [r2, #4]	@ unaligned
+ 136 0030 0832     		adds	r2, r2, #8
+ 137 0032 03C5     		stmia	r5!, {r0, r1}
+ 138 0034 9A42     		cmp	r2, r3
+ 139 0036 2E46     		mov	r6, r5
+ 140 0038 F7D1     		bne	.L8
+  95:Generated_Source\PSoC5/Filter_PM.c ****         Filter_backup.saveAcu, Filter_ACU_RAM_SIZE); 
+  96:Generated_Source\PSoC5/Filter_PM.c **** 
+  97:Generated_Source\PSoC5/Filter_PM.c ****     /* Take DFB RAM off the bus */
+  98:Generated_Source\PSoC5/Filter_PM.c ****     Filter_RAM_DIR_REG = Filter_RAM_DIR_DFB;
+ 141              		.loc 1 98 0
+ 142 003a 0023     		movs	r3, #0
+ 143 003c 2370     		strb	r3, [r4]
+ 144 003e 70BD     		pop	{r4, r5, r6, pc}
+ 145              	.L11:
+ 146              		.align	2
+ 147              	.L10:
+ 148 0040 00000000 		.word	.LANCHOR0
+ 149 0044 84C70040 		.word	1073792900
+ 150 0048 00C70040 		.word	1073792768
+ 151 004c A6430040 		.word	1073759142
+ 152              		.cfi_endproc
+ 153              	.LFE1:
+ 154              		.size	Filter_RestoreConfig, .-Filter_RestoreConfig
+ 155              		.section	.text.Filter_Sleep,"ax",%progbits
+ 156              		.align	1
+ 157              		.global	Filter_Sleep
+ 158              		.thumb
+ 159              		.thumb_func
+ 160              		.type	Filter_Sleep, %function
+ 161              	Filter_Sleep:
+ 162              	.LFB2:
+  99:Generated_Source\PSoC5/Filter_PM.c **** }
+ 100:Generated_Source\PSoC5/Filter_PM.c **** 
+ 101:Generated_Source\PSoC5/Filter_PM.c **** 
+ 102:Generated_Source\PSoC5/Filter_PM.c **** /*******************************************************************************
+ 103:Generated_Source\PSoC5/Filter_PM.c **** * Function Name: Filter_Sleep
+ 104:Generated_Source\PSoC5/Filter_PM.c **** ********************************************************************************
+ 105:Generated_Source\PSoC5/Filter_PM.c **** *
+ 106:Generated_Source\PSoC5/Filter_PM.c **** * Summary:
+ 107:Generated_Source\PSoC5/Filter_PM.c **** *  Disables block's operation and saves its configuration. Should be called 
+ 108:Generated_Source\PSoC5/Filter_PM.c **** *  just prior to entering sleep.
+ 109:Generated_Source\PSoC5/Filter_PM.c **** *  
+ 110:Generated_Source\PSoC5/Filter_PM.c **** * Parameters:  
+ 111:Generated_Source\PSoC5/Filter_PM.c **** *  void
+ 112:Generated_Source\PSoC5/Filter_PM.c **** *
+ 113:Generated_Source\PSoC5/Filter_PM.c **** * Return: 
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrkHDpg.s 			page 6
+
+
+ 114:Generated_Source\PSoC5/Filter_PM.c **** *  void
+ 115:Generated_Source\PSoC5/Filter_PM.c **** *
+ 116:Generated_Source\PSoC5/Filter_PM.c **** * Global variables:
+ 117:Generated_Source\PSoC5/Filter_PM.c **** *  Filter_backup:  The structure field 'enableState' is modified 
+ 118:Generated_Source\PSoC5/Filter_PM.c **** *  depending on the enable state of the block before entering to sleep mode.
+ 119:Generated_Source\PSoC5/Filter_PM.c **** *
+ 120:Generated_Source\PSoC5/Filter_PM.c **** *******************************************************************************/
+ 121:Generated_Source\PSoC5/Filter_PM.c **** void Filter_Sleep(void) 
+ 122:Generated_Source\PSoC5/Filter_PM.c **** {
+ 163              		.loc 1 122 0
+ 164              		.cfi_startproc
+ 165              		@ args = 0, pretend = 0, frame = 0
+ 166              		@ frame_needed = 0, uses_anonymous_args = 0
+ 167 0000 08B5     		push	{r3, lr}
+ 168              		.cfi_def_cfa_offset 8
+ 169              		.cfi_offset 3, -8
+ 170              		.cfi_offset 14, -4
+ 123:Generated_Source\PSoC5/Filter_PM.c ****     /* Save Filter enable state */
+ 124:Generated_Source\PSoC5/Filter_PM.c ****     if(Filter_PM_ACT_MSK == (Filter_PM_ACT_CFG_REG & Filter_PM_ACT_MSK))
+ 171              		.loc 1 124 0
+ 172 0002 094B     		ldr	r3, .L15
+ 173 0004 094A     		ldr	r2, .L15+4
+ 174 0006 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 175 0008 03F01003 		and	r3, r3, #16
+ 176 000c 03F0FF01 		and	r1, r3, #255
+ 177 0010 13B1     		cbz	r3, .L13
+ 125:Generated_Source\PSoC5/Filter_PM.c ****     {
+ 126:Generated_Source\PSoC5/Filter_PM.c ****         /* Component is enabled */
+ 127:Generated_Source\PSoC5/Filter_PM.c ****         Filter_backup.enableState = Filter_ENABLED;
+ 178              		.loc 1 127 0
+ 179 0012 0123     		movs	r3, #1
+ 180 0014 1370     		strb	r3, [r2]
+ 181 0016 00E0     		b	.L14
+ 182              	.L13:
+ 128:Generated_Source\PSoC5/Filter_PM.c ****     }
+ 129:Generated_Source\PSoC5/Filter_PM.c ****     else
+ 130:Generated_Source\PSoC5/Filter_PM.c ****     {
+ 131:Generated_Source\PSoC5/Filter_PM.c ****         /* Component is disabled */
+ 132:Generated_Source\PSoC5/Filter_PM.c ****         Filter_backup.enableState = Filter_DISABLED;
+ 183              		.loc 1 132 0
+ 184 0018 1170     		strb	r1, [r2]
+ 185              	.L14:
+ 133:Generated_Source\PSoC5/Filter_PM.c ****     }
+ 134:Generated_Source\PSoC5/Filter_PM.c **** 
+ 135:Generated_Source\PSoC5/Filter_PM.c ****     /* Save the configuration */
+ 136:Generated_Source\PSoC5/Filter_PM.c ****     Filter_SaveConfig();
+ 186              		.loc 1 136 0
+ 187 001a FFF7FEFF 		bl	Filter_SaveConfig
+ 188              	.LVL0:
+ 137:Generated_Source\PSoC5/Filter_PM.c ****     
+ 138:Generated_Source\PSoC5/Filter_PM.c ****     /* Stop the component */
+ 139:Generated_Source\PSoC5/Filter_PM.c ****     Filter_Stop();
+ 140:Generated_Source\PSoC5/Filter_PM.c **** }
+ 189              		.loc 1 140 0
+ 190 001e BDE80840 		pop	{r3, lr}
+ 191              		.cfi_restore 14
+ 192              		.cfi_restore 3
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrkHDpg.s 			page 7
+
+
+ 193              		.cfi_def_cfa_offset 0
+ 139:Generated_Source\PSoC5/Filter_PM.c **** }
+ 194              		.loc 1 139 0
+ 195 0022 FFF7FEBF 		b	Filter_Stop
+ 196              	.LVL1:
+ 197              	.L16:
+ 198 0026 00BF     		.align	2
+ 199              	.L15:
+ 200 0028 A6430040 		.word	1073759142
+ 201 002c 00000000 		.word	.LANCHOR0
+ 202              		.cfi_endproc
+ 203              	.LFE2:
+ 204              		.size	Filter_Sleep, .-Filter_Sleep
+ 205              		.section	.text.Filter_Wakeup,"ax",%progbits
+ 206              		.align	1
+ 207              		.global	Filter_Wakeup
+ 208              		.thumb
+ 209              		.thumb_func
+ 210              		.type	Filter_Wakeup, %function
+ 211              	Filter_Wakeup:
+ 212              	.LFB3:
+ 141:Generated_Source\PSoC5/Filter_PM.c **** 
+ 142:Generated_Source\PSoC5/Filter_PM.c **** 
+ 143:Generated_Source\PSoC5/Filter_PM.c **** /*******************************************************************************
+ 144:Generated_Source\PSoC5/Filter_PM.c **** * Function Name: Filter_Wakeup
+ 145:Generated_Source\PSoC5/Filter_PM.c **** ********************************************************************************
+ 146:Generated_Source\PSoC5/Filter_PM.c **** *
+ 147:Generated_Source\PSoC5/Filter_PM.c **** * Summary:
+ 148:Generated_Source\PSoC5/Filter_PM.c **** *  Enables block's operation and restores its configuration. Should be called
+ 149:Generated_Source\PSoC5/Filter_PM.c **** *  just after awaking from sleep.
+ 150:Generated_Source\PSoC5/Filter_PM.c **** *  
+ 151:Generated_Source\PSoC5/Filter_PM.c **** * Parameters:  
+ 152:Generated_Source\PSoC5/Filter_PM.c **** *  void
+ 153:Generated_Source\PSoC5/Filter_PM.c **** *
+ 154:Generated_Source\PSoC5/Filter_PM.c **** * Return: 
+ 155:Generated_Source\PSoC5/Filter_PM.c **** *  void
+ 156:Generated_Source\PSoC5/Filter_PM.c **** *
+ 157:Generated_Source\PSoC5/Filter_PM.c **** * Global variables:
+ 158:Generated_Source\PSoC5/Filter_PM.c **** *  Filter_backup:  The structure field 'enableState' is used to 
+ 159:Generated_Source\PSoC5/Filter_PM.c **** *  restore the enable state of block after wakeup from sleep mode.
+ 160:Generated_Source\PSoC5/Filter_PM.c **** *
+ 161:Generated_Source\PSoC5/Filter_PM.c **** *******************************************************************************/
+ 162:Generated_Source\PSoC5/Filter_PM.c **** void Filter_Wakeup(void) 
+ 163:Generated_Source\PSoC5/Filter_PM.c **** {
+ 213              		.loc 1 163 0
+ 214              		.cfi_startproc
+ 215              		@ args = 0, pretend = 0, frame = 0
+ 216              		@ frame_needed = 0, uses_anonymous_args = 0
+ 217 0000 08B5     		push	{r3, lr}
+ 218              		.cfi_def_cfa_offset 8
+ 219              		.cfi_offset 3, -8
+ 220              		.cfi_offset 14, -4
+ 164:Generated_Source\PSoC5/Filter_PM.c ****     /* Restore the configuration */
+ 165:Generated_Source\PSoC5/Filter_PM.c ****     Filter_RestoreConfig();
+ 221              		.loc 1 165 0
+ 222 0002 FFF7FEFF 		bl	Filter_RestoreConfig
+ 223              	.LVL2:
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrkHDpg.s 			page 8
+
+
+ 166:Generated_Source\PSoC5/Filter_PM.c ****     
+ 167:Generated_Source\PSoC5/Filter_PM.c ****     /* Enable's the component operation */
+ 168:Generated_Source\PSoC5/Filter_PM.c ****     if(Filter_backup.enableState == Filter_ENABLED)
+ 224              		.loc 1 168 0
+ 225 0006 044B     		ldr	r3, .L19
+ 226 0008 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 227 000a 012B     		cmp	r3, #1
+ 228 000c 03D1     		bne	.L17
+ 169:Generated_Source\PSoC5/Filter_PM.c ****     {
+ 170:Generated_Source\PSoC5/Filter_PM.c ****         Filter_Enable();
+ 171:Generated_Source\PSoC5/Filter_PM.c ****     } /* Do nothing if component was disable before */
+ 172:Generated_Source\PSoC5/Filter_PM.c **** }
+ 229              		.loc 1 172 0
+ 230 000e BDE80840 		pop	{r3, lr}
+ 231              		.cfi_remember_state
+ 232              		.cfi_restore 14
+ 233              		.cfi_restore 3
+ 234              		.cfi_def_cfa_offset 0
+ 170:Generated_Source\PSoC5/Filter_PM.c ****     } /* Do nothing if component was disable before */
+ 235              		.loc 1 170 0
+ 236 0012 FFF7FEBF 		b	Filter_Enable
+ 237              	.LVL3:
+ 238              	.L17:
+ 239              		.cfi_restore_state
+ 240 0016 08BD     		pop	{r3, pc}
+ 241              	.L20:
+ 242              		.align	2
+ 243              	.L19:
+ 244 0018 00000000 		.word	.LANCHOR0
+ 245              		.cfi_endproc
+ 246              	.LFE3:
+ 247              		.size	Filter_Wakeup, .-Filter_Wakeup
+ 248              		.data
+ 249              		.set	.LANCHOR0,. + 0
+ 250              		.type	Filter_backup, %object
+ 251              		.size	Filter_backup, 68
+ 252              	Filter_backup:
+ 253 0000 00       		.byte	0
+ 254 0001 01       		.byte	1
+ 255 0002 00000000 		.space	66
+ 255      00000000 
+ 255      00000000 
+ 255      00000000 
+ 255      00000000 
+ 256              		.text
+ 257              	.Letext0:
+ 258              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 259              		.file 3 "Generated_Source\\PSoC5\\Filter.H"
+ 260              		.section	.debug_info,"",%progbits
+ 261              	.Ldebug_info0:
+ 262 0000 AB010000 		.4byte	0x1ab
+ 263 0004 0400     		.2byte	0x4
+ 264 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 265 000a 04       		.byte	0x4
+ 266 000b 01       		.uleb128 0x1
+ 267 000c B7000000 		.4byte	.LASF27
+ 268 0010 0C       		.byte	0xc
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrkHDpg.s 			page 9
+
+
+ 269 0011 F7010000 		.4byte	.LASF28
+ 270 0015 05000000 		.4byte	.LASF29
+ 271 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 272 001d 00000000 		.4byte	0
+ 273 0021 00000000 		.4byte	.Ldebug_line0
+ 274 0025 02       		.uleb128 0x2
+ 275 0026 04       		.byte	0x4
+ 276 0027 05       		.byte	0x5
+ 277 0028 696E7400 		.ascii	"int\000"
+ 278 002c 03       		.uleb128 0x3
+ 279 002d 04       		.byte	0x4
+ 280 002e 07       		.byte	0x7
+ 281 002f 99010000 		.4byte	.LASF0
+ 282 0033 03       		.uleb128 0x3
+ 283 0034 08       		.byte	0x8
+ 284 0035 05       		.byte	0x5
+ 285 0036 DA010000 		.4byte	.LASF1
+ 286 003a 03       		.uleb128 0x3
+ 287 003b 08       		.byte	0x8
+ 288 003c 04       		.byte	0x4
+ 289 003d 2F020000 		.4byte	.LASF2
+ 290 0041 03       		.uleb128 0x3
+ 291 0042 01       		.byte	0x1
+ 292 0043 06       		.byte	0x6
+ 293 0044 3B020000 		.4byte	.LASF3
+ 294 0048 03       		.uleb128 0x3
+ 295 0049 01       		.byte	0x1
+ 296 004a 08       		.byte	0x8
+ 297 004b 98000000 		.4byte	.LASF4
+ 298 004f 03       		.uleb128 0x3
+ 299 0050 02       		.byte	0x2
+ 300 0051 05       		.byte	0x5
+ 301 0052 ED010000 		.4byte	.LASF5
+ 302 0056 03       		.uleb128 0x3
+ 303 0057 02       		.byte	0x2
+ 304 0058 07       		.byte	0x7
+ 305 0059 47020000 		.4byte	.LASF6
+ 306 005d 03       		.uleb128 0x3
+ 307 005e 04       		.byte	0x4
+ 308 005f 05       		.byte	0x5
+ 309 0060 1A020000 		.4byte	.LASF7
+ 310 0064 03       		.uleb128 0x3
+ 311 0065 04       		.byte	0x4
+ 312 0066 07       		.byte	0x7
+ 313 0067 87010000 		.4byte	.LASF8
+ 314 006b 03       		.uleb128 0x3
+ 315 006c 08       		.byte	0x8
+ 316 006d 07       		.byte	0x7
+ 317 006e BA010000 		.4byte	.LASF9
+ 318 0072 03       		.uleb128 0x3
+ 319 0073 04       		.byte	0x4
+ 320 0074 07       		.byte	0x7
+ 321 0075 D1010000 		.4byte	.LASF10
+ 322 0079 03       		.uleb128 0x3
+ 323 007a 01       		.byte	0x1
+ 324 007b 08       		.byte	0x8
+ 325 007c E8010000 		.4byte	.LASF11
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrkHDpg.s 			page 10
+
+
+ 326 0080 04       		.uleb128 0x4
+ 327 0081 45010000 		.4byte	.LASF12
+ 328 0085 02       		.byte	0x2
+ 329 0086 9201     		.2byte	0x192
+ 330 0088 48000000 		.4byte	0x48
+ 331 008c 04       		.uleb128 0x4
+ 332 008d 80010000 		.4byte	.LASF13
+ 333 0091 02       		.byte	0x2
+ 334 0092 9301     		.2byte	0x193
+ 335 0094 56000000 		.4byte	0x56
+ 336 0098 03       		.uleb128 0x3
+ 337 0099 04       		.byte	0x4
+ 338 009a 04       		.byte	0x4
+ 339 009b 8A000000 		.4byte	.LASF14
+ 340 009f 03       		.uleb128 0x3
+ 341 00a0 08       		.byte	0x8
+ 342 00a1 04       		.byte	0x4
+ 343 00a2 59010000 		.4byte	.LASF15
+ 344 00a6 04       		.uleb128 0x4
+ 345 00a7 B2000000 		.4byte	.LASF16
+ 346 00ab 02       		.byte	0x2
+ 347 00ac 3C02     		.2byte	0x23c
+ 348 00ae B2000000 		.4byte	0xb2
+ 349 00b2 05       		.uleb128 0x5
+ 350 00b3 80000000 		.4byte	0x80
+ 351 00b7 06       		.uleb128 0x6
+ 352 00b8 44       		.byte	0x44
+ 353 00b9 03       		.byte	0x3
+ 354 00ba 30       		.byte	0x30
+ 355 00bb FA000000 		.4byte	0xfa
+ 356 00bf 07       		.uleb128 0x7
+ 357 00c0 23020000 		.4byte	.LASF17
+ 358 00c4 03       		.byte	0x3
+ 359 00c5 32       		.byte	0x32
+ 360 00c6 80000000 		.4byte	0x80
+ 361 00ca 00       		.byte	0
+ 362 00cb 08       		.uleb128 0x8
+ 363 00cc 637200   		.ascii	"cr\000"
+ 364 00cf 03       		.byte	0x3
+ 365 00d0 33       		.byte	0x33
+ 366 00d1 80000000 		.4byte	0x80
+ 367 00d5 01       		.byte	0x1
+ 368 00d6 08       		.uleb128 0x8
+ 369 00d7 737200   		.ascii	"sr\000"
+ 370 00da 03       		.byte	0x3
+ 371 00db 34       		.byte	0x34
+ 372 00dc 80000000 		.4byte	0x80
+ 373 00e0 02       		.byte	0x2
+ 374 00e1 07       		.uleb128 0x7
+ 375 00e2 00000000 		.4byte	.LASF18
+ 376 00e6 03       		.byte	0x3
+ 377 00e7 35       		.byte	0x35
+ 378 00e8 80000000 		.4byte	0x80
+ 379 00ec 03       		.byte	0x3
+ 380 00ed 07       		.uleb128 0x7
+ 381 00ee 90000000 		.4byte	.LASF19
+ 382 00f2 03       		.byte	0x3
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrkHDpg.s 			page 11
+
+
+ 383 00f3 36       		.byte	0x36
+ 384 00f4 FA000000 		.4byte	0xfa
+ 385 00f8 04       		.byte	0x4
+ 386 00f9 00       		.byte	0
+ 387 00fa 09       		.uleb128 0x9
+ 388 00fb 80000000 		.4byte	0x80
+ 389 00ff 0A010000 		.4byte	0x10a
+ 390 0103 0A       		.uleb128 0xa
+ 391 0104 72000000 		.4byte	0x72
+ 392 0108 3F       		.byte	0x3f
+ 393 0109 00       		.byte	0
+ 394 010a 0B       		.uleb128 0xb
+ 395 010b A6010000 		.4byte	.LASF20
+ 396 010f 03       		.byte	0x3
+ 397 0110 37       		.byte	0x37
+ 398 0111 B7000000 		.4byte	0xb7
+ 399 0115 0C       		.uleb128 0xc
+ 400 0116 60010000 		.4byte	.LASF21
+ 401 011a 01       		.byte	0x1
+ 402 011b 2E       		.byte	0x2e
+ 403 011c 00000000 		.4byte	.LFB0
+ 404 0120 50000000 		.4byte	.LFE0-.LFB0
+ 405 0124 01       		.uleb128 0x1
+ 406 0125 9C       		.byte	0x9c
+ 407 0126 0C       		.uleb128 0xc
+ 408 0127 75000000 		.4byte	.LASF22
+ 409 012b 01       		.byte	0x1
+ 410 012c 52       		.byte	0x52
+ 411 012d 00000000 		.4byte	.LFB1
+ 412 0131 50000000 		.4byte	.LFE1-.LFB1
+ 413 0135 01       		.uleb128 0x1
+ 414 0136 9C       		.byte	0x9c
+ 415 0137 0D       		.uleb128 0xd
+ 416 0138 5A000000 		.4byte	.LASF23
+ 417 013c 01       		.byte	0x1
+ 418 013d 79       		.byte	0x79
+ 419 013e 00000000 		.4byte	.LFB2
+ 420 0142 30000000 		.4byte	.LFE2-.LFB2
+ 421 0146 01       		.uleb128 0x1
+ 422 0147 9C       		.byte	0x9c
+ 423 0148 5F010000 		.4byte	0x15f
+ 424 014c 0E       		.uleb128 0xe
+ 425 014d 1E000000 		.4byte	.LVL0
+ 426 0151 15010000 		.4byte	0x115
+ 427 0155 0F       		.uleb128 0xf
+ 428 0156 26000000 		.4byte	.LVL1
+ 429 015a 98010000 		.4byte	0x198
+ 430 015e 00       		.byte	0
+ 431 015f 0D       		.uleb128 0xd
+ 432 0160 4B010000 		.4byte	.LASF24
+ 433 0164 01       		.byte	0x1
+ 434 0165 A2       		.byte	0xa2
+ 435 0166 00000000 		.4byte	.LFB3
+ 436 016a 1C000000 		.4byte	.LFE3-.LFB3
+ 437 016e 01       		.uleb128 0x1
+ 438 016f 9C       		.byte	0x9c
+ 439 0170 87010000 		.4byte	0x187
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrkHDpg.s 			page 12
+
+
+ 440 0174 0E       		.uleb128 0xe
+ 441 0175 06000000 		.4byte	.LVL2
+ 442 0179 26010000 		.4byte	0x126
+ 443 017d 0F       		.uleb128 0xf
+ 444 017e 16000000 		.4byte	.LVL3
+ 445 0182 A3010000 		.4byte	0x1a3
+ 446 0186 00       		.byte	0
+ 447 0187 10       		.uleb128 0x10
+ 448 0188 72010000 		.4byte	.LASF30
+ 449 018c 01       		.byte	0x1
+ 450 018d 13       		.byte	0x13
+ 451 018e 0A010000 		.4byte	0x10a
+ 452 0192 05       		.uleb128 0x5
+ 453 0193 03       		.byte	0x3
+ 454 0194 00000000 		.4byte	Filter_backup
+ 455 0198 11       		.uleb128 0x11
+ 456 0199 A6000000 		.4byte	.LASF25
+ 457 019d A6000000 		.4byte	.LASF25
+ 458 01a1 03       		.byte	0x3
+ 459 01a2 3F       		.byte	0x3f
+ 460 01a3 11       		.uleb128 0x11
+ 461 01a4 67000000 		.4byte	.LASF26
+ 462 01a8 67000000 		.4byte	.LASF26
+ 463 01ac 03       		.byte	0x3
+ 464 01ad 4B       		.byte	0x4b
+ 465 01ae 00       		.byte	0
+ 466              		.section	.debug_abbrev,"",%progbits
+ 467              	.Ldebug_abbrev0:
+ 468 0000 01       		.uleb128 0x1
+ 469 0001 11       		.uleb128 0x11
+ 470 0002 01       		.byte	0x1
+ 471 0003 25       		.uleb128 0x25
+ 472 0004 0E       		.uleb128 0xe
+ 473 0005 13       		.uleb128 0x13
+ 474 0006 0B       		.uleb128 0xb
+ 475 0007 03       		.uleb128 0x3
+ 476 0008 0E       		.uleb128 0xe
+ 477 0009 1B       		.uleb128 0x1b
+ 478 000a 0E       		.uleb128 0xe
+ 479 000b 55       		.uleb128 0x55
+ 480 000c 17       		.uleb128 0x17
+ 481 000d 11       		.uleb128 0x11
+ 482 000e 01       		.uleb128 0x1
+ 483 000f 10       		.uleb128 0x10
+ 484 0010 17       		.uleb128 0x17
+ 485 0011 00       		.byte	0
+ 486 0012 00       		.byte	0
+ 487 0013 02       		.uleb128 0x2
+ 488 0014 24       		.uleb128 0x24
+ 489 0015 00       		.byte	0
+ 490 0016 0B       		.uleb128 0xb
+ 491 0017 0B       		.uleb128 0xb
+ 492 0018 3E       		.uleb128 0x3e
+ 493 0019 0B       		.uleb128 0xb
+ 494 001a 03       		.uleb128 0x3
+ 495 001b 08       		.uleb128 0x8
+ 496 001c 00       		.byte	0
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrkHDpg.s 			page 13
+
+
+ 497 001d 00       		.byte	0
+ 498 001e 03       		.uleb128 0x3
+ 499 001f 24       		.uleb128 0x24
+ 500 0020 00       		.byte	0
+ 501 0021 0B       		.uleb128 0xb
+ 502 0022 0B       		.uleb128 0xb
+ 503 0023 3E       		.uleb128 0x3e
+ 504 0024 0B       		.uleb128 0xb
+ 505 0025 03       		.uleb128 0x3
+ 506 0026 0E       		.uleb128 0xe
+ 507 0027 00       		.byte	0
+ 508 0028 00       		.byte	0
+ 509 0029 04       		.uleb128 0x4
+ 510 002a 16       		.uleb128 0x16
+ 511 002b 00       		.byte	0
+ 512 002c 03       		.uleb128 0x3
+ 513 002d 0E       		.uleb128 0xe
+ 514 002e 3A       		.uleb128 0x3a
+ 515 002f 0B       		.uleb128 0xb
+ 516 0030 3B       		.uleb128 0x3b
+ 517 0031 05       		.uleb128 0x5
+ 518 0032 49       		.uleb128 0x49
+ 519 0033 13       		.uleb128 0x13
+ 520 0034 00       		.byte	0
+ 521 0035 00       		.byte	0
+ 522 0036 05       		.uleb128 0x5
+ 523 0037 35       		.uleb128 0x35
+ 524 0038 00       		.byte	0
+ 525 0039 49       		.uleb128 0x49
+ 526 003a 13       		.uleb128 0x13
+ 527 003b 00       		.byte	0
+ 528 003c 00       		.byte	0
+ 529 003d 06       		.uleb128 0x6
+ 530 003e 13       		.uleb128 0x13
+ 531 003f 01       		.byte	0x1
+ 532 0040 0B       		.uleb128 0xb
+ 533 0041 0B       		.uleb128 0xb
+ 534 0042 3A       		.uleb128 0x3a
+ 535 0043 0B       		.uleb128 0xb
+ 536 0044 3B       		.uleb128 0x3b
+ 537 0045 0B       		.uleb128 0xb
+ 538 0046 01       		.uleb128 0x1
+ 539 0047 13       		.uleb128 0x13
+ 540 0048 00       		.byte	0
+ 541 0049 00       		.byte	0
+ 542 004a 07       		.uleb128 0x7
+ 543 004b 0D       		.uleb128 0xd
+ 544 004c 00       		.byte	0
+ 545 004d 03       		.uleb128 0x3
+ 546 004e 0E       		.uleb128 0xe
+ 547 004f 3A       		.uleb128 0x3a
+ 548 0050 0B       		.uleb128 0xb
+ 549 0051 3B       		.uleb128 0x3b
+ 550 0052 0B       		.uleb128 0xb
+ 551 0053 49       		.uleb128 0x49
+ 552 0054 13       		.uleb128 0x13
+ 553 0055 38       		.uleb128 0x38
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrkHDpg.s 			page 14
+
+
+ 554 0056 0B       		.uleb128 0xb
+ 555 0057 00       		.byte	0
+ 556 0058 00       		.byte	0
+ 557 0059 08       		.uleb128 0x8
+ 558 005a 0D       		.uleb128 0xd
+ 559 005b 00       		.byte	0
+ 560 005c 03       		.uleb128 0x3
+ 561 005d 08       		.uleb128 0x8
+ 562 005e 3A       		.uleb128 0x3a
+ 563 005f 0B       		.uleb128 0xb
+ 564 0060 3B       		.uleb128 0x3b
+ 565 0061 0B       		.uleb128 0xb
+ 566 0062 49       		.uleb128 0x49
+ 567 0063 13       		.uleb128 0x13
+ 568 0064 38       		.uleb128 0x38
+ 569 0065 0B       		.uleb128 0xb
+ 570 0066 00       		.byte	0
+ 571 0067 00       		.byte	0
+ 572 0068 09       		.uleb128 0x9
+ 573 0069 01       		.uleb128 0x1
+ 574 006a 01       		.byte	0x1
+ 575 006b 49       		.uleb128 0x49
+ 576 006c 13       		.uleb128 0x13
+ 577 006d 01       		.uleb128 0x1
+ 578 006e 13       		.uleb128 0x13
+ 579 006f 00       		.byte	0
+ 580 0070 00       		.byte	0
+ 581 0071 0A       		.uleb128 0xa
+ 582 0072 21       		.uleb128 0x21
+ 583 0073 00       		.byte	0
+ 584 0074 49       		.uleb128 0x49
+ 585 0075 13       		.uleb128 0x13
+ 586 0076 2F       		.uleb128 0x2f
+ 587 0077 0B       		.uleb128 0xb
+ 588 0078 00       		.byte	0
+ 589 0079 00       		.byte	0
+ 590 007a 0B       		.uleb128 0xb
+ 591 007b 16       		.uleb128 0x16
+ 592 007c 00       		.byte	0
+ 593 007d 03       		.uleb128 0x3
+ 594 007e 0E       		.uleb128 0xe
+ 595 007f 3A       		.uleb128 0x3a
+ 596 0080 0B       		.uleb128 0xb
+ 597 0081 3B       		.uleb128 0x3b
+ 598 0082 0B       		.uleb128 0xb
+ 599 0083 49       		.uleb128 0x49
+ 600 0084 13       		.uleb128 0x13
+ 601 0085 00       		.byte	0
+ 602 0086 00       		.byte	0
+ 603 0087 0C       		.uleb128 0xc
+ 604 0088 2E       		.uleb128 0x2e
+ 605 0089 00       		.byte	0
+ 606 008a 3F       		.uleb128 0x3f
+ 607 008b 19       		.uleb128 0x19
+ 608 008c 03       		.uleb128 0x3
+ 609 008d 0E       		.uleb128 0xe
+ 610 008e 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrkHDpg.s 			page 15
+
+
+ 611 008f 0B       		.uleb128 0xb
+ 612 0090 3B       		.uleb128 0x3b
+ 613 0091 0B       		.uleb128 0xb
+ 614 0092 27       		.uleb128 0x27
+ 615 0093 19       		.uleb128 0x19
+ 616 0094 11       		.uleb128 0x11
+ 617 0095 01       		.uleb128 0x1
+ 618 0096 12       		.uleb128 0x12
+ 619 0097 06       		.uleb128 0x6
+ 620 0098 40       		.uleb128 0x40
+ 621 0099 18       		.uleb128 0x18
+ 622 009a 9742     		.uleb128 0x2117
+ 623 009c 19       		.uleb128 0x19
+ 624 009d 00       		.byte	0
+ 625 009e 00       		.byte	0
+ 626 009f 0D       		.uleb128 0xd
+ 627 00a0 2E       		.uleb128 0x2e
+ 628 00a1 01       		.byte	0x1
+ 629 00a2 3F       		.uleb128 0x3f
+ 630 00a3 19       		.uleb128 0x19
+ 631 00a4 03       		.uleb128 0x3
+ 632 00a5 0E       		.uleb128 0xe
+ 633 00a6 3A       		.uleb128 0x3a
+ 634 00a7 0B       		.uleb128 0xb
+ 635 00a8 3B       		.uleb128 0x3b
+ 636 00a9 0B       		.uleb128 0xb
+ 637 00aa 27       		.uleb128 0x27
+ 638 00ab 19       		.uleb128 0x19
+ 639 00ac 11       		.uleb128 0x11
+ 640 00ad 01       		.uleb128 0x1
+ 641 00ae 12       		.uleb128 0x12
+ 642 00af 06       		.uleb128 0x6
+ 643 00b0 40       		.uleb128 0x40
+ 644 00b1 18       		.uleb128 0x18
+ 645 00b2 9742     		.uleb128 0x2117
+ 646 00b4 19       		.uleb128 0x19
+ 647 00b5 01       		.uleb128 0x1
+ 648 00b6 13       		.uleb128 0x13
+ 649 00b7 00       		.byte	0
+ 650 00b8 00       		.byte	0
+ 651 00b9 0E       		.uleb128 0xe
+ 652 00ba 898201   		.uleb128 0x4109
+ 653 00bd 00       		.byte	0
+ 654 00be 11       		.uleb128 0x11
+ 655 00bf 01       		.uleb128 0x1
+ 656 00c0 31       		.uleb128 0x31
+ 657 00c1 13       		.uleb128 0x13
+ 658 00c2 00       		.byte	0
+ 659 00c3 00       		.byte	0
+ 660 00c4 0F       		.uleb128 0xf
+ 661 00c5 898201   		.uleb128 0x4109
+ 662 00c8 00       		.byte	0
+ 663 00c9 11       		.uleb128 0x11
+ 664 00ca 01       		.uleb128 0x1
+ 665 00cb 9542     		.uleb128 0x2115
+ 666 00cd 19       		.uleb128 0x19
+ 667 00ce 31       		.uleb128 0x31
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrkHDpg.s 			page 16
+
+
+ 668 00cf 13       		.uleb128 0x13
+ 669 00d0 00       		.byte	0
+ 670 00d1 00       		.byte	0
+ 671 00d2 10       		.uleb128 0x10
+ 672 00d3 34       		.uleb128 0x34
+ 673 00d4 00       		.byte	0
+ 674 00d5 03       		.uleb128 0x3
+ 675 00d6 0E       		.uleb128 0xe
+ 676 00d7 3A       		.uleb128 0x3a
+ 677 00d8 0B       		.uleb128 0xb
+ 678 00d9 3B       		.uleb128 0x3b
+ 679 00da 0B       		.uleb128 0xb
+ 680 00db 49       		.uleb128 0x49
+ 681 00dc 13       		.uleb128 0x13
+ 682 00dd 02       		.uleb128 0x2
+ 683 00de 18       		.uleb128 0x18
+ 684 00df 00       		.byte	0
+ 685 00e0 00       		.byte	0
+ 686 00e1 11       		.uleb128 0x11
+ 687 00e2 2E       		.uleb128 0x2e
+ 688 00e3 00       		.byte	0
+ 689 00e4 3F       		.uleb128 0x3f
+ 690 00e5 19       		.uleb128 0x19
+ 691 00e6 3C       		.uleb128 0x3c
+ 692 00e7 19       		.uleb128 0x19
+ 693 00e8 6E       		.uleb128 0x6e
+ 694 00e9 0E       		.uleb128 0xe
+ 695 00ea 03       		.uleb128 0x3
+ 696 00eb 0E       		.uleb128 0xe
+ 697 00ec 3A       		.uleb128 0x3a
+ 698 00ed 0B       		.uleb128 0xb
+ 699 00ee 3B       		.uleb128 0x3b
+ 700 00ef 0B       		.uleb128 0xb
+ 701 00f0 00       		.byte	0
+ 702 00f1 00       		.byte	0
+ 703 00f2 00       		.byte	0
+ 704              		.section	.debug_aranges,"",%progbits
+ 705 0000 34000000 		.4byte	0x34
+ 706 0004 0200     		.2byte	0x2
+ 707 0006 00000000 		.4byte	.Ldebug_info0
+ 708 000a 04       		.byte	0x4
+ 709 000b 00       		.byte	0
+ 710 000c 0000     		.2byte	0
+ 711 000e 0000     		.2byte	0
+ 712 0010 00000000 		.4byte	.LFB0
+ 713 0014 50000000 		.4byte	.LFE0-.LFB0
+ 714 0018 00000000 		.4byte	.LFB1
+ 715 001c 50000000 		.4byte	.LFE1-.LFB1
+ 716 0020 00000000 		.4byte	.LFB2
+ 717 0024 30000000 		.4byte	.LFE2-.LFB2
+ 718 0028 00000000 		.4byte	.LFB3
+ 719 002c 1C000000 		.4byte	.LFE3-.LFB3
+ 720 0030 00000000 		.4byte	0
+ 721 0034 00000000 		.4byte	0
+ 722              		.section	.debug_ranges,"",%progbits
+ 723              	.Ldebug_ranges0:
+ 724 0000 00000000 		.4byte	.LFB0
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrkHDpg.s 			page 17
+
+
+ 725 0004 50000000 		.4byte	.LFE0
+ 726 0008 00000000 		.4byte	.LFB1
+ 727 000c 50000000 		.4byte	.LFE1
+ 728 0010 00000000 		.4byte	.LFB2
+ 729 0014 30000000 		.4byte	.LFE2
+ 730 0018 00000000 		.4byte	.LFB3
+ 731 001c 1C000000 		.4byte	.LFE3
+ 732 0020 00000000 		.4byte	0
+ 733 0024 00000000 		.4byte	0
+ 734              		.section	.debug_line,"",%progbits
+ 735              	.Ldebug_line0:
+ 736 0000 C0000000 		.section	.debug_str,"MS",%progbits,1
+ 736      02005200 
+ 736      00000201 
+ 736      FB0E0D00 
+ 736      01010101 
+ 737              	.LASF18:
+ 738 0000 73656D61 		.ascii	"sema\000"
+ 738      00
+ 739              	.LASF29:
+ 740 0005 433A5C55 		.ascii	"C:\\Users\\Alexander Nielsen\\Desktop\\platooning\\"
+ 740      73657273 
+ 740      5C416C65 
+ 740      78616E64 
+ 740      6572204E 
+ 741 0033 50536F43 		.ascii	"PSoC\\Platooning\\AngleMeasurement.cydsn\000"
+ 741      5C506C61 
+ 741      746F6F6E 
+ 741      696E675C 
+ 741      416E676C 
+ 742              	.LASF23:
+ 743 005a 46696C74 		.ascii	"Filter_Sleep\000"
+ 743      65725F53 
+ 743      6C656570 
+ 743      00
+ 744              	.LASF26:
+ 745 0067 46696C74 		.ascii	"Filter_Enable\000"
+ 745      65725F45 
+ 745      6E61626C 
+ 745      6500
+ 746              	.LASF22:
+ 747 0075 46696C74 		.ascii	"Filter_RestoreConfig\000"
+ 747      65725F52 
+ 747      6573746F 
+ 747      7265436F 
+ 747      6E666967 
+ 748              	.LASF14:
+ 749 008a 666C6F61 		.ascii	"float\000"
+ 749      7400
+ 750              	.LASF19:
+ 751 0090 73617665 		.ascii	"saveAcu\000"
+ 751      41637500 
+ 752              	.LASF4:
+ 753 0098 756E7369 		.ascii	"unsigned char\000"
+ 753      676E6564 
+ 753      20636861 
+ 753      7200
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrkHDpg.s 			page 18
+
+
+ 754              	.LASF25:
+ 755 00a6 46696C74 		.ascii	"Filter_Stop\000"
+ 755      65725F53 
+ 755      746F7000 
+ 756              	.LASF16:
+ 757 00b2 72656738 		.ascii	"reg8\000"
+ 757      00
+ 758              	.LASF27:
+ 759 00b7 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 759      43313120 
+ 759      352E342E 
+ 759      31203230 
+ 759      31363036 
+ 760 00ea 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 760      20726576 
+ 760      6973696F 
+ 760      6E203233 
+ 760      37373135 
+ 761 011d 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 761      66756E63 
+ 761      74696F6E 
+ 761      2D736563 
+ 761      74696F6E 
+ 762              	.LASF12:
+ 763 0145 75696E74 		.ascii	"uint8\000"
+ 763      3800
+ 764              	.LASF24:
+ 765 014b 46696C74 		.ascii	"Filter_Wakeup\000"
+ 765      65725F57 
+ 765      616B6575 
+ 765      7000
+ 766              	.LASF15:
+ 767 0159 646F7562 		.ascii	"double\000"
+ 767      6C6500
+ 768              	.LASF21:
+ 769 0160 46696C74 		.ascii	"Filter_SaveConfig\000"
+ 769      65725F53 
+ 769      61766543 
+ 769      6F6E6669 
+ 769      6700
+ 770              	.LASF30:
+ 771 0172 46696C74 		.ascii	"Filter_backup\000"
+ 771      65725F62 
+ 771      61636B75 
+ 771      7000
+ 772              	.LASF13:
+ 773 0180 75696E74 		.ascii	"uint16\000"
+ 773      313600
+ 774              	.LASF8:
+ 775 0187 6C6F6E67 		.ascii	"long unsigned int\000"
+ 775      20756E73 
+ 775      69676E65 
+ 775      6420696E 
+ 775      7400
+ 776              	.LASF0:
+ 777 0199 756E7369 		.ascii	"unsigned int\000"
+ 777      676E6564 
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrkHDpg.s 			page 19
+
+
+ 777      20696E74 
+ 777      00
+ 778              	.LASF20:
+ 779 01a6 46696C74 		.ascii	"Filter_backupStruct\000"
+ 779      65725F62 
+ 779      61636B75 
+ 779      70537472 
+ 779      75637400 
+ 780              	.LASF9:
+ 781 01ba 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 781      206C6F6E 
+ 781      6720756E 
+ 781      7369676E 
+ 781      65642069 
+ 782              	.LASF10:
+ 783 01d1 73697A65 		.ascii	"sizetype\000"
+ 783      74797065 
+ 783      00
+ 784              	.LASF1:
+ 785 01da 6C6F6E67 		.ascii	"long long int\000"
+ 785      206C6F6E 
+ 785      6720696E 
+ 785      7400
+ 786              	.LASF11:
+ 787 01e8 63686172 		.ascii	"char\000"
+ 787      00
+ 788              	.LASF5:
+ 789 01ed 73686F72 		.ascii	"short int\000"
+ 789      7420696E 
+ 789      7400
+ 790              	.LASF28:
+ 791 01f7 47656E65 		.ascii	"Generated_Source\\PSoC5\\Filter_PM.c\000"
+ 791      72617465 
+ 791      645F536F 
+ 791      75726365 
+ 791      5C50536F 
+ 792              	.LASF7:
+ 793 021a 6C6F6E67 		.ascii	"long int\000"
+ 793      20696E74 
+ 793      00
+ 794              	.LASF17:
+ 795 0223 656E6162 		.ascii	"enableState\000"
+ 795      6C655374 
+ 795      61746500 
+ 796              	.LASF2:
+ 797 022f 6C6F6E67 		.ascii	"long double\000"
+ 797      20646F75 
+ 797      626C6500 
+ 798              	.LASF3:
+ 799 023b 7369676E 		.ascii	"signed char\000"
+ 799      65642063 
+ 799      68617200 
+ 800              	.LASF6:
+ 801 0247 73686F72 		.ascii	"short unsigned int\000"
+ 801      7420756E 
+ 801      7369676E 
+ 801      65642069 
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\ccrkHDpg.s 			page 20
+
+
+ 801      6E7400
+ 802              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

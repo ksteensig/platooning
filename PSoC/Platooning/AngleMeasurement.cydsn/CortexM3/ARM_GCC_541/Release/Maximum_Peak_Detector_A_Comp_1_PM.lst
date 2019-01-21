@@ -1,0 +1,861 @@
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\cc5C5V1h.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"Maximum_Peak_Detector_A_Comp_1_PM.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.Maximum_Peak_Detector_A_Comp_1_SaveConfig,"ax",%progbits
+  20              		.align	1
+  21              		.global	Maximum_Peak_Detector_A_Comp_1_SaveConfig
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	Maximum_Peak_Detector_A_Comp_1_SaveConfig, %function
+  25              	Maximum_Peak_Detector_A_Comp_1_SaveConfig:
+  26              	.LFB5:
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  31 0000 7047     		bx	lr
+  32              		.cfi_endproc
+  33              	.LFE5:
+  34              		.size	Maximum_Peak_Detector_A_Comp_1_SaveConfig, .-Maximum_Peak_Detector_A_Comp_1_SaveConfig
+  35              		.section	.text.Maximum_Peak_Detector_A_Comp_1_RestoreConfig,"ax",%progbits
+  36              		.align	1
+  37              		.global	Maximum_Peak_Detector_A_Comp_1_RestoreConfig
+  38              		.thumb
+  39              		.thumb_func
+  40              		.type	Maximum_Peak_Detector_A_Comp_1_RestoreConfig, %function
+  41              	Maximum_Peak_Detector_A_Comp_1_RestoreConfig:
+  42              	.LFB1:
+  43              		.file 1 "Generated_Source\\PSoC5\\Maximum_Peak_Detector_A_Comp_1_PM.c"
+   1:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** /*******************************************************************************
+   2:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * File Name: Maximum_Peak_Detector_A_Comp_1.c
+   3:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * Version 2.0
+   4:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *
+   5:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * Description:
+   6:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *  This file provides the power management source code APIs for the
+   7:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *  Comparator.
+   8:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *
+   9:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * Note:
+  10:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *  None
+  11:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *
+  12:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** ********************************************************************************
+  13:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  14:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * You may use this file only in accordance with the license, terms, conditions, 
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\cc5C5V1h.s 			page 2
+
+
+  15:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  16:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * the software package with which this file was provided.
+  17:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *******************************************************************************/
+  18:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** 
+  19:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** #include "Maximum_Peak_Detector_A_Comp_1.h"
+  20:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** 
+  21:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** static Maximum_Peak_Detector_A_Comp_1_backupStruct Maximum_Peak_Detector_A_Comp_1_backup;
+  22:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** 
+  23:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** 
+  24:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** /*******************************************************************************
+  25:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * Function Name: Maximum_Peak_Detector_A_Comp_1_SaveConfig
+  26:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** ********************************************************************************
+  27:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *
+  28:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * Summary:
+  29:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *  Save the current user configuration
+  30:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *
+  31:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * Parameters:
+  32:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *  void:
+  33:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *
+  34:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * Return:
+  35:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *  void
+  36:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *
+  37:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *******************************************************************************/
+  38:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** void Maximum_Peak_Detector_A_Comp_1_SaveConfig(void) 
+  39:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** {
+  40:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c ****     /* Empty since all are system reset for retention flops */
+  41:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** }
+  42:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** 
+  43:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** 
+  44:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** /*******************************************************************************
+  45:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * Function Name: Maximum_Peak_Detector_A_Comp_1_RestoreConfig
+  46:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** ********************************************************************************
+  47:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *
+  48:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * Summary:
+  49:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *  Restores the current user configuration.
+  50:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *
+  51:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * Parameters:
+  52:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *  void
+  53:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *
+  54:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * Return:
+  55:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *  void
+  56:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *
+  57:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** ********************************************************************************/
+  58:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** void Maximum_Peak_Detector_A_Comp_1_RestoreConfig(void) 
+  59:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** {
+  44              		.loc 1 59 0
+  45              		.cfi_startproc
+  46              		@ args = 0, pretend = 0, frame = 0
+  47              		@ frame_needed = 0, uses_anonymous_args = 0
+  48              		@ link register save eliminated.
+  49 0000 7047     		bx	lr
+  50              		.cfi_endproc
+  51              	.LFE1:
+  52              		.size	Maximum_Peak_Detector_A_Comp_1_RestoreConfig, .-Maximum_Peak_Detector_A_Comp_1_RestoreConfig
+  53              		.section	.text.Maximum_Peak_Detector_A_Comp_1_Sleep,"ax",%progbits
+  54              		.align	1
+  55              		.global	Maximum_Peak_Detector_A_Comp_1_Sleep
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\cc5C5V1h.s 			page 3
+
+
+  56              		.thumb
+  57              		.thumb_func
+  58              		.type	Maximum_Peak_Detector_A_Comp_1_Sleep, %function
+  59              	Maximum_Peak_Detector_A_Comp_1_Sleep:
+  60              	.LFB2:
+  60:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c ****     /* Empty since all are system reset for retention flops */    
+  61:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** }
+  62:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** 
+  63:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** 
+  64:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** /*******************************************************************************
+  65:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * Function Name: Maximum_Peak_Detector_A_Comp_1_Sleep
+  66:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** ********************************************************************************
+  67:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *
+  68:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * Summary:
+  69:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *  Stop and Save the user configuration
+  70:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *
+  71:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * Parameters:
+  72:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *  void:
+  73:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *
+  74:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * Return:
+  75:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *  void
+  76:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *
+  77:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * Global variables:
+  78:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *  Maximum_Peak_Detector_A_Comp_1_backup.enableState:  Is modified depending on the enable 
+  79:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *   state of the block before entering sleep mode.
+  80:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *
+  81:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *******************************************************************************/
+  82:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** void Maximum_Peak_Detector_A_Comp_1_Sleep(void) 
+  83:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** {
+  61              		.loc 1 83 0
+  62              		.cfi_startproc
+  63              		@ args = 0, pretend = 0, frame = 0
+  64              		@ frame_needed = 0, uses_anonymous_args = 0
+  65              		@ link register save eliminated.
+  84:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c ****     /* Save Comp's enable state */    
+  85:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c ****     if(Maximum_Peak_Detector_A_Comp_1_ACT_PWR_EN == (Maximum_Peak_Detector_A_Comp_1_PWRMGR & Maximu
+  66              		.loc 1 85 0
+  67 0000 064B     		ldr	r3, .L7
+  68 0002 074A     		ldr	r2, .L7+4
+  69 0004 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  70 0006 03F00403 		and	r3, r3, #4
+  71 000a 03F0FF01 		and	r1, r3, #255
+  72 000e 13B1     		cbz	r3, .L4
+  86:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c ****     {
+  87:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c ****         /* Comp is enabled */
+  88:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c ****         Maximum_Peak_Detector_A_Comp_1_backup.enableState = 1u;
+  73              		.loc 1 88 0
+  74 0010 0123     		movs	r3, #1
+  75 0012 1370     		strb	r3, [r2]
+  76 0014 00E0     		b	.L5
+  77              	.L4:
+  89:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c ****     }
+  90:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c ****     else
+  91:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c ****     {
+  92:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c ****         /* Comp is disabled */
+  93:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c ****         Maximum_Peak_Detector_A_Comp_1_backup.enableState = 0u;
+  78              		.loc 1 93 0
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\cc5C5V1h.s 			page 4
+
+
+  79 0016 1170     		strb	r1, [r2]
+  80              	.L5:
+  94:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c ****     }    
+  95:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c ****     
+  96:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c ****     Maximum_Peak_Detector_A_Comp_1_Stop();
+  81              		.loc 1 96 0
+  82 0018 FFF7FEBF 		b	Maximum_Peak_Detector_A_Comp_1_Stop
+  83              	.LVL0:
+  84              	.L8:
+  85              		.align	2
+  86              	.L7:
+  87 001c A7430040 		.word	1073759143
+  88 0020 00000000 		.word	.LANCHOR0
+  89              		.cfi_endproc
+  90              	.LFE2:
+  91              		.size	Maximum_Peak_Detector_A_Comp_1_Sleep, .-Maximum_Peak_Detector_A_Comp_1_Sleep
+  92              		.section	.text.Maximum_Peak_Detector_A_Comp_1_Wakeup,"ax",%progbits
+  93              		.align	1
+  94              		.global	Maximum_Peak_Detector_A_Comp_1_Wakeup
+  95              		.thumb
+  96              		.thumb_func
+  97              		.type	Maximum_Peak_Detector_A_Comp_1_Wakeup, %function
+  98              	Maximum_Peak_Detector_A_Comp_1_Wakeup:
+  99              	.LFB3:
+  97:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c ****     Maximum_Peak_Detector_A_Comp_1_SaveConfig();
+  98:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** }
+  99:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** 
+ 100:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** 
+ 101:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** /*******************************************************************************
+ 102:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * Function Name: Maximum_Peak_Detector_A_Comp_1_Wakeup
+ 103:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** ********************************************************************************
+ 104:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *
+ 105:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * Summary:
+ 106:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *  Restores and enables the user configuration
+ 107:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *  
+ 108:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * Parameters:
+ 109:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *  void
+ 110:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *
+ 111:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * Return:
+ 112:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *  void
+ 113:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *
+ 114:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** * Global variables:
+ 115:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *  Maximum_Peak_Detector_A_Comp_1_backup.enableState:  Is used to restore the enable state of 
+ 116:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *  block on wakeup from sleep mode.
+ 117:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *
+ 118:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** *******************************************************************************/
+ 119:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** void Maximum_Peak_Detector_A_Comp_1_Wakeup(void) 
+ 120:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c **** {
+ 100              		.loc 1 120 0
+ 101              		.cfi_startproc
+ 102              		@ args = 0, pretend = 0, frame = 0
+ 103              		@ frame_needed = 0, uses_anonymous_args = 0
+ 104              		@ link register save eliminated.
+ 121:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c ****     Maximum_Peak_Detector_A_Comp_1_RestoreConfig();
+ 122:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c ****     
+ 123:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c ****     if(Maximum_Peak_Detector_A_Comp_1_backup.enableState == 1u)
+ 105              		.loc 1 123 0
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\cc5C5V1h.s 			page 5
+
+
+ 106 0000 034B     		ldr	r3, .L11
+ 107 0002 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 108 0004 012B     		cmp	r3, #1
+ 109 0006 01D1     		bne	.L9
+ 124:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c ****     {
+ 125:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c ****         /* Enable Comp's operation */
+ 126:Generated_Source\PSoC5/Maximum_Peak_Detector_A_Comp_1_PM.c ****         Maximum_Peak_Detector_A_Comp_1_Enable();
+ 110              		.loc 1 126 0
+ 111 0008 FFF7FEBF 		b	Maximum_Peak_Detector_A_Comp_1_Enable
+ 112              	.LVL1:
+ 113              	.L9:
+ 114 000c 7047     		bx	lr
+ 115              	.L12:
+ 116 000e 00BF     		.align	2
+ 117              	.L11:
+ 118 0010 00000000 		.word	.LANCHOR0
+ 119              		.cfi_endproc
+ 120              	.LFE3:
+ 121              		.size	Maximum_Peak_Detector_A_Comp_1_Wakeup, .-Maximum_Peak_Detector_A_Comp_1_Wakeup
+ 122              		.bss
+ 123              		.set	.LANCHOR0,. + 0
+ 124              		.type	Maximum_Peak_Detector_A_Comp_1_backup, %object
+ 125              		.size	Maximum_Peak_Detector_A_Comp_1_backup, 1
+ 126              	Maximum_Peak_Detector_A_Comp_1_backup:
+ 127 0000 00       		.space	1
+ 128              		.text
+ 129              	.Letext0:
+ 130              		.file 2 "Generated_Source\\PSoC5\\cytypes.h"
+ 131              		.file 3 "Generated_Source\\PSoC5\\Maximum_Peak_Detector_A_Comp_1.h"
+ 132              		.section	.debug_info,"",%progbits
+ 133              	.Ldebug_info0:
+ 134 0000 4C010000 		.4byte	0x14c
+ 135 0004 0400     		.2byte	0x4
+ 136 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 137 000a 04       		.byte	0x4
+ 138 000b 01       		.uleb128 0x1
+ 139 000c FD010000 		.4byte	.LASF23
+ 140 0010 0C       		.byte	0xc
+ 141 0011 4B000000 		.4byte	.LASF24
+ 142 0015 48010000 		.4byte	.LASF25
+ 143 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 144 001d 00000000 		.4byte	0
+ 145 0021 00000000 		.4byte	.Ldebug_line0
+ 146 0025 02       		.uleb128 0x2
+ 147 0026 01       		.byte	0x1
+ 148 0027 06       		.byte	0x6
+ 149 0028 C4020000 		.4byte	.LASF0
+ 150 002c 02       		.uleb128 0x2
+ 151 002d 01       		.byte	0x1
+ 152 002e 08       		.byte	0x8
+ 153 002f 3A010000 		.4byte	.LASF1
+ 154 0033 02       		.uleb128 0x2
+ 155 0034 02       		.byte	0x2
+ 156 0035 05       		.byte	0x5
+ 157 0036 06030000 		.4byte	.LASF2
+ 158 003a 02       		.uleb128 0x2
+ 159 003b 02       		.byte	0x2
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\cc5C5V1h.s 			page 6
+
+
+ 160 003c 07       		.byte	0x7
+ 161 003d B1020000 		.4byte	.LASF3
+ 162 0041 02       		.uleb128 0x2
+ 163 0042 04       		.byte	0x4
+ 164 0043 05       		.byte	0x5
+ 165 0044 C7010000 		.4byte	.LASF4
+ 166 0048 02       		.uleb128 0x2
+ 167 0049 04       		.byte	0x4
+ 168 004a 07       		.byte	0x7
+ 169 004b 8C000000 		.4byte	.LASF5
+ 170 004f 02       		.uleb128 0x2
+ 171 0050 08       		.byte	0x8
+ 172 0051 05       		.byte	0x5
+ 173 0052 00000000 		.4byte	.LASF6
+ 174 0056 02       		.uleb128 0x2
+ 175 0057 08       		.byte	0x8
+ 176 0058 07       		.byte	0x7
+ 177 0059 9E000000 		.4byte	.LASF7
+ 178 005d 03       		.uleb128 0x3
+ 179 005e 04       		.byte	0x4
+ 180 005f 05       		.byte	0x5
+ 181 0060 696E7400 		.ascii	"int\000"
+ 182 0064 02       		.uleb128 0x2
+ 183 0065 04       		.byte	0x4
+ 184 0066 07       		.byte	0x7
+ 185 0067 1A000000 		.4byte	.LASF8
+ 186 006b 04       		.uleb128 0x4
+ 187 006c 86000000 		.4byte	.LASF12
+ 188 0070 02       		.byte	0x2
+ 189 0071 9201     		.2byte	0x192
+ 190 0073 2C000000 		.4byte	0x2c
+ 191 0077 02       		.uleb128 0x2
+ 192 0078 04       		.byte	0x4
+ 193 0079 04       		.byte	0x4
+ 194 007a 08010000 		.4byte	.LASF9
+ 195 007e 02       		.uleb128 0x2
+ 196 007f 08       		.byte	0x8
+ 197 0080 04       		.byte	0x4
+ 198 0081 F6010000 		.4byte	.LASF10
+ 199 0085 02       		.uleb128 0x2
+ 200 0086 01       		.byte	0x1
+ 201 0087 08       		.byte	0x8
+ 202 0088 9D010000 		.4byte	.LASF11
+ 203 008c 04       		.uleb128 0x4
+ 204 008d 10030000 		.4byte	.LASF13
+ 205 0091 02       		.byte	0x2
+ 206 0092 3C02     		.2byte	0x23c
+ 207 0094 98000000 		.4byte	0x98
+ 208 0098 05       		.uleb128 0x5
+ 209 0099 6B000000 		.4byte	0x6b
+ 210 009d 02       		.uleb128 0x2
+ 211 009e 08       		.byte	0x8
+ 212 009f 04       		.byte	0x4
+ 213 00a0 FA020000 		.4byte	.LASF14
+ 214 00a4 02       		.uleb128 0x2
+ 215 00a5 04       		.byte	0x4
+ 216 00a6 07       		.byte	0x7
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\cc5C5V1h.s 			page 7
+
+
+ 217 00a7 15030000 		.4byte	.LASF15
+ 218 00ab 06       		.uleb128 0x6
+ 219 00ac 01       		.byte	0x1
+ 220 00ad 03       		.byte	0x3
+ 221 00ae 29       		.byte	0x29
+ 222 00af C0000000 		.4byte	0xc0
+ 223 00b3 07       		.uleb128 0x7
+ 224 00b4 0E000000 		.4byte	.LASF26
+ 225 00b8 03       		.byte	0x3
+ 226 00b9 2B       		.byte	0x2b
+ 227 00ba 6B000000 		.4byte	0x6b
+ 228 00be 00       		.byte	0
+ 229 00bf 00       		.byte	0
+ 230 00c0 08       		.uleb128 0x8
+ 231 00c1 0E010000 		.4byte	.LASF16
+ 232 00c5 03       		.byte	0x3
+ 233 00c6 2D       		.byte	0x2d
+ 234 00c7 AB000000 		.4byte	0xab
+ 235 00cb 09       		.uleb128 0x9
+ 236 00cc D0020000 		.4byte	.LASF17
+ 237 00d0 01       		.byte	0x1
+ 238 00d1 26       		.byte	0x26
+ 239 00d2 01       		.byte	0x1
+ 240 00d3 09       		.uleb128 0x9
+ 241 00d4 DB000000 		.4byte	.LASF18
+ 242 00d8 01       		.byte	0x1
+ 243 00d9 3A       		.byte	0x3a
+ 244 00da 01       		.byte	0x1
+ 245 00db 0A       		.uleb128 0xa
+ 246 00dc D3000000 		.4byte	0xd3
+ 247 00e0 00000000 		.4byte	.LFB1
+ 248 00e4 02000000 		.4byte	.LFE1-.LFB1
+ 249 00e8 01       		.uleb128 0x1
+ 250 00e9 9C       		.byte	0x9c
+ 251 00ea 0B       		.uleb128 0xb
+ 252 00eb A2010000 		.4byte	.LASF19
+ 253 00ef 01       		.byte	0x1
+ 254 00f0 52       		.byte	0x52
+ 255 00f1 00000000 		.4byte	.LFB2
+ 256 00f5 24000000 		.4byte	.LFE2-.LFB2
+ 257 00f9 01       		.uleb128 0x1
+ 258 00fa 9C       		.byte	0x9c
+ 259 00fb 09010000 		.4byte	0x109
+ 260 00ff 0C       		.uleb128 0xc
+ 261 0100 1C000000 		.4byte	.LVL0
+ 262 0104 39010000 		.4byte	0x139
+ 263 0108 00       		.byte	0
+ 264 0109 0B       		.uleb128 0xb
+ 265 010a D0010000 		.4byte	.LASF20
+ 266 010e 01       		.byte	0x1
+ 267 010f 77       		.byte	0x77
+ 268 0110 00000000 		.4byte	.LFB3
+ 269 0114 14000000 		.4byte	.LFE3-.LFB3
+ 270 0118 01       		.uleb128 0x1
+ 271 0119 9C       		.byte	0x9c
+ 272 011a 28010000 		.4byte	0x128
+ 273 011e 0C       		.uleb128 0xc
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\cc5C5V1h.s 			page 8
+
+
+ 274 011f 0C000000 		.4byte	.LVL1
+ 275 0123 44010000 		.4byte	0x144
+ 276 0127 00       		.byte	0
+ 277 0128 0D       		.uleb128 0xd
+ 278 0129 B5000000 		.4byte	.LASF27
+ 279 012d 01       		.byte	0x1
+ 280 012e 15       		.byte	0x15
+ 281 012f C0000000 		.4byte	0xc0
+ 282 0133 05       		.uleb128 0x5
+ 283 0134 03       		.byte	0x3
+ 284 0135 00000000 		.4byte	Maximum_Peak_Detector_A_Comp_1_backup
+ 285 0139 0E       		.uleb128 0xe
+ 286 013a 27000000 		.4byte	.LASF21
+ 287 013e 27000000 		.4byte	.LASF21
+ 288 0142 03       		.byte	0x3
+ 289 0143 40       		.byte	0x40
+ 290 0144 0E       		.uleb128 0xe
+ 291 0145 8B020000 		.4byte	.LASF22
+ 292 0149 8B020000 		.4byte	.LASF22
+ 293 014d 03       		.byte	0x3
+ 294 014e 46       		.byte	0x46
+ 295 014f 00       		.byte	0
+ 296              		.section	.debug_abbrev,"",%progbits
+ 297              	.Ldebug_abbrev0:
+ 298 0000 01       		.uleb128 0x1
+ 299 0001 11       		.uleb128 0x11
+ 300 0002 01       		.byte	0x1
+ 301 0003 25       		.uleb128 0x25
+ 302 0004 0E       		.uleb128 0xe
+ 303 0005 13       		.uleb128 0x13
+ 304 0006 0B       		.uleb128 0xb
+ 305 0007 03       		.uleb128 0x3
+ 306 0008 0E       		.uleb128 0xe
+ 307 0009 1B       		.uleb128 0x1b
+ 308 000a 0E       		.uleb128 0xe
+ 309 000b 55       		.uleb128 0x55
+ 310 000c 17       		.uleb128 0x17
+ 311 000d 11       		.uleb128 0x11
+ 312 000e 01       		.uleb128 0x1
+ 313 000f 10       		.uleb128 0x10
+ 314 0010 17       		.uleb128 0x17
+ 315 0011 00       		.byte	0
+ 316 0012 00       		.byte	0
+ 317 0013 02       		.uleb128 0x2
+ 318 0014 24       		.uleb128 0x24
+ 319 0015 00       		.byte	0
+ 320 0016 0B       		.uleb128 0xb
+ 321 0017 0B       		.uleb128 0xb
+ 322 0018 3E       		.uleb128 0x3e
+ 323 0019 0B       		.uleb128 0xb
+ 324 001a 03       		.uleb128 0x3
+ 325 001b 0E       		.uleb128 0xe
+ 326 001c 00       		.byte	0
+ 327 001d 00       		.byte	0
+ 328 001e 03       		.uleb128 0x3
+ 329 001f 24       		.uleb128 0x24
+ 330 0020 00       		.byte	0
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\cc5C5V1h.s 			page 9
+
+
+ 331 0021 0B       		.uleb128 0xb
+ 332 0022 0B       		.uleb128 0xb
+ 333 0023 3E       		.uleb128 0x3e
+ 334 0024 0B       		.uleb128 0xb
+ 335 0025 03       		.uleb128 0x3
+ 336 0026 08       		.uleb128 0x8
+ 337 0027 00       		.byte	0
+ 338 0028 00       		.byte	0
+ 339 0029 04       		.uleb128 0x4
+ 340 002a 16       		.uleb128 0x16
+ 341 002b 00       		.byte	0
+ 342 002c 03       		.uleb128 0x3
+ 343 002d 0E       		.uleb128 0xe
+ 344 002e 3A       		.uleb128 0x3a
+ 345 002f 0B       		.uleb128 0xb
+ 346 0030 3B       		.uleb128 0x3b
+ 347 0031 05       		.uleb128 0x5
+ 348 0032 49       		.uleb128 0x49
+ 349 0033 13       		.uleb128 0x13
+ 350 0034 00       		.byte	0
+ 351 0035 00       		.byte	0
+ 352 0036 05       		.uleb128 0x5
+ 353 0037 35       		.uleb128 0x35
+ 354 0038 00       		.byte	0
+ 355 0039 49       		.uleb128 0x49
+ 356 003a 13       		.uleb128 0x13
+ 357 003b 00       		.byte	0
+ 358 003c 00       		.byte	0
+ 359 003d 06       		.uleb128 0x6
+ 360 003e 13       		.uleb128 0x13
+ 361 003f 01       		.byte	0x1
+ 362 0040 0B       		.uleb128 0xb
+ 363 0041 0B       		.uleb128 0xb
+ 364 0042 3A       		.uleb128 0x3a
+ 365 0043 0B       		.uleb128 0xb
+ 366 0044 3B       		.uleb128 0x3b
+ 367 0045 0B       		.uleb128 0xb
+ 368 0046 01       		.uleb128 0x1
+ 369 0047 13       		.uleb128 0x13
+ 370 0048 00       		.byte	0
+ 371 0049 00       		.byte	0
+ 372 004a 07       		.uleb128 0x7
+ 373 004b 0D       		.uleb128 0xd
+ 374 004c 00       		.byte	0
+ 375 004d 03       		.uleb128 0x3
+ 376 004e 0E       		.uleb128 0xe
+ 377 004f 3A       		.uleb128 0x3a
+ 378 0050 0B       		.uleb128 0xb
+ 379 0051 3B       		.uleb128 0x3b
+ 380 0052 0B       		.uleb128 0xb
+ 381 0053 49       		.uleb128 0x49
+ 382 0054 13       		.uleb128 0x13
+ 383 0055 38       		.uleb128 0x38
+ 384 0056 0B       		.uleb128 0xb
+ 385 0057 00       		.byte	0
+ 386 0058 00       		.byte	0
+ 387 0059 08       		.uleb128 0x8
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\cc5C5V1h.s 			page 10
+
+
+ 388 005a 16       		.uleb128 0x16
+ 389 005b 00       		.byte	0
+ 390 005c 03       		.uleb128 0x3
+ 391 005d 0E       		.uleb128 0xe
+ 392 005e 3A       		.uleb128 0x3a
+ 393 005f 0B       		.uleb128 0xb
+ 394 0060 3B       		.uleb128 0x3b
+ 395 0061 0B       		.uleb128 0xb
+ 396 0062 49       		.uleb128 0x49
+ 397 0063 13       		.uleb128 0x13
+ 398 0064 00       		.byte	0
+ 399 0065 00       		.byte	0
+ 400 0066 09       		.uleb128 0x9
+ 401 0067 2E       		.uleb128 0x2e
+ 402 0068 00       		.byte	0
+ 403 0069 3F       		.uleb128 0x3f
+ 404 006a 19       		.uleb128 0x19
+ 405 006b 03       		.uleb128 0x3
+ 406 006c 0E       		.uleb128 0xe
+ 407 006d 3A       		.uleb128 0x3a
+ 408 006e 0B       		.uleb128 0xb
+ 409 006f 3B       		.uleb128 0x3b
+ 410 0070 0B       		.uleb128 0xb
+ 411 0071 27       		.uleb128 0x27
+ 412 0072 19       		.uleb128 0x19
+ 413 0073 20       		.uleb128 0x20
+ 414 0074 0B       		.uleb128 0xb
+ 415 0075 00       		.byte	0
+ 416 0076 00       		.byte	0
+ 417 0077 0A       		.uleb128 0xa
+ 418 0078 2E       		.uleb128 0x2e
+ 419 0079 00       		.byte	0
+ 420 007a 31       		.uleb128 0x31
+ 421 007b 13       		.uleb128 0x13
+ 422 007c 11       		.uleb128 0x11
+ 423 007d 01       		.uleb128 0x1
+ 424 007e 12       		.uleb128 0x12
+ 425 007f 06       		.uleb128 0x6
+ 426 0080 40       		.uleb128 0x40
+ 427 0081 18       		.uleb128 0x18
+ 428 0082 9742     		.uleb128 0x2117
+ 429 0084 19       		.uleb128 0x19
+ 430 0085 00       		.byte	0
+ 431 0086 00       		.byte	0
+ 432 0087 0B       		.uleb128 0xb
+ 433 0088 2E       		.uleb128 0x2e
+ 434 0089 01       		.byte	0x1
+ 435 008a 3F       		.uleb128 0x3f
+ 436 008b 19       		.uleb128 0x19
+ 437 008c 03       		.uleb128 0x3
+ 438 008d 0E       		.uleb128 0xe
+ 439 008e 3A       		.uleb128 0x3a
+ 440 008f 0B       		.uleb128 0xb
+ 441 0090 3B       		.uleb128 0x3b
+ 442 0091 0B       		.uleb128 0xb
+ 443 0092 27       		.uleb128 0x27
+ 444 0093 19       		.uleb128 0x19
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\cc5C5V1h.s 			page 11
+
+
+ 445 0094 11       		.uleb128 0x11
+ 446 0095 01       		.uleb128 0x1
+ 447 0096 12       		.uleb128 0x12
+ 448 0097 06       		.uleb128 0x6
+ 449 0098 40       		.uleb128 0x40
+ 450 0099 18       		.uleb128 0x18
+ 451 009a 9742     		.uleb128 0x2117
+ 452 009c 19       		.uleb128 0x19
+ 453 009d 01       		.uleb128 0x1
+ 454 009e 13       		.uleb128 0x13
+ 455 009f 00       		.byte	0
+ 456 00a0 00       		.byte	0
+ 457 00a1 0C       		.uleb128 0xc
+ 458 00a2 898201   		.uleb128 0x4109
+ 459 00a5 00       		.byte	0
+ 460 00a6 11       		.uleb128 0x11
+ 461 00a7 01       		.uleb128 0x1
+ 462 00a8 9542     		.uleb128 0x2115
+ 463 00aa 19       		.uleb128 0x19
+ 464 00ab 31       		.uleb128 0x31
+ 465 00ac 13       		.uleb128 0x13
+ 466 00ad 00       		.byte	0
+ 467 00ae 00       		.byte	0
+ 468 00af 0D       		.uleb128 0xd
+ 469 00b0 34       		.uleb128 0x34
+ 470 00b1 00       		.byte	0
+ 471 00b2 03       		.uleb128 0x3
+ 472 00b3 0E       		.uleb128 0xe
+ 473 00b4 3A       		.uleb128 0x3a
+ 474 00b5 0B       		.uleb128 0xb
+ 475 00b6 3B       		.uleb128 0x3b
+ 476 00b7 0B       		.uleb128 0xb
+ 477 00b8 49       		.uleb128 0x49
+ 478 00b9 13       		.uleb128 0x13
+ 479 00ba 02       		.uleb128 0x2
+ 480 00bb 18       		.uleb128 0x18
+ 481 00bc 00       		.byte	0
+ 482 00bd 00       		.byte	0
+ 483 00be 0E       		.uleb128 0xe
+ 484 00bf 2E       		.uleb128 0x2e
+ 485 00c0 00       		.byte	0
+ 486 00c1 3F       		.uleb128 0x3f
+ 487 00c2 19       		.uleb128 0x19
+ 488 00c3 3C       		.uleb128 0x3c
+ 489 00c4 19       		.uleb128 0x19
+ 490 00c5 6E       		.uleb128 0x6e
+ 491 00c6 0E       		.uleb128 0xe
+ 492 00c7 03       		.uleb128 0x3
+ 493 00c8 0E       		.uleb128 0xe
+ 494 00c9 3A       		.uleb128 0x3a
+ 495 00ca 0B       		.uleb128 0xb
+ 496 00cb 3B       		.uleb128 0x3b
+ 497 00cc 0B       		.uleb128 0xb
+ 498 00cd 00       		.byte	0
+ 499 00ce 00       		.byte	0
+ 500 00cf 00       		.byte	0
+ 501              		.section	.debug_aranges,"",%progbits
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\cc5C5V1h.s 			page 12
+
+
+ 502 0000 2C000000 		.4byte	0x2c
+ 503 0004 0200     		.2byte	0x2
+ 504 0006 00000000 		.4byte	.Ldebug_info0
+ 505 000a 04       		.byte	0x4
+ 506 000b 00       		.byte	0
+ 507 000c 0000     		.2byte	0
+ 508 000e 0000     		.2byte	0
+ 509 0010 00000000 		.4byte	.LFB1
+ 510 0014 02000000 		.4byte	.LFE1-.LFB1
+ 511 0018 00000000 		.4byte	.LFB2
+ 512 001c 24000000 		.4byte	.LFE2-.LFB2
+ 513 0020 00000000 		.4byte	.LFB3
+ 514 0024 14000000 		.4byte	.LFE3-.LFB3
+ 515 0028 00000000 		.4byte	0
+ 516 002c 00000000 		.4byte	0
+ 517              		.section	.debug_ranges,"",%progbits
+ 518              	.Ldebug_ranges0:
+ 519 0000 00000000 		.4byte	.LFB1
+ 520 0004 02000000 		.4byte	.LFE1
+ 521 0008 00000000 		.4byte	.LFB2
+ 522 000c 24000000 		.4byte	.LFE2
+ 523 0010 00000000 		.4byte	.LFB3
+ 524 0014 14000000 		.4byte	.LFE3
+ 525 0018 00000000 		.4byte	0
+ 526 001c 00000000 		.4byte	0
+ 527              		.section	.debug_line,"",%progbits
+ 528              	.Ldebug_line0:
+ 529 0000 BD000000 		.section	.debug_str,"MS",%progbits,1
+ 529      02008200 
+ 529      00000201 
+ 529      FB0E0D00 
+ 529      01010101 
+ 530              	.LASF6:
+ 531 0000 6C6F6E67 		.ascii	"long long int\000"
+ 531      206C6F6E 
+ 531      6720696E 
+ 531      7400
+ 532              	.LASF26:
+ 533 000e 656E6162 		.ascii	"enableState\000"
+ 533      6C655374 
+ 533      61746500 
+ 534              	.LASF8:
+ 535 001a 756E7369 		.ascii	"unsigned int\000"
+ 535      676E6564 
+ 535      20696E74 
+ 535      00
+ 536              	.LASF21:
+ 537 0027 4D617869 		.ascii	"Maximum_Peak_Detector_A_Comp_1_Stop\000"
+ 537      6D756D5F 
+ 537      5065616B 
+ 537      5F446574 
+ 537      6563746F 
+ 538              	.LASF24:
+ 539 004b 47656E65 		.ascii	"Generated_Source\\PSoC5\\Maximum_Peak_Detector_A_Co"
+ 539      72617465 
+ 539      645F536F 
+ 539      75726365 
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\cc5C5V1h.s 			page 13
+
+
+ 539      5C50536F 
+ 540 007c 6D705F31 		.ascii	"mp_1_PM.c\000"
+ 540      5F504D2E 
+ 540      6300
+ 541              	.LASF12:
+ 542 0086 75696E74 		.ascii	"uint8\000"
+ 542      3800
+ 543              	.LASF5:
+ 544 008c 6C6F6E67 		.ascii	"long unsigned int\000"
+ 544      20756E73 
+ 544      69676E65 
+ 544      6420696E 
+ 544      7400
+ 545              	.LASF7:
+ 546 009e 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 546      206C6F6E 
+ 546      6720756E 
+ 546      7369676E 
+ 546      65642069 
+ 547              	.LASF27:
+ 548 00b5 4D617869 		.ascii	"Maximum_Peak_Detector_A_Comp_1_backup\000"
+ 548      6D756D5F 
+ 548      5065616B 
+ 548      5F446574 
+ 548      6563746F 
+ 549              	.LASF18:
+ 550 00db 4D617869 		.ascii	"Maximum_Peak_Detector_A_Comp_1_RestoreConfig\000"
+ 550      6D756D5F 
+ 550      5065616B 
+ 550      5F446574 
+ 550      6563746F 
+ 551              	.LASF9:
+ 552 0108 666C6F61 		.ascii	"float\000"
+ 552      7400
+ 553              	.LASF16:
+ 554 010e 4D617869 		.ascii	"Maximum_Peak_Detector_A_Comp_1_backupStruct\000"
+ 554      6D756D5F 
+ 554      5065616B 
+ 554      5F446574 
+ 554      6563746F 
+ 555              	.LASF1:
+ 556 013a 756E7369 		.ascii	"unsigned char\000"
+ 556      676E6564 
+ 556      20636861 
+ 556      7200
+ 557              	.LASF25:
+ 558 0148 433A5C55 		.ascii	"C:\\Users\\Alexander Nielsen\\Desktop\\platooning\\"
+ 558      73657273 
+ 558      5C416C65 
+ 558      78616E64 
+ 558      6572204E 
+ 559 0176 50536F43 		.ascii	"PSoC\\Platooning\\AngleMeasurement.cydsn\000"
+ 559      5C506C61 
+ 559      746F6F6E 
+ 559      696E675C 
+ 559      416E676C 
+ 560              	.LASF11:
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\cc5C5V1h.s 			page 14
+
+
+ 561 019d 63686172 		.ascii	"char\000"
+ 561      00
+ 562              	.LASF19:
+ 563 01a2 4D617869 		.ascii	"Maximum_Peak_Detector_A_Comp_1_Sleep\000"
+ 563      6D756D5F 
+ 563      5065616B 
+ 563      5F446574 
+ 563      6563746F 
+ 564              	.LASF4:
+ 565 01c7 6C6F6E67 		.ascii	"long int\000"
+ 565      20696E74 
+ 565      00
+ 566              	.LASF20:
+ 567 01d0 4D617869 		.ascii	"Maximum_Peak_Detector_A_Comp_1_Wakeup\000"
+ 567      6D756D5F 
+ 567      5065616B 
+ 567      5F446574 
+ 567      6563746F 
+ 568              	.LASF10:
+ 569 01f6 646F7562 		.ascii	"double\000"
+ 569      6C6500
+ 570              	.LASF23:
+ 571 01fd 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 571      43313120 
+ 571      352E342E 
+ 571      31203230 
+ 571      31363036 
+ 572 0230 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 572      20726576 
+ 572      6973696F 
+ 572      6E203233 
+ 572      37373135 
+ 573 0263 73202D66 		.ascii	"s -ffunction-sections -ffat-lto-objects\000"
+ 573      66756E63 
+ 573      74696F6E 
+ 573      2D736563 
+ 573      74696F6E 
+ 574              	.LASF22:
+ 575 028b 4D617869 		.ascii	"Maximum_Peak_Detector_A_Comp_1_Enable\000"
+ 575      6D756D5F 
+ 575      5065616B 
+ 575      5F446574 
+ 575      6563746F 
+ 576              	.LASF3:
+ 577 02b1 73686F72 		.ascii	"short unsigned int\000"
+ 577      7420756E 
+ 577      7369676E 
+ 577      65642069 
+ 577      6E7400
+ 578              	.LASF0:
+ 579 02c4 7369676E 		.ascii	"signed char\000"
+ 579      65642063 
+ 579      68617200 
+ 580              	.LASF17:
+ 581 02d0 4D617869 		.ascii	"Maximum_Peak_Detector_A_Comp_1_SaveConfig\000"
+ 581      6D756D5F 
+ 581      5065616B 
+ARM GAS  C:\Users\ALEXAN~1\AppData\Local\Temp\cc5C5V1h.s 			page 15
+
+
+ 581      5F446574 
+ 581      6563746F 
+ 582              	.LASF14:
+ 583 02fa 6C6F6E67 		.ascii	"long double\000"
+ 583      20646F75 
+ 583      626C6500 
+ 584              	.LASF2:
+ 585 0306 73686F72 		.ascii	"short int\000"
+ 585      7420696E 
+ 585      7400
+ 586              	.LASF13:
+ 587 0310 72656738 		.ascii	"reg8\000"
+ 587      00
+ 588              	.LASF15:
+ 589 0315 73697A65 		.ascii	"sizetype\000"
+ 589      74797065 
+ 589      00
+ 590              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

@@ -33,7 +33,7 @@ extern uint8 PWM_H_BRIDGE_initVar;
 #define PWM_H_BRIDGE_DeadBandMode                   (0u)
 #define PWM_H_BRIDGE_KillModeMinTime                (0u)
 #define PWM_H_BRIDGE_KillMode                       (0u)
-#define PWM_H_BRIDGE_PWMMode                        (0u)
+#define PWM_H_BRIDGE_PWMMode                        (1u)
 #define PWM_H_BRIDGE_PWMModeIsCenterAligned         (0u)
 #define PWM_H_BRIDGE_DeadBandUsed                   (0u)
 #define PWM_H_BRIDGE_DeadBand2_4                    (0u)
@@ -50,7 +50,7 @@ extern uint8 PWM_H_BRIDGE_initVar;
     #define PWM_H_BRIDGE_UseControl                 (0u)
 #endif /* !defined(PWM_H_BRIDGE_PWMUDB_genblk1_ctrlreg__REMOVED) */
 
-#define PWM_H_BRIDGE_UseOneCompareMode              (1u)
+#define PWM_H_BRIDGE_UseOneCompareMode              (0u)
 #define PWM_H_BRIDGE_MinimumKillTime                (1u)
 #define PWM_H_BRIDGE_EnableMode                     (0u)
 
@@ -228,7 +228,7 @@ void PWM_H_BRIDGE_RestoreConfig(void) ;
 **************************************/
 #define PWM_H_BRIDGE_INIT_PERIOD_VALUE          (255u)
 #define PWM_H_BRIDGE_INIT_COMPARE_VALUE1        (0u)
-#define PWM_H_BRIDGE_INIT_COMPARE_VALUE2        (63u)
+#define PWM_H_BRIDGE_INIT_COMPARE_VALUE2        (0u)
 #define PWM_H_BRIDGE_INIT_INTERRUPTS_MODE       (uint8)(((uint8)(0u <<   \
                                                     PWM_H_BRIDGE_STATUS_TC_INT_EN_MASK_SHIFT)) | \
                                                     (uint8)((uint8)(0u <<  \
