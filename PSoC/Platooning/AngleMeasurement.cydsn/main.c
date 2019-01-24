@@ -107,8 +107,10 @@ int main(void)
     nRF24_set_rx_pipe_address(NRF_ADDR_PIPE0, RX_ADDR, 5);
     nRF24_start_listening();
     
-    // reference_dist = 300, Kp = -0.5
-    motor_t motor = motor_init(300, -0.5);
+    // original 300, -0.5
+    // reference_dist = 130, Kp = -0.2
+    // works with 130 and -0.3
+    motor_t motor = motor_init(130, -0.2);
     
     // reference_angle = 0, Kp = -0.5
     servo_t servo = servo_init(0, -0.7);

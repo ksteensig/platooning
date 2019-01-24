@@ -2,6 +2,7 @@
 
 #include "project.h"
 #include <stdint.h>
+#include <stdlib.h>
 
 static const uint16_t t_right = 1035;
 static const uint16_t t_left = 1694;
@@ -15,10 +16,11 @@ typedef struct {
     float Kp; // P-controller constant
     float previous_angles[3]; // [a1, a2, a3], where a1 is the newest angle and a3 is the oldest angle
     int8_t leader_angles[3]; // the longer the array, the longer the delay before using the value
+    float old_angle_servo;
 } servo_t;
 
 servo_t servo_init(float reference_angle, float Kp) {
-    return (servo_t){reference_angle, Kp, {0}, {0}};
+    return (servo_t){reference_angle, Kp, {0}, {0}, 0};
 }
 
 /*
@@ -51,11 +53,11 @@ void servo_update(servo_t *s, float angle, int leader_angle, int16_t velocity) {
     // angle that should be turned
     float angle_servo = weighted_Kp * err_angle;
     
-    if(angle_servo > 30){
-        angle_servo = 30;
-    } else if(angle_servo < -30){
-        angle_servo = -30;
+    if(angle_servo > abs((int)s->old_angle_servo)+10){
+        angle_servo = s->old_angle_servo;
     }
+    
+    s->old_angle_servo = angle_servo;
     
     // convert angle_servo into the correct signal that can be applied to the servo
     int16_t servo_signal = angle_servo * turn_factor + t_center + offset;
