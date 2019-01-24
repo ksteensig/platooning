@@ -108,9 +108,9 @@ int main(void)
     nRF24_start_listening();
     
     // original 300, -0.5
-    // reference_dist = 130, Kp = -0.2
+    // reference_dist = 130, Kp = -0.3
     // works with 130 and -0.3
-    motor_t motor = motor_init(130, -0.2);
+    motor_t motor = motor_init(130, -0.3);
     
     // reference_angle = 0, Kp = -0.5
     servo_t servo = servo_init(0, -0.7);

@@ -1,39 +1,14 @@
---------------- Build Started: 01/24/2019 15:58:55 Project: AngleMeasurement, Configuration: ARM GCC 5.4-2016-q2-update Release ---------------
+--------------- Build Started: 01/24/2019 16:37:17 Project: AngleMeasurement, Configuration: ARM GCC 5.4-2016-q2-update Release ---------------
 The code generation step is up to date.
-arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -I. -IGenerated_Source\PSoC5 -Wa,-alh=.\CortexM3\ARM_GCC_541\Release/main.lst -g -D NDEBUG -Wall -ffunction-sections -ffat-lto-objects -Os -c main.c -o .\CortexM3\ARM_GCC_541\Release\main.o
-In file included from main.c:3:0:
-dma_initialization.h:73:39: warning: backslash-newline at end of file
- #define DMA_B_FILTER_INIT(DSIZE, DST) \
-                                       ^
-In file included from main.c:4:0:
-motor.h: In function 'motor_update':
-motor.h:43:8: warning: unused variable 'out' [-Wunused-variable]
-   char out[200];
-        ^
-main.c: In function 'IRQ_Handler':
-main.c:61:38: warning: passing argument 1 of 'sensor_update_feedforward_params' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
-     sensor_update_feedforward_params(&sensor_data, (int8_t)data[0], data[1]);
-                                      ^
-In file included from main.c:6:0:
-sensor.h:19:6: note: expected 'sensor_t * {aka struct <anonymous> *}' but argument is of type 'volatile sensor_t * {aka volatile struct <anonymous> *}'
- void sensor_update_feedforward_params(sensor_t *s, int16_t velocity, int8_t leader_angle) {
-      ^
-main.c: In function 'main':
-main.c:127:32: warning: passing argument 1 of 'sensor_update_data' discards 'volatile' qualifier from pointer target type [-Wdiscarded-qualifiers]
-             sensor_update_data(&sensor_data, DataA, DataB, DATA_SIZE);
-                                ^
-In file included from main.c:6:0:
-sensor.h:24:6: note: expected 'sensor_t * {aka struct <anonymous> *}' but argument is of type 'volatile sensor_t * {aka volatile struct <anonymous> *}'
- void sensor_update_data(sensor_t *s, uint16_t *chan_a, uint16_t *chan_b, uint16_t chan_len) {
-      ^
+The compile step is up to date, no work needs to be done.
 arm-none-eabi-ar.exe -rs .\CortexM3\ARM_GCC_541\Release\AngleMeasurement.a .\CortexM3\ARM_GCC_541\Release\Maximum_Peak_Detector_A.o .\CortexM3\ARM_GCC_541\Release\Clock_In.o .\CortexM3\ARM_GCC_541\Release\Signal_A.o .\CortexM3\ARM_GCC_541\Release\ADC_SAR_A.o .\CortexM3\ARM_GCC_541\Release\ADC_SAR_A_INT.o .\CortexM3\ARM_GCC_541\Release\ADC_SAR_A_PM.o .\CortexM3\ARM_GCC_541\Release\Signal_B.o .\CortexM3\ARM_GCC_541\Release\Maximum_Peak_Detector_B.o .\CortexM3\ARM_GCC_541\Release\ADC_SAR_B.o .\CortexM3\ARM_GCC_541\Release\ADC_SAR_B_INT.o .\CortexM3\ARM_GCC_541\Release\ADC_SAR_B_PM.o .\CortexM3\ARM_GCC_541\Release\DMA_A_dma.o .\CortexM3\ARM_GCC_541\Release\DMA_B_dma.o .\CortexM3\ARM_GCC_541\Release\ISR_A.o .\CortexM3\ARM_GCC_541\Release\ISR_B.o .\CortexM3\ARM_GCC_541\Release\Maximum_Peak_Detector_A_Sample_Hold.o .\CortexM3\ARM_GCC_541\Release\Maximum_Peak_Detector_A_Sample_Hold_PM.o .\CortexM3\ARM_GCC_541\Release\Maximum_Peak_Detector_A_Comp_1.o .\CortexM3\ARM_GCC_541\Release\Maximum_Peak_Detector_A_Comp_1_PM.o .\CortexM3\ARM_GCC_541\Release\ADC_SAR_A_IRQ.o .\CortexM3\ARM_GCC_541\Release\ADC_SAR_A_theACLK.o .\CortexM3\ARM_GCC_541\Release\Maximum_Peak_Detector_B_Sample_Hold.o .\CortexM3\ARM_GCC_541\Release\Maximum_Peak_Detector_B_Sample_Hold_PM.o .\CortexM3\ARM_GCC_541\Release\Maximum_Peak_Detector_B_Comp_1.o .\CortexM3\ARM_GCC_541\Release\Maximum_Peak_Detector_B_Comp_1_PM.o .\CortexM3\ARM_GCC_541\Release\ADC_SAR_B_IRQ.o .\CortexM3\ARM_GCC_541\Release\ADC_SAR_B_theACLK.o .\CortexM3\ARM_GCC_541\Release\CyDmac.o .\CortexM3\ARM_GCC_541\Release\CyFlash.o .\CortexM3\ARM_GCC_541\Release\CyLib.o .\CortexM3\ARM_GCC_541\Release\cyPm.o .\CortexM3\ARM_GCC_541\Release\CySpc.o .\CortexM3\ARM_GCC_541\Release\cyutils.o .\CortexM3\ARM_GCC_541\Release\cy_em_eeprom.o .\CortexM3\ARM_GCC_541\Release\UART.o .\CortexM3\ARM_GCC_541\Release\UART_PM.o .\CortexM3\ARM_GCC_541\Release\UART_INT.o .\CortexM3\ARM_GCC_541\Release\UART_BOOT.o .\CortexM3\ARM_GCC_541\Release\UART_IntClock.o .\CortexM3\ARM_GCC_541\Release\Pin_2.o .\CortexM3\ARM_GCC_541\Release\Pin_1.o .\CortexM3\ARM_GCC_541\Release\Clock_1.o .\CortexM3\ARM_GCC_541\Release\Filter.o .\CortexM3\ARM_GCC_541\Release\Filter_PM.o .\CortexM3\ARM_GCC_541\Release\Filter_PVT.o .\CortexM3\ARM_GCC_541\Release\Filter_RAM_Data.o .\CortexM3\ARM_GCC_541\Release\Filter_Coefficients.o .\CortexM3\ARM_GCC_541\Release\IRQ.o .\CortexM3\ARM_GCC_541\Release\isr_IRQ.o .\CortexM3\ARM_GCC_541\Release\SS.o .\CortexM3\ARM_GCC_541\Release\CE.o .\CortexM3\ARM_GCC_541\Release\LED.o .\CortexM3\ARM_GCC_541\Release\nRF24_FUNCS.o .\CortexM3\ARM_GCC_541\Release\nRF24_HAL.o .\CortexM3\ARM_GCC_541\Release\nRF24_COMMANDS.o .\CortexM3\ARM_GCC_541\Release\MISO.o .\CortexM3\ARM_GCC_541\Release\MOSI.o .\CortexM3\ARM_GCC_541\Release\SCLK.o .\CortexM3\ARM_GCC_541\Release\SPI.o .\CortexM3\ARM_GCC_541\Release\SPI_PM.o .\CortexM3\ARM_GCC_541\Release\SPI_INT.o .\CortexM3\ARM_GCC_541\Release\SPI_IntClock.o .\CortexM3\ARM_GCC_541\Release\Clock_2.o .\CortexM3\ARM_GCC_541\Release\Clock_In_1.o .\CortexM3\ARM_GCC_541\Release\ADC_SAR_A_Bypass.o .\CortexM3\ARM_GCC_541\Release\ADC_SAR_B_Bypass.o .\CortexM3\ARM_GCC_541\Release\PWM_SERVO.o .\CortexM3\ARM_GCC_541\Release\PWM_SERVO_PM.o .\CortexM3\ARM_GCC_541\Release\PWM_H_BRIDGE.o .\CortexM3\ARM_GCC_541\Release\PWM_H_BRIDGE_PM.o .\CortexM3\ARM_GCC_541\Release\N2.o .\CortexM3\ARM_GCC_541\Release\N1.o .\CortexM3\ARM_GCC_541\Release\Pin_servo.o .\CortexM3\ARM_GCC_541\Release\killswitchP.o .\CortexM3\ARM_GCC_541\Release\P1.o .\CortexM3\ARM_GCC_541\Release\P2.o .\CortexM3\ARM_GCC_541\Release\killswitchS.o .\CortexM3\ARM_GCC_541\Release\DMA_A_Filter_dma.o .\CortexM3\ARM_GCC_541\Release\DMA_B_Filter_dma.o .\CortexM3\ARM_GCC_541\Release\CyBootAsmGnu.o
 arm-none-eabi-ar.exe: creating .\CortexM3\ARM_GCC_541\Release\AngleMeasurement.a
-arm-none-eabi-gcc.exe -Wl,--start-group -o C:\Users\rens_\Documents\platooning\PSoC\Platooning\AngleMeasurement.cydsn\CortexM3\ARM_GCC_541\Release\AngleMeasurement.elf .\CortexM3\ARM_GCC_541\Release\main.o .\CortexM3\ARM_GCC_541\Release\cyfitter_cfg.o .\CortexM3\ARM_GCC_541\Release\cymetadata.o .\CortexM3\ARM_GCC_541\Release\Cm3Start.o .\CortexM3\ARM_GCC_541\Release\AngleMeasurement.a "C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CortexM3\ARM_GCC_541\Release\CyComponentLibrary.a" -mcpu=cortex-m3 -mthumb -L Generated_Source\PSoC5 -Wl,-Map,.\CortexM3\ARM_GCC_541\Release/AngleMeasurement.map -T Generated_Source\PSoC5\cm3gcc.ld -specs=nano.specs -Wl,--gc-sections -g -ffunction-sections -Os -ffat-lto-objects -Wl,--end-group
+arm-none-eabi-gcc.exe -Wl,--start-group -o C:\Users\rens_\Documents\platooning\PSoC\Platooning\AngleMeasurement.cydsn\CortexM3\ARM_GCC_541\Release\AngleMeasurement.elf .\CortexM3\ARM_GCC_541\Release\main.o .\CortexM3\ARM_GCC_541\Release\cyfitter_cfg.o .\CortexM3\ARM_GCC_541\Release\cymetadata.o .\CortexM3\ARM_GCC_541\Release\Cm3Start.o .\CortexM3\ARM_GCC_541\Release\AngleMeasurement.a "C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CortexM3\ARM_GCC_541\Release\CyComponentLibrary.a" -mcpu=cortex-m3 -mthumb -l m -L Generated_Source\PSoC5 -Wl,-Map,.\CortexM3\ARM_GCC_541\Release/AngleMeasurement.map -T Generated_Source\PSoC5\cm3gcc.ld -specs=nano.specs -Wl,--gc-sections -g -ffunction-sections -Os -ffat-lto-objects -Wl,--end-group
 cyelftool.exe -C C:\Users\rens_\Documents\platooning\PSoC\Platooning\AngleMeasurement.cydsn\CortexM3\ARM_GCC_541\Release\AngleMeasurement.elf --flash_row_size 256 --flash_size 262144 --flash_offset 0x00000000
 No ELF section .cychecksum found, creating one
 Application checksum calculated and stored in ELF section .cychecksum
 Checksum calculated and stored in ELF section .cymeta
 cyelftool.exe -S C:\Users\rens_\Documents\platooning\PSoC\Platooning\AngleMeasurement.cydsn\CortexM3\ARM_GCC_541\Release\AngleMeasurement.elf
-Flash used: 13934 of 262144 bytes (5,3 %).
+Flash used: 18554 of 262144 bytes (7,1 %).
 SRAM used: 8801 of 65536 bytes (13,4 %). Stack: 2048 bytes. Heap: 128 bytes.
---------------- Build Succeeded: 01/24/2019 15:58:57 ---------------
+--------------- Build Succeeded: 01/24/2019 16:37:19 ---------------

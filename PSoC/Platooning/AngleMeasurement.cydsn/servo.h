@@ -3,6 +3,7 @@
 #include "project.h"
 #include <stdint.h>
 #include <stdlib.h>
+#include <math.h>
 
 static const uint16_t t_right = 1035;
 static const uint16_t t_left = 1694;
@@ -42,11 +43,21 @@ void servo_update(servo_t *s, float angle, int leader_angle, int16_t velocity) {
        s->previous_angles[0] = angle;
     }
     
+    weighted_Kp = s->Kp/(1 + pow(0.031*0.58*abs(velocity)/1.5, 5));
+    
+    if (weighted_Kp > -0.05)
+    {
+        weighted_Kp = -0.05;
+    }
+    
+    /*
     if (velocity > 0) {
         if (!(s->Kp/(velocity*0.031*0.58) < s->Kp)) {
-            weighted_Kp = s->Kp/(velocity*0.031*0.58);
+            weighted_Kp = s->Kp/(1 + pow(0.031*0.58*velocity/1.5, 5));
+            //weighted_Kp = s->Kp/(2*velocity*0.031*0.58);
         }
     }
+    */
     
     float err_angle = s->reference_angle - (s->previous_angles[0] + s->previous_angles[1] + s->previous_angles[2])/3.0;
     
